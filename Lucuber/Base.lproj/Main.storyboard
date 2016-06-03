@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="SOh-bb-BLT">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Lucuber-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="FormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Lucuber" id="kRo-ZO-BI0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-416" y="1965"/>
+        </scene>
+        <!--计时器-->
+        <scene sceneID="Zd3-3a-II7">
+            <objects>
+                <viewController id="84h-Nn-ZgQ" customClass="TimerViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qgl-Ko-Lgr"/>
+                        <viewControllerLayoutGuide type="bottom" id="DFI-Bh-JhV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="agb-Vc-JGx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="计时器" image="tabbar_time" selectedImage="tabbar_time_sele" id="JAB-W8-E1c"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V50-nI-uXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="991" y="1298"/>
+        </scene>
+        <!--设置-->
+        <scene sceneID="bxx-Da-FQT">
+            <objects>
+                <tableViewController id="C8g-N0-228" customClass="SettingViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2iQ-kd-jse">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="LQ2-AI-tSC">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="eWf-nU-21d">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eWf-nU-21d" id="GYN-Ru-JtZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JDL-jq-dfN">
+                                        <rect key="frame" x="0.0" y="44" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JDL-jq-dfN" id="4bp-YS-PjQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1hb-6x-GCI">
+                                        <rect key="frame" x="0.0" y="88" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1hb-6x-GCI" id="boF-ty-qc8">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="C8g-N0-228" id="nLP-wv-xuC"/>
+                            <outlet property="delegate" destination="C8g-N0-228" id="UTq-2o-XwF"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="设置" image="tabbar_setting" selectedImage="tabbar_setting_sele" id="0px-nu-ICE"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="By7-fv-Rbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1630" y="1298"/>
+        </scene>
+        <!--成绩-->
+        <scene sceneID="x9O-oN-9qp">
+            <objects>
+                <viewController id="UkM-tl-UBc" customClass="PerformanceViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6rB-4I-Yb0"/>
+                        <viewControllerLayoutGuide type="bottom" id="am6-2R-rvj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="abU-ZB-y9L">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="成绩" image="tabbar_result" selectedImage="tabbar_result_sele" id="hPx-cu-k6R"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R6e-xb-Ihr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="364" y="1298"/>
+        </scene>
+        <!--Main Tabbar Controller-->
+        <scene sceneID="lxf-CK-u3K">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="SOh-bb-BLT" customClass="MainTabbarController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Azf-4a-M4D">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="skP-gx-ceN" kind="relationship" relationship="viewControllers" id="MJ6-fS-0XV"/>
+                        <segue destination="UkM-tl-UBc" kind="relationship" relationship="viewControllers" id="lGU-81-aRe"/>
+                        <segue destination="84h-Nn-ZgQ" kind="relationship" relationship="viewControllers" id="MhC-Kb-CDp"/>
+                        <segue destination="C8g-N0-228" kind="relationship" relationship="viewControllers" id="xci-zq-AjK"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Mu-zv-5hN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="264" y="403"/>
+        </scene>
+        <!--公式-->
+        <scene sceneID="8le-39-kJp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="skP-gx-ceN" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="公式" image="tabbar_gongshi" selectedImage="tabbar_gongshi_sele" id="8lU-hP-ZZo"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rBX-p5-q3i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="d29-Bm-l7W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pvf-pA-hnW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-416" y="1251"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tabbar_gongshi" width="30" height="30"/>
+        <image name="tabbar_gongshi_sele" width="30" height="30"/>
+        <image name="tabbar_result" width="30" height="27"/>
+        <image name="tabbar_result_sele" width="30" height="26"/>
+        <image name="tabbar_setting" width="30" height="28"/>
+        <image name="tabbar_setting_sele" width="30" height="28"/>
+        <image name="tabbar_time" width="28" height="30"/>
+        <image name="tabbar_time_sele" width="28" height="30"/>
+    </resources>
+</document>

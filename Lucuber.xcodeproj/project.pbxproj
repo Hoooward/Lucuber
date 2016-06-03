@@ -1,0 +1,463 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		892B05C61D019CD900F28A2A /* TopControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B05C51D019CD900F28A2A /* TopControlView.swift */; };
+		892B05C81D019CE400F28A2A /* TopControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892B05C71D019CE400F28A2A /* TopControlView.xib */; };
+		89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE429C1D01981000E525D4 /* AppDelegate.swift */; };
+		89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */; };
+		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
+		89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42A41D01981000E525D4 /* UIColor+Cube.swift */; };
+		89BE42BB1D0198D900E525D4 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42B61D0198D900E525D4 /* MainNavigationController.swift */; };
+		89BE42BC1D0198D900E525D4 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42B71D0198D900E525D4 /* MainTabbarController.swift */; };
+		89BE42BE1D0198F600E525D4 /* FormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42BD1D0198F600E525D4 /* FormulaViewController.swift */; };
+		89BE42C01D01991000E525D4 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42BF1D01991000E525D4 /* PerformanceViewController.swift */; };
+		89BE42C21D01991B00E525D4 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42C11D01991B00E525D4 /* TimerViewController.swift */; };
+		89BE42C61D01993C00E525D4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42C51D01993C00E525D4 /* SettingViewController.swift */; };
+		89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C2EDB31D01A0E9009365BA /* Assets.xcassets */; };
+		89C2EDB71D01A387009365BA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDB61D01A387009365BA /* Helper.swift */; };
+		89C2EDB91D01A6A0009365BA /* MyFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDB81D01A6A0009365BA /* MyFormulaViewController.swift */; };
+		89C2EDBB1D01A6CD009365BA /* FormulaLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBA1D01A6CD009365BA /* FormulaLibraryViewController.swift */; };
+		89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */; };
+		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
+		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		892B05C51D019CD900F28A2A /* TopControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopControlView.swift; sourceTree = "<group>"; };
+		892B05C71D019CE400F28A2A /* TopControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopControlView.xib; sourceTree = "<group>"; };
+		89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
+		89BE429C1D01981000E525D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		89BE42A01D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89BE42A21D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		89BE42A41D01981000E525D4 /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
+		89BE42B61D0198D900E525D4 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		89BE42B71D0198D900E525D4 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		89BE42BD1D0198F600E525D4 /* FormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaViewController.swift; sourceTree = "<group>"; };
+		89BE42BF1D01991000E525D4 /* PerformanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
+		89BE42C11D01991B00E525D4 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		89BE42C51D01993C00E525D4 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		89BE42C71D019B4D00E525D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89C2EDB31D01A0E9009365BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		89C2EDB61D01A387009365BA /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		89C2EDB81D01A6A0009365BA /* MyFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaViewController.swift; sourceTree = "<group>"; };
+		89C2EDBA1D01A6CD009365BA /* FormulaLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaLibraryViewController.swift; sourceTree = "<group>"; };
+		89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
+		89F58F181D01696300361474 /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89F58F151D01696300361474 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		892B05C41D019CA200F28A2A /* Formula */ = {
+			isa = PBXGroup;
+			children = (
+				892B05C51D019CD900F28A2A /* TopControlView.swift */,
+				892B05C71D019CE400F28A2A /* TopControlView.xib */,
+			);
+			path = Formula;
+			sourceTree = "<group>";
+		};
+		89BE429E1D01981000E525D4 /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */,
+				89BE42A11D01981000E525D4 /* Main.storyboard */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		89BE42A31D01981000E525D4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42A41D01981000E525D4 /* UIColor+Cube.swift */,
+				89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		89BE42AA1D01981000E525D4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				892B05C41D019CA200F28A2A /* Formula */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		89BE42B31D0198D900E525D4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42B51D0198D900E525D4 /* Main */,
+				89BE42B41D0198D900E525D4 /* Formula */,
+				89BE42B81D0198D900E525D4 /* Performance */,
+				89BE42BA1D0198D900E525D4 /* Timer */,
+				89BE42B91D0198D900E525D4 /* Setting */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		89BE42B41D0198D900E525D4 /* Formula */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42BD1D0198F600E525D4 /* FormulaViewController.swift */,
+				89C2EDB81D01A6A0009365BA /* MyFormulaViewController.swift */,
+				89C2EDBA1D01A6CD009365BA /* FormulaLibraryViewController.swift */,
+			);
+			path = Formula;
+			sourceTree = "<group>";
+		};
+		89BE42B51D0198D900E525D4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42B61D0198D900E525D4 /* MainNavigationController.swift */,
+				89BE42B71D0198D900E525D4 /* MainTabbarController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		89BE42B81D0198D900E525D4 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42BF1D01991000E525D4 /* PerformanceViewController.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
+		89BE42B91D0198D900E525D4 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42C51D01993C00E525D4 /* SettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		89BE42BA1D0198D900E525D4 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				89BE42C11D01991B00E525D4 /* TimerViewController.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		89C2EDB51D01A37C009365BA /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				89C2EDB61D01A387009365BA /* Helper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		89F58F0F1D01696300361474 = {
+			isa = PBXGroup;
+			children = (
+				89F58F1A1D01696400361474 /* Lucuber */,
+				89F58F191D01696300361474 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		89F58F191D01696300361474 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89F58F181D01696300361474 /* Lucuber.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89F58F1A1D01696400361474 /* Lucuber */ = {
+			isa = PBXGroup;
+			children = (
+				89C2EDB51D01A37C009365BA /* Helper */,
+				89BE42C71D019B4D00E525D4 /* Info.plist */,
+				89BE429C1D01981000E525D4 /* AppDelegate.swift */,
+				89BE429E1D01981000E525D4 /* Base.lproj */,
+				89BE42A31D01981000E525D4 /* Extension */,
+				89BE42AA1D01981000E525D4 /* Views */,
+				89BE42B31D0198D900E525D4 /* ViewControllers */,
+				89F58F1F1D01696400361474 /* Main.storyboard */,
+				89C2EDB31D01A0E9009365BA /* Assets.xcassets */,
+				89F58F241D01696400361474 /* LaunchScreen.storyboard */,
+				89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */,
+			);
+			path = Lucuber;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89F58F171D01696300361474 /* Lucuber */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89F58F2A1D01696400361474 /* Build configuration list for PBXNativeTarget "Lucuber" */;
+			buildPhases = (
+				89F58F141D01696300361474 /* Sources */,
+				89F58F151D01696300361474 /* Frameworks */,
+				89F58F161D01696300361474 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lucuber;
+			productName = Lucuber;
+			productReference = 89F58F181D01696300361474 /* Lucuber.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89F58F101D01696300361474 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Howard;
+				TargetAttributes = {
+					89F58F171D01696300361474 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 89F58F131D01696300361474 /* Build configuration list for PBXProject "Lucuber" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89F58F0F1D01696300361474;
+			productRefGroup = 89F58F191D01696300361474 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89F58F171D01696300361474 /* Lucuber */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89F58F161D01696300361474 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
+				892B05C81D019CE400F28A2A /* TopControlView.xib in Resources */,
+				89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */,
+				89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */,
+				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
+				89F58F211D01696400361474 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89F58F141D01696300361474 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				892B05C61D019CD900F28A2A /* TopControlView.swift in Sources */,
+				89C2EDB91D01A6A0009365BA /* MyFormulaViewController.swift in Sources */,
+				89BE42BE1D0198F600E525D4 /* FormulaViewController.swift in Sources */,
+				89BE42BB1D0198D900E525D4 /* MainNavigationController.swift in Sources */,
+				89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */,
+				89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */,
+				89BE42C61D01993C00E525D4 /* SettingViewController.swift in Sources */,
+				89BE42C21D01991B00E525D4 /* TimerViewController.swift in Sources */,
+				89C2EDBB1D01A6CD009365BA /* FormulaLibraryViewController.swift in Sources */,
+				89BE42BC1D0198D900E525D4 /* MainTabbarController.swift in Sources */,
+				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
+				89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */,
+				89BE42C01D01991000E525D4 /* PerformanceViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89BE42A01D01981000E525D4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		89BE42A11D01981000E525D4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89BE42A21D01981000E525D4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		89F58F1F1D01696400361474 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89F58F201D01696400361474 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		89F58F241D01696400361474 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89F58F251D01696400361474 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		89F58F281D01696400361474 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		89F58F291D01696400361474 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		89F58F2B1D01696400361474 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Lucuber/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.self.Hoooward.Lucuber;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Lucuber-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		89F58F2C1D01696400361474 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Lucuber/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.self.Hoooward.Lucuber;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Lucuber-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89F58F131D01696300361474 /* Build configuration list for PBXProject "Lucuber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89F58F281D01696400361474 /* Debug */,
+				89F58F291D01696400361474 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89F58F2A1D01696400361474 /* Build configuration list for PBXNativeTarget "Lucuber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89F58F2B1D01696400361474 /* Debug */,
+				89F58F2C1D01696400361474 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89F58F101D01696300361474 /* Project object */;
+}
