@@ -15,6 +15,10 @@ class CardFormulaCell: UICollectionViewCell {
     @IBOutlet var formulaLabel: UILabel!
     @IBOutlet var favoriteImageView: UIImageView!
     
+    var formula: Formula? {
+        didSet {
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

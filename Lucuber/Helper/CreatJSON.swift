@@ -8,26 +8,7 @@
 
 import UIKit
 
-class Formula {
-    var name: String = ""
-    var formula = [String]()
-    var imageName: String = ""
-    var level = 1
-    var favorate = false
-    var modifyDate = ""
-    
-    
-    init(name: String, formula: [String], imageName: String, level: Int, favorate: Bool, modifyDate: String)
-    {
-        self.name = name
-        
-        self.formula = formula
-        self.imageName = imageName
-        self.level = level
-        self.favorate = favorate
-        self.modifyDate = modifyDate
-    }
-}
+
 
 func creatJSON() {
     
