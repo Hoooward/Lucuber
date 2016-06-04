@@ -8,15 +8,12 @@
 
 import UIKit
 
-class MainTabbarController: UITabBarController {
 
+
+class MainTabbarController: UITabBarController {
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        makeUI()
-    }
-    func makeUI() {
         tabBar.tintColor = UIColor.cubeTintColor()
     }
-
 }

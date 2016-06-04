@@ -11,11 +11,10 @@ import UIKit
 class FormulaViewController: UIViewController {
     
     
-    let topControl = TopControlView()
+    let topControl = UIView()
     let topIndicater = UIView()
     var topControlSeletedButton: UIButton?
     var containerScrollerView = UIScrollView()
-//    let middleLine = UIImageView(image: UIImage(named: "topControl_line"))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +63,7 @@ class FormulaViewController: UIViewController {
     
     private func addChileViewController() {
         
-        let layout = UICollectionViewFlowLayout()
+        let layout = FormulaCollectionLayout()
         let myFormulaVC = MyFormulaViewController(collectionViewLayout: layout)
         myFormulaVC.title = "我的公式"
         addChildViewController(myFormulaVC)
@@ -109,9 +108,6 @@ class FormulaViewController: UIViewController {
         backView.frame = topControl.bounds
         topControl.insertSubview(backView, atIndex: 0)
         topControl.addSubview(topIndicater)
-//        topControl.addSubview(middleLine)
-//        middleLine.center = topControl.center
-//        middleLine.frame = CGRect(x: screenWidth * 0.5, y: 4 , width: 1, height: 30)
     }
     
     func topControlBtnClick(button: UIButton) {

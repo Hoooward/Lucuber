@@ -9,6 +9,7 @@
 import UIKit
 
 class MainNavigationController: UINavigationController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.barStyle = .Black
@@ -19,13 +20,10 @@ class MainNavigationController: UINavigationController {
                 view.hidden = true
             }
         }
-        
         let imageView = UIImageView(image: UIImage(named: navigationBarImage))
         
         imageView.frame = CGRectMake(0, -20, screenWidth, 64)
         navigationBar.addSubview(imageView)
     }
     
-    
-
 }

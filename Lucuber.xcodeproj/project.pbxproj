@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		892B05C61D019CD900F28A2A /* TopControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B05C51D019CD900F28A2A /* TopControlView.swift */; };
-		892B05C81D019CE400F28A2A /* TopControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892B05C71D019CE400F28A2A /* TopControlView.xib */; };
 		89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE429C1D01981000E525D4 /* AppDelegate.swift */; };
 		89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */; };
 		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
@@ -24,13 +22,22 @@
 		89C2EDB91D01A6A0009365BA /* MyFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDB81D01A6A0009365BA /* MyFormulaViewController.swift */; };
 		89C2EDBB1D01A6CD009365BA /* FormulaLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBA1D01A6CD009365BA /* FormulaLibraryViewController.swift */; };
 		89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */; };
+		89EEDC951D01E0D5007257C3 /* CardFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDC941D01E0D5007257C3 /* CardFormulaCell.swift */; };
+		89EEDC971D01E11F007257C3 /* NormalFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDC961D01E11F007257C3 /* NormalFormulaCell.swift */; };
+		89EEDC991D01EC49007257C3 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDC981D01EC49007257C3 /* BaseCollectionViewController.swift */; };
+		89EEDC9B1D01ECB0007257C3 /* CardFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89EEDC9A1D01ECB0007257C3 /* CardFormulaCell.xib */; };
+		89EEDC9D1D01F0A3007257C3 /* FormulaCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDC9C1D01F0A3007257C3 /* FormulaCollectionLayout.swift */; };
+		89EEDC9F1D01F643007257C3 /* NormalFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89EEDC9E1D01F643007257C3 /* NormalFormulaCell.xib */; };
+		89EEDCA11D0201E9007257C3 /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCA01D0201E9007257C3 /* testData.swift */; };
+		89EEDCA41D0284FE007257C3 /* DetailFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCA21D0284FE007257C3 /* DetailFormulaCell.swift */; };
+		89EEDCA51D0284FE007257C3 /* DetailFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89EEDCA31D0284FE007257C3 /* DetailFormulaCell.xib */; };
+		89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCA61D0297D7007257C3 /* CreatJSON.swift */; };
+		89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */ = {isa = PBXBuildFile; fileRef = 89EEDCB01D02A3ED007257C3 /* Formulas.json */; };
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		892B05C51D019CD900F28A2A /* TopControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopControlView.swift; sourceTree = "<group>"; };
-		892B05C71D019CE400F28A2A /* TopControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopControlView.xib; sourceTree = "<group>"; };
 		89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		89BE429C1D01981000E525D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BE42A01D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +55,17 @@
 		89C2EDB81D01A6A0009365BA /* MyFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaViewController.swift; sourceTree = "<group>"; };
 		89C2EDBA1D01A6CD009365BA /* FormulaLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaLibraryViewController.swift; sourceTree = "<group>"; };
 		89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
+		89EEDC941D01E0D5007257C3 /* CardFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardFormulaCell.swift; sourceTree = "<group>"; };
+		89EEDC961D01E11F007257C3 /* NormalFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalFormulaCell.swift; sourceTree = "<group>"; };
+		89EEDC981D01EC49007257C3 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		89EEDC9A1D01ECB0007257C3 /* CardFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardFormulaCell.xib; sourceTree = "<group>"; };
+		89EEDC9C1D01F0A3007257C3 /* FormulaCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaCollectionLayout.swift; sourceTree = "<group>"; };
+		89EEDC9E1D01F643007257C3 /* NormalFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NormalFormulaCell.xib; sourceTree = "<group>"; };
+		89EEDCA01D0201E9007257C3 /* testData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
+		89EEDCA21D0284FE007257C3 /* DetailFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailFormulaCell.swift; sourceTree = "<group>"; };
+		89EEDCA31D0284FE007257C3 /* DetailFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailFormulaCell.xib; sourceTree = "<group>"; };
+		89EEDCA61D0297D7007257C3 /* CreatJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatJSON.swift; sourceTree = "<group>"; };
+		89EEDCB01D02A3ED007257C3 /* Formulas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Formulas.json; sourceTree = "<group>"; };
 		89F58F181D01696300361474 /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,8 +85,12 @@
 		892B05C41D019CA200F28A2A /* Formula */ = {
 			isa = PBXGroup;
 			children = (
-				892B05C51D019CD900F28A2A /* TopControlView.swift */,
-				892B05C71D019CE400F28A2A /* TopControlView.xib */,
+				89EEDC941D01E0D5007257C3 /* CardFormulaCell.swift */,
+				89EEDC9A1D01ECB0007257C3 /* CardFormulaCell.xib */,
+				89EEDC961D01E11F007257C3 /* NormalFormulaCell.swift */,
+				89EEDC9E1D01F643007257C3 /* NormalFormulaCell.xib */,
+				89EEDCA21D0284FE007257C3 /* DetailFormulaCell.swift */,
+				89EEDCA31D0284FE007257C3 /* DetailFormulaCell.xib */,
 			);
 			path = Formula;
 			sourceTree = "<group>";
@@ -117,6 +139,8 @@
 				89BE42BD1D0198F600E525D4 /* FormulaViewController.swift */,
 				89C2EDB81D01A6A0009365BA /* MyFormulaViewController.swift */,
 				89C2EDBA1D01A6CD009365BA /* FormulaLibraryViewController.swift */,
+				89EEDC981D01EC49007257C3 /* BaseCollectionViewController.swift */,
+				89EEDC9C1D01F0A3007257C3 /* FormulaCollectionLayout.swift */,
 			);
 			path = Formula;
 			sourceTree = "<group>";
@@ -158,6 +182,9 @@
 			isa = PBXGroup;
 			children = (
 				89C2EDB61D01A387009365BA /* Helper.swift */,
+				89EEDCA01D0201E9007257C3 /* testData.swift */,
+				89EEDCB01D02A3ED007257C3 /* Formulas.json */,
+				89EEDCA61D0297D7007257C3 /* CreatJSON.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -255,11 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
-				892B05C81D019CE400F28A2A /* TopControlView.xib in Resources */,
 				89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */,
+				89EEDC9B1D01ECB0007257C3 /* CardFormulaCell.xib in Resources */,
+				89EEDC9F1D01F643007257C3 /* NormalFormulaCell.xib in Resources */,
 				89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */,
+				89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */,
 				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
 				89F58F211D01696400361474 /* Main.storyboard in Resources */,
+				89EEDCA51D0284FE007257C3 /* DetailFormulaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,15 +300,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				892B05C61D019CD900F28A2A /* TopControlView.swift in Sources */,
 				89C2EDB91D01A6A0009365BA /* MyFormulaViewController.swift in Sources */,
+				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
 				89BE42BE1D0198F600E525D4 /* FormulaViewController.swift in Sources */,
 				89BE42BB1D0198D900E525D4 /* MainNavigationController.swift in Sources */,
+				89EEDCA11D0201E9007257C3 /* testData.swift in Sources */,
 				89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */,
+				89EEDC951D01E0D5007257C3 /* CardFormulaCell.swift in Sources */,
 				89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */,
+				89EEDCA41D0284FE007257C3 /* DetailFormulaCell.swift in Sources */,
 				89BE42C61D01993C00E525D4 /* SettingViewController.swift in Sources */,
 				89BE42C21D01991B00E525D4 /* TimerViewController.swift in Sources */,
+				89EEDC9D1D01F0A3007257C3 /* FormulaCollectionLayout.swift in Sources */,
 				89C2EDBB1D01A6CD009365BA /* FormulaLibraryViewController.swift in Sources */,
+				89EEDC991D01EC49007257C3 /* BaseCollectionViewController.swift in Sources */,
+				89EEDC971D01E11F007257C3 /* NormalFormulaCell.swift in Sources */,
 				89BE42BC1D0198D900E525D4 /* MainTabbarController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
 				89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */,
