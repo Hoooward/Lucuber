@@ -49,7 +49,6 @@ class BaseCollectionViewController: UICollectionViewController {
         
         
         refreshControl.addTarget(self, action: #selector(BaseCollectionViewController.refreshFormula), forControlEvents: .ValueChanged)
-       
         refreshControl.layer.zPosition = -1
         collectionView!.alwaysBounceVertical = true
 
