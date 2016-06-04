@@ -63,11 +63,12 @@ class FormulaViewController: UIViewController {
     
     private func addChileViewController() {
         
-        let layout = FormulaCollectionLayout()
-        let myFormulaVC = MyFormulaViewController(collectionViewLayout: layout)
+        let layout1 = FormulaCollectionLayout()
+        let myFormulaVC = MyFormulaViewController(collectionViewLayout: layout1)
         myFormulaVC.title = "我的公式"
         addChildViewController(myFormulaVC)
-        let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: layout)
+           let layout2 = FormulaCollectionLayout()
+        let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: layout2)
         formulaLibraryVC.title = "公式库"
         addChildViewController(formulaLibraryVC)
     }

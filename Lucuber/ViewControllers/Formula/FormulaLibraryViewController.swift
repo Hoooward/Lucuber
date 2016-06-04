@@ -12,10 +12,20 @@ private let reuseIdentifier = "Cell"
 
 class FormulaLibraryViewController: BaseCollectionViewController {
 
+//    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Card
-    }
+        
   
+        self.collectionView!.addSubview(refreshControl)
+    }
+    
 
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        refreshControl.beginRefreshing()
+        
+    }
 }

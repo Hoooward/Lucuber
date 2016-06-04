@@ -17,4 +17,6 @@ class MyFormulaViewController: BaseCollectionViewController {
         super.viewDidLoad()
         userMode = .Normal
     }
+    
+    
 }

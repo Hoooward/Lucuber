@@ -22,6 +22,7 @@ enum FormulaUserMode: Int {
 
 
 class BaseCollectionViewController: UICollectionViewController {
+     let refreshControl = UIRefreshControl()
 
      var userMode: FormulaUserMode = .Card {
         didSet {
@@ -35,7 +36,7 @@ class BaseCollectionViewController: UICollectionViewController {
             }
         }
     }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,7 +46,30 @@ class BaseCollectionViewController: UICollectionViewController {
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
+        
+        
+        refreshControl.addTarget(self, action: #selector(BaseCollectionViewController.refreshFormula), forControlEvents: .ValueChanged)
+       
+        refreshControl.layer.zPosition = -1
+        collectionView!.alwaysBounceVertical = true
 
+    }
+    
+    func refreshFormula() {
+        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/7CWYnFKC7ZPLMDJJ1jZPPuA.json")
+        
+        formulaFile.getDataInBackgroundWithBlock { (data, error) in
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                print(json)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.refreshControl.endRefreshing()
+                    
+                })
+            }catch {
+            }
+        }
+        
     }
 
 
