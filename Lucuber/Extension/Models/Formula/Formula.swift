@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class Formula {
+class Formula : CustomStringConvertible {
     var name: String = ""
     var formulaText = [String]()
     var imageName: String = ""
@@ -30,6 +30,14 @@ class Formula {
         self.category = category
         self.type = type
     }
+    
+    
+    var description: String {
+        get {
+            return "name = \(self.name)"
+        }
+    }
+    
 }
 
 
@@ -55,8 +63,9 @@ class FormulaManager {
     var Alls = [[Formula]]()
     
     
-    func loadNewFormulas() {
-        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/7CWYnFKC7ZPLMDJJ1jZPPuA.json")
+    typealias Completion = ()->()
+    func loadNewFormulas(completion: Completion) {
+        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/Z4qcIcQinEQBBSHIuzqwLEE.json")
         
         func creatFormulas(jsonDict: [JSON], withType type: Type) -> [Formula] {
             var formulas = [Formula]()
@@ -99,6 +108,9 @@ class FormulaManager {
                     self.Alls.append(self.PLLs)
                 }
                 
+                dispatch_async(dispatch_get_main_queue(), {
+                    completion()
+                })
             }catch {
                 print("解析JSON 失败")
             }

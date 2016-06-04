@@ -20,13 +20,13 @@ class MainTabbarController: UITabBarController {
 //        let testObject: AVObject = AVObject(className: "TestObject")
 //        testObject["foor"] = "Bar"
 //        testObject.save()
-//        
-//        
+//        creatJSON()
+//
 //        let Path = NSBundle.mainBundle().pathForResource("Formulas", ofType: ".json")
 //        let data = NSData(contentsOfFile: Path!)
 //        let file = AVFile(name: "Formulas.json", data: data)
 //        file.save()
-//        
+//
         
         
     }

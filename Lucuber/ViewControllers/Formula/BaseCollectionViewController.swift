@@ -18,13 +18,11 @@ enum FormulaUserMode: Int {
     case Detail
 }
 
-
-
-
 class BaseCollectionViewController: UICollectionViewController {
-     let refreshControl = UIRefreshControl()
-
-     var userMode: FormulaUserMode = .Card {
+    let refreshControl = UIRefreshControl()
+    
+    var formulaManager = FormulaManager.shardManager()
+    var userMode: FormulaUserMode = .Card {
         didSet {
             switch userMode {
             case .Card:
@@ -36,12 +34,12 @@ class BaseCollectionViewController: UICollectionViewController {
             }
         }
     }
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         collectionView!.backgroundColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0 )
-      
+        
         userMode = .Card
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
@@ -51,6 +49,14 @@ class BaseCollectionViewController: UICollectionViewController {
         refreshControl.addTarget(self, action: #selector(BaseCollectionViewController.refreshFormula), forControlEvents: .ValueChanged)
         refreshControl.layer.zPosition = -1
         collectionView!.alwaysBounceVertical = true
+        
+        
+        print(formulaManager.Alls)
+        formulaManager.loadNewFormulas { [weak self] in
+            print(self!.formulaManager.Alls)
+            self?.collectionView?.reloadData()
+            
+        }
 
     }
     
@@ -79,12 +85,22 @@ class BaseCollectionViewController: UICollectionViewController {
 extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return formulaManager.Alls.count
     }
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return OLLFormulas.count
+        
+        switch section {
+        case 0:
+            return formulaManager.F2Ls.count
+        case 1:
+            return formulaManager.OLLs.count
+        case 2:
+            return formulaManager.PLLs.count
+        default:
+            return 0
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -103,18 +119,31 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         // 设置cell要显示数据
-        let formula = OLLFormulas[indexPath.item]
+        
+        var formula: Formula!
+        switch indexPath.section {
+        case 0:
+            formula = formulaManager.F2Ls[indexPath.item]
+        case 1:
+            formula = formulaManager.OLLs[indexPath.item]
+        case 2:
+            formula = formulaManager.PLLs[indexPath.item]
+        default:
+            break
+        }
+        
+        
         switch userMode {
         case .Normal:
             let cell = cell as! NormalFormulaCell
-            cell.formulaLabel.text = formula
-            cell.formulaNameLabel.text = "OLL " + "\(indexPath.item + 1)"
-            cell.formulaImageView.image = UIImage(named: "OLL" + "\(indexPath.item + 1)")
+            cell.formulaLabel.text = formula.formulaText.first
+            cell.formulaNameLabel.text = formula.name
+            cell.formulaImageView.image = UIImage(named: formula.imageName)
         case .Card:
             let cell = cell as! CardFormulaCell
-            cell.formulaLabel.text = formula
-            cell.formulaNameLabel.text = "OLL " + "\(indexPath.item + 1)"
-            cell.formulaImageView.image = UIImage(named: "OLL" + "\(indexPath.item + 1)")
+            cell.formulaLabel.text = formula.formulaText.first!
+            cell.formulaNameLabel.text = formula.name
+            cell.formulaImageView.image = UIImage(named: formula.imageName)
         case .Detail:
             let cell = cell as! DetailFormulaCell
 //            cell.formulaLabel.text = formula

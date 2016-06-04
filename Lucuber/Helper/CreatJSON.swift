@@ -51,7 +51,7 @@ func creatJSON() {
     
     func creatOLL() {
         var oll =  dict["OLL"] as! [[String : AnyObject]]
-        for (index, text) in F2LFormulas.enumerate() {
+        for (index, text) in OLLFormulas.enumerate() {
             
             let ID = "\(index + 1)"
             let name = "OLL " + "\(index + 1)"
@@ -76,7 +76,7 @@ func creatJSON() {
     
     func creatPLL() {
         var pll =  dict["PLL"] as! [[String : AnyObject]]
-        for (index, text) in F2LFormulas.enumerate() {
+        for (index, text) in PLLFormula.enumerate() {
             
             let ID = String(format: "%d", index + 1)
             let name =  "PLL " + "\(index + 1)"
