@@ -18,12 +18,30 @@ enum FormulaUserMode: Int {
     case Detail
 }
 
-class BaseCollectionViewController: UICollectionViewController {
+class BaseCollectionViewController: UICollectionViewController, SegueHandlerType {
+    
+    // ref http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7
+
     let refreshControl = UIRefreshControl()
+    
+    enum SegueIdentifier: String{
+        case ShowFormulaDetail = "ShowFormulaDetailSegue"
+        
+    
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segueIdentifierForSegue(segue) {
+        case .ShowFormulaDetail:
+            break
+        }
+       
+    }
     
     var formulaManager = FormulaManager.shardManager()
     var userMode: FormulaUserMode = .Card {
         didSet {
+          
             switch userMode {
             case .Card:
                 view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
@@ -93,11 +111,11 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         
         switch section {
         case 0:
-            return formulaManager.F2Ls.count
-        case 1:
             return formulaManager.OLLs.count
-        case 2:
+        case 1:
             return formulaManager.PLLs.count
+        case 2:
+            return formulaManager.F2Ls.count
         default:
             return 0
         }
@@ -123,11 +141,11 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         var formula: Formula!
         switch indexPath.section {
         case 0:
-            formula = formulaManager.F2Ls[indexPath.item]
-        case 1:
             formula = formulaManager.OLLs[indexPath.item]
-        case 2:
+        case 1:
             formula = formulaManager.PLLs[indexPath.item]
+        case 2:
+            formula = formulaManager.F2Ls[indexPath.item]
         default:
             break
         }
@@ -146,9 +164,9 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             cell.formulaImageView.image = UIImage(named: formula.imageName)
         case .Detail:
             let cell = cell as! DetailFormulaCell
-//            cell.formulaLabel.text = formula
-            cell.formulaNameLabel.text = "OLL " + "\(indexPath.item + 1)"
-            cell.formulaImageView.image = UIImage(named: "OLL" + "\(indexPath.item + 1)")
+//            cell.formulaLabel.text = formula.formulaText.first!
+            cell.formulaNameLabel.text = formula.name
+            cell.formulaImageView.image = UIImage(named: formula.imageName)
         }
     }
     
@@ -174,6 +192,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
         
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print(#function)
         
+        
+        self.parentViewController!.performSegueWithIdentifier(SegueIdentifier.ShowFormulaDetail.rawValue, sender: nil)
     }
 }

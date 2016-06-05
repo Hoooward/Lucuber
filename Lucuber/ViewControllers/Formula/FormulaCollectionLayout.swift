@@ -14,5 +14,17 @@ class FormulaCollectionLayout: UICollectionViewFlowLayout {
     override func prepareLayout() {
         itemSize = CGSize(width: (screenWidth - (10 + 10 + 10)) * 0.5, height: 280)
     }
+    
+    
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let attris = super.layoutAttributesForElementsInRect(rect)
+        print(#function)
+        return attris
+    }
+    
+    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        print(#function)
+        return nil
+    }
 
 }

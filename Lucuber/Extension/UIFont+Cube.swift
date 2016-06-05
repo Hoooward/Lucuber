@@ -1,0 +1,20 @@
+//
+//  UIFont+Cube.swift
+//  Lucuber
+//
+//  Created by Howard on 6/4/16.
+//  Copyright © 2016 Howard. All rights reserved.
+//
+
+import Foundation
+
+extension UIFont {
+    
+    class func navigationBarTitleFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(17)
+    }
+    
+    class func formulaLabelFont() -> UIFont {
+        return UIFont(name: "Menlo-Regular", size: 12)!
+    }
+}

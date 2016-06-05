@@ -7,7 +7,7 @@
         <!--Lucuber-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="FormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ContainerViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,13 +15,68 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMu-CX-8XP">
+                                <rect key="frame" x="536" y="423" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Bjs-Hv-obt"/>
+                                    <constraint firstAttribute="width" constant="44" id="xXI-go-VYh"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="qeihuan"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWC-UZ-0Lw">
+                                <rect key="frame" x="536" y="487" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="SUr-jt-XR1"/>
+                                    <constraint firstAttribute="height" constant="44" id="UnS-4v-0kq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="Uz3-W5-ytE"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="yYX-Ze-mpy"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="plus"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JMu-CX-8XP" secondAttribute="trailing" constant="20" id="c5f-c5-j3u"/>
+                            <constraint firstItem="VWC-UZ-0Lw" firstAttribute="top" secondItem="JMu-CX-8XP" secondAttribute="bottom" constant="20" id="gJb-i9-3M9"/>
+                            <constraint firstAttribute="trailing" secondItem="VWC-UZ-0Lw" secondAttribute="trailing" constant="20" id="nra-lh-GmZ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="VWC-UZ-0Lw" secondAttribute="bottom" constant="20" id="xSt-Dq-v7G"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Lucuber" id="kRo-ZO-BI0"/>
+                    <connections>
+                        <outlet property="layoutButton" destination="JMu-CX-8XP" id="Abf-zc-tYm"/>
+                        <outlet property="plusButton" destination="VWC-UZ-0Lw" id="I0K-ua-Yvs"/>
+                        <segue destination="qqZ-zW-SI9" kind="show" identifier="ShowFormulaDetailSegue" id="UVU-Cy-MPP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-416" y="1965"/>
+        </scene>
+        <!--Show Formula Detail Controller-->
+        <scene sceneID="dTe-lT-qeQ">
+            <objects>
+                <viewController id="qqZ-zW-SI9" customClass="ShowFormulaDetailController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bXP-a6-1C9"/>
+                        <viewControllerLayoutGuide type="bottom" id="5Zz-bp-VaD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JQw-qA-T7B">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3A0-bI-JzP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v7L-sc-Q0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-416" y="2766"/>
         </scene>
         <!--计时器-->
         <scene sceneID="Zd3-3a-II7">
@@ -151,6 +206,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" width="44" height="44"/>
+        <image name="qeihuan" width="44" height="44"/>
         <image name="tabbar_gongshi" width="30" height="30"/>
         <image name="tabbar_gongshi_sele" width="30" height="30"/>
         <image name="tabbar_result" width="30" height="27"/>

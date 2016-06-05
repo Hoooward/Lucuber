@@ -16,6 +16,7 @@ class NormalFormulaCell: UICollectionViewCell {
     @IBOutlet var favorateImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        formulaLabel.font = UIFont.formulaLabelFont()
         formulaImageView.layer.cornerRadius = 2
         formulaImageView.clipsToBounds = true
     }

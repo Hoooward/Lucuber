@@ -36,8 +36,8 @@
                         <color key="textColor" white="0.5039117192" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="已掌握" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1N-Tg-Lmw">
-                        <rect key="frame" x="345" y="9" width="36" height="15"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="三阶" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1N-Tg-Lmw">
+                        <rect key="frame" x="357" y="9" width="24" height="15"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                         <color key="textColor" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
@@ -82,7 +82,7 @@
                 <outlet property="formulaLabel" destination="cuk-hF-THb" id="AVS-Kh-boQ"/>
                 <outlet property="formulaNameLabel" destination="eBN-pv-Wjr" id="IgJ-r1-xXN"/>
             </connections>
-            <point key="canvasLocation" x="22.5" y="121"/>
+            <point key="canvasLocation" x="114.5" y="125"/>
         </collectionViewCell>
     </objects>
     <resources>

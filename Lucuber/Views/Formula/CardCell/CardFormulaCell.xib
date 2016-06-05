@@ -26,10 +26,10 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKK-ud-zlO">
-                        <rect key="frame" x="25" y="207" width="135" height="15"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKK-ud-zlO">
+                        <rect key="frame" x="10" y="207" width="150" height="14"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -42,21 +42,14 @@
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="ulb-Dd-RH1"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oval3" translatesAutoresizingMaskIntoConstraints="NO" id="2bE-hS-skg">
-                        <rect key="frame" x="10" y="207" width="10" height="10"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="10" id="HSf-K1-JBw"/>
-                            <constraint firstAttribute="width" constant="10" id="rOZ-9b-N36"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="2bE-hS-skg" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="leading" id="3Kl-Kt-ww4"/>
                 <constraint firstItem="ivi-7s-Gbj" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="trailing" constant="10" id="3yf-cP-0xX"/>
                 <constraint firstItem="L2q-zL-u3E" firstAttribute="leading" secondItem="IYm-z0-vqn" secondAttribute="leading" constant="10" id="5Z1-dE-fd4"/>
                 <constraint firstItem="x83-3g-vda" firstAttribute="top" secondItem="IYm-z0-vqn" secondAttribute="top" id="Cnw-7Y-AYf"/>
+                <constraint firstItem="qKK-ud-zlO" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="leading" id="Hqu-DC-nJX"/>
                 <constraint firstItem="ivi-7s-Gbj" firstAttribute="top" secondItem="x83-3g-vda" secondAttribute="bottom" constant="10" id="JF8-AF-WmN"/>
                 <constraint firstAttribute="trailing" secondItem="ivi-7s-Gbj" secondAttribute="trailing" constant="10" id="KGn-Ev-hI7"/>
                 <constraint firstAttribute="trailing" secondItem="qKK-ud-zlO" secondAttribute="trailing" constant="10" id="M4d-e6-Dxv"/>
@@ -64,17 +57,9 @@
                 <constraint firstItem="qKK-ud-zlO" firstAttribute="top" secondItem="L2q-zL-u3E" secondAttribute="bottom" constant="10" id="X2H-jQ-YgG"/>
                 <constraint firstItem="x83-3g-vda" firstAttribute="leading" secondItem="IYm-z0-vqn" secondAttribute="leading" id="Ynh-3B-Jw7"/>
                 <constraint firstAttribute="trailing" secondItem="x83-3g-vda" secondAttribute="trailing" id="aGK-qL-Mgu"/>
-                <constraint firstItem="qKK-ud-zlO" firstAttribute="leading" secondItem="2bE-hS-skg" secondAttribute="trailing" constant="5" id="cDf-5m-zC5"/>
-                <constraint firstItem="qKK-ud-zlO" firstAttribute="leading" secondItem="2bE-hS-skg" secondAttribute="trailing" constant="5" id="fSh-2b-a7r"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qKK-ud-zlO" secondAttribute="bottom" constant="10" id="i71-zI-05g"/>
-                <constraint firstItem="2bE-hS-skg" firstAttribute="top" secondItem="qKK-ud-zlO" secondAttribute="top" id="v5e-GB-DZg"/>
             </constraints>
             <size key="customSize" width="170" height="254"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="cDf-5m-zC5"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="favoriteImageView" destination="ivi-7s-Gbj" id="22a-zl-V0s"/>
                 <outlet property="formulaImageView" destination="x83-3g-vda" id="GVs-GX-5Z1"/>
@@ -86,7 +71,6 @@
     </objects>
     <resources>
         <image name="Favorite" width="42" height="40"/>
-        <image name="Oval3" width="21" height="21"/>
         <image name="placeholder" width="575" height="600"/>
     </resources>
 </document>

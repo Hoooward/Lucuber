@@ -12,7 +12,7 @@ class MainNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.barStyle = .Black
+        navigationBar.barStyle = .Default
         navigationBar.barTintColor = UIColor.cubeTintColor()
         navigationBar.tintColor = UIColor.cubeTintColor()
         for view in navigationBar.subviews {
@@ -23,7 +23,7 @@ class MainNavigationController: UINavigationController {
         let imageView = UIImageView(image: UIImage(named: navigationBarImage))
         
         imageView.frame = CGRectMake(0, -20, screenWidth, 64)
-        navigationBar.addSubview(imageView)
+        navigationBar.insertSubview(imageView, atIndex: 0)
     }
     
 }

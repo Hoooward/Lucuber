@@ -8,9 +8,12 @@
 
 import UIKit
 
-class FormulaViewController: UIViewController {
+
+class ContainerViewController: UIViewController {
     
     
+    @IBOutlet var plusButton: UIButton!
+    @IBOutlet var layoutButton: UIButton!
     let topControl = UIView()
     let topIndicater = UIView()
     var topControlSeletedButton: UIButton?
@@ -20,11 +23,25 @@ class FormulaViewController: UIViewController {
         super.viewDidLoad()
         makeUI()
     }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+//          navigationController?.setNavigationBarHidden(true, animated: true)
+    }
  
     private func makeUI() {
         addChileViewController()
         addTopControl()
-        addAddButton()
+//        addAddButton()
         setupScrollerView()
         setupNavigationbar()
     }
@@ -54,20 +71,27 @@ class FormulaViewController: UIViewController {
         navigationItem.titleView = titleView
         
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithCustomButton(UIImage(named: "navigationbar_left_heng"), seletedImage: UIImage(named: "navigationbar_left_jing"), targer: self, action: #selector(FormulaViewController.barButtonClick(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "布局", style: .Plain, target: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分类 ▾", style: .Plain, target: self, action: #selector(ContainerViewController.rightBarButtonClick(_:)))
     }
     
-    func barButtonClick(button: UIButton) {
-            button.selected = !button.selected
+    func leftBarButtonClick(button: UIButton) {
+        let index = containerScrollerView.contentOffset.x / screenWidth
+        let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
+        childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
+    }
+    func rightBarButtonClick(button: UIBarButtonItem) {
+        
+        print(#function)
     }
     
     private func addChileViewController() {
         
-        let layout1 = FormulaCollectionLayout()
+        let layout1 = NormalCollectionViewLayout()
         let myFormulaVC = MyFormulaViewController(collectionViewLayout: layout1)
         myFormulaVC.title = "我的公式"
         addChildViewController(myFormulaVC)
-           let layout2 = FormulaCollectionLayout()
+           let layout2 = CardCollectionViewLayout()
         let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: layout2)
         formulaLibraryVC.title = "公式库"
         addChildViewController(formulaLibraryVC)
@@ -95,7 +119,7 @@ class FormulaViewController: UIViewController {
             button.setTitleColor(UIColor.cubeTintColor(), forState: .Disabled)
             buttonX = buttonWidth * CGFloat(index)
             button.frame = CGRectMake(buttonX, 0, buttonWidth, buttonHeight)
-            button.addTarget(self, action: #selector(FormulaViewController.topControlBtnClick(_:)), forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(ContainerViewController.topControlBtnClick(_:)), forControlEvents: .TouchUpInside)
             topControl.addSubview(button)
             if index == 0 {
                 topControlSeletedButton = button
@@ -135,7 +159,7 @@ class FormulaViewController: UIViewController {
     
 }
 
-extension FormulaViewController: UIScrollViewDelegate {
+extension ContainerViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         let index = Int(scrollView.contentOffset.x / screenWidth)
