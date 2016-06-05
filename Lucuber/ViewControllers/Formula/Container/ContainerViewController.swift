@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, SegueHandlerType {
     
     
     @IBOutlet var plusButton: UIButton!
@@ -18,6 +18,20 @@ class ContainerViewController: UIViewController {
     let topIndicater = UIView()
     var topControlSeletedButton: UIButton?
     var containerScrollerView = UIScrollView()
+    
+    enum SegueIdentifier: String{
+        case ShowFormulaDetail = "ShowFormulaDetailSegue"
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segueIdentifierForSegue(segue) {
+        case .ShowFormulaDetail:
+            let vc = segue.destinationViewController as!ShowFormulaDetailController
+            vc.parentSeleteIndexPath = sender as! NSIndexPath
+            break
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

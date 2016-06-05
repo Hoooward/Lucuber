@@ -12,24 +12,30 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="781"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFB-M8-vcV">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Nev-sF-uYO" customClass="DetailSubCollectionView" customModule="Lucuber" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="781"/>
-                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                    </scrollView>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rar-6g-6aq" customClass="DetailSubCollectionViewLayout" customModule="Lucuber" customModuleProvider="target">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="XFB-M8-vcV" secondAttribute="trailing" id="1Kv-E5-Ejm"/>
-                <constraint firstItem="XFB-M8-vcV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8NP-2r-Vaj"/>
-                <constraint firstAttribute="bottom" secondItem="XFB-M8-vcV" secondAttribute="bottom" id="e8B-XT-drC"/>
-                <constraint firstItem="XFB-M8-vcV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iao-5i-gH3"/>
+                <constraint firstItem="Nev-sF-uYO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ESv-de-ASR"/>
+                <constraint firstItem="Nev-sF-uYO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="KmM-XJ-xZ6"/>
+                <constraint firstAttribute="bottom" secondItem="Nev-sF-uYO" secondAttribute="bottom" id="U9f-S9-ctR"/>
+                <constraint firstAttribute="trailing" secondItem="Nev-sF-uYO" secondAttribute="trailing" id="cVz-5e-FiS"/>
             </constraints>
             <size key="customSize" width="500" height="781"/>
             <connections>
-                <outlet property="containerScrollerView" destination="XFB-M8-vcV" id="ofj-gp-eeB"/>
+                <outlet property="containerCollectionView" destination="Nev-sF-uYO" id="oQy-o2-L65"/>
             </connections>
-            <point key="canvasLocation" x="409.5" y="568.5"/>
+            <point key="canvasLocation" x="-41.5" y="468.5"/>
         </collectionViewCell>
     </objects>
 </document>

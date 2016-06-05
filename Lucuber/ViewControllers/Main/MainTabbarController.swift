@@ -28,6 +28,29 @@ class MainTabbarController: UITabBarController {
 //        file.save()
 //
         
+        let str = "(R U R' U) (R U' R' U') (R' F R F')"
+        
+        let pattern = "\\(.*?\\)"
+        
+        
+        
+        do {
+            let a =  try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.init(rawValue: 0))
+//           let result = a.rangeOfFirstMatchInString(str, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: str.characters.count))
+            let resu = a.matchesInString(str, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: str.characters.count))
+            
+            for s in resu {
+                print(s.range)
+                let stt = (str as NSString).substringWithRange(s.range)
+                print(stt)
+            }
+            
+            
+        } catch{
+            print(error)
+        }
+    
+        
         
     }
 }

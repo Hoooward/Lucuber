@@ -8,15 +8,13 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class FormulaLibraryViewController: BaseCollectionViewController {
 
     let cardLayout = CardCollectionViewLayout()
     let normalLayout = NormalCollectionViewLayout()
-//    var currentLayout: UICollectionViewFlowLayout!
    
     
+      let refreshControl = UIRefreshControl()
     override var userMode: FormulaUserMode {
         didSet {
             var currentLayout = collectionViewLayout
@@ -36,17 +34,39 @@ class FormulaLibraryViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Card
-//         currentLayout = normalLayout
         
   
+        refreshControl.addTarget(self, action: #selector(FormulaLibraryViewController.refreshFormula), forControlEvents: .ValueChanged)
+        refreshControl.layer.zPosition = -1
+        collectionView!.alwaysBounceVertical = true
         self.collectionView!.addSubview(refreshControl)
     }
     
 
+    func refreshFormula() {
+        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/Z4qcIcQinEQBBSHIuzqwLEE.json")
+        
+        formulaFile.getDataInBackgroundWithBlock { (data, error) in
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                dispatch_async(dispatch_get_main_queue(), {
+                    print(json)
+                    self.refreshControl.endRefreshing()
+                    
+                })
+            }catch {
+            }
+        }
+        
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.refreshControl.beginRefreshing()
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        refreshControl.beginRefreshing()
+//        self.refreshControl.beginRefreshing()
         
     }
 }

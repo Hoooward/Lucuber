@@ -12,12 +12,10 @@ class MyFormulaViewController: BaseCollectionViewController {
 
     let cardLayout = CardCollectionViewLayout()
     let normalLayout = NormalCollectionViewLayout()
-//    var currentLayout: UICollectionViewFlowLayout!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Normal
-//        currentLayout = normalLayout
     }
     
     override var userMode: FormulaUserMode {

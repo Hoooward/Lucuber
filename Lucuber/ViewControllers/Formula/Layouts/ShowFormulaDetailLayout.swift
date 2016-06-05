@@ -19,4 +19,6 @@ class ShowFormulaDetailLayout: UICollectionViewFlowLayout {
         minimumInteritemSpacing = 0
     }
     
+ 
+    
 }

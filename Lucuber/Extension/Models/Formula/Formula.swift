@@ -95,10 +95,6 @@ class FormulaManager {
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
                 let jsonDict = JSON(json)
                 
-                if let f2ls = jsonDict["F2L"].array {
-                    self.F2Ls = creatFormulas(f2ls, withType: Type.F2L)
-                    self.Alls.append(self.F2Ls)
-                }
                 if let olls = jsonDict["OLL"].array {
                     self.OLLs = creatFormulas(olls, withType: Type.OLL)
                     self.Alls.append(self.OLLs)
@@ -106,6 +102,10 @@ class FormulaManager {
                 if let plls = jsonDict["PLL"].array {
                     self.PLLs = creatFormulas(plls, withType: Type.PLL)
                     self.Alls.append(self.PLLs)
+                }
+                if let f2ls = jsonDict["F2L"].array {
+                    self.F2Ls = creatFormulas(f2ls, withType: Type.F2L)
+                    self.Alls.append(self.F2Ls)
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), {

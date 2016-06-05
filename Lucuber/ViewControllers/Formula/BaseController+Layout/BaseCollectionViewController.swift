@@ -22,20 +22,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // ref http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7
 
-    let refreshControl = UIRefreshControl()
+//    let refreshControl = UIRefreshControl()
     
     enum SegueIdentifier: String{
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
-        
-    
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segueIdentifierForSegue(segue) {
-        case .ShowFormulaDetail:
-            break
-        }
-       
     }
     
     var formulaManager = FormulaManager.shardManager()
@@ -64,36 +54,36 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
         
         
-        refreshControl.addTarget(self, action: #selector(BaseCollectionViewController.refreshFormula), forControlEvents: .ValueChanged)
-        refreshControl.layer.zPosition = -1
-        collectionView!.alwaysBounceVertical = true
+//        refreshControl.addTarget(self, action: #selector(BaseCollectionViewController.refreshFormula), forControlEvents: .ValueChanged)
+//        refreshControl.layer.zPosition = -1
+//        collectionView!.alwaysBounceVertical = true
         
         
-        print(formulaManager.Alls)
+//        print(formulaManager.Alls)
         formulaManager.loadNewFormulas { [weak self] in
-            print(self!.formulaManager.Alls)
+//            print(self!.formulaManager.Alls)
             self?.collectionView?.reloadData()
             
         }
 
     }
     
-    func refreshFormula() {
-        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/7CWYnFKC7ZPLMDJJ1jZPPuA.json")
-        
-        formulaFile.getDataInBackgroundWithBlock { (data, error) in
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                print(json)
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.refreshControl.endRefreshing()
-                    
-                })
-            }catch {
-            }
-        }
-        
-    }
+//    func refreshFormula() {
+//        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/7CWYnFKC7ZPLMDJJ1jZPPuA.json")
+//        
+//        formulaFile.getDataInBackgroundWithBlock { (data, error) in
+//            do {
+//                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+//                print(json)
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    self.refreshControl.endRefreshing()
+//                    
+//                })
+//            }catch {
+//            }
+//        }
+//        
+//    }
 
 
 
@@ -197,7 +187,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print(#function)
         
-        
-        self.parentViewController!.performSegueWithIdentifier(SegueIdentifier.ShowFormulaDetail.rawValue, sender: nil)
+        self.parentViewController!.performSegueWithIdentifier(SegueIdentifier.ShowFormulaDetail.rawValue, sender: indexPath)
     }
 }
