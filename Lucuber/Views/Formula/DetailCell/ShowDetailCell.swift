@@ -20,6 +20,7 @@ class ShowDetailCell: UICollectionViewCell {
     private let MasterIndicaterIdentifier = "MasterCell"
     private let SepatatorIndicatierIdentifier = "SeparatorCell"
     private let FormuilaIndicaterIdentifier = "FormulaCell"
+    private let FooterIndicaterIdentifier = "FooterCell"
     
     @IBOutlet var containerCollectionView: DetailSubCollectionView!
     
@@ -40,6 +41,7 @@ class ShowDetailCell: UICollectionViewCell {
         containerCollectionView.registerNib(UINib(nibName: SepatatorIndicatierIdentifier, bundle: nil), forCellWithReuseIdentifier: SepatatorIndicatierIdentifier)
         
         containerCollectionView.registerNib(UINib(nibName: FormuilaIndicaterIdentifier, bundle: nil), forCellWithReuseIdentifier: FormuilaIndicaterIdentifier)
+        containerCollectionView.registerNib(UINib(nibName: FooterIndicaterIdentifier, bundle: nil), forCellWithReuseIdentifier: FooterIndicaterIdentifier)
         
         containerCollectionView.contentInset = UIEdgeInsetsMake(containerContentInsetTop, 0, 49, 0)
         containerCollectionView.delegate = self
@@ -98,7 +100,7 @@ class ShowDetailCell: UICollectionViewCell {
 
 extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 4
+        return 5
     }
     
     enum Section: Int {
@@ -106,6 +108,7 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         case Master
         case Sepatator
         case Formula
+        case Footer
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -121,6 +124,8 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
             return 1
         case .Formula:
             return 3
+        case .Footer:
+            return 1
         }
         
     }
@@ -143,7 +148,11 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         case .Formula:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FormuilaIndicaterIdentifier, forIndexPath: indexPath)
             return cell
+        case .Footer:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FooterIndicaterIdentifier, forIndexPath: indexPath)
+            return cell
         }
+        
         
     }
     
@@ -161,9 +170,11 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
             case 0:
                 cell.formulaString = self.formula!.formulaText.first!
             case 1:
-                cell.formulaString = "(R U' U') (R2' F R F') U2 (R' F R F')"
+//                cell.formulaString = "(R U' U') (R2' F R F') U2 (R' F R F')"
+                cell.formulaString = self.formula!.formulaText[indexPath.item]
             default:
-                cell.formulaString = "(U R' U') (R U' R) U (R U' R' U)(R U R2 U')(R' U)"
+//                cell.formulaString = "(U R' U') (R U' R) U (R U' R' U)(R U R2 U')(R' U)"
+                cell.formulaString = self.formula!.formulaText[indexPath.item]
             }
         default:
             break
@@ -176,6 +187,7 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
             fatalError()
         }
         
+        
         switch section {
         case .Header:
             return CGSizeMake(screenWidth, screenWidth + 110)
@@ -184,6 +196,20 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         case .Sepatator:
             return CGSizeMake(screenWidth, 40)
         case .Formula:
+            let string = self.formula!.formulaText[indexPath.item]
+            let attributsStr = string.setAttributesFitDetailLayout()
+            //这串数字是xib中的约束
+            let rect = attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil)
+            print("resultFrame = \(rect)")
+            
+            //如果文字+top约束 > 图片高度+top约束
+            let height = rect.height + 10 > 10 + 30 ? rect.height + 10 + 20 : 10 + 30 + 20
+//            if rect.height + 10 > 10 + 30 {
+//                
+//            }
+            
+            return CGSizeMake(screenWidth, height)
+        case .Footer:
             return CGSizeMake(screenWidth, 80)
         }
     }

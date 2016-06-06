@@ -41,14 +41,14 @@ class Formula : CustomStringConvertible {
 }
 
 
-enum Category {
-    case x3x3
+enum Category: String {
+    case x3x3 = "x3x3"
 }
 
-enum Type {
-    case F2L
-    case PLL
-    case OLL
+enum Type: String {
+    case F2L = "F2L"
+    case PLL = "PLL"
+    case OLL = "OLL"
 }
 
 class FormulaManager {
@@ -75,6 +75,10 @@ class FormulaManager {
                 let texts = item["formulaText"].arrayValue
                 var formulaTexts = [String]()
                 for text in texts {
+                   formulaTexts.append(text.stringValue)
+                
+                    //测试
+                   formulaTexts.append(text.stringValue)
                    formulaTexts.append(text.stringValue)
                 }
                 let formulaText = formulaTexts

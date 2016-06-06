@@ -14,6 +14,7 @@ extension String {
     func setAttributesFitDetailLayout() -> NSMutableAttributedString {
         let attributeText = NSMutableAttributedString(string: self)
         
+        attributeText.addAttributes([NSFontAttributeName: UIFont(name: "Menlo-Regular", size: 15)!], range: NSRange(location: 0, length: self.characters.count))
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 5
         attributeText.addAttributes([NSParagraphStyleAttributeName: style], range: NSRange(location: 0, length: self.characters.count))
@@ -70,3 +71,29 @@ extension String {
         
     }
 }
+
+
+extension String {
+    enum TrimmingType {
+        case Whitespace
+        case WhitespaceAndNewLine
+    }
+    
+    func trimming(trimmingType: TrimmingType) -> String {
+        switch trimmingType {
+        case .Whitespace:
+            return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        case .WhitespaceAndNewLine:
+            return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

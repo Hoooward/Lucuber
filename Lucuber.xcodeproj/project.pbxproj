@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9247E1D05572B00BBF003 /* Resgin.storyboard */; };
+		89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924801D055A9000BBF003 /* RegsinViewController.swift */; };
+		89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */; };
+		89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924841D05702200BBF003 /* RegisterPickMobileViewController.swift */; };
+		89B924871D0571A500BBF003 /* CubeUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924861D0571A500BBF003 /* CubeUserDefaults.swift */; };
+		89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924881D0578D400BBF003 /* BorderTextField.swift */; };
+		89B9248C1D05B7AB00BBF003 /* FooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9248A1D05B7AB00BBF003 /* FooterCell.swift */; };
+		89B9248D1D05B7AB00BBF003 /* FooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B9248B1D05B7AB00BBF003 /* FooterCell.xib */; };
 		89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE429C1D01981000E525D4 /* AppDelegate.swift */; };
 		89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */; };
 		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
@@ -62,6 +70,14 @@
 /* Begin PBXFileReference section */
 		139A8A82B76C8BB58031F287 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		89B9247E1D05572B00BBF003 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
+		89B924801D055A9000BBF003 /* RegsinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegsinViewController.swift; sourceTree = "<group>"; };
+		89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickNameViewController.swift; sourceTree = "<group>"; };
+		89B924841D05702200BBF003 /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
+		89B924861D0571A500BBF003 /* CubeUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeUserDefaults.swift; sourceTree = "<group>"; };
+		89B924881D0578D400BBF003 /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
+		89B9248A1D05B7AB00BBF003 /* FooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterCell.swift; sourceTree = "<group>"; };
+		89B9248B1D05B7AB00BBF003 /* FooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterCell.xib; sourceTree = "<group>"; };
 		89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		89BE429C1D01981000E525D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BE42A01D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -342,6 +358,8 @@
 				89E6638A1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift */,
 				89E663981D040C2400E90926 /* FormulaCell.swift */,
 				89E663991D040C2400E90926 /* FormulaCell.xib */,
+				89B9248A1D05B7AB00BBF003 /* FooterCell.swift */,
+				89B9248B1D05B7AB00BBF003 /* FooterCell.xib */,
 			);
 			path = DetailCell;
 			sourceTree = "<group>";
@@ -402,6 +420,12 @@
 				89E6C5DF1D03F0D3005ACFB9 /* Views */,
 				89E663601D03F18200E90926 /* ViewControllers */,
 				89F58F1F1D01696400361474 /* Main.storyboard */,
+				89B9247E1D05572B00BBF003 /* Resgin.storyboard */,
+				89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */,
+				89B924861D0571A500BBF003 /* CubeUserDefaults.swift */,
+				89B924841D05702200BBF003 /* RegisterPickMobileViewController.swift */,
+				89B924881D0578D400BBF003 /* BorderTextField.swift */,
+				89B924801D055A9000BBF003 /* RegsinViewController.swift */,
 				89C2EDB31D01A0E9009365BA /* Assets.xcassets */,
 				89F58F241D01696400361474 /* LaunchScreen.storyboard */,
 				89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */,
@@ -479,10 +503,12 @@
 				89E6C5EE1D03F0D3005ACFB9 /* DetailFormulaCell.xib in Resources */,
 				89E6C5F01D03F0D3005ACFB9 /* CardFormulaCell.xib in Resources */,
 				89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */,
+				89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */,
 				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
 				89E663971D04099A00E90926 /* SeparatorCell.xib in Resources */,
 				89F58F211D01696400361474 /* Main.storyboard in Resources */,
 				89E6639B1D040C2400E90926 /* FormulaCell.xib in Resources */,
+				89B9248D1D05B7AB00BBF003 /* FooterCell.xib in Resources */,
 				89E6638F1D03FA8700E90926 /* HeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,7 +575,10 @@
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,
 				89E663861D03F18200E90926 /* SettingViewController.swift in Sources */,
 				89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */,
+				89B924871D0571A500BBF003 /* CubeUserDefaults.swift in Sources */,
+				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
 				89E6637B1D03F18200E90926 /* CardCollectionViewLayout.swift in Sources */,
+				89B9248C1D05B7AB00BBF003 /* FooterCell.swift in Sources */,
 				89E663831D03F18200E90926 /* MainNavigationController.swift in Sources */,
 				89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */,
 				89E6637C1D03F18200E90926 /* NormalCollectionViewLayout.swift in Sources */,
@@ -557,6 +586,7 @@
 				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
 				89E663871D03F18200E90926 /* TimerViewController.swift in Sources */,
 				89E6637E1D03F18200E90926 /* ShowFormulaDetailController.swift in Sources */,
+				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* ShowDetailCell.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
@@ -572,6 +602,8 @@
 				89E6C5ED1D03F0D3005ACFB9 /* DetailFormulaCell.swift in Sources */,
 				89E663801D03F18200E90926 /* ShowFormulaDetailLayout.swift in Sources */,
 				89E6637A1D03F18200E90926 /* BaseCollectionViewController.swift in Sources */,
+				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
+				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
 				89E6639A1D040C2400E90926 /* FormulaCell.swift in Sources */,
 				89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */,

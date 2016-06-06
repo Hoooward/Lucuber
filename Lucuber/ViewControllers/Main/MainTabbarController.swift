@@ -17,6 +17,18 @@ class MainTabbarController: UITabBarController {
         tabBar.tintColor = UIColor.cubeTintColor()
         
         
+//        AVOSCloud.requestSmsCodeWithPhoneNumber("18500800404") { (succeeded, error) in
+//            
+//        }
+//        
+//        do {
+//            try AVUser.signUpOrLoginWithMobilePhoneNumber("18500800404", smsCode: "735583")
+//            
+//        } catch  {
+//            print(error)
+//        }
+        
+        
 //        let testObject: AVObject = AVObject(className: "TestObject")
 //        testObject["foor"] = "Bar"
 //        testObject.save()
@@ -27,29 +39,36 @@ class MainTabbarController: UITabBarController {
 //        let file = AVFile(name: "Formulas.json", data: data)
 //        file.save()
 //
+//        var formulas = [Formula]()
+//        FormulaManager.shardManager().loadNewFormulas {
+//            formulas = FormulaManager.shardManager().PLLs
+//            let item = formulas.first!
+//            let formula: AVObject = AVObject(className: "Formulas")
+//            formula.setObject(item.name, forKey: "name")
+//            formula.setObject(item.formulaText, forKey: "texts")
+//            formula.setObject(item.level, forKey: "level")
+//            formula.setObject(item.imageName, forKey: "imageName")
+//            formula.setObject(item.favorate, forKey: "favotate")
+//            formula.setObject(item.category.rawValue, forKey: "category")
+//            formula.setObject(item.type.rawValue, forKey: "type")
+//            formula.setObject(AVUser.currentUser(), forKey: "user")
+//            
+//            formula.saveInBackground()
+//        }
+//        
+////        
+//        let q: AVQuery = AVQuery.init(className: "Formulas")
+//        print(AVUser.currentUser().objectId)
+//        q.whereKey("user", equalTo: AVUser.currentUser())
+//        q.findObjectsInBackgroundWithBlock { (object, error) in
+//            print(object)
+//        }
+//
         
-        let str = "(R U R' U) (R U' R' U') (R' F R F')"
-        
-        let pattern = "\\(.*?\\)"
         
         
         
-        do {
-            let a =  try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.init(rawValue: 0))
-//           let result = a.rangeOfFirstMatchInString(str, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: str.characters.count))
-            let resu = a.matchesInString(str, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: str.characters.count))
-            
-            for s in resu {
-                print(s.range)
-                let stt = (str as NSString).substringWithRange(s.range)
-                print(stt)
-            }
-            
-            
-        } catch{
-            print(error)
-        }
-    
+        
         
         
     }

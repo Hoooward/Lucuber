@@ -16,32 +16,15 @@ class FormulaCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    
+    var showHeight: CGFloat = 0
     var formulaString: String = "" {
         didSet {
             
-//            let attributes = NSMutableAttributedString(string: formula)
-////            let str = "(R U R' U) (R U' R' U') (R' F R F')"
-//            
-//            let pattern = "\\(.*?\\)"
-//            
-//            
-//            do {
-//                let a =  try NSRegularExpression(pattern:pattern, options: NSRegularExpressionOptions.init(rawValue: 0))
-//                //           let result = a.rangeOfFirstMatchInString(str, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: str.characters.count))
-//                let resu = a.matchesInString(formula, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: formula.characters.count))
-//                
-//                for s in resu {
-//                    print(s.range)
-//                    let stt = (formula as NSString).substringWithRange(s.range)
-//                    attributes.addAttributes([NSForegroundColorAttributeName : UIColor.cubeTintColor()], range:s.range)
-//                    print(stt)
-//                }
-//                
-//                
-//            } catch{
-//                print(error)
-//            }
+//            let attributesStr = formulaString.setAttributesFitDetailLayout()
+//             //如果文字+top约束 > 图片高度+top约束
+//             showHeight = attributesStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil).height
+// 
+            
             formulaLabel.attributedText = formulaString.setAttributesFitDetailLayout()
             
         }
