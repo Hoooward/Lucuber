@@ -10,13 +10,11 @@ import UIKit
 
 class FormulaLibraryViewController: BaseCollectionViewController {
    
-    
     let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Card
-        
   
         refreshControl.addTarget(self, action: #selector(FormulaLibraryViewController.refreshFormula), forControlEvents: .ValueChanged)
         refreshControl.layer.zPosition = -1

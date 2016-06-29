@@ -32,8 +32,8 @@
 		89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */; };
 		89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E065D71D042FF5000B7D08 /* String+Cube.swift */; };
 		89E6637A1D03F18200E90926 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663631D03F18200E90926 /* BaseCollectionViewController.swift */; };
-		89E6637B1D03F18200E90926 /* CardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663641D03F18200E90926 /* CardCollectionViewLayout.swift */; };
-		89E6637C1D03F18200E90926 /* NormalCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663651D03F18200E90926 /* NormalCollectionViewLayout.swift */; };
+		89E6637B1D03F18200E90926 /* _CardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663641D03F18200E90926 /* _CardCollectionViewLayout.swift */; };
+		89E6637C1D03F18200E90926 /* _NormalCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663651D03F18200E90926 /* _NormalCollectionViewLayout.swift */; };
 		89E6637D1D03F18200E90926 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663671D03F18200E90926 /* ContainerViewController.swift */; };
 		89E6637E1D03F18200E90926 /* ShowFormulaDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E663691D03F18200E90926 /* ShowFormulaDetailController.swift */; };
 		89E6637F1D03F18200E90926 /* FormulaCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6636A1D03F18200E90926 /* FormulaCollectionLayout.swift */; };
@@ -104,8 +104,8 @@
 		89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
 		89E065D71D042FF5000B7D08 /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		89E663631D03F18200E90926 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
-		89E663641D03F18200E90926 /* CardCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewLayout.swift; sourceTree = "<group>"; };
-		89E663651D03F18200E90926 /* NormalCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalCollectionViewLayout.swift; sourceTree = "<group>"; };
+		89E663641D03F18200E90926 /* _CardCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _CardCollectionViewLayout.swift; sourceTree = "<group>"; };
+		89E663651D03F18200E90926 /* _NormalCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _NormalCollectionViewLayout.swift; sourceTree = "<group>"; };
 		89E663671D03F18200E90926 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		89E663691D03F18200E90926 /* ShowFormulaDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFormulaDetailController.swift; sourceTree = "<group>"; };
 		89E6636A1D03F18200E90926 /* FormulaCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaCollectionLayout.swift; sourceTree = "<group>"; };
@@ -192,7 +192,8 @@
 				892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */,
 				892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */,
 			);
-			path = NoResult;
+			name = NoResult;
+			path = ../NoResult;
 			sourceTree = "<group>";
 		};
 		895D10E61D21166A00CEF7FA /* Comment */ = {
@@ -291,8 +292,8 @@
 			isa = PBXGroup;
 			children = (
 				89E663631D03F18200E90926 /* BaseCollectionViewController.swift */,
-				89E663641D03F18200E90926 /* CardCollectionViewLayout.swift */,
-				89E663651D03F18200E90926 /* NormalCollectionViewLayout.swift */,
+				89E663641D03F18200E90926 /* _CardCollectionViewLayout.swift */,
+				89E663651D03F18200E90926 /* _NormalCollectionViewLayout.swift */,
 			);
 			path = "BaseController+Layout";
 			sourceTree = "<group>";
@@ -375,7 +376,6 @@
 			isa = PBXGroup;
 			children = (
 				8906AB6C1D241D36007D44D7 /* SearchBar */,
-				892316CD1D23B6C4006BCCE7 /* NoResult */,
 				895D10E61D21166A00CEF7FA /* Comment */,
 				89E6C5E01D03F0D3005ACFB9 /* Formula */,
 				89E6C5E11D03F0D3005ACFB9 /* Backup */,
@@ -386,6 +386,7 @@
 		89E6C5E01D03F0D3005ACFB9 /* Formula */ = {
 			isa = PBXGroup;
 			children = (
+				892316CD1D23B6C4006BCCE7 /* NoResult */,
 				89E6C5E41D03F0D3005ACFB9 /* CardCell */,
 				89E6C5EA1D03F0D3005ACFB9 /* NomalCell */,
 				89E6C5E71D03F0D3005ACFB9 /* DetailCell */,
@@ -634,11 +635,11 @@
 				895D10F01D21211100CEF7FA /* Formula.swift in Sources */,
 				89B924871D0571A500BBF003 /* CubeUserDefaults.swift in Sources */,
 				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
-				89E6637B1D03F18200E90926 /* CardCollectionViewLayout.swift in Sources */,
+				89E6637B1D03F18200E90926 /* _CardCollectionViewLayout.swift in Sources */,
 				89B9248C1D05B7AB00BBF003 /* FooterCell.swift in Sources */,
 				89E663831D03F18200E90926 /* MainNavigationController.swift in Sources */,
 				89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */,
-				89E6637C1D03F18200E90926 /* NormalCollectionViewLayout.swift in Sources */,
+				89E6637C1D03F18200E90926 /* _NormalCollectionViewLayout.swift in Sources */,
 				89E663811D03F18200E90926 /* FormulaLibraryViewController.swift in Sources */,
 				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
 				89E663871D03F18200E90926 /* TimerViewController.swift in Sources */,
