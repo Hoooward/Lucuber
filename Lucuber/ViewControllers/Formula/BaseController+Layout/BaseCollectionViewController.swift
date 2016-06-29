@@ -16,7 +16,6 @@ private let NoResultCellIdentifier = "NoResultCell"
 enum FormulaUserMode: Int {
     case Normal = 0
     case Card
-    case Detail
 }
 
 class BaseCollectionViewController: UICollectionViewController, SegueHandlerType {
@@ -31,26 +30,22 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     var searchResult: [Formula] = []
     
     var searchBarActive = false
-    var haveSearchResult: Bool {
-        return searchResult.count > 0
-    }
-    
+    var haveSearchResult: Bool { return searchResult.count > 0 }
     
     var userMode: FormulaUserMode = .Card {
         didSet {
-          
             switch userMode {
             case .Card:
                 view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
             case .Normal:
                 view.backgroundColor = UIColor.whiteColor()
-            case .Detail:
-                view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
             }
+            
+            collectionView?.reloadData()
         }
     }
     
-    // MARK: 声明周期
+    // MARK: 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
@@ -194,9 +189,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         case .Normal:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(NormalCellIdentifier, forIndexPath: indexPath) as! NormalFormulaCell
             return cell
-        case .Detail:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(DetailCellIdentifier, forIndexPath: indexPath)
-            return cell
         }
     }
     
@@ -235,11 +227,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             cell.formulaLabel.text = formula.formulaText.first!
             cell.formulaNameLabel.text = formula.name
             cell.formulaImageView.image = UIImage(named: formula.imageName)
-        case .Detail:
-            let cell = cell as! DetailFormulaCell
-//            cell.formulaLabel.text = formula.formulaText.first!
-            cell.formulaNameLabel.text = formula.name
-            cell.formulaImageView.image = UIImage(named: formula.imageName)
         }
     }
     
@@ -249,8 +236,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         case .Normal:
             return CGSize(width: screenWidth, height: 80)
         case .Card:
-            return CGSize(width: (screenWidth - (10 + 10 + 10)) * 0.5, height: 280)
-        case .Detail:
             return CGSize(width: (screenWidth - (10 + 10 + 10)) * 0.5, height: 280)
         }
     }
@@ -262,8 +247,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         case .Normal:
             return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
         case .Card:
-            return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 10, bottom: 10, right: 10)
-        case .Detail:
             return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 10, bottom: 10, right: 10)
         }
         

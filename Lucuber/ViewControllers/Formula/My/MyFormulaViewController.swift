@@ -26,11 +26,8 @@ class MyFormulaViewController: BaseCollectionViewController {
             } else {
                 currentLayout = cardLayout
             }
-            UIView.animateWithDuration(0.3, animations: {
-                self.collectionView?.reloadData()
-                self.collectionView?.setCollectionViewLayout(currentLayout, animated: true)
-            
-            })
+            self.collectionView?.reloadData()
+   
         }
     }
     
