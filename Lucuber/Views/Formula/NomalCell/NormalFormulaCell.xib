@@ -82,7 +82,7 @@
                 <outlet property="formulaLabel" destination="cuk-hF-THb" id="AVS-Kh-boQ"/>
                 <outlet property="formulaNameLabel" destination="eBN-pv-Wjr" id="IgJ-r1-xXN"/>
             </connections>
-            <point key="canvasLocation" x="114.5" y="125"/>
+            <point key="canvasLocation" x="339.5" y="152"/>
         </collectionViewCell>
     </objects>
     <resources>

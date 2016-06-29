@@ -11,6 +11,7 @@ import UIKit
 private let CardCellIdentifier = "CardFormulaCell"
 private let NormalCellIdentifier = "NormalFormulaCell"
 private let DetailCellIdentifier = "DetailFormulaCell"
+private let NoResultCellIdentifier = "NoResultCell"
 
 enum FormulaUserMode: Int {
     case Normal = 0
@@ -30,6 +31,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     var searchResult: [Formula] = []
     
     var searchBarActive = false
+    var haveSearchResult: Bool {
+        return searchResult.count > 0
+    }
+    
     
     var userMode: FormulaUserMode = .Card {
         didSet {
@@ -63,6 +68,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
+        collectionView?.registerNib(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
         print("view = \(self.view)")
         print("collectionView = \(self.collectionView)")
         view.addSubview(searchBar)
@@ -92,6 +98,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     deinit {
         collectionView?.removeObserver(self, forKeyPath: "contentOffset")
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     // MARK: - KVO 
@@ -110,6 +117,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 extension BaseCollectionViewController: UISearchBarDelegate {
     
     func cancelSearch() {
+        searchResult.removeAll()
         searchBar.resignFirstResponder()
         searchBar.text = ""
         searchBarActive = false
@@ -119,7 +127,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count > 0 {
             searchBarActive = true
-            searchResult = []
             searchResult =  formulaManager.searchFormulasWithSearchText(searchText)
         } else {
             searchBarActive = false
@@ -149,7 +156,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
 // MARK - CollectionView Delegate
 extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     
-    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         if searchBarActive {
             return 1
@@ -162,7 +168,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case 0:
             if searchBarActive {
-                return searchResult.count
+                return haveSearchResult ? searchResult.count : 1
             }
             return formulaManager.OLLs.count
         case 1:
@@ -175,6 +181,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        if searchBarActive && !haveSearchResult {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(NoResultCellIdentifier, forIndexPath: indexPath) as! NoResultCell
+            return cell
+        }
+        
         switch userMode {
         case .Card:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CardCellIdentifier, forIndexPath: indexPath) as! CardFormulaCell
@@ -194,7 +206,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         var formula: Formula!
         switch indexPath.section {
         case 0:
-            if searchBarActive {
+            if searchBarActive && haveSearchResult {
                 formula = searchResult[indexPath.item]
             } else {
                 formula = formulaManager.OLLs[indexPath.item]
@@ -207,6 +219,10 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             break
         }
         
+        
+        if searchBarActive && !haveSearchResult {
+            return
+        }
         
         switch userMode {
         case .Normal:

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
+		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
 		895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */; };
 		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
 		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
@@ -74,6 +76,8 @@
 /* Begin PBXFileReference section */
 		139A8A82B76C8BB58031F287 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
+		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
 		895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
 		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
@@ -170,6 +174,15 @@
 				33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		892316CD1D23B6C4006BCCE7 /* NoResult */ = {
+			isa = PBXGroup;
+			children = (
+				892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */,
+				892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */,
+			);
+			path = NoResult;
 			sourceTree = "<group>";
 		};
 		895D10E61D21166A00CEF7FA /* Comment */ = {
@@ -351,6 +364,7 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				892316CD1D23B6C4006BCCE7 /* NoResult */,
 				895D10E61D21166A00CEF7FA /* Comment */,
 				89E6C5E01D03F0D3005ACFB9 /* Formula */,
 				89E6C5E11D03F0D3005ACFB9 /* Backup */,
@@ -524,6 +538,7 @@
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
 				89E6C5F41D03F0D3005ACFB9 /* NormalFormulaCell.xib in Resources */,
 				89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */,
+				892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */,
 				89E663931D04039A00E90926 /* MasterCell.xib in Resources */,
 				89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */,
 				89E6C5F21D03F0D3005ACFB9 /* ShowDetailCell.xib in Resources */,
@@ -625,6 +640,7 @@
 				89E663921D04039A00E90926 /* MasterCell.swift in Sources */,
 				89EEDCA11D0201E9007257C3 /* testData.swift in Sources */,
 				89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */,
+				892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */,
 				89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */,
 				89E6637D1D03F18200E90926 /* ContainerViewController.swift in Sources */,
 				89E6C4E41D0303F7005ACFB9 /* UIFont+Cube.swift in Sources */,
