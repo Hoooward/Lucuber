@@ -21,14 +21,16 @@ enum FormulaUserMode: Int {
 class BaseCollectionViewController: UICollectionViewController, SegueHandlerType {
     
     // ref http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7
-
-//    let refreshControl = UIRefreshControl()
     
     enum SegueIdentifier: String{
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
     }
     
     var formulaManager = FormulaManager.shardManager()
+    var searchResult: [Formula] = []
+    
+    var searchBarActive = false
+    
     var userMode: FormulaUserMode = .Card {
         didSet {
           
@@ -43,64 +45,125 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         }
     }
     
+    // MARK: 声明周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView!.backgroundColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0 )
-        
+        makeUI()
         userMode = .Card
+        formulaManager.loadNewFormulas { [weak self] in
+            self?.collectionView?.reloadData()
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.cancelSearch), name: ContainerDidScrollerNotification, object: nil)
+        
+    }
+    
+    private func makeUI() {
+        collectionView!.backgroundColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0 )
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
-        
-        
-//        refreshControl.addTarget(self, action: #selector(BaseCollectionViewController.refreshFormula), forControlEvents: .ValueChanged)
-//        refreshControl.layer.zPosition = -1
-//        collectionView!.alwaysBounceVertical = true
-        
-        
-//        print(formulaManager.Alls)
-        formulaManager.loadNewFormulas { [weak self] in
-//            print(self!.formulaManager.Alls)
-            self?.collectionView?.reloadData()
-            
-        }
-
+        print("view = \(self.view)")
+        print("collectionView = \(self.collectionView)")
+        view.addSubview(searchBar)
     }
     
-//    func refreshFormula() {
-//        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/7CWYnFKC7ZPLMDJJ1jZPPuA.json")
-//        
-//        formulaFile.getDataInBackgroundWithBlock { (data, error) in
-//            do {
-//                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-//                print(json)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.refreshControl.endRefreshing()
-//                    
-//                })
-//            }catch {
-//            }
-//        }
-//        
-//    }
-
-
-
-
+    private var searchBarFrameY: CGFloat = 64 + topControlHeight + 5
+    lazy var searchBar: UISearchBar = {
+        [weak self] in
+        let searchBar = UISearchBar()
+        searchBar.frame = CGRect(x: 0, y: self!.searchBarFrameY , width: screenWidth, height: 44)
+        searchBar.searchBarStyle = .Minimal
+        searchBar.tintColor = UIColor.cubeTintColor()
+        searchBar.barTintColor = UIColor.cubeInputTextColor()
+        searchBar.delegate = self
+        searchBar.placeholder = "搜索"
+        searchBar.showsCancelButton = true
+        for subView in searchBar.subviews[0].subviews {
+            print(subView)
+            if subView.isKindOfClass(UIButton.classForCoder()) {
+                let cancelButton = subView as! UIButton
+                cancelButton.setTitle("取消", forState: .Normal)
+            }
+        }
+        self!.collectionView?.addObserver(self!, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
+        return searchBar
+    }()
+    
+    deinit {
+        collectionView?.removeObserver(self, forKeyPath: "contentOffset")
+    }
+    
+    // MARK: - KVO 
+    //collectionView的ContentOffset改变的时候刷新searchbar的位置
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath! == "contentOffset" {
+            if let collectionView = object as? UICollectionView {
+                searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarFrameY + ((-1 * collectionView.contentOffset.y) - searchBarFrameY), width: searchBar.frame.width, height: searchBar.frame.height)
+            }
+        }
+    }
+    
 
 }
-extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
+// MARK: - SearchBar Delegate
+extension BaseCollectionViewController: UISearchBarDelegate {
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return formulaManager.Alls.count
+    func cancelSearch() {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        searchBarActive = false
+        collectionView?.reloadData()
     }
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.characters.count > 0 {
+            searchBarActive = true
+            searchResult = []
+            searchResult =  formulaManager.searchFormulasWithSearchText(searchText)
+        } else {
+            searchBarActive = false
+        }
+        collectionView?.reloadData()
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if searchResult.count > 0 {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        cancelSearch()
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBarActive = true
+       
+    }
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBarActive = false
+    }
+}
+
+// MARK - CollectionView Delegate
+extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        if searchBarActive {
+            return 1
+        }
+        return formulaManager.Alls.count
+    }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch section {
         case 0:
+            if searchBarActive {
+                return searchResult.count
+            }
             return formulaManager.OLLs.count
         case 1:
             return formulaManager.PLLs.count
@@ -131,7 +194,11 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         var formula: Formula!
         switch indexPath.section {
         case 0:
-            formula = formulaManager.OLLs[indexPath.item]
+            if searchBarActive {
+                formula = searchResult[indexPath.item]
+            } else {
+                formula = formulaManager.OLLs[indexPath.item]
+            }
         case 1:
             formula = formulaManager.PLLs[indexPath.item]
         case 2:
@@ -160,6 +227,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
+    ///每个cell的Size
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         switch userMode {
         case .Normal:
@@ -171,15 +239,16 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
+    ///返回每个section的EdgeInset
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         
         switch userMode {
         case .Normal:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
         case .Card:
-            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 10, bottom: 10, right: 10)
         case .Detail:
-            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 10, bottom: 10, right: 10)
         }
         
     }

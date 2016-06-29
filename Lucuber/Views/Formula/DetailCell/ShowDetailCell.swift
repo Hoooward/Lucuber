@@ -214,6 +214,21 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch  section {
+        case .Footer:
+            //通知自己的控制器Push评论视图控制器
+            NSNotificationCenter.defaultCenter().postNotificationName(DetailCellShowCommentNotification, object: formula, userInfo: nil)
+        default:
+            break
+        }
+        
+    }
+    
     
 }
 

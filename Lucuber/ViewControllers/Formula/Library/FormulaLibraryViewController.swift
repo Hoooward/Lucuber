@@ -30,6 +30,7 @@ class FormulaLibraryViewController: BaseCollectionViewController {
             })
         }
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

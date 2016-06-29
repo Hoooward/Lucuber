@@ -15,6 +15,7 @@ class ShowFormulaDetailController: UIViewController {
     var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         collectionView = UICollectionView(frame: screenBounds, collectionViewLayout: layout)
         collectionView.registerNib(UINib(nibName: ShowDetialCellIdentifier, bundle: nil), forCellWithReuseIdentifier: ShowDetialCellIdentifier)
@@ -24,6 +25,28 @@ class ShowFormulaDetailController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(customNavigationBar)
         automaticallyAdjustsScrollViewInsets = false
+        
+        //监听cell中公式评论被点击
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ShowFormulaDetailController.showCommentViewController(_:)), name: DetailCellShowCommentNotification, object: nil)
+    }
+    
+    func showCommentViewController(notification: NSNotification) {
+        let formula = notification.object as! Formula
+        performSegueWithIdentifier("ShowCommentVC", sender: formula)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowCommentVC" {
+            let commentVC = segue.destinationViewController as! CommentTableViewController
+//            commentVC.navigationController?.setNavigationBarHidden(false, animated: false)
+            commentVC.formula = sender as? Formula
+        }
+    }
+    
+    
+    // MARK: - 生命周期
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -37,8 +60,16 @@ class ShowFormulaDetailController: UIViewController {
         
     }
     
+    func popViewController() {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
 
-    private lazy var customNavigationItem: UINavigationItem = UINavigationItem(title: "Detail")
+    private lazy var customNavigationItem: UINavigationItem = {
+        let item = UINavigationItem(title: "Detail")
+        item.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: #selector(ShowFormulaDetailController.popViewController))
+        return item
+    }()
     private lazy var customNavigationBar: UINavigationBar = {
         let bar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 64))
         bar.tintColor = UIColor.whiteColor()
@@ -92,4 +123,5 @@ extension ShowFormulaDetailController:  UICollectionViewDelegate, UICollectionVi
         cell.formula = formulasData[indexPath.item]
         return cell
     }
+    
 }

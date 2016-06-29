@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */; };
+		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
+		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
+		895D10F01D21211100CEF7FA /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10EF1D21211100CEF7FA /* Formula.swift */; };
+		895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10F21D21214F00CEF7FA /* FormulaComment.swift */; };
 		89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9247E1D05572B00BBF003 /* Resgin.storyboard */; };
 		89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924801D055A9000BBF003 /* RegsinViewController.swift */; };
 		89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */; };
@@ -60,7 +65,6 @@
 		89EEDCA11D0201E9007257C3 /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCA01D0201E9007257C3 /* testData.swift */; };
 		89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCA61D0297D7007257C3 /* CreatJSON.swift */; };
 		89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */ = {isa = PBXBuildFile; fileRef = 89EEDCB01D02A3ED007257C3 /* Formulas.json */; };
-		89EEDCB51D02B834007257C3 /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCB41D02B834007257C3 /* Formula.swift */; };
 		89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCBB1D02EF6D007257C3 /* Storyboard+Cube.swift */; };
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
@@ -70,6 +74,11 @@
 /* Begin PBXFileReference section */
 		139A8A82B76C8BB58031F287 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
+		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
+		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
+		895D10EF1D21211100CEF7FA /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
+		895D10F21D21214F00CEF7FA /* FormulaComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaComment.swift; sourceTree = "<group>"; };
 		89B9247E1D05572B00BBF003 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		89B924801D055A9000BBF003 /* RegsinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegsinViewController.swift; sourceTree = "<group>"; };
 		89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickNameViewController.swift; sourceTree = "<group>"; };
@@ -125,7 +134,6 @@
 		89EEDCA01D0201E9007257C3 /* testData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
 		89EEDCA61D0297D7007257C3 /* CreatJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatJSON.swift; sourceTree = "<group>"; };
 		89EEDCB01D02A3ED007257C3 /* Formulas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Formulas.json; sourceTree = "<group>"; };
-		89EEDCB41D02B834007257C3 /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		89EEDCBB1D02EF6D007257C3 /* Storyboard+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Cube.swift"; sourceTree = "<group>"; };
 		89F58F181D01696300361474 /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -162,6 +170,40 @@
 				33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		895D10E61D21166A00CEF7FA /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */,
+				895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		895D10ED1D21211100CEF7FA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				895D10F11D21213B00CEF7FA /* Comment */,
+				895D10EE1D21211100CEF7FA /* Formula */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		895D10EE1D21211100CEF7FA /* Formula */ = {
+			isa = PBXGroup;
+			children = (
+				895D10EF1D21211100CEF7FA /* Formula.swift */,
+			);
+			path = Formula;
+			sourceTree = "<group>";
+		};
+		895D10F11D21213B00CEF7FA /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				895D10F21D21214F00CEF7FA /* FormulaComment.swift */,
+			);
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		89BE429E1D01981000E525D4 /* Base.lproj */ = {
@@ -244,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				89E663691D03F18200E90926 /* ShowFormulaDetailController.swift */,
+				895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -308,6 +351,7 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				895D10E61D21166A00CEF7FA /* Comment */,
 				89E6C5E01D03F0D3005ACFB9 /* Formula */,
 				89E6C5E11D03F0D3005ACFB9 /* Backup */,
 			);
@@ -373,23 +417,6 @@
 			path = NomalCell;
 			sourceTree = "<group>";
 		};
-		89EEDCB21D02B804007257C3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				89EEDCB31D02B804007257C3 /* Formula */,
-			);
-			name = Models;
-			path = Extension/Models;
-			sourceTree = "<group>";
-		};
-		89EEDCB31D02B804007257C3 /* Formula */ = {
-			isa = PBXGroup;
-			children = (
-				89EEDCB41D02B834007257C3 /* Formula.swift */,
-			);
-			path = Formula;
-			sourceTree = "<group>";
-		};
 		89F58F0F1D01696300361474 = {
 			isa = PBXGroup;
 			children = (
@@ -416,7 +443,7 @@
 				89BE429C1D01981000E525D4 /* AppDelegate.swift */,
 				89BE429E1D01981000E525D4 /* Base.lproj */,
 				89BE42A31D01981000E525D4 /* Extension */,
-				89EEDCB21D02B804007257C3 /* Models */,
+				895D10ED1D21211100CEF7FA /* Models */,
 				89E6C5DF1D03F0D3005ACFB9 /* Views */,
 				89E663601D03F18200E90926 /* ViewControllers */,
 				89F58F1F1D01696400361474 /* Main.storyboard */,
@@ -507,6 +534,7 @@
 				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
 				89E663971D04099A00E90926 /* SeparatorCell.xib in Resources */,
 				89F58F211D01696400361474 /* Main.storyboard in Resources */,
+				895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */,
 				89E6639B1D040C2400E90926 /* FormulaCell.xib in Resources */,
 				89B9248D1D05B7AB00BBF003 /* FooterCell.xib in Resources */,
 				89E6638F1D03FA8700E90926 /* HeaderCell.xib in Resources */,
@@ -572,9 +600,11 @@
 				89E6637F1D03F18200E90926 /* FormulaCollectionLayout.swift in Sources */,
 				89E663821D03F18200E90926 /* MyFormulaViewController.swift in Sources */,
 				89E663841D03F18200E90926 /* MainTabbarController.swift in Sources */,
+				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,
 				89E663861D03F18200E90926 /* SettingViewController.swift in Sources */,
 				89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */,
+				895D10F01D21211100CEF7FA /* Formula.swift in Sources */,
 				89B924871D0571A500BBF003 /* CubeUserDefaults.swift in Sources */,
 				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
 				89E6637B1D03F18200E90926 /* CardCollectionViewLayout.swift in Sources */,
@@ -588,9 +618,9 @@
 				89E6637E1D03F18200E90926 /* ShowFormulaDetailController.swift in Sources */,
 				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* ShowDetailCell.swift in Sources */,
+				895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
-				89EEDCB51D02B834007257C3 /* Formula.swift in Sources */,
 				89E6C5EF1D03F0D3005ACFB9 /* CardFormulaCell.swift in Sources */,
 				89E663921D04039A00E90926 /* MasterCell.swift in Sources */,
 				89EEDCA11D0201E9007257C3 /* testData.swift in Sources */,
@@ -608,6 +638,7 @@
 				89E6639A1D040C2400E90926 /* FormulaCell.swift in Sources */,
 				89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */,
 				89E663961D04099A00E90926 /* SeparatorCell.swift in Sources */,
+				895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

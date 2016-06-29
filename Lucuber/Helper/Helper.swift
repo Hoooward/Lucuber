@@ -8,10 +8,19 @@
 
 import UIKit
 
+
+//公式视图导航栏下面的切换条高度
+let topControlHeight: CGFloat = 36
+
 let navigationBarImage = "navigationbarBackgroundWhite"
+
 let screenHeight = UIScreen.mainScreen().bounds.size.height
 let screenWidth = UIScreen.mainScreen().bounds.size.width
 let screenBounds = UIScreen.mainScreen().bounds
+
+// MARK：- NotificationName
+let DetailCellShowCommentNotification = "DetailCellShowCommentNotification"
+let ContainerDidScrollerNotification = "ContainerDidScrollerNotification"
 /**
  * 自定义 print 用于 Debug， 利用 #file #function #line 来分别输出
  * 文件名 函数名 行号

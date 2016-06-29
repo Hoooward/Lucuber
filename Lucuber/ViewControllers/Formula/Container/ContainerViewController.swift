@@ -19,6 +19,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     var topControlSeletedButton: UIButton?
     var containerScrollerView = UIScrollView()
     
+    
+    ///记录containerScrollerView的偏移量,用来判断左右被移动的距离,决定是否发送通知取消searchBar的第一响应
+    var containerScrollerOffsetX: CGFloat = 0
+    
     enum SegueIdentifier: String{
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
     }
@@ -175,7 +179,13 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 
 extension ContainerViewController: UIScrollViewDelegate {
     
+    func postDidScrollNotification() {
+       
+    }
+    
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+         containerScrollerOffsetX = scrollView.contentOffset.x
+        
         let index = Int(scrollView.contentOffset.x / screenWidth)
         let vc = childViewControllers[index] as! UICollectionViewController
         vc.view.frame = CGRect(x: CGFloat(index) * screenWidth, y: 0, width: screenWidth, height: screenHeight)
@@ -186,6 +196,8 @@ extension ContainerViewController: UIScrollViewDelegate {
         vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
         vc.collectionView?.scrollIndicatorInsets = vc.collectionView!.contentInset
         scrollView.addSubview(vc.view)
+        
+        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -195,6 +207,14 @@ extension ContainerViewController: UIScrollViewDelegate {
         let scale = (CGFloat(buttonCount - 1) * screenWidth) / (screenWidth - buttonW)
         let offsetX = scrollView.contentOffset.x
         topIndicater.center.x = offsetX / scale + (buttonW * 0.5)
+       
+        print(abs(offsetX - containerScrollerOffsetX))
+        
+        //如果滚动超过屏幕三分之一
+        if abs(offsetX - containerScrollerOffsetX) > screenWidth * 0.3 {
+             NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: nil, userInfo: nil)
+        }
+        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

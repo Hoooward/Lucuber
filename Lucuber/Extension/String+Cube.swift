@@ -62,7 +62,6 @@ extension String {
             let regular = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.init(rawValue: 0))
             let checkingResult = regular.matchesInString(self, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: self.characters.count))
             for _ in checkingResult {
-//                attributeText.addAttributes([NSForegroundColorAttributeName: UIColor.cubeTintColor()], range: result.range)
             }
         } catch {
             print("设置括弧颜色失败")
@@ -74,9 +73,14 @@ extension String {
 
 
 extension String {
+    ///整理字符串的方式
     enum TrimmingType {
+        ///去除两端空格
         case Whitespace
+        ///去除换行和两端空格
         case WhitespaceAndNewLine
+        ///去除所有空格
+        case SquashingWhiteSpace
     }
     
     func trimming(trimmingType: TrimmingType) -> String {
@@ -85,9 +89,15 @@ extension String {
             return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         case .WhitespaceAndNewLine:
             return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        case .SquashingWhiteSpace:
+            let components = componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                .filter { !$0.isEmpty
+            }
+            return components.joinWithSeparator("")
         }
     }
 }
+
 
 
 
