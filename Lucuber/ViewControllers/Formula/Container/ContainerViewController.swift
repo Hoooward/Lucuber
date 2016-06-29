@@ -53,13 +53,11 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-//          navigationController?.setNavigationBarHidden(true, animated: true)
     }
  
     private func makeUI() {
         addChileViewController()
         addTopControl()
-//        addAddButton()
         setupScrollerView()
         setupNavigationbar()
     }
@@ -83,7 +81,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     func setupNavigationbar() {
         let titleView = UILabel()
         titleView.text = "复原大法"
-//        titleView.font = UIFont(name: "AvenirNext-Heavy", size: 19)
         titleView.textColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0 )
         titleView.sizeToFit()
         navigationItem.titleView = titleView
@@ -105,12 +102,12 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     private func addChileViewController() {
         
-        let layout1 = NormalCollectionViewLayout()
-        let myFormulaVC = MyFormulaViewController(collectionViewLayout: layout1)
+        let myFormulaLayout = FormulaCollectionLayout()
+        let myFormulaVC = MyFormulaViewController(collectionViewLayout: myFormulaLayout)
         myFormulaVC.title = "我的公式"
         addChildViewController(myFormulaVC)
-           let layout2 = CardCollectionViewLayout()
-        let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: layout2)
+           let libraryLayout = FormulaCollectionLayout()
+        let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: libraryLayout)
         formulaLibraryVC.title = "公式库"
         addChildViewController(formulaLibraryVC)
     }

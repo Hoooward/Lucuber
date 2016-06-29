@@ -125,8 +125,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBarActive = true
         collectionView?.reloadData()
     }
-
-
 }
 
 // MARK - CollectionView Delegate

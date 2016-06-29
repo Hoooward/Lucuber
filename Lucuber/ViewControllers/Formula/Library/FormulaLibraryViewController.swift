@@ -9,29 +9,10 @@
 import UIKit
 
 class FormulaLibraryViewController: BaseCollectionViewController {
-
-//    let cardLayout = CardCollectionViewLayout()
-//    let normalLayout = NormalCollectionViewLayout()
    
     
-      let refreshControl = UIRefreshControl()
-//    override var userMode: FormulaUserMode {
-//        didSet {
-//            var currentLayout = collectionViewLayout
-//            if collectionView?.collectionViewLayout == cardLayout  {
-//                currentLayout = normalLayout
-//            } else {
-//                currentLayout = cardLayout
-//            }
-//            UIView.animateWithDuration(0.3, animations: {
-//                self.collectionView?.reloadData()
-//                self.collectionView?.setCollectionViewLayout(currentLayout, animated: true)
-//                
-//            })
-//        }
-//    }
+    let refreshControl = UIRefreshControl()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Card
