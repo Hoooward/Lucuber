@@ -59,34 +59,21 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     
     private func makeUI() {
-        collectionView!.backgroundColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0 )
+        collectionView!.backgroundColor = UIColor.whiteColor()
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
         collectionView?.registerNib(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
-        print("view = \(self.view)")
-        print("collectionView = \(self.collectionView)")
         view.addSubview(searchBar)
     }
     
     private var searchBarFrameY: CGFloat = 64 + topControlHeight + 5
-    lazy var searchBar: UISearchBar = {
+    lazy var searchBar: FormulaSearchBar = {
         [weak self] in
-        let searchBar = UISearchBar()
-        searchBar.frame = CGRect(x: 0, y: self!.searchBarFrameY , width: screenWidth, height: 44)
-        searchBar.searchBarStyle = .Minimal
-        searchBar.tintColor = UIColor.cubeTintColor()
-        searchBar.barTintColor = UIColor.cubeInputTextColor()
+        let rect = CGRect(x: 0, y: self!.searchBarFrameY , width: screenWidth, height: 44)
+        let searchBar = FormulaSearchBar(frame: rect)
         searchBar.delegate = self
-        searchBar.placeholder = "搜索"
-        searchBar.showsCancelButton = true
-        for subView in searchBar.subviews[0].subviews {
-            print(subView)
-            if subView.isKindOfClass(UIButton.classForCoder()) {
-                let cancelButton = subView as! UIButton
-                cancelButton.setTitle("取消", forState: .Normal)
-            }
-        }
+       
         self!.collectionView?.addObserver(self!, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
         return searchBar
     }()
@@ -114,25 +101,19 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     func cancelSearch() {
         searchResult.removeAll()
         searchBar.resignFirstResponder()
+        searchBar.dismissCancelButton()
         searchBar.text = ""
         searchBarActive = false
         collectionView?.reloadData()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.characters.count > 0 {
-            searchBarActive = true
-            searchResult =  formulaManager.searchFormulasWithSearchText(searchText)
-        } else {
-            searchBarActive = false
+        if searchText.characters.count == 0 {
+            searchResult.removeAll()
         }
+        searchBarActive = true
+        searchResult = formulaManager.searchFormulasWithSearchText(searchText)
         collectionView?.reloadData()
-    }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if searchResult.count > 0 {
-            searchBar.resignFirstResponder()
-        }
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -140,12 +121,12 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        (searchBar as! FormulaSearchBar).showCancelButton()
         searchBarActive = true
-       
+        collectionView?.reloadData()
     }
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        searchBarActive = false
-    }
+
+
 }
 
 // MARK - CollectionView Delegate

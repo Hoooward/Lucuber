@@ -9,27 +9,27 @@
 import UIKit
 
 class MyFormulaViewController: BaseCollectionViewController {
-
-    let cardLayout = CardCollectionViewLayout()
-    let normalLayout = NormalCollectionViewLayout()
+//
+//    let cardLayout = CardCollectionViewLayout()
+//    let normalLayout = NormalCollectionViewLayout()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Normal
     }
     
-    override var userMode: FormulaUserMode {
-        didSet {
-            var currentLayout = collectionViewLayout
-            if collectionView?.collectionViewLayout == cardLayout  {
-                currentLayout = normalLayout
-            } else {
-                currentLayout = cardLayout
-            }
-            self.collectionView?.reloadData()
-   
-        }
-    }
+//    override var userMode: FormulaUserMode {
+//        didSet {
+//            var currentLayout = collectionViewLayout
+//            if collectionView?.collectionViewLayout == cardLayout  {
+//                currentLayout = normalLayout
+//            } else {
+//                currentLayout = cardLayout
+//            }
+//            self.collectionView?.reloadData()
+//   
+//        }
+//    }
     
    
     

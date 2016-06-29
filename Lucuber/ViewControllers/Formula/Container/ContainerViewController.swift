@@ -179,10 +179,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 
 extension ContainerViewController: UIScrollViewDelegate {
     
-    func postDidScrollNotification() {
-       
-    }
-    
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
          containerScrollerOffsetX = scrollView.contentOffset.x
         
@@ -197,7 +193,6 @@ extension ContainerViewController: UIScrollViewDelegate {
         vc.collectionView?.scrollIndicatorInsets = vc.collectionView!.contentInset
         scrollView.addSubview(vc.view)
         
-        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -208,8 +203,6 @@ extension ContainerViewController: UIScrollViewDelegate {
         let offsetX = scrollView.contentOffset.x
         topIndicater.center.x = offsetX / scale + (buttonW * 0.5)
        
-        print(abs(offsetX - containerScrollerOffsetX))
-        
         //如果滚动超过屏幕三分之一
         if abs(offsetX - containerScrollerOffsetX) > screenWidth * 0.3 {
              NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: nil, userInfo: nil)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */; };
 		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
 		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
 		895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */; };
@@ -76,6 +77,7 @@
 /* Begin PBXFileReference section */
 		139A8A82B76C8BB58031F287 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSearchBar.swift; sourceTree = "<group>"; };
 		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
 		895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 				33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8906AB6C1D241D36007D44D7 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		892316CD1D23B6C4006BCCE7 /* NoResult */ = {
@@ -364,6 +374,7 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8906AB6C1D241D36007D44D7 /* SearchBar */,
 				892316CD1D23B6C4006BCCE7 /* NoResult */,
 				895D10E61D21166A00CEF7FA /* Comment */,
 				89E6C5E01D03F0D3005ACFB9 /* Formula */,
@@ -614,6 +625,7 @@
 				89E663891D03F95B00E90926 /* DetailSubCollectionView.swift in Sources */,
 				89E6637F1D03F18200E90926 /* FormulaCollectionLayout.swift in Sources */,
 				89E663821D03F18200E90926 /* MyFormulaViewController.swift in Sources */,
+				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89E663841D03F18200E90926 /* MainTabbarController.swift in Sources */,
 				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,
