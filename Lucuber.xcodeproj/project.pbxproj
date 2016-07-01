@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */; };
+		8906AB721D256641007D44D7 /* TypeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB711D256641007D44D7 /* TypeMenuViewController.swift */; };
+		8906AB741D256777007D44D7 /* PopMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB731D256777007D44D7 /* PopMenuAnimator.swift */; };
+		8906AB761D256870007D44D7 /* PopMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */; };
+		8906AB781D260355007D44D7 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB771D260355007D44D7 /* Animation.swift */; };
 		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
 		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
 		895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */; };
@@ -78,6 +82,10 @@
 		139A8A82B76C8BB58031F287 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSearchBar.swift; sourceTree = "<group>"; };
+		8906AB711D256641007D44D7 /* TypeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeMenuViewController.swift; sourceTree = "<group>"; };
+		8906AB731D256777007D44D7 /* PopMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuAnimator.swift; sourceTree = "<group>"; };
+		8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuPresentationController.swift; sourceTree = "<group>"; };
+		8906AB771D260355007D44D7 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
 		895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +194,16 @@
 			path = SearchBar;
 			sourceTree = "<group>";
 		};
+		8906AB701D256627007D44D7 /* TypeMenu */ = {
+			isa = PBXGroup;
+			children = (
+				8906AB711D256641007D44D7 /* TypeMenuViewController.swift */,
+				8906AB731D256777007D44D7 /* PopMenuAnimator.swift */,
+				8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */,
+			);
+			path = TypeMenu;
+			sourceTree = "<group>";
+		};
 		892316CD1D23B6C4006BCCE7 /* NoResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +276,7 @@
 				89EEDCA01D0201E9007257C3 /* testData.swift */,
 				89EEDCB01D02A3ED007257C3 /* Formulas.json */,
 				89EEDCA61D0297D7007257C3 /* CreatJSON.swift */,
+				8906AB771D260355007D44D7 /* Animation.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -277,6 +296,7 @@
 		89E663611D03F18200E90926 /* Formula */ = {
 			isa = PBXGroup;
 			children = (
+				8906AB701D256627007D44D7 /* TypeMenu */,
 				89E663661D03F18200E90926 /* Container */,
 				89E663621D03F18200E90926 /* BaseController+Layout */,
 				89E6636F1D03F18200E90926 /* My */,
@@ -623,9 +643,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8906AB741D256777007D44D7 /* PopMenuAnimator.swift in Sources */,
 				89E663891D03F95B00E90926 /* DetailSubCollectionView.swift in Sources */,
+				8906AB761D256870007D44D7 /* PopMenuPresentationController.swift in Sources */,
 				89E6637F1D03F18200E90926 /* FormulaCollectionLayout.swift in Sources */,
 				89E663821D03F18200E90926 /* MyFormulaViewController.swift in Sources */,
+				8906AB721D256641007D44D7 /* TypeMenuViewController.swift in Sources */,
 				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89E663841D03F18200E90926 /* MainTabbarController.swift in Sources */,
 				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,
@@ -646,6 +669,7 @@
 				89E6637E1D03F18200E90926 /* ShowFormulaDetailController.swift in Sources */,
 				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* ShowDetailCell.swift in Sources */,
+				8906AB781D260355007D44D7 /* Animation.swift in Sources */,
 				895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,

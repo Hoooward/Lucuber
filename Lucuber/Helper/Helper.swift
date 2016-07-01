@@ -21,6 +21,7 @@ let screenBounds = UIScreen.mainScreen().bounds
 // MARK：- NotificationName
 let DetailCellShowCommentNotification = "DetailCellShowCommentNotification"
 let ContainerDidScrollerNotification = "ContainerDidScrollerNotification"
+let FormulaTypePopMenuDismissNotification = "FormulaTypePopMenuDismissNotification"
 /**
  * 自定义 print 用于 Debug， 利用 #file #function #line 来分别输出
  * 文件名 函数名 行号

@@ -95,9 +95,20 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
         childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
     }
+    
+    private lazy var menuAnimator: PopMenuAnimator = {
+        let animator = PopMenuAnimator()
+        //指定出现视图的Rect
+        return animator
+    }()
+    
     func rightBarButtonClick(button: UIBarButtonItem) {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier("TypeMenuViewController")
+        vc.transitioningDelegate = menuAnimator
+        vc.modalPresentationStyle = UIModalPresentationStyle.Custom
+        presentViewController(vc, animated: true, completion: nil)
         
-        print(#function)
     }
     
     private func addChileViewController() {
