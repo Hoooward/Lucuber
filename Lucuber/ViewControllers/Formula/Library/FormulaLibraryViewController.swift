@@ -14,7 +14,7 @@ class FormulaLibraryViewController: BaseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        userMode = .Card
+        userMode = FormulaUserMode.Normal
         
         print("libraryData = \(formulasData)" )
         

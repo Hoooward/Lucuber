@@ -15,7 +15,7 @@ class MyFormulaViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userMode = .Normal
+        userMode = FormulaUserMode.Card
         
         let formula = Formula()
         formulasData.append([formula])
