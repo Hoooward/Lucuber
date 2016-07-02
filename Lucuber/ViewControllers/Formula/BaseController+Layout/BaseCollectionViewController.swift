@@ -34,9 +34,12 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     var haveSearchResult: Bool {
         return searchResult.count > 0
     }
+    ///用来缓存进入搜索模式时当前的UserMode
+    var cacheBeforeSearchUserMode: FormulaUserMode = .Card
     
     var userMode: FormulaUserMode = .Card {
         didSet {
+            
             switch userMode {
             case .Card:
                 view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
@@ -113,6 +116,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBar.dismissCancelButton()
         searchBar.text = ""
         searchBarActive = false
+        userMode = cacheBeforeSearchUserMode
         collectionView?.reloadData()
     }
     
@@ -127,11 +131,14 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         cancelSearch()
+        
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         (searchBar as! FormulaSearchBar).showCancelButton()
         searchBarActive = true
+        cacheBeforeSearchUserMode = userMode
+        if cacheBeforeSearchUserMode != .Normal { userMode = .Normal }
         collectionView?.reloadData()
     }
 }
