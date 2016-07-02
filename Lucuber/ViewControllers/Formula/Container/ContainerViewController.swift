@@ -85,12 +85,14 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         titleView.sizeToFit()
         navigationItem.titleView = titleView
         
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "布局", style: .Plain, target: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithCustomButton(UIImage(named: "icon_list"), seletedImage: UIImage(named: "icon_minicard"), targer: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
+//        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "布局", style: .Plain, target: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分类 ▾", style: .Plain, target: self, action: #selector(ContainerViewController.rightBarButtonClick(_:)))
     }
     
     func leftBarButtonClick(button: UIButton) {
+        button.selected = !button.selected
         let index = containerScrollerView.contentOffset.x / screenWidth
         let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
         childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
