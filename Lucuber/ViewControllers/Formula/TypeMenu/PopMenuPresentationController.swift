@@ -14,7 +14,7 @@ class PopMenuPresentationController: UIPresentationController {
     
     override func containerViewWillLayoutSubviews() {
         if presentedFrame == CGRectZero {
-            presentedView()?.frame = CGRect(x: screenWidth - 200 - 10, y: 60, width: 200, height: 250)
+            presentedView()?.frame = CGRect(x: screenWidth - 150 - 10, y: 60, width: 150, height: 250)
         } else {
             presentedView()?.frame = presentedFrame
         }
@@ -29,7 +29,6 @@ class PopMenuPresentationController: UIPresentationController {
         maskView.addGestureRecognizer(tap)
         return maskView
     }()
-    
 
     func dismissPresentedViewController() {
         presentedViewController.dismissViewControllerAnimated(true, completion: nil)

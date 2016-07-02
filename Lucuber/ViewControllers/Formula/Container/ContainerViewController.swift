@@ -194,11 +194,11 @@ extension ContainerViewController: UIScrollViewDelegate {
         let vc = childViewControllers[index] as! UICollectionViewController
         vc.view.frame = CGRect(x: CGFloat(index) * screenWidth, y: 0, width: screenWidth, height: screenHeight)
         
-        let topEdge = 64 + topControl.height
+        let topEdge = 64 + topControl.height + 44
         let bottomEdge: CGFloat = 49
         
         vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
-        vc.collectionView?.scrollIndicatorInsets = vc.collectionView!.contentInset
+        vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         scrollView.addSubview(vc.view)
         
     }

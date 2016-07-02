@@ -19,6 +19,7 @@ class FormulaLibraryViewController: BaseCollectionViewController {
         refreshControl.addTarget(self, action: #selector(FormulaLibraryViewController.refreshFormula), forControlEvents: .ValueChanged)
         refreshControl.layer.zPosition = -1
         collectionView!.alwaysBounceVertical = true
+//        collectionView?.dataSource = self
         self.collectionView!.addSubview(refreshControl)
     }
     
@@ -49,4 +50,27 @@ class FormulaLibraryViewController: BaseCollectionViewController {
 //        self.refreshControl.beginRefreshing()
         
     }
+    
+
+
+
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

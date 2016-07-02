@@ -266,7 +266,7 @@
     </scenes>
     <resources>
         <image name="plus" width="44" height="44"/>
-        <image name="popover" width="340" height="133"/>
+        <image name="popover" width="49" height="32"/>
         <image name="qeihuan" width="44" height="44"/>
         <image name="tabbar_gongshi" width="30" height="30"/>
         <image name="tabbar_gongshi_sele" width="30" height="30"/>

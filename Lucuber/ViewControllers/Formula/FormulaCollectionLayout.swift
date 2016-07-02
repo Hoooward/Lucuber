@@ -22,6 +22,8 @@ class FormulaCollectionLayout: UICollectionViewFlowLayout {
                 sectionInset = UIEdgeInsetsZero
             }
         }
+        
+        headerReferenceSize = CGSize(width: screenWidth, height: 15)
     }
     
     /**

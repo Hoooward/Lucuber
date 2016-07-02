@@ -12,6 +12,7 @@ private let CardCellIdentifier = "CardFormulaCell"
 private let NormalCellIdentifier = "NormalFormulaCell"
 private let DetailCellIdentifier = "DetailFormulaCell"
 private let NoResultCellIdentifier = "NoResultCell"
+private let HeaderViewIdentifier = "HeaderReusableView"
 
 enum FormulaUserMode: Int {
     case Normal = 0
@@ -30,7 +31,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     var searchResult: [Formula] = []
     
     var searchBarActive = false
-    var haveSearchResult: Bool { return searchResult.count > 0 }
+    var haveSearchResult: Bool {
+        return searchResult.count > 0
+    }
     
     var userMode: FormulaUserMode = .Card {
         didSet {
@@ -56,6 +59,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.cancelSearch), name: ContainerDidScrollerNotification, object: nil)
         
+//        print(view)
     }
     
     private func makeUI() {
@@ -64,9 +68,13 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
         collectionView?.registerNib(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
+        
+        collectionView?.registerNib(UINib(nibName:HeaderViewIdentifier, bundle: nil ), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: HeaderViewIdentifier)
+        
         view.addSubview(searchBar)
     }
     
+//    private var searchBarFrameY: CGFloat = 0
     private var searchBarFrameY: CGFloat = 64 + topControlHeight + 5
     lazy var searchBar: FormulaSearchBar = {
         [weak self] in
@@ -88,7 +96,8 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath! == "contentOffset" {
             if let collectionView = object as? UICollectionView {
-                searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarFrameY + ((-1 * collectionView.contentOffset.y) - searchBarFrameY), width: searchBar.frame.width, height: searchBar.frame.height)
+                print(collectionView.contentOffset)
+                searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarFrameY + ((-1 * collectionView.contentOffset.y) - searchBarFrameY - searchBar.frame.size.height), width: searchBar.frame.width, height: searchBar.frame.height)
             }
         }
     }
@@ -129,6 +138,12 @@ extension BaseCollectionViewController: UISearchBarDelegate {
 
 // MARK - CollectionView Delegate
 extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        let reusableView = collectionView.dequeueReusableSupplementaryViewOfKind( UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, forIndexPath: indexPath) as! HeaderReusableView
+        return reusableView
+    }
+
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         if searchBarActive {
@@ -224,16 +239,19 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         
         switch userMode {
         case .Normal:
-            return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         case .Card:
-            return UIEdgeInsets(top: self.searchBar.frame.size.height, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
-        
+
     }
-    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print(#function)
         
         self.parentViewController!.performSegueWithIdentifier(SegueIdentifier.ShowFormulaDetail.rawValue, sender: indexPath)
     }
+    
+ 
+    
+
 }
