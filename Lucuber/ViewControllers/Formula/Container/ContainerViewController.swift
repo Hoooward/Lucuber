@@ -86,9 +86,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         navigationItem.titleView = titleView
         
         navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithCustomButton(UIImage(named: "icon_list"), seletedImage: UIImage(named: "icon_minicard"), targer: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
-//        
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "布局", style: .Plain, target: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分类 ▾", style: .Plain, target: self, action: #selector(ContainerViewController.rightBarButtonClick(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "三阶 ▾", style: .Plain, target: self, action: #selector(ContainerViewController.rightBarButtonClick(_:)))
     }
     
     func leftBarButtonClick(button: UIButton) {

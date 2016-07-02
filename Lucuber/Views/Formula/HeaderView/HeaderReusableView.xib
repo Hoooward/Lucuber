@@ -11,8 +11,8 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OLL-顶层复原 共52个" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhC-Lj-GMf" userLabel="Name Label">
-                    <rect key="frame" x="211" y="1" width="99" height="12"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                    <rect key="frame" x="230" y="2" width="80" height="10"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

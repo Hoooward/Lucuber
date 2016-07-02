@@ -27,7 +27,8 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
     }
     
-    var formulaManager = FormulaManager.shardManager()
+//    var formulaManager = FormulaManager.shardManager()
+    var fomrulasData = FormulaManager.shardManager().Alls
     var searchResult: [Formula] = []
     
     var searchBarActive = false
@@ -56,9 +57,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         super.viewDidLoad()
         makeUI()
         userMode = .Card
-        formulaManager.loadNewFormulas { [weak self] in
-            self?.collectionView?.reloadData()
-        }
+//        FormulaManager.shardManager().loadNewFormulas { [weak self] in
+//            self?.fomrulasData = FormulaManager.shardManager().Alls
+//            self?.collectionView?.reloadData()
+//        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.cancelSearch), name: ContainerDidScrollerNotification, object: nil)
         
@@ -125,7 +127,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
             searchResult.removeAll()
         }
         searchBarActive = true
-        searchResult = formulaManager.searchFormulasWithSearchText(searchText)
+        searchResult = FormulaManager.shardManager().searchFormulasWithSearchText(searchText)
         collectionView?.reloadData()
     }
     
@@ -156,7 +158,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         if searchBarActive {
             return 1
         }
-        return formulaManager.Alls.count
+        return fomrulasData.count
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -166,11 +168,11 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive {
                 return haveSearchResult ? searchResult.count : 1
             }
-            return formulaManager.OLLs.count
+            return fomrulasData[0].count
         case 1:
-            return formulaManager.PLLs.count
+            return fomrulasData[1].count
         case 2:
-            return formulaManager.F2Ls.count
+            return fomrulasData[2].count
         default:
             return 0
         }
@@ -202,12 +204,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive && haveSearchResult {
                 formula = searchResult[indexPath.item]
             } else {
-                formula = formulaManager.OLLs[indexPath.item]
+                formula = fomrulasData[0][indexPath.item]
             }
         case 1:
-            formula = formulaManager.PLLs[indexPath.item]
+            formula = fomrulasData[1][indexPath.item]
         case 2:
-            formula = formulaManager.F2Ls[indexPath.item]
+            formula = fomrulasData[2][indexPath.item]
         default:
             break
         }

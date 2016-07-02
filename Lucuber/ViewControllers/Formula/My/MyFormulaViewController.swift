@@ -11,6 +11,8 @@ import UIKit
 class MyFormulaViewController: BaseCollectionViewController {
 
 
+//    override var fomrulasData: [[Formula]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Normal
