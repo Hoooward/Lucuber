@@ -16,9 +16,10 @@ class FormulaLibraryViewController: BaseCollectionViewController {
         super.viewDidLoad()
         userMode = .Card
         
+        print("libraryData = \(formulasData)" )
         
         FormulaManager.shardManager().loadNewFormulas { [weak self] in
-            self?.fomrulasData = FormulaManager.shardManager().Alls
+            self?.formulasData = FormulaManager.shardManager().Alls
             self?.collectionView?.reloadData()
         }
   

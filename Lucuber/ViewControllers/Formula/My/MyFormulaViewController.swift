@@ -16,6 +16,11 @@ class MyFormulaViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = .Normal
+        
+        let formula = Formula()
+        formulasData.append([formula])
+        
+        print("myData = \(formulasData)")
     }
     
 

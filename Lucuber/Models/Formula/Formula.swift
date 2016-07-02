@@ -12,12 +12,15 @@ import SwiftyJSON
 class Formula:  CustomStringConvertible {
     var name: String = ""
     var formulaText = [String]()
-    var imageName: String = ""
+    var imageName: String = "placeholder"
     var level = 1
     var favorate = false
     var modifyDate = ""
     var category = Category.x3x3
     var type = Type.F2L
+    
+    init () {
+    }
     
     init(name: String, formula: [String], imageName: String, level: Int, favorate: Bool, modifyDate: String, category: Category, type: Type)
     {

@@ -28,7 +28,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     
 //    var formulaManager = FormulaManager.shardManager()
-    var fomrulasData = FormulaManager.shardManager().Alls
+    var formulasData: [[Formula]] = []
     var searchResult: [Formula] = []
     
     var searchBarActive = false
@@ -36,7 +36,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         return searchResult.count > 0
     }
     ///用来缓存进入搜索模式时当前的UserMode
-    var cacheBeforeSearchUserMode: FormulaUserMode = .Card
+    var cacheBeforeSearchUserMode: FormulaUserMode?
     
     var userMode: FormulaUserMode = .Card {
         didSet {
@@ -56,15 +56,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
-        userMode = .Card
-//        FormulaManager.shardManager().loadNewFormulas { [weak self] in
-//            self?.fomrulasData = FormulaManager.shardManager().Alls
-//            self?.collectionView?.reloadData()
-//        }
+
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.cancelSearch), name: ContainerDidScrollerNotification, object: nil)
         
-//        print(view)
     }
     
     private func makeUI() {
@@ -118,7 +113,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBar.dismissCancelButton()
         searchBar.text = ""
         searchBarActive = false
-        userMode = cacheBeforeSearchUserMode
+        if let _ = cacheBeforeSearchUserMode { userMode = cacheBeforeSearchUserMode! }
         collectionView?.reloadData()
     }
     
@@ -158,7 +153,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         if searchBarActive {
             return 1
         }
-        return fomrulasData.count
+        return formulasData.count
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -168,11 +163,11 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive {
                 return haveSearchResult ? searchResult.count : 1
             }
-            return fomrulasData[0].count
+            return formulasData[0].count
         case 1:
-            return fomrulasData[1].count
+            return formulasData[1].count
         case 2:
-            return fomrulasData[2].count
+            return formulasData[2].count
         default:
             return 0
         }
@@ -204,12 +199,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive && haveSearchResult {
                 formula = searchResult[indexPath.item]
             } else {
-                formula = fomrulasData[0][indexPath.item]
+                formula = formulasData[0][indexPath.item]
             }
         case 1:
-            formula = fomrulasData[1][indexPath.item]
+            formula = formulasData[1][indexPath.item]
         case 2:
-            formula = fomrulasData[2][indexPath.item]
+            formula = formulasData[2][indexPath.item]
         default:
             break
         }
@@ -227,7 +222,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             cell.formulaImageView.image = UIImage(named: formula.imageName)
         case .Card:
             let cell = cell as! CardFormulaCell
-            cell.formulaLabel.text = formula.formulaText.first!
+            cell.formulaLabel.text = formula.formulaText.first
             cell.formulaNameLabel.text = formula.name
             cell.formulaImageView.image = UIImage(named: formula.imageName)
         }
