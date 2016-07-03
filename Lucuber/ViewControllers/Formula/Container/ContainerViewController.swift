@@ -66,7 +66,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     private func addAddButton() {
         let button = UIButton(type: .Custom)
         button.setBackgroundImage(UIImage(named: "addButton_backgroundImage"), forState: .Normal)
-        button.size = CGSize(width: 40, height: 40)
+        button.size = CGSize(width: 30, height: 30)
         buttonWindow.bounds = button.bounds
         buttonWindow.x = screenWidth - buttonWindow.width - 20
         buttonWindow.y = screenHeight - 49 - buttonWindow.height - 20
@@ -85,7 +85,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         titleView.sizeToFit()
         navigationItem.titleView = titleView
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithCustomButton(UIImage(named: "icon_list"), seletedImage: UIImage(named: "icon_minicard"), targer: self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem.creatLayoutButtonItem(self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
+     
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "三阶 ▾", style: .Plain, target: self, action: #selector(ContainerViewController.rightBarButtonClick(_:)))
     }
     
@@ -188,7 +189,11 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 extension ContainerViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        
+//        if containerScrollerOffsetX == 0 {
+        
          containerScrollerOffsetX = scrollView.contentOffset.x
+//        }
         
         let index = Int(scrollView.contentOffset.x / screenWidth)
         let vc = childViewControllers[index] as! UICollectionViewController
@@ -201,6 +206,7 @@ extension ContainerViewController: UIScrollViewDelegate {
         vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         scrollView.addSubview(vc.view)
         
+        NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: containerScrollerOffsetX, userInfo: nil)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -213,7 +219,7 @@ extension ContainerViewController: UIScrollViewDelegate {
        
         //如果滚动超过屏幕三分之一
         if abs(offsetX - containerScrollerOffsetX) > screenWidth * 0.3 {
-             NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: nil, userInfo: nil)
+//             NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: nil, userInfo: nil)
         }
         
     }
@@ -235,35 +241,3 @@ extension ContainerViewController: UIScrollViewDelegate {
         topControlBtnClick(tageter)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

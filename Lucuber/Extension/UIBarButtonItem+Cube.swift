@@ -18,4 +18,10 @@ extension UIBarButtonItem {
         button.addTarget(targer, action: action, forControlEvents: .TouchUpInside)
         return UIBarButtonItem(customView: button)
     }
+    
+    class func creatLayoutButtonItem(targer: AnyObject, action: Selector) -> UIBarButtonItem {
+        let button = LayoutButton()
+        button.addTarget(targer, action: action , forControlEvents: .TouchUpInside)
+        return UIBarButtonItem(customView: button)
+    }
 }

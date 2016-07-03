@@ -16,41 +16,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMu-CX-8XP">
-                                <rect key="frame" x="536" y="423" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Bjs-Hv-obt"/>
-                                    <constraint firstAttribute="width" constant="44" id="xXI-go-VYh"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="qeihuan"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWC-UZ-0Lw">
-                                <rect key="frame" x="536" y="487" width="44" height="44"/>
+                                <rect key="frame" x="540" y="491" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="SUr-jt-XR1"/>
-                                    <constraint firstAttribute="height" constant="44" id="UnS-4v-0kq"/>
+                                    <constraint firstAttribute="width" constant="40" id="SUr-jt-XR1"/>
+                                    <constraint firstAttribute="height" constant="40" id="UnS-4v-0kq"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="Uz3-W5-ytE"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="yYX-Ze-mpy"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="plus"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Uz3-W5-ytE"/>
+                                        <exclude reference="yYX-Ze-mpy"/>
+                                    </mask>
+                                </variation>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JMu-CX-8XP" secondAttribute="trailing" constant="20" id="c5f-c5-j3u"/>
-                            <constraint firstItem="VWC-UZ-0Lw" firstAttribute="top" secondItem="JMu-CX-8XP" secondAttribute="bottom" constant="20" id="gJb-i9-3M9"/>
                             <constraint firstAttribute="trailing" secondItem="VWC-UZ-0Lw" secondAttribute="trailing" constant="20" id="nra-lh-GmZ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="VWC-UZ-0Lw" secondAttribute="bottom" constant="20" id="xSt-Dq-v7G"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Lucuber" id="kRo-ZO-BI0"/>
                     <connections>
-                        <outlet property="layoutButton" destination="JMu-CX-8XP" id="Abf-zc-tYm"/>
                         <outlet property="plusButton" destination="VWC-UZ-0Lw" id="I0K-ua-Yvs"/>
                         <segue destination="qqZ-zW-SI9" kind="show" identifier="ShowFormulaDetailSegue" id="UVU-Cy-MPP"/>
                     </connections>
@@ -267,7 +257,6 @@
     <resources>
         <image name="plus" width="44" height="44"/>
         <image name="popover" width="49" height="32"/>
-        <image name="qeihuan" width="44" height="44"/>
         <image name="tabbar_gongshi" width="30" height="30"/>
         <image name="tabbar_gongshi_sele" width="30" height="30"/>
         <image name="tabbar_result" width="30" height="27"/>

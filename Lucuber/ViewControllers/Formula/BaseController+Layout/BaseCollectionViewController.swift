@@ -58,8 +58,30 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         makeUI()
 
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.cancelSearch), name: ContainerDidScrollerNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.containerFormulaViewDidChanged(_:)), name: ContainerDidScrollerNotification, object: nil)
         
+    }
+    
+    func containerFormulaViewDidChanged(notification: NSNotification) {
+        let offsetX = notification.object as! CGFloat
+        func updateLeftNavigationBarButtonStatus() {
+            if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
+                layoutButton.userMode = userMode
+            }
+        }
+        //代表进入第二个集合视图
+        if offsetX == screenWidth && self.isKindOfClass(FormulaLibraryViewController) {
+            print("我是第二个视图")
+            updateLeftNavigationBarButtonStatus()
+        }
+        
+        //代表进入第一个集合视图
+        if offsetX == 0 && self.isKindOfClass(MyFormulaViewController) {
+            print("我是第一个视图")
+            updateLeftNavigationBarButtonStatus()
+        }
+        
+        cancelSearch()
     }
     
     private func makeUI() {
@@ -96,7 +118,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath! == "contentOffset" {
             if let collectionView = object as? UICollectionView {
-                print(collectionView.contentOffset)
+//                print(collectionView.contentOffset)
                 searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarFrameY + ((-1 * collectionView.contentOffset.y) - searchBarFrameY - searchBar.frame.size.height), width: searchBar.frame.width, height: searchBar.frame.height)
             }
         }
@@ -108,6 +130,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 extension BaseCollectionViewController: UISearchBarDelegate {
     
     func cancelSearch() {
+        test()
         searchResult.removeAll()
         searchBar.resignFirstResponder()
         searchBar.dismissCancelButton()
@@ -115,6 +138,13 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBarActive = false
         if let _ = cacheBeforeSearchUserMode { userMode = cacheBeforeSearchUserMode! }
         collectionView?.reloadData()
+    }
+    
+    func test() {
+//        print(parentViewController?.navigationItem.leftBarButtonItem?.customView)
+        if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
+           layoutButton.userMode = userMode
+        }
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

@@ -29,6 +29,7 @@ class FormulaLibraryViewController: BaseCollectionViewController {
         self.collectionView!.addSubview(refreshControl)
     }
     
+    
 
     func refreshFormula() {
         let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/Z4qcIcQinEQBBSHIuzqwLEE.json")
