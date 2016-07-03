@@ -23,6 +23,15 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // ref http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7
     
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: layout)
+        view.addSubview(searchBar)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     enum SegueIdentifier: String{
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
     }
@@ -48,6 +57,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 view.backgroundColor = UIColor.whiteColor()
             }
             
+//           changeLayoutButtonStatus()
             collectionView?.reloadData()
         }
     }
@@ -62,29 +72,34 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
     }
     
+    func changeLayoutButtonStatus() {
+        if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
+            layoutButton.userMode = userMode
+        }
+    }
     func containerFormulaViewDidChanged(notification: NSNotification) {
-        let offsetX = notification.object as! CGFloat
-        func updateLeftNavigationBarButtonStatus() {
-            if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
-                layoutButton.userMode = userMode
+        func updateLeftNavigationBarButtonStatus(offsetX: CGFloat) {
+            //代表进入第二个集合视图
+            if offsetX == screenWidth && self.isKindOfClass(FormulaLibraryViewController) {
+                print("我是第二个视图")
+                changeLayoutButtonStatus()
+                cancelSearch()
+            }
+            //代表进入第一个集合视图
+            if offsetX == 0 && self.isKindOfClass(MyFormulaViewController) {
+                print("我是第一个视图")
+                changeLayoutButtonStatus()
+                cancelSearch()
             }
         }
-        //代表进入第二个集合视图
-        if offsetX == screenWidth && self.isKindOfClass(FormulaLibraryViewController) {
-            print("我是第二个视图")
-            updateLeftNavigationBarButtonStatus()
+        if let offsetX = notification.object as? CGFloat {
+            updateLeftNavigationBarButtonStatus(offsetX)
         }
-        
-        //代表进入第一个集合视图
-        if offsetX == 0 && self.isKindOfClass(MyFormulaViewController) {
-            print("我是第一个视图")
-            updateLeftNavigationBarButtonStatus()
-        }
-        
-        cancelSearch()
     }
     
+    
     private func makeUI() {
+//        view.addSubview(searchBar)
         collectionView!.backgroundColor = UIColor.whiteColor()
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
@@ -93,7 +108,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
         collectionView?.registerNib(UINib(nibName:HeaderViewIdentifier, bundle: nil ), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: HeaderViewIdentifier)
         
-        view.addSubview(searchBar)
     }
     
 //    private var searchBarFrameY: CGFloat = 0
