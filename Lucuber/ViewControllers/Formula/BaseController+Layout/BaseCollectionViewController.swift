@@ -65,10 +65,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
-
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.containerFormulaViewDidChanged(_:)), name: ContainerDidScrollerNotification, object: nil)
-        
     }
     
     func changeLayoutButtonSeletedStatus() {
@@ -82,7 +79,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             layoutButton.enabled = enable
         }
     }
-    
     
     func containerFormulaViewDidChanged(notification: NSNotification) {
         if let offsetX = notification.object as? CGFloat {
@@ -99,7 +95,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             cancelSearch()
         }
     }
-    
     
     private func makeUI() {
 //        view.addSubview(searchBar)
@@ -149,7 +144,10 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBar.dismissCancelButton()
         searchBar.text = ""
         searchBarActive = false
-        if let _ = cacheBeforeSearchUserMode { userMode = cacheBeforeSearchUserMode! }
+        if let _ = cacheBeforeSearchUserMode {
+            userMode = cacheBeforeSearchUserMode!
+            cacheBeforeSearchUserMode = nil
+        }
         changeLayoutButtonEnable(true)
         collectionView?.reloadData()
     }
@@ -164,6 +162,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+       
         cancelSearch()
         
     }

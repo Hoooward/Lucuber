@@ -95,6 +95,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         let index = containerScrollerView.contentOffset.x / screenWidth
         let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
         childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
+        print("childViewController = \(childViewController). userMode = \(childViewController.userMode)")
+        
     }
     
     private lazy var menuAnimator: PopMenuAnimator = {

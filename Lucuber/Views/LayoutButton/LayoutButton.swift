@@ -13,8 +13,14 @@ class LayoutButton: UIButton {
     var userMode: FormulaUserMode? {
         didSet {
             if let userMode = userMode {
+                switch userMode {
+                case .Normal:
+                    selected = false
+                case .Card:
+                    selected = true
+                }
 //                UIView.animateWithDuration(1.0) {
-                    self.selected = userMode == .Normal ? false : true
+//                    self.selected = userMode == .Normal ? false : true
 //                }
             }
             
