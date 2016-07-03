@@ -56,10 +56,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
  
     private func makeUI() {
+        setupNavigationbar()
         addChileViewController()
         addTopControl()
         setupScrollerView()
-        setupNavigationbar()
     }
     
     let buttonWindow = UIWindow()

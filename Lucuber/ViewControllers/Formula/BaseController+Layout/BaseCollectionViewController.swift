@@ -105,12 +105,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView!.registerNib(UINib(nibName: DetailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdentifier)
         collectionView?.registerNib(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
-        
         collectionView?.registerNib(UINib(nibName:HeaderViewIdentifier, bundle: nil ), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: HeaderViewIdentifier)
-        
     }
     
-//    private var searchBarFrameY: CGFloat = 0
     private var searchBarFrameY: CGFloat = 64 + topControlHeight + 5
     lazy var searchBar: FormulaSearchBar = {
         [weak self] in
@@ -144,7 +141,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 extension BaseCollectionViewController: UISearchBarDelegate {
     
     func cancelSearch() {
-        test()
         searchResult.removeAll()
         searchBar.resignFirstResponder()
         searchBar.dismissCancelButton()
@@ -152,13 +148,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBarActive = false
         if let _ = cacheBeforeSearchUserMode { userMode = cacheBeforeSearchUserMode! }
         collectionView?.reloadData()
-    }
-    
-    func test() {
-//        print(parentViewController?.navigationItem.leftBarButtonItem?.customView)
-        if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
-           layoutButton.userMode = userMode
-        }
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
