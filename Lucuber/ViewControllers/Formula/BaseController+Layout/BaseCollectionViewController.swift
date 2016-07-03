@@ -57,7 +57,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 view.backgroundColor = UIColor.whiteColor()
             }
             
-//           changeLayoutButtonStatus()
             collectionView?.reloadData()
         }
     }
@@ -72,28 +71,32 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
     }
     
-    func changeLayoutButtonStatus() {
+    func changeLayoutButtonSeletedStatus() {
         if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
             layoutButton.userMode = userMode
         }
     }
+    
+    func changeLayoutButtonEnable(enable: Bool) {
+        if let layoutButton = parentViewController?.navigationItem.leftBarButtonItem {
+            layoutButton.enabled = enable
+        }
+    }
+    
+    
     func containerFormulaViewDidChanged(notification: NSNotification) {
-        func updateLeftNavigationBarButtonStatus(offsetX: CGFloat) {
+        if let offsetX = notification.object as? CGFloat {
             //代表进入第二个集合视图
             if offsetX == screenWidth && self.isKindOfClass(FormulaLibraryViewController) {
                 print("我是第二个视图")
-                changeLayoutButtonStatus()
-                cancelSearch()
+                changeLayoutButtonSeletedStatus()
             }
             //代表进入第一个集合视图
             if offsetX == 0 && self.isKindOfClass(MyFormulaViewController) {
                 print("我是第一个视图")
-                changeLayoutButtonStatus()
-                cancelSearch()
+                changeLayoutButtonSeletedStatus()
             }
-        }
-        if let offsetX = notification.object as? CGFloat {
-            updateLeftNavigationBarButtonStatus(offsetX)
+            cancelSearch()
         }
     }
     
@@ -147,6 +150,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBarActive = false
         if let _ = cacheBeforeSearchUserMode { userMode = cacheBeforeSearchUserMode! }
+        changeLayoutButtonEnable(true)
         collectionView?.reloadData()
     }
     
@@ -169,6 +173,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBarActive = true
         cacheBeforeSearchUserMode = userMode
         if cacheBeforeSearchUserMode != .Normal { userMode = .Normal }
+        changeLayoutButtonEnable(false)
         collectionView?.reloadData()
     }
 }
