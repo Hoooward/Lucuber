@@ -83,7 +83,7 @@
                 <outlet property="formulaImageView" destination="Wkf-se-Vwb" id="Y7l-sS-VjU"/>
                 <outlet property="formulaNameLabel" destination="I3X-fG-QIE" id="gYK-OM-qAr"/>
             </connections>
-            <point key="canvasLocation" x="300.5" y="442"/>
+            <point key="canvasLocation" x="-23.5" y="432"/>
         </collectionViewCell>
     </objects>
     <resources>

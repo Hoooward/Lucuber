@@ -25,6 +25,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     enum SegueIdentifier: String{
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
+        case ShowAddFormula = "ShowAddFormulaSegue"
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -32,6 +33,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         case .ShowFormulaDetail:
             let vc = segue.destinationViewController as!ShowFormulaDetailController
             vc.parentSeleteIndexPath = sender as! NSIndexPath
+        case .ShowAddFormula:
             break
         }
         

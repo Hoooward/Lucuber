@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mhK-qj-jsZ">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--创建新公式-->
+        <scene sceneID="LSY-iO-smd">
+            <objects>
+                <viewController id="0Wh-1z-N1b" customClass="AddFormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7PR-xd-eku"/>
+                        <viewControllerLayoutGuide type="bottom" id="DOB-eq-kLI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bHU-JI-CXd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F0q-BK-lcV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="F0q-BK-lcV" firstAttribute="leading" secondItem="bHU-JI-CXd" secondAttribute="leading" id="F8P-tu-Ywv"/>
+                            <constraint firstAttribute="trailing" secondItem="F0q-BK-lcV" secondAttribute="trailing" id="hlZ-qu-2g1"/>
+                            <constraint firstItem="DOB-eq-kLI" firstAttribute="top" secondItem="F0q-BK-lcV" secondAttribute="bottom" id="mpZ-PA-fKG"/>
+                            <constraint firstItem="F0q-BK-lcV" firstAttribute="top" secondItem="bHU-JI-CXd" secondAttribute="top" id="vgI-Jo-D8e"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="创建新公式" id="bcK-Lq-4Qn">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="Zn9-lf-ccZ">
+                            <connections>
+                                <action selector="dismiss:" destination="0Wh-1z-N1b" id="kS3-sW-r27"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="保存" id="SF6-gf-h65"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="F0q-BK-lcV" id="GW0-O2-1EZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vyE-Xt-Uq2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="478.5" y="1904.5"/>
+        </scene>
+        <!--Add Formula View Controller-->
+        <scene sceneID="Krv-8E-IAu">
+            <objects>
+                <tableViewController id="WFo-9y-W44" customClass="AddFormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="278" sectionHeaderHeight="18" sectionFooterHeight="18" id="La0-8B-Te1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="278" id="vrL-wF-Phh">
+                                <rect key="frame" x="0.0" y="50" width="375" height="278"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vrL-wF-Phh" id="Ph5-we-LZC">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="277"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pU5-nR-JSw">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="277"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="WFo-9y-W44" id="24F-HO-Ve2"/>
+                            <outlet property="delegate" destination="WFo-9y-W44" id="Dx6-ku-Ez3"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ubW-3d-opK">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="esT-Wb-Ai8"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="保存" id="Dzy-sa-cOw"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Yl-V9-y3A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886.5" y="1904.5"/>
+        </scene>
+        <!--Main Navigation Controller-->
+        <scene sceneID="yLH-5p-FbK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mhK-qj-jsZ" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPe-3D-0P4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0Wh-1z-N1b" kind="relationship" relationship="rootViewController" id="i1N-lz-d56"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3SB-qr-Ghg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2.5" y="1904.5"/>
+        </scene>
+    </scenes>
+</document>
