@@ -35,55 +35,86 @@ class AddFormulaViewController: UITableViewController {
 
 extension AddFormulaViewController {
     
+    enum Section: Int {
+        case BaseInformation = 0
+        case Category
+        case Formulas
+        case Footer
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        switch section {
+        case .BaseInformation:
+            return 1
+        case .Category:
+            return categoryPickViewDismiss ? 1 : 2
+        default:
             return 1
         }
-        if section == 1 {
-            if categoryPickViewDismiss {
-                return 1
-            } else {
-                return 2
-            }
-        }
-        return 1
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .BaseInformation:
             let cell = tableView.dequeueReusableCellWithIdentifier(HeaderCellIdentifier, forIndexPath: indexPath)
             return cell
-            
-        }
-        
-        if indexPath.section == 1 {
+        case .Category:
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(ChannelCellIdentifier, forIndexPath: indexPath)
-                return cell
+                let categoryCell = tableView.dequeueReusableCellWithIdentifier(ChannelCellIdentifier, forIndexPath: indexPath)
+                
+                return categoryCell
             }
             if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(CategoryCellIdentifier, forIndexPath: indexPath)
-                return cell
+                let pickViewCell = tableView.dequeueReusableCellWithIdentifier(CategoryCellIdentifier, forIndexPath: indexPath)
+                return pickViewCell
             }
+            return UITableViewCell()
+        default:
+            return UITableViewCell()
         }
         
-        return UITableViewCell()
     }
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "基本信息"
+        guard let section = Section(rawValue: section) else {
+            fatalError()
         }
-        return "类型"
+        switch section {
+        case .BaseInformation:
+            return "基本信息"
+        case .Category:
+            return "类型"
+        default:
+            return ""
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 130
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
         }
-        return 44
+        
+        switch section {
+        case .BaseInformation:
+            return 130
+        case .Category:
+            if indexPath.row == 0 {
+                return 44
+            } else {
+                return 120
+            }
+        default:
+            return 44
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

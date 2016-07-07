@@ -26,16 +26,16 @@ class CategoryPickViewCell: UITableViewCell {
 extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 44
+        return 40
     }
     
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         if let view = view as? CubeCategoryItemView {
-            view.configureWithCategory("test")
+            view.configureWithCategory("三阶")
             return view
         } else {
             let view = CubeCategoryItemView()
-            view.configureWithCategory("test")
+            view.configureWithCategory("三阶")
             return view
         }
     }
