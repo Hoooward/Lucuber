@@ -141,24 +141,39 @@
                                     <outlet property="pickView" destination="oW9-cD-ICG" id="87t-fx-IPT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="68" id="506-4z-rom">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormulasTextTableViewCell" rowHeight="68" id="506-4z-rom" customClass="FormulasTextTableViewCell" customModule="Lucuber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="441" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="506-4z-rom" id="zfM-jR-SxA">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="180du" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-3S-5W2" userLabel="Icon Image View">
-                                            <rect key="frame" x="24" y="20" width="31" height="36"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="180du" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-3S-5W2" userLabel="Icon Image View">
+                                            <rect key="frame" x="20" y="19" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="Dlx-cp-VFS"/>
+                                                <constraint firstAttribute="height" constant="30" id="pXZ-mx-zN2"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjl-2y-imJ" userLabel="Name Label">
-                                            <rect key="frame" x="68" y="29" width="46" height="18"/>
-                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
-                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YZI-7P-rM9">
+                                            <rect key="frame" x="60" y="10" width="305" height="47"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="leading" secondItem="KLI-3S-5W2" secondAttribute="trailing" constant="10" id="A0b-Ds-D7H"/>
+                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="centerY" secondItem="zfM-jR-SxA" secondAttribute="centerY" id="Amq-6y-hAa"/>
+                                        <constraint firstAttribute="trailing" secondItem="YZI-7P-rM9" secondAttribute="trailing" constant="10" id="DaA-f6-yge"/>
+                                        <constraint firstItem="KLI-3S-5W2" firstAttribute="leading" secondItem="zfM-jR-SxA" secondAttribute="leading" constant="20" id="Tgw-z4-HVq"/>
+                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="top" secondItem="zfM-jR-SxA" secondAttribute="top" constant="10" id="elX-bG-O2C"/>
+                                        <constraint firstItem="KLI-3S-5W2" firstAttribute="centerY" secondItem="zfM-jR-SxA" secondAttribute="centerY" id="pfV-ns-Rhq"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textField" destination="YZI-7P-rM9" id="2Lv-wm-X46"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -171,8 +186,33 @@
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="保存" id="55I-Me-UQf"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="formulaSectionHeaderView" destination="ONY-5t-hgf" id="GSD-By-Hp7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohI-Cu-aqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="ONY-5t-hgf" customClass="FormulaSectionHeaderView" customModule="Lucuber" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="68"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8h-hv-ulu">
+                            <rect key="frame" x="195" y="19" width="30" height="30"/>
+                            <state key="normal" title="添加"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iR-aN-9N0">
+                            <rect key="frame" x="15" y="26" width="26" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="C8h-hv-ulu" firstAttribute="centerY" secondItem="ONY-5t-hgf" secondAttribute="centerY" id="GFl-0H-Axy"/>
+                        <constraint firstItem="7iR-aN-9N0" firstAttribute="centerY" secondItem="ONY-5t-hgf" secondAttribute="centerY" id="I8d-Lj-uje"/>
+                        <constraint firstAttribute="trailing" secondItem="C8h-hv-ulu" secondAttribute="trailing" constant="15" id="and-Ey-Mfl"/>
+                        <constraint firstItem="7iR-aN-9N0" firstAttribute="leading" secondItem="ONY-5t-hgf" secondAttribute="leading" constant="15" id="utD-d3-zSR"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="458.5" y="1904.5"/>
         </scene>

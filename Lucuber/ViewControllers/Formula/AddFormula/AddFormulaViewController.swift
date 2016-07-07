@@ -15,6 +15,7 @@ private let FormulasCellIdentifier = "FormulasTextTableViewCell"
 class AddFormulaViewController: UITableViewController {
 
     
+    @IBOutlet weak var formulaSectionHeaderView: FormulaSectionHeaderView!
     var formula = Formula()
     var formulas: [String] = []
     private var categoryPickViewDismiss = true
@@ -95,7 +96,8 @@ extension AddFormulaViewController {
                 return pickViewCell
             }
         case .Formulas:
-            let cell = tableView.dequeueReusableCellWithIdentifier(<#T##identifier: String##String#>, forIndexPath: <#T##NSIndexPath#>)
+            let cell = tableView.dequeueReusableCellWithIdentifier(FormulasCellIdentifier, forIndexPath: indexPath)
+            return cell
         default:
             return UITableViewCell()
         }
@@ -110,6 +112,8 @@ extension AddFormulaViewController {
             return "基本信息"
         case .Category:
             return "类型"
+        case .Formulas:
+            return "公式"
         default:
             return ""
         }
@@ -129,6 +133,8 @@ extension AddFormulaViewController {
             } else {
                 return 120
             }
+        case .Formulas:
+            return 60
         default:
             return 44
         }
@@ -142,6 +148,17 @@ extension AddFormulaViewController {
             }
             
             tableView.reloadData()
+        }
+    }
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        switch section {
+        case .Formulas:
+            return formulaSectionHeaderView
+        default:
+            return nil
         }
     }
 }
