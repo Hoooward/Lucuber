@@ -7,10 +7,13 @@
 //
 
 import UIKit
+private let HeaderCellIdentifier = "HeaderTableViewCell"
+private let ChannelCellIdentifier = "ChannelTableViewCell"
+private let CategoryCellIdentifier = "CategoryPickViewCell"
 
-class AddFormulaViewController: UIViewController {
+class AddFormulaViewController: UITableViewController {
 
-    @IBOutlet var tableView: UITableView!
+    private var categoryPickViewDismiss = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,11 +27,69 @@ class AddFormulaViewController: UIViewController {
     private func setupNavigationbar() {
         let titleView = UILabel()
         titleView.text = "创建新公式"
-//        titleView.textColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0 )
         titleView.sizeToFit()
         navigationItem.titleView = titleView
-        
     }
+    
+}
 
-
+extension AddFormulaViewController {
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        }
+        if section == 1 {
+            if categoryPickViewDismiss {
+                return 1
+            } else {
+                return 2
+            }
+        }
+        return 1
+    }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(HeaderCellIdentifier, forIndexPath: indexPath)
+            return cell
+            
+        }
+        
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(ChannelCellIdentifier, forIndexPath: indexPath)
+                return cell
+            }
+            if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(CategoryCellIdentifier, forIndexPath: indexPath)
+                return cell
+            }
+        }
+        
+        return UITableViewCell()
+    }
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "基本信息"
+        }
+        return "类型"
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 130
+        }
+        return 44
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 {
+            categoryPickViewDismiss = !categoryPickViewDismiss
+            tableView.reloadData()
+        }
+    }
 }
