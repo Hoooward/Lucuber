@@ -13,15 +13,16 @@ class ChannelTableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var channelBackgroundView: UIImageView!
     @IBOutlet var chanelTitleLabel: UILabel!
+    @IBOutlet var indicaterImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func bringUpPickViewStatus(pickViewisDismiss: Bool) {
+//        titleLabel.alpha = pickViewisDismiss ? 1 : 0
+        indicaterImageView.alpha = pickViewisDismiss ? 1 : 0
     }
 
 }

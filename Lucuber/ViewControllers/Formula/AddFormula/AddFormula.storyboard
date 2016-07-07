@@ -110,30 +110,55 @@
                                 <connections>
                                     <outlet property="chanelTitleLabel" destination="S9h-5D-NNq" id="Bch-fo-O1N"/>
                                     <outlet property="channelBackgroundView" destination="ea1-1L-6F7" id="jNL-1e-t9g"/>
+                                    <outlet property="indicaterImageView" destination="viy-tu-VBW" id="qE6-t5-tGf"/>
                                     <outlet property="titleLabel" destination="9ag-w6-45q" id="cjl-ys-9cP"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryPickViewCell" id="qcV-qA-zG6" customClass="CategoryPickViewCell" customModule="Lucuber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="305" width="375" height="131"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryPickViewCell" rowHeight="136" id="qcV-qA-zG6" customClass="CategoryPickViewCell" customModule="Lucuber" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="305" width="375" height="136"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qcV-qA-zG6" id="yF5-dB-BbE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="131"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW9-cD-ICG">
+                                        <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oW9-cD-ICG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="131"/>
                                         </pickerView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="feed_skill_channel_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="ZgN-Ip-YwZ">
+                                            <rect key="frame" x="350" y="57" width="10" height="18"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="oW9-cD-ICG" secondAttribute="trailing" id="FBC-ZL-MTU"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZgN-Ip-YwZ" secondAttribute="trailing" constant="15" id="RXF-7z-GoV"/>
                                         <constraint firstItem="oW9-cD-ICG" firstAttribute="leading" secondItem="yF5-dB-BbE" secondAttribute="leading" id="UsU-OR-tLf"/>
                                         <constraint firstAttribute="bottom" secondItem="oW9-cD-ICG" secondAttribute="bottom" id="ciX-hu-g6a"/>
+                                        <constraint firstItem="ZgN-Ip-YwZ" firstAttribute="centerY" secondItem="yF5-dB-BbE" secondAttribute="centerY" id="hR9-36-uGq"/>
                                         <constraint firstItem="oW9-cD-ICG" firstAttribute="top" secondItem="yF5-dB-BbE" secondAttribute="top" id="qc2-ln-lrr"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="pickView" destination="oW9-cD-ICG" id="87t-fx-IPT"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="68" id="506-4z-rom">
+                                <rect key="frame" x="0.0" y="441" width="375" height="68"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="506-4z-rom" id="zfM-jR-SxA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="180du" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-3S-5W2" userLabel="Icon Image View">
+                                            <rect key="frame" x="24" y="20" width="31" height="36"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjl-2y-imJ" userLabel="Name Label">
+                                            <rect key="frame" x="68" y="29" width="46" height="18"/>
+                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -242,6 +267,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="180du" width="60" height="50"/>
         <image name="Favorite" width="42" height="40"/>
         <image name="feed_skill_channel_arrow" width="10" height="18"/>
         <image name="placeholder" width="575" height="600"/>

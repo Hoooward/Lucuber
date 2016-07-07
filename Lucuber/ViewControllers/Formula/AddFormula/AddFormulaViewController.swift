@@ -10,14 +10,29 @@ import UIKit
 private let HeaderCellIdentifier = "HeaderTableViewCell"
 private let ChannelCellIdentifier = "ChannelTableViewCell"
 private let CategoryCellIdentifier = "CategoryPickViewCell"
+private let FormulasCellIdentifier = "FormulasTextTableViewCell"
 
 class AddFormulaViewController: UITableViewController {
 
+    
+    var formula = Formula()
+    var formulas: [String] = []
     private var categoryPickViewDismiss = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationbar()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddFormulaViewController.pickViewDidSeletedRow(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
+    }
+    
+    func pickViewDidSeletedRow(notification: NSNotification) {
+        print(":被选了")
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
 
     @IBAction func dismiss(sender: AnyObject) {
@@ -43,7 +58,7 @@ extension AddFormulaViewController {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,6 +70,8 @@ extension AddFormulaViewController {
             return 1
         case .Category:
             return categoryPickViewDismiss ? 1 : 2
+        case .Formulas:
+            return 1
         default:
             return 1
         }
@@ -73,12 +90,12 @@ extension AddFormulaViewController {
                 let categoryCell = tableView.dequeueReusableCellWithIdentifier(ChannelCellIdentifier, forIndexPath: indexPath)
                 
                 return categoryCell
-            }
-            if indexPath.row == 1 {
+            } else {
                 let pickViewCell = tableView.dequeueReusableCellWithIdentifier(CategoryCellIdentifier, forIndexPath: indexPath)
                 return pickViewCell
             }
-            return UITableViewCell()
+        case .Formulas:
+            let cell = tableView.dequeueReusableCellWithIdentifier(<#T##identifier: String##String#>, forIndexPath: <#T##NSIndexPath#>)
         default:
             return UITableViewCell()
         }
@@ -120,6 +137,10 @@ extension AddFormulaViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 {
             categoryPickViewDismiss = !categoryPickViewDismiss
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) as?ChannelTableViewCell {
+                cell.bringUpPickViewStatus(categoryPickViewDismiss)
+            }
+            
             tableView.reloadData()
         }
     }

@@ -48,4 +48,9 @@ extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
         return 10
     }
     
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("seleted")
+        NSNotificationCenter.defaultCenter().postNotificationName(CategotyPickViewDidSeletedRowNotification, object: nil, userInfo: nil)
+    }
+    
 }
