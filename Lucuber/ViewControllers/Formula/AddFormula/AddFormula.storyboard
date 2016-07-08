@@ -155,7 +155,7 @@
                                                 <constraint firstAttribute="height" constant="30" id="pXZ-mx-zN2"/>
                                             </constraints>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YZI-7P-rM9">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YZI-7P-rM9" customClass="FormulaTextView" customModule="Lucuber" customModuleProvider="target">
                                             <rect key="frame" x="60" y="10" width="305" height="47"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -172,7 +172,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="textField" destination="YZI-7P-rM9" id="2Lv-wm-X46"/>
+                                    <outlet property="textView" destination="YZI-7P-rM9" id="HhM-2y-gsh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -214,7 +214,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="458.5" y="1904.5"/>
+            <point key="canvasLocation" x="453.5" y="1904.5"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="4YA-QI-5Il">
@@ -223,7 +223,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Nkg-fi-m72">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="公式名称 - 推荐输入公式类型名称，如：F2L，OLL，PLL" id="M0U-eY-fAa">
                                 <cells>
