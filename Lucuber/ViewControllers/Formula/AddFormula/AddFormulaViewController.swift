@@ -61,7 +61,12 @@ class AddFormulaViewController: UITableViewController {
     
     ///公式输入自定义键盘控制器
     private lazy var formulaTextViewInputViewController: FormulaInputViewController = {
-        let viewController = FormulaInputViewController()
+        let viewController = FormulaInputViewController {
+            text in
+            if let text = text {
+               print(text)
+            }
+        }
         return viewController
     }()
     

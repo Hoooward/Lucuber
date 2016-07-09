@@ -14,6 +14,18 @@ class FormulaInputViewController: UIViewController {
     let keyButtonItemPackage = KeyButtonItemPackage.loadPackage()
     var KeyButtons: [KeyButton] = []
     
+    var keyButtonDidClickedCallBack: (text: String?) -> ()
+    
+    init(keyButtonCallBack: (text: String?) -> ()) {
+        keyButtonDidClickedCallBack = keyButtonCallBack
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(topKeyboard)
@@ -28,7 +40,6 @@ class FormulaInputViewController: UIViewController {
     }
     
     func keyButtonDidClick(button: KeyButton) {
-        print(button.titleLabel?.text)
         switch button.item!.type {
         case .Shift:
             button.selected = !button.selected
@@ -36,6 +47,8 @@ class FormulaInputViewController: UIViewController {
         default:
             break
         }
+        
+        keyButtonDidClickedCallBack(text: button.titleLabel?.text)
     }
     
     let buttonMargin: CGFloat = 10
