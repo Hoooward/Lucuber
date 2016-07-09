@@ -182,7 +182,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Okg-Lt-Jhh">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="DjZ-kc-U6Q"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="DjZ-kc-U6Q">
+                            <connections>
+                                <action selector="dismiss:" destination="OJS-0I-a4Y" id="NcJ-R8-rpd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="保存" id="55I-Me-UQf"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

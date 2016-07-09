@@ -25,6 +25,12 @@ class AddFormulaViewController: UITableViewController {
         setupNavigationbar()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddFormulaViewController.pickViewDidSeletedRow(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+    }
+    
+    func keyboardDidShow(notification: NSNotification) {
+        print(notification)
     }
     
     func pickViewDidSeletedRow(notification: NSNotification) {
@@ -33,7 +39,9 @@ class AddFormulaViewController: UITableViewController {
     }
     
     deinit {
+        print("\(self)被释放")
         NSNotificationCenter.defaultCenter().removeObserver(self, name: CategotyPickViewDidSeletedRowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
     }
 
     @IBAction func dismiss(sender: AnyObject) {
@@ -45,7 +53,16 @@ class AddFormulaViewController: UITableViewController {
         titleView.text = "创建新公式"
         titleView.sizeToFit()
         navigationItem.titleView = titleView
+        
+        
+        addChildViewController(formulaTextViewInputViewController)
     }
+    
+    ///公式输入自定义键盘控制器
+    private lazy var formulaTextViewInputViewController: FormulaInputViewController = {
+        let viewController = FormulaInputViewController()
+        return viewController
+    }()
     
 }
 
@@ -96,7 +113,11 @@ extension AddFormulaViewController {
                 return pickViewCell
             }
         case .Formulas:
-            let cell = tableView.dequeueReusableCellWithIdentifier(FormulasCellIdentifier, forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier(FormulasCellIdentifier, forIndexPath: indexPath) as! FormulasTextTableViewCell
+            // TODO: 添加自定义公式输入键盘
+            print(formulaTextViewInputViewController.view)
+            cell.textView.inputView = formulaTextViewInputViewController.view
+            print(cell.textView.inputView?.frame)
             return cell
         default:
             return UITableViewCell()
