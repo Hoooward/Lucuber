@@ -44,6 +44,8 @@
 		89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42A41D01981000E525D4 /* UIColor+Cube.swift */; };
 		89C1F5841D306E8500F79BAC /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5831D306E8500F79BAC /* FormulaTextView.swift */; };
 		89C1F5861D306EB100F79BAC /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5851D306EB100F79BAC /* FormulaInputViewController.swift */; };
+		89C1F5881D30AF7C00F79BAC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C1F5871D30AF7C00F79BAC /* Reveal.framework */; };
+		89C1F58A1D30C08900F79BAC /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */; };
 		89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C2EDB31D01A0E9009365BA /* Assets.xcassets */; };
 		89C2EDB71D01A387009365BA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDB61D01A387009365BA /* Helper.swift */; };
 		89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */; };
@@ -133,6 +135,8 @@
 		89BE42C71D019B4D00E525D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89C1F5831D306E8500F79BAC /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
 		89C1F5851D306EB100F79BAC /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
+		89C1F5871D30AF7C00F79BAC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		89C2EDB31D01A0E9009365BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C2EDB61D01A387009365BA /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89C1F5881D30AF7C00F79BAC /* Reveal.framework in Frameworks */,
 				89E6C4E61D03093F005ACFB9 /* CoreGraphics.framework in Frameworks */,
 				B405A77C7F06B60A60D8CC66 /* Pods_Lucuber.framework in Frameworks */,
 			);
@@ -359,6 +364,7 @@
 				89EEDCB01D02A3ED007257C3 /* Formulas.json */,
 				89EEDCA61D0297D7007257C3 /* CreatJSON.swift */,
 				8906AB771D260355007D44D7 /* Animation.swift */,
+				89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -553,6 +559,7 @@
 		89F58F0F1D01696300361474 = {
 			isa = PBXGroup;
 			children = (
+				89C1F5871D30AF7C00F79BAC /* Reveal.framework */,
 				89F58F1A1D01696400361474 /* Lucuber */,
 				89F58F191D01696300361474 /* Products */,
 				52488B029FABEBBBA6286169 /* Pods */,
@@ -661,6 +668,7 @@
 				89E663931D04039A00E90926 /* MasterCell.xib in Resources */,
 				89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */,
 				89E6C5F21D03F0D3005ACFB9 /* ShowDetailCell.xib in Resources */,
+				89C1F58A1D30C08900F79BAC /* FormulaKeyboard.plist in Resources */,
 				89E6C5EE1D03F0D3005ACFB9 /* DetailFormulaCell.xib in Resources */,
 				89E6C5F01D03F0D3005ACFB9 /* CardFormulaCell.xib in Resources */,
 				89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */,
@@ -922,6 +930,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Lucuber/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -938,6 +950,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Lucuber/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -56,6 +56,7 @@ class AddFormulaViewController: UITableViewController {
         
         
         addChildViewController(formulaTextViewInputViewController)
+        childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
     }
     
     ///公式输入自定义键盘控制器
