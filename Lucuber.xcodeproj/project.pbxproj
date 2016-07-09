@@ -43,9 +43,11 @@
 		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
 		89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42A41D01981000E525D4 /* UIColor+Cube.swift */; };
 		89C1F5841D306E8500F79BAC /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5831D306E8500F79BAC /* FormulaTextView.swift */; };
-		89C1F5861D306EB100F79BAC /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5851D306EB100F79BAC /* FormulaInputViewController.swift */; };
 		89C1F5881D30AF7C00F79BAC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C1F5871D30AF7C00F79BAC /* Reveal.framework */; };
 		89C1F58A1D30C08900F79BAC /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */; };
+		89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */; };
+		89C1F5911D30EBBC00F79BAC /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5901D30EBBC00F79BAC /* FormulaInputViewController.swift */; };
+		89C1F5931D30EBCF00F79BAC /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5921D30EBCF00F79BAC /* KeyButton.swift */; };
 		89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C2EDB31D01A0E9009365BA /* Assets.xcassets */; };
 		89C2EDB71D01A387009365BA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDB61D01A387009365BA /* Helper.swift */; };
 		89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */; };
@@ -134,9 +136,11 @@
 		89BE42A41D01981000E525D4 /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
 		89BE42C71D019B4D00E525D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89C1F5831D306E8500F79BAC /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
-		89C1F5851D306EB100F79BAC /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
 		89C1F5871D30AF7C00F79BAC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
+		89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButtonItem.swift; sourceTree = "<group>"; };
+		89C1F5901D30EBBC00F79BAC /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
+		89C1F5921D30EBCF00F79BAC /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
 		89C2EDB31D01A0E9009365BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C2EDB61D01A387009365BA /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
@@ -265,6 +269,7 @@
 		895D10ED1D21211100CEF7FA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				89C1F58B1D30EAE600F79BAC /* Keyboard */,
 				895D10F11D21213B00CEF7FA /* Comment */,
 				895D10EE1D21211100CEF7FA /* Formula */,
 			);
@@ -307,6 +312,7 @@
 		89A17BF21D2D1B9B0082B625 /* AddFormula */ = {
 			isa = PBXGroup;
 			children = (
+				89C1F58F1D30EBBC00F79BAC /* Keyboard */,
 				89C1F5821D306E7500F79BAC /* FormulaTextView */,
 				89A17BF31D2D1B9B0082B625 /* HeaderTableViewCell.swift */,
 				894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */,
@@ -351,9 +357,25 @@
 			isa = PBXGroup;
 			children = (
 				89C1F5831D306E8500F79BAC /* FormulaTextView.swift */,
-				89C1F5851D306EB100F79BAC /* FormulaInputViewController.swift */,
 			);
 			path = FormulaTextView;
+			sourceTree = "<group>";
+		};
+		89C1F58B1D30EAE600F79BAC /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		89C1F58F1D30EBBC00F79BAC /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				89C1F5921D30EBCF00F79BAC /* KeyButton.swift */,
+				89C1F5901D30EBBC00F79BAC /* FormulaInputViewController.swift */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		89C2EDB51D01A37C009365BA /* Helper */ = {
@@ -774,10 +796,11 @@
 				89E6C5F11D03F0D3005ACFB9 /* ShowDetailCell.swift in Sources */,
 				8906AB781D260355007D44D7 /* Animation.swift in Sources */,
 				895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */,
+				89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89A17BF91D2D1BEF0082B625 /* AddFormulaViewController.swift in Sources */,
-				89C1F5861D306EB100F79BAC /* FormulaInputViewController.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
+				89C1F5931D30EBCF00F79BAC /* KeyButton.swift in Sources */,
 				894E10AB1D2DDB8500480D11 /* CubeCategoryItemView.swift in Sources */,
 				89E6C5EF1D03F0D3005ACFB9 /* CardFormulaCell.swift in Sources */,
 				89E663921D04039A00E90926 /* MasterCell.swift in Sources */,
@@ -799,6 +822,7 @@
 				89E6639A1D040C2400E90926 /* FormulaCell.swift in Sources */,
 				89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */,
 				89E663961D04099A00E90926 /* SeparatorCell.swift in Sources */,
+				89C1F5911D30EBBC00F79BAC /* FormulaInputViewController.swift in Sources */,
 				895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
