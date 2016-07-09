@@ -115,10 +115,7 @@ extension AddFormulaViewController {
             }
         case .Formulas:
             let cell = tableView.dequeueReusableCellWithIdentifier(FormulasCellIdentifier, forIndexPath: indexPath) as! FormulasTextTableViewCell
-            // TODO: 添加自定义公式输入键盘
-            print(formulaTextViewInputViewController.view)
             cell.textView.inputView = formulaTextViewInputViewController.view
-            print(cell.textView.inputView?.frame)
             return cell
         default:
             return UITableViewCell()

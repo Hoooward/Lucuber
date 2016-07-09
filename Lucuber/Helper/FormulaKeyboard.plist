@@ -96,7 +96,7 @@
 			<key>type</key>
 			<string>Default</string>
 			<key>lower</key>
-			<string>f</string>
+			<string>f&apos;</string>
 			<key>capital</key>
 			<string>F&apos;</string>
 		</dict>
@@ -104,7 +104,7 @@
 			<key>type</key>
 			<string>Default</string>
 			<key>lower</key>
-			<string>b</string>
+			<string>b&apos;</string>
 			<key>capital</key>
 			<string>B&apos;</string>
 		</dict>
