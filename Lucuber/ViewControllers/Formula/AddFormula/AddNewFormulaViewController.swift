@@ -8,6 +8,7 @@
 
 import UIKit
 
+private let NameTextViewCellIdentifier = "NameTextViewCell"
 class AddNewFormulaViewController: UIViewController {
 
     @IBOutlet var headerView: UIView!
@@ -19,11 +20,18 @@ class AddNewFormulaViewController: UIViewController {
 
         makeUI()
         setupNavigationbar()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+    }
+    
+    func keyboardDidShow(notification: NSNotification) {
+        print(notification)
     }
     
     private func makeUI() {
-        tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
-        tableView.scrollIndicatorInsets = tableView.contentInset
+        tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - 170 - 64 - 44 - 25, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
+        
+        tableView.registerNib(UINib(nibName: NameTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: NameTextViewCellIdentifier)
     }
 
     private func setupNavigationbar() {
@@ -59,22 +67,41 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCellWithIdentifier(NameTextViewCellIdentifier, forIndexPath: indexPath)
         return cell
     }
     
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+       
         let headerView = AddSectionHeaderView.creatHeaderView()
         headerView.titleLabel.text = sectionHeaderTitles[section]
         return headerView
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+       
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! NameTextViewCell
+        
+        cell.textField.becomeFirstResponder()
+     
+    }
+    
+    
 }
 
 // MARK: - UIScrollerDelegate
 extension AddNewFormulaViewController: UIScrollViewDelegate {
     //设置Header的方法缩小
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
+   
         if scrollView.contentOffset.y > 0 { return }
         let offsetY = abs(scrollView.contentOffset.y) - tableView.contentInset.top
         if offsetY > 0 {

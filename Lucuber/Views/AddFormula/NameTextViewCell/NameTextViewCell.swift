@@ -10,6 +10,7 @@ import UIKit
 
 class NameTextViewCell: UITableViewCell {
 
+    @IBOutlet var textField: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
