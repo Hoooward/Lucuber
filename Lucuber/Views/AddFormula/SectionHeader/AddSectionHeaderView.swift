@@ -11,8 +11,18 @@ import UIKit
 class AddSectionHeaderView: UIView {
 
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var rightButton: UIButton!
     class func creatHeaderView() -> AddSectionHeaderView {
         return NSBundle.mainBundle().loadNibNamed("AddSectionHeaderView", owner: nil, options: nil).last! as! AddSectionHeaderView
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        makeUI()
+    }
+    
+    private func makeUI() {
+        rightButton.hidden = true
     }
 
 }

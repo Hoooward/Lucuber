@@ -34,6 +34,7 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="rightButton" destination="1p5-og-ZD6" id="EoT-5U-Tp4"/>
                 <outlet property="titleLabel" destination="GQS-T8-2Q2" id="igu-Qf-Ppq"/>
             </connections>
             <point key="canvasLocation" x="307.5" y="219"/>

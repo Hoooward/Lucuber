@@ -29,6 +29,9 @@ class AddNewFormulaViewController: UIViewController {
 
         makeUI()
         setupNavigationbar()
+        
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
     }
     
@@ -37,9 +40,13 @@ class AddNewFormulaViewController: UIViewController {
     }
     
     deinit {
+        print("NewFormula死了")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    @IBAction func dismiss(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     private func makeUI() {
         tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - 170 - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
@@ -161,7 +168,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         case .Name:
             break
         case .Category:
-            if indexPath.row == 1 {return 150}
+            if indexPath.row == 1 {return 130}
         case .Formulas:
             break
         }
@@ -173,7 +180,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             tableView.beginUpdates()
             let newIndexPath = NSIndexPath(forRow: 1, inSection: 1)
             categoryPickViewIsShow = true
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: UITableViewRowAnimation.Middle)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             tableView.endUpdates()
         }
     }
@@ -183,7 +190,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             tableView.beginUpdates()
             let newIndexPath = NSIndexPath(forRow: 1, inSection: 1)
             categoryPickViewIsShow = false
-            tableView.deleteRowsAtIndexPaths([newIndexPath], withRowAnimation: .Middle)
+            tableView.deleteRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
         }
     }

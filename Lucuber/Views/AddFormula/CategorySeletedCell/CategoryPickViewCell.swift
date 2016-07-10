@@ -27,7 +27,7 @@ class CategoryPickViewCell: UITableViewCell {
 extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 40
+        return 35
     }
     
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
