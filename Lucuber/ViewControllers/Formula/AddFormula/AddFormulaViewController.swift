@@ -160,7 +160,7 @@ extension AddFormulaViewController {
                 return 120
             }
         case .Formulas:
-            return 60
+            return 50
         default:
             return 44
         }
