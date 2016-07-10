@@ -18,6 +18,7 @@ class CubeCategoryItemView: UIView {
         label.font = UIFont.systemFontOfSize(15)
         label.textColor = UIColor.whiteColor()
         label.textAlignment = .Center
+        label.sizeToFit()
         return label
     }()
     
