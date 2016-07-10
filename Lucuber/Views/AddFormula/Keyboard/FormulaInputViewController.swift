@@ -40,7 +40,6 @@ class FormulaInputViewController: UIViewController {
     }
     
     func keyButtonDidClick(button: KeyButton) {
-//        var newText = button.titleLabel?.text ?? ""
         switch button.item!.type {
         case .Shift:
             button.selected = !button.selected

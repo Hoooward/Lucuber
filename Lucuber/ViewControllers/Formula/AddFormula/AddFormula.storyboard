@@ -141,34 +141,25 @@
                                     <outlet property="pickView" destination="oW9-cD-ICG" id="87t-fx-IPT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormulasTextTableViewCell" rowHeight="68" id="506-4z-rom" customClass="FormulasTextTableViewCell" customModule="Lucuber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="441" width="375" height="68"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormulasTextTableViewCell" rowHeight="50" id="506-4z-rom" customClass="FormulasTextTableViewCell" customModule="Lucuber" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="441" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="506-4z-rom" id="zfM-jR-SxA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="180du" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-3S-5W2" userLabel="Icon Image View">
-                                            <rect key="frame" x="20" y="19" width="30" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="Dlx-cp-VFS"/>
-                                                <constraint firstAttribute="height" constant="30" id="pXZ-mx-zN2"/>
-                                            </constraints>
-                                        </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YZI-7P-rM9" customClass="FormulaTextView" customModule="Lucuber" customModuleProvider="target">
-                                            <rect key="frame" x="60" y="10" width="305" height="47"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YZI-7P-rM9" customClass="FormulaTextView" customModule="Lucuber" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="5" width="335" height="58"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="leading" secondItem="KLI-3S-5W2" secondAttribute="trailing" constant="10" id="A0b-Ds-D7H"/>
-                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="centerY" secondItem="zfM-jR-SxA" secondAttribute="centerY" id="Amq-6y-hAa"/>
-                                        <constraint firstAttribute="trailing" secondItem="YZI-7P-rM9" secondAttribute="trailing" constant="10" id="DaA-f6-yge"/>
-                                        <constraint firstItem="KLI-3S-5W2" firstAttribute="leading" secondItem="zfM-jR-SxA" secondAttribute="leading" constant="20" id="Tgw-z4-HVq"/>
-                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="top" secondItem="zfM-jR-SxA" secondAttribute="top" constant="10" id="elX-bG-O2C"/>
-                                        <constraint firstItem="KLI-3S-5W2" firstAttribute="centerY" secondItem="zfM-jR-SxA" secondAttribute="centerY" id="pfV-ns-Rhq"/>
+                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="leading" secondItem="zfM-jR-SxA" secondAttribute="leading" constant="20" id="DIh-kz-ndV"/>
+                                        <constraint firstAttribute="trailing" secondItem="YZI-7P-rM9" secondAttribute="trailing" constant="20" id="Mxh-Xy-oYU"/>
+                                        <constraint firstItem="YZI-7P-rM9" firstAttribute="top" secondItem="zfM-jR-SxA" secondAttribute="top" constant="5" id="cgE-TH-j0A"/>
+                                        <constraint firstAttribute="bottom" secondItem="YZI-7P-rM9" secondAttribute="bottom" constant="5" id="kIF-l4-22u"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -311,7 +302,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="180du" width="60" height="50"/>
         <image name="Favorite" width="42" height="40"/>
         <image name="feed_skill_channel_arrow" width="10" height="18"/>
         <image name="placeholder" width="575" height="600"/>

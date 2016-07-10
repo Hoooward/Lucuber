@@ -16,7 +16,6 @@ class FormulaTextView: UITextView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         makeUI()
     }
     
@@ -26,15 +25,39 @@ class FormulaTextView: UITextView {
         textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         allowsEditingTextAttributes = true
         font = UIFont.cubeFormulaDefaultTextFont()
+        
+        addSubview(placeholdTextLabel)
+        
+        let placeholdLeft = NSLayoutConstraint(item: placeholdTextLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 20)
+        let placeholdTop = NSLayoutConstraint(item: placeholdTextLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 20)
+        
+        NSLayoutConstraint.activateConstraints([placeholdTop, placeholdLeft])
     }
     
+    
+    
+    
+    private var placeholdTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "点击输入公式, 系统会自动帮你填充空格。"
+        label.textColor = UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1)
+        label.font = UIFont.systemFontOfSize(12)
+        label.sizeToFit()
+        return label
+    }()
+    
     func insertKeyButtonTitle(keyButtn: KeyButton) {
+        
+    
+        
         guard let type = keyButtn.item?.type else {
-            return
+            fatalError()
         }
         var newText = keyButtn.titleLabel?.text ?? ""
-//        let currentAttributeText = NSMutableAttributedString(attributedString: self.attributedText)
         var currentText = self.text
+        
+
+        
         switch type {
         case .Delete:
             deleteBackward()
@@ -45,6 +68,7 @@ class FormulaTextView: UITextView {
             self.selectedRange = NSRange(location: range.location + (newText.characters.count == 2 ? 2 : 3), length: 0)
         case .Bracket, .Number:
             var range = self.selectedRange
+            //如果移动光标到中间，确定中间位置的是否是空格
             let seletedText = (currentText as NSString).substringWithRange(range)
             //记录改变之前的字符串长度
             let currentLength = currentText.characters.count
@@ -69,6 +93,12 @@ class FormulaTextView: UITextView {
         default:
             break
         }
+        
+        
+        spring(0.5) {
+            self.placeholdTextLabel.hidden = self.text.characters.count > 0
+        }
+        
     }
     
     private func replaceCharactersInRange(currentText: String, range: NSRange, newText: String) {

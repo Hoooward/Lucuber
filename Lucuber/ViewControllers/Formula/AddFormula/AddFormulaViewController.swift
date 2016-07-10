@@ -56,62 +56,16 @@ class AddFormulaViewController: UITableViewController {
         
         
         addChildViewController(formulaInputViewController)
-        formulaInputViewController.keyButtonDidClickedCallBack = {
-            button in
-            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 2)) as! FormulasTextTableViewCell
-            cell.textView.insertKeyButtonTitle(button)
-//            let currentText = cell.textView.text
-//            
-//            var newText = button.titleLabel?.text ?? ""
-//            switch type {
-//            case .Default:
-//                newText += " "
-//                cell.textView.attributedText = (currentText + newText).setAttributesFitDetailLayout()
-//            case .Bracket:
-//                if newText == "(" {
-//                cell.textView.attributedText = (currentText + newText).setAttributesFitDetailLayout()
-//                } else {
-//                    newText += " "
-//                    cell.textView.attributedText = (currentText.trimming(.Whitespace) + newText).setAttributesFitDetailLayout()
-//                    
-//                }
-//            case .Number:
-//                newText += " "
-//                cell.textView.attributedText = (currentText.trimming(.Whitespace) + newText).setAttributesFitDetailLayout()
-//            default:
-//                break
-//            }
-//            print(cell.textView.text)
-        }
+  
         childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
     }
-//    
-//    private lazy var formulaTextViewInputViewController: FormulaInputViewController = {
-//        [unowned self] in
-//        let viewController = FormulaInputViewController { button in
-//            let buttonType = button.item!.type
-//            switch buttonType {
-//                case .
-//            }
-//
-//            
-//            if let newText = newText {
-//                print(newText)
-//                if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? FormulasTextTableViewCell {
-//                    let currentText = cell.textView.text
-//                    let resultText = currentText + newText
-//                    cell.textView.attributedText = resultText.setAttributesFitDetailLayout()
-//                    
-//                }
-//
-//            }
-//        }
-//        return viewController
-//    }()
+
     
     private lazy var formulaInputViewController: FormulaInputViewController = {
-        let viewController = FormulaInputViewController { button in
-            
+        let viewController = FormulaInputViewController {
+            [unowned self]  button in
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 2)) as! FormulasTextTableViewCell
+            cell.textView.insertKeyButtonTitle(button)
         }
         return viewController
     }()

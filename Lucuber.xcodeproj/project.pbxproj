@@ -313,8 +313,8 @@
 		89A17BF21D2D1B9B0082B625 /* AddFormula */ = {
 			isa = PBXGroup;
 			children = (
-				89C1F58F1D30EBBC00F79BAC /* Keyboard */,
 				89C1F5821D306E7500F79BAC /* FormulaTextView */,
+				89C1F58F1D30EBBC00F79BAC /* Keyboard */,
 				89A17BF31D2D1B9B0082B625 /* HeaderTableViewCell.swift */,
 				894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */,
 				894E10AC1D2DE7B400480D11 /* CategoryPickViewCell.swift */,
