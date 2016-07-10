@@ -55,7 +55,6 @@
         <!--Type Menu View Controller-->
         <scene sceneID="fqy-0W-UdX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JvI-ze-rhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TypeMenuViewController" id="p8f-Ek-2y3" customClass="TypeMenuViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gNm-aY-4HZ"/>
@@ -77,6 +76,7 @@
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JvI-ze-rhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="1965"/>
         </scene>

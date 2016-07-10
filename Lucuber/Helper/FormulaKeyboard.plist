@@ -54,7 +54,7 @@
 		</dict>
 		<dict>
 			<key>type</key>
-			<string>Default</string>
+			<string>Number</string>
 			<key>lower</key>
 			<string>2</string>
 			<key>capital</key>

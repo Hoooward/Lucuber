@@ -12,7 +12,7 @@ class KeyButton: UIButton {
         didSet {
             if let item = item {
                 switch item.type {
-                case .Default:
+                case .Default, .Number:
                     setBackgroundImage(UIImage(named: "FormulaKeyboardDefault"), forState: .Normal)
                     setTitle(item.showTitle, forState: .Normal)
                 case .Bracket:

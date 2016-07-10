@@ -14,9 +14,9 @@ class FormulaInputViewController: UIViewController {
     let keyButtonItemPackage = KeyButtonItemPackage.loadPackage()
     var KeyButtons: [KeyButton] = []
     
-    var keyButtonDidClickedCallBack: (text: String?) -> ()
+    var keyButtonDidClickedCallBack: (keybutton: KeyButton) -> ()
     
-    init(keyButtonCallBack: (text: String?) -> ()) {
+    init(keyButtonCallBack: (text: KeyButton) -> ()) {
         keyButtonDidClickedCallBack = keyButtonCallBack
         super.init(nibName: nil, bundle: nil)
     }
@@ -40,15 +40,15 @@ class FormulaInputViewController: UIViewController {
     }
     
     func keyButtonDidClick(button: KeyButton) {
+//        var newText = button.titleLabel?.text ?? ""
         switch button.item!.type {
         case .Shift:
             button.selected = !button.selected
             KeyButtons.forEach { $0.changeKeyButtonTitle() }
         default:
-            break
+            keyButtonDidClickedCallBack(keybutton: button)
         }
         
-        keyButtonDidClickedCallBack(text: button.titleLabel?.text)
     }
     
     let buttonMargin: CGFloat = 10
@@ -74,6 +74,10 @@ class FormulaInputViewController: UIViewController {
             button.frame = frame
             button.item = keyButtonItemPackage.topKeyboardItems[index]
             button.addTarget(self, action: #selector(FormulaInputViewController.keyButtonDidClick(_:)), forControlEvents: .TouchUpInside)
+            // TODO: - 添加删除按钮的持续点击
+            if button.item!.type == .Delete {
+//                button.addTarget(self, action: #selector(FormulaInputViewController.keyButtonDidClick(_:)), forControlEvents: .TouchDown)
+            }
             topKeyboard.addSubview(button)
             KeyButtons.append(button)
         }

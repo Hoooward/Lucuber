@@ -17,6 +17,7 @@ class KeyButtonItem {
         case Shift = "Shift"
         case Space = "Space"
         case Return = "Return"
+        case Number = "Number"
     }
     
     enum TitleStatus {

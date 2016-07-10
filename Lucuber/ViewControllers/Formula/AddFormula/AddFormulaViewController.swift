@@ -55,21 +55,66 @@ class AddFormulaViewController: UITableViewController {
         navigationItem.titleView = titleView
         
         
-        addChildViewController(formulaTextViewInputViewController)
+        addChildViewController(formulaInputViewController)
+        formulaInputViewController.keyButtonDidClickedCallBack = {
+            button in
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 2)) as! FormulasTextTableViewCell
+            cell.textView.insertKeyButtonTitle(button)
+//            let currentText = cell.textView.text
+//            
+//            var newText = button.titleLabel?.text ?? ""
+//            switch type {
+//            case .Default:
+//                newText += " "
+//                cell.textView.attributedText = (currentText + newText).setAttributesFitDetailLayout()
+//            case .Bracket:
+//                if newText == "(" {
+//                cell.textView.attributedText = (currentText + newText).setAttributesFitDetailLayout()
+//                } else {
+//                    newText += " "
+//                    cell.textView.attributedText = (currentText.trimming(.Whitespace) + newText).setAttributesFitDetailLayout()
+//                    
+//                }
+//            case .Number:
+//                newText += " "
+//                cell.textView.attributedText = (currentText.trimming(.Whitespace) + newText).setAttributesFitDetailLayout()
+//            default:
+//                break
+//            }
+//            print(cell.textView.text)
+        }
         childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
     }
+//    
+//    private lazy var formulaTextViewInputViewController: FormulaInputViewController = {
+//        [unowned self] in
+//        let viewController = FormulaInputViewController { button in
+//            let buttonType = button.item!.type
+//            switch buttonType {
+//                case .
+//            }
+//
+//            
+//            if let newText = newText {
+//                print(newText)
+//                if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? FormulasTextTableViewCell {
+//                    let currentText = cell.textView.text
+//                    let resultText = currentText + newText
+//                    cell.textView.attributedText = resultText.setAttributesFitDetailLayout()
+//                    
+//                }
+//
+//            }
+//        }
+//        return viewController
+//    }()
     
-    ///公式输入自定义键盘控制器
-    private lazy var formulaTextViewInputViewController: FormulaInputViewController = {
-        let viewController = FormulaInputViewController {
-            text in
-            if let text = text {
-               print(text)
-            }
+    private lazy var formulaInputViewController: FormulaInputViewController = {
+        let viewController = FormulaInputViewController { button in
+            
         }
         return viewController
     }()
-    
 }
 
 extension AddFormulaViewController {
@@ -82,6 +127,9 @@ extension AddFormulaViewController {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        
+        
         return 3
     }
     
@@ -120,7 +168,7 @@ extension AddFormulaViewController {
             }
         case .Formulas:
             let cell = tableView.dequeueReusableCellWithIdentifier(FormulasCellIdentifier, forIndexPath: indexPath) as! FormulasTextTableViewCell
-            cell.textView.inputView = formulaTextViewInputViewController.view
+            cell.textView.inputView = formulaInputViewController.view
             return cell
         default:
             return UITableViewCell()
