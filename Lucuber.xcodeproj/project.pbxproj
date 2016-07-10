@@ -12,6 +12,9 @@
 		8906AB741D256777007D44D7 /* PopMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB731D256777007D44D7 /* PopMenuAnimator.swift */; };
 		8906AB761D256870007D44D7 /* PopMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */; };
 		8906AB781D260355007D44D7 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB771D260355007D44D7 /* Animation.swift */; };
+		890718351D324390001B526D /* AddNewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718341D324390001B526D /* AddNewFormulaViewController.swift */; };
+		890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718371D3255BA001B526D /* AddSectionHeaderView.swift */; };
+		8907183A1D3255F8001B526D /* AddSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718391D3255F8001B526D /* AddSectionHeaderView.xib */; };
 		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
 		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
 		894E10A81D2D408A00480D11 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */; };
@@ -103,6 +106,9 @@
 		8906AB731D256777007D44D7 /* PopMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuAnimator.swift; sourceTree = "<group>"; };
 		8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuPresentationController.swift; sourceTree = "<group>"; };
 		8906AB771D260355007D44D7 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		890718341D324390001B526D /* AddNewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFormulaViewController.swift; sourceTree = "<group>"; };
+		890718371D3255BA001B526D /* AddSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSectionHeaderView.swift; sourceTree = "<group>"; };
+		890718391D3255F8001B526D /* AddSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSectionHeaderView.xib; sourceTree = "<group>"; };
 		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
 		894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
@@ -240,6 +246,15 @@
 			path = TypeMenu;
 			sourceTree = "<group>";
 		};
+		890718361D3254D8001B526D /* SectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				890718371D3255BA001B526D /* AddSectionHeaderView.swift */,
+				890718391D3255F8001B526D /* AddSectionHeaderView.xib */,
+			);
+			path = SectionHeader;
+			sourceTree = "<group>";
+		};
 		892316CD1D23B6C4006BCCE7 /* NoResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +328,7 @@
 		89A17BF21D2D1B9B0082B625 /* AddFormula */ = {
 			isa = PBXGroup;
 			children = (
+				890718361D3254D8001B526D /* SectionHeader */,
 				89C1F5821D306E7500F79BAC /* FormulaTextView */,
 				89C1F58F1D30EBBC00F79BAC /* Keyboard */,
 				89A17BF31D2D1B9B0082B625 /* HeaderTableViewCell.swift */,
@@ -329,6 +345,7 @@
 			children = (
 				89A17BFA1D2D1BF80082B625 /* AddFormula.storyboard */,
 				89A17BF81D2D1BEF0082B625 /* AddFormulaViewController.swift */,
+				890718341D324390001B526D /* AddNewFormulaViewController.swift */,
 			);
 			path = AddFormula;
 			sourceTree = "<group>";
@@ -696,6 +713,7 @@
 				89E6C5EE1D03F0D3005ACFB9 /* DetailFormulaCell.xib in Resources */,
 				89E6C5F01D03F0D3005ACFB9 /* CardFormulaCell.xib in Resources */,
 				89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */,
+				8907183A1D3255F8001B526D /* AddSectionHeaderView.xib in Resources */,
 				89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */,
 				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
 				89E663971D04099A00E90926 /* SeparatorCell.xib in Resources */,
@@ -787,6 +805,7 @@
 				89E663831D03F18200E90926 /* MainNavigationController.swift in Sources */,
 				89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */,
 				89A17BF51D2D1B9B0082B625 /* HeaderTableViewCell.swift in Sources */,
+				890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */,
 				89E6637C1D03F18200E90926 /* _NormalCollectionViewLayout.swift in Sources */,
 				89E663811D03F18200E90926 /* FormulaLibraryViewController.swift in Sources */,
 				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
@@ -818,6 +837,7 @@
 				89E663801D03F18200E90926 /* ShowFormulaDetailLayout.swift in Sources */,
 				89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */,
 				89E6637A1D03F18200E90926 /* BaseCollectionViewController.swift in Sources */,
+				890718351D324390001B526D /* AddNewFormulaViewController.swift in Sources */,
 				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
 				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
