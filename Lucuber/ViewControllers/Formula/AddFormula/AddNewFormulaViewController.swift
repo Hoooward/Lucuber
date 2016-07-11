@@ -19,6 +19,7 @@ class AddNewFormulaViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     let sectionHeaderTitles = ["名称", "类型", "公式"]
     
+    var keyboardFrame = CGRectZero
     var categoryPickViewIsShow = false
     
     var newFormula = Formula(name: "公式名称", formula: [], imageName: "placeholder", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L)
@@ -36,7 +37,13 @@ class AddNewFormulaViewController: UIViewController {
     }
     
     func keyboardDidShow(notification: NSNotification) {
-        print(notification)
+//        print(notification)
+        if let rect = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue() {
+            keyboardFrame = rect
+            
+            
+        }
+        
     }
     
     deinit {
@@ -63,6 +70,7 @@ class AddNewFormulaViewController: UIViewController {
         titleView.sizeToFit()
         navigationItem.titleView = titleView
         addChildViewController(formulaInputViewController)
+        //TODO: 键盘布局有问题
         childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
     }
     
@@ -123,6 +131,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             }
         case .Formulas:
             cell = tableView.dequeueReusableCellWithIdentifier(FormulaTextViewCellIdentifier, forIndexPath: indexPath) as! FormulaTextViewCell
+            formulaInputViewController.view.frame.size = keyboardFrame.size
             (cell as! FormulaTextViewCell).textView.inputView = formulaInputViewController.view
         }
         return cell

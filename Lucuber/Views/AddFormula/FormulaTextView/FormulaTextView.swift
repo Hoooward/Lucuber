@@ -27,6 +27,7 @@ class FormulaTextView: UITextView {
         font = UIFont.cubeFormulaDefaultTextFont()
         
         addSubview(placeholdTextLabel)
+        placeholdTextLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let placeholdLeft = NSLayoutConstraint(item: placeholdTextLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 20)
         let placeholdTop = NSLayoutConstraint(item: placeholdTextLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 20)

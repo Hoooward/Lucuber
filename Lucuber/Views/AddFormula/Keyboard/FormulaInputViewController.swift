@@ -33,10 +33,12 @@ class FormulaInputViewController: UIViewController {
         makeConstraints()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        makeTopKeyboardKeyButton()
-        makeBottomKeyboardButton()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if topKeyboard.subviews.count == 0 || bottomKeyboard.subviews.count == 0 {
+            makeTopKeyboardKeyButton()
+            makeBottomKeyboardButton()
+        }
     }
     
     func keyButtonDidClick(button: KeyButton) {
