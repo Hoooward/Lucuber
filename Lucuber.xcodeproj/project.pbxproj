@@ -104,6 +104,7 @@
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
 		89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */; };
+		89FAF40D1D33839D00096B5A /* FormulaTypeIndicaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */; };
 		B405A77C7F06B60A60D8CC66 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
@@ -211,6 +212,7 @@
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
+		89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTypeIndicaterView.swift; sourceTree = "<group>"; };
 		8B09B9FB863AF6746C304BFA /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -584,6 +586,7 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				89FAF40B1D33837A00096B5A /* TypeIndicater */,
 				894E10A91D2DDB7200480D11 /* CubeCategoryItem */,
 				89A17BF21D2D1B9B0082B625 /* AddFormula */,
 				89A17BEA1D2D1B460082B625 /* LayoutButton */,
@@ -698,6 +701,14 @@
 				89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */,
 			);
 			path = Lucuber;
+			sourceTree = "<group>";
+		};
+		89FAF40B1D33837A00096B5A /* TypeIndicater */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */,
+			);
+			path = TypeIndicater;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -855,6 +866,7 @@
 				8906AB721D256641007D44D7 /* TypeMenuViewController.swift in Sources */,
 				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89E663841D03F18200E90926 /* MainTabbarController.swift in Sources */,
+				89FAF40D1D33839D00096B5A /* FormulaTypeIndicaterView.swift in Sources */,
 				89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */,
 				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,

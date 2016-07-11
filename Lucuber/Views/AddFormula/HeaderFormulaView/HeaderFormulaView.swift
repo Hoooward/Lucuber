@@ -24,29 +24,34 @@ class HeaderFormulaView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: AddFormulaDetailDidChangedNotification, object: nil)
+    }
+    
+    func addFormulaDetailDidChanged(notification: NSNotification) {
+        guard let dict = notification.userInfo as? [String: AnyObject] else {
+            return
+        }
+        
+        if let name = dict[AddFormulaNotification.NameChanged.rawValue] as? String {
+            nameLabel.text = name.characters.count > 0 ? name : "Name"
+        }
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     private func makeUI() {
-//        addSubview(categoryView)
-      
-    
-        
-        categoryView.frame.origin = CGPoint(x: screenWidth - categoryView.frame.size.width + 30, y: centerBackView.frame.origin.y + 10)
-        print(categoryView.frame)
-        imageButton.layer.cornerRadius = 8
+        imageButton.layer.cornerRadius = 4
         imageButton.layer.masksToBounds = true
+        centerBackView.layer.cornerRadius = 10
+        centerBackView.layer.masksToBounds = true
+        centerBackView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor
+        centerBackView.layer.borderWidth = 1.0
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        let categoryViewTop = NSLayoutConstraint(item: categoryView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 10)
-//        let categoryViewTrailing = NSLayoutConstraint(item: categoryView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -15)
-//        NSLayoutConstraint.activateConstraints([categoryViewTop, categoryViewTrailing])
-        
 
-    
-    }
     
     lazy var categoryView: CubeCategoryItemView = {
         let view = CubeCategoryItemView()

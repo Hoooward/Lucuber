@@ -94,7 +94,7 @@ class FormulaTextView: UITextView {
         }
         
         
-        spring(0.5) {
+        spring(1.0) {
             self.placeholdTextLabel.hidden = self.text.characters.count > 0
         }
         

@@ -13,15 +13,22 @@ class NameTextViewCell: UITableViewCell {
     @IBOutlet var textField: FormulaNameTextField!
     override func awakeFromNib() {
         super.awakeFromNib()
+        makeUI()
     }
 
     private func makeUI() {
-    }
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NameTextViewCell.textFieldDidChanged(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
     }
     
- 
+    //通知HeaderView更新Name
+    func textFieldDidChanged(notification: NSNotification) {
+        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.NameChanged.rawValue : self.textField.text!])
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
+
+

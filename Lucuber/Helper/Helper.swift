@@ -23,6 +23,14 @@ let DetailCellShowCommentNotification = "DetailCellShowCommentNotification"
 let ContainerDidScrollerNotification = "ContainerDidScrollerNotification"
 let FormulaTypePopMenuDismissNotification = "FormulaTypePopMenuDismissNotification"
 let CategotyPickViewDidSeletedRowNotification = "CategotyPickViewDidSeletedRowNotification"
+let AddFormulaDetailDidChangedNotification = "AddFormulaDetailDidChangedNotification"
+
+enum AddFormulaNotification: String {
+    case NameChanged = "NameChanged"
+    case CategoryChanged = "CategoryChanged"
+    case FormulaChanged = "FormulaChanged"
+}
+
 /**
  * 自定义 print 用于 Debug， 利用 #file #function #line 来分别输出
  * 文件名 函数名 行号

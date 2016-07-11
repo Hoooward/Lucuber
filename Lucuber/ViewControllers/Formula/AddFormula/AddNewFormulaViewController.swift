@@ -15,7 +15,7 @@ private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
 
 class AddNewFormulaViewController: UIViewController {
 
-    private let headerViewHeight: CGFloat = 150
+    private let headerViewHeight: CGFloat = 170
     @IBOutlet var headerView: HeaderFormulaView!
     @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var tableView: UITableView!

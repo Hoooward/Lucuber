@@ -1,14 +1,15 @@
 //
-//  CubeCategoryItemView.swift
+//  FormulaTypeIndicaterView.swift
 //  Lucuber
 //
-//  Created by Howard on 16/7/7.
-//  Copyright © 2016年 Howard. All rights reserved.
+//  Created by Howard on 7/11/16.
+//  Copyright © 2016 Howard. All rights reserved.
 //
 
 import UIKit
-class CubeCategoryItemView: UIView {
-    
+
+class FormulaTypeIndicaterView: UIButton {
+
     lazy var bubbleImageView: UIImageView = {
         return UIImageView(image: UIImage(named: "skill_bubble"))
     }()
@@ -19,7 +20,7 @@ class CubeCategoryItemView: UIView {
         label.textColor = UIColor.whiteColor()
         label.textAlignment = .Center
         label.sizeToFit()
-        label.text = "3x3x3"
+        label.text = "三阶"
         return label
     }()
     
@@ -41,10 +42,10 @@ class CubeCategoryItemView: UIView {
         
         let nameLabelCenterY = NSLayoutConstraint(item: nameLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         let nameLabelCenterX = NSLayoutConstraint(item: nameLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
-//        
-//        let nameLabelTrailing = NSLayoutConstraint(item: nameLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -10)
-//        let nameLabelLeading = NSLayoutConstraint(item: nameLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 10)
-        NSLayoutConstraint.activateConstraints([nameLabelCenterY, nameLabelCenterX])
+        
+        let nameLabelTrailing = NSLayoutConstraint(item: nameLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -10)
+        let nameLabelLeading = NSLayoutConstraint(item: nameLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 10)
+        NSLayoutConstraint.activateConstraints([nameLabelCenterY, nameLabelCenterX, nameLabelTrailing, nameLabelLeading])
         
         let bubbleImageViewCenterY = NSLayoutConstraint(item: bubbleImageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         let bubbleImageViewLeading = NSLayoutConstraint(item: bubbleImageView, attribute: .Leading, relatedBy: .Equal, toItem: nameLabel, attribute: .Leading, multiplier: 1, constant: -10)
@@ -53,8 +54,9 @@ class CubeCategoryItemView: UIView {
         NSLayoutConstraint.activateConstraints([bubbleImageViewCenterY, bubbleImageViewLeading, bubbleImageViewTrailing])
     }
     
-
+    
     func configureWithCategory(category: String) {
         nameLabel.text = category
     }
+
 }
