@@ -8,17 +8,11 @@
 
 import UIKit
 
-class TypeMenuViewController: UIViewController {
+class CategoryMenuViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-
-  
-    
-
-
-
 }

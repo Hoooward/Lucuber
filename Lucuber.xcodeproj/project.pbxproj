@@ -8,11 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */; };
-		8906AB721D256641007D44D7 /* TypeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB711D256641007D44D7 /* TypeMenuViewController.swift */; };
-		8906AB741D256777007D44D7 /* PopMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB731D256777007D44D7 /* PopMenuAnimator.swift */; };
-		8906AB761D256870007D44D7 /* PopMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */; };
 		8906AB781D260355007D44D7 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB771D260355007D44D7 /* Animation.swift */; };
-		890718351D324390001B526D /* AddNewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718341D324390001B526D /* AddNewFormulaViewController.swift */; };
 		890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718371D3255BA001B526D /* AddSectionHeaderView.swift */; };
 		8907183A1D3255F8001B526D /* AddSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718391D3255F8001B526D /* AddSectionHeaderView.xib */; };
 		890718421D325B7A001B526D /* NameTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718401D325B7A001B526D /* NameTextViewCell.swift */; };
@@ -22,10 +18,6 @@
 		8907184B1D32798A001B526D /* CategorySeletedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718491D32798A001B526D /* CategorySeletedCell.xib */; };
 		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
 		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
-		894E10A81D2D408A00480D11 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */; };
-		894E10AB1D2DDB8500480D11 /* CubeCategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E10AA1D2DDB8500480D11 /* CubeCategoryItemView.swift */; };
-		894E10AF1D2E4C8600480D11 /* FormulasTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E10AE1D2E4C8600480D11 /* FormulasTextTableViewCell.swift */; };
-		894E10B11D2E4DDC00480D11 /* FormulaSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E10B01D2E4DDC00480D11 /* FormulaSectionHeaderView.swift */; };
 		895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */; };
 		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
 		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
@@ -33,14 +25,9 @@
 		895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10F21D21214F00CEF7FA /* FormulaComment.swift */; };
 		8977FECC1D327CBE000159A2 /* CategoryPickViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8977FECA1D327CBE000159A2 /* CategoryPickViewCell.swift */; };
 		8977FECD1D327CBE000159A2 /* CategoryPickViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8977FECB1D327CBE000159A2 /* CategoryPickViewCell.xib */; };
-		8977FED51D327EDB000159A2 /* FormulaTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8977FED31D327EDB000159A2 /* FormulaTextViewCell.swift */; };
-		8977FED61D327EDB000159A2 /* FormulaTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8977FED41D327EDB000159A2 /* FormulaTextViewCell.xib */; };
 		89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BEB1D2D1B460082B625 /* LayoutButton.swift */; };
 		89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BEE1D2D1B5F0082B625 /* HeaderReusableView.swift */; };
 		89A17BF11D2D1B5F0082B625 /* HeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A17BEF1D2D1B5F0082B625 /* HeaderReusableView.xib */; };
-		89A17BF51D2D1B9B0082B625 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BF31D2D1B9B0082B625 /* HeaderTableViewCell.swift */; };
-		89A17BF91D2D1BEF0082B625 /* AddFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BF81D2D1BEF0082B625 /* AddFormulaViewController.swift */; };
-		89A17BFB1D2D1BF80082B625 /* AddFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89A17BFA1D2D1BF80082B625 /* AddFormula.storyboard */; };
 		89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9247E1D05572B00BBF003 /* Resgin.storyboard */; };
 		89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924801D055A9000BBF003 /* RegsinViewController.swift */; };
 		89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */; };
@@ -57,8 +44,6 @@
 		89C1F5881D30AF7C00F79BAC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C1F5871D30AF7C00F79BAC /* Reveal.framework */; };
 		89C1F58A1D30C08900F79BAC /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */; };
 		89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */; };
-		89C1F5911D30EBBC00F79BAC /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5901D30EBBC00F79BAC /* FormulaInputViewController.swift */; };
-		89C1F5931D30EBCF00F79BAC /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5921D30EBCF00F79BAC /* KeyButton.swift */; };
 		89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C2EDB31D01A0E9009365BA /* Assets.xcassets */; };
 		89C2EDB71D01A387009365BA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDB61D01A387009365BA /* Helper.swift */; };
 		89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */; };
@@ -104,8 +89,18 @@
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
 		89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */; };
-		89FAF40D1D33839D00096B5A /* FormulaTypeIndicaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */; };
 		89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF40E1D33AF7900096B5A /* CubeCategory.plist */; };
+		89FAF4121D33BF4E00096B5A /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4111D33BF4E00096B5A /* KeyButton.swift */; };
+		89FAF4161D33BF9500096B5A /* FormulaTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4141D33BF9500096B5A /* FormulaTextViewCell.swift */; };
+		89FAF4171D33BF9500096B5A /* FormulaTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF4151D33BF9500096B5A /* FormulaTextViewCell.xib */; };
+		89FAF41A1D33BFD400096B5A /* FormulaTypeIndicaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4191D33BFD400096B5A /* FormulaTypeIndicaterView.swift */; };
+		89FAF41D1D33BFE600096B5A /* CubeCategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF41C1D33BFE600096B5A /* CubeCategoryItemView.swift */; };
+		89FAF4231D33C03C00096B5A /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4221D33C03C00096B5A /* FormulaInputViewController.swift */; };
+		89FAF42B1D33C09300096B5A /* PopMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4281D33C09300096B5A /* PopMenuAnimator.swift */; };
+		89FAF42C1D33C09300096B5A /* PopMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4291D33C09300096B5A /* PopMenuPresentationController.swift */; };
+		89FAF42D1D33C09300096B5A /* CategoryMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF42A1D33C09300096B5A /* CategoryMenuViewController.swift */; };
+		89FAF4311D33C22B00096B5A /* AddFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF42F1D33C22B00096B5A /* AddFormula.storyboard */; };
+		89FAF4321D33C22B00096B5A /* AddNewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4301D33C22B00096B5A /* AddNewFormulaViewController.swift */; };
 		B405A77C7F06B60A60D8CC66 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,11 +108,7 @@
 		139A8A82B76C8BB58031F287 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSearchBar.swift; sourceTree = "<group>"; };
-		8906AB711D256641007D44D7 /* TypeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeMenuViewController.swift; sourceTree = "<group>"; };
-		8906AB731D256777007D44D7 /* PopMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuAnimator.swift; sourceTree = "<group>"; };
-		8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuPresentationController.swift; sourceTree = "<group>"; };
 		8906AB771D260355007D44D7 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
-		890718341D324390001B526D /* AddNewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFormulaViewController.swift; sourceTree = "<group>"; };
 		890718371D3255BA001B526D /* AddSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSectionHeaderView.swift; sourceTree = "<group>"; };
 		890718391D3255F8001B526D /* AddSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSectionHeaderView.xib; sourceTree = "<group>"; };
 		890718401D325B7A001B526D /* NameTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTextViewCell.swift; sourceTree = "<group>"; };
@@ -127,10 +118,6 @@
 		890718491D32798A001B526D /* CategorySeletedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySeletedCell.xib; sourceTree = "<group>"; };
 		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
-		894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
-		894E10AA1D2DDB8500480D11 /* CubeCategoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCategoryItemView.swift; sourceTree = "<group>"; };
-		894E10AE1D2E4C8600480D11 /* FormulasTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulasTextTableViewCell.swift; sourceTree = "<group>"; };
-		894E10B01D2E4DDC00480D11 /* FormulaSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSectionHeaderView.swift; sourceTree = "<group>"; };
 		895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
 		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
@@ -139,14 +126,9 @@
 		896249221D31DC0800C122C1 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
 		8977FECA1D327CBE000159A2 /* CategoryPickViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickViewCell.swift; sourceTree = "<group>"; };
 		8977FECB1D327CBE000159A2 /* CategoryPickViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryPickViewCell.xib; sourceTree = "<group>"; };
-		8977FED31D327EDB000159A2 /* FormulaTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextViewCell.swift; sourceTree = "<group>"; };
-		8977FED41D327EDB000159A2 /* FormulaTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormulaTextViewCell.xib; sourceTree = "<group>"; };
 		89A17BEB1D2D1B460082B625 /* LayoutButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutButton.swift; sourceTree = "<group>"; };
 		89A17BEE1D2D1B5F0082B625 /* HeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		89A17BEF1D2D1B5F0082B625 /* HeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderReusableView.xib; sourceTree = "<group>"; };
-		89A17BF31D2D1B9B0082B625 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
-		89A17BF81D2D1BEF0082B625 /* AddFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFormulaViewController.swift; sourceTree = "<group>"; };
-		89A17BFA1D2D1BF80082B625 /* AddFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddFormula.storyboard; sourceTree = "<group>"; };
 		89B9247E1D05572B00BBF003 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		89B924801D055A9000BBF003 /* RegsinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegsinViewController.swift; sourceTree = "<group>"; };
 		89B924821D05623000BBF003 /* RegisterPickNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickNameViewController.swift; sourceTree = "<group>"; };
@@ -165,8 +147,6 @@
 		89C1F5871D30AF7C00F79BAC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButtonItem.swift; sourceTree = "<group>"; };
-		89C1F5901D30EBBC00F79BAC /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
-		89C1F5921D30EBCF00F79BAC /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
 		89C2EDB31D01A0E9009365BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C2EDB61D01A387009365BA /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		89C2EDBC1D01C38F009365BA /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
@@ -213,8 +193,18 @@
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
-		89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTypeIndicaterView.swift; sourceTree = "<group>"; };
 		89FAF40E1D33AF7900096B5A /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
+		89FAF4111D33BF4E00096B5A /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
+		89FAF4141D33BF9500096B5A /* FormulaTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextViewCell.swift; sourceTree = "<group>"; };
+		89FAF4151D33BF9500096B5A /* FormulaTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormulaTextViewCell.xib; sourceTree = "<group>"; };
+		89FAF4191D33BFD400096B5A /* FormulaTypeIndicaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTypeIndicaterView.swift; sourceTree = "<group>"; };
+		89FAF41C1D33BFE600096B5A /* CubeCategoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCategoryItemView.swift; sourceTree = "<group>"; };
+		89FAF4221D33C03C00096B5A /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
+		89FAF4281D33C09300096B5A /* PopMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuAnimator.swift; sourceTree = "<group>"; };
+		89FAF4291D33C09300096B5A /* PopMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuPresentationController.swift; sourceTree = "<group>"; };
+		89FAF42A1D33C09300096B5A /* CategoryMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMenuViewController.swift; sourceTree = "<group>"; };
+		89FAF42F1D33C22B00096B5A /* AddFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddFormula.storyboard; sourceTree = "<group>"; };
+		89FAF4301D33C22B00096B5A /* AddNewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFormulaViewController.swift; sourceTree = "<group>"; };
 		8B09B9FB863AF6746C304BFA /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -256,16 +246,6 @@
 				8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */,
 			);
 			path = SearchBar;
-			sourceTree = "<group>";
-		};
-		8906AB701D256627007D44D7 /* TypeMenu */ = {
-			isa = PBXGroup;
-			children = (
-				8906AB711D256641007D44D7 /* TypeMenuViewController.swift */,
-				8906AB731D256777007D44D7 /* PopMenuAnimator.swift */,
-				8906AB751D256870007D44D7 /* PopMenuPresentationController.swift */,
-			);
-			path = TypeMenu;
 			sourceTree = "<group>";
 		};
 		890718361D3254D8001B526D /* SectionHeader */ = {
@@ -316,14 +296,6 @@
 			path = ../NoResult;
 			sourceTree = "<group>";
 		};
-		894E10A91D2DDB7200480D11 /* CubeCategoryItem */ = {
-			isa = PBXGroup;
-			children = (
-				894E10AA1D2DDB8500480D11 /* CubeCategoryItemView.swift */,
-			);
-			path = CubeCategoryItem;
-			sourceTree = "<group>";
-		};
 		895D10E61D21166A00CEF7FA /* Comment */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,15 +331,6 @@
 			path = Comment;
 			sourceTree = "<group>";
 		};
-		8977FECE1D327EB2000159A2 /* FormulaCell */ = {
-			isa = PBXGroup;
-			children = (
-				8977FED31D327EDB000159A2 /* FormulaTextViewCell.swift */,
-				8977FED41D327EDB000159A2 /* FormulaTextViewCell.xib */,
-			);
-			path = FormulaCell;
-			sourceTree = "<group>";
-		};
 		89A17BEA1D2D1B460082B625 /* LayoutButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,17 +351,15 @@
 		89A17BF21D2D1B9B0082B625 /* AddFormula */ = {
 			isa = PBXGroup;
 			children = (
-				8977FECE1D327EB2000159A2 /* FormulaCell */,
+				89FAF41B1D33BFE600096B5A /* CubeCategoryItem */,
+				89FAF4181D33BFD400096B5A /* CategoryIndicater */,
+				89FAF4131D33BF9500096B5A /* FormulaTextCell */,
 				890718471D327972001B526D /* CategorySeletedCell */,
 				890718441D326AC5001B526D /* HeaderFormulaView */,
 				8907183F1D325B6F001B526D /* NameTextViewCell */,
 				890718361D3254D8001B526D /* SectionHeader */,
+				89FAF4101D33BF4E00096B5A /* KeyButton */,
 				89C1F5821D306E7500F79BAC /* FormulaTextView */,
-				89C1F58F1D30EBBC00F79BAC /* Keyboard */,
-				89A17BF31D2D1B9B0082B625 /* HeaderTableViewCell.swift */,
-				894E10A71D2D408A00480D11 /* ChannelTableViewCell.swift */,
-				894E10AE1D2E4C8600480D11 /* FormulasTextTableViewCell.swift */,
-				894E10B01D2E4DDC00480D11 /* FormulaSectionHeaderView.swift */,
 			);
 			path = AddFormula;
 			sourceTree = "<group>";
@@ -406,9 +367,8 @@
 		89A17BF71D2D1BEF0082B625 /* AddFormula */ = {
 			isa = PBXGroup;
 			children = (
-				89A17BFA1D2D1BF80082B625 /* AddFormula.storyboard */,
-				89A17BF81D2D1BEF0082B625 /* AddFormulaViewController.swift */,
-				890718341D324390001B526D /* AddNewFormulaViewController.swift */,
+				89FAF42E1D33C22B00096B5A /* AddFormulaViewController */,
+				89FAF4211D33C03C00096B5A /* Keyboard */,
 			);
 			path = AddFormula;
 			sourceTree = "<group>";
@@ -450,15 +410,6 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
-		89C1F58F1D30EBBC00F79BAC /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				89C1F5921D30EBCF00F79BAC /* KeyButton.swift */,
-				89C1F5901D30EBBC00F79BAC /* FormulaInputViewController.swift */,
-			);
-			path = Keyboard;
-			sourceTree = "<group>";
-		};
 		89C2EDB51D01A37C009365BA /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,7 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				89A17BF71D2D1BEF0082B625 /* AddFormula */,
-				8906AB701D256627007D44D7 /* TypeMenu */,
+				89FAF4271D33C09300096B5A /* CategoryMenu */,
 				89E663661D03F18200E90926 /* Container */,
 				89E663621D03F18200E90926 /* BaseController+Layout */,
 				89E6636F1D03F18200E90926 /* My */,
@@ -589,8 +540,6 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				89FAF40B1D33837A00096B5A /* TypeIndicater */,
-				894E10A91D2DDB7200480D11 /* CubeCategoryItem */,
 				89A17BF21D2D1B9B0082B625 /* AddFormula */,
 				89A17BEA1D2D1B460082B625 /* LayoutButton */,
 				8906AB6C1D241D36007D44D7 /* SearchBar */,
@@ -706,12 +655,64 @@
 			path = Lucuber;
 			sourceTree = "<group>";
 		};
-		89FAF40B1D33837A00096B5A /* TypeIndicater */ = {
+		89FAF4101D33BF4E00096B5A /* KeyButton */ = {
 			isa = PBXGroup;
 			children = (
-				89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */,
+				89FAF4111D33BF4E00096B5A /* KeyButton.swift */,
 			);
-			path = TypeIndicater;
+			path = KeyButton;
+			sourceTree = "<group>";
+		};
+		89FAF4131D33BF9500096B5A /* FormulaTextCell */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF4141D33BF9500096B5A /* FormulaTextViewCell.swift */,
+				89FAF4151D33BF9500096B5A /* FormulaTextViewCell.xib */,
+			);
+			path = FormulaTextCell;
+			sourceTree = "<group>";
+		};
+		89FAF4181D33BFD400096B5A /* CategoryIndicater */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF4191D33BFD400096B5A /* FormulaTypeIndicaterView.swift */,
+			);
+			path = CategoryIndicater;
+			sourceTree = "<group>";
+		};
+		89FAF41B1D33BFE600096B5A /* CubeCategoryItem */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF41C1D33BFE600096B5A /* CubeCategoryItemView.swift */,
+			);
+			path = CubeCategoryItem;
+			sourceTree = "<group>";
+		};
+		89FAF4211D33C03C00096B5A /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF4221D33C03C00096B5A /* FormulaInputViewController.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		89FAF4271D33C09300096B5A /* CategoryMenu */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF4281D33C09300096B5A /* PopMenuAnimator.swift */,
+				89FAF4291D33C09300096B5A /* PopMenuPresentationController.swift */,
+				89FAF42A1D33C09300096B5A /* CategoryMenuViewController.swift */,
+			);
+			path = CategoryMenu;
+			sourceTree = "<group>";
+		};
+		89FAF42E1D33C22B00096B5A /* AddFormulaViewController */ = {
+			isa = PBXGroup;
+			children = (
+				89FAF42F1D33C22B00096B5A /* AddFormula.storyboard */,
+				89FAF4301D33C22B00096B5A /* AddNewFormulaViewController.swift */,
+			);
+			path = AddFormulaViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -776,12 +777,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89FAF4311D33C22B00096B5A /* AddFormula.storyboard in Resources */,
 				8977FECD1D327CBE000159A2 /* CategoryPickViewCell.xib in Resources */,
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
 				89E6C5F41D03F0D3005ACFB9 /* NormalFormulaCell.xib in Resources */,
 				89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */,
 				89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */,
 				892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */,
+				89FAF4171D33BF9500096B5A /* FormulaTextViewCell.xib in Resources */,
 				89E663931D04039A00E90926 /* MasterCell.xib in Resources */,
 				890718431D325B7A001B526D /* NameTextViewCell.xib in Resources */,
 				89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */,
@@ -799,9 +802,7 @@
 				89A17BF11D2D1B5F0082B625 /* HeaderReusableView.xib in Resources */,
 				89E6639B1D040C2400E90926 /* FormulaCell.xib in Resources */,
 				8907184B1D32798A001B526D /* CategorySeletedCell.xib in Resources */,
-				89A17BFB1D2D1BF80082B625 /* AddFormula.storyboard in Resources */,
 				89B9248D1D05B7AB00BBF003 /* FooterCell.xib in Resources */,
-				8977FED61D327EDB000159A2 /* FormulaTextViewCell.xib in Resources */,
 				89E6638F1D03FA8700E90926 /* HeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,17 +862,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8906AB741D256777007D44D7 /* PopMenuAnimator.swift in Sources */,
+				89FAF42D1D33C09300096B5A /* CategoryMenuViewController.swift in Sources */,
 				89E663891D03F95B00E90926 /* DetailSubCollectionView.swift in Sources */,
-				8906AB761D256870007D44D7 /* PopMenuPresentationController.swift in Sources */,
 				89E6637F1D03F18200E90926 /* FormulaCollectionLayout.swift in Sources */,
 				89E663821D03F18200E90926 /* MyFormulaViewController.swift in Sources */,
-				894E10A81D2D408A00480D11 /* ChannelTableViewCell.swift in Sources */,
-				8906AB721D256641007D44D7 /* TypeMenuViewController.swift in Sources */,
 				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89E663841D03F18200E90926 /* MainTabbarController.swift in Sources */,
-				89FAF40D1D33839D00096B5A /* FormulaTypeIndicaterView.swift in Sources */,
 				89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */,
+				89FAF4161D33BF9500096B5A /* FormulaTextViewCell.swift in Sources */,
 				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,
 				89E663861D03F18200E90926 /* SettingViewController.swift in Sources */,
@@ -884,27 +882,21 @@
 				89B9248C1D05B7AB00BBF003 /* FooterCell.swift in Sources */,
 				89E663831D03F18200E90926 /* MainNavigationController.swift in Sources */,
 				89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */,
-				8977FED51D327EDB000159A2 /* FormulaTextViewCell.swift in Sources */,
-				89A17BF51D2D1B9B0082B625 /* HeaderTableViewCell.swift in Sources */,
 				890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */,
 				89E6637C1D03F18200E90926 /* _NormalCollectionViewLayout.swift in Sources */,
 				89E663811D03F18200E90926 /* FormulaLibraryViewController.swift in Sources */,
 				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
 				89E663871D03F18200E90926 /* TimerViewController.swift in Sources */,
-				894E10AF1D2E4C8600480D11 /* FormulasTextTableViewCell.swift in Sources */,
 				89E6637E1D03F18200E90926 /* ShowFormulaDetailController.swift in Sources */,
 				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
-				894E10B11D2E4DDC00480D11 /* FormulaSectionHeaderView.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* ShowDetailCell.swift in Sources */,
 				8906AB781D260355007D44D7 /* Animation.swift in Sources */,
 				895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */,
 				89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */,
+				89FAF41D1D33BFE600096B5A /* CubeCategoryItemView.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
-				89A17BF91D2D1BEF0082B625 /* AddFormulaViewController.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
 				8907184A1D32798A001B526D /* CategorySeletedCell.swift in Sources */,
-				89C1F5931D30EBCF00F79BAC /* KeyButton.swift in Sources */,
-				894E10AB1D2DDB8500480D11 /* CubeCategoryItemView.swift in Sources */,
 				89E6C5EF1D03F0D3005ACFB9 /* CardFormulaCell.swift in Sources */,
 				89E663921D04039A00E90926 /* MasterCell.swift in Sources */,
 				89EEDCA11D0201E9007257C3 /* testData.swift in Sources */,
@@ -913,23 +905,27 @@
 				892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */,
 				89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */,
 				89E6637D1D03F18200E90926 /* ContainerViewController.swift in Sources */,
+				89FAF4321D33C22B00096B5A /* AddNewFormulaViewController.swift in Sources */,
 				89E6C4E41D0303F7005ACFB9 /* UIFont+Cube.swift in Sources */,
 				89E663851D03F18200E90926 /* PerformanceViewController.swift in Sources */,
 				89E6C5ED1D03F0D3005ACFB9 /* DetailFormulaCell.swift in Sources */,
+				89FAF41A1D33BFD400096B5A /* FormulaTypeIndicaterView.swift in Sources */,
+				89FAF42C1D33C09300096B5A /* PopMenuPresentationController.swift in Sources */,
 				890718461D326ACD001B526D /* HeaderFormulaView.swift in Sources */,
+				89FAF4121D33BF4E00096B5A /* KeyButton.swift in Sources */,
 				89E663801D03F18200E90926 /* ShowFormulaDetailLayout.swift in Sources */,
 				89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */,
 				890718421D325B7A001B526D /* NameTextViewCell.swift in Sources */,
 				89E6637A1D03F18200E90926 /* BaseCollectionViewController.swift in Sources */,
 				89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */,
-				890718351D324390001B526D /* AddNewFormulaViewController.swift in Sources */,
+				89FAF4231D33C03C00096B5A /* FormulaInputViewController.swift in Sources */,
 				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
+				89FAF42B1D33C09300096B5A /* PopMenuAnimator.swift in Sources */,
 				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
 				89E6639A1D040C2400E90926 /* FormulaCell.swift in Sources */,
 				89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */,
 				89E663961D04099A00E90926 /* SeparatorCell.swift in Sources */,
-				89C1F5911D30EBBC00F79BAC /* FormulaInputViewController.swift in Sources */,
 				895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

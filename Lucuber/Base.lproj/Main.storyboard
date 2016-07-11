@@ -52,10 +52,10 @@
             </objects>
             <point key="canvasLocation" x="-416" y="1965"/>
         </scene>
-        <!--Type Menu View Controller-->
+        <!--Category Menu View Controller-->
         <scene sceneID="fqy-0W-UdX">
             <objects>
-                <viewController storyboardIdentifier="TypeMenuViewController" id="p8f-Ek-2y3" customClass="TypeMenuViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoryMenuViewController" id="p8f-Ek-2y3" customClass="CategoryMenuViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gNm-aY-4HZ"/>
                         <viewControllerLayoutGuide type="bottom" id="vky-oR-PV5"/>
@@ -255,23 +255,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvf-pA-hnW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-416" y="1251"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="UF3-hD-5cv">
-            <objects>
-                <viewController id="Wez-Kn-fUq" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fmV-Pf-MnM"/>
-                        <viewControllerLayoutGuide type="bottom" id="d27-nb-RoS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FFg-Rk-P1M">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mqd-63-3ZC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
         <!--AddFormula-->
         <scene sceneID="FPW-1k-1Kr">
