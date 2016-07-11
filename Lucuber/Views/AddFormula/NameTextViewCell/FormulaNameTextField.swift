@@ -26,7 +26,6 @@ class FormulaNameTextField: UITextField {
     }
     
     func updatePlaceholderLabel(showPlaceholderText: Bool) {
-        print(text?.characters.count)
         placeholdTextLabel.text = showPlaceholderText ? "输入名称, 可使用: F2L、 PLL、 OLL。" : ""
         spring(0.5) {
             self.placeholdTextLabel.hidden = self.text!.characters.count > 0
