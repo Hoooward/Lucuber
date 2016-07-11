@@ -30,36 +30,33 @@ class FormulaTextView: UITextView {
         addSubview(placeholdTextLabel)
         placeholdTextLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let placeholdLeft = NSLayoutConstraint(item: placeholdTextLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 20)
-        let placeholdTop = NSLayoutConstraint(item: placeholdTextLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 20)
+        let placeholdLeft = NSLayoutConstraint(item: placeholdTextLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+        let placeholdTop = NSLayoutConstraint(item: placeholdTextLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         
         NSLayoutConstraint.activateConstraints([placeholdTop, placeholdLeft])
     }
     
-    
-    
-    
+    private func updatePlaceholderLabel(showPlaceholderText: Bool) {
+        
+        placeholdTextLabel.text = showPlaceholderText ? "输入公式, 系统会自动帮你填充空格。" : ""
+    }
+
     private var placeholdTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "点击输入公式, 系统会自动帮你填充空格。"
-        label.textColor = UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1)
+        label.text = "输入公式, 系统会自动帮你填充空格。"
+        label.textColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
         label.font = UIFont.systemFontOfSize(12)
         label.sizeToFit()
         return label
     }()
     
     func insertKeyButtonTitle(keyButtn: KeyButton) {
-        
-    
-        
         guard let type = keyButtn.item?.type else {
             fatalError()
         }
         var newText = keyButtn.titleLabel?.text ?? ""
         var currentText = self.text
-        
-
-        
+       
         switch type {
         case .Delete:
             deleteBackward()
@@ -105,12 +102,13 @@ class FormulaTextView: UITextView {
     
     override func becomeFirstResponder() -> Bool {
         userInteractionEnabled = true
+        updatePlaceholderLabel(false)
         return super.becomeFirstResponder()
-        
     }
     
     override func resignFirstResponder() -> Bool {
         userInteractionEnabled = false
+        updatePlaceholderLabel(true)
         return super.resignFirstResponder()
     }
     
