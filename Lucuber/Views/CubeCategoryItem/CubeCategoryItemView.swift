@@ -19,7 +19,7 @@ class CubeCategoryItemView: UIView {
         label.textColor = UIColor.whiteColor()
         label.textAlignment = .Center
         label.sizeToFit()
-        label.text = "3x3x3"
+        label.text = "三阶"
         return label
     }()
     

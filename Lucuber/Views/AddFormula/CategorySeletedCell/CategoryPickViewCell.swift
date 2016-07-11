@@ -8,22 +8,50 @@
 
 import UIKit
 
+///魔方类型 english - 3x3x3, Chinese - 三阶
+class CategoryItem {
+    var englishText = ""
+    var chineseText = ""
+    init(eText: String, cText: String) {
+        self.englishText = eText
+        self.chineseText = cText
+    }
+}
+
 class CategoryPickViewCell: UITableViewCell {
     
+// MARK: - Properties
     @IBOutlet var pickView: UIPickerView!
-    let categorys = ["二阶", "三阶", "四阶", "五阶","六阶", "七阶", "五魔方", "Square One", "Megaminx", "Pyraminx", "Rubik's Clock", "八阶", "九阶", "十阶", "十一阶", "其它"]
+    var categorys: [CategoryItem] = []
+    
+// MARK: - Initialization
     override func awakeFromNib() {
         super.awakeFromNib()
+        loadCategoryFromMainBundle()
+        makeUI()
+    }
+    
+    private func makeUI() {
         pickView.delegate = self
         pickView.dataSource = self
+        pickView.selectRow(1, inComponent: 0, animated: true)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
+    private func loadCategoryFromMainBundle() {
+        let path = NSBundle.mainBundle().pathForResource("CubeCategory.plist", ofType: nil)!
+        let dict = NSDictionary(contentsOfFile: path)!
+        let categorysInEnglish = dict["English"] as! [String]
+        let categorysInChinese = dict["Chinese"] as! [String]
+        for (index, text) in categorysInEnglish.enumerate() {
+            let englishtText = text
+            let chineseText = categorysInChinese[index]
+            let item = CategoryItem(eText: englishtText, cText: chineseText)
+            categorys.append(item)
+        }
     }
-    
 }
+
+//MARK: - UIPickerViewDelegate&DataSource
 extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -32,11 +60,11 @@ extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         if let view = view as? CubeCategoryItemView {
-            view.configureWithCategory(categorys[row])
+            view.configureWithCategory(categorys[row].englishText)
             return view
         } else {
             let view = CubeCategoryItemView()
-            view.configureWithCategory(categorys[row])
+            view.configureWithCategory(categorys[row].englishText)
             return view
         }
     }
@@ -50,8 +78,8 @@ extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("seleted")
-        NSNotificationCenter.defaultCenter().postNotificationName(CategotyPickViewDidSeletedRowNotification, object: nil, userInfo: nil)
+        //发送通知到HeaderView
+        NSNotificationCenter.defaultCenter().postNotificationName(CategotyPickViewDidSeletedRowNotification, object: nil, userInfo: [AddFormulaNotification.CategoryChanged.rawValue : categorys[row]])
     }
     
 }

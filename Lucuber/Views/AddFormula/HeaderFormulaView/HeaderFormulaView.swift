@@ -26,9 +26,8 @@ class HeaderFormulaView: UIView {
         super.awakeFromNib()
         makeUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: AddFormulaDetailDidChangedNotification, object: nil)
-        print(indicaterView.frame)
-        print(indicaterView.nameLabel.frame)
-        print(indicaterView.bubbleImageView.frame)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
     
     func addFormulaDetailDidChanged(notification: NSNotification) {
@@ -38,6 +37,10 @@ class HeaderFormulaView: UIView {
         
         if let name = dict[AddFormulaNotification.NameChanged.rawValue] as? String {
             nameLabel.text = name.characters.count > 0 ? name : "Name"
+        }
+        
+        if let item = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
+            indicaterView.configureWithCategory(item.chineseText)
         }
         
     }

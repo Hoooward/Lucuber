@@ -28,6 +28,8 @@ let AddFormulaDetailDidChangedNotification = "AddFormulaDetailDidChangedNotifica
 enum AddFormulaNotification: String {
     case NameChanged = "NameChanged"
     case CategoryChanged = "CategoryChanged"
+    case CategoryInEnglishChanged = "CategoryChanged_English"
+    case CategoryInChineseChanged = "CategoryChanged_Chinese"
     case FormulaChanged = "FormulaChanged"
 }
 

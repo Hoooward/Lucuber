@@ -36,6 +36,8 @@ class AddNewFormulaViewController: UIViewController {
         
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
     
     func keyboardDidShow(notification: NSNotification) {
@@ -43,7 +45,22 @@ class AddNewFormulaViewController: UIViewController {
         if let rect = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue() {
             keyboardFrame = rect
             
-            
+        }
+        
+    }
+    
+    
+    func addFormulaDetailDidChanged(notification: NSNotification) {
+        guard let dict = notification.userInfo as? [String: AnyObject] else {
+            return
+        }
+        
+        if let _ = dict[AddFormulaNotification.NameChanged.rawValue] as? String {
+        }
+        
+        if  let item = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
+            cell.categoryLabel.text = item.englishText
         }
         
     }

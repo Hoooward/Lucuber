@@ -63,6 +63,7 @@ class FormulaTypeIndicaterView: UIButton {
     
     func configureWithCategory(category: String) {
         nameLabel.text = category
+        layoutIfNeeded()
     }
 
 }

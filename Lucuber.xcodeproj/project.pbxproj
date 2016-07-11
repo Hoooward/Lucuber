@@ -105,6 +105,7 @@
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
 		89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */; };
 		89FAF40D1D33839D00096B5A /* FormulaTypeIndicaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */; };
+		89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF40E1D33AF7900096B5A /* CubeCategory.plist */; };
 		B405A77C7F06B60A60D8CC66 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +214,7 @@
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
 		89FAF40C1D33839D00096B5A /* FormulaTypeIndicaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTypeIndicaterView.swift; sourceTree = "<group>"; };
+		89FAF40E1D33AF7900096B5A /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
 		8B09B9FB863AF6746C304BFA /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -467,6 +469,7 @@
 				89EEDCA61D0297D7007257C3 /* CreatJSON.swift */,
 				8906AB771D260355007D44D7 /* Animation.swift */,
 				89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */,
+				89FAF40E1D33AF7900096B5A /* CubeCategory.plist */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -776,6 +779,7 @@
 				8977FECD1D327CBE000159A2 /* CategoryPickViewCell.xib in Resources */,
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
 				89E6C5F41D03F0D3005ACFB9 /* NormalFormulaCell.xib in Resources */,
+				89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */,
 				89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */,
 				892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */,
 				89E663931D04039A00E90926 /* MasterCell.xib in Resources */,
