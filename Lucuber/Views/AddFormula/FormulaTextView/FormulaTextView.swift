@@ -26,6 +26,7 @@ class FormulaTextView: UITextView {
         allowsEditingTextAttributes = true
         font = UIFont.cubeFormulaDefaultTextFont()
         
+        
         addSubview(placeholdTextLabel)
         placeholdTextLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -101,6 +102,18 @@ class FormulaTextView: UITextView {
         }
         
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        userInteractionEnabled = true
+        return super.becomeFirstResponder()
+        
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        userInteractionEnabled = false
+        return super.resignFirstResponder()
+    }
+    
     
     private func replaceCharactersInRange(currentText: String, range: NSRange, newText: String) {
         let resultText = (currentText as NSString).stringByReplacingCharactersInRange(range, withString: newText)

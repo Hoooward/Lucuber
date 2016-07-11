@@ -103,6 +103,7 @@
 		89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCBB1D02EF6D007257C3 /* Storyboard+Cube.swift */; };
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
+		89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */; };
 		B405A77C7F06B60A60D8CC66 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CEB38D9EC95ACE77CBE30D /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +210,7 @@
 		89F58F181D01696300361474 /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
 		8B09B9FB863AF6746C304BFA /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,6 +276,7 @@
 		8907183F1D325B6F001B526D /* NameTextViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */,
 				890718401D325B7A001B526D /* NameTextViewCell.swift */,
 				890718411D325B7A001B526D /* NameTextViewCell.xib */,
 			);
@@ -732,6 +735,7 @@
 				TargetAttributes = {
 					89F58F171D01696300361474 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = M8E7Y88Q7R;
 					};
 				};
 			};
@@ -901,6 +905,7 @@
 				89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */,
 				890718421D325B7A001B526D /* NameTextViewCell.swift in Sources */,
 				89E6637A1D03F18200E90926 /* BaseCollectionViewController.swift in Sources */,
+				89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */,
 				890718351D324390001B526D /* AddNewFormulaViewController.swift in Sources */,
 				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
 				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
@@ -1040,6 +1045,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1049,6 +1056,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.self.Hoooward.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Lucuber-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1060,6 +1068,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1069,6 +1079,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.self.Hoooward.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Lucuber-Bridging-Header.h";
 			};
 			name = Release;

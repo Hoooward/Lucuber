@@ -10,16 +10,18 @@ import UIKit
 
 class NameTextViewCell: UITableViewCell {
 
-    @IBOutlet var textField: UITextField!
+    @IBOutlet var textField: FormulaNameTextField!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
+    private func makeUI() {
+    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
+ 
 }

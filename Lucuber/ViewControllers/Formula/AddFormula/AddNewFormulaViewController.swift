@@ -12,15 +12,17 @@ private let NameTextViewCellIdentifier = "NameTextViewCell"
 private let CategorySeletedCellIdentifier = "CategorySeletedCell"
 private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
 private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
+
 class AddNewFormulaViewController: UIViewController {
 
+    private let headerViewHeight: CGFloat = 150
     @IBOutlet var headerView: HeaderFormulaView!
     @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var tableView: UITableView!
-    let sectionHeaderTitles = ["名称", "类型", "公式"]
+    private let sectionHeaderTitles = ["名称", "类型", "公式"]
     
-    var keyboardFrame = CGRectZero
-    var categoryPickViewIsShow = false
+    private var keyboardFrame = CGRectZero
+    private var categoryPickViewIsShow = false
     
     var newFormula = Formula(name: "公式名称", formula: [], imageName: "placeholder", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L)
     
@@ -55,7 +57,7 @@ class AddNewFormulaViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     private func makeUI() {
-        tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - 170 - 64 - 44 - 25, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - headerViewHeight - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
         tableView.registerNib(UINib(nibName: NameTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: NameTextViewCellIdentifier)
@@ -150,22 +152,26 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             fatalError()
         }
         
+        scrollViewWillBeginDragging(tableView)
         switch section {
         case .Name:
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! NameTextViewCell
+            cell.textField.userInteractionEnabled = true
+            cell.textField.becomeFirstResponder()
             break
         case .Category:
             categoryPickViewIsShow ? dismissCategoryPickViewCell(tableView) : showCategoryPickViewCell(tableView)
             break
         case .Formulas:
             dismissCategoryPickViewCell(tableView)
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
+            cell.textView.becomeFirstResponder()
             break
         }
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     
        
-//        let cell = tableView.cellForRowAtIndexPath(indexPath) as! NameTextViewCell
-//        
-//        cell.textField.becomeFirstResponder()
+
      
     }
     
@@ -181,7 +187,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         case .Formulas:
             break
         }
-        return 44
+        return 40
     }
     
     private func showCategoryPickViewCell(tableView: UITableView) {
@@ -204,6 +210,8 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    
+    
 }
 
 // MARK: - UIScrollerDelegate
@@ -219,7 +227,7 @@ extension AddNewFormulaViewController: UIScrollViewDelegate {
         if scrollView.contentOffset.y > 0 { return }
         let offsetY = abs(scrollView.contentOffset.y) - tableView.contentInset.top
         if offsetY > 0 {
-            headerViewHeightConstraint.constant = 170 + offsetY
+            headerViewHeightConstraint.constant = headerViewHeight + offsetY
             headerView.layoutIfNeeded()
         }
         
