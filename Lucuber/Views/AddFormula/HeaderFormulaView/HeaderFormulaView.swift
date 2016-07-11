@@ -15,6 +15,7 @@ class HeaderFormulaView: UIView {
     @IBOutlet var creatTimeLabel: UILabel!
     @IBOutlet var creatUserLabel: UILabel!
     @IBOutlet var centerBackView: UIView!
+    @IBOutlet var indicaterView: FormulaTypeIndicaterView!
 
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,6 +26,9 @@ class HeaderFormulaView: UIView {
         super.awakeFromNib()
         makeUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: AddFormulaDetailDidChangedNotification, object: nil)
+        print(indicaterView.frame)
+        print(indicaterView.nameLabel.frame)
+        print(indicaterView.bubbleImageView.frame)
     }
     
     func addFormulaDetailDidChanged(notification: NSNotification) {

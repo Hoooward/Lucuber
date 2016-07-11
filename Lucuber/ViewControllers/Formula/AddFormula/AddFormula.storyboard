@@ -361,10 +361,14 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-uE-bnO" customClass="FormulaTypeIndicaterView" customModule="Lucuber" customModuleProvider="target">
+                                                <rect key="frame" x="305" y="15" width="30" height="30"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="iGi-1c-ut1" firstAttribute="leading" secondItem="qDg-kf-Syb" secondAttribute="leading" id="0ua-nU-gOn"/>
+                                            <constraint firstItem="4E6-uE-bnO" firstAttribute="top" secondItem="jfq-Bh-2db" secondAttribute="top" id="5SC-rc-DA0"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="bottom" secondItem="jfq-Bh-2db" secondAttribute="bottom" id="7VO-aA-Mmm"/>
                                             <constraint firstItem="iGi-1c-ut1" firstAttribute="top" secondItem="gVQ-wN-WoR" secondAttribute="bottom" constant="5" id="OVk-DC-KeA"/>
                                             <constraint firstAttribute="height" constant="130" id="QWq-eT-hFJ"/>
@@ -374,6 +378,7 @@
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="leading" secondItem="GMf-Kg-esj" secondAttribute="leading" constant="15" id="iua-jv-nVu"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="centerY" secondItem="GMf-Kg-esj" secondAttribute="centerY" id="jAg-yr-99B"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="leading" secondItem="jfq-Bh-2db" secondAttribute="trailing" constant="8" id="qPd-sO-fXI"/>
+                                            <constraint firstAttribute="trailing" secondItem="4E6-uE-bnO" secondAttribute="trailing" constant="20" id="vRr-iQ-uTP"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -394,6 +399,7 @@
                                     <outlet property="creatTimeLabel" destination="iGi-1c-ut1" id="exo-ua-IDQ"/>
                                     <outlet property="creatUserLabel" destination="qDg-kf-Syb" id="Xhx-wk-lom"/>
                                     <outlet property="imageButton" destination="jfq-Bh-2db" id="iyU-RL-7eU"/>
+                                    <outlet property="indicaterView" destination="4E6-uE-bnO" id="kIe-i5-5fH"/>
                                     <outlet property="nameLabel" destination="gVQ-wN-WoR" id="Bct-EQ-WHI"/>
                                 </connections>
                             </view>

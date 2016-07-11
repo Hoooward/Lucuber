@@ -4,7 +4,7 @@
 //
 //  Created by Howard on 7/11/16.
 //  Copyright © 2016 Howard. All rights reserved.
-//
+//  显示在cell中的公式类型View
 
 import UIKit
 
@@ -52,6 +52,12 @@ class FormulaTypeIndicaterView: UIButton {
         let bubbleImageViewTrailing = NSLayoutConstraint(item: bubbleImageView, attribute: .Trailing, relatedBy: .Equal, toItem: nameLabel, attribute: .Trailing, multiplier: 1, constant: 10)
         
         NSLayoutConstraint.activateConstraints([bubbleImageViewCenterY, bubbleImageViewLeading, bubbleImageViewTrailing])
+        
+        layoutIfNeeded()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     

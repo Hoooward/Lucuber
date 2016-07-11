@@ -2,7 +2,21 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "skill_bubble_empty.pdf"
+      "filename" : "skill_bubble_empty.pdf",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 10,
+          "top" : 11,
+          "right" : 38,
+          "left" : 43
+        }
+      }
     }
   ],
   "info" : {
