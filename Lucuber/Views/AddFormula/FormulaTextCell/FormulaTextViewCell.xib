@@ -14,7 +14,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8dt-wG-5Ix" customClass="FormulaTextView" customModule="Lucuber" customModuleProvider="target">
-                        <rect key="frame" x="20" y="5" width="280" height="55"/>
+                        <rect key="frame" x="60" y="5" width="240" height="55"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -24,7 +24,7 @@
                     <constraint firstAttribute="bottom" secondItem="8dt-wG-5Ix" secondAttribute="bottom" constant="5" id="LOc-Wh-YqS"/>
                     <constraint firstItem="8dt-wG-5Ix" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ahL-va-JnD"/>
                     <constraint firstAttribute="trailing" secondItem="8dt-wG-5Ix" secondAttribute="trailing" constant="20" id="jOE-c4-HsS"/>
-                    <constraint firstItem="8dt-wG-5Ix" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="lKx-YQ-iiB"/>
+                    <constraint firstItem="8dt-wG-5Ix" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="lKx-YQ-iiB"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

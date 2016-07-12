@@ -38,6 +38,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qGo-bp-PxQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.97753577439999995" green="0.97753577439999995" blue="0.97753577439999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="gTn-LB-dxy" id="I0D-Dd-4CI"/>
                                     <outlet property="delegate" destination="gTn-LB-dxy" id="hMe-uP-ZSx"/>
@@ -94,6 +95,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
@@ -137,6 +139,7 @@
                                     <outlet property="imageButton" destination="jfq-Bh-2db" id="iyU-RL-7eU"/>
                                     <outlet property="indicaterView" destination="4E6-uE-bnO" id="kIe-i5-5fH"/>
                                     <outlet property="nameLabel" destination="gVQ-wN-WoR" id="Bct-EQ-WHI"/>
+                                    <outlet property="starRatingView" destination="jxr-aw-oYG" id="6ee-co-LUs"/>
                                 </connections>
                             </view>
                         </subviews>

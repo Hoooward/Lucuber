@@ -8,24 +8,34 @@
 
 import UIKit
 
-private let NameTextViewCellIdentifier = "NameTextViewCell"
-private let CategorySeletedCellIdentifier = "CategorySeletedCell"
-private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
-private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
 
 class AddNewFormulaViewController: UIViewController {
+    private let NameTextViewCellIdentifier = "NameTextViewCell"
+    private let CategorySeletedCellIdentifier = "CategorySeletedCell"
+    private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
+    private let StarRatingCellIdentifier = "StarRatingCell"
+    private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
+    private let AddFormulaTextCellIdentifier = "AddFormulaTextCell"
 
     private let headerViewHeight: CGFloat = 170
     @IBOutlet var headerView: HeaderFormulaView!
     @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var tableView: UITableView!
-    private let sectionHeaderTitles = ["名称", "类型", "公式"]
+    private let sectionHeaderTitles = ["名称", "类型", "公式", ""]
     
     private var keyboardFrame = CGRectZero
     private var categoryPickViewIsShow = false
+    private var addFormulaTextIsActive = true {
+        didSet {
+            let Addcell = tableView.cellForRowAtIndexPath(addFormulaTextIndexPath) as! AddFormulaTextCell
+            Addcell.changeIndicaterLabelStatus(addFormulaTextIsActive)
+        }
+    }
     
     var newFormula = Formula(name: "公式名称", formula: [], imageName: "placeholder", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L)
     
+    var categoryPickViewIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+    var addFormulaTextIndexPath = NSIndexPath(forRow: 0, inSection: 3)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,15 +69,10 @@ class AddNewFormulaViewController: UIViewController {
         guard let dict = notification.userInfo as? [String: AnyObject] else {
             return
         }
-        
-        if let _ = dict[AddFormulaNotification.NameChanged.rawValue] as? String {
-        }
-        
         if  let item = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
             cell.categoryLabel.text = item.englishText
         }
-        
     }
     
     deinit {
@@ -86,6 +91,9 @@ class AddNewFormulaViewController: UIViewController {
         tableView.registerNib(UINib(nibName: CategorySeletedCellIdentifier, bundle: nil), forCellReuseIdentifier: CategorySeletedCellIdentifier)
         tableView.registerNib(UINib(nibName: CategotryPickViewCellIdentifier, bundle: nil), forCellReuseIdentifier: CategotryPickViewCellIdentifier)
         tableView.registerNib(UINib(nibName: FormulaTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: FormulaTextViewCellIdentifier)
+        tableView.registerNib(UINib(nibName: StarRatingCellIdentifier, bundle: nil), forCellReuseIdentifier: StarRatingCellIdentifier)
+        tableView.registerNib(UINib(nibName: AddFormulaTextCellIdentifier, bundle: nil), forCellReuseIdentifier: AddFormulaTextCellIdentifier)
+        
     }
 
     private func setupNavigationbar() {
@@ -113,13 +121,23 @@ class AddNewFormulaViewController: UIViewController {
 // MARK: - UITableViewDelegate&dataSource
 extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
     
+    /// Section Name
     enum Section: Int {
         case Name = 0
         case Category
         case Formulas
+        case AddFormula
     }
+    
+    ///类型Section 第一行、第二行、第三行
+    enum DetailRow: Int {
+        case CategoryDetailRow = 0
+        case CategoryPickViewRow = 1
+        case StarRatingRow = 2
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return sectionHeaderTitles.count
+        return 4
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,8 +148,10 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         case .Name:
             return 1
         case .Category:
-            return categoryPickViewIsShow ? 2 : 1
+            return categoryPickViewIsShow ? 3 : 2
         case .Formulas:
+            return 1
+        case .AddFormula:
             return 1
         }
     }
@@ -140,30 +160,51 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
-        
+      
         var cell = UITableViewCell()
         
         switch section {
+            
         case .Name:
             cell = tableView.dequeueReusableCellWithIdentifier(NameTextViewCellIdentifier, forIndexPath: indexPath) as! NameTextViewCell
+            
         case .Category:
-            if indexPath.row == 0 {
+            guard let row = DetailRow(rawValue: indexPath.row) else {
+                fatalError()
+            }
+            switch row {
+                
+            case .CategoryDetailRow:
                 cell = tableView.dequeueReusableCellWithIdentifier(CategorySeletedCellIdentifier, forIndexPath: indexPath) as! CategorySeletedCell
+                
+            case .CategoryPickViewRow:
+                
+                if categoryPickViewIsShow {
+                    cell = tableView.dequeueReusableCellWithIdentifier(CategotryPickViewCellIdentifier, forIndexPath: indexPath) as! CategoryPickViewCell
+                } else {
+                    cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
+                }
+                
+            case .StarRatingRow:
+                    cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
             }
-            if indexPath.row == 1 {
-                cell = tableView.dequeueReusableCellWithIdentifier(CategotryPickViewCellIdentifier, forIndexPath: indexPath) as! CategoryPickViewCell
-            }
+            
         case .Formulas:
+            
             cell = tableView.dequeueReusableCellWithIdentifier(FormulaTextViewCellIdentifier, forIndexPath: indexPath) as! FormulaTextViewCell
             formulaInputViewController.view.frame.size = keyboardFrame.size
             (cell as! FormulaTextViewCell).textView.inputView = formulaInputViewController.view
+            
+        case .AddFormula:
+           cell = tableView.dequeueReusableCellWithIdentifier(AddFormulaTextCellIdentifier, forIndexPath: indexPath)
         }
+        
+        
         return cell
     }
     
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       
         let headerView = AddSectionHeaderView.creatHeaderView()
         headerView.titleLabel.text = sectionHeaderTitles[section]
         return headerView
@@ -174,27 +215,35 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             fatalError()
         }
         
-        scrollViewWillBeginDragging(tableView)
+        view.endEditing(true)
         switch section {
         case .Name:
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! NameTextViewCell
             cell.textField.userInteractionEnabled = true
             cell.textField.becomeFirstResponder()
-            break
+            
         case .Category:
-            categoryPickViewIsShow ? dismissCategoryPickViewCell(tableView) : showCategoryPickViewCell(tableView)
-            break
+            
+            guard let row = DetailRow(rawValue: indexPath.row) else {
+                fatalError()
+            }
+            switch row {
+            case .CategoryDetailRow:
+                categoryPickViewIsShow ? dismissCategoryPickViewCell() : showCategoryPickViewCell()
+            default:
+                break
+            }
+            
         case .Formulas:
-            dismissCategoryPickViewCell(tableView)
+            dismissCategoryPickViewCell()
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
             cell.textView.becomeFirstResponder()
-            break
+            addFormulaTextIsActive = false
+        case .AddFormula:
+            return
         }
+        
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
-    
-       
-
-     
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -202,50 +251,70 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             fatalError()
         }
         switch section {
-        case .Name:
-            break
         case .Category:
-            if indexPath.row == 1 {return 130}
-        case .Formulas:
-            break
+            guard let row = DetailRow(rawValue: indexPath.row) else {
+                fatalError()
+            }
+            switch row {
+            case .CategoryPickViewRow:
+                return categoryPickViewIsShow ? 130 : 40
+            default:
+                break
+            }
+        default:
+            return 40
         }
         return 40
     }
     
-    private func showCategoryPickViewCell(tableView: UITableView) {
+
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        switch section {
+        case .AddFormula:
+            return 100
+        default:
+            return 30
+        }
+        
+    }
+    
+    
+    
+    private func showCategoryPickViewCell() {
         if !categoryPickViewIsShow {
             tableView.beginUpdates()
-            let newIndexPath = NSIndexPath(forRow: 1, inSection: 1)
             categoryPickViewIsShow = true
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.insertRowsAtIndexPaths([categoryPickViewIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             tableView.endUpdates()
         }
     }
     
-    private func dismissCategoryPickViewCell(tableView: UITableView) {
+    private func dismissCategoryPickViewCell() {
         if categoryPickViewIsShow {
             tableView.beginUpdates()
-            let newIndexPath = NSIndexPath(forRow: 1, inSection: 1)
             categoryPickViewIsShow = false
-            tableView.deleteRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            tableView.deleteRowsAtIndexPaths([categoryPickViewIndexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
         }
     }
-    
-    
+ 
     
 }
 
 // MARK: - UIScrollerDelegate
 extension AddNewFormulaViewController: UIScrollViewDelegate {
-    //设置Header的方法缩小
-    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        addFormulaTextIsActive = true
+        dismissCategoryPickViewCell()
         view.endEditing(true)
     }
     
+    //设置Header的方法缩小
     func scrollViewDidScroll(scrollView: UIScrollView) {
-   
         if scrollView.contentOffset.y > 0 { return }
         let offsetY = abs(scrollView.contentOffset.y) - tableView.contentInset.top
         if offsetY > 0 {

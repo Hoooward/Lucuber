@@ -22,6 +22,7 @@ class HeaderFormulaView: UIView {
     @IBOutlet var creatUserLabel: UILabel!
     @IBOutlet var centerBackView: UIView!
     @IBOutlet var indicaterView: FormulaTypeIndicaterView!
+    @IBOutlet var starRatingView: StarRatingView!
 
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,14 +53,20 @@ class HeaderFormulaView: UIView {
             return
         }
         
+        print(dict.keys.first)
+         print(dict.keys)
         if let name = dict[AddFormulaNotification.NameChanged.rawValue] as? String {
             nameLabel.text = name.characters.count > 0 ? name : "Name"
         }
         
-        if let item = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
-            indicaterView.configureWithCategory(item.chineseText)
+        if let category = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
+            indicaterView.configureWithCategory(category.chineseText)
         }
         
+        if let rating = dict[AddFormulaNotification.StartRatingChanged.rawValue] as? Int {
+            starRatingView.rating = rating
+            starRatingView.maxRating = rating
+        }
     }
     
     deinit {
@@ -73,6 +80,7 @@ class HeaderFormulaView: UIView {
         centerBackView.layer.masksToBounds = true
         centerBackView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor
         centerBackView.layer.borderWidth = 1.0
+        starRatingView.maxRating = 3
     }
     
 

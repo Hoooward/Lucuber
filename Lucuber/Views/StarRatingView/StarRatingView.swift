@@ -13,6 +13,7 @@ import UIKit
 
 class StarRatingView: UIView {
     
+    
     var notSelectedImage: UIImage = UIImage(named: "Star-empty")! {
         didSet {
             refresh()
@@ -35,7 +36,7 @@ class StarRatingView: UIView {
         }
     }
     var imageViews = [UIImageView]()
-    @IBInspectable var maxRating: Int = 5 {
+    var maxRating: Int = 5 {
         didSet {
             imageViews.forEach { $0.removeFromSuperview() }
             imageViews.removeAll()
@@ -75,10 +76,17 @@ class StarRatingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let desiredImageWidth = (self.frame.size.width - (self.leftMargin * 2) - (self.midMargin * CGFloat(self.imageViews.count))) / CGFloat(self.imageViews.count)
+        
+        var desiredImageWidth: CGFloat = 0
+        if editable {
+            desiredImageWidth = (self.frame.size.width - (self.leftMargin * 2) - (self.midMargin * CGFloat(self.imageViews.count))) / CGFloat(self.imageViews.count)
+        } else {
+            desiredImageWidth = self.frame.size.width / 5
+        }
         let imageWidth = max(self.minImageSize.width, desiredImageWidth)
         let imageHeight = max(self.minImageSize.height, self.frame.size.height)
         
+        print(imageWidth)
         for (index, imageview) in imageViews.enumerate() {
             imageview.frame = CGRect(x: self.leftMargin + CGFloat(index) * (self.midMargin + imageWidth), y: 0, width: imageWidth, height: imageHeight)
         }

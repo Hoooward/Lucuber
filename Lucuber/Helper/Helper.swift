@@ -25,11 +25,13 @@ let FormulaTypePopMenuDismissNotification = "FormulaTypePopMenuDismissNotificati
 let CategotyPickViewDidSeletedRowNotification = "CategotyPickViewDidSeletedRowNotification"
 let AddFormulaDetailDidChangedNotification = "AddFormulaDetailDidChangedNotification"
 
+
 enum AddFormulaNotification: String {
     case NameChanged = "NameChanged"
     case CategoryChanged = "CategoryChanged"
     case CategoryInEnglishChanged = "CategoryChanged_English"
     case CategoryInChineseChanged = "CategoryChanged_Chinese"
+    case StartRatingChanged = "StartRatingChanged"
     case FormulaChanged = "FormulaChanged"
 }
 

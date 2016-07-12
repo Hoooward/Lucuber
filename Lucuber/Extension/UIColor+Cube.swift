@@ -20,16 +20,21 @@ extension UIColor {
         return UIColor(red: 0.557, green: 0.557, blue: 0.576, alpha: 1.0)
     }
     class func cubeFormulaBracketsColor() -> UIColor {
-//        return UIColor ( red: 0.669, green: 0.7313, blue: 0.9489, alpha: 1.0 )
         return cubeTintColor()
     }
     class func cubeFormulaDefaultTextColor() -> UIColor {
-//        return UIColor(red: 0.557, green: 0.557, blue: 0.576, alpha: 1.0)
         return UIColor.blackColor()
     }
-    
     class func cubeFormulaNumberColor() -> UIColor {
         return UIColor ( red: 0.8913, green: 0.3546, blue: 0.3997, alpha: 1.0 )
+    }
+    
+    class func addFormulaNotActiveColor() -> UIColor {
+        return UIColor ( red: 0.6667, green: 0.6667, blue: 0.6667, alpha: 1.0 )
+    }
+    
+    class func addFormulaActiveColor() -> UIColor {
+        return UIColor ( red: 0.7843, green: 0.1412, blue: 0.2275, alpha: 1.0 )
     }
 }
     
