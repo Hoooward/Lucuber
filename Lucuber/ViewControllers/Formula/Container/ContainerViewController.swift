@@ -109,7 +109,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     func rightBarButtonClick(button: UIBarButtonItem) {
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("TypeMenuViewController")
+        let vc = sb.instantiateViewControllerWithIdentifier("CategoryMenuViewController")
         vc.transitioningDelegate = menuAnimator
         vc.modalPresentationStyle = UIModalPresentationStyle.Custom
         presentViewController(vc, animated: true, completion: nil)

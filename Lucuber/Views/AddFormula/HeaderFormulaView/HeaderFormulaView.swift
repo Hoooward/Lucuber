@@ -9,6 +9,12 @@
 import UIKit
 
 class HeaderFormulaView: UIView {
+    
+    var formulaImageName: String? {
+        didSet {
+            setFormulaImageButtonBackgroundImage(formulaImageName)
+        }
+    }
 
     @IBOutlet var imageButton: UIButton!
     @IBOutlet var nameLabel: UILabel!
@@ -22,9 +28,20 @@ class HeaderFormulaView: UIView {
         super.init(coder: aDecoder)
     }
     
+    ///设置image按钮的图片
+    private func setFormulaImageButtonBackgroundImage(imageName: String?) {
+        guard let imageName = imageName else {
+            imageButton.setBackgroundImage(UIImage(named:"cube_Placehold_image_1"), forState: .Normal)
+            return
+        }
+        imageButton.setBackgroundImage(UIImage(named:imageName), forState: .Normal)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: AddFormulaDetailDidChangedNotification, object: nil)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)

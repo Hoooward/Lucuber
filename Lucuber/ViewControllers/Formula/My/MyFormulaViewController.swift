@@ -11,14 +11,21 @@ import UIKit
 class MyFormulaViewController: BaseCollectionViewController {
 
 
-//    override var fomrulasData: [[Formula]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = FormulaUserMode.Card
         
-        let formula = Formula()
-        formulasData.append([formula])
+        //测试数据
+        var formulas = [Formula]()
+        for index in 1...12 {
+            let formula = Formula()
+            formula.name = "F2L - " + "\(index)"
+            formula.formulaText = [ "r' (R2 U R' U)(R U' U' R' U) (r R')"]
+            formula.imageName = "cube_Placehold_image_" + "\(index)"
+            formulas.append(formula)
+        }
+        formulasData.append(formulas)
         
         print("myData = \(formulasData)")
     }

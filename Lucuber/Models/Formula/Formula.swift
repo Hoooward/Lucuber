@@ -12,7 +12,7 @@ import SwiftyJSON
 class Formula:  CustomStringConvertible {
     var name: String = ""
     var formulaText = [String]()
-    var imageName: String = "placeholder"
+    var imageName: String = "cube_placehold_image_1"
     var level = 1
     var favorate = false
     var modifyDate = ""

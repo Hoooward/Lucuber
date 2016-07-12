@@ -29,6 +29,11 @@ class AddNewFormulaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        //TODO: 
+        //测试设置headerView的Image
+        headerView.formulaImageName = "cube_Placehold_image_1"
 
         makeUI()
         setupNavigationbar()

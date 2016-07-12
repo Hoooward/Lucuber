@@ -1,10 +1,12 @@
 PODS:
   - AVOSCloud (3.1.6.8)
+  - Cosmos (1.1.5)
   - SnapKit (0.15.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - AVOSCloud
+  - Cosmos
   - SnapKit (~> 0.15.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -19,6 +21,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AVOSCloud: 4b06ec4444ca0ee0543e6cf729b11e5f3f956977
+  Cosmos: d05465696561ccb50fa8b7574026326bb23d654b
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
