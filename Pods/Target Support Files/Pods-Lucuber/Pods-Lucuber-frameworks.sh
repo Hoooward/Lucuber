@@ -84,12 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-Lucuber/Cosmos.framework"
   install_framework "Pods-Lucuber/SnapKit.framework"
   install_framework "Pods-Lucuber/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-Lucuber/Cosmos.framework"
   install_framework "Pods-Lucuber/SnapKit.framework"
   install_framework "Pods-Lucuber/SwiftyJSON.framework"
 fi
