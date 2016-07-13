@@ -14,6 +14,7 @@ class CardFormulaCell: UICollectionViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var starRatingView: StarRatingView!
+    @IBOutlet var indicaterLabel: UILabel!
     
     var formula: Formula? {
         didSet {
@@ -33,6 +34,7 @@ class CardFormulaCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1.0
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
+        
     }
     
     func updateUI() {
@@ -42,6 +44,8 @@ class CardFormulaCell: UICollectionViewCell {
             nameLabel.text = formula.name
             starRatingView.maxRating = formula.rating
             starRatingView.rating = formula.rating
+            
+            indicaterLabel.text = formula.category.rawValue
         }
         
     }

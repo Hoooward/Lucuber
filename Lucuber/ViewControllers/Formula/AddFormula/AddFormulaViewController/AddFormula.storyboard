@@ -74,20 +74,20 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVQ-wN-WoR">
-                                                <rect key="frame" x="127" y="45" width="41" height="18"/>
+                                                <rect key="frame" x="127" y="50" width="41" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-uE-bnO" customClass="CategoryIndicaterView" customModule="Lucuber" customModuleProvider="target">
-                                                <rect key="frame" x="295" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="290" y="5" width="30" height="30"/>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxr-aw-oYG" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
-                                                <rect key="frame" x="125" y="71" width="86" height="15"/>
+                                                <rect key="frame" x="125" y="76" width="60" height="10"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="86" id="RCR-qo-wNY"/>
-                                                    <constraint firstAttribute="height" constant="15" id="aDb-GI-IPY"/>
+                                                    <constraint firstAttribute="width" constant="60" id="RCR-qo-wNY"/>
+                                                    <constraint firstAttribute="height" constant="10" id="aDb-GI-IPY"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -116,7 +116,7 @@
                                                 <rect key="frame" x="5" y="105" width="20" height="20"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="326-gV-9Bs">
-                                                <rect key="frame" x="305" y="100" width="20" height="20"/>
+                                                <rect key="frame" x="300" y="100" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="Mr1-be-UYa"/>
                                                     <constraint firstAttribute="width" constant="20" id="lPd-Ka-pxD"/>
@@ -132,7 +132,7 @@
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="top" secondItem="iF6-z7-FZn" secondAttribute="bottom" constant="-10" id="00W-oz-yJd"/>
                                             <constraint firstItem="iGi-1c-ut1" firstAttribute="leading" secondItem="qDg-kf-Syb" secondAttribute="leading" id="0ua-nU-gOn"/>
                                             <constraint firstItem="jxr-aw-oYG" firstAttribute="top" secondItem="gVQ-wN-WoR" secondAttribute="bottom" constant="8" id="1Io-Nu-uVR"/>
-                                            <constraint firstItem="4E6-uE-bnO" firstAttribute="centerY" secondItem="jfq-Bh-2db" secondAttribute="top" id="3xd-Ad-0Um"/>
+                                            <constraint firstItem="4E6-uE-bnO" firstAttribute="centerY" secondItem="jfq-Bh-2db" secondAttribute="top" constant="5" id="3xd-Ad-0Um"/>
                                             <constraint firstItem="jxr-aw-oYG" firstAttribute="leading" secondItem="iGi-1c-ut1" secondAttribute="leading" constant="-2" id="72b-pE-ubb"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="bottom" secondItem="jfq-Bh-2db" secondAttribute="bottom" id="7VO-aA-Mmm"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="leading" secondItem="IxS-qB-NC8" secondAttribute="trailing" constant="-10" id="82V-PK-iep"/>
@@ -154,10 +154,10 @@
                                             <constraint firstItem="iGi-1c-ut1" firstAttribute="top" secondItem="jxr-aw-oYG" secondAttribute="bottom" constant="8" id="iLR-GM-e9s"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="leading" secondItem="GMf-Kg-esj" secondAttribute="leading" constant="15" id="iua-jv-nVu"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="centerY" secondItem="GMf-Kg-esj" secondAttribute="centerY" id="jAg-yr-99B"/>
-                                            <constraint firstAttribute="trailing" secondItem="326-gV-9Bs" secondAttribute="trailing" constant="10" id="mbs-1r-MJP"/>
+                                            <constraint firstAttribute="trailing" secondItem="326-gV-9Bs" secondAttribute="trailing" constant="15" id="mbs-1r-MJP"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="leading" secondItem="jfq-Bh-2db" secondAttribute="trailing" constant="12" id="qPd-sO-fXI"/>
                                             <constraint firstItem="nyP-Mz-0MZ" firstAttribute="width" secondItem="IxS-qB-NC8" secondAttribute="width" id="sVo-hm-ZKD"/>
-                                            <constraint firstAttribute="trailing" secondItem="4E6-uE-bnO" secondAttribute="trailing" constant="10" id="vRr-iQ-uTP"/>
+                                            <constraint firstAttribute="trailing" secondItem="4E6-uE-bnO" secondAttribute="trailing" constant="15" id="vRr-iQ-uTP"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="top" secondItem="IxS-qB-NC8" secondAttribute="bottom" constant="-10" id="vr3-t9-W89"/>
                                             <constraint firstItem="iF6-z7-FZn" firstAttribute="height" secondItem="IxS-qB-NC8" secondAttribute="height" id="w8F-M8-o12"/>
                                         </constraints>

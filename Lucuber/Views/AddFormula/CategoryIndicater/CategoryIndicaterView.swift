@@ -48,8 +48,8 @@ class CategoryIndicaterView: UIButton {
         NSLayoutConstraint.activateConstraints([nameLabelCenterY, nameLabelCenterX, nameLabelTrailing, nameLabelLeading])
         
         let bubbleImageViewCenterY = NSLayoutConstraint(item: bubbleImageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-        let bubbleImageViewLeading = NSLayoutConstraint(item: bubbleImageView, attribute: .Leading, relatedBy: .Equal, toItem: nameLabel, attribute: .Leading, multiplier: 1, constant: -10)
-        let bubbleImageViewTrailing = NSLayoutConstraint(item: bubbleImageView, attribute: .Trailing, relatedBy: .Equal, toItem: nameLabel, attribute: .Trailing, multiplier: 1, constant: 10)
+        let bubbleImageViewLeading = NSLayoutConstraint(item: bubbleImageView, attribute: .Leading, relatedBy: .Equal, toItem: nameLabel, attribute: .Leading, multiplier: 1, constant: -5)
+        let bubbleImageViewTrailing = NSLayoutConstraint(item: bubbleImageView, attribute: .Trailing, relatedBy: .Equal, toItem: nameLabel, attribute: .Trailing, multiplier: 1, constant: 5)
         
         NSLayoutConstraint.activateConstraints([bubbleImageViewCenterY, bubbleImageViewLeading, bubbleImageViewTrailing])
         

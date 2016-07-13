@@ -30,24 +30,27 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joined 2 days ago" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuk-hF-THb">
-                        <rect key="frame" x="85" y="32" width="294" height="15"/>
+                        <rect key="frame" x="85" y="32" width="274" height="15"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.5039117192" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AMD-JN-eZh" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
-                        <rect key="frame" x="136" y="11" width="50" height="15"/>
+                        <rect key="frame" x="136" y="14" width="60" height="10"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="GwQ-zc-4Vr"/>
-                            <constraint firstAttribute="height" constant="15" id="xY4-qt-qn1"/>
+                            <constraint firstAttribute="width" constant="60" id="GwQ-zc-4Vr"/>
+                            <constraint firstAttribute="height" constant="10" id="xY4-qt-qn1"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="三阶" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1N-Tg-Lmw">
-                        <rect key="frame" x="357" y="10" width="24" height="15"/>
+                        <rect key="frame" x="361" y="10" width="20" height="12"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                         <color key="textColor" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -62,7 +65,7 @@
                 <constraint firstItem="cuk-hF-THb" firstAttribute="top" secondItem="eBN-pv-Wjr" secondAttribute="bottom" constant="5" id="NJy-Qb-lGn"/>
                 <constraint firstItem="q1N-Tg-Lmw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AMD-JN-eZh" secondAttribute="trailing" constant="20" id="Tzu-bU-5mc"/>
                 <constraint firstAttribute="trailing" secondItem="q1N-Tg-Lmw" secondAttribute="trailing" constant="8" id="X3N-sF-fe3"/>
-                <constraint firstAttribute="trailing" secondItem="cuk-hF-THb" secondAttribute="trailing" constant="10" id="Xa2-ws-glt"/>
+                <constraint firstAttribute="trailing" secondItem="cuk-hF-THb" secondAttribute="trailing" constant="30" id="Xa2-ws-glt"/>
                 <constraint firstAttribute="bottom" secondItem="NmZ-Xq-u6j" secondAttribute="bottom" constant="10" id="Y36-pz-ZEh"/>
                 <constraint firstItem="NmZ-Xq-u6j" firstAttribute="top" secondItem="XHJ-eY-Sr3" secondAttribute="top" constant="10" id="YgE-Ep-eFQ"/>
                 <constraint firstItem="cuk-hF-THb" firstAttribute="centerY" secondItem="NmZ-Xq-u6j" secondAttribute="centerY" id="eFq-iP-lIO"/>
