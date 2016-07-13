@@ -11,14 +11,38 @@ import UIKit
 class FormulaTextViewCell: UITableViewCell {
 
     @IBOutlet var textView: FormulaTextView!
+    @IBOutlet var formulaLabel: UILabel!
+    @IBOutlet var placeholderLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        makeUI()
     }
     
+    private func makeUI() {
+        self.formulaLabel.alpha = 0
+        textView.delegate = self
+        formulaLabel.textColor = UIColor.cubeFormulaDefaultTextColor()
+        formulaLabel.font = UIFont.cubeFormulaDefaultTextFont()
+        
+        placeholderLabel.text = "输入公式, 系统会自动帮你填充空格。"
+        placeholderLabel.textColor = UIColor.addFormulaPlaceholderTextColor()
+        placeholderLabel.font = UIFont.addFormulaPlaceholderTextFont()
+    }
+  
+}
+
+extension FormulaTextViewCell: UITextViewDelegate {
+    func textViewDidBeginEditing(textView: UITextView) {
+        placeholderLabel.hidden = true
+            self.formulaLabel.alpha = 0
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        placeholderLabel.hidden = textView.text.characters.count > 0
+        self.formulaLabel.attributedText = textView.text.setAttributesFitDetailLayout()
+            self.formulaLabel.alpha = 1
+        
+        
+    }
 }

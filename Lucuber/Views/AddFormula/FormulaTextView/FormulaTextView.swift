@@ -44,8 +44,8 @@ class FormulaTextView: UITextView {
     private var placeholdTextLabel: UILabel = {
         let label = UILabel()
         label.text = "输入公式, 系统会自动帮你填充空格。"
-        label.textColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-        label.font = UIFont.systemFontOfSize(12)
+        label.textColor = UIColor.addFormulaPlaceholderTextColor()
+        label.font = UIFont.addFormulaPlaceholderTextFont()
         label.sizeToFit()
         return label
     }()
@@ -102,12 +102,14 @@ class FormulaTextView: UITextView {
     
     override func becomeFirstResponder() -> Bool {
         userInteractionEnabled = true
+        self.alpha = 1
         updatePlaceholderLabel(false)
         return super.becomeFirstResponder()
     }
     
     override func resignFirstResponder() -> Bool {
         userInteractionEnabled = false
+        self.alpha = 0
         updatePlaceholderLabel(true)
         return super.resignFirstResponder()
     }

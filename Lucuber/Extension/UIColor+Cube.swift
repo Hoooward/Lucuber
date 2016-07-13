@@ -36,5 +36,9 @@ extension UIColor {
     class func addFormulaActiveColor() -> UIColor {
         return UIColor ( red: 0.7843, green: 0.1412, blue: 0.2275, alpha: 1.0 )
     }
+    
+    class func addFormulaPlaceholderTextColor() -> UIColor {
+        return UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+    }
 }
     

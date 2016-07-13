@@ -27,4 +27,8 @@ extension UIFont {
         //Verdana
         return UIFont(name: "Menlo-Regular", size: 12)!
     }
+    
+    class func addFormulaPlaceholderTextFont() -> UIFont {
+        return UIFont.systemFontOfSize(12)
+    }
 }

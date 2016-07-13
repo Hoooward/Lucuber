@@ -24,6 +24,7 @@ class AddFormulaTextCell: UITableViewCell {
     
     func changeIndicaterLabelStatus(active: Bool) {
         indicaterLabel.textColor = active ? UIColor.addFormulaActiveColor() : UIColor.addFormulaNotActiveColor()
+        self.userInteractionEnabled = active
     }
 
 

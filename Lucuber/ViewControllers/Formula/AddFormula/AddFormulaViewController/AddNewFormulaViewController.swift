@@ -10,6 +10,8 @@ import UIKit
 
 
 class AddNewFormulaViewController: UIViewController {
+    
+// MARK: - CellIdentifier
     private let NameTextViewCellIdentifier = "NameTextViewCell"
     private let CategorySeletedCellIdentifier = "CategorySeletedCell"
     private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
@@ -17,26 +19,47 @@ class AddNewFormulaViewController: UIViewController {
     private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
     private let AddFormulaTextCellIdentifier = "AddFormulaTextCell"
 
+// MARK: - Properties
     private let headerViewHeight: CGFloat = 170
     @IBOutlet var headerView: HeaderFormulaView!
     @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var tableView: UITableView!
-    private let sectionHeaderTitles = ["名称", "类型", "公式", ""]
+    private let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
+    
+    
+    //TODO: Test FormulaTexts
+    private var formulaTexts: [String] = [""]
     
     private var keyboardFrame = CGRectZero
     private var categoryPickViewIsShow = false
+    private var activeFormulaTextCellIndexPath = NSIndexPath(forItem: 0, inSection: 2)
+    
     private var addFormulaTextIsActive = true {
         didSet {
-            let Addcell = tableView.cellForRowAtIndexPath(addFormulaTextIndexPath) as! AddFormulaTextCell
-            Addcell.changeIndicaterLabelStatus(addFormulaTextIsActive)
+            if let Addcell = tableView.cellForRowAtIndexPath(addFormulaTextIndexPath) as? AddFormulaTextCell {
+                Addcell.changeIndicaterLabelStatus(addFormulaTextIsActive)
+                
+            }
         }
     }
+    
     
     var newFormula = Formula(name: "公式名称", formula: [], imageName: "placeholder", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L)
     
     var categoryPickViewIndexPath = NSIndexPath(forRow: 1, inSection: 1)
     var addFormulaTextIndexPath = NSIndexPath(forRow: 0, inSection: 3)
     
+    private lazy var formulaInputViewController: FormulaInputViewController = { let viewController = FormulaInputViewController {
+        [unowned self]  button in
+        if let cell = self.tableView.cellForRowAtIndexPath(self.activeFormulaTextCellIndexPath) as? FormulaTextViewCell {
+            cell.textView.insertKeyButtonTitle(button)
+        }
+        }
+        return viewController
+    }()
+
+    
+// MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,21 +72,20 @@ class AddNewFormulaViewController: UIViewController {
         setupNavigationbar()
         
         
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
     
+    
+// MARK: - Observer&Target Funcation
     func keyboardDidShow(notification: NSNotification) {
-//        print(notification)
         if let rect = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue() {
             keyboardFrame = rect
             
         }
         
     }
-    
     
     func addFormulaDetailDidChanged(notification: NSNotification) {
         guard let dict = notification.userInfo as? [String: AnyObject] else {
@@ -75,6 +97,7 @@ class AddNewFormulaViewController: UIViewController {
         }
     }
     
+// MARK: - Deinit
     deinit {
         print("NewFormula死了")
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -83,6 +106,8 @@ class AddNewFormulaViewController: UIViewController {
     @IBAction func dismiss(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+// MARK: - MakeUI
     private func makeUI() {
         tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - headerViewHeight - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
@@ -105,15 +130,6 @@ class AddNewFormulaViewController: UIViewController {
         //TODO: 键盘布局有问题
         childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
     }
-    
-    private lazy var formulaInputViewController: FormulaInputViewController = {
-        let viewController = FormulaInputViewController {
-            [unowned self]  button in
-            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 2)) as! FormulaTextViewCell
-            cell.textView.insertKeyButtonTitle(button)
-        }
-        return viewController
-    }()
 
    
 }
@@ -150,7 +166,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         case .Category:
             return categoryPickViewIsShow ? 3 : 2
         case .Formulas:
-            return 1
+            return formulaTexts.count
         case .AddFormula:
             return 1
         }
@@ -221,7 +237,6 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! NameTextViewCell
             cell.textField.userInteractionEnabled = true
             cell.textField.becomeFirstResponder()
-            
         case .Category:
             
             guard let row = DetailRow(rawValue: indexPath.row) else {
@@ -235,11 +250,17 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             }
             
         case .Formulas:
+            
             dismissCategoryPickViewCell()
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
+            activeFormulaTextCellIndexPath = indexPath
             cell.textView.becomeFirstResponder()
             addFormulaTextIsActive = false
+            
         case .AddFormula:
+    
+            addFormulaTextCellAt(NSIndexPath(forRow: 0, inSection: Section.Formulas.rawValue))
+            
             return
         }
         
@@ -282,6 +303,48 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .Formulas:
+            if editingStyle == .Delete {
+                tableView.beginUpdates()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+                formulaTexts.removeAtIndex(indexPath.row)
+                tableView.endUpdates()
+            }
+        default:
+            break
+        }
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        switch section {
+        case .Formulas:
+            return formulaTexts.count > 1 ? .Delete : .None
+        default:
+            return .None
+        }
+    }
+    
+    
+    
+    private func addFormulaTextCellAt(indexPath: NSIndexPath) {
+        tableView.beginUpdates()
+        formulaTexts.append("")
+        let newIndex = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+        tableView.insertRowsAtIndexPaths([newIndex], withRowAnimation: .Fade)
+        tableView.endUpdates()
+        
+       
+    }
     
     
     private func showCategoryPickViewCell() {
