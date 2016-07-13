@@ -10,15 +10,35 @@ import UIKit
 
 class NormalFormulaCell: UICollectionViewCell {
     
-    @IBOutlet var formulaImageView: UIImageView!
-    @IBOutlet var formulaNameLabel: UILabel!
-    @IBOutlet var formulaLabel: UILabel!
-    @IBOutlet var favorateImageView: UIImageView!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var contentLabel: UILabel!
+    @IBOutlet var indicaterLabel: UILabel!
+    @IBOutlet var starRatingView: StarRatingView!
+    
+    var formula: Formula? {
+        didSet{
+            updateUI()
+        }
+    }
+    
+    private func updateUI() {
+        if let formula = formula {
+            imageView.image = UIImage(named: formula.imageName)
+            nameLabel.text = formula.name
+            contentLabel.attributedText = formula.contents.first!.text!.setAttributesFitDetailLayout(ContentStyle.Normal)
+            indicaterLabel.text = formula.category.rawValue
+            starRatingView.maxRating = formula.rating
+            starRatingView.rating = formula.rating
+        }
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        formulaLabel.font = UIFont.formulaLabelFont()
-        formulaImageView.layer.cornerRadius = 2
-        formulaImageView.clipsToBounds = true
+        contentLabel.font = UIFont.cubeFormulaNormalContentFont()
+        imageView.layer.cornerRadius = 2
+        imageView.clipsToBounds = true
     }
     
 }

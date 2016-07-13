@@ -25,7 +25,7 @@ class FormulaCell: UICollectionViewCell {
 //             showHeight = attributesStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil).height
 // 
             
-            formulaLabel.attributedText = formulaString.setAttributesFitDetailLayout()
+            formulaLabel.attributedText = formulaString.setAttributesFitDetailLayout(.Detail)
             
         }
     }

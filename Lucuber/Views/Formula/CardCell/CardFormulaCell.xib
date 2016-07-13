@@ -27,7 +27,7 @@
                         </variation>
                     </imageView>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2q-zL-u3E">
-                        <rect key="frame" x="10" y="180" width="126" height="17"/>
+                        <rect key="frame" x="10" y="180" width="89" height="17"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,44 +40,42 @@
                         <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Favorite" translatesAutoresizingMaskIntoConstraints="NO" id="ivi-7s-Gbj">
-                        <rect key="frame" x="146" y="180" width="14" height="14"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NgG-dw-gTW" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
+                        <rect key="frame" x="115" y="180" width="50" height="15"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="14" id="4lT-Lm-EAl"/>
-                            <constraint firstAttribute="width" constant="14" id="bKj-bO-BsX"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="kC2-j6-cIx"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="ulb-Dd-RH1"/>
+                            <constraint firstAttribute="width" constant="50" id="80s-UI-GuQ"/>
+                            <constraint firstAttribute="height" constant="15" id="gfO-dk-GTO"/>
                         </constraints>
-                    </imageView>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="ivi-7s-Gbj" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="trailing" constant="10" id="3yf-cP-0xX"/>
                 <constraint firstItem="L2q-zL-u3E" firstAttribute="leading" secondItem="IYm-z0-vqn" secondAttribute="leading" constant="10" id="5Z1-dE-fd4"/>
+                <constraint firstItem="NgG-dw-gTW" firstAttribute="top" secondItem="x83-3g-vda" secondAttribute="bottom" constant="10" id="CFq-Vr-wky"/>
                 <constraint firstItem="x83-3g-vda" firstAttribute="top" secondItem="IYm-z0-vqn" secondAttribute="top" id="Cnw-7Y-AYf"/>
                 <constraint firstItem="qKK-ud-zlO" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="leading" id="Hqu-DC-nJX"/>
-                <constraint firstItem="ivi-7s-Gbj" firstAttribute="top" secondItem="x83-3g-vda" secondAttribute="bottom" constant="10" id="JF8-AF-WmN"/>
-                <constraint firstAttribute="trailing" secondItem="ivi-7s-Gbj" secondAttribute="trailing" constant="10" id="KGn-Ev-hI7"/>
                 <constraint firstAttribute="trailing" secondItem="qKK-ud-zlO" secondAttribute="trailing" constant="10" id="M4d-e6-Dxv"/>
                 <constraint firstItem="L2q-zL-u3E" firstAttribute="top" secondItem="x83-3g-vda" secondAttribute="bottom" constant="10" id="RXj-Sj-qtS"/>
                 <constraint firstItem="qKK-ud-zlO" firstAttribute="top" secondItem="L2q-zL-u3E" secondAttribute="bottom" constant="10" id="X2H-jQ-YgG"/>
                 <constraint firstItem="x83-3g-vda" firstAttribute="leading" secondItem="IYm-z0-vqn" secondAttribute="leading" id="Ynh-3B-Jw7"/>
                 <constraint firstAttribute="trailing" secondItem="x83-3g-vda" secondAttribute="trailing" id="aGK-qL-Mgu"/>
+                <constraint firstItem="NgG-dw-gTW" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="trailing" constant="16" id="cbY-VV-Z8W"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qKK-ud-zlO" secondAttribute="bottom" constant="10" id="i71-zI-05g"/>
+                <constraint firstAttribute="trailing" secondItem="NgG-dw-gTW" secondAttribute="trailing" constant="5" id="qvM-Be-Wfu"/>
             </constraints>
             <size key="customSize" width="170" height="254"/>
             <connections>
-                <outlet property="favoriteImageView" destination="ivi-7s-Gbj" id="22a-zl-V0s"/>
-                <outlet property="formulaImageView" destination="x83-3g-vda" id="GVs-GX-5Z1"/>
-                <outlet property="formulaLabel" destination="qKK-ud-zlO" id="kSj-ZY-uB3"/>
-                <outlet property="formulaNameLabel" destination="L2q-zL-u3E" id="TT5-Va-zuy"/>
+                <outlet property="contentLabel" destination="qKK-ud-zlO" id="Hhx-kh-Fbw"/>
+                <outlet property="imageView" destination="x83-3g-vda" id="WEr-e6-IH9"/>
+                <outlet property="nameLabel" destination="L2q-zL-u3E" id="m85-jt-CoQ"/>
+                <outlet property="starRatingView" destination="NgG-dw-gTW" id="OIY-rc-ggt"/>
             </connections>
             <point key="canvasLocation" x="280" y="420"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Favorite" width="42" height="40"/>
         <image name="placeholder" width="575" height="600"/>
     </resources>
 </document>

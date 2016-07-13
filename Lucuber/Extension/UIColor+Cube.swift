@@ -19,14 +19,29 @@ extension UIColor {
     class func cubeInputTextColor() -> UIColor {
         return UIColor(red: 0.557, green: 0.557, blue: 0.576, alpha: 1.0)
     }
-    class func cubeFormulaBracketsColor() -> UIColor {
-        return cubeTintColor()
-    }
-    class func cubeFormulaDefaultTextColor() -> UIColor {
+  
+    class func cubeFormulaDetailTextColor() -> UIColor {
         return UIColor.blackColor()
     }
-    class func cubeFormulaNumberColor() -> UIColor {
+    
+    class func cubeFormulaDetailNumberColor() -> UIColor {
         return UIColor ( red: 0.8913, green: 0.3546, blue: 0.3997, alpha: 1.0 )
+    }
+    
+    class func cubeFormulaDetailBracketsColor() -> UIColor {
+        return UIColor ( red: 0.19, green: 0.3577, blue: 0.4382, alpha: 1.0 )
+    }
+    
+    class func cubeFormulaNormalTextColor() -> UIColor {
+        return UIColor ( red: 0.5039, green: 0.5039, blue: 0.5039, alpha: 1.0 )
+    }
+    
+    class func cubeFormulaNormalNumberColor() -> UIColor {
+         return UIColor ( red: 0.8913, green: 0.3546, blue: 0.3997, alpha: 1.0 )
+    }
+    
+    class func cubeFormulaNormalBracketsColor() -> UIColor {
+         return UIColor ( red: 0.1473, green: 0.2855, blue: 0.3624, alpha: 0.5 )
     }
     
     class func addFormulaNotActiveColor() -> UIColor {

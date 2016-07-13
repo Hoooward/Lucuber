@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaTypeIndicaterView: UIButton {
+class CategoryIndicaterView: UIButton {
 
     lazy var bubbleImageView: UIImageView = {
         return UIImageView(image: UIImage(named: "skill_bubble"))

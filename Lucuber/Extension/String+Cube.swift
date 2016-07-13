@@ -8,50 +8,83 @@
 
 import UIKit
 
+enum ContentStyle {
+    case Detail
+    case Normal
+}
 
 extension String {
     
-    func setAttributesFitDetailLayout() -> NSMutableAttributedString {
+
+    
+    func setAttributesFitDetailLayout(style: ContentStyle) -> NSMutableAttributedString {
         let attributeText = NSMutableAttributedString(string: self)
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor.cubeFormulaDefaultTextColor(),
-            NSFontAttributeName: UIFont.cubeFormulaDefaultTextFont()]
-        attributeText.addAttributes(attributes, range: NSRange(location: 0, length: self.characters.count))
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 5
-        attributeText.addAttributes([NSParagraphStyleAttributeName: style], range: NSRange(location: 0, length: self.characters.count))
         
-        return setBracketsColor(attributeText)
+        var attributes = [String: AnyObject]()
+        switch style {
+        case .Normal:
+            attributes = [
+                NSForegroundColorAttributeName: UIColor.cubeFormulaNormalTextColor(),
+                NSFontAttributeName: UIFont.cubeFormulaNormalContentFont()]
+        case .Detail:
+            attributes = [
+                NSForegroundColorAttributeName: UIColor.cubeFormulaDetailTextColor(),
+                NSFontAttributeName: UIFont.cubeFormulaDetailTextFont()]
+        }
+        attributeText.addAttributes(attributes, range: NSRange(location: 0, length: self.characters.count))
+        let textStyle = NSMutableParagraphStyle()
+        textStyle.lineSpacing = 5
+        attributeText.addAttributes([NSParagraphStyleAttributeName: textStyle], range: NSRange(location: 0, length: self.characters.count))
+        
+        return setBracketsColor(attributeText, style: style)
     }
     
     
     
-    private func setBracketsColor(attributeText: NSMutableAttributedString) -> NSMutableAttributedString {
+    private func setBracketsColor(attributeText: NSMutableAttributedString, style: ContentStyle) -> NSMutableAttributedString {
         let pattern = "\\(|\\)"
         do {
             let regular = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.init(rawValue: 0))
             let checkingResult = regular.matchesInString(self, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: self.characters.count))
             for result in checkingResult {
-                let attributes = [
-                    NSForegroundColorAttributeName: UIColor.cubeFormulaBracketsColor(),
-                    NSFontAttributeName: UIFont.cubeFormulaBracketsFont()]
+                
+                var attributes = [String: AnyObject]()
+                switch style {
+                case .Normal:
+                    attributes = [
+                        NSForegroundColorAttributeName: UIColor.cubeFormulaNormalBracketsColor(),
+                        NSFontAttributeName: UIFont.cubeFormulaNormalBracketsFont()]
+                case .Detail:
+                    attributes = [
+                        NSForegroundColorAttributeName: UIColor.cubeFormulaDetailBracketsColor(),
+                        NSFontAttributeName: UIFont.cubeFormulaDetailBracketsFont()]
+                }
                 attributeText.addAttributes(attributes, range: result.range)
             }
         } catch {
             print("设置括弧颜色失败")
         }
         
-        return setNumbersColor(attributeText)
+        return setNumbersColor(attributeText, style: style)
     }
     
     
-    private func setNumbersColor(attributeText: NSMutableAttributedString) -> NSMutableAttributedString {
+    private func setNumbersColor(attributeText: NSMutableAttributedString, style: ContentStyle) -> NSMutableAttributedString {
         let pattern = "2"
         do {
             let regular = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.init(rawValue: 0))
             let checkingResult = regular.matchesInString(self, options: NSMatchingOptions.init(rawValue: 0), range: NSRange(location: 0, length: self.characters.count))
             for result in checkingResult {
-                attributeText.addAttributes([NSForegroundColorAttributeName: UIColor.cubeFormulaNumberColor()], range: result.range)
+                var attributes = [String: AnyObject]()
+                switch style {
+                case .Normal:
+                    attributes = [
+                        NSForegroundColorAttributeName: UIColor.cubeFormulaNormalNumberColor()]
+                case .Detail:
+                    attributes = [
+                        NSForegroundColorAttributeName: UIColor.cubeFormulaDetailNumberColor()]
+                }
+                attributeText.addAttributes(attributes, range: result.range)
             }
         } catch {
             print("设置括弧颜色失败")

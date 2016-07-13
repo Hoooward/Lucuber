@@ -254,14 +254,11 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         switch userMode {
         case .Normal:
             let cell = cell as! NormalFormulaCell
-            cell.formulaLabel.text = formula.contents.first?.text
-            cell.formulaNameLabel.text = formula.name
-            cell.formulaImageView.image = UIImage(named: formula.imageName)
+            cell.formula = formula
         case .Card:
             let cell = cell as! CardFormulaCell
-            cell.formulaLabel.text = formula.contents.first?.text
-            cell.formulaNameLabel.text = formula.name
-            cell.formulaImageView.image = UIImage(named: formula.imageName)
+            cell.formula = formula
+           
         }
     }
     

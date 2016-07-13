@@ -24,7 +24,7 @@ class FormulaTextView: UITextView {
         tintColor = UIColor.cubeTintColor()
         textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         allowsEditingTextAttributes = true
-        font = UIFont.cubeFormulaDefaultTextFont()
+        font = UIFont.cubeFormulaDetailTextFont()
         
         
         addSubview(placeholdTextLabel)
@@ -117,7 +117,7 @@ class FormulaTextView: UITextView {
     
     private func replaceCharactersInRange(currentText: String, range: NSRange, newText: String) {
         let resultText = (currentText as NSString).stringByReplacingCharactersInRange(range, withString: newText)
-        self.attributedText = resultText.setAttributesFitDetailLayout()
+        self.attributedText = resultText.setAttributesFitDetailLayout(ContentStyle.Detail)
         
     }
 

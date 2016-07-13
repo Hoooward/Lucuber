@@ -34,8 +34,8 @@ class FormulaContent: CustomStringConvertible {
         
         if let text = text where text.characters.count > 0 {
             let attributes = [
-                NSForegroundColorAttributeName: UIColor.cubeFormulaDefaultTextColor(),
-                NSFontAttributeName: UIFont.cubeFormulaDefaultTextFont()]
+                NSForegroundColorAttributeName: UIColor.cubeFormulaDetailTextColor(),
+                NSFontAttributeName: UIFont.cubeFormulaDetailTextFont()]
             let rect =  (text as NSString).boundingRectWithSize(CGSize(width: screenWidth, height: screenHeight), options: NSStringDrawingOptions.init(rawValue: 0), attributes: attributes, context: nil)
             
             return rect.size.height + 20

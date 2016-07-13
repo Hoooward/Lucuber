@@ -10,12 +10,6 @@ import UIKit
 
 class HeaderFormulaView: UIView {
     
-    var formulaImageName: String? {
-        didSet {
-            setFormulaImageButtonBackgroundImage(formulaImageName)
-        }
-    }
-    
     var formula: Formula? {
         didSet {
             guard let formula = formula else {
@@ -31,7 +25,7 @@ class HeaderFormulaView: UIView {
     @IBOutlet var creatTimeLabel: UILabel!
     @IBOutlet var creatUserLabel: UILabel!
     @IBOutlet var centerBackView: UIView!
-    @IBOutlet var indicaterView: FormulaTypeIndicaterView!
+    @IBOutlet var indicaterView: CategoryIndicaterView!
     @IBOutlet var starRatingView: StarRatingView!
 
     

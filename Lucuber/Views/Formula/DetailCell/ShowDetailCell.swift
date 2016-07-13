@@ -197,7 +197,7 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
             return CGSizeMake(screenWidth, 40)
         case .Formula:
             let string = self.formula!.contents[indexPath.item].text!
-            let attributsStr = string.setAttributesFitDetailLayout()
+            let attributsStr = string.setAttributesFitDetailLayout(ContentStyle.Detail)
             //这串数字是xib中的约束
             let rect = attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil)
             print("resultFrame = \(rect)")

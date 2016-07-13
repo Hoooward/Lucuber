@@ -10,28 +10,39 @@ import UIKit
 
 class CardFormulaCell: UICollectionViewCell {
 
-    @IBOutlet var formulaImageView: UIImageView!
-    @IBOutlet var formulaNameLabel: UILabel!
-    @IBOutlet var formulaLabel: UILabel!
-    @IBOutlet var favoriteImageView: UIImageView!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var contentLabel: UILabel!
+    @IBOutlet var starRatingView: StarRatingView!
     
     var formula: Formula? {
         didSet {
+            updateUI()
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        formulaLabel.font = UIFont.formulaLabelFont()
+        contentLabel.font = UIFont.cubeFormulaNormalContentFont()
         contentView.backgroundColor = UIColor.whiteColor()
         contentView.layer.cornerRadius = 6
         contentView.layer.masksToBounds = true
         
         contentView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor
         contentView.layer.borderWidth = 1.0
-        formulaImageView.contentMode = .ScaleAspectFill
-        formulaImageView.clipsToBounds = true
-        favoriteImageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
+    }
+    
+    func updateUI() {
+        if let formula = formula {
+            contentLabel.attributedText = formula.contents.first!.text!.setAttributesFitDetailLayout(ContentStyle.Normal)
+            imageView.image = UIImage(named: formula.imageName)
+            nameLabel.text = formula.name
+            starRatingView.maxRating = formula.rating
+            starRatingView.rating = formula.rating
+        }
+        
     }
 }

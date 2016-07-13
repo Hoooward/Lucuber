@@ -78,7 +78,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-uE-bnO" customClass="FormulaTypeIndicaterView" customModule="Lucuber" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-uE-bnO" customClass="CategoryIndicaterView" customModule="Lucuber" customModuleProvider="target">
                                                 <rect key="frame" x="285" y="15" width="30" height="30"/>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxr-aw-oYG" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
@@ -207,7 +207,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="6jie" width="91" height="91"/>
+        <image name="6jie" width="575" height="600"/>
         <image name="BL" width="30" height="30"/>
         <image name="BR" width="30" height="30"/>
         <image name="FL" width="30" height="30"/>

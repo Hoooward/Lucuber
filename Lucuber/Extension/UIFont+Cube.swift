@@ -14,17 +14,20 @@ extension UIFont {
         return UIFont.boldSystemFontOfSize(17)
     }
     
-    class func formulaLabelFont() -> UIFont {
+    class func cubeFormulaNormalContentFont() -> UIFont {
+        return UIFont(name: "Menlo-Regular", size: 10)!
+    }
+    
+    class func cubeFormulaNormalBracketsFont() -> UIFont {
+        return UIFont(name: "Menlo-Regular", size: 10)!
+    }
+    
+    class func cubeFormulaDetailTextFont() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 12)!
     }
     
-    class func cubeFormulaDefaultTextFont() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 12)!
-    }
     
-    class func cubeFormulaBracketsFont() -> UIFont {
-        //Thonburi
-        //Verdana
+    class func cubeFormulaDetailBracketsFont() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 12)!
     }
     
