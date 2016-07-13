@@ -28,7 +28,7 @@ class AddNewFormulaViewController: UIViewController {
     
     
     //TODO: Test FormulaTexts
-    private var formulaTexts: [String] = [""]
+    private var formulasContent: [FormulaContent] = [FormulaContent()]
     
     private var keyboardFrame = CGRectZero
     private var categoryPickViewIsShow = false
@@ -166,7 +166,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         case .Category:
             return categoryPickViewIsShow ? 3 : 2
         case .Formulas:
-            return formulaTexts.count
+            return formulasContent.count
         case .AddFormula:
             return 1
         }
@@ -253,13 +253,15 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             
             dismissCategoryPickViewCell()
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
+            
+            cell.formulaContent = formulasContent[indexPath.row]
             activeFormulaTextCellIndexPath = indexPath
             cell.textView.becomeFirstResponder()
             addFormulaTextIsActive = false
             
         case .AddFormula:
     
-            addFormulaTextCellAt(NSIndexPath(forRow: 0, inSection: Section.Formulas.rawValue))
+            addFormulaTextCellAt(NSIndexPath(forRow: formulasContent.count - 1, inSection: Section.Formulas.rawValue))
             
             return
         }
@@ -314,7 +316,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
             if editingStyle == .Delete {
                 tableView.beginUpdates()
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
-                formulaTexts.removeAtIndex(indexPath.row)
+                formulasContent.removeAtIndex(indexPath.row)
                 tableView.endUpdates()
             }
         default:
@@ -328,7 +330,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
         }
         switch section {
         case .Formulas:
-            return formulaTexts.count > 1 ? .Delete : .None
+            return formulasContent.count > 1 ? .Delete : .None
         default:
             return .None
         }
@@ -338,9 +340,9 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
     
     private func addFormulaTextCellAt(indexPath: NSIndexPath) {
         tableView.beginUpdates()
-        formulaTexts.append("")
-        let newIndex = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+        let newIndex = NSIndexPath(forRow: formulasContent.count, inSection: Section.Formulas.rawValue)
         tableView.insertRowsAtIndexPaths([newIndex], withRowAnimation: .Fade)
+        formulasContent.append(FormulaContent())
         tableView.endUpdates()
         
        
@@ -374,6 +376,7 @@ extension AddNewFormulaViewController: UIScrollViewDelegate {
         addFormulaTextIsActive = true
         dismissCategoryPickViewCell()
         view.endEditing(true)
+        print(formulasContent)
     }
     
     //设置Header的方法缩小

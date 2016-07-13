@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaText {
+class FormulaContent: CustomStringConvertible {
     
     enum Rotation {
         case FR
@@ -17,14 +17,13 @@ class FormulaText {
         case BR
     }
     
-    var formulaText: String?
+    var text: String?
     var rotation: Rotation = Rotation.FR
     
     var cellHeight: CGFloat {
         let height: CGFloat = 40
         
-        if let text = formulaText where text.characters.count > 0 {
-            
+        if let text = text where text.characters.count > 0 {
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.cubeFormulaDefaultTextColor(),
                 NSFontAttributeName: UIFont.cubeFormulaDefaultTextFont()]
@@ -35,5 +34,11 @@ class FormulaText {
         
         return height
     }
+    
+    
+    var description: String {
+        return "\(text) + \(rotation)"
+    }
+    
     
 }
