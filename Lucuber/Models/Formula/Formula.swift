@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class Formula:  CustomStringConvertible {
     var name: String = ""
-    var formulaText = [String]()
+    var formulaContent = [FormulaContent]()
     var imageName: String = "cube_placehold_image_1"
     var level = 1
     var favorate = false
@@ -22,10 +22,10 @@ class Formula:  CustomStringConvertible {
     init () {
     }
     
-    init(name: String, formula: [String], imageName: String, level: Int, favorate: Bool, modifyDate: String, category: Category, type: Type)
+    init(name: String, formula: [FormulaContent], imageName: String, level: Int, favorate: Bool, modifyDate: String, category: Category, type: Type)
     {
         self.name = name
-        self.formulaText = formula
+        self.formulaContent = formula
         self.imageName = imageName
         self.level = level
         self.favorate = favorate
@@ -121,22 +121,23 @@ class FormulaManager {
                 let name = item["name"].stringValue
                 
                 let texts = item["formulaText"].arrayValue
-                var formulaTexts = [String]()
+                var formulaContent = [FormulaContent]()
                 for text in texts {
-                   formulaTexts.append(text.stringValue)
+                   let content = FormulaContent()
+                    content.text = text.stringValue
+                   formulaContent.append(content)
                 
                     //测试
-                   formulaTexts.append(text.stringValue)
-                   formulaTexts.append(text.stringValue)
+                   formulaContent.append(content)
+                   formulaContent.append(content)
                 }
-                let formulaText = formulaTexts
                 
                 let level = item["level"].intValue
                 let imageName = item["imageName"].stringValue
                 let favorate = item["favorate"].boolValue
                 let modifydate = item["modifydate"].stringValue
                 
-                let formula = Formula(name: name, formula: formulaText, imageName: imageName, level: level, favorate: favorate, modifyDate: modifydate, category: Category.x3x3, type: type)
+                let formula = Formula(name: name, formula: formulaContent, imageName: imageName, level: level, favorate: favorate, modifyDate: modifydate, category: Category.x3x3, type: type)
                 formulas.append(formula)
             }
             return formulas

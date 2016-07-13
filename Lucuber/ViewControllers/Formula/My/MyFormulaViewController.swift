@@ -21,7 +21,9 @@ class MyFormulaViewController: BaseCollectionViewController {
         for index in 1...12 {
             let formula = Formula()
             formula.name = "F2L - " + "\(index)"
-            formula.formulaText = [ "r' (R2 U R' U)(R U' U' R' U) (r R')"]
+            let content = FormulaContent()
+            content.text = "r' (R2 U R' U)(R U' U' R' U) (r R')"
+            formula.formulaContent.append(content)
             formula.imageName = "cube_Placehold_image_" + "\(index)"
             formulas.append(formula)
         }

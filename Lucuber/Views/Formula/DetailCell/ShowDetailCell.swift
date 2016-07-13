@@ -168,13 +168,13 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
             let cell = cell as! FormulaCell
             switch indexPath.row {
             case 0:
-                cell.formulaString = self.formula!.formulaText.first!
+                cell.formulaString = self.formula!.formulaContent.first!.text!
             case 1:
 //                cell.formulaString = "(R U' U') (R2' F R F') U2 (R' F R F')"
-                cell.formulaString = self.formula!.formulaText[indexPath.item]
+                cell.formulaString = self.formula!.formulaContent[indexPath.item].text!
             default:
 //                cell.formulaString = "(U R' U') (R U' R) U (R U' R' U)(R U R2 U')(R' U)"
-                cell.formulaString = self.formula!.formulaText[indexPath.item]
+                cell.formulaString =  self.formula!.formulaContent[indexPath.item].text!
             }
         default:
             break
@@ -196,7 +196,7 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         case .Sepatator:
             return CGSizeMake(screenWidth, 40)
         case .Formula:
-            let string = self.formula!.formulaText[indexPath.item]
+            let string = self.formula!.formulaContent[indexPath.item].text!
             let attributsStr = string.setAttributesFitDetailLayout()
             //这串数字是xib中的约束
             let rect = attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil)
