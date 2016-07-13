@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mhK-qj-jsZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Main Navigation Controller-->
@@ -56,7 +57,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="9HR-ya-1D8"/>
                                                     <constraint firstAttribute="width" constant="100" id="dbw-lk-buS"/>
                                                 </constraints>
-                                                <state key="normal" backgroundImage="6jie"/>
+                                                <state key="normal" backgroundImage="cube_Placehold_image_1"/>
                                             </button>
                                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建时间: 16-07" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGi-1c-ut1">
                                                 <rect key="frame" x="127" y="94" width="61" height="10"/>
@@ -79,7 +80,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E6-uE-bnO" customClass="CategoryIndicaterView" customModule="Lucuber" customModuleProvider="target">
-                                                <rect key="frame" x="285" y="15" width="30" height="30"/>
+                                                <rect key="frame" x="295" y="0.0" width="30" height="30"/>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxr-aw-oYG" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
                                                 <rect key="frame" x="125" y="71" width="86" height="15"/>
@@ -114,13 +115,24 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FR" translatesAutoresizingMaskIntoConstraints="NO" id="iwA-aj-e98">
                                                 <rect key="frame" x="5" y="105" width="20" height="20"/>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="326-gV-9Bs">
+                                                <rect key="frame" x="305" y="100" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Mr1-be-UYa"/>
+                                                    <constraint firstAttribute="width" constant="20" id="lPd-Ka-pxD"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="formula_content_help_seleted"/>
+                                                <connections>
+                                                    <action selector="helpButtonClicked:" destination="rxd-uX-cK3" eventType="touchUpInside" id="noB-e5-xag"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="top" secondItem="iF6-z7-FZn" secondAttribute="bottom" constant="-10" id="00W-oz-yJd"/>
                                             <constraint firstItem="iGi-1c-ut1" firstAttribute="leading" secondItem="qDg-kf-Syb" secondAttribute="leading" id="0ua-nU-gOn"/>
                                             <constraint firstItem="jxr-aw-oYG" firstAttribute="top" secondItem="gVQ-wN-WoR" secondAttribute="bottom" constant="8" id="1Io-Nu-uVR"/>
-                                            <constraint firstItem="4E6-uE-bnO" firstAttribute="top" secondItem="jfq-Bh-2db" secondAttribute="top" id="5SC-rc-DA0"/>
+                                            <constraint firstItem="4E6-uE-bnO" firstAttribute="centerY" secondItem="jfq-Bh-2db" secondAttribute="top" id="3xd-Ad-0Um"/>
                                             <constraint firstItem="jxr-aw-oYG" firstAttribute="leading" secondItem="iGi-1c-ut1" secondAttribute="leading" constant="-2" id="72b-pE-ubb"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="bottom" secondItem="jfq-Bh-2db" secondAttribute="bottom" id="7VO-aA-Mmm"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="leading" secondItem="IxS-qB-NC8" secondAttribute="trailing" constant="-10" id="82V-PK-iep"/>
@@ -136,14 +148,16 @@
                                             <constraint firstItem="gVQ-wN-WoR" firstAttribute="leading" secondItem="iGi-1c-ut1" secondAttribute="leading" id="Xuo-mK-12k"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="top" secondItem="iGi-1c-ut1" secondAttribute="bottom" constant="1" id="aCQ-MO-ta8"/>
                                             <constraint firstItem="nyP-Mz-0MZ" firstAttribute="height" secondItem="IxS-qB-NC8" secondAttribute="height" id="cl9-Ve-lUY"/>
+                                            <constraint firstAttribute="bottom" secondItem="326-gV-9Bs" secondAttribute="bottom" constant="10" id="dY6-uC-5Gf"/>
                                             <constraint firstItem="gVQ-wN-WoR" firstAttribute="centerY" secondItem="jfq-Bh-2db" secondAttribute="centerY" id="gEU-Or-Aad"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="leading" secondItem="iwA-aj-e98" secondAttribute="trailing" constant="-10" id="gVX-Kc-8CI"/>
                                             <constraint firstItem="iGi-1c-ut1" firstAttribute="top" secondItem="jxr-aw-oYG" secondAttribute="bottom" constant="8" id="iLR-GM-e9s"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="leading" secondItem="GMf-Kg-esj" secondAttribute="leading" constant="15" id="iua-jv-nVu"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="centerY" secondItem="GMf-Kg-esj" secondAttribute="centerY" id="jAg-yr-99B"/>
+                                            <constraint firstAttribute="trailing" secondItem="326-gV-9Bs" secondAttribute="trailing" constant="10" id="mbs-1r-MJP"/>
                                             <constraint firstItem="qDg-kf-Syb" firstAttribute="leading" secondItem="jfq-Bh-2db" secondAttribute="trailing" constant="12" id="qPd-sO-fXI"/>
                                             <constraint firstItem="nyP-Mz-0MZ" firstAttribute="width" secondItem="IxS-qB-NC8" secondAttribute="width" id="sVo-hm-ZKD"/>
-                                            <constraint firstAttribute="trailing" secondItem="4E6-uE-bnO" secondAttribute="trailing" constant="20" id="vRr-iQ-uTP"/>
+                                            <constraint firstAttribute="trailing" secondItem="4E6-uE-bnO" secondAttribute="trailing" constant="10" id="vRr-iQ-uTP"/>
                                             <constraint firstItem="jfq-Bh-2db" firstAttribute="top" secondItem="IxS-qB-NC8" secondAttribute="bottom" constant="-10" id="vr3-t9-W89"/>
                                             <constraint firstItem="iF6-z7-FZn" firstAttribute="height" secondItem="IxS-qB-NC8" secondAttribute="height" id="w8F-M8-o12"/>
                                         </constraints>
@@ -163,9 +177,14 @@
                                     <constraint firstAttribute="height" constant="170" id="tbs-Fh-V6S"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="BLIndicaterView" destination="IxS-qB-NC8" id="EuW-BM-d0l"/>
+                                    <outlet property="BRIndicaterView" destination="iF6-z7-FZn" id="3L6-EU-qDg"/>
+                                    <outlet property="FLIndicaterView" destination="nyP-Mz-0MZ" id="Ryw-UV-DK6"/>
+                                    <outlet property="FRIndicaterView" destination="iwA-aj-e98" id="fok-BV-oFR"/>
                                     <outlet property="centerBackView" destination="GMf-Kg-esj" id="37d-VG-7iu"/>
                                     <outlet property="creatTimeLabel" destination="iGi-1c-ut1" id="exo-ua-IDQ"/>
                                     <outlet property="creatUserLabel" destination="qDg-kf-Syb" id="Xhx-wk-lom"/>
+                                    <outlet property="helpButton" destination="326-gV-9Bs" id="34M-Ej-Uqb"/>
                                     <outlet property="imageButton" destination="jfq-Bh-2db" id="iyU-RL-7eU"/>
                                     <outlet property="indicaterView" destination="4E6-uE-bnO" id="kIe-i5-5fH"/>
                                     <outlet property="nameLabel" destination="gVQ-wN-WoR" id="Bct-EQ-WHI"/>
@@ -207,10 +226,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="6jie" width="575" height="600"/>
         <image name="BL" width="30" height="30"/>
         <image name="BR" width="30" height="30"/>
         <image name="FL" width="30" height="30"/>
         <image name="FR" width="30" height="30"/>
+        <image name="cube_Placehold_image_1" width="304" height="304"/>
+        <image name="formula_content_help_seleted" width="30" height="30"/>
     </resources>
 </document>

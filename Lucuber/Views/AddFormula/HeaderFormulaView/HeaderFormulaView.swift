@@ -27,7 +27,28 @@ class HeaderFormulaView: UIView {
     @IBOutlet var centerBackView: UIView!
     @IBOutlet var indicaterView: CategoryIndicaterView!
     @IBOutlet var starRatingView: StarRatingView!
+    @IBOutlet var helpButton: UIButton!
+    
+    @IBOutlet var BLIndicaterView: UIImageView!
+    @IBOutlet var BRIndicaterView: UIImageView!
+    @IBOutlet var FLIndicaterView: UIImageView!
+    @IBOutlet var FRIndicaterView: UIImageView!
 
+    
+    @IBAction func helpButtonClicked(sender: UIButton) {
+        sender.selected = !sender.selected
+        updateRotationIndicaterStatu(sender.selected)
+    
+    }
+    
+    private func updateRotationIndicaterStatu(show: Bool) {
+        spring(1.0) {
+            self.BLIndicaterView.alpha = show ? 1 : 0
+            self.BRIndicaterView.alpha = show ? 1 : 0
+            self.FLIndicaterView.alpha = show ? 1 : 0
+            self.FRIndicaterView.alpha = show ? 1 : 0
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -90,6 +111,12 @@ class HeaderFormulaView: UIView {
         centerBackView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor
         centerBackView.layer.borderWidth = 1.0
         starRatingView.maxRating = 3
+        
+        
+        helpButton.setBackgroundImage(UIImage(named: "formula_content_help"), forState: .Normal)
+        helpButton.setBackgroundImage(UIImage(named: "formula_content_help_seleted"), forState: .Selected)
+        
+        updateRotationIndicaterStatu(false)
     }
     
 

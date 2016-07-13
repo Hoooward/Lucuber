@@ -11,12 +11,12 @@ import UIKit
 class CategoryIndicaterView: UIButton {
 
     lazy var bubbleImageView: UIImageView = {
-        return UIImageView(image: UIImage(named: "skill_bubble"))
+        return UIImageView(image: UIImage(named: "skill_bubble_small"))
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFontOfSize(15)
+        label.font = UIFont.systemFontOfSize(10)
         label.textColor = UIColor.whiteColor()
         label.textAlignment = .Center
         label.sizeToFit()
