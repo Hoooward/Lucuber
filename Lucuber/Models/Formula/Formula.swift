@@ -11,38 +11,42 @@ import SwiftyJSON
 
 class Formula:  CustomStringConvertible {
     var name: String = ""
-    var formulaContent = [FormulaContent]()
-    var imageName: String = "cube_placehold_image_1"
+    var contents = [FormulaContent]()
+    var imageName: String = "cube_Placehold_image_1"
     var level = 1
     var favorate = false
     var modifyDate = ""
     var category = Category.x3x3
     var type = Type.F2L
     
+    var rating: Int = 3
+    
     init () {
     }
     
-    init(name: String, formula: [FormulaContent], imageName: String, level: Int, favorate: Bool, modifyDate: String, category: Category, type: Type)
+    init(name: String, contents: [FormulaContent], imageName: String, level: Int, favorate: Bool, modifyDate: String, category: Category, type: Type, rating: Int)
     {
         self.name = name
-        self.formulaContent = formula
+        self.contents = contents
         self.imageName = imageName
         self.level = level
         self.favorate = favorate
         self.modifyDate = modifyDate
         self.category = category
         self.type = type
+        self.rating = rating
     }
     
     var description: String {
         get {
-            return "name = \(self.name)"
+            return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n" + "-------------------------------"
         }
     }
     
 }
 
-enum Category: String {
+public enum Category: String {
+    
     case x2x2 = "二阶"
     case x3x3 = "三阶"
     case x4x4 = "四阶"
@@ -137,7 +141,7 @@ class FormulaManager {
                 let favorate = item["favorate"].boolValue
                 let modifydate = item["modifydate"].stringValue
                 
-                let formula = Formula(name: name, formula: formulaContent, imageName: imageName, level: level, favorate: favorate, modifyDate: modifydate, category: Category.x3x3, type: type)
+                let formula = Formula(name: name, contents: formulaContent, imageName: imageName, level: level, favorate: favorate, modifyDate: modifydate, category: Category.x3x3, type: type, rating: 3)
                 formulas.append(formula)
             }
             return formulas

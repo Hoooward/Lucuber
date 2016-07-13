@@ -14,22 +14,19 @@ class FormulaTextViewCell: UITableViewCell {
     @IBOutlet var textView: FormulaTextView!
     @IBOutlet var formulaLabel: UILabel!
     @IBOutlet var placeholderLabel: UILabel!
+    @IBOutlet var indicaterImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         makeUI()
     }
     
+    
     var formulaContent: FormulaContent? {
         didSet {
-            if let formulaContent = formulaContent, let text = formulaContent.text {
-               
-                formulaLabel.attributedText = text.setAttributesFitDetailLayout()
-                
-            }
+            updateUI()
         }
     }
-    
+ 
     private func makeUI() {
         self.formulaLabel.alpha = 0
         textView.delegate = self
@@ -39,6 +36,40 @@ class FormulaTextViewCell: UITableViewCell {
         placeholderLabel.text = "输入公式, 系统会自动帮你填充空格。"
         placeholderLabel.textColor = UIColor.addFormulaPlaceholderTextColor()
         placeholderLabel.font = UIFont.addFormulaPlaceholderTextFont()
+        
+        
+        
+        
+        
+    }
+    
+    private func updateUI() {
+        if let formulaContent = formulaContent {
+            
+            //                formulaLabel.attributedText = text.setAttributesFitDetailLayout()
+            var indicaterImagename = ""
+            var placeholderText = ""
+            switch formulaContent.rotation {
+            case .FR(let imageName, let placeText):
+                indicaterImagename = imageName
+                placeholderText = placeText
+            case .FL(let imageName, let placeText):
+                indicaterImagename = imageName
+                placeholderText = placeText
+            case .BL(let imageName, let placeText):
+                indicaterImagename = imageName
+                placeholderText = placeText
+            case .BR(let imageName, let placeText):
+                indicaterImagename = imageName
+                placeholderText = placeText
+            }
+            indicaterImageView.image = UIImage(named: indicaterImagename)
+            placeholderLabel.text = placeholderText
+            
+        }
+        
+
+    
     }
     
     override func prepareForReuse() {
@@ -46,6 +77,7 @@ class FormulaTextViewCell: UITableViewCell {
         formulaLabel.text = ""
         textView.text = ""
         placeholderLabel.hidden = false
+        updateUI()
     }
   
 }

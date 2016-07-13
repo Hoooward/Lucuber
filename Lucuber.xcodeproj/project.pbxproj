@@ -18,7 +18,7 @@
 		8907184B1D32798A001B526D /* CategorySeletedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718491D32798A001B526D /* CategorySeletedCell.xib */; };
 		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
 		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
-		893F66621D360123009DF822 /* FormulaText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F66611D360123009DF822 /* FormulaText.swift */; };
+		893F66621D360123009DF822 /* FormulaContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F66611D360123009DF822 /* FormulaContent.swift */; };
 		895D10E51D210E6300CEF7FA /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */; };
 		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
 		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
@@ -124,13 +124,12 @@
 		890718491D32798A001B526D /* CategorySeletedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySeletedCell.xib; sourceTree = "<group>"; };
 		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
-		893F66611D360123009DF822 /* FormulaText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaText.swift; sourceTree = "<group>"; };
+		893F66611D360123009DF822 /* FormulaContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaContent.swift; sourceTree = "<group>"; };
 		895D10E41D210E6300CEF7FA /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
 		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
 		895D10EF1D21211100CEF7FA /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		895D10F21D21214F00CEF7FA /* FormulaComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaComment.swift; sourceTree = "<group>"; };
-		896249221D31DC0800C122C1 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
 		896425141D34DDCC00F1D194 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		8964251A1D3503E400F1D194 /* StarRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingCell.swift; sourceTree = "<group>"; };
 		8964251B1D3503E400F1D194 /* StarRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingCell.xib; sourceTree = "<group>"; };
@@ -331,7 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				895D10EF1D21211100CEF7FA /* Formula.swift */,
-				893F66611D360123009DF822 /* FormulaText.swift */,
+				893F66611D360123009DF822 /* FormulaContent.swift */,
 			);
 			path = Formula;
 			sourceTree = "<group>";
@@ -454,7 +453,6 @@
 		89C2EDB51D01A37C009365BA /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				896249221D31DC0800C122C1 /* monaco.ttf */,
 				89C2EDB61D01A387009365BA /* Helper.swift */,
 				89EEDCA01D0201E9007257C3 /* testData.swift */,
 				89EEDCB01D02A3ED007257C3 /* Formulas.json */,
@@ -912,7 +910,7 @@
 				89E663821D03F18200E90926 /* MyFormulaViewController.swift in Sources */,
 				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89E663841D03F18200E90926 /* MainTabbarController.swift in Sources */,
-				893F66621D360123009DF822 /* FormulaText.swift in Sources */,
+				893F66621D360123009DF822 /* FormulaContent.swift in Sources */,
 				89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */,
 				89FAF4161D33BF9500096B5A /* FormulaTextViewCell.swift in Sources */,
 				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,

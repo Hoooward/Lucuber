@@ -15,6 +15,16 @@ class HeaderFormulaView: UIView {
             setFormulaImageButtonBackgroundImage(formulaImageName)
         }
     }
+    
+    var formula: Formula? {
+        didSet {
+            guard let formula = formula else {
+                return
+            }
+            setFormulaImageButtonBackgroundImage(formula.imageName)
+            
+        }
+    }
 
     @IBOutlet var imageButton: UIButton!
     @IBOutlet var nameLabel: UILabel!
@@ -52,20 +62,25 @@ class HeaderFormulaView: UIView {
         guard let dict = notification.userInfo as? [String: AnyObject] else {
             return
         }
-        
-        print(dict.keys.first)
-         print(dict.keys)
-        if let name = dict[AddFormulaNotification.NameChanged.rawValue] as? String {
-            nameLabel.text = name.characters.count > 0 ? name : "Name"
+        if let name = dict[AddFormulaNotification.NameChanged.rawValue] as? String,
+           let formula = formula {
+            let newName = name.characters.count > 0 ? name : "Name"
+            nameLabel.text = newName
+            formula.name = newName
         }
         
-        if let category = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
+        if let category = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem,
+           let formula = formula {
             indicaterView.configureWithCategory(category.chineseText)
+            formula.category = Category(rawValue: category.chineseText)!
+            
         }
         
-        if let rating = dict[AddFormulaNotification.StartRatingChanged.rawValue] as? Int {
+        if let rating = dict[AddFormulaNotification.StartRatingChanged.rawValue] as? Int,
+            let formula = formula {
             starRatingView.rating = rating
             starRatingView.maxRating = rating
+            formula.rating = rating
         }
     }
     

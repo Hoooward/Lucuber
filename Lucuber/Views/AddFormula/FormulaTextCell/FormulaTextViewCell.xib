@@ -21,7 +21,7 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k22-5h-CPC">
-                        <rect key="frame" x="40" y="10" width="240" height="45"/>
+                        <rect key="frame" x="60" y="10" width="220" height="45"/>
                         <attributedString key="attributedText">
                             <fragment content="Formula">
                                 <attributes>
@@ -39,15 +39,24 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FR" translatesAutoresizingMaskIntoConstraints="NO" id="XM0-xD-dtr">
+                        <rect key="frame" x="20" y="23" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="6E9-dO-O0w"/>
+                            <constraint firstAttribute="height" constant="20" id="Dc0-ih-Ykz"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="k22-5h-CPC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="3Nk-Jt-d3w"/>
-                    <constraint firstItem="k22-5h-CPC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="9PW-tH-4ia"/>
                     <constraint firstAttribute="bottom" secondItem="k22-5h-CPC" secondAttribute="bottom" constant="10" id="I2A-Gb-OHK"/>
                     <constraint firstAttribute="bottom" secondItem="8dt-wG-5Ix" secondAttribute="bottom" constant="5" id="LOc-Wh-YqS"/>
                     <constraint firstItem="8dt-wG-5Ix" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ahL-va-JnD"/>
+                    <constraint firstItem="XM0-xD-dtr" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="avc-SA-bOq"/>
                     <constraint firstItem="RzW-IZ-j14" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="g5f-3k-zJj"/>
+                    <constraint firstItem="k22-5h-CPC" firstAttribute="leading" secondItem="XM0-xD-dtr" secondAttribute="trailing" constant="20" id="hH3-R6-2p2"/>
                     <constraint firstAttribute="trailing" secondItem="8dt-wG-5Ix" secondAttribute="trailing" constant="20" id="jOE-c4-HsS"/>
+                    <constraint firstItem="XM0-xD-dtr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="jWd-fv-VZk"/>
                     <constraint firstItem="8dt-wG-5Ix" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="lKx-YQ-iiB"/>
                     <constraint firstItem="RzW-IZ-j14" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mch-qt-XgW"/>
                     <constraint firstItem="k22-5h-CPC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="wFy-EG-ZfH"/>
@@ -61,10 +70,14 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="formulaLabel" destination="k22-5h-CPC" id="tHJ-XB-P6w"/>
+                <outlet property="indicaterImageView" destination="XM0-xD-dtr" id="B83-Mq-Ebk"/>
                 <outlet property="placeholderLabel" destination="RzW-IZ-j14" id="Weh-30-x0M"/>
                 <outlet property="textView" destination="8dt-wG-5Ix" id="bu8-hK-ZVf"/>
             </connections>
             <point key="canvasLocation" x="305" y="518"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="FR" width="30" height="30"/>
+    </resources>
 </document>

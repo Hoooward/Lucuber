@@ -8,17 +8,26 @@
 
 import UIKit
 
+enum Rotation {
+    case FR (String, String)
+    case FL (String, String)
+    case BL (String, String)
+    case BR (String, String)
+    
+}
+
+let FRrotation: Rotation = Rotation.FR("FR", "魔方的左下角朝向你, 点击输入公式。")
+let FLrotation: Rotation = Rotation.FL("FL", "魔方的右下角朝向你, 点击输入公式。")
+let BLrotation: Rotation = Rotation.BL("BL", "魔方的左上角朝向你, 点击输入公式。")
+let BRrotation: Rotation = Rotation.BR("BR", "魔方的右上角朝向你, 点击输入公式。")
+
+let defaultRotations = [FRrotation, FLrotation, BLrotation, BRrotation]
+
 class FormulaContent: CustomStringConvertible {
     
-    enum Rotation {
-        case FR
-        case FL
-        case BL
-        case BR
-    }
     
     var text: String?
-    var rotation: Rotation = Rotation.FR
+    var rotation: Rotation = FRrotation
     
     var cellHeight: CGFloat {
         let height: CGFloat = 40
