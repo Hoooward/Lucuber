@@ -10,28 +10,35 @@ import UIKit
 import CoreGraphics
 
 private let containerContentInsetTop: CGFloat = 30
-class ShowDetailCell: UICollectionViewCell {
+class FormulaDetailCell: UICollectionViewCell {
 
     /// 更新ShowDetailVC的Navigationbar闭包
     typealias updateTitle = (Formula?)->()
     var updateNavigatrionBar : updateTitle?
     
     private let HeaderImageDetailIdentifier = "HeaderCell"
-    private let MasterIndicaterIdentifier = "MasterCell"
-    private let SepatatorIndicatierIdentifier = "SeparatorCell"
-    private let FormuilaIndicaterIdentifier = "FormulaCell"
-    private let FooterIndicaterIdentifier = "FooterCell"
+    private let MasterIndicaterIdentifier = "FormulaDetailMasterCell"
+    private let SepatatorIndicatierIdentifier = "FormulaDetailSeparatorCell"
+    private let FormuilaIndicaterIdentifier = "FormulaDetailContentCell"
+    private let FooterIndicaterIdentifier = "FormulaDetailFooterCell"
     
     @IBOutlet var containerCollectionView: DetailSubCollectionView!
     
+    @IBOutlet var topShadowImageView: UIImageView!
+    
     var formula: Formula? {
         didSet {
-            containerCollectionView.reloadData()
+//            containerCollectionView.reloadData()
             if let updateTitleClouser = updateNavigatrionBar {
                 updateTitleClouser(formula)
             }
         }
     }
+    
+  
+    private lazy var collectionViewWidth: CGFloat = {
+        return CGRectGetWidth(self.containerCollectionView.bounds)
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,11 +54,47 @@ class ShowDetailCell: UICollectionViewCell {
         containerCollectionView.delegate = self
         containerCollectionView.dataSource = self
         containerCollectionView.showsVerticalScrollIndicator = false
+        
+        
+        if let detailLayout = containerCollectionView.collectionViewLayout as? DetailSubCollectionViewLayout {
+            
+            detailLayout.scrollUpAction = {
+                [weak self] progress in
+                if let strongSelf = self {
+                    let indexPath = NSIndexPath(forItem: 0, inSection: Section.Header.rawValue)
+                    
+                    if let coverCell = strongSelf.containerCollectionView.cellForItemAtIndexPath(indexPath) as? HeaderCell {
+                        
+                        let beginChangePercentage: CGFloat = 1 - 64 / strongSelf.collectionViewWidth * profileAvatarAspectRatio
+                        let normalizedProgressForChange: CGFloat = (progress - beginChangePercentage) / (1 - beginChangePercentage)
+                        
+                        print("b" + "\(beginChangePercentage)")
+                        print(normalizedProgressForChange)
+                        coverCell.formulaImageView.alpha = progress < beginChangePercentage ? 0 : normalizedProgressForChange
+                        
+                        let shadowAlpha = 1 - normalizedProgressForChange
+                        
+                        if shadowAlpha < 0.2 {
+                            strongSelf.topShadowImageView.alpha = progress < beginChangePercentage ? 1 : 0.2
+                        } else {
+                            strongSelf.topShadowImageView.alpha = progress < beginChangePercentage ? 1 : shadowAlpha
+                        }
+                        
+//                        coverCell.locationLabel.alpha = progress < 0.5 ? 1 : 1 - min(1, (progress - 0.5) * 2 * 2) // 特别对待，在后半程的前半段即完成 alpha -> 0
+                        
+                    }
+                }
+            }
+        }
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         containerCollectionView.contentOffset = CGPointMake(0, -containerContentInsetTop)
+        
+        
+        
+        
     }
     
     //绘制公式，来自Yep，暂时不需要
@@ -98,7 +141,7 @@ class ShowDetailCell: UICollectionViewCell {
     
 }
 
-extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FormulaDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 5
     }
@@ -123,7 +166,7 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         case .Sepatator:
             return 1
         case .Formula:
-            return 3
+            return formula!.contents.count
         case .Footer:
             return 1
         }
@@ -165,15 +208,13 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
             let cell = cell as! HeaderCell
             cell.formula = self.formula
         case .Formula:
-            let cell = cell as! FormulaCell
+            let cell = cell as! FormulaDetailContentCell
             switch indexPath.row {
             case 0:
                 cell.formulaString = self.formula!.contents.first!.text!
             case 1:
-//                cell.formulaString = "(R U' U') (R2' F R F') U2 (R' F R F')"
                 cell.formulaString = self.formula!.contents[indexPath.item].text!
             default:
-//                cell.formulaString = "(U R' U') (R U' R) U (R U' R' U)(R U R2 U')(R' U)"
                 cell.formulaString =  self.formula!.contents[indexPath.item].text!
             }
         default:
@@ -190,23 +231,26 @@ extension ShowDetailCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         
         switch section {
         case .Header:
-            return CGSizeMake(screenWidth, screenWidth + 110)
+            return CGSizeMake(screenWidth, screenWidth * profileAvatarAspectRatio)
         case .Master:
             return CGSizeMake(screenWidth, 50)
         case .Sepatator:
             return CGSizeMake(screenWidth, 40)
         case .Formula:
-            let string = self.formula!.contents[indexPath.item].text!
-            let attributsStr = string.setAttributesFitDetailLayout(ContentStyle.Detail)
-            //这串数字是xib中的约束
-            let rect = attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil)
-            print("resultFrame = \(rect)")
+            var height: CGFloat = 10
+            print(indexPath)
+            print(formula?.contents[indexPath.item].text )
+            if let string = formula?.contents[indexPath.item].text {
+                
+                let attributsStr = string.setAttributesFitDetailLayout(ContentStyle.Detail)
+                //这串数字是xib中的约束
+                let rect = attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil)
+                print("resultFrame = \(rect)")
+                
+                //如果文字+top约束 > 图片高度+top约束
+                height = rect.height + 10 > 10 + 30 ? rect.height + 10 + 20 : 10 + 30 + 20
+            }
             
-            //如果文字+top约束 > 图片高度+top约束
-            let height = rect.height + 10 > 10 + 30 ? rect.height + 10 + 20 : 10 + 30 + 20
-//            if rect.height + 10 > 10 + 30 {
-//                
-//            }
             
             return CGSizeMake(screenWidth, height)
         case .Footer:

@@ -1,5 +1,5 @@
 //
-//  FormulaCell.swift
+//  FormulaDetailContentCell.swift
 //  Lucuber
 //
 //  Created by Howard on 6/5/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaCell: UICollectionViewCell {
+class FormulaDetailContentCell: UICollectionViewCell {
 
     @IBOutlet var formulaLabel: UILabel!
     @IBOutlet var indicaterImageView: UIImageView!

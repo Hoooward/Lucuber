@@ -8,17 +8,26 @@
 
 import UIKit
 
-private let ShowDetialCellIdentifier = "ShowDetailCell"
-class ShowFormulaDetailController: UIViewController {
+private let FormulaDetaiCellIdentifier = "FormulaDetailCell"
+class FormulaDetaiViewlController: UIViewController {
 
     private let layout = ShowFormulaDetailLayout()
     var collectionView: UICollectionView!
+    
+    var formulas: [Formula] = [] {
+        didSet {
+            
+        }
+    }
+    
+    var seletedFormula: Formula = Formula()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
         collectionView = UICollectionView(frame: screenBounds, collectionViewLayout: layout)
-        collectionView.registerNib(UINib(nibName: ShowDetialCellIdentifier, bundle: nil), forCellWithReuseIdentifier: ShowDetialCellIdentifier)
+        collectionView.registerNib(UINib(nibName: FormulaDetaiCellIdentifier, bundle: nil), forCellWithReuseIdentifier: FormulaDetaiCellIdentifier)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -27,7 +36,7 @@ class ShowFormulaDetailController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         //监听cell中公式评论被点击
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ShowFormulaDetailController.showCommentViewController(_:)), name: DetailCellShowCommentNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FormulaDetaiViewlController.showCommentViewController(_:)), name: DetailCellShowCommentNotification, object: nil)
     }
     
     func showCommentViewController(notification: NSNotification) {
@@ -38,7 +47,6 @@ class ShowFormulaDetailController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowCommentVC" {
             let commentVC = segue.destinationViewController as! CommentTableViewController
-//            commentVC.navigationController?.setNavigationBarHidden(false, animated: false)
             commentVC.formula = sender as? Formula
         }
     }
@@ -67,7 +75,7 @@ class ShowFormulaDetailController: UIViewController {
 
     private lazy var customNavigationItem: UINavigationItem = {
         let item = UINavigationItem(title: "Detail")
-        item.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: #selector(ShowFormulaDetailController.popViewController))
+        item.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: #selector(FormulaDetaiViewlController.popViewController))
         return item
     }()
     private lazy var customNavigationBar: UINavigationBar = {
@@ -104,23 +112,23 @@ class ShowFormulaDetailController: UIViewController {
     
 }
 
-extension ShowFormulaDetailController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FormulaDetaiViewlController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return formulasData.count
+        return formulas.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ShowDetialCellIdentifier, forIndexPath: indexPath) as! ShowDetailCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FormulaDetaiCellIdentifier, forIndexPath: indexPath) as! FormulaDetailCell
         cell.updateNavigatrionBar = {
             [weak self] formula in
             self?.customNavigationBar.items?.first?.title = formula!.name
         }
-        cell.formula = formulasData[indexPath.item]
+        cell.formula = formulas[indexPath.item]
         return cell
     }
     

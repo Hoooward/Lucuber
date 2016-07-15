@@ -26,6 +26,27 @@ func spring(duration: NSTimeInterval, animations:animation){
     
 }
 
+func animate(duration: NSTimeInterval, animations:animation){
+    UIView.animateWithDuration(duration) { 
+        animations()
+    }
+    
+}
+
+
+func animateWithCompletion(duration: NSTimeInterval, animations: animation, completions: (Bool) -> Void) {
+    
+    UIView.animateWithDuration(duration,  animations: {
+        animations()
+        }, completion: { finished in
+            completions(finished)
+    })
+    
+    
+}
+
+
+
 func springWithCompletion(duration: NSTimeInterval, animations: animation, completions: (Bool) -> Void) {
     
     UIView.animateWithDuration(duration, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [], animations: { 

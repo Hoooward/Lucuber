@@ -28,12 +28,12 @@ public class User {
 
 private let v1AccessTokenKey = "v1AccessToken"
 
-public class CubeConfig {
+public class UserConfig {
     public static let appGroupID: String = "Lucuber"
 }
 
 class CubeUserDefaults {
-    static let defaults = NSUserDefaults(suiteName: CubeConfig.appGroupID)
+    static let defaults = NSUserDefaults(suiteName: UserConfig.appGroupID)
     
 //    public static var isLogined: Bool {
 //        if let _ = CubeUserDefaults.va

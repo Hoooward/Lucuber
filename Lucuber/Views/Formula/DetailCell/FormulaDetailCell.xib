@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShowDetailCell" id="gTV-IL-0wX" customClass="ShowDetailCell" customModule="Lucuber" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FormulaDetailCell" id="gTV-IL-0wX" customClass="FormulaDetailCell" customModule="Lucuber" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="781"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -22,10 +22,19 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3xd-wa-HEH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="64" id="Mr7-AB-vEP"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="3xd-wa-HEH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2XI-Tg-DPF"/>
+                <constraint firstAttribute="trailing" secondItem="3xd-wa-HEH" secondAttribute="trailing" id="2vj-iT-S1e"/>
+                <constraint firstItem="3xd-wa-HEH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="30D-sK-zoU"/>
                 <constraint firstItem="Nev-sF-uYO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ESv-de-ASR"/>
                 <constraint firstItem="Nev-sF-uYO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="KmM-XJ-xZ6"/>
                 <constraint firstAttribute="bottom" secondItem="Nev-sF-uYO" secondAttribute="bottom" id="U9f-S9-ctR"/>
@@ -34,6 +43,7 @@
             <size key="customSize" width="500" height="781"/>
             <connections>
                 <outlet property="containerCollectionView" destination="Nev-sF-uYO" id="oQy-o2-L65"/>
+                <outlet property="topShadowImageView" destination="3xd-wa-HEH" id="Nrn-Xf-8Jd"/>
             </connections>
             <point key="canvasLocation" x="-41.5" y="468.5"/>
         </collectionViewCell>

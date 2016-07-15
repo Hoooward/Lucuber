@@ -285,8 +285,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print(#function)
+    
+        let seletedFormula = formulasData[indexPath.section][indexPath.row]
+        let formulas = formulasData[indexPath.section]
         
-        self.parentViewController!.performSegueWithIdentifier(SegueIdentifier.ShowFormulaDetail.rawValue, sender: indexPath)
+        let dict = ["formulas": formulas, "seletedFormula": seletedFormula]
+        self.parentViewController!.performSegueWithIdentifier(SegueIdentifier.ShowFormulaDetail.rawValue, sender: dict)
     }
     
  

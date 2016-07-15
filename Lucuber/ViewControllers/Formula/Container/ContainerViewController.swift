@@ -31,8 +31,11 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {
         case .ShowFormulaDetail:
-            let vc = segue.destinationViewController as!ShowFormulaDetailController
-            vc.parentSeleteIndexPath = sender as! NSIndexPath
+            let vc = segue.destinationViewController as!FormulaDetaiViewlController
+            if let dict = sender as? [String: AnyObject] {
+                vc.seletedFormula =  dict["seletedFormula"] as! Formula
+                vc.formulas = dict["formulas"] as! [Formula]
+            }
         case .ShowAddFormula:
             break
         }

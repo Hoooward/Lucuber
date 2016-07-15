@@ -80,10 +80,10 @@
             </objects>
             <point key="canvasLocation" x="-1112" y="1965"/>
         </scene>
-        <!--Show Formula Detail Controller-->
+        <!--Formula Detai Viewl Controller-->
         <scene sceneID="dTe-lT-qeQ">
             <objects>
-                <viewController id="qqZ-zW-SI9" customClass="ShowFormulaDetailController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qqZ-zW-SI9" customClass="FormulaDetaiViewlController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bXP-a6-1C9"/>
                         <viewControllerLayoutGuide type="bottom" id="5Zz-bp-VaD"/>

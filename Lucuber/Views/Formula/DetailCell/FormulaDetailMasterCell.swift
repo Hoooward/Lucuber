@@ -1,17 +1,17 @@
 //
-//  FooterCell.swift
+//  FormulaDetailMasterCell.swift
 //  Lucuber
 //
-//  Created by Howard on 6/6/16.
+//  Created by Howard on 6/5/16.
 //  Copyright © 2016 Howard. All rights reserved.
 //
 
 import UIKit
 
-class FooterCell: UICollectionViewCell {
+class FormulaDetailMasterCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-  }
+    }
 
 }

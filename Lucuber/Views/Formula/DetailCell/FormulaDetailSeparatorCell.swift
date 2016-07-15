@@ -1,5 +1,5 @@
 //
-//  SeparatorCell.swift
+//  FormulaDetailSeparatorCell.swift
 //  Lucuber
 //
 //  Created by Howard on 6/5/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SeparatorCell: UICollectionViewCell {
+class FormulaDetailSeparatorCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
