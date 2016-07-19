@@ -16,6 +16,8 @@ class DetailSubCollectionViewLayout: UICollectionViewFlowLayout {
   
     let topBarsHeight: CGFloat = 64
     //无效
+    
+    /*
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
         let layoutAttributes = super.layoutAttributesForElementsInRect(rect)
@@ -73,4 +75,5 @@ class DetailSubCollectionViewLayout: UICollectionViewFlowLayout {
         
         return layoutAttributes
     }
+ */
 }

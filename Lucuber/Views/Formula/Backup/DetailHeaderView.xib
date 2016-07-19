@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DetailHeaderView" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="341" height="426"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="a0h-uu-Nwy">
+                    <rect key="frame" x="38" y="5" width="265" height="265"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="a0h-uu-Nwy" secondAttribute="height" multiplier="1:1" id="Jh7-Pa-LFu"/>
+                    </constraints>
+                </imageView>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F2L 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIU-Xz-Zls">
+                    <rect key="frame" x="38" y="290" width="60" height="24"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最后更新时间： 06-05" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbA-Mr-EiR">
+                    <rect key="frame" x="38" y="343" width="134" height="16"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来自：魔方小站" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcJ-Ko-QOr">
+                    <rect key="frame" x="38" y="322" width="91" height="16"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiV-WN-0li" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
+                    <rect key="frame" x="233" y="290" width="70" height="25"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="HUy-F5-eHb"/>
+                        <constraint firstAttribute="height" constant="25" id="OCK-Y3-yh2"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="a0h-uu-Nwy" secondAttribute="trailing" constant="38" id="7M7-5N-Bnb"/>
+                <constraint firstItem="a0h-uu-Nwy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="82U-za-wgl"/>
+                <constraint firstItem="KcJ-Ko-QOr" firstAttribute="leading" secondItem="GIU-Xz-Zls" secondAttribute="leading" id="Brd-J7-1ny"/>
+                <constraint firstItem="qbA-Mr-EiR" firstAttribute="top" secondItem="KcJ-Ko-QOr" secondAttribute="bottom" constant="5" id="h0b-ng-ptc"/>
+                <constraint firstItem="KcJ-Ko-QOr" firstAttribute="top" secondItem="GIU-Xz-Zls" secondAttribute="bottom" constant="8" id="h7K-x7-7bL"/>
+                <constraint firstItem="GIU-Xz-Zls" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="38" id="mH1-U0-ChY"/>
+                <constraint firstItem="a0h-uu-Nwy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="38" id="sdU-yp-LO7"/>
+                <constraint firstAttribute="trailing" secondItem="UiV-WN-0li" secondAttribute="trailing" constant="38" id="t5Z-z9-TXu"/>
+                <constraint firstItem="UiV-WN-0li" firstAttribute="top" secondItem="a0h-uu-Nwy" secondAttribute="bottom" constant="20" id="uuq-vx-7fB"/>
+                <constraint firstItem="qbA-Mr-EiR" firstAttribute="leading" secondItem="KcJ-Ko-QOr" secondAttribute="leading" id="wDg-rL-qhq"/>
+                <constraint firstItem="GIU-Xz-Zls" firstAttribute="top" secondItem="a0h-uu-Nwy" secondAttribute="bottom" constant="20" id="zPp-M8-wdG"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="creatTimeLabel" destination="qbA-Mr-EiR" id="WQk-J5-kd7"/>
+                <outlet property="creatUserLabel" destination="KcJ-Ko-QOr" id="Mrz-cY-KYa"/>
+                <outlet property="imageView" destination="a0h-uu-Nwy" id="FPE-7p-oq7"/>
+                <outlet property="nameLabel" destination="GIU-Xz-Zls" id="zlY-0C-9aZ"/>
+            </connections>
+            <point key="canvasLocation" x="257.5" y="361"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="placeholder" width="575" height="600"/>
+    </resources>
+</document>

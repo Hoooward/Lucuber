@@ -9,7 +9,7 @@
 import UIKit
 import CoreGraphics
 
-private let containerContentInsetTop: CGFloat = 30
+private let containerContentInsetTop: CGFloat = 64
 class FormulaDetailCell: UICollectionViewCell {
 
     /// 更新ShowDetailVC的Navigationbar闭包
@@ -91,10 +91,7 @@ class FormulaDetailCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         containerCollectionView.contentOffset = CGPointMake(0, -containerContentInsetTop)
-        
-        
-        
-        
+  
     }
     
     //绘制公式，来自Yep，暂时不需要
@@ -211,7 +208,7 @@ extension FormulaDetailCell: UICollectionViewDelegate, UICollectionViewDataSourc
             let cell = cell as! FormulaDetailContentCell
             switch indexPath.row {
             case 0:
-                cell.formulaString = self.formula!.contents.first!.text!
+                cell.formulaString = self.formula!.contents[indexPath.item].text!
             case 1:
                 cell.formulaString = self.formula!.contents[indexPath.item].text!
             default:
@@ -231,7 +228,7 @@ extension FormulaDetailCell: UICollectionViewDelegate, UICollectionViewDataSourc
         
         switch section {
         case .Header:
-            return CGSizeMake(screenWidth, screenWidth * profileAvatarAspectRatio)
+            return CGSizeMake(screenWidth, 410)
         case .Master:
             return CGSizeMake(screenWidth, 50)
         case .Sepatator:

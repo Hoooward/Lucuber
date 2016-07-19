@@ -12,12 +12,10 @@ class PopMenuPresentationController: UIPresentationController {
     /// 设置presentedView的frame
     var presentedFrame = CGRectZero
     
+
+    
     override func containerViewWillLayoutSubviews() {
-        if presentedFrame == CGRectZero {
-            presentedView()?.frame = CGRect(x: screenWidth - 150 - 10, y: 60, width: 150, height: 250)
-        } else {
-            presentedView()?.frame = presentedFrame
-        }
+        presentedView()?.frame = presentedFrame
         containerView?.insertSubview(maskBackgroundView, atIndex: 0)
     }
     

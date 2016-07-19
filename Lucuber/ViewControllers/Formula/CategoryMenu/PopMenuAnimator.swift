@@ -9,9 +9,10 @@
 import UIKit
 
 class PopMenuAnimator: NSObject, UIViewControllerTransitioningDelegate {
-    var isPresented = false
     
+    var isPresented = false
     var presentedFrmae = CGRectZero
+    
     
     /**
      设置PresentationController,这个Controller专门控制转场细节
@@ -21,7 +22,9 @@ class PopMenuAnimator: NSObject, UIViewControllerTransitioningDelegate {
      - returns: 返回一个控制转场的控制器
      */
     func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        return PopMenuPresentationController(presentedViewController: presented, presentingViewController: presenting)
+        let presentationController = PopMenuPresentationController(presentedViewController: presented, presentingViewController: presenting)
+        presentationController.presentedFrame = presentedFrmae
+        return presentationController
     }
     
     /**

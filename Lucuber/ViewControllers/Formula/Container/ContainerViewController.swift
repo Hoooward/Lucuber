@@ -89,37 +89,35 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         setupScrollerView()
     }
     
-    let buttonWindow = UIWindow()
-    private func addAddButton() {
-        let button = UIButton(type: .Custom)
-        button.setBackgroundImage(UIImage(named: "addButton_backgroundImage"), forState: .Normal)
-        button.size = CGSize(width: 30, height: 30)
-        buttonWindow.bounds = button.bounds
-        buttonWindow.x = screenWidth - buttonWindow.width - 20
-        buttonWindow.y = screenHeight - 49 - buttonWindow.height - 20
-        buttonWindow.windowLevel = UIWindowLevelStatusBar
-        buttonWindow.addSubview(button)
-        buttonWindow.backgroundColor = UIColor.clearColor()
-        
-        buttonWindow.hidden = false
-    }
-    
+//    let buttonWindow = UIWindow()
+//    private func addAddButton() {
+//        let button = UIButton(type: .Custom)
+//        button.setBackgroundImage(UIImage(named: "addButton_backgroundImage"), forState: .Normal)
+//        button.size = CGSize(width: 30, height: 30)
+//        buttonWindow.bounds = button.bounds
+//        buttonWindow.x = screenWidth - buttonWindow.width - 20
+//        buttonWindow.y = screenHeight - 49 - buttonWindow.height - 20
+//        buttonWindow.windowLevel = UIWindowLevelStatusBar
+//        buttonWindow.addSubview(button)
+//        buttonWindow.backgroundColor = UIColor.clearColor()
+//        
+//        buttonWindow.hidden = false
+//    }
+//    
     
     func setupNavigationbar() {
+        
         let titleView = UILabel()
         titleView.text = "复原大法"
         titleView.textColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0 )
         titleView.sizeToFit()
+        
         navigationItem.titleView = titleView
         
         navigationItem.leftBarButtonItem = UIBarButtonItem.creatLayoutButtonItem(self, action: #selector(ContainerViewController.layoutButtonClick(_:)))
      
-        let categoryButtonItem = CategoryBarButtonItem(title: "", style: .Plain, target: self, action: #selector(ContainerViewController.categoryButtonClick(_:)))
+        navigationItem.rightBarButtonItem = CategoryBarButtonItem(title: "", style: .Plain, target: self, action: #selector(ContainerViewController.categoryButtonClick(_:)))
         
-        navigationItem.rightBarButtonItems = [categoryButtonItem]
-        
-        
-
     }
     
     private func addChileViewController() {
@@ -196,26 +194,35 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     
     // MARK: - Target
-    func sortButtonClick(sender: UIBarButtonItem) {
-        print(#function)
-    }
-    
     func layoutButtonClick(button: UIButton) {
+        
         button.selected = !button.selected
-        let index = containerScrollerView.contentOffset.x / screenWidth
-        let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
-        childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
-        print("childViewController = \(childViewController). userMode = \(childViewController.userMode)")
+        
+        if let vc = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseCollectionViewController {
+            vc.userMode = vc.userMode == .Card ? .Normal : .Card
+        }
         
     }
     
     func categoryButtonClick(button: UIBarButtonItem) {
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("CategoryMenuViewController") as! CategoryMenuViewController
-        vc.transitioningDelegate = menuAnimator
-        vc.modalPresentationStyle = UIModalPresentationStyle.Custom
         
-        presentViewController(vc, animated: true, completion: nil)
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        
+        if
+            let menuVC = sb.instantiateViewControllerWithIdentifier("CategoryMenuViewController") as? CategoryMenuViewController,
+            let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseCollectionViewController,
+            let category = presentingVC.seletedCategory {
+            
+            let menuHeight = CubeConfig.CagetoryMenu.rowHeight * CGFloat(menuVC.cubeCategorys.count ) + 20 + 10
+            
+            menuAnimator.presentedFrmae = CGRect(x: CubeConfig.CagetoryMenu.menuOrignX, y: 60, width: CubeConfig.CagetoryMenu.menuWidth, height: menuHeight)
+            menuVC.transitioningDelegate = menuAnimator
+            menuVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            menuVC.seletedCategory = category
+ 
+            presentViewController(menuVC, animated: true, completion: nil)
+            
+        }
     }
     
     private lazy var menuAnimator: PopMenuAnimator = {

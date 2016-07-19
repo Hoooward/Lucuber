@@ -12,4 +12,13 @@ import UIKit
 final public class CubeConfig {
    
     public static let forcedHideActivityIndicatorTimeInterval: NSTimeInterval = 30
+    
+    
+    
+    public struct CagetoryMenu {
+        public static let rowHeight: CGFloat = 44
+        public static let menuWidth: CGFloat = screenWidth / 2
+        public static let menuOrignX: CGFloat = screenWidth - CagetoryMenu.menuWidth - 10
+    }
+    
 }
