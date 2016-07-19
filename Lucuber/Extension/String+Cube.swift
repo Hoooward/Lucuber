@@ -34,6 +34,7 @@ extension String {
         attributeText.addAttributes(attributes, range: NSRange(location: 0, length: self.characters.count))
         let textStyle = NSMutableParagraphStyle()
         textStyle.lineSpacing = 5
+//        textStyle.alignment = .Center
         attributeText.addAttributes([NSParagraphStyleAttributeName: textStyle], range: NSRange(location: 0, length: self.characters.count))
         
         return setBracketsColor(attributeText, style: style)

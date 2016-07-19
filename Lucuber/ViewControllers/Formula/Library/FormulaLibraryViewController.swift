@@ -11,10 +11,11 @@ import UIKit
 class FormulaLibraryViewController: BaseCollectionViewController {
    
     let refreshControl = UIRefreshControl()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = FormulaUserMode.Normal
+        seletedCategory = Category.Megaminx
         
         print("libraryData = \(formulasData)" )
         

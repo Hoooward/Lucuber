@@ -19,14 +19,9 @@ class LayoutButton: UIButton {
                 case .Card:
                     selected = true
                 }
-//                UIView.animateWithDuration(1.0) {
-//                    self.selected = userMode == .Normal ? false : true
-//                }
             }
-            
         }
     }
-    
     
     init() {
         super.init(frame: CGRectZero)
@@ -34,7 +29,6 @@ class LayoutButton: UIButton {
         setImage(UIImage(named: "icon_minicard"), forState: .Selected)
         sizeToFit()
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

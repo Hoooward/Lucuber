@@ -16,18 +16,21 @@ class MainTabbarController: UITabBarController {
         super.viewDidLoad()
         tabBar.tintColor = UIColor.cubeTintColor()
         
+//        print(AVUser.currentUser())
+        
         
 //        AVOSCloud.requestSmsCodeWithPhoneNumber("18500800404") { (succeeded, error) in
 //            
 //        }
 //        
 //        do {
-//            try AVUser.signUpOrLoginWithMobilePhoneNumber("18500800404", smsCode: "735583")
+//            try AVUser.signUpOrLoginWithMobilePhoneNumber("18500800404", smsCode: "350877")
 //            
 //        } catch  {
 //            print(error)
 //        }
         
+//        print(AVUser.currentUser())
         
 //        let testObject: AVObject = AVObject(className: "TestObject")
 //        testObject["foor"] = "Bar"

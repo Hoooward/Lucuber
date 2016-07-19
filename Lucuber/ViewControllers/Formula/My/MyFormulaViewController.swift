@@ -10,11 +10,11 @@ import UIKit
 
 class MyFormulaViewController: BaseCollectionViewController {
 
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = FormulaUserMode.Card
+        seletedCategory = Category.x3x3
         
         //测试数据
         var formulas = [Formula]()
@@ -29,11 +29,30 @@ class MyFormulaViewController: BaseCollectionViewController {
         }
         formulasData.append(formulas)
         
-        print("myData = \(formulasData)")
+//        print("myData = \(formulasData)")
+        
+        
+
+       
+        
+      
+        
+        
     }
     
-
     
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        if let button = parentViewController?.navigationItem.rightBarButtonItem as? CategoryBarButtonItem  {
+//            button.seletedCategory = seletedCategory
+//        }
+//    
+//    }
+    
+
    
+    func rightBarButtonClick(sender: CategoryBarButtonItem) {
+        
+    }
     
 }

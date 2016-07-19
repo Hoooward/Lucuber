@@ -61,7 +61,7 @@ public enum Category: String {
     case SquareOne = "Square One"
     case Megaminx = "Megaminx"
     case Pyraminx = "Pyraminx"
-    case RubiksClock = "Rubik's Clock"
+    case RubiksClock = "魔表"
 }
 
 enum Type: String {

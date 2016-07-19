@@ -15,11 +15,11 @@ extension UIFont {
     }
     
     class func cubeFormulaNormalContentFont() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 10)!
+        return UIFont(name: "Menlo-Regular", size: 12)!
     }
     
     class func cubeFormulaNormalBracketsFont() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 10)!
+        return UIFont(name: "Menlo-Regular", size: 12)!
     }
     
     class func cubeFormulaDetailTextFont() -> UIFont {

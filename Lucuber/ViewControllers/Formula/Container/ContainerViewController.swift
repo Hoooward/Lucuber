@@ -9,9 +9,22 @@
 import UIKit
 
 
+class CategoryBarButtonItem: UIBarButtonItem {
+    var seletedCategory: Category? {
+        willSet {
+            self.title = (newValue?.rawValue)! + " ▾"
+        }
+    }
+    
+    
+    
+}
+
+
 class ContainerViewController: UIViewController, SegueHandlerType {
     
     
+    // MARK: - Properties
     @IBOutlet var plusButton: UIButton!
     @IBOutlet var layoutButton: UIButton!
     let topControl = UIView()
@@ -21,13 +34,20 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     
     ///记录containerScrollerView的偏移量,用来判断左右被移动的距离,决定是否发送通知取消searchBar的第一响应
-    var containerScrollerOffsetX: CGFloat = 0
+    var containerScrollerOffsetX: CGFloat = 0 {
+        didSet {
+            print(containerScrollerOffsetX)
+        }
+    }
     
     enum SegueIdentifier: String{
         case ShowFormulaDetail = "ShowFormulaDetailSegue"
         case ShowAddFormula = "ShowAddFormulaSegue"
     }
     
+    
+    
+    // MARK: - Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {
         case .ShowFormulaDetail:
@@ -42,6 +62,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
     }
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
@@ -60,6 +81,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         super.viewDidDisappear(animated)
     }
  
+    // MARK: - Make UI
     private func makeUI() {
         setupNavigationbar()
         addChileViewController()
@@ -90,33 +112,14 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         titleView.sizeToFit()
         navigationItem.titleView = titleView
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem.creatLayoutButtonItem(self, action: #selector(ContainerViewController.leftBarButtonClick(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem.creatLayoutButtonItem(self, action: #selector(ContainerViewController.layoutButtonClick(_:)))
      
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "三阶 ▾", style: .Plain, target: self, action: #selector(ContainerViewController.rightBarButtonClick(_:)))
-    }
-    
-    func leftBarButtonClick(button: UIButton) {
-        button.selected = !button.selected
-        let index = containerScrollerView.contentOffset.x / screenWidth
-        let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
-        childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
-        print("childViewController = \(childViewController). userMode = \(childViewController.userMode)")
+        let categoryButtonItem = CategoryBarButtonItem(title: "", style: .Plain, target: self, action: #selector(ContainerViewController.categoryButtonClick(_:)))
         
-    }
-    
-    private lazy var menuAnimator: PopMenuAnimator = {
-        let animator = PopMenuAnimator()
-        //指定出现视图的Rect
-        return animator
-    }()
-    
-    func rightBarButtonClick(button: UIBarButtonItem) {
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("CategoryMenuViewController")
-        vc.transitioningDelegate = menuAnimator
-        vc.modalPresentationStyle = UIModalPresentationStyle.Custom
-        presentViewController(vc, animated: true, completion: nil)
+        navigationItem.rightBarButtonItems = [categoryButtonItem]
         
+        
+
     }
     
     private func addChileViewController() {
@@ -125,7 +128,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         let myFormulaVC = MyFormulaViewController(collectionViewLayout: myFormulaLayout)
         myFormulaVC.title = "我的公式"
         addChildViewController(myFormulaVC)
-           let libraryLayout = FormulaCollectionLayout()
+        let libraryLayout = FormulaCollectionLayout()
         let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: libraryLayout)
         formulaLibraryVC.title = "公式库"
         addChildViewController(formulaLibraryVC)
@@ -180,7 +183,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     private func setupScrollerView() {
-    
+        
         containerScrollerView.frame = screenBounds
         containerScrollerView.delegate = self
         automaticallyAdjustsScrollViewInsets = false
@@ -191,16 +194,74 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         scrollViewDidEndScrollingAnimation(containerScrollerView)
     }
     
+    
+    // MARK: - Target
+    func sortButtonClick(sender: UIBarButtonItem) {
+        print(#function)
+    }
+    
+    func layoutButtonClick(button: UIButton) {
+        button.selected = !button.selected
+        let index = containerScrollerView.contentOffset.x / screenWidth
+        let childViewController = childViewControllers[Int(index)] as! BaseCollectionViewController
+        childViewController.userMode = childViewController.userMode == .Card ? .Normal : .Card
+        print("childViewController = \(childViewController). userMode = \(childViewController.userMode)")
+        
+    }
+    
+    func categoryButtonClick(button: UIBarButtonItem) {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier("CategoryMenuViewController") as! CategoryMenuViewController
+        vc.transitioningDelegate = menuAnimator
+        vc.modalPresentationStyle = UIModalPresentationStyle.Custom
+        
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    private lazy var menuAnimator: PopMenuAnimator = {
+        let animator = PopMenuAnimator()
+        //指定出现视图的Rect
+        return animator
+    }()
+    
+   
+    
+    
+    func updateNavigationBarButtonItemStatus() {
+        
+        guard
+            let layoutButton = navigationItem.leftBarButtonItem?.customView as? LayoutButton,
+            let categoyButton = navigationItem.rightBarButtonItem as? CategoryBarButtonItem
+            else {
+            fatalError()
+        }
+        
+        if let vc = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseCollectionViewController {
+            layoutButton.userMode = vc.userMode
+            categoyButton.seletedCategory = vc.seletedCategory
+        }
+        
+        childViewControllers.forEach {
+            vc in
+            if let vc = vc as? BaseCollectionViewController {
+                vc.cancelSearch()
+            }
+        }
+    }
+    
+   
+    
 }
 
+
+// MARK: - SrollerViewDelegate
 extension ContainerViewController: UIScrollViewDelegate {
     
+    //滚动结束触发
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         
-//        if containerScrollerOffsetX == 0 {
         
-         containerScrollerOffsetX = scrollView.contentOffset.x
-//        }
+        containerScrollerOffsetX = scrollView.contentOffset.x
         
         let index = Int(scrollView.contentOffset.x / screenWidth)
         let vc = childViewControllers[index] as! UICollectionViewController
@@ -213,7 +274,9 @@ extension ContainerViewController: UIScrollViewDelegate {
         vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         scrollView.addSubview(vc.view)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: containerScrollerOffsetX, userInfo: nil)
+        updateNavigationBarButtonItemStatus()
+        
+//        NSNotificationCenter.defaultCenter().postNotificationName(ContainerDidScrollerNotification, object: containerScrollerOffsetX, userInfo: nil)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

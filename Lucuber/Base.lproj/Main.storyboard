@@ -67,14 +67,29 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="popover" translatesAutoresizingMaskIntoConstraints="NO" id="DEO-4x-Y29">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="svL-Nf-pFs">
+                                <rect key="frame" x="0.0" y="40" width="600" height="550"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="p8f-Ek-2y3" id="QgH-lI-2jX"/>
+                                    <outlet property="delegate" destination="p8f-Ek-2y3" id="31p-vB-CQ1"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DEO-4x-Y29" secondAttribute="trailing" id="Fwl-zH-zcc"/>
                             <constraint firstItem="vky-oR-PV5" firstAttribute="top" secondItem="DEO-4x-Y29" secondAttribute="bottom" id="Gyh-KA-X7S"/>
+                            <constraint firstAttribute="trailing" secondItem="svL-Nf-pFs" secondAttribute="trailing" id="KCy-V8-Iz0"/>
+                            <constraint firstItem="svL-Nf-pFs" firstAttribute="top" secondItem="gNm-aY-4HZ" secondAttribute="bottom" constant="20" id="OO6-zf-aWs"/>
+                            <constraint firstItem="vky-oR-PV5" firstAttribute="top" secondItem="svL-Nf-pFs" secondAttribute="bottom" constant="10" id="ls6-GZ-5IL"/>
+                            <constraint firstItem="svL-Nf-pFs" firstAttribute="leading" secondItem="h2W-w2-wOP" secondAttribute="leading" id="nPJ-rH-mqo"/>
                             <constraint firstItem="DEO-4x-Y29" firstAttribute="leading" secondItem="h2W-w2-wOP" secondAttribute="leading" id="npo-58-WSy"/>
                             <constraint firstItem="DEO-4x-Y29" firstAttribute="top" secondItem="h2W-w2-wOP" secondAttribute="top" id="zFR-SV-wAm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="svL-Nf-pFs" id="5UT-oT-nNc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JvI-ze-rhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

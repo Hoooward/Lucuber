@@ -61,6 +61,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         }
     }
     
+    /// 当前控制器所选择显示的公式种类
+    var seletedCategory: Category?
+    
     // MARK: 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,12 +111,12 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     private var searchBarFrameY: CGFloat = 64 + topControlHeight + 5
     lazy var searchBar: FormulaSearchBar = {
-        [weak self] in
-        let rect = CGRect(x: 0, y: self!.searchBarFrameY , width: screenWidth, height: 44)
+        [unowned self] in
+        let rect = CGRect(x: 0, y: self.searchBarFrameY , width: screenWidth, height: 44)
         let searchBar = FormulaSearchBar(frame: rect)
         searchBar.delegate = self
        
-        self!.collectionView?.addObserver(self!, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
+        self.collectionView?.addObserver(self, forKeyPath: "contentOffset", options: [.New, .Old], context: nil)
         return searchBar
     }()
     
@@ -127,12 +130,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath! == "contentOffset" {
             if let collectionView = object as? UICollectionView {
-//                print(collectionView.contentOffset)
                 searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarFrameY + ((-1 * collectionView.contentOffset.y) - searchBarFrameY - searchBar.frame.size.height), width: searchBar.frame.width, height: searchBar.frame.height)
             }
         }
     }
-    
 
 }
 // MARK: - SearchBar Delegate
