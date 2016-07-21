@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let FormulaDetaiCellIdentifier = "FormulaDetailCell"
+private let DetailCellIdetifier = "DetailCollectionViewCell"
 class FormulaDetaiViewlController: UIViewController {
 
     private let layout = ShowFormulaDetailLayout()
@@ -27,7 +27,7 @@ class FormulaDetaiViewlController: UIViewController {
 
         
         collectionView = UICollectionView(frame: screenBounds, collectionViewLayout: layout)
-        collectionView.registerNib(UINib(nibName: FormulaDetaiCellIdentifier, bundle: nil), forCellWithReuseIdentifier: FormulaDetaiCellIdentifier)
+        collectionView.registerNib(UINib(nibName: DetailCellIdetifier, bundle: nil), forCellWithReuseIdentifier: DetailCellIdetifier)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -123,11 +123,11 @@ extension FormulaDetaiViewlController:  UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FormulaDetaiCellIdentifier, forIndexPath: indexPath) as! FormulaDetailCell
-        cell.updateNavigatrionBar = {
-            [weak self] formula in
-            self?.customNavigationBar.items?.first?.title = formula!.name
-        }
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(DetailCellIdetifier, forIndexPath: indexPath) as! DetailCollectionViewCell
+//        cell.updateNavigatrionBar = {
+//            [weak self] formula in
+//            self?.customNavigationBar.items?.first?.title = formula!.name
+//        }
         cell.formula = formulas[indexPath.item]
         return cell
     }

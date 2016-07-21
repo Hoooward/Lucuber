@@ -23,12 +23,12 @@ extension UIFont {
     }
     
     class func cubeFormulaDetailTextFont() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 12)!
+        return UIFont(name: "Menlo-Regular", size: 14)!
     }
     
     
     class func cubeFormulaDetailBracketsFont() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 12)!
+        return UIFont(name: "Menlo-Regular", size: 14)!
     }
     
     class func addFormulaPlaceholderTextFont() -> UIFont {

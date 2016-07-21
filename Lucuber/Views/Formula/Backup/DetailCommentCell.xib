@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailCommentCell" id="KGk-i7-Jjw" customClass="DetailCommentCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_feeds_active" translatesAutoresizingMaskIntoConstraints="NO" id="WmD-Jd-c04" userLabel="Icon Image View">
+                        <rect key="frame" x="38" y="10" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="gtR-3c-Ucl"/>
+                            <constraint firstAttribute="width" constant="24" id="hqG-7G-66t"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="WEx-rk-NIs">
+                        <rect key="frame" x="274" y="15" width="8" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="Ihx-mO-Hof"/>
+                            <constraint firstAttribute="height" constant="13" id="oUD-Qg-PH9"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看关于此公式的讨论" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wZ-l1-dru" userLabel="Name Label">
+                        <rect key="frame" x="77" y="13" width="150" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="WmD-Jd-c04" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4gJ-ud-y5n"/>
+                    <constraint firstAttribute="trailing" secondItem="WEx-rk-NIs" secondAttribute="trailing" constant="38" id="9NK-Ri-awH"/>
+                    <constraint firstItem="5wZ-l1-dru" firstAttribute="leading" secondItem="WmD-Jd-c04" secondAttribute="trailing" constant="15" id="kfW-Nq-ZTe"/>
+                    <constraint firstItem="5wZ-l1-dru" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="t81-uc-BYJ"/>
+                    <constraint firstItem="WmD-Jd-c04" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="xht-Oe-PGX"/>
+                    <constraint firstItem="WEx-rk-NIs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yKX-oX-Zc2"/>
+                </constraints>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_accessory_mini" width="8" height="13"/>
+        <image name="icon_feeds_active" width="30" height="30"/>
+    </resources>
+</document>

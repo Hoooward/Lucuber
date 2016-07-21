@@ -32,13 +32,13 @@ class FormulaContent: CustomStringConvertible {
     var cellHeight: CGFloat {
         let height: CGFloat = 40
         
+        let margin = CubeConfig.DetailFormula.screenMargin
         if let text = text where text.characters.count > 0 {
-            let attributes = [
-                NSForegroundColorAttributeName: UIColor.cubeFormulaDetailTextColor(),
-                NSFontAttributeName: UIFont.cubeFormulaDetailTextFont()]
-            let rect =  (text as NSString).boundingRectWithSize(CGSize(width: screenWidth, height: screenHeight), options: NSStringDrawingOptions.init(rawValue: 0), attributes: attributes, context: nil)
+             let attributsStr = text.setAttributesFitDetailLayout(ContentStyle.Detail)
+            let rect =  attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - margin - margin - 25 - 15, CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.init(rawValue: 1),  context: nil)
             
-            return rect.size.height + 20
+            print("formula.cellHeight = ", rect.size.height + 30)
+            return rect.size.height + 30
         }
         
         return height

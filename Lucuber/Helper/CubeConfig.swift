@@ -21,4 +21,12 @@ final public class CubeConfig {
         public static let menuOrignX: CGFloat = screenWidth - CagetoryMenu.menuWidth - 10
     }
     
+    public struct DetailFormula {
+        public static let screenMargin: CGFloat = 38
+        public static let masterRowHeight: CGFloat = 50
+        public static let separatorRowHeight: CGFloat = 40
+        public static let ratingViewWidth: CGFloat = 100
+        public static let commentRowHeight: CGFloat = 80
+    }
+    
 }

@@ -21,6 +21,8 @@ extension String {
         let attributeText = NSMutableAttributedString(string: self)
         
         var attributes = [String: AnyObject]()
+        let textStyle = NSMutableParagraphStyle()
+        textStyle.lineSpacing = 5
         switch style {
         case .Normal:
             attributes = [
@@ -30,11 +32,10 @@ extension String {
             attributes = [
                 NSForegroundColorAttributeName: UIColor.cubeFormulaDetailTextColor(),
                 NSFontAttributeName: UIFont.cubeFormulaDetailTextFont()]
+            textStyle.alignment = .Center
         }
         attributeText.addAttributes(attributes, range: NSRange(location: 0, length: self.characters.count))
-        let textStyle = NSMutableParagraphStyle()
-        textStyle.lineSpacing = 5
-//        textStyle.alignment = .Center
+       
         attributeText.addAttributes([NSParagraphStyleAttributeName: textStyle], range: NSRange(location: 0, length: self.characters.count))
         
         return setBracketsColor(attributeText, style: style)

@@ -82,7 +82,7 @@ final class CubeHUD: NSObject {
         hideActivityIndicator() {
             if
                 let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
-                let viewController = appDelegate.window?.rootViewController {
+                let _ = appDelegate.window?.rootViewController {
                 //TODO: Alert 超时提醒
             }
         }

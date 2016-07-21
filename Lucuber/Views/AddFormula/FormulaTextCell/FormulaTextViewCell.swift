@@ -46,7 +46,7 @@ class FormulaTextViewCell: UITableViewCell {
     private func updateUI() {
         if let formulaContent = formulaContent {
             
-            //                formulaLabel.attributedText = text.setAttributesFitDetailLayout()
+   
             var indicaterImagename = ""
             var placeholderText = ""
             switch formulaContent.rotation {
