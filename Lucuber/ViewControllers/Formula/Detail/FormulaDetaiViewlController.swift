@@ -54,7 +54,6 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        hidesBottomBarWhenPushed = false
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1

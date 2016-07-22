@@ -54,6 +54,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             if let dict = sender as? [String: AnyObject] {
                 vc.seletedFormula =  dict["seletedFormula"] as? Formula
                 vc.formulas = dict["formulas"] as? [Formula]
+                vc.hidesBottomBarWhenPushed = true
             }
         case .ShowAddFormula:
             break
@@ -87,7 +88,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         addChileViewController()
         addTopControl()
         setupScrollerView()
-        hidesBottomBarWhenPushed = true
+        
     }
     
     
