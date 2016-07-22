@@ -90,21 +90,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         hidesBottomBarWhenPushed = true
     }
     
-//    let buttonWindow = UIWindow()
-//    private func addAddButton() {
-//        let button = UIButton(type: .Custom)
-//        button.setBackgroundImage(UIImage(named: "addButton_backgroundImage"), forState: .Normal)
-//        button.size = CGSize(width: 30, height: 30)
-//        buttonWindow.bounds = button.bounds
-//        buttonWindow.x = screenWidth - buttonWindow.width - 20
-//        buttonWindow.y = screenHeight - 49 - buttonWindow.height - 20
-//        buttonWindow.windowLevel = UIWindowLevelStatusBar
-//        buttonWindow.addSubview(button)
-//        buttonWindow.backgroundColor = UIColor.clearColor()
-//        
-//        buttonWindow.hidden = false
-//    }
-//    
     
     func setupNavigationbar() {
         
