@@ -28,7 +28,8 @@ class FeedUploadingErrorContainerView: UIView {
     
     lazy var errorMessageLabel: UILabel = {
         let label = UILabel()
-    }
+        return label
+    }()
     
 
 }
