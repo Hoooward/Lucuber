@@ -48,7 +48,7 @@ struct FeedCellLayout {
         
         if let category = FeedCategory(rawValue: feed.category) {
             
-            let rect = (category.rawValue as NSString).boundingRectWithSize(CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12)], context: nil)
+            let rect = (category.rawValue as NSString).boundingRectWithSize(CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: CubeConfig.FeedDetailCell.categryButtonAttributies, context: nil)
             
             let categoryButtonWidth = ceil(rect.width) + 20
             
@@ -64,7 +64,7 @@ struct FeedCellLayout {
             categoryButtonFrame = CGRectZero
         }
         
-        let rect1 = (feed.contentBody! as NSString).boundingRectWithSize(CGSize(width: FeedDefaultCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.UsesFontLeading, .UsesLineFragmentOrigin], attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17)], context: nil)
+        let rect1 = (feed.contentBody! as NSString).boundingRectWithSize(CGSize(width: FeedDefaultCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.UsesFontLeading, .UsesLineFragmentOrigin], attributes: CubeConfig.FeedDetailCell.messageTextViewAttributies, context: nil)
         
         let messageTextViewHeight = ceil(rect1.height)
         let messageTextViewFrame = CGRect(x: 65, y: 54, width: screenWidth - 65 - 15, height: messageTextViewHeight)
@@ -73,9 +73,9 @@ struct FeedCellLayout {
         let leftBottomLabelFrame = CGRect(x: 65, y: leftBottomLabelOriginY, width: screenWidth - 65 - 85, height: 17)
         
         let messageCountLabelWidth: CGFloat = 30
-        let messageConuntLabelFrame = CGRect(x: screenWidth - messageCountLabelWidth - 45 - 8, y: leftBottomLabelOriginY, width: messageCountLabelWidth, height: 19)
+        let messageConuntLabelFrame = CGRect(x: screenWidth - messageCountLabelWidth - 39 - 8, y: leftBottomLabelOriginY, width: messageCountLabelWidth, height: 19)
         
-        let discussionImageViewFrame = CGRect(x: screenWidth - 30 - 15, y: leftBottomLabelOriginY - 1, width: 30, height: 19)
+        let discussionImageViewFrame = CGRect(x: screenWidth - 24 - 15, y: leftBottomLabelOriginY - 1, width: 24, height: 20)
         
         let defaultLayout = FeedCellLayout.DefaultLayout(
             avatarImageViewFrame: avatarImageViewFrame,

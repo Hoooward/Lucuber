@@ -111,13 +111,6 @@ class Feed: AVObject, AVSubclassing  {
         return "Feed"
     }
     
-//    public let createdUnixTime: NSTimeInterval = 0
-//    public let updatedUnixTime: NSTimeInterval = 0
-    
-    /// 被喜欢
-    static let FeedKey_likeCount = "likeCount"
-    @NSManaged var likeCount: Int
-    
     /// 作者
     static let Feedkey_creator = "creator"
     @NSManaged var creator: AVUser?

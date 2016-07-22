@@ -33,4 +33,13 @@ final public class CubeConfig {
         public static let separatorInset = UIEdgeInsets(top: 0, left: 85, bottom: 0, right: 0)
     }
     
+    public struct FeedDetailCell {
+        
+        public static let categryButtonAttributies = [NSFontAttributeName: UIFont.feedCategoryButtonTitleFont()]
+        
+        public static let messageTextViewAttributies = [NSFontAttributeName: UIFont.feedMessageTextViewFont()]
+        
+        public static let bottomLabelTextAttributies = [NSFontAttributeName: UIFont.feedBottomLabelFont()]
+    }
+    
 }

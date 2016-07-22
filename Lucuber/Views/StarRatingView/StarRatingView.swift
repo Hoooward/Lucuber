@@ -14,17 +14,17 @@ import UIKit
 class StarRatingView: UIView {
     
     
-    var notSelectedImage: UIImage = UIImage(named: "Star-empty")! {
+    var notSelectedImage: UIImage = UIImage(named: "star_empty")! {
         didSet {
             refresh()
         }
     }
-    var halfSelectedImage: UIImage = UIImage(named: "Star_full")! {
+    var halfSelectedImage: UIImage = UIImage(named: "star_full")! {
         didSet {
             refresh()
         }
     }
-    var fullSelectedImage: UIImage = UIImage(named: "Star_full")! {
+    var fullSelectedImage: UIImage = UIImage(named: "star_full")! {
         didSet {
             refresh()
         }

@@ -35,6 +35,18 @@ extension UIFont {
         return UIFont.systemFontOfSize(12)
     }
     
+    class func feedCategoryButtonTitleFont() -> UIFont {
+        return UIFont.systemFontOfSize(12)
+    }
+    
+    class func feedMessageTextViewFont() -> UIFont {
+        return UIFont.systemFontOfSize(17)
+    }
+    
+    class func feedBottomLabelFont() -> UIFont {
+        return UIFont.systemFontOfSize(14)
+    }
+    
 
 
 }

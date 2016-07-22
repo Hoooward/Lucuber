@@ -33,7 +33,7 @@ class FeedDefaultCell: UITableViewCell {
         self.feed = feed
         let defaultLayout = layout.defaultLayout
         
-        messageTextView.text = "\u{200B}\(feed.contentBody!)" // ref http://stackoverflow.com/a/25994821
+        messageTextView.text = "\(feed.contentBody!)" // ref http://stackoverflow.com/a/25994821
         //println("messageTextView.text: >>>\(messageTextView.text)<<<")
         messageTextView.frame = defaultLayout.messageTextViewFrame
         
@@ -51,8 +51,10 @@ class FeedDefaultCell: UITableViewCell {
         
         leftBottomLabel.text = "1小时前"
         leftBottomLabel.frame = defaultLayout.leftBottomLabelFrame
-        discussionImageView.image = UIImage(named: "180du")
         discussionImageView.frame = defaultLayout.discussionImageViewFrame
+        
+        messageCountLabel.text = "10"
+        messageCountLabel.frame = defaultLayout.messageCountLabelFrame
         
     }
     
@@ -140,10 +142,10 @@ class FeedDefaultCell: UITableViewCell {
     lazy var leftBottomLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.grayColor()
-        label.font = UIFont.systemFontOfSize(14)
+        label.font = UIFont.feedBottomLabelFont()
         label.textAlignment = .Left
         
-        label.frame = CGRect(x: 65, y: 0, width: 200, height: 17)
+        label.frame = CGRect(x: 65, y: 0, width: screenWidth - 65 - 85, height: 17)
         label.opaque = true
         label.backgroundColor = UIColor.whiteColor()
         label.clipsToBounds = true
@@ -154,7 +156,7 @@ class FeedDefaultCell: UITableViewCell {
     lazy var messageCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.cubeTintColor()
-        label.font = UIFont.systemFontOfSize(14)
+        label.font = UIFont.feedBottomLabelFont()
         label.textAlignment = .Right
         
         label.frame = CGRect(x: 65, y: 0, width: 200, height: 17)
@@ -167,7 +169,7 @@ class FeedDefaultCell: UITableViewCell {
     
     lazy var discussionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "icon_minicard")
+        imageView.image = UIImage(named: "icon-chatbubble")
         return imageView
     }()
     

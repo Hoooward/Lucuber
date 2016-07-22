@@ -8,7 +8,9 @@
 
 import UIKit
 
+///缓存Cell中元素的Frame
 private struct LayoutCatch {
+    
     private var FeedCellLayoutHash = [String: FeedCellLayout]()
     
     private mutating func FeedCellLayoutOfFeed(feed: Feed) -> FeedCellLayout {
@@ -98,7 +100,9 @@ class FeedViewController: UIViewController {
         loadNewComment()
     
         let feed = Feed()
-        feed.contentBody = content + content + content
+        
+        feed.contentBody = "UIRefreshControl的使用方法一般是在UIControlEventValueChanged事件时触发，也就是下拉到一定程度的时候触发。这样可能出现的问题是下拉释放后很快调用-endRefresh，动画不流畅。可以在－scrollViewDidEndDragging:willDecelerate:时判断下拉程度来触发，或者延迟调用-endRefresh。最后找到了看起来完美的方法，在下拉释放回弹后调用。也就是在-scrollViewDidEndDecelerating:中调用，代码如下："
+        
         feed.creator = AVUser.currentUser()
         feed.kind = FeedKind.Text.rawValue
         feed.category = FeedCategory.Formula.rawValue
