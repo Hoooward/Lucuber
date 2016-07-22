@@ -10,6 +10,10 @@ import UIKit
 
 extension UIColor {
     
+    class func cubeNavgationBarTitleColor() -> UIColor {
+        return UIColor(red: 0.247, green: 0.247, blue: 0.247, alpha: 1.0)
+    }
+
     class func cubeTintColor() -> UIColor {
         return UIColor(red: 50/255.0, green: 167/255.0, blue: 255/255.0, alpha: 1.0)
     }
@@ -55,5 +59,13 @@ extension UIColor {
     class func addFormulaPlaceholderTextColor() -> UIColor {
         return UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
     }
-}
     
+    class func cubeCellSeparatorColor() -> UIColor {
+        return UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
+    }
+    
+    class func cubeMessageColor() -> UIColor {
+        return UIColor(red: 64/255.0, green: 64/255.0, blue: 64/255.0, alpha: 1.0)
+    }
+}
+

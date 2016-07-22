@@ -16,6 +16,11 @@
 		890718461D326ACD001B526D /* HeaderFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718451D326ACD001B526D /* HeaderFormulaView.swift */; };
 		8907184A1D32798A001B526D /* CategorySeletedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718481D32798A001B526D /* CategorySeletedCell.swift */; };
 		8907184B1D32798A001B526D /* CategorySeletedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718491D32798A001B526D /* CategorySeletedCell.xib */; };
+		8909CE631D41BFB300511243 /* ConversationIndicatorTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE621D41BFB300511243 /* ConversationIndicatorTitleView.swift */; };
+		8909CE661D41D2C700511243 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE651D41D2C700511243 /* ConversationViewController.swift */; };
+		8909CE691D41ECA800511243 /* FeedDefaultCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE681D41ECA800511243 /* FeedDefaultCellTableViewCell.swift */; };
+		8909CE6B1D41EF7400511243 /* FeedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE6A1D41EF7400511243 /* FeedTextView.swift */; };
+		8909CE6D1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE6C1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift */; };
 		892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */; };
 		892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */; };
 		893F66621D360123009DF822 /* FormulaContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F66611D360123009DF822 /* FormulaContent.swift */; };
@@ -136,6 +141,11 @@
 		890718451D326ACD001B526D /* HeaderFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderFormulaView.swift; sourceTree = "<group>"; };
 		890718481D32798A001B526D /* CategorySeletedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySeletedCell.swift; sourceTree = "<group>"; };
 		890718491D32798A001B526D /* CategorySeletedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySeletedCell.xib; sourceTree = "<group>"; };
+		8909CE621D41BFB300511243 /* ConversationIndicatorTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationIndicatorTitleView.swift; sourceTree = "<group>"; };
+		8909CE651D41D2C700511243 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		8909CE681D41ECA800511243 /* FeedDefaultCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDefaultCellTableViewCell.swift; sourceTree = "<group>"; };
+		8909CE6A1D41EF7400511243 /* FeedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTextView.swift; sourceTree = "<group>"; };
+		8909CE6C1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedUploadingErrorContainerView.swift; sourceTree = "<group>"; };
 		892316CE1D23B6F1006BCCE7 /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		892316CF1D23B6F1006BCCE7 /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
 		893F66611D360123009DF822 /* FormulaContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaContent.swift; sourceTree = "<group>"; };
@@ -324,6 +334,33 @@
 				8977FECB1D327CBE000159A2 /* CategoryPickViewCell.xib */,
 			);
 			path = CategorySeletedCell;
+			sourceTree = "<group>";
+		};
+		8909CE611D41BF9E00511243 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				8909CE621D41BFB300511243 /* ConversationIndicatorTitleView.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		8909CE641D41D2B400511243 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				8909CE651D41D2C700511243 /* ConversationViewController.swift */,
+			);
+			name = Conversation;
+			path = ../Conversation;
+			sourceTree = "<group>";
+		};
+		8909CE671D41EC9100511243 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				8909CE681D41ECA800511243 /* FeedDefaultCellTableViewCell.swift */,
+				8909CE6A1D41EF7400511243 /* FeedTextView.swift */,
+				8909CE6C1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift */,
+			);
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		892316CD1D23B6C4006BCCE7 /* NoResult */ = {
@@ -546,6 +583,7 @@
 				89FAF4271D33C09300096B5A /* CategoryMenu */,
 				89E663661D03F18200E90926 /* Container */,
 				89E663621D03F18200E90926 /* BaseController+Layout */,
+				8909CE641D41D2B400511243 /* Conversation */,
 				89E6636F1D03F18200E90926 /* My */,
 				89E6636D1D03F18200E90926 /* Library */,
 				89E663681D03F18200E90926 /* Detail */,
@@ -642,6 +680,8 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8909CE671D41EC9100511243 /* Feed */,
+				8909CE611D41BF9E00511243 /* Conversation */,
 				895BC0CF1D3DE7C900EA47BA /* CategoryCheckCell */,
 				894018EE1D38AE4B000703E5 /* ActionSheetView */,
 				894018EB1D388419000703E5 /* CubeAlert */,
@@ -999,12 +1039,14 @@
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,
 				89E663861D03F18200E90926 /* SettingViewController.swift in Sources */,
 				895BC0E81D40CE7100EA47BA /* DetailCommentCell.swift in Sources */,
+				8909CE6D1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift in Sources */,
 				89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */,
 				895D10F01D21211100CEF7FA /* Formula.swift in Sources */,
 				89B924871D0571A500BBF003 /* CubeUserDefaults.swift in Sources */,
 				8964252C1D35400500F1D194 /* AddFormulaTextCell.swift in Sources */,
 				8977FECC1D327CBE000159A2 /* CategoryPickViewCell.swift in Sources */,
 				894018EA1D3880CF000703E5 /* CubeConfig.swift in Sources */,
+				8909CE691D41ECA800511243 /* FeedDefaultCellTableViewCell.swift in Sources */,
 				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
 				89E6637B1D03F18200E90926 /* _CardCollectionViewLayout.swift in Sources */,
 				895BC0E41D40BCAA00EA47BA /* DetailSeparatorCell.swift in Sources */,
@@ -1031,6 +1073,8 @@
 				89E6C5EF1D03F0D3005ACFB9 /* CardFormulaCell.swift in Sources */,
 				89E663921D04039A00E90926 /* FormulaDetailMasterCell.swift in Sources */,
 				895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */,
+				8909CE6B1D41EF7400511243 /* FeedTextView.swift in Sources */,
+				8909CE661D41D2C700511243 /* ConversationViewController.swift in Sources */,
 				89EEDCA11D0201E9007257C3 /* testData.swift in Sources */,
 				89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */,
 				89C1F5841D306E8500F79BAC /* FormulaTextView.swift in Sources */,
@@ -1052,6 +1096,7 @@
 				896425151D34DDCC00F1D194 /* StarRatingView.swift in Sources */,
 				89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */,
 				890718421D325B7A001B526D /* NameTextViewCell.swift in Sources */,
+				8909CE631D41BFB300511243 /* ConversationIndicatorTitleView.swift in Sources */,
 				89E6637A1D03F18200E90926 /* BaseCollectionViewController.swift in Sources */,
 				89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */,
 				89FAF4231D33C03C00096B5A /* FormulaInputViewController.swift in Sources */,

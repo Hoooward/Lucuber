@@ -164,6 +164,40 @@
             </objects>
             <point key="canvasLocation" x="991" y="1298"/>
         </scene>
+        <!--Conversation View Controller-->
+        <scene sceneID="ttK-uf-NUY">
+            <objects>
+                <viewController id="HR6-Y1-pX0" customClass="ConversationViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WIg-uf-R77"/>
+                        <viewControllerLayoutGuide type="bottom" id="DjX-xT-cbX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dPn-pc-tDo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p0d-Mb-SBa">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="p0d-Mb-SBa" secondAttribute="bottom" id="BED-Da-axz"/>
+                            <constraint firstItem="p0d-Mb-SBa" firstAttribute="leading" secondItem="dPn-pc-tDo" secondAttribute="leading" id="CiX-8X-fw5"/>
+                            <constraint firstAttribute="trailing" secondItem="p0d-Mb-SBa" secondAttribute="trailing" id="V1I-r3-r3T"/>
+                            <constraint firstItem="p0d-Mb-SBa" firstAttribute="top" secondItem="dPn-pc-tDo" secondAttribute="top" id="ft9-ht-iT9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="UbY-ly-NBv"/>
+                    <connections>
+                        <outlet property="tableView" destination="p0d-Mb-SBa" id="Sv0-Me-PGh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c7L-Tl-A9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1809" y="403"/>
+        </scene>
         <!--设置-->
         <scene sceneID="bxx-Da-FQT">
             <objects>
@@ -244,6 +278,7 @@
                     <connections>
                         <segue destination="skP-gx-ceN" kind="relationship" relationship="viewControllers" id="MJ6-fS-0XV"/>
                         <segue destination="UkM-tl-UBc" kind="relationship" relationship="viewControllers" id="lGU-81-aRe"/>
+                        <segue destination="quT-er-Yd5" kind="relationship" relationship="viewControllers" id="M8E-OT-A16"/>
                         <segue destination="84h-Nn-ZgQ" kind="relationship" relationship="viewControllers" id="MhC-Kb-CDp"/>
                         <segue destination="C8g-N0-228" kind="relationship" relationship="viewControllers" id="xci-zq-AjK"/>
                     </connections>
@@ -279,8 +314,28 @@
             </objects>
             <point key="canvasLocation" x="280" y="1965"/>
         </scene>
+        <!--话题-->
+        <scene sceneID="jk8-El-rq6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="quT-er-Yd5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="话题" image="icon_feeds_active" id="6jq-Hx-kWd"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hy5-Kq-YOf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HR6-Y1-pX0" kind="relationship" relationship="rootViewController" id="i9v-CP-ge3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gtR-OE-S5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997" y="403"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="icon_feeds_active" width="30" height="30"/>
         <image name="plus" width="44" height="44"/>
         <image name="popover" width="49" height="32"/>
         <image name="tabbar_gongshi" width="30" height="30"/>

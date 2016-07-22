@@ -34,4 +34,7 @@ extension UIFont {
     class func addFormulaPlaceholderTextFont() -> UIFont {
         return UIFont.systemFontOfSize(12)
     }
+    
+
+
 }

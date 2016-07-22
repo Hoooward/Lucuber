@@ -11,6 +11,17 @@ import UIKit
 class CommentTableViewController: UITableViewController {
     
     var formulaComments: [FormulaComment] = []
+    
+    private lazy var indicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .Minimal
+        searchBar.placeholder = NSLocalizedString("搜索", comment: "")
+        searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchbar_textfield_background"), forState: .Normal)
+        searchBar.delegate = self
+        return searchBar
+    }()
 
     private let CommentCellIdentifier = "CommentCell"
     var formula: Formula? {
@@ -75,6 +86,16 @@ class CommentTableViewController: UITableViewController {
         
         loadNewComment()
     }
+    func makeUI() {
+        title = "讨论"
+        
+        let newComment = UIButton(type: .Custom)
+        newComment.setTitle("写评论", forState: .Normal)
+        newComment.setTitleColor(UIColor.cubeTintColor(), forState: .Normal)
+        newComment.addTarget(self, action: #selector(CommentTableViewController.creatNewComment), forControlEvents: .TouchUpInside)
+        newComment.sizeToFit()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newComment)
+    }
     
     
     // MARK: - Table view data source
@@ -90,18 +111,9 @@ class CommentTableViewController: UITableViewController {
     }
 }
 
-extension CommentTableViewController {
-    func makeUI() {
-        title = "讨论"
-        
-        let newComment = UIButton(type: .Custom)
-        newComment.setTitle("写评论", forState: .Normal)
-        newComment.setTitleColor(UIColor.cubeTintColor(), forState: .Normal)
-        newComment.addTarget(self, action: #selector(CommentTableViewController.creatNewComment), forControlEvents: .TouchUpInside)
-        newComment.sizeToFit()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newComment)
-    }
+extension CommentTableViewController: UISearchBarDelegate{
 }
+
 
 
 

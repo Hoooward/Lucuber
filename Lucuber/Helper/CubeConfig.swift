@@ -29,4 +29,8 @@ final public class CubeConfig {
         public static let commentRowHeight: CGFloat = 80
     }
     
+    public struct ContactsCell {
+        public static let separatorInset = UIEdgeInsets(top: 0, left: 85, bottom: 0, right: 0)
+    }
+    
 }
