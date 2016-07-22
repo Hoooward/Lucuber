@@ -8,9 +8,43 @@
 
 import UIKit
 
+private struct LayoutCatch {
+    private var FeedCellLayoutHash = [String: FeedCellLayout]()
+    
+    private mutating func FeedCellLayoutOfFeed(feed: Feed) -> FeedCellLayout {
+        let key = feed.objectId
+        
+        if let layout = FeedCellLayoutHash[key] {
+            return layout
+        } else {
+            let layout = FeedCellLayout(feed: feed)
+            
+            updateFeedCellLayout(layout, forFeed: feed)
+            
+            return layout
+        }
+    }
+    
+    private mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: Feed) {
+        let key = feed.objectId
+        
+        if !key.isEmpty {
+            FeedCellLayoutHash[key] = layout
+        }
+    }
+    
+    private mutating func heightOfFeed(feed: Feed) -> CGFloat {
+        let layout = FeedCellLayoutOfFeed(feed)
+        return layout.height
+    }
+}
+
 private let FeedDefaultCellIdentifier = "FeedDefaultCell"
+
 class FeedViewController: UIViewController {
     
+    private static var LayoutsCatch = LayoutCatch()
+ 
     private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
     
     private lazy var searchBar: UISearchBar = {
@@ -64,9 +98,10 @@ class FeedViewController: UIViewController {
         loadNewComment()
     
         let feed = Feed()
-        feed.contentBody = content
-        feed.author = AVUser.currentUser()
-        feed.kind = "text"
+        feed.contentBody = content + content + content
+        feed.creator = AVUser.currentUser()
+        feed.kind = FeedKind.Text.rawValue
+        feed.category = FeedCategory.Formula.rawValue
         
         feed.saveInBackgroundWithBlock({ (success, error) in
             if success {
@@ -81,109 +116,13 @@ class FeedViewController: UIViewController {
     }
     
     
-    private struct LayoutPool {
-        
-        private var feedCellLayoutHash = [String: FeedcellLayout]()
-        
-        private mutating func feedCellLayoutOfFeed(feed: Feed) -> FeedcellLayout {
-            let key = feed.objectId
-            
-            if let layout = feedCellLayoutHash[key] {
-                return layout
-            } else {
-                let layout = FeedcellLayout(feed: feed)
-                
-                updateFeedCellLayout(layout, forFeed: feed)
-                
-                return layout
-            }
-        }
-        
-        private mutating func updateFeedCellLayout(layout: FeedcellLayout, forFeed feed: Feed) {
-            let key = feed.objectId
-            
-            if !key.isEmpty {
-                feedCellLayoutHash[key] = layout
-            }
-        }
-        
-        private mutating func heightOfFeed(feed: Feed) -> CGFloat {
-            let layout = feedCellLayoutOfFeed(feed)
-            return layout.height
-        }
-    }
+   
     
-    private static var LayoutsPool = LayoutPool()
+   
     
 }
 
-struct FeedcellLayout {
-    
-    var height: CGFloat = 0
-    
-    struct DefaultLayout {
-        
-        let avatarImageViewFrame: CGRect
-        let nicknameLabelFrame: CGRect
-        let categoryButtonFrame: CGRect
-        
-        
-        let messageTextViewFrame: CGRect
-        
-        let leftBottomLabelFrame: CGRect
-        let messageCountLabelFrame: CGRect
-        let discussionImageViewFrame: CGRect
-        
-    }
-    
-    init(feed: Feed) {
-        if let kind = FeedKind(rawValue: feed.kind!) {
-            switch kind{
-            case .Text:
-                height = FeedDefaultCell.heightOfFeed(feed)
-            default:
-                break
-                
-            }
-            
-        }
-        
-        let avatarImageViewFrame = CGRect(x: 15, y: 10, width: 40, height: 40)
-        
-        let nicknameLabelFrame: CGRect
-        let categoryButtonFrame: CGRect
-        
-        if let category = FeedCategory(rawValue: feed.category) {
-           
-            let rect = (category.rawValue as NSString).boundingRectWithSize(CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12)], context: nil)
-            
-            let categoryButtonWidth = ceil(rect.width) + 20
-            
-            categoryButtonFrame = CGRect(x: screenWidth - categoryButtonWidth - 15, y: 19, width: categoryButtonWidth, height: 22)
-            
-            let nickNameLabelwidth = screenWidth - 65 - 15
-            nicknameLabelFrame = CGRect(x: 65, y: 21, width: nickNameLabelwidth, height: 18)
-            
-            
-        } else {
-            let nickNameLabelwidth = screenWidth - 65 - 15
-            nicknameLabelFrame = CGRect(x: 65, y: 21, width: nickNameLabelwidth, height: 18)
-            categoryButtonFrame = CGRectZero
-        }
-        
-        let rect1 = (feed.contentBody! as NSString).boundingRectWithSize(CGSize(width: FeedDefaultCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.UsesFontLeading, .UsesLineFragmentOrigin], attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17)], context: nil)
-        
-        let messageTextViewHeight = ceil(rect1.height)
-        let messageTextViewFrame = CGRect(x: 65, y: 54, width: screenWidth - 65 - 15, height: messageTextViewHeight)
-        
-        let leftBottomLabelOriginY = height - 17 - 15
-        let leftBottomLabelFrame = CGRect(x: 65, y: leftBottomLabelOriginY, width: screenWidth - 65 - 85, height: 17)
-        
-        let message
-        
-    }
-    
-}
+
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -194,7 +133,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
-        cell.configureWithFeed(feeds[indexPath.row], layout: FeedViewController.LayoutsPool.feedCellLayoutOfFeed(feeds[indexPath.row]), needshowCategory: false)
+        cell.configureWithFeed(feeds[indexPath.row], layout: FeedViewController.LayoutsCatch.FeedCellLayoutOfFeed(feeds[indexPath.row]), needshowCategory: false)
         
         return cell
     }
@@ -202,11 +141,13 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let feed = feeds[indexPath.row]
-        let height = FeedViewController.LayoutsPool.heightOfFeed(feed)
+        let height = FeedViewController.LayoutsCatch.heightOfFeed(feed)
         print(height)
         
         return height
     }
+    
+    
 }
 
 extension FeedViewController: UISearchBarDelegate {

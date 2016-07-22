@@ -119,8 +119,8 @@ class Feed: AVObject, AVSubclassing  {
     @NSManaged var likeCount: Int
     
     /// 作者
-    static let Feedkey_author = "author"
-    @NSManaged var author: AVUser?
+    static let Feedkey_creator = "creator"
+    @NSManaged var creator: AVUser?
     
     static let Feedkey_body = "contentBody"
     @NSManaged var contentBody: String?

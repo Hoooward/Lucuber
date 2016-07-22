@@ -29,17 +29,30 @@ class FeedDefaultCell: UITableViewCell {
         return ceil(height)
     }
     
-    func configureWithFeed(feed: Feed, layout: FeedcellLayout, needshowCategory: Bool) {
+    func configureWithFeed(feed: Feed, layout: FeedCellLayout, needshowCategory: Bool) {
         self.feed = feed
+        let defaultLayout = layout.defaultLayout
+        
         messageTextView.text = "\u{200B}\(feed.contentBody!)" // ref http://stackoverflow.com/a/25994821
         //println("messageTextView.text: >>>\(messageTextView.text)<<<")
+        messageTextView.frame = defaultLayout.messageTextViewFrame
         
+        nickNameLabel.text = feed.creator?.username ?? "Howard"
+        nickNameLabel.frame = defaultLayout.nicknameLabelFrame
         
         
         avatarImageView.image = UIImage(named: "PLL1")
-        nickNameLabel.text = "Howard"
-        leftBottomLabel.text = "Howard"
+        avatarImageView.frame = defaultLayout.avatarImageViewFrame
+        
+        categoryButton.setTitle(feed.category, forState: .Normal)
+        categoryButton.frame = defaultLayout.categoryButtonFrame
+        
+        
+        
+        leftBottomLabel.text = "1小时前"
+        leftBottomLabel.frame = defaultLayout.leftBottomLabelFrame
         discussionImageView.image = UIImage(named: "180du")
+        discussionImageView.frame = defaultLayout.discussionImageViewFrame
         
     }
     
@@ -128,7 +141,7 @@ class FeedDefaultCell: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor.grayColor()
         label.font = UIFont.systemFontOfSize(14)
-        label.textAlignment = .Right
+        label.textAlignment = .Left
         
         label.frame = CGRect(x: 65, y: 0, width: 200, height: 17)
         label.opaque = true
