@@ -19,17 +19,97 @@ class FeedUploadingErrorContainerView: UIView {
         view.backgroundColor = UIColor(red: 1, green: 56/255.0, blue: 36/255.0, alpha: 0.1)
         view.layer.cornerRadius = 5
         return view
-    }
+    }()
     
     lazy var iconImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "tabbar_plus_sele"))
         return imageView
-    }
+    }()
     
     lazy var errorMessageLabel: UILabel = {
         let label = UILabel()
+        label.text = "加载失败"
+        label.textColor = UIColor.redColor()
         return label
     }()
+    
+    lazy var retryButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("重试", forState: .Normal)
+        button.setTitleColor(UIColor.cubeTintColor(), forState: .Normal)
+        button.addTarget(self, action: #selector(FeedUploadingErrorContainerView.retryUploadingFeed(_:)), forControlEvents: .TouchUpInside)
+        return button
+    }()
+    
+    
+    lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.redColor(), forState: .Normal)
+        button.setTitle("删除", forState: .Normal)
+        button.addTarget(self, action: #selector(FeedUploadingErrorContainerView.deleteUploadingFeed(_:)), forControlEvents: .TouchUpInside)
+        return button
+    }()
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
+        makeUI()
+    }
+    
+    func makeUI() {
+        do {
+            addSubview(leftContainerView)
+            addSubview(deleteButton)
+            
+            leftContainerView.translatesAutoresizingMaskIntoConstraints = false
+            deleteButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            let viewsDictionary: [String: AnyObject] = [
+                "leftContainerView": leftContainerView,
+                
+                "deleteButton": deleteButton]
+            let constraintsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView]-15-[deleteButton]|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: viewsDictionary)
+            let constraintsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: [], metrics: nil, views: viewsDictionary)
+            
+            NSLayoutConstraint.activateConstraints(constraintsH)
+            NSLayoutConstraint.activateConstraints(constraintsV)
+        }
+        
+        do {
+            leftContainerView.addSubview(iconImageView)
+            leftContainerView.addSubview(errorMessageLabel)
+            leftContainerView.addSubview(retryButton)
+            
+            iconImageView.translatesAutoresizingMaskIntoConstraints = false
+            errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+            retryButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            let viewsDictionary: [String: AnyObject] = [
+                "iconImageView": iconImageView,
+                "errorMessageLabel": errorMessageLabel,
+                "retryButton": retryButton]
+            
+            let constrainsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[iconImageView]-[errorMessageLabel]-[retryButton]-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: viewsDictionary)
+            
+            iconImageView.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+            iconImageView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+            
+            let iconImageViewCenterY = NSLayoutConstraint(item: iconImageView, attribute: .CenterY, relatedBy: .Equal, toItem: leftContainerView, attribute: .CenterY, multiplier: 1.0, constant: 0)
+            
+            NSLayoutConstraint.activateConstraints(constrainsH)
+            NSLayoutConstraint.activateConstraints([iconImageViewCenterY])
+            
+        }
+    }
+    
+    func retryUploadingFeed(sender: UIGestureRecognizer) {
+       retryAction?()
+    }
+    
+    func deleteUploadingFeed(sender: UIGestureRecognizer) {
+       deleteAction?()
+    }
+    
     
 
 }

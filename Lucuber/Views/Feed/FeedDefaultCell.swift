@@ -19,6 +19,29 @@ class FeedDefaultCell: UITableViewCell {
 //    class func heightOfFeed(feed: AnyObject) -> CGFloat {
 //        
 //    }
+    var feed: Feed?
+    
+    class func heightOfFeed(feed: Feed) -> CGFloat {
+        
+        let rect = (feed.contentBody! as NSString).boundingRectWithSize(CGSize(width: FeedDefaultCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: UIFont.systemFontOfSize(17)], context: nil)
+        
+        let height: CGFloat = 10 + 40 + ceil(rect.height) + 4 + 15 + 17 + 15
+        return ceil(height)
+    }
+    
+    func configureWithFeed(feed: Feed, layout: FeedcellLayout, needshowCategory: Bool) {
+        self.feed = feed
+        messageTextView.text = "\u{200B}\(feed.contentBody!)" // ref http://stackoverflow.com/a/25994821
+        //println("messageTextView.text: >>>\(messageTextView.text)<<<")
+        
+        
+        
+        avatarImageView.image = UIImage(named: "PLL1")
+        nickNameLabel.text = "Howard"
+        leftBottomLabel.text = "Howard"
+        discussionImageView.image = UIImage(named: "180du")
+        
+    }
     
     lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -115,19 +138,68 @@ class FeedDefaultCell: UITableViewCell {
         return label
     }()
     
+    lazy var messageCountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.cubeTintColor()
+        label.font = UIFont.systemFontOfSize(14)
+        label.textAlignment = .Right
+        
+        label.frame = CGRect(x: 65, y: 0, width: 200, height: 17)
+        label.opaque = true
+        label.backgroundColor = UIColor.whiteColor()
+        label.clipsToBounds = true
+        
+        return label
+    }()
+    
     lazy var discussionImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "icon_minicard")
         return imageView
     }()
     
-    lazy 
+    lazy var uploadingErrorContainerView: FeedUploadingErrorContainerView = {
+        let view = FeedUploadingErrorContainerView(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        return view
+    }()
     
+    var messagesConutEqualsZero = false {
+        didSet {
+            messageCountLabel.highlighted = messagesConutEqualsZero
+        }
+    }
+    
+    var hasUploadingErrorMessage = false {
+        didSet {
+            uploadingErrorContainerView.hidden = !hasUploadingErrorMessage
+            
+            leftBottomLabel.hidden = hasUploadingErrorMessage
+            messageCountLabel.hidden = hasUploadingErrorMessage || (self.messagesConutEqualsZero)
+            discussionImageView.hidden = hasUploadingErrorMessage
+        }
+    }
     
     
     var touchesBeganAction: (UITableViewCell -> Void)?
     var touchesEndedAction: (UITableViewCell -> Void)?
     var touchesCancelledAction: (UITableViewCell -> Void)?
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        contentView.addSubview(avatarImageView)
+        contentView.addSubview(nickNameLabel)
+        contentView.addSubview(categoryButton)
+        contentView.addSubview(messageTextView)
+        contentView.addSubview(leftBottomLabel)
+        contentView.addSubview(messageCountLabel)
+        contentView.addSubview(discussionImageView)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func tapCategory(sender: UIGestureRecognizer) {
         

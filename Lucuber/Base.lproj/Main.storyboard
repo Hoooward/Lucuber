@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="991" y="1298"/>
         </scene>
-        <!--Conversation View Controller-->
+        <!--Feed View Controller-->
         <scene sceneID="ttK-uf-NUY">
             <objects>
-                <viewController id="HR6-Y1-pX0" customClass="ConversationViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HR6-Y1-pX0" customClass="FeedViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WIg-uf-R77"/>
                         <viewControllerLayoutGuide type="bottom" id="DjX-xT-cbX"/>
@@ -179,6 +179,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p0d-Mb-SBa">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="HR6-Y1-pX0" id="LuD-5M-9eb"/>
+                                    <outlet property="delegate" destination="HR6-Y1-pX0" id="WH4-X1-9u9"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
