@@ -36,7 +36,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     ///记录containerScrollerView的偏移量,用来判断左右被移动的距离,决定是否发送通知取消searchBar的第一响应
     var containerScrollerOffsetX: CGFloat = 0 {
         didSet {
-            print(containerScrollerOffsetX)
         }
     }
     
@@ -53,8 +52,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         case .ShowFormulaDetail:
             let vc = segue.destinationViewController as!FormulaDetaiViewlController
             if let dict = sender as? [String: AnyObject] {
-                vc.seletedFormula =  dict["seletedFormula"] as! Formula
-                vc.formulas = dict["formulas"] as! [Formula]
+                vc.seletedFormula =  dict["seletedFormula"] as? Formula
+                vc.formulas = dict["formulas"] as? [Formula]
             }
         case .ShowAddFormula:
             break
@@ -75,6 +74,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        hidesBottomBarWhenPushed = false
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -87,6 +87,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         addChileViewController()
         addTopControl()
         setupScrollerView()
+        hidesBottomBarWhenPushed = true
     }
     
 //    let buttonWindow = UIWindow()

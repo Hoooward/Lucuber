@@ -29,6 +29,7 @@ class DetailHeaderView: UIView {
             if let formula = formula {
                
                 nameLabel.text = formula.name
+                print("imageName = ", formula.imageName)
                 imageView.image = UIImage(named: formula.imageName)
                 ratingView.rating = formula.rating
                 ratingView.maxRating = 5
@@ -57,8 +58,6 @@ class DetailHeaderView: UIView {
         imageView.frame = CGRect(x: margin, y: 5, width: imageWidth, height: imageWidth)
         
         nameLabel.frame = CGRect(x: margin, y: CGRectGetMaxY(imageView.frame) + 15, width: imageWidth - ratingWidth, height: 24)
-//        nameLabel.frame.origin = CGPoint(x: margin, y: CGRectGetMaxY(imageView.frame) + 8)
-//        nameLabel.preferredMaxLayoutWidth = imageWidth - ratingWidth
         
         ratingView.frame = CGRect(x: CGRectGetMaxX(imageView.frame) - ratingWidth, y: nameLabel.frame.origin.y, width: ratingWidth, height: 35)
         
@@ -94,7 +93,8 @@ class DetailHeaderView: UIView {
     }()
     
     private lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage.init(named: "placeholder"))
+        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "placeholder")
         return imageView
     }()
     

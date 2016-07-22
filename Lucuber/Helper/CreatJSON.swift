@@ -112,8 +112,7 @@ func creatJSON() {
     do {
         let data = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
 //        let jason = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-        let string = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-        print(string)
+        let _ = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
     } catch {
         
         

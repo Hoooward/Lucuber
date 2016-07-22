@@ -11,8 +11,8 @@ import UIKit
 private let MasterCellIdentifier = "DetailMasterCell"
 private let FormulasCellIdentifier = "DetailFormulasCell"
 private let SeparatorCellIdentifier = "DetailSeparatorCell"
-
 private let DetailCommentCellIdentifier = "DetailCommentCell"
+
 class DetailCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var tableView: UITableView!
@@ -22,12 +22,15 @@ class DetailCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    var updateNavigatrionBar: ((Formula) -> Void)?
+    
+    var pushCommentViewController: ((Formula) -> ())?
+    
     var formula: Formula? {
         didSet {
             headerView.formula = formula
         }
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,13 +45,10 @@ class DetailCollectionViewCell: UICollectionViewCell {
         tableView.registerNib(UINib(nibName: SeparatorCellIdentifier,bundle: nil), forCellReuseIdentifier: SeparatorCellIdentifier)
         tableView.registerNib(UINib(nibName: DetailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: DetailCommentCellIdentifier)
         
-        
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        tableView.contentOffset = CGPoint(x: 0, y: 0)
         tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: false)
         formula = nil
         tableView.reloadData()
@@ -139,4 +139,35 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .Comment:
+            if let formula = formula,
+               let closure = pushCommentViewController {
+                closure(formula)
+            }
+        default:
+            return
+        }
+        
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

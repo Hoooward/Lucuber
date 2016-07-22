@@ -35,6 +35,7 @@ class StarRatingView: UIView {
             refresh()
         }
     }
+    
     var imageViews = [UIImageView]()
     var maxRating: Int = 5 {
         didSet {
@@ -52,6 +53,7 @@ class StarRatingView: UIView {
             refresh()
         }
     }
+    
     var midMargin: CGFloat = 0
     var leftMargin: CGFloat = 0
     var minImageSize: CGSize = CGSizeZero
@@ -86,7 +88,6 @@ class StarRatingView: UIView {
         let imageWidth = max(self.minImageSize.width, desiredImageWidth)
         let imageHeight = max(self.minImageSize.height, self.frame.size.height)
         
-        print(imageWidth)
         for (index, imageview) in imageViews.enumerate() {
             imageview.frame = CGRect(x: self.leftMargin + CGFloat(index) * (self.midMargin + imageWidth), y: 0, width: imageWidth, height: imageHeight)
         }

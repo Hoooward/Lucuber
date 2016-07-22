@@ -8,7 +8,7 @@
         <!--Main Navigation Controller-->
         <scene sceneID="yLH-5p-FbK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mhK-qj-jsZ" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AddFormulaNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mhK-qj-jsZ" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPe-3D-0P4">
@@ -16,6 +16,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="INn-ud-SsB">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="gTn-LB-dxy" kind="relationship" relationship="rootViewController" id="Wge-jb-aQU"/>
                     </connections>

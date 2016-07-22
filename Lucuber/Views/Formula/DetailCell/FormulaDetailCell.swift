@@ -68,8 +68,6 @@ class FormulaDetailCell: UICollectionViewCell {
                         let beginChangePercentage: CGFloat = 1 - 64 / strongSelf.collectionViewWidth * profileAvatarAspectRatio
                         let normalizedProgressForChange: CGFloat = (progress - beginChangePercentage) / (1 - beginChangePercentage)
                         
-                        print("b" + "\(beginChangePercentage)")
-                        print(normalizedProgressForChange)
                         coverCell.formulaImageView.alpha = progress < beginChangePercentage ? 0 : normalizedProgressForChange
                         
                         let shadowAlpha = 1 - normalizedProgressForChange
@@ -235,14 +233,11 @@ extension FormulaDetailCell: UICollectionViewDelegate, UICollectionViewDataSourc
             return CGSizeMake(screenWidth, 40)
         case .Formula:
             var height: CGFloat = 10
-            print(indexPath)
-            print(formula?.contents[indexPath.item].text )
             if let string = formula?.contents[indexPath.item].text {
                 
                 let attributsStr = string.setAttributesFitDetailLayout(ContentStyle.Detail)
                 //这串数字是xib中的约束
                 let rect = attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - 38 - 30 - 4 - 20 - 20 - 38, CGFloat(MAXFLOAT)), options:NSStringDrawingOptions.init(rawValue: 1), context: nil)
-                print("resultFrame = \(rect)")
                 
                 //如果文字+top约束 > 图片高度+top约束
                 height = rect.height + 10 > 10 + 30 ? rect.height + 10 + 20 : 10 + 30 + 20

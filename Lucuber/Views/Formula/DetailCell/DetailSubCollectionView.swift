@@ -22,7 +22,6 @@ class DetailSubCollectionView: UICollectionView {
 extension DetailSubCollectionView: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.contentOffset.x < 0 {
-            print(#function)
         }
     }
 }

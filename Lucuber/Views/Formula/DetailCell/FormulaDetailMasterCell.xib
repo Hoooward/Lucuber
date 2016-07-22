@@ -27,7 +27,7 @@
                 <constraint firstItem="xVR-rh-xsH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="38" id="lfI-lo-E4p"/>
             </constraints>
             <size key="customSize" width="283" height="50"/>
-            <point key="canvasLocation" x="180.5" y="419"/>
+            <point key="canvasLocation" x="110.5" y="287"/>
         </collectionViewCell>
     </objects>
 </document>

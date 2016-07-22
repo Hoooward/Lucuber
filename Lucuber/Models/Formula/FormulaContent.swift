@@ -37,7 +37,7 @@ class FormulaContent: CustomStringConvertible {
              let attributsStr = text.setAttributesFitDetailLayout(ContentStyle.Detail)
             let rect =  attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - margin - margin - 25 - 15, CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.init(rawValue: 1),  context: nil)
             
-            print("formula.cellHeight = ", rect.size.height + 30)
+//            print("formula.cellHeight = ", rect.size.height + 30)
             return rect.size.height + 30
         }
         
