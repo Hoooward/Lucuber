@@ -27,11 +27,22 @@ class AddFeedViewController: UIViewController {
             
         }
     }
+    
+    private lazy var imagePickView: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.allowsEditing = false
+        return imagePicker
+    }()
+    
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
     
     private let FeedMediaAddCellIdentifier = "FeedMediaAddCell"
     private let FeedMediaCellIdentifier = "FeedMediaCell"
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +59,7 @@ class AddFeedViewController: UIViewController {
 
 }
 
+// MARK: - CollectionViewDelegate & DataSource -> MediaCell
 extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     enum Section: Int {
@@ -110,7 +122,44 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
 
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .Image:
+            break
+        case .Add:
+            
+            if mediaImages.count == 4 {
+                CubeAlert.alertSorry(message: "最多只能添加四张图片", inViewController: self)
+                return
+            }
+            
+            let sheetView = ActionSheetView(items: [
+                
+                .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: {
+                    
+                    
+                    
+                    
+                    }
+                ),
+                .Cancel
+                
+                ]
+            )
+        }
+    }
     
+}
+// MARK: - ImagePickerDelegate
+extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        
+    }
 }
 
 
