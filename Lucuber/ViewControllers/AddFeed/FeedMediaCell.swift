@@ -31,4 +31,14 @@ class FeedMediaCell: UICollectionViewCell {
         
         print("删除图片")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
+    func configureWithImage(image: UIImage) {
+        imageView.image = image
+        deleteImageView.hidden = false
+    }
 }

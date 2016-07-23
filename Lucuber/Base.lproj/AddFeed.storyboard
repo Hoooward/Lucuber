@@ -95,7 +95,7 @@
                                                 </cells>
                                             </collectionView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.97753577439999995" green="0.97753577439999995" blue="0.97753577439999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="Eyg-Ww-GWE" firstAttribute="leading" secondItem="aOp-br-Ck3" secondAttribute="leading" constant="15" id="6va-cj-YEg"/>
                                             <constraint firstItem="Lii-20-DcX" firstAttribute="top" secondItem="Eyg-Ww-GWE" secondAttribute="bottom" constant="20" id="Fv5-9I-kJ6"/>
@@ -107,7 +107,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="aOp-br-Ck3" firstAttribute="top" secondItem="pDQ-KW-gaj" secondAttribute="top" constant="20" id="7Vh-ld-rHj"/>
                                     <constraint firstAttribute="trailing" secondItem="aOp-br-Ck3" secondAttribute="trailing" id="9ct-eK-cgD"/>

@@ -18,6 +18,8 @@ class AddFeedViewController: UIViewController {
     
     var attachment: Attachment = .Default
     
+    var mediaImages = [UIImage]()
+    
     
     private var isNeverInputMessage = true
     private var isDirty = false {
@@ -34,6 +36,7 @@ class AddFeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.cubeBackgroundColor()
         mediaCollectionView.backgroundColor = UIColor.clearColor()
         
         mediaCollectionView.contentInset.left = 15
@@ -45,7 +48,12 @@ class AddFeedViewController: UIViewController {
 
 }
 
-extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    enum Section: Int {
+        case Image = 0
+        case Add
+    }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
@@ -53,7 +61,56 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .Image:
+            return mediaImages.count
+        case .Add:
+            return 1
+        }
     }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .Image:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaCellIdentifier, forIndexPath: indexPath) as! FeedMediaCell
+            
+            cell.configureWithImage(mediaImages[indexPath.row])
+            
+            return cell
+        case .Add:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaAddCellIdentifier, forIndexPath: indexPath) as! FeedMediaAddCell
+            return cell
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .Image:
+            guard mediaImages.count != 4 else {
+                return CGSizeZero
+            }
+            return CGSize(width: 80, height: 80)
+        case .Add:
+            return CGSize(width: 80, height: 80)
+        }
+    }
+
+    
+    
 }
 
 

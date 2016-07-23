@@ -69,7 +69,7 @@ extension UIColor {
     }
     
     class func cubeBackgroundColor() -> UIColor {
-        return UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
+        return UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1.0)
     }
 }
 
