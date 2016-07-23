@@ -10,8 +10,8 @@ import UIKit
 
 class AddSectionHeaderView: UIView {
 
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var rightButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var rightButton: UIButton!
     class func creatHeaderView() -> AddSectionHeaderView {
         return NSBundle.mainBundle().loadNibNamed("AddSectionHeaderView", owner: nil, options: nil).last! as! AddSectionHeaderView
     }

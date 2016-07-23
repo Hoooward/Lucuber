@@ -10,8 +10,8 @@ import UIKit
 
 class CategorySeletedCell: UITableViewCell {
 
-    @IBOutlet var indicaterView: UIImageView!
-    @IBOutlet var categoryLabel: UILabel!
+    @IBOutlet weak var indicaterView: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

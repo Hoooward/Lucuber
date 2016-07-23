@@ -21,9 +21,9 @@ class AddNewFormulaViewController: UIViewController {
 
 // MARK: - Properties
     private let headerViewHeight: CGFloat = 170
-    @IBOutlet var headerView: HeaderFormulaView!
-    @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var headerView: HeaderFormulaView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
     private let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
     
 

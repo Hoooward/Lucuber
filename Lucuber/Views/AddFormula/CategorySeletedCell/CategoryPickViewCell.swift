@@ -21,7 +21,7 @@ class CategoryItem {
 class CategoryPickViewCell: UITableViewCell {
     
 // MARK: - Properties
-    @IBOutlet var pickView: UIPickerView!
+    @IBOutlet weak var pickView: UIPickerView!
     var categorys: [CategoryItem] = []
     
 // MARK: - Initialization

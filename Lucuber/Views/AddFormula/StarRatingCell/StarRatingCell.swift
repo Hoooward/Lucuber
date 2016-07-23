@@ -17,7 +17,7 @@ class StarRatingCell: UITableViewCell {
         }
     }
 
-    @IBOutlet var starRatingView: StarRatingView!
+    @IBOutlet weak var starRatingView: StarRatingView!
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()

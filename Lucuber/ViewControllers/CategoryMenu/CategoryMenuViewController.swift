@@ -12,7 +12,7 @@ import UIKit
 class CategoryMenuViewController: UIViewController {
 
     // MARK: Properties
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     var formulsData: [Formula] = []
     
     var cubeCategorys = [Category.x3x3, Category.Megaminx, Category.x4x4, Category.RubiksClock, Category.SquareOne]

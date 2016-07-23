@@ -83,6 +83,10 @@
 		89B9B5271D437876002F2E66 /* AddFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9B5241D437876002F2E66 /* AddFormula.storyboard */; };
 		89B9B5281D437876002F2E66 /* AddNewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5251D437876002F2E66 /* AddNewFormulaViewController.swift */; };
 		89B9B5291D437876002F2E66 /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5261D437876002F2E66 /* FormulaInputViewController.swift */; };
+		89B9B52C1D438637002F2E66 /* AddFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */; };
+		89B9B52F1D43C788002F2E66 /* AddFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9B52D1D43C788002F2E66 /* AddFeed.storyboard */; };
+		89B9B5311D43D2DB002F2E66 /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */; };
+		89B9B5331D43D4AD002F2E66 /* FeedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */; };
 		89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE429C1D01981000E525D4 /* AppDelegate.swift */; };
 		89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */; };
 		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
@@ -209,6 +213,10 @@
 		89B9B5241D437876002F2E66 /* AddFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddFormula.storyboard; sourceTree = "<group>"; };
 		89B9B5251D437876002F2E66 /* AddNewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFormulaViewController.swift; sourceTree = "<group>"; };
 		89B9B5261D437876002F2E66 /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
+		89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedViewController.swift; sourceTree = "<group>"; };
+		89B9B52E1D43C788002F2E66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddFeed.storyboard; sourceTree = "<group>"; };
+		89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
+		89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaCell.swift; sourceTree = "<group>"; };
 		89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		89BE429C1D01981000E525D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BE42A01D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -518,6 +526,7 @@
 		89B9B4EC1D43765A002F2E66 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				89B9B52D1D43C788002F2E66 /* AddFeed.storyboard */,
 				89B9B4ED1D43765A002F2E66 /* FeedViewController.swift */,
 			);
 			path = Feed;
@@ -582,9 +591,9 @@
 		89B9B51A1D437823002F2E66 /* BaseFormula */ = {
 			isa = PBXGroup;
 			children = (
+				89B9B51D1D437823002F2E66 /* ContainerViewController.swift */,
 				89B9B51B1D437823002F2E66 /* BaseFormulaLayout.swift */,
 				89B9B51C1D437823002F2E66 /* BaseFormulaViewController.swift */,
-				89B9B51D1D437823002F2E66 /* ContainerViewController.swift */,
 			);
 			path = BaseFormula;
 			sourceTree = "<group>";
@@ -597,6 +606,16 @@
 				89B9B5261D437876002F2E66 /* FormulaInputViewController.swift */,
 			);
 			path = AddFormula;
+			sourceTree = "<group>";
+		};
+		89B9B52A1D438619002F2E66 /* AddFeed */ = {
+			isa = PBXGroup;
+			children = (
+				89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */,
+				89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */,
+				89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */,
+			);
+			path = AddFeed;
 			sourceTree = "<group>";
 		};
 		89BE429E1D01981000E525D4 /* Base.lproj */ = {
@@ -661,6 +680,7 @@
 				89B9B4E51D43765A002F2E66 /* CategoryMenu */,
 				89B9B4E91D43765A002F2E66 /* DetailFormula */,
 				89B9B4EC1D43765A002F2E66 /* Feed */,
+				89B9B52A1D438619002F2E66 /* AddFeed */,
 				89B9B51A1D437823002F2E66 /* BaseFormula */,
 				89B9B4EE1D43765A002F2E66 /* LibraryFormula */,
 				89B9B4F31D43765A002F2E66 /* MyFormula */,
@@ -922,6 +942,7 @@
 				8907183A1D3255F8001B526D /* AddSectionHeaderView.xib in Resources */,
 				89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */,
 				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
+				89B9B52F1D43C788002F2E66 /* AddFeed.storyboard in Resources */,
 				89E663971D04099A00E90926 /* FormulaDetailSeparatorCell.xib in Resources */,
 				89F58F211D01696400361474 /* Main.storyboard in Resources */,
 				895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */,
@@ -993,6 +1014,7 @@
 			files = (
 				89E663891D03F95B00E90926 /* DetailSubCollectionView.swift in Sources */,
 				895BC0E01D40B8DA00EA47BA /* DetailFormulasCell.swift in Sources */,
+				89B9B52C1D438637002F2E66 /* AddFeedViewController.swift in Sources */,
 				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89B9B5201D437823002F2E66 /* ContainerViewController.swift in Sources */,
 				89B9B50A1D43765A002F2E66 /* LibraryFormulaViewController.swift in Sources */,
@@ -1019,6 +1041,7 @@
 				8977FECC1D327CBE000159A2 /* CategoryPickViewCell.swift in Sources */,
 				894018EA1D3880CF000703E5 /* CubeConfig.swift in Sources */,
 				8909CE691D41ECA800511243 /* FeedDefaultCell.swift in Sources */,
+				89B9B5331D43D4AD002F2E66 /* FeedMediaCell.swift in Sources */,
 				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
 				895BC0E41D40BCAA00EA47BA /* DetailSeparatorCell.swift in Sources */,
 				89B9248C1D05B7AB00BBF003 /* FormulaDetailFooterCell.swift in Sources */,
@@ -1028,6 +1051,7 @@
 				890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */,
 				89B9B5091D43765A002F2E66 /* FeedViewController.swift in Sources */,
 				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
+				89B9B5311D43D2DB002F2E66 /* FeedMediaAddCell.swift in Sources */,
 				895BC0DC1D40A7D200EA47BA /* DetailMasterCell.swift in Sources */,
 				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
 				89B9B5081D43765A002F2E66 /* FormulaDetaiViewlController.swift in Sources */,
@@ -1081,6 +1105,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		89B9B52D1D43C788002F2E66 /* AddFeed.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89B9B52E1D43C788002F2E66 /* Base */,
+			);
+			name = AddFeed.storyboard;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

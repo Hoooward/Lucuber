@@ -10,8 +10,8 @@ import UIKit
 
 class DetailFormulasCell: UITableViewCell {
 
-    @IBOutlet var rotationIndicator: UIImageView!
-    @IBOutlet var contentLabel: UILabel!
+    @IBOutlet weak var rotationIndicator: UIImageView!
+    @IBOutlet weak var contentLabel: UILabel!
     
 
     var formulaContent: FormulaContent? {

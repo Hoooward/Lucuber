@@ -14,7 +14,7 @@ class RegisterPickNameViewController: UIViewController {
     var mobile: String?
     var areaCode: String?
     
-    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
     private lazy var nextButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "下一步", style: .Plain, target: self, action: #selector(RegisterPickNameViewController.next(_:)))
         return button

@@ -10,8 +10,8 @@ import UIKit
 
 class FormulaDetailContentCell: UICollectionViewCell {
 
-    @IBOutlet var formulaLabel: UILabel!
-    @IBOutlet var indicaterImageView: UIImageView!
+    @IBOutlet weak var formulaLabel: UILabel!
+    @IBOutlet weak var indicaterImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

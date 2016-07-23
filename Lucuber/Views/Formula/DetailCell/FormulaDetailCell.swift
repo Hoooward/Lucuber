@@ -22,9 +22,9 @@ class FormulaDetailCell: UICollectionViewCell {
     private let FormuilaIndicaterIdentifier = "FormulaDetailContentCell"
     private let FooterIndicaterIdentifier = "FormulaDetailFooterCell"
     
-    @IBOutlet var containerCollectionView: DetailSubCollectionView!
+    @IBOutlet weak var containerCollectionView: DetailSubCollectionView!
     
-    @IBOutlet var topShadowImageView: UIImageView!
+    @IBOutlet weak var topShadowImageView: UIImageView!
     
     var formula: Formula? {
         didSet {

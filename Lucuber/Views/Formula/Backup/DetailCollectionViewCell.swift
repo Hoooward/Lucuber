@@ -15,7 +15,7 @@ private let DetailCommentCellIdentifier = "DetailCommentCell"
 
 class DetailCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     lazy var headerView: DetailHeaderView = {
         let view = DetailHeaderView()

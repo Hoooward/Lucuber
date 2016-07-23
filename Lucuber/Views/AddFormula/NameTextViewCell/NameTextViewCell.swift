@@ -10,7 +10,7 @@ import UIKit
 
 class NameTextViewCell: UITableViewCell {
 
-    @IBOutlet var textField: FormulaNameTextField!
+    @IBOutlet weak var textField: FormulaNameTextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()

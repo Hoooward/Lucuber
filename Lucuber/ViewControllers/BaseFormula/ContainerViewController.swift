@@ -25,8 +25,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     
     // MARK: - Properties
-    @IBOutlet var plusButton: UIButton!
-    @IBOutlet var layoutButton: UIButton!
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var layoutButton: UIButton!
     let topControl = UIView()
     let topIndicater = UIView()
     var topControlSeletedButton: UIButton?

@@ -45,20 +45,15 @@ private let FeedDefaultCellIdentifier = "FeedDefaultCell"
 
 class FeedViewController: UIViewController {
     
+    // MARK: - Properties
     private static var LayoutsCatch = LayoutCatch()
  
     private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
     
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .Minimal
-        searchBar.placeholder = NSLocalizedString("Search", comment: "")
-        searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchbar_textfield_background"), forState: .Normal)
-        searchBar.delegate = self
-        return searchBar
-    }()
+    var feeds = [Feed]()
+    
 
-    @IBOutlet var tableView: UITableView! {
+    @IBOutlet weak var tableView: UITableView! {
         didSet {
             searchBar.sizeToFit()
             tableView.tableHeaderView = searchBar
@@ -75,30 +70,15 @@ class FeedViewController: UIViewController {
         }
     }
     
-    var feeds = [Feed]()
-    
-    func loadNewComment() {
-        let query = AVQuery(className: Feed.parseClassName())
-        query.addDescendingOrder("updatedAt")
-        
-        query.findObjectsInBackgroundWithBlock({ (result, error) in
-            if error == nil {
-                self.feeds = result as! [Feed]
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadData()
-            })
-            }
-        })
-    }
-
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        let content = "评论" + NSUUID().UUIDString
+        navigationItem.titleView = titleLabel
+        //        let content = "评论" + NSUUID().UUIDString
         
         
         loadNewComment()
-    
+        
         let feed = Feed()
         
         feed.contentBody = "UIRefreshControl的使用方法一般是在UIControlEventValueChanged事件时触发，也就是下拉到一定程度的时候触发。这样可能出现的问题是下拉释放后很快调用-endRefresh，动画不流畅。可以在－scrollViewDidEndDragging:willDecelerate:时判断下拉程度来触发，或者延迟调用-endRefresh。最后找到了看起来完美的方法，在下拉释放回弹后调用。也就是在-scrollViewDidEndDecelerating:中调用，代码如下："
@@ -117,11 +97,87 @@ class FeedViewController: UIViewController {
             }
         })
         tableView.contentOffset.y = CGRectGetHeight(searchBar.frame)
+        
     }
     
+    func loadNewComment() {
+        let query = AVQuery(className: Feed.parseClassName())
+        query.addDescendingOrder("updatedAt")
+        
+        query.findObjectsInBackgroundWithBlock({ (result, error) in
+            if error == nil {
+                self.feeds = result as! [Feed]
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+              
+            })
+            }
+        })
+    }
+
+ 
+    private lazy var newFeedActionSheetView: ActionSheetView = {
+        let view = ActionSheetView(items: [
+            .Option(
+                title: "文字和图片",
+                titleColor: UIColor.cubeTintColor(),
+                action: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    
+                    strongSelf.performSegueWithIdentifier("ShowAddFeed", sender: nil)
+                }
+            ),
+            
+            .Option(
+                title: "复原成绩",
+                titleColor: UIColor.cubeTintColor(),
+                action: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    
+                }
+            ),
+            
+            .Option(
+                title: "公式",
+                titleColor: UIColor.cubeTintColor(),
+                action: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    
+                }
+            ),
+            
+            .Cancel
+            
+            ]
+        )
+        return view
+    }()
+    
+    // MARK: - Target
+    @IBAction func creatNewFeed(sender: AnyObject) {
+        if let window = view.window {
+            newFeedActionSheetView.showInView(window)
+        }
+    }
     
    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .Minimal
+        searchBar.placeholder = NSLocalizedString("Search", comment: "")
+        searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchbar_textfield_background"), forState: .Normal)
+        searchBar.delegate = self
+        return searchBar
+    }()
     
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "话题"
+        titleLabel.textColor = UIColor.blackColor()
+        titleLabel.sizeToFit()
+        return titleLabel
+    }()
    
     
 }

@@ -15,7 +15,7 @@ class AddFormulaTextCell: UITableViewCell {
             changeIndicaterLabelStatus(active)
         }
     }
-    @IBOutlet var indicaterLabel: UILabel!
+    @IBOutlet weak var indicaterLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         

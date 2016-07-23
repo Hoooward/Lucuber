@@ -194,10 +194,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UbY-ly-NBv">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Nkg-X0-6Tm"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Nkg-X0-6Tm">
+                            <connections>
+                                <action selector="creatNewFeed:" destination="HR6-Y1-pX0" id="EjX-NT-TIY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="p0d-Mb-SBa" id="Sv0-Me-PGh"/>
+                        <segue destination="vKo-W7-20M" kind="presentation" identifier="ShowAddFeed" id="QzG-0A-SAg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7L-Tl-A9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,6 +343,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtR-OE-S5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="997" y="403"/>
+        </scene>
+        <!--AddFeed-->
+        <scene sceneID="Sfd-6K-w6b">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddFeed" id="vKo-W7-20M" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RQX-tO-YlO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2507" y="403"/>
         </scene>
     </scenes>
     <resources>

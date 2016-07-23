@@ -10,7 +10,7 @@ import UIKit
 
 class HeaderReusableView: UICollectionReusableView {
 
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.textColor = UIColor.cubeTintColor()

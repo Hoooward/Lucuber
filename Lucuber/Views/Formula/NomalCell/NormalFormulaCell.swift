@@ -10,11 +10,11 @@ import UIKit
 
 class NormalFormulaCell: UICollectionViewCell {
     
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var contentLabel: UILabel!
-    @IBOutlet var indicaterLabel: UILabel!
-    @IBOutlet var starRatingView: StarRatingView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var indicaterLabel: UILabel!
+    @IBOutlet weak var starRatingView: StarRatingView!
     
     var formula: Formula? {
         didSet{

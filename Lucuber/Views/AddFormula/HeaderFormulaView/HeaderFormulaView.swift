@@ -20,19 +20,19 @@ class HeaderFormulaView: UIView {
         }
     }
 
-    @IBOutlet var imageButton: UIButton!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var creatTimeLabel: UILabel!
-    @IBOutlet var creatUserLabel: UILabel!
-    @IBOutlet var centerBackView: UIView!
-    @IBOutlet var indicaterView: CategoryIndicaterView!
-    @IBOutlet var starRatingView: StarRatingView!
-    @IBOutlet var helpButton: UIButton!
+    @IBOutlet weak var imageButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var creatTimeLabel: UILabel!
+    @IBOutlet weak var creatUserLabel: UILabel!
+    @IBOutlet weak var centerBackView: UIView!
+    @IBOutlet weak var indicaterView: CategoryIndicaterView!
+    @IBOutlet weak var starRatingView: StarRatingView!
+    @IBOutlet weak var helpButton: UIButton!
     
-    @IBOutlet var BLIndicaterView: UIImageView!
-    @IBOutlet var BRIndicaterView: UIImageView!
-    @IBOutlet var FLIndicaterView: UIImageView!
-    @IBOutlet var FRIndicaterView: UIImageView!
+    @IBOutlet weak var BLIndicaterView: UIImageView!
+    @IBOutlet weak var BRIndicaterView: UIImageView!
+    @IBOutlet weak var FLIndicaterView: UIImageView!
+    @IBOutlet weak var FRIndicaterView: UIImageView!
 
     
     @IBAction func helpButtonClicked(sender: UIButton) {

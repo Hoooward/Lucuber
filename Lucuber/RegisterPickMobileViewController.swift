@@ -12,8 +12,8 @@ class RegisterPickMobileViewController: UIViewController {
 
     var mobile: String?
     var areaCode: String?
-    @IBOutlet var mobileTextFiled: UITextField!
-    @IBOutlet var leftTextFiled: BorderTextField!
+    @IBOutlet weak var mobileTextFiled: UITextField!
+    @IBOutlet weak var leftTextFiled: BorderTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 

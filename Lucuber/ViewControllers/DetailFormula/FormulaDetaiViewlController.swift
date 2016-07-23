@@ -107,8 +107,9 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
     }
 
     let titles = ["编辑此公式", "删除此公式", "取消"]
-    private func creatEditActionSheetViewItem() -> ActionSheetView.Item {
-        return ActionSheetView.Item.Option(
+    private func creatActionSheetViewItems() -> [ActionSheetView.Item] {
+        
+        let editItem = ActionSheetView.Item.Option(
             title: "编辑此公式",
             titleColor: UIColor.cubeTintColor(),
             action: { [weak self] in
@@ -120,16 +121,14 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
                 viewController.formula = strongSelf.seletedFormula!
                 strongSelf.presentViewController(navigationVC, animated: true, completion: nil)
                 
-        })
-    }
-    
-    private func crearDeleteActionSheetViewItem() -> ActionSheetView.Item {
-        return ActionSheetView.Item.Option(
+            })
+
+        let deleteItem = ActionSheetView.Item.Option(
             title: "删除此公式",
             titleColor: UIColor.redColor(),
             action: { [weak self] in
                 guard let strongSelf = self else { return }
-             
+                
                 CubeAlert.confirmOrCancel(
                     title: "删除",
                     message: "删除之后将不能恢复,确定要删除吗?",
@@ -137,21 +136,25 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
                     cancelTitles: "取消",
                     inViewController: strongSelf,
                     withConfirmAction: {
-                       // TODO: - 删除公式
+                        // TODO: - 删除公式
                     },
                     cancelAction: {
                         strongSelf.dismissViewControllerAnimated(true, completion: nil)
                 })
+                
+            })
+
         
-        })
         
+        return [editItem, deleteItem]
     }
     
+ 
+    
     private lazy var editFormulaSheetView: ActionSheetView = {
-       let item1 = self.creatEditActionSheetViewItem()
-       let item2 = self.crearDeleteActionSheetViewItem()
-       let item3 = ActionSheetView.Item.Cancel
-       let sheetView = ActionSheetView(items: [item1, item2, item3])
+        var items = self.creatActionSheetViewItems()
+        items.append(ActionSheetView.Item.Cancel)
+        let sheetView = ActionSheetView(items: items)
         return sheetView
     }()
     

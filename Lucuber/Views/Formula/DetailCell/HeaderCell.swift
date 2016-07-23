@@ -10,8 +10,8 @@ import UIKit
 
 class HeaderCell: UICollectionViewCell {
 
-    @IBOutlet var formulaImageView: UIImageView!
-    @IBOutlet var formulaNameLabel: UILabel!
+    @IBOutlet weak var formulaImageView: UIImageView!
+    @IBOutlet weak var formulaNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -11,10 +11,10 @@ import UIKit
 class FormulaTextViewCell: UITableViewCell {
 
     
-    @IBOutlet var textView: FormulaTextView!
-    @IBOutlet var formulaLabel: UILabel!
-    @IBOutlet var placeholderLabel: UILabel!
-    @IBOutlet var indicaterImageView: UIImageView!
+    @IBOutlet weak var textView: FormulaTextView!
+    @IBOutlet weak var formulaLabel: UILabel!
+    @IBOutlet weak var placeholderLabel: UILabel!
+    @IBOutlet weak var indicaterImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
