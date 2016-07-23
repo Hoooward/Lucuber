@@ -1,5 +1,5 @@
 //
-//  FormulaLibraryViewController.swift
+//  LibraryFormulaViewController.swift
 //  Lucuber
 //
 //  Created by Howard on 6/3/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaLibraryViewController: BaseCollectionViewController {
+class LibraryFormulaViewController: BaseFormulaViewController {
    
     let refreshControl = UIRefreshControl()
     
@@ -24,7 +24,7 @@ class FormulaLibraryViewController: BaseCollectionViewController {
             self?.collectionView?.reloadData()
         }
   
-        refreshControl.addTarget(self, action: #selector(FormulaLibraryViewController.refreshFormula), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(LibraryFormulaViewController.refreshFormula), forControlEvents: .ValueChanged)
         refreshControl.layer.zPosition = -1
         collectionView!.alwaysBounceVertical = true
         self.collectionView!.addSubview(refreshControl)

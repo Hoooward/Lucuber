@@ -1,5 +1,5 @@
 //
-//  BaseCollectionViewController.swift
+//  BaseFormulaViewController.swift
 //  Lucuber
 //
 //  Created by Howard on 6/4/16.
@@ -19,7 +19,7 @@ enum FormulaUserMode: Int {
     case Card
 }
 
-class BaseCollectionViewController: UICollectionViewController, SegueHandlerType {
+class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
     
     // ref http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7
     
@@ -68,7 +68,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseCollectionViewController.containerFormulaViewDidChanged(_:)), name: ContainerDidScrollerNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseFormulaViewController.containerFormulaViewDidChanged(_:)), name: ContainerDidScrollerNotification, object: nil)
     }
     
     func changeLayoutButtonSeletedStatus() {
@@ -86,7 +86,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     func containerFormulaViewDidChanged(notification: NSNotification) {
         if let offsetX = notification.object as? CGFloat {
             //代表进入第二个集合视图
-            if offsetX == screenWidth && self.isKindOfClass(FormulaLibraryViewController) {
+            if offsetX == screenWidth && self.isKindOfClass(LibraryFormulaViewController) {
                 print("我是第二个视图")
                 changeLayoutButtonSeletedStatus()
             }
@@ -137,7 +137,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 
 }
 // MARK: - SearchBar Delegate
-extension BaseCollectionViewController: UISearchBarDelegate {
+extension BaseFormulaViewController: UISearchBarDelegate {
     
     func cancelSearch() {
         searchResult.removeAll()
@@ -179,7 +179,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
 }
 
 // MARK - CollectionView Delegate
-extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension BaseFormulaViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         let reusableView = collectionView.dequeueReusableSupplementaryViewOfKind( UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, forIndexPath: indexPath) as! HeaderReusableView

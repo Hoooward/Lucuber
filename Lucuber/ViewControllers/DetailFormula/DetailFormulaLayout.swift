@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowFormulaDetailLayout: UICollectionViewFlowLayout {
+class DetailFormulaLayout: UICollectionViewFlowLayout {
     override func prepareLayout() {
         super.prepareLayout()
         itemSize = screenBounds.size

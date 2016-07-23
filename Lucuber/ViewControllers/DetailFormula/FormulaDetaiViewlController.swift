@@ -18,7 +18,7 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
     }
 
     // MARK: - Propreties
-    private let layout = ShowFormulaDetailLayout()
+    private let layout = DetailFormulaLayout()
     var collectionView: UICollectionView!
     
     var formulas: [Formula]?

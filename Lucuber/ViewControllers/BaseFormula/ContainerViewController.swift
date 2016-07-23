@@ -109,12 +109,12 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     private func addChileViewController() {
         
-        let myFormulaLayout = FormulaCollectionLayout()
+        let myFormulaLayout = BaseFormulaLayout()
         let myFormulaVC = MyFormulaViewController(collectionViewLayout: myFormulaLayout)
         myFormulaVC.title = "我的公式"
         addChildViewController(myFormulaVC)
-        let libraryLayout = FormulaCollectionLayout()
-        let formulaLibraryVC = FormulaLibraryViewController(collectionViewLayout: libraryLayout)
+        let libraryLayout = BaseFormulaLayout()
+        let formulaLibraryVC = LibraryFormulaViewController(collectionViewLayout: libraryLayout)
         formulaLibraryVC.title = "公式库"
         addChildViewController(formulaLibraryVC)
     }
@@ -185,7 +185,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         button.selected = !button.selected
         
-        if let vc = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseCollectionViewController {
+        if let vc = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController {
             vc.userMode = vc.userMode == .Card ? .Normal : .Card
         }
         
@@ -197,7 +197,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         if
             let menuVC = sb.instantiateViewControllerWithIdentifier("CategoryMenuViewController") as? CategoryMenuViewController,
-            let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseCollectionViewController,
+            let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController,
             let category = presentingVC.seletedCategory {
             
             let menuHeight = CubeConfig.CagetoryMenu.rowHeight * CGFloat(menuVC.cubeCategorys.count ) + 20 + 10
@@ -230,14 +230,14 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             fatalError()
         }
         
-        if let vc = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseCollectionViewController {
+        if let vc = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController {
             layoutButton.userMode = vc.userMode
             categoyButton.seletedCategory = vc.seletedCategory
         }
         
         childViewControllers.forEach {
             vc in
-            if let vc = vc as? BaseCollectionViewController {
+            if let vc = vc as? BaseFormulaViewController {
                 vc.cancelSearch()
             }
         }

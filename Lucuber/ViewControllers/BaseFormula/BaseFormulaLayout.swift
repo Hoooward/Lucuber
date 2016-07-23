@@ -1,5 +1,5 @@
 //
-//  FormulaCollectionLayout.swift
+//  BaseFormulaLayout.swift
 //  Lucuber
 //
 //  Created by Howard on 6/4/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaCollectionLayout: UICollectionViewFlowLayout {
+class BaseFormulaLayout: UICollectionViewFlowLayout {
     
     var userMode: FormulaUserMode?
     override func prepareLayout() {

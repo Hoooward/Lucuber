@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyFormulaViewController: BaseCollectionViewController {
+class MyFormulaViewController: BaseFormulaViewController {
 
     
     override func viewDidLoad() {

@@ -193,7 +193,9 @@
                             <constraint firstItem="p0d-Mb-SBa" firstAttribute="top" secondItem="dPn-pc-tDo" secondAttribute="top" id="ft9-ht-iT9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UbY-ly-NBv"/>
+                    <navigationItem key="navigationItem" id="UbY-ly-NBv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Nkg-X0-6Tm"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="p0d-Mb-SBa" id="Sv0-Me-PGh"/>
                     </connections>
