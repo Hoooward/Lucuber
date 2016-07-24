@@ -87,6 +87,8 @@
 		89B9B52F1D43C788002F2E66 /* AddFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9B52D1D43C788002F2E66 /* AddFeed.storyboard */; };
 		89B9B5311D43D2DB002F2E66 /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */; };
 		89B9B5331D43D4AD002F2E66 /* FeedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */; };
+		89B9B5351D44A745002F2E66 /* PickPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5341D44A745002F2E66 /* PickPhotosViewController.swift */; };
+		89B9B5371D44B971002F2E66 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5361D44B971002F2E66 /* PhotoCell.swift */; };
 		89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE429C1D01981000E525D4 /* AppDelegate.swift */; };
 		89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */; };
 		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
@@ -217,6 +219,8 @@
 		89B9B52E1D43C788002F2E66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddFeed.storyboard; sourceTree = "<group>"; };
 		89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
 		89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaCell.swift; sourceTree = "<group>"; };
+		89B9B5341D44A745002F2E66 /* PickPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosViewController.swift; sourceTree = "<group>"; };
+		89B9B5361D44B971002F2E66 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		89BE429C1D01981000E525D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BE42A01D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -614,6 +618,8 @@
 				89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */,
 				89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */,
 				89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */,
+				89B9B5341D44A745002F2E66 /* PickPhotosViewController.swift */,
+				89B9B5361D44B971002F2E66 /* PhotoCell.swift */,
 			);
 			path = AddFeed;
 			sourceTree = "<group>";
@@ -1021,6 +1027,7 @@
 				89B9B50D1D43765A002F2E66 /* MyFormulaViewController.swift in Sources */,
 				89B9B50F1D43765A002F2E66 /* SettingViewController.swift in Sources */,
 				893F66621D360123009DF822 /* FormulaContent.swift in Sources */,
+				89B9B5371D44B971002F2E66 /* PhotoCell.swift in Sources */,
 				89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */,
 				89B9B5051D43765A002F2E66 /* PopMenuAnimator.swift in Sources */,
 				89B9B5061D43765A002F2E66 /* PopMenuPresentationController.swift in Sources */,
@@ -1056,6 +1063,7 @@
 				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
 				89B9B5081D43765A002F2E66 /* FormulaDetaiViewlController.swift in Sources */,
 				89B9B5281D437876002F2E66 /* AddNewFormulaViewController.swift in Sources */,
+				89B9B5351D44A745002F2E66 /* PickPhotosViewController.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* FormulaDetailCell.swift in Sources */,
 				894018F01D38AE60000703E5 /* ActionSheetView.swift in Sources */,
 				89B9B5191D4376AB002F2E66 /* MainNavigationController.swift in Sources */,

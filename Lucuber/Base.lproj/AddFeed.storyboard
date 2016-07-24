@@ -35,7 +35,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="RPx-uE-wwA"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t2f-nD-EuN">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t2f-nD-EuN">
                                                     <size key="itemSize" width="50" height="50"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -43,7 +43,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeedMediaAddCell" id="XZo-QO-mHm" customClass="FeedMediaAddCell" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="0.0" y="15" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -64,7 +64,7 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeedMediaCell" id="A8r-Xn-RnN" customClass="FeedMediaCell" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="65" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="60" y="15" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -124,15 +124,82 @@
                             <constraint firstItem="aOp-br-Ck3" firstAttribute="width" secondItem="ic8-N2-2dC" secondAttribute="width" id="wIm-wd-9Wr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Guw-HA-UrA"/>
+                    <navigationItem key="navigationItem" id="IlY-1T-oe9">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="idt-Rh-ge3">
+                            <connections>
+                                <action selector="cancel:" destination="aev-nc-3eR" id="5Wm-dg-qXl"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="发布" id="Ce3-eg-1pX">
+                            <connections>
+                                <action selector="postFeed:" destination="aev-nc-3eR" id="8rG-N0-YVb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mediaCollectionView" destination="Lii-20-DcX" id="N2b-FW-43E"/>
                         <outlet property="mediaCollectionViewHeightConstraint" destination="RPx-uE-wwA" id="E1B-xX-YSs"/>
+                        <outlet property="postFeedBarButton" destination="Ce3-eg-1pX" id="2Yn-Xf-rtb"/>
+                        <segue destination="YVz-za-gzD" kind="show" identifier="ShowPickPhotoView" id="XhZ-b0-0cu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFd-Ct-aOm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2920.5" y="402.5"/>
+        </scene>
+        <!--Pick Photos View Controller-->
+        <scene sceneID="r04-Kc-PUu">
+            <objects>
+                <collectionViewController id="YVz-za-gzD" customClass="PickPhotosViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="onk-TL-7Uq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="oZn-By-LTW">
+                            <size key="itemSize" width="108" height="105"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="GBV-GT-IHk" customClass="PhotoCell" customModule="Lucuber" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="108" height="105"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="108" height="105"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QLh-g1-8dl">
+                                            <rect key="frame" x="0.0" y="0.0" width="108" height="105"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_imagepicker_check" translatesAutoresizingMaskIntoConstraints="NO" id="VyR-Mp-EoH">
+                                            <rect key="frame" x="78" y="75" width="20" height="20"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="VyR-Mp-EoH" secondAttribute="bottom" constant="10" id="Dbi-4A-vlD"/>
+                                    <constraint firstAttribute="trailing" secondItem="VyR-Mp-EoH" secondAttribute="trailing" constant="10" id="IeP-fq-Nrz"/>
+                                    <constraint firstItem="QLh-g1-8dl" firstAttribute="leading" secondItem="GBV-GT-IHk" secondAttribute="leading" id="LgU-ae-Xhf"/>
+                                    <constraint firstAttribute="bottom" secondItem="QLh-g1-8dl" secondAttribute="bottom" id="VG5-mf-HU7"/>
+                                    <constraint firstAttribute="trailing" secondItem="QLh-g1-8dl" secondAttribute="trailing" id="WNY-jV-2Uz"/>
+                                    <constraint firstItem="QLh-g1-8dl" firstAttribute="top" secondItem="GBV-GT-IHk" secondAttribute="top" id="teQ-iW-597"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="QLh-g1-8dl" id="Q5o-8Y-Acr"/>
+                                    <outlet property="pickedImageView" destination="VyR-Mp-EoH" id="v4G-fC-vV7"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="YVz-za-gzD" id="0AP-Ts-PJf"/>
+                            <outlet property="delegate" destination="YVz-za-gzD" id="ljc-Wc-Xzx"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4xF-uG-bhm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3414.5" y="402.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ucj-Hp-Rst">
@@ -156,6 +223,7 @@
     </scenes>
     <resources>
         <image name="feed_media_add" width="30" height="30"/>
+        <image name="icon_imagepicker_check" width="20" height="20"/>
         <image name="icon_media_delete" width="16" height="16"/>
     </resources>
 </document>

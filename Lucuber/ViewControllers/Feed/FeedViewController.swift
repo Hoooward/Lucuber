@@ -73,6 +73,7 @@ class FeedViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationItem.titleView = titleLabel
         //        let content = "评论" + NSUUID().UUIDString
         

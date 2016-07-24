@@ -20,9 +20,23 @@ class AddFeedViewController: UIViewController {
         case Formula
     }
     
-    var attachment: Attachment = .Default
+    var attachment: Attachment = .Default {
+        didSet {
+            switch attachment {
+            case .Default:
+                title = "新话题"
+            case .Formula:
+                title = "新公式"
+            }
+        }
+    }
     
-    var mediaImages = [UIImage]()
+    var mediaImages = [UIImage]() {
+        didSet {
+            mediaCollectionView.reloadData()
+            print(mediaImages)
+        }
+    }
     
     
     private var isNeverInputMessage = true
@@ -46,10 +60,13 @@ class AddFeedViewController: UIViewController {
     private let FeedMediaAddCellIdentifier = "FeedMediaAddCell"
     private let FeedMediaCellIdentifier = "FeedMediaCell"
     
+    @IBOutlet weak var postFeedBarButton: UIBarButtonItem!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         
         view.backgroundColor = UIColor.cubeBackgroundColor()
         mediaCollectionView.backgroundColor = UIColor.clearColor()
@@ -58,63 +75,32 @@ class AddFeedViewController: UIViewController {
         mediaCollectionView.delegate = self
         mediaCollectionView.dataSource = self
         mediaCollectionView.showsHorizontalScrollIndicator = false
-
+        
     }
     
-    private lazy var sheetView: ActionSheetView = {
+    deinit {
+        print(self, "死了")
+    }
+    
+    
+    // MARK: - PrepareForSegue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowPickPhotoView" {
+            if let vc = segue.destinationViewController as? PickPhotosViewController {
+              vc.delegate = self
+            }
+        }
+    }
+    
+ 
+    // MARK: - Targer & Notification
+    @IBAction func postFeed(sender: AnyObject) {
+    }
+    
+    @IBAction func cancel(sender: AnyObject) {
         
-        let sheetView = ActionSheetView(items: [
-            
-            .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
-                
-                guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.Camera) else {
-                    self?.alertCanNotOpenCamera()
-                    return
-                }
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    
-                    if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
-                        strongSelf.imagePicker.sourceType = .Camera
-                        strongSelf.presentViewController(strongSelf.imagePicker, animated: true, completion: nil)
-                        
-                    } else {
-                        strongSelf.alertCanNotOpenCamera()
-                    }
-                    
-                }
-                
-                }
-            ),
-            
-            .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
-                
-                guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else {
-                    self?.alertCanNotOpenPhotoLibrary()
-                    return
-                }
-             
-                dispatch_async(dispatch_get_main_queue()) {
-                PHPhotoLibrary.requestAuthorization { authorization in
-                    if authorization ==  PHAuthorizationStatus.Authorized {
-                        strongSelf.imagePicker.sourceType = .PhotoLibrary
-                        strongSelf.presentViewController(strongSelf.imagePicker, animated: true, completion: nil)
-                    } else {
-                        strongSelf.alertCanNotOpenPhotoLibrary()
-                        
-                    }
-                }
-                }
-                }
-            ),
-            
-            .Cancel
-            
-            ]
-        )
-
-        return sheetView
-    }()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 // MARK: - CollectionViewDelegate & DataSource -> MediaCell
@@ -170,15 +156,19 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         switch section {
         case .Image:
+            return CGSize(width: 80, height: 80)
+        case .Add:
             guard mediaImages.count != 4 else {
                 return CGSizeZero
             }
             return CGSize(width: 80, height: 80)
-        case .Add:
-            return CGSize(width: 80, height: 80)
         }
     }
 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+    }
+    
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let section = Section(rawValue: indexPath.section) else {
@@ -195,7 +185,67 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return
             }
             
-       
+            let sheetView = ActionSheetView(items: [
+                
+                .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
+                    
+                    guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.Camera) else {
+                        self?.alertCanNotOpenCamera()
+                        return
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        
+                        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+                            
+                            strongSelf.modalPresentationStyle = .CurrentContext
+                            strongSelf.imagePicker.sourceType = .Camera
+                            
+                            /*
+                             bug :  Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.
+                             http://cocoadocs.org/docsets/DKCamera/1.2.9/index.html
+                             可以选择使用这个开源项目解决问题
+                             
+                             */
+                            delay(0.3) {
+                                strongSelf.presentViewController(strongSelf.imagePicker, animated: true, completion: nil)
+                            }
+                            
+                        } else {
+                            strongSelf.alertCanNotOpenCamera()
+                        }
+                    }
+                    
+                    }
+                ),
+                
+                .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
+                    
+                    guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else {
+                        self?.alertCanNotOpenPhotoLibrary()
+                        return
+                    }
+                    
+                    //这个方法是在其他线程执行的
+                    PHPhotoLibrary.requestAuthorization { authorization in
+                        if authorization ==  PHAuthorizationStatus.Authorized {
+                            
+                            dispatch_async(dispatch_get_main_queue()) {
+                                strongSelf.performSegueWithIdentifier("ShowPickPhotoView", sender: nil)
+                            }
+                            
+                        } else {
+                            strongSelf.alertCanNotOpenPhotoLibrary()
+                            
+                        }
+                    }
+                    }
+                ),
+                
+                .Cancel
+                
+                ]
+            )
             
             if let window = view.window {
                 sheetView.showInView(window)
@@ -209,6 +259,7 @@ extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
+   
         if let mediaType = info[UIImagePickerControllerMediaType] as? String {
             
             switch mediaType {
@@ -225,10 +276,19 @@ extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
                 break
             }
         }
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
    
 }
 
+extension AddFeedViewController: ReturnPickedPhotosDelegate {
+    func returnSeletedImages(images: [UIImage]) {
+        for image in images {
+           self.mediaImages.append(image)
+        }
+    }
+}
 
 
 
