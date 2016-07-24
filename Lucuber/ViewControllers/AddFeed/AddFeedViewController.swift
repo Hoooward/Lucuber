@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import MobileCoreServices
+import AVFoundation
+import AssetsLibrary
+import Photos
 
 class AddFeedViewController: UIViewController {
 
@@ -28,7 +32,7 @@ class AddFeedViewController: UIViewController {
         }
     }
     
-    private lazy var imagePickView: UIImagePickerController = {
+    private lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .PhotoLibrary
@@ -56,7 +60,61 @@ class AddFeedViewController: UIViewController {
         mediaCollectionView.showsHorizontalScrollIndicator = false
 
     }
+    
+    private lazy var sheetView: ActionSheetView = {
+        
+        let sheetView = ActionSheetView(items: [
+            
+            .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
+                
+                guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.Camera) else {
+                    self?.alertCanNotOpenCamera()
+                    return
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+                        strongSelf.imagePicker.sourceType = .Camera
+                        strongSelf.presentViewController(strongSelf.imagePicker, animated: true, completion: nil)
+                        
+                    } else {
+                        strongSelf.alertCanNotOpenCamera()
+                    }
+                    
+                }
+                
+                }
+            ),
+            
+            .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
+                
+                guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else {
+                    self?.alertCanNotOpenPhotoLibrary()
+                    return
+                }
+             
+                dispatch_async(dispatch_get_main_queue()) {
+                PHPhotoLibrary.requestAuthorization { authorization in
+                    if authorization ==  PHAuthorizationStatus.Authorized {
+                        strongSelf.imagePicker.sourceType = .PhotoLibrary
+                        strongSelf.presentViewController(strongSelf.imagePicker, animated: true, completion: nil)
+                    } else {
+                        strongSelf.alertCanNotOpenPhotoLibrary()
+                        
+                    }
+                }
+                }
+                }
+            ),
+            
+            .Cancel
+            
+            ]
+        )
 
+        return sheetView
+    }()
 }
 
 // MARK: - CollectionViewDelegate & DataSource -> MediaCell
@@ -137,19 +195,11 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return
             }
             
-            let sheetView = ActionSheetView(items: [
-                
-                .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: {
-                    
-                    
-                    
-                    
-                    }
-                ),
-                .Cancel
-                
-                ]
-            )
+       
+            
+            if let window = view.window {
+                sheetView.showInView(window)
+            }
         }
     }
     
@@ -157,9 +207,26 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
 // MARK: - ImagePickerDelegate
 extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
+        if let mediaType = info[UIImagePickerControllerMediaType] as? String {
+            
+            switch mediaType {
+                
+            case String(kUTTypeImage):
+                
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    if mediaImages.count <= 3 {
+                        mediaImages.append(image)
+                    }
+                }
+                
+            default:
+                break
+            }
+        }
     }
+   
 }
 
 

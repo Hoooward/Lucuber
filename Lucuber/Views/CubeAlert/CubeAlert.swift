@@ -143,7 +143,20 @@ extension UIViewController {
     func alertCanNotOpenCamera() {
         
         dispatch_async(dispatch_get_main_queue()) {
-            CubeAlert.confirmOrCancel(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Lucuber can not access your Camera !\nBut you can change it in iOS Settings", comment: ""), confirmTitle: NSLocalizedString("Change it now", comment: ""), cancelTitles: NSLocalizedString("Dismiss", comment: ""), inViewController: self, withConfirmAction: {
+            CubeAlert.confirmOrCancel(title: NSLocalizedString("抱歉", comment: ""), message: NSLocalizedString("Lucuber 不能访问您的摄像头.\n你可以更改摄像头访问的权限设置", comment: ""), confirmTitle: NSLocalizedString("前往设置", comment: ""), cancelTitles: NSLocalizedString("取消", comment: ""), inViewController: self, withConfirmAction: {
+                
+                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+                
+                }, cancelAction: {
+                    
+            })
+        }
+    }
+    
+    func alertCanNotOpenPhotoLibrary() {
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            CubeAlert.confirmOrCancel(title: NSLocalizedString("抱歉", comment: ""), message: NSLocalizedString("Lucuber 不能访问您的相册.\n你可以更改相册访问的权限设置", comment: ""), confirmTitle: NSLocalizedString("前往设置", comment: ""), cancelTitles: NSLocalizedString("取消", comment: ""), inViewController: self, withConfirmAction: {
                 
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
                 
