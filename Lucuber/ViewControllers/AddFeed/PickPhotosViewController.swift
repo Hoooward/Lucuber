@@ -71,9 +71,9 @@ class PickPhotosViewController: UICollectionViewController {
     
     func back(sender: UIBarButtonItem) {
        
+        navigationController?.popViewControllerAnimated(true)
     }
 
-  
     
     func done(sender: UIBarButtonItem)  {
         
@@ -128,15 +128,12 @@ class PickPhotosViewController: UICollectionViewController {
                 }
             })
             
-            
         }
         
         delegate?.returnSeletedImages(images, imageAssets: pickedImages)
         navigationController?.popViewControllerAnimated(true)
         
-       
     }
-
 
     // MARK: UICollectionViewDataSource
 
