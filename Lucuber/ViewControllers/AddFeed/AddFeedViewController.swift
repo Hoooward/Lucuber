@@ -34,10 +34,10 @@ class AddFeedViewController: UIViewController {
     var mediaImages = [UIImage]() {
         didSet {
             mediaCollectionView.reloadData()
-            print(mediaImages)
         }
     }
     
+    private var pickedImageAssets: [PHAsset] = []
     
     private var isNeverInputMessage = true
     private var isDirty = false {
@@ -68,6 +68,8 @@ class AddFeedViewController: UIViewController {
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         
+        title = "新话题"
+        
         view.backgroundColor = UIColor.cubeBackgroundColor()
         mediaCollectionView.backgroundColor = UIColor.clearColor()
         
@@ -88,6 +90,9 @@ class AddFeedViewController: UIViewController {
         if segue.identifier == "ShowPickPhotoView" {
             if let vc = segue.destinationViewController as? PickPhotosViewController {
               vc.delegate = self
+              vc.pickedImageAssets = pickedImageAssets
+              vc.imageLimit = mediaImages.count
+                
             }
         }
     }
@@ -283,10 +288,10 @@ extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
 }
 
 extension AddFeedViewController: ReturnPickedPhotosDelegate {
-    func returnSeletedImages(images: [UIImage]) {
-        for image in images {
-           self.mediaImages.append(image)
-        }
+    func returnSeletedImages(images: [UIImage], imageAssets: [PHAsset]) {
+        
+        self.mediaImages = images
+        self.pickedImageAssets = imageAssets
     }
 }
 

@@ -70,7 +70,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NOx-JV-cbQ">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NOx-JV-cbQ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                 </imageView>
                                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_media_delete" translatesAutoresizingMaskIntoConstraints="NO" id="tyV-dz-3pz">
@@ -171,7 +171,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QLh-g1-8dl">
                                             <rect key="frame" x="0.0" y="0.0" width="108" height="105"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_imagepicker_check" translatesAutoresizingMaskIntoConstraints="NO" id="VyR-Mp-EoH">
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_imagepicker_check" translatesAutoresizingMaskIntoConstraints="NO" id="VyR-Mp-EoH">
                                             <rect key="frame" x="78" y="75" width="20" height="20"/>
                                         </imageView>
                                     </subviews>
