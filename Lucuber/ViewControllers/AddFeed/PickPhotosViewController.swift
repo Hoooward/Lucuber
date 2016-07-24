@@ -29,7 +29,8 @@ class PickPhotosViewController: UICollectionViewController {
     weak var delegate: ReturnPickedPhotosDelegate?
     var imageManager = PHCachingImageManager()
     
-    var pickedImageAssets = [PHAsset]()
+    var pickedImages = [PHAsset]()
+    var pickedImageSet = Set<PHAsset>()
 
     var imageLimit = 0
     
@@ -40,7 +41,7 @@ class PickPhotosViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "选取图片" + "(" + "\(pickedImageAssets.count)" + "/4" + ")"
+        title = "选取图片" + "(" + "\(imageLimit + pickedImages.count )" + "/4" + ")"
         
         collectionView?.backgroundColor = UIColor.whiteColor()
         collectionView?.alwaysBounceVertical = true
@@ -85,7 +86,7 @@ class PickPhotosViewController: UICollectionViewController {
         options.resizeMode = .Exact
         options.networkAccessAllowed = true
         
-        for imageAsset in pickedImageAssets {
+        for imageAsset in pickedImages {
             
             let maxSize: CGFloat = 1024
             
@@ -130,7 +131,7 @@ class PickPhotosViewController: UICollectionViewController {
             
         }
         
-        delegate?.returnSeletedImages(images, imageAssets: pickedImageAssets)
+        delegate?.returnSeletedImages(images, imageAssets: pickedImages)
         navigationController?.popViewControllerAnimated(true)
         
        
@@ -160,30 +161,32 @@ class PickPhotosViewController: UICollectionViewController {
             
             if let imageAsset = images?[indexPath.row] as? PHAsset {
                 cell.imageAsset = imageAsset
-                cell.pickedImageView.hidden = !pickedImageAssets.contains(imageAsset)
+                cell.pickedImageView.hidden = !pickedImageSet.contains(imageAsset)
             }
         }
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let imageAsset = images?[indexPath.row] as? PHAsset {
-            if pickedImageAssets.contains(imageAsset) {
-                if let index = pickedImageAssets.indexOf(imageAsset) {
-                    pickedImageAssets.removeAtIndex(index)
+        if let imageAsset = images?[indexPath.item] as? PHAsset {
+            if pickedImageSet.contains(imageAsset) {
+                pickedImageSet.remove(imageAsset)
+                if let index = pickedImages.indexOf(imageAsset) {
+                    pickedImages.removeAtIndex(index)
                 }
             } else {
-                if pickedImageAssets.count >= 4 {
+                if pickedImageSet.count + imageLimit == 4 {
                     return
                 }
-                if !pickedImageAssets.contains(imageAsset) {
-                    pickedImageAssets.append(imageAsset)
+                if !pickedImageSet.contains(imageAsset) {
+                    pickedImageSet.insert(imageAsset)
+                    pickedImages.append(imageAsset)
                 }
             }
             
-            title = "选取图片" + "(" + "\(pickedImageAssets.count)" + "/4" + ")"
+            title = "选取图片" + "(" + "\(pickedImageSet.count + imageLimit)" + "/4" + ")"
             
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCell
-            cell.pickedImageView.hidden = !pickedImageAssets.contains(imageAsset)
+            cell.pickedImageView.hidden = !pickedImageSet.contains(imageAsset)
             
         }
     }

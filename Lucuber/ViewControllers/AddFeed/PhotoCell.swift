@@ -38,6 +38,7 @@ class PhotoCell: UICollectionViewCell {
         }
     }
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor = UIColor.redColor()

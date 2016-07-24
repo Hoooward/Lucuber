@@ -14,6 +14,8 @@ class FeedMediaCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var deleteImageView: UIImageView!
     
+    var delete:(() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -28,8 +30,7 @@ class FeedMediaCell: UICollectionViewCell {
     }
     
     func deleteImage(sender: UIGestureRecognizer) {
-        
-        print("删除图片")
+        delete?()
     }
     
     override func prepareForReuse() {

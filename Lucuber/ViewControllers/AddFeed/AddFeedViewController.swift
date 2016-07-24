@@ -37,7 +37,7 @@ class AddFeedViewController: UIViewController {
         }
     }
     
-    private var pickedImageAssets: [PHAsset] = []
+    private var pickedImageAssets = [PHAsset]()
     
     private var isNeverInputMessage = true
     private var isDirty = false {
@@ -90,7 +90,7 @@ class AddFeedViewController: UIViewController {
         if segue.identifier == "ShowPickPhotoView" {
             if let vc = segue.destinationViewController as? PickPhotosViewController {
               vc.delegate = self
-              vc.pickedImageAssets = pickedImageAssets
+              vc.pickedImageSet = Set(pickedImageAssets)
               vc.imageLimit = mediaImages.count
                 
             }
@@ -145,6 +145,11 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaCellIdentifier, forIndexPath: indexPath) as! FeedMediaCell
             
             cell.configureWithImage(mediaImages[indexPath.row])
+            
+            cell.delete = {
+                [unowned self] in
+                self.mediaImages.removeAtIndex(indexPath.row)
+            }
             
             return cell
         case .Add:
@@ -290,8 +295,9 @@ extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
 extension AddFeedViewController: ReturnPickedPhotosDelegate {
     func returnSeletedImages(images: [UIImage], imageAssets: [PHAsset]) {
         
-        self.mediaImages = images
-        self.pickedImageAssets = imageAssets
+        for image in images {
+            mediaImages.append(image)
+        }
     }
 }
 
