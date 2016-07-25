@@ -33,16 +33,25 @@ class AddFeedViewController: UIViewController {
     
     var mediaImages = [UIImage]() {
         didSet {
-            mediaCollectionView.reloadData()
+            
+            mediaCollectionView.performBatchUpdates({ [weak self] in
+                self?.mediaCollectionView.reloadSections(NSIndexSet(index: 0))
+                }, completion: nil)
         }
     }
     
     private var pickedImageAssets = [PHAsset]()
     
     private var isNeverInputMessage = true
-    private var isDirty = false {
+    private var isReadyForPost = false {
         willSet {
+            postFeedBarButton.enabled = newValue
             
+            if !newValue && isNeverInputMessage {
+                messageTextView.text = placeholderOfMessage
+            }
+            
+            messageTextView.textColor = newValue ? UIColor.blackColor() : UIColor.lightGrayColor()
         }
     }
     
@@ -57,6 +66,11 @@ class AddFeedViewController: UIViewController {
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var messageTextView: UITextView!
+    
+    private let placeholderOfMessage = "写点什么..."
+    
     private let FeedMediaAddCellIdentifier = "FeedMediaAddCell"
     private let FeedMediaCellIdentifier = "FeedMediaCell"
     
@@ -67,6 +81,12 @@ class AddFeedViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
+        
+        isReadyForPost = false
+        messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        messageTextView.textContainer.lineFragmentPadding = 0
+        messageTextView.delegate = self
+        messageTextView.tintColor = UIColor.cubeTintColor()
         
         title = "新话题"
         
@@ -184,11 +204,14 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
+
         
         switch section {
         case .Image:
             break
         case .Add:
+            
+            messageTextView.resignFirstResponder()
             
             if mediaImages.count == 4 {
                 CubeAlert.alertSorry(message: "最多只能添加四张图片", inViewController: self)
@@ -264,6 +287,41 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
 }
+
+// MARK: - ScrollerViewDelegate
+
+extension AddFeedViewController: UITextViewDelegate {
+    
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        if !isReadyForPost {
+            textView.text = ""
+        }
+        
+        isNeverInputMessage = false
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        print(textView.text.characters.count)
+        isReadyForPost = textView.text.characters.count > 0
+    }
+}
+
+// MARK: - ScrollerViewDelegate
+
+extension AddFeedViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        messageTextView.resignFirstResponder()
+    }
+    
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        messageTextView.resignFirstResponder()
+        
+    }
+}
+
 // MARK: - ImagePickerDelegate
 extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

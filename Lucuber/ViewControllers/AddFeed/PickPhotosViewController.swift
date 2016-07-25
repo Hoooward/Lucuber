@@ -16,6 +16,10 @@ protocol ReturnPickedPhotosDelegate: class {
 }
 
 class PickPhotosViewController: UICollectionViewController {
+    
+    /*
+     参考: http://kayosite.com/ios-development-and-detail-of-photo-framework-part-two.html
+    */
 
     var images: PHFetchResult? {
         didSet {
