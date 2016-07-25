@@ -50,7 +50,7 @@ private let screenModel: ScreenModel = {
 
     default:
         print("Warning: Can NOT detect screenModel!")
-        return .Bigger // Default
+        return .BiggerPlus // Default
     }
     }()
 

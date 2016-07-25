@@ -17,28 +17,11 @@ class AddFeedViewController: UIViewController {
 
     // MARK: - Properties
     enum Attachment {
-        case Default
+        case Media
         case Formula
     }
     
-    var attachment: Attachment = .Default {
-        didSet {
-            switch attachment {
-            case .Default:
-                title = "新话题"
-                
-                mediaCollectionView.hidden = false
-                formulaView.hidden = true
-                
-            case .Formula:
-                title = "新公式"
-                
-                mediaCollectionView.hidden = true
-                formulaView.hidden = false
-            }
-        }
-    }
-    
+    var attachment: Attachment = .Media
     var mediaImages = [UIImage]() {
         didSet {
             
@@ -78,25 +61,47 @@ class AddFeedViewController: UIViewController {
     
     
     @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var postFeedBarButton: UIBarButtonItem!
     
     private let placeholderOfMessage = "写点什么..."
-    
     private let FeedMediaAddCellIdentifier = "FeedMediaAddCell"
     private let FeedMediaCellIdentifier = "FeedMediaCell"
     
-    @IBOutlet weak var postFeedBarButton: UIBarButtonItem!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        makeUI()
+  
+    }
+    
+    deinit {
+        print(self, "死了")
+    }
+    
+    func makeUI() {
         
-        let messageTextViewHeight = Ruler.iPhoneVertical(100, 120, 170, 210).value
+        switch attachment {
+        case .Media:
+            title = "新话题"
+            mediaCollectionView.hidden = false
+            formulaView.hidden = true
+            
+        case .Formula:
+            title = "新公式"
+            
+            mediaCollectionView.hidden = true
+            formulaView.hidden = false
+        }
+        
+        view.backgroundColor = UIColor.cubeBackgroundColor()
+        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
+        
+        let messageTextViewHeight = Ruler.iPhoneVertical(100, 120, 170, 200).value
         messageTextViewHeightConstraint.constant = CGFloat(messageTextViewHeight)
         messageTextView.layoutIfNeeded()
-     
         
-        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         
         isReadyForPost = false
         messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -104,9 +109,7 @@ class AddFeedViewController: UIViewController {
         messageTextView.delegate = self
         messageTextView.tintColor = UIColor.cubeTintColor()
         
-        title = "新话题"
-        
-        view.backgroundColor = UIColor.cubeBackgroundColor()
+      
         mediaCollectionView.backgroundColor = UIColor.clearColor()
         
         mediaCollectionView.contentInset.left = 15
@@ -115,11 +118,6 @@ class AddFeedViewController: UIViewController {
         mediaCollectionView.showsHorizontalScrollIndicator = false
         
     }
-    
-    deinit {
-        print(self, "死了")
-    }
-    
     
     // MARK: - PrepareForSegue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

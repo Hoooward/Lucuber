@@ -8,45 +8,24 @@
 
 import UIKit
 
-///缓存Cell中元素的Frame
-private struct LayoutCatch {
-    
-    private var FeedCellLayoutHash = [String: FeedCellLayout]()
-    
-    private mutating func FeedCellLayoutOfFeed(feed: Feed) -> FeedCellLayout {
-        let key = feed.objectId
-        
-        if let layout = FeedCellLayoutHash[key] {
-            return layout
-        } else {
-            let layout = FeedCellLayout(feed: feed)
-            
-            updateFeedCellLayout(layout, forFeed: feed)
-            
-            return layout
-        }
-    }
-    
-    private mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: Feed) {
-        let key = feed.objectId
-        
-        if !key.isEmpty {
-            FeedCellLayoutHash[key] = layout
-        }
-    }
-    
-    private mutating func heightOfFeed(feed: Feed) -> CGFloat {
-        let layout = FeedCellLayoutOfFeed(feed)
-        return layout.height
-    }
-}
+
 
 private let FeedDefaultCellIdentifier = "FeedDefaultCell"
 
 class FeedViewController: UIViewController {
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowAddFeed" {
+            let navigationVC = segue.destinationViewController as! UINavigationController
+            let newFeedVC = navigationVC.viewControllers.first! as! AddFeedViewController
+            newFeedVC.attachment = newFeedAttachmentType
+        }
+    }
+    
     // MARK: - Properties
     private static var LayoutsCatch = LayoutCatch()
+    
+    private var newFeedAttachmentType: AddFeedViewController.Attachment = .Media
  
     private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
     
@@ -126,10 +105,20 @@ class FeedViewController: UIViewController {
                 action: { [weak self] in
                     guard let strongSelf = self else { return }
                     
+                  
+                    strongSelf.newFeedAttachmentType = .Media
                     strongSelf.performSegueWithIdentifier("ShowAddFeed", sender: nil)
                 }
             ),
-            
+            .Option(
+                title: "公式",
+                titleColor: UIColor.cubeTintColor(),
+                action: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.newFeedAttachmentType = .Formula
+                    strongSelf.performSegueWithIdentifier("ShowAddFeed", sender: nil)
+                }
+            ),
             .Option(
                 title: "复原成绩",
                 titleColor: UIColor.cubeTintColor(),
@@ -138,16 +127,6 @@ class FeedViewController: UIViewController {
                     
                 }
             ),
-            
-            .Option(
-                title: "公式",
-                titleColor: UIColor.cubeTintColor(),
-                action: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    
-                }
-            ),
-            
             .Cancel
             
             ]
@@ -217,4 +196,38 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FeedViewController: UISearchBarDelegate {
     
+}
+
+
+///缓存Cell中元素的Frame
+private struct LayoutCatch {
+    
+    private var FeedCellLayoutHash = [String: FeedCellLayout]()
+    
+    private mutating func FeedCellLayoutOfFeed(feed: Feed) -> FeedCellLayout {
+        let key = feed.objectId
+        
+        if let layout = FeedCellLayoutHash[key] {
+            return layout
+        } else {
+            let layout = FeedCellLayout(feed: feed)
+            
+            updateFeedCellLayout(layout, forFeed: feed)
+            
+            return layout
+        }
+    }
+    
+    private mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: Feed) {
+        let key = feed.objectId
+        
+        if !key.isEmpty {
+            FeedCellLayoutHash[key] = layout
+        }
+    }
+    
+    private mutating func heightOfFeed(feed: Feed) -> CGFloat {
+        let layout = FeedCellLayoutOfFeed(feed)
+        return layout.height
+    }
 }
