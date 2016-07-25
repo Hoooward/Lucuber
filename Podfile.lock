@@ -1,10 +1,12 @@
 PODS:
   - AVOSCloud (3.1.6.8)
+  - Ruler (0.6)
   - SnapKit (0.15.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - AVOSCloud
+  - Ruler
   - SnapKit (~> 0.15.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -19,7 +21,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AVOSCloud: 4b06ec4444ca0ee0543e6cf729b11e5f3f956977
+  Ruler: b36ec3bbc5fc6c3b7f629a6052cc1c17ada4b280
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 08e0c4ed67960e966451dea23c52770d6c63d6ca
+
+COCOAPODS: 1.0.1

@@ -59,13 +59,24 @@ class AddNewFormulaViewController: UIViewController {
         return viewController
     }()
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+   
+    }
+    
+   
 // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        //TODO: 
+       
+        
+        //TODO:
         var testContents = [FormulaContent]()
         for index in 0...3 {
             let content = FormulaContent()

@@ -10,6 +10,10 @@ import UIKit
 
 class HeaderFormulaView: UIView {
     
+    class func creatHeaderFormulaViewFormNib() -> HeaderFormulaView {
+        return NSBundle.mainBundle().loadNibNamed("HeaderFormulaView", owner: nil, options: nil).last! as! HeaderFormulaView
+    }
+    
     var formula: Formula? {
         didSet {
             guard let formula = formula else {

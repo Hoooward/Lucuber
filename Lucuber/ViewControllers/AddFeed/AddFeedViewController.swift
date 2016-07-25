@@ -11,6 +11,7 @@ import MobileCoreServices
 import AVFoundation
 import AssetsLibrary
 import Photos
+import Ruler
 
 class AddFeedViewController: UIViewController {
 
@@ -25,8 +26,15 @@ class AddFeedViewController: UIViewController {
             switch attachment {
             case .Default:
                 title = "新话题"
+                
+                mediaCollectionView.hidden = false
+                formulaView.hidden = true
+                
             case .Formula:
                 title = "新公式"
+                
+                mediaCollectionView.hidden = true
+                formulaView.hidden = false
             }
         }
     }
@@ -63,8 +71,10 @@ class AddFeedViewController: UIViewController {
         return imagePicker
     }()
     
+    @IBOutlet weak var formulaView: UIView!
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
     
     
     @IBOutlet weak var messageTextView: UITextView!
@@ -79,6 +89,12 @@ class AddFeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let messageTextViewHeight = Ruler.iPhoneVertical(100, 120, 170, 210).value
+        messageTextViewHeightConstraint.constant = CGFloat(messageTextViewHeight)
+        messageTextView.layoutIfNeeded()
+     
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         
