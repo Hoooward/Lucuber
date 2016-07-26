@@ -107,9 +107,10 @@ public func ==(lhs: DiscoveredFeed, rhs: DiscoveredFeed) -> Bool {
 
 class Feed: AVObject, AVSubclassing  {
     
-     class func parseClassName() -> String {
+    class func parseClassName() -> String {
         return "Feed"
     }
+    
     
     /// 作者
     static let Feedkey_creator = "creator"
@@ -122,9 +123,30 @@ class Feed: AVObject, AVSubclassing  {
     @NSManaged var kind: String?
     
     static let Feedkey_category = "category"
-    @NSManaged var category: String
+    @NSManaged var category: String?
+    
+    static let FeedKey_imagesURL = "imagesUrl"
+    @NSManaged var imagesUrl: [String]?
+    
+    static let FeedKey_comments = "comments"
+    @NSManaged var comments: [String]?
     
  
+    
+    enum Attachment {
+        case BigImage
+        case MultiImages
+        case NoImage
+    }
+    
+    
+    func attachmentType() -> Attachment {
+        guard let imagesUrl = imagesUrl else {
+            return .NoImage
+        }
+        return imagesUrl.count > 1 ? .MultiImages : .BigImage
+    }
+    
 }
 
 

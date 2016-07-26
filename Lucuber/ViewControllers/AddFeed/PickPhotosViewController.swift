@@ -92,7 +92,7 @@ class PickPhotosViewController: UICollectionViewController {
         
         for imageAsset in pickedImages {
             
-            let maxSize: CGFloat = 1024
+            let maxSize: CGFloat = CubeConfig.NewFeedFullImage.MaxSize
             
             let pixelWidth = CGFloat(imageAsset.pixelWidth)
             let pixelHeight = CGFloat(imageAsset.pixelHeight)
@@ -112,21 +112,9 @@ class PickPhotosViewController: UICollectionViewController {
             
             imageManager.requestImageDataForAsset(imageAsset, options: options, resultHandler: { (data, string, imageOrientation, _) in
                 if let data = data, let image = UIImage(data: data) {
-                    
-                    let newRect = CGRect(origin: CGPointZero, size: targetSize)
-                    
-                    let bitmapContext = CGBitmapContextCreate(nil, Int(newRect.width),  Int(newRect.height), CGImageGetBitsPerComponent(image.CGImage), 0, CGImageGetColorSpace(image.CGImage), CGImageGetBitmapInfo(image.CGImage).rawValue)
-                    
-                    CGContextConcatCTM(bitmapContext, CGAffineTransformIdentity)
-                    
-                    CGContextSetInterpolationQuality(bitmapContext, CGInterpolationQuality.Medium)
-                    CGContextDrawImage(bitmapContext, newRect, image.CGImage)
-                    
-                    if let newCGImage = CGBitmapContextCreateImage(bitmapContext) {
-                        let newImage = UIImage(CGImage: newCGImage)
-                        print(newImage)
-                        
-                        images.append(newImage)
+                
+                    if let resizeImage = image.resizeToSize(targetSize, quality: CGInterpolationQuality.Medium) {
+                        images.append(resizeImage)
                     }
                     
                 }
@@ -138,6 +126,7 @@ class PickPhotosViewController: UICollectionViewController {
         navigationController?.popViewControllerAnimated(true)
         
     }
+
 
     // MARK: UICollectionViewDataSource
 

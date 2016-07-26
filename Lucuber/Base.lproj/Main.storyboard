@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="SOh-bb-BLT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="SOh-bb-BLT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -184,6 +184,9 @@
                                     <outlet property="delegate" destination="HR6-Y1-pX0" id="WH4-X1-9u9"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="41v-hZ-I5D">
+                                <rect key="frame" x="290" y="184" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -191,6 +194,8 @@
                             <constraint firstItem="p0d-Mb-SBa" firstAttribute="leading" secondItem="dPn-pc-tDo" secondAttribute="leading" id="CiX-8X-fw5"/>
                             <constraint firstAttribute="trailing" secondItem="p0d-Mb-SBa" secondAttribute="trailing" id="V1I-r3-r3T"/>
                             <constraint firstItem="p0d-Mb-SBa" firstAttribute="top" secondItem="dPn-pc-tDo" secondAttribute="top" id="ft9-ht-iT9"/>
+                            <constraint firstItem="41v-hZ-I5D" firstAttribute="top" secondItem="WIg-uf-R77" secondAttribute="bottom" constant="120" id="h2J-ux-cmr"/>
+                            <constraint firstItem="41v-hZ-I5D" firstAttribute="centerX" secondItem="dPn-pc-tDo" secondAttribute="centerX" id="oaO-0f-oR4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UbY-ly-NBv">
@@ -201,6 +206,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="41v-hZ-I5D" id="MUq-Wx-IiQ"/>
                         <outlet property="tableView" destination="p0d-Mb-SBa" id="Sv0-Me-PGh"/>
                         <segue destination="vKo-W7-20M" kind="presentation" identifier="ShowAddFeed" id="QzG-0A-SAg"/>
                     </connections>

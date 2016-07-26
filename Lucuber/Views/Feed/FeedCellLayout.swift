@@ -46,7 +46,7 @@ struct FeedCellLayout {
         let nicknameLabelFrame: CGRect
         let categoryButtonFrame: CGRect
         
-        if let category = FeedCategory(rawValue: feed.category) {
+        if let category = FeedCategory(rawValue: feed.category!) {
             
             let rect = (category.rawValue as NSString).boundingRectWithSize(CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: CubeConfig.FeedDetailCell.categryButtonAttributies, context: nil)
             

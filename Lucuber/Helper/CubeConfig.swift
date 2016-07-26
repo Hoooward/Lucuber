@@ -42,4 +42,12 @@ final public class CubeConfig {
         public static let bottomLabelTextAttributies = [NSFontAttributeName: UIFont.feedBottomLabelFont()]
     }
     
+    public struct FeedBiggerImageCell {
+        public static let imageSize = CGSize(width: 160, height: 160)
+    }
+    
+    public struct NewFeedFullImage {
+        public static let MaxSize: CGFloat = 800
+    }
+    
 }

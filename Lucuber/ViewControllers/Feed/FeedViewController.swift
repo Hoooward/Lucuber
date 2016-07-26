@@ -32,6 +32,7 @@ class FeedViewController: UIViewController {
     var feeds = [Feed]()
     
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             searchBar.sizeToFit()
@@ -59,28 +60,29 @@ class FeedViewController: UIViewController {
         
         loadNewComment()
         
-        let feed = Feed()
-        
-        feed.contentBody = "UIRefreshControl的使用方法一般是在UIControlEventValueChanged事件时触发，也就是下拉到一定程度的时候触发。这样可能出现的问题是下拉释放后很快调用-endRefresh，动画不流畅。可以在－scrollViewDidEndDragging:willDecelerate:时判断下拉程度来触发，或者延迟调用-endRefresh。最后找到了看起来完美的方法，在下拉释放回弹后调用。也就是在-scrollViewDidEndDecelerating:中调用，代码如下："
-        
-        feed.creator = AVUser.currentUser()
-        feed.kind = FeedKind.Text.rawValue
-        feed.category = FeedCategory.Formula.rawValue
-        
-        feed.saveInBackgroundWithBlock({ (success, error) in
-            if success {
-                self.feeds.append(feed)
-                print("发布成功")
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
-                })
-            }
-        })
+//        let feed = Feed()
+//        
+//        feed.contentBody = "www.baidu.com"
+//        
+//        feed.creator = AVUser.currentUser()
+//        feed.kind = FeedKind.Text.rawValue
+//        feed.category = FeedCategory.Formula.rawValue
+//        
+//        feed.saveInBackgroundWithBlock({ (success, error) in
+//            if success {
+//                self.feeds.append(feed)
+//                print("发布成功")
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    self.tableView.reloadData()
+//                })
+//            }
+//        })
         tableView.contentOffset.y = CGRectGetHeight(searchBar.frame)
         
     }
     
     func loadNewComment() {
+        activityIndicator.startAnimating()
         let query = AVQuery(className: Feed.parseClassName())
         query.addDescendingOrder("updatedAt")
         
@@ -89,6 +91,7 @@ class FeedViewController: UIViewController {
                 self.feeds = result as! [Feed]
             
             dispatch_async(dispatch_get_main_queue(), {
+                self.activityIndicator.stopAnimating()
                 self.tableView.reloadData()
               
             })
@@ -197,7 +200,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 extension FeedViewController: UISearchBarDelegate {
     
 }
-
 
 ///缓存Cell中元素的Frame
 private struct LayoutCatch {

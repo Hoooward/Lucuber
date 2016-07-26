@@ -33,6 +33,8 @@ class AddFeedViewController: UIViewController {
     
     private var pickedImageAssets = [PHAsset]()
     
+    var newFeed = Feed()
+    
     private var isNeverInputMessage = true
     private var isReadyForPost = false {
         willSet {
@@ -134,6 +136,49 @@ class AddFeedViewController: UIViewController {
  
     // MARK: - Targer & Notification
     @IBAction func postFeed(sender: AnyObject) {
+        
+        messageTextView.resignFirstResponder()
+        
+        if let user = AVUser.currentUser() {
+            // 已经登录
+            
+            var photoUrls = [String]()
+            if mediaImages.count > 0 {
+                for image in mediaImages {
+                    let uploadFile = AVFile(data: UIImageJPEGRepresentation(image, 0.7))
+                 
+                    var error: NSError?
+                    if uploadFile.save(&error) {
+                        if let url = uploadFile.url {
+                            photoUrls.append(url)
+                        }
+                    } else {
+                        print("图片上传失败", error?.localizedFailureReason)
+                    }
+                }
+            }
+            
+            let newFeed = Feed()
+            newFeed.contentBody = messageTextView.text
+            newFeed.creator = user
+            newFeed.imagesUrl = photoUrls
+            newFeed.kind = "text"
+            newFeed.category = FeedCategory.Topic.rawValue
+            
+            var error: NSError?
+            
+            if newFeed.save(&error) {
+                print("发表成功")
+            } else {
+                print("发表失败", error?.localizedFailureReason)
+            }
+            
+            
+            
+            dismissViewControllerAnimated(true, completion: nil)
+            
+            
+        }
     }
     
     @IBAction func cancel(sender: AnyObject) {

@@ -31,6 +31,9 @@
 		895A6B441D4605CC0060C3E1 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B421D4605CC0060C3E1 /* FeedFormulaView.swift */; };
 		895A6B451D4605CC0060C3E1 /* FeedFormulaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895A6B431D4605CC0060C3E1 /* FeedFormulaView.xib */; };
 		895A6B471D460ED20060C3E1 /* FeedNewFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */; };
+		895A6B491D4626C00060C3E1 /* FeedBiggerImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */; };
+		895A6B611D4669BF0060C3E1 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */; };
+		895A6B631D475FC20060C3E1 /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */; };
 		895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */; };
 		895BC0D31D3E177500EA47BA /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D21D3E177500EA47BA /* DetailHeaderView.swift */; };
 		895BC0D81D3E3FA600EA47BA /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D61D3E3FA600EA47BA /* DetailCollectionViewCell.swift */; };
@@ -164,6 +167,15 @@
 		895A6B421D4605CC0060C3E1 /* FeedFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaView.swift; sourceTree = "<group>"; };
 		895A6B431D4605CC0060C3E1 /* FeedFormulaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedFormulaView.xib; sourceTree = "<group>"; };
 		895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewFormulaView.swift; sourceTree = "<group>"; };
+		895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedBiggerImageCell.swift; sourceTree = "<group>"; };
+		895A6B501D46640D0060C3E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		895A6B521D46640D0060C3E1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		895A6B551D46640D0060C3E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		895A6B571D46640D0060C3E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		895A6B5A1D46640D0060C3E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		895A6B5C1D46640D0060C3E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Cube.swift"; sourceTree = "<group>"; };
+		895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCheckCell.swift; sourceTree = "<group>"; };
 		895BC0D21D3E177500EA47BA /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		895BC0D61D3E3FA600EA47BA /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -232,7 +244,7 @@
 		89BE42A41D01981000E525D4 /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
 		89BE42C71D019B4D00E525D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89C1F5831D306E8500F79BAC /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
-		89C1F5871D30AF7C00F79BAC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		89C1F5871D30AF7C00F79BAC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = ../Reveal.framework; sourceTree = "<group>"; };
 		89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButtonItem.swift; sourceTree = "<group>"; };
 		89C2EDB31D01A0E9009365BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -358,6 +370,7 @@
 			children = (
 				895A6B411D4605CC0060C3E1 /* FeedFormulaView */,
 				8909CE681D41ECA800511243 /* FeedDefaultCell.swift */,
+				895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */,
 				8909CE6A1D41EF7400511243 /* FeedTextView.swift */,
 				8909CE6C1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift */,
 				89B9B4D11D4269BB002F2E66 /* FeedCellLayout.swift */,
@@ -408,6 +421,19 @@
 			path = FeedFormulaView;
 			sourceTree = "<group>";
 		};
+		895A6B4F1D46640D0060C3E1 /* TestAVCloud */ = {
+			isa = PBXGroup;
+			children = (
+				895A6B501D46640D0060C3E1 /* AppDelegate.swift */,
+				895A6B521D46640D0060C3E1 /* ViewController.swift */,
+				895A6B541D46640D0060C3E1 /* Main.storyboard */,
+				895A6B571D46640D0060C3E1 /* Assets.xcassets */,
+				895A6B591D46640D0060C3E1 /* LaunchScreen.storyboard */,
+				895A6B5C1D46640D0060C3E1 /* Info.plist */,
+			);
+			path = TestAVCloud;
+			sourceTree = "<group>";
+		};
 		895BC0CF1D3DE7C900EA47BA /* CategoryCheckCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +458,7 @@
 				895D10F11D21213B00CEF7FA /* Comment */,
 				895D10EE1D21211100CEF7FA /* Formula */,
 				89402B5C1D421BD000FEEA95 /* Feed.swift */,
+				895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -649,6 +676,7 @@
 				89EEDCBB1D02EF6D007257C3 /* Storyboard+Cube.swift */,
 				89E6C4E31D0303F7005ACFB9 /* UIFont+Cube.swift */,
 				89E065D71D042FF5000B7D08 /* String+Cube.swift */,
+				895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -798,8 +826,8 @@
 		89F58F0F1D01696300361474 = {
 			isa = PBXGroup;
 			children = (
-				89C1F5871D30AF7C00F79BAC /* Reveal.framework */,
 				89F58F1A1D01696400361474 /* Lucuber */,
+				895A6B4F1D46640D0060C3E1 /* TestAVCloud */,
 				89F58F191D01696300361474 /* Products */,
 				731BDC34A68377356835EBC8 /* Frameworks */,
 				C55311E3E5BA5686C07CE867 /* Pods */,
@@ -817,6 +845,7 @@
 		89F58F1A1D01696400361474 /* Lucuber */ = {
 			isa = PBXGroup;
 			children = (
+				89C1F5871D30AF7C00F79BAC /* Reveal.framework */,
 				89C2EDB51D01A37C009365BA /* Helper */,
 				89BE42C71D019B4D00E525D4 /* Info.plist */,
 				89BE429C1D01981000E525D4 /* AppDelegate.swift */,
@@ -1090,6 +1119,7 @@
 				8906AB781D260355007D44D7 /* Animation.swift in Sources */,
 				89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */,
 				89FAF41D1D33BFE600096B5A /* CubeCategoryItemView.swift in Sources */,
+				895A6B631D475FC20060C3E1 /* UIImage+Cube.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
 				8907184A1D32798A001B526D /* CategorySeletedCell.swift in Sources */,
@@ -1099,6 +1129,7 @@
 				8909CE6B1D41EF7400511243 /* FeedTextView.swift in Sources */,
 				89EEDCA11D0201E9007257C3 /* testData.swift in Sources */,
 				89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */,
+				895A6B491D4626C00060C3E1 /* FeedBiggerImageCell.swift in Sources */,
 				89B9B51F1D437823002F2E66 /* BaseFormulaViewController.swift in Sources */,
 				89C1F5841D306E8500F79BAC /* FormulaTextView.swift in Sources */,
 				892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */,
@@ -1107,6 +1138,7 @@
 				89B9B50E1D43765A002F2E66 /* PerformanceViewController.swift in Sources */,
 				89B9B4D21D4269BB002F2E66 /* FeedCellLayout.swift in Sources */,
 				89E6C4E41D0303F7005ACFB9 /* UIFont+Cube.swift in Sources */,
+				895A6B611D4669BF0060C3E1 /* AVUser+Cube.swift in Sources */,
 				895BC0D81D3E3FA600EA47BA /* DetailCollectionViewCell.swift in Sources */,
 				894018E81D387CF6000703E5 /* CubeHUD.swift in Sources */,
 				8964251C1D3503E400F1D194 /* StarRatingCell.swift in Sources */,
@@ -1133,6 +1165,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		895A6B541D46640D0060C3E1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				895A6B551D46640D0060C3E1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		895A6B591D46640D0060C3E1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				895A6B5A1D46640D0060C3E1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		89B9B52D1D43C788002F2E66 /* AddFeed.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
