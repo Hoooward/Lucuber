@@ -56,34 +56,17 @@ class FeedsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
-        navigationItem.titleView = titleLabel
-        //        let content = "评论" + NSUUID().UUIDString
+        navigationItem.title = "话题"
         
         
         loadNewComment()
         
-//        let feed = Feed()
-//        
-//        feed.contentBody = "www.baidu.com"
-//        
-//        feed.creator = AVUser.currentUser()
-//        feed.kind = FeedKind.Text.rawValue
-//        feed.category = FeedCategory.Formula.rawValue
-//        
-//        feed.saveInBackgroundWithBlock({ (success, error) in
-//            if success {
-//                self.feeds.append(feed)
-//                print("发布成功")
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.tableView.reloadData()
-//                })
-//            }
-//        })
+
         tableView.contentOffset.y = CGRectGetHeight(searchBar.frame)
         
     }
     
-    func loadNewComment() {
+    private func loadNewComment() {
         activityIndicator.startAnimating()
         let query = AVQuery(className: Feed.parseClassName())
         query.addDescendingOrder("updatedAt")
@@ -156,13 +139,7 @@ class FeedsViewController: UIViewController {
         return searchBar
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = "话题"
-        titleLabel.textColor = UIColor.blackColor()
-        titleLabel.sizeToFit()
-        return titleLabel
-    }()
+
    
     
 }

@@ -94,12 +94,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     func setupNavigationbar() {
         
-        let titleView = UILabel()
-        titleView.text = "复原大法"
-        titleView.textColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0 )
-        titleView.sizeToFit()
-        
-        navigationItem.titleView = titleView
+        navigationItem.title = "复原大法"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem.creatLayoutButtonItem(self, action: #selector(ContainerViewController.layoutButtonClick(_:)))
      

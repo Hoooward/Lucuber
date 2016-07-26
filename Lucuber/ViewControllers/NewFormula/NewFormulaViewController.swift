@@ -11,23 +11,30 @@ import UIKit
 
 class NewFormulaViewController: UIViewController {
     
-// MARK: - CellIdentifier
-    private let NameTextViewCellIdentifier = "NameTextViewCell"
-    private let CategorySeletedCellIdentifier = "CategorySeletedCell"
-    private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
-    private let StarRatingCellIdentifier = "StarRatingCell"
-    private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
-    private let AddFormulaTextCellIdentifier = "AddFormulaTextCell"
+
     
     enum EditType {
         case NewFormula
         case NewAttchment
-        case Edit
+        case EditFormula
     }
 
 // MARK: - Properties
+//    
+//    var editType: EditType = .NewFormula {
+//        willSet {
+//            switch newValue {
+//            case .NewFormula:
+//                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(NewFeedViewController.saveFormula))
+//            default:
+//                <#code#>
+//            }
+//        }
+//    }
     
-    var editType: EditType = .NewFormula
+    func creatNewFormula() -> Formula {
+        return Formula(name: "公式名称", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L, rating: 3)
+    }
     
     private let headerViewHeight: CGFloat = 170
     @IBOutlet weak var headerView: HeaderFormulaView!
@@ -81,10 +88,7 @@ class NewFormulaViewController: UIViewController {
 // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-       
-        
+      
         //TODO:
         var testContents = [FormulaContent]()
         for index in 0...3 {
@@ -93,13 +97,10 @@ class NewFormulaViewController: UIViewController {
             testContents.append(content)
         }
         
-        
-        print(testContents)
         formula.contents = testContents
         headerView.formula = formula
 
         makeUI()
-        setupNavigationbar()
         
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
@@ -127,18 +128,29 @@ class NewFormulaViewController: UIViewController {
         }
     }
     
+    @IBAction func dismiss(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 // MARK: - Deinit
     deinit {
         print("NewFormula死了")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    @IBAction func dismiss(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
+ 
     
 // MARK: - MakeUI
+    
+    private let NameTextViewCellIdentifier = "NameTextViewCell"
+    private let CategorySeletedCellIdentifier = "CategorySeletedCell"
+    private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
+    private let StarRatingCellIdentifier = "StarRatingCell"
+    private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
+    private let AddFormulaTextCellIdentifier = "AddFormulaTextCell"
+    
     private func makeUI() {
+        
         tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - headerViewHeight - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
@@ -149,9 +161,6 @@ class NewFormulaViewController: UIViewController {
         tableView.registerNib(UINib(nibName: StarRatingCellIdentifier, bundle: nil), forCellReuseIdentifier: StarRatingCellIdentifier)
         tableView.registerNib(UINib(nibName: AddFormulaTextCellIdentifier, bundle: nil), forCellReuseIdentifier: AddFormulaTextCellIdentifier)
         
-    }
-
-    private func setupNavigationbar() {
         let titleView = UILabel()
         titleView.text = "创建新公式"
         titleView.sizeToFit()
@@ -159,6 +168,7 @@ class NewFormulaViewController: UIViewController {
         addChildViewController(formulaInputViewController)
         //TODO: 键盘布局有问题
         childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
+        
     }
 
    
