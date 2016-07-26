@@ -87,7 +87,7 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
             commentVC.formula = sender as? Formula
             
         case .EditFormulaViewController:
-            let editVC = segue.destinationViewController as! AddNewFormulaViewController
+            let editVC = segue.destinationViewController as! NewFormulaViewController
             if let formula = sender as? Formula {
                 editVC.formula = formula
             }
@@ -117,7 +117,7 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
                 
                 let sb = UIStoryboard(name: "AddFormula", bundle: nil)
                 let navigationVC = sb.instantiateInitialViewController() as! MainNavigationController
-                let viewController = navigationVC.viewControllers.first as! AddNewFormulaViewController
+                let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
                 viewController.formula = strongSelf.seletedFormula!
                 strongSelf.presentViewController(navigationVC, animated: true, completion: nil)
                 

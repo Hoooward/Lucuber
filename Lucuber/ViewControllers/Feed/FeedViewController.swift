@@ -13,12 +13,12 @@ import UIKit
 private let FeedDefaultCellIdentifier = "FeedDefaultCell"
 private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
 
-class FeedViewController: UIViewController {
+class FeedsViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowAddFeed" {
             let navigationVC = segue.destinationViewController as! UINavigationController
-            let newFeedVC = navigationVC.viewControllers.first! as! AddFeedViewController
+            let newFeedVC = navigationVC.viewControllers.first! as! NewFeedViewController
             newFeedVC.attachment = newFeedAttachmentType
         }
     }
@@ -26,7 +26,7 @@ class FeedViewController: UIViewController {
     // MARK: - Properties
     private static var LayoutsCatch = LayoutCatch()
     
-    private var newFeedAttachmentType: AddFeedViewController.Attachment = .Media
+    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
  
     private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
     
@@ -169,13 +169,12 @@ class FeedViewController: UIViewController {
 
 
 
-extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feeds.count
     }
     
-    //test
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -184,11 +183,11 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         switch feed.attachment {
         case .Text:
             let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
-            cell.configureWithFeed(feed, layout: FeedViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+            cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
             return cell
         case .BigImage:
             let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
-            cell.configureWithFeed(feed, layout: FeedViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+            cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
         default:
             break
         }
@@ -200,7 +199,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let feed = feeds[indexPath.row]
-        let height = FeedViewController.LayoutsCatch.heightOfFeed(feed)
+        let height = FeedsViewController.LayoutsCatch.heightOfFeed(feed)
         print(height)
         
         return height
@@ -213,7 +212,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension FeedViewController: UISearchBarDelegate {
+extension FeedsViewController: UISearchBarDelegate {
     
 }
 

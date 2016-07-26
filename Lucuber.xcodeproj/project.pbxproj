@@ -9,13 +9,6 @@
 /* Begin PBXBuildFile section */
 		8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */; };
 		8906AB781D260355007D44D7 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906AB771D260355007D44D7 /* Animation.swift */; };
-		890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718371D3255BA001B526D /* AddSectionHeaderView.swift */; };
-		8907183A1D3255F8001B526D /* AddSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718391D3255F8001B526D /* AddSectionHeaderView.xib */; };
-		890718421D325B7A001B526D /* NameTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718401D325B7A001B526D /* NameTextViewCell.swift */; };
-		890718431D325B7A001B526D /* NameTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718411D325B7A001B526D /* NameTextViewCell.xib */; };
-		890718461D326ACD001B526D /* HeaderFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718451D326ACD001B526D /* HeaderFormulaView.swift */; };
-		8907184A1D32798A001B526D /* CategorySeletedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890718481D32798A001B526D /* CategorySeletedCell.swift */; };
-		8907184B1D32798A001B526D /* CategorySeletedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 890718491D32798A001B526D /* CategorySeletedCell.xib */; };
 		8909CE631D41BFB300511243 /* ConversationIndicatorTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE621D41BFB300511243 /* ConversationIndicatorTitleView.swift */; };
 		8909CE691D41ECA800511243 /* FeedDefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE681D41ECA800511243 /* FeedDefaultCell.swift */; };
 		8909CE6B1D41EF7400511243 /* FeedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909CE6A1D41EF7400511243 /* FeedTextView.swift */; };
@@ -29,35 +22,59 @@
 		894018F01D38AE60000703E5 /* ActionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894018EF1D38AE60000703E5 /* ActionSheetView.swift */; };
 		89402B5D1D421BD000FEEA95 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89402B5C1D421BD000FEEA95 /* Feed.swift */; };
 		89534D561D47BC0800205C4A /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D551D47BC0800205C4A /* UIImageView+Cube.swift */; };
+		89534D5B1D47D1C000205C4A /* AddFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89534D581D47D1C000205C4A /* AddFormula.storyboard */; };
+		89534D5C1D47D1C000205C4A /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D591D47D1C000205C4A /* FormulaInputViewController.swift */; };
+		89534D5D1D47D1C000205C4A /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D5A1D47D1C000205C4A /* NewFormulaViewController.swift */; };
+		89534D681D47D1EF00205C4A /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D621D47D1EF00205C4A /* NewFeedViewController.swift */; };
+		89534D6D1D47D30500205C4A /* PickPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D6C1D47D30500205C4A /* PickPhotosViewController.swift */; };
+		89534D701D47D31B00205C4A /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D6F1D47D31B00205C4A /* PhotoCell.swift */; };
+		89534D761D47D32500205C4A /* FeedNewFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D721D47D32500205C4A /* FeedNewFormulaView.swift */; };
+		89534D771D47D32500205C4A /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D741D47D32500205C4A /* FeedMediaAddCell.swift */; };
+		89534D781D47D32500205C4A /* FeedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D751D47D32500205C4A /* FeedMediaCell.swift */; };
+		89534DD31D47D35400205C4A /* AddFormulaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DB21D47D35400205C4A /* AddFormulaTextCell.swift */; };
+		89534DD41D47D35400205C4A /* AddFormulaTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DB31D47D35400205C4A /* AddFormulaTextCell.xib */; };
+		89534DD51D47D35400205C4A /* CategoryIndicaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DB51D47D35400205C4A /* CategoryIndicaterView.swift */; };
+		89534DD61D47D35400205C4A /* CategoryPickViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DB71D47D35400205C4A /* CategoryPickViewCell.swift */; };
+		89534DD71D47D35400205C4A /* CategoryPickViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DB81D47D35400205C4A /* CategoryPickViewCell.xib */; };
+		89534DD81D47D35400205C4A /* CategorySeletedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DB91D47D35400205C4A /* CategorySeletedCell.swift */; };
+		89534DD91D47D35400205C4A /* CategorySeletedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DBA1D47D35400205C4A /* CategorySeletedCell.xib */; };
+		89534DDA1D47D35400205C4A /* CubeCategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DBC1D47D35400205C4A /* CubeCategoryItemView.swift */; };
+		89534DDB1D47D35400205C4A /* FormulaTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DBE1D47D35400205C4A /* FormulaTextViewCell.swift */; };
+		89534DDC1D47D35400205C4A /* FormulaTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DBF1D47D35400205C4A /* FormulaTextViewCell.xib */; };
+		89534DDD1D47D35400205C4A /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DC21D47D35400205C4A /* FormulaTextView.swift */; };
+		89534DDE1D47D35400205C4A /* HeaderFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DC51D47D35400205C4A /* HeaderFormulaView.swift */; };
+		89534DDF1D47D35400205C4A /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DC71D47D35400205C4A /* KeyButton.swift */; };
+		89534DE01D47D35400205C4A /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DC91D47D35400205C4A /* FormulaNameTextField.swift */; };
+		89534DE11D47D35400205C4A /* NameTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DCA1D47D35400205C4A /* NameTextViewCell.swift */; };
+		89534DE21D47D35400205C4A /* NameTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DCB1D47D35400205C4A /* NameTextViewCell.xib */; };
+		89534DE31D47D35400205C4A /* AddSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DCE1D47D35400205C4A /* AddSectionHeaderView.swift */; };
+		89534DE41D47D35400205C4A /* AddSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DCF1D47D35400205C4A /* AddSectionHeaderView.xib */; };
+		89534DE51D47D35400205C4A /* StarRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DD11D47D35400205C4A /* StarRatingCell.swift */; };
+		89534DE61D47D35400205C4A /* StarRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DD21D47D35400205C4A /* StarRatingCell.xib */; };
+		89534DF91D47D48100205C4A /* DetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DE91D47D48100205C4A /* DetailCommentCell.swift */; };
+		89534DFA1D47D48100205C4A /* DetailCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DEA1D47D48100205C4A /* DetailCommentCell.xib */; };
+		89534DFB1D47D48100205C4A /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DEC1D47D48100205C4A /* DetailCollectionViewCell.swift */; };
+		89534DFC1D47D48100205C4A /* DetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DED1D47D48100205C4A /* DetailCollectionViewCell.xib */; };
+		89534DFD1D47D48100205C4A /* DetailFormulasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DEF1D47D48100205C4A /* DetailFormulasCell.swift */; };
+		89534DFE1D47D48100205C4A /* DetailFormulasCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DF01D47D48100205C4A /* DetailFormulasCell.xib */; };
+		89534DFF1D47D48100205C4A /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DF21D47D48100205C4A /* DetailHeaderView.swift */; };
+		89534E001D47D48100205C4A /* DetailMasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DF41D47D48100205C4A /* DetailMasterCell.swift */; };
+		89534E011D47D48100205C4A /* DetailMasterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DF51D47D48100205C4A /* DetailMasterCell.xib */; };
+		89534E021D47D48100205C4A /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534DF71D47D48100205C4A /* DetailSeparatorCell.swift */; };
+		89534E031D47D48100205C4A /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89534DF81D47D48100205C4A /* DetailSeparatorCell.xib */; };
+		89534E071D47D5E000205C4A /* PopMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534E051D47D5E000205C4A /* PopMenuAnimator.swift */; };
+		89534E081D47D5E000205C4A /* PopMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534E061D47D5E000205C4A /* PopMenuPresentationController.swift */; };
 		895A6B441D4605CC0060C3E1 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B421D4605CC0060C3E1 /* FeedFormulaView.swift */; };
 		895A6B451D4605CC0060C3E1 /* FeedFormulaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895A6B431D4605CC0060C3E1 /* FeedFormulaView.xib */; };
-		895A6B471D460ED20060C3E1 /* FeedNewFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */; };
 		895A6B491D4626C00060C3E1 /* FeedBiggerImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */; };
 		895A6B611D4669BF0060C3E1 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */; };
 		895A6B631D475FC20060C3E1 /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */; };
 		895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */; };
-		895BC0D31D3E177500EA47BA /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D21D3E177500EA47BA /* DetailHeaderView.swift */; };
-		895BC0D81D3E3FA600EA47BA /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D61D3E3FA600EA47BA /* DetailCollectionViewCell.swift */; };
-		895BC0D91D3E3FA600EA47BA /* DetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895BC0D71D3E3FA600EA47BA /* DetailCollectionViewCell.xib */; };
-		895BC0DC1D40A7D200EA47BA /* DetailMasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0DA1D40A7D200EA47BA /* DetailMasterCell.swift */; };
-		895BC0DD1D40A7D200EA47BA /* DetailMasterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895BC0DB1D40A7D200EA47BA /* DetailMasterCell.xib */; };
-		895BC0E01D40B8DA00EA47BA /* DetailFormulasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0DE1D40B8DA00EA47BA /* DetailFormulasCell.swift */; };
-		895BC0E11D40B8DA00EA47BA /* DetailFormulasCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895BC0DF1D40B8DA00EA47BA /* DetailFormulasCell.xib */; };
-		895BC0E41D40BCAA00EA47BA /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0E21D40BCAA00EA47BA /* DetailSeparatorCell.swift */; };
-		895BC0E51D40BCAA00EA47BA /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895BC0E31D40BCAA00EA47BA /* DetailSeparatorCell.xib */; };
-		895BC0E81D40CE7100EA47BA /* DetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0E61D40CE7100EA47BA /* DetailCommentCell.swift */; };
-		895BC0E91D40CE7100EA47BA /* DetailCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895BC0E71D40CE7100EA47BA /* DetailCommentCell.xib */; };
 		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
 		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
 		895D10F01D21211100CEF7FA /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10EF1D21211100CEF7FA /* Formula.swift */; };
 		895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10F21D21214F00CEF7FA /* FormulaComment.swift */; };
 		896425151D34DDCC00F1D194 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896425141D34DDCC00F1D194 /* StarRatingView.swift */; };
-		8964251C1D3503E400F1D194 /* StarRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964251A1D3503E400F1D194 /* StarRatingCell.swift */; };
-		8964251D1D3503E400F1D194 /* StarRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8964251B1D3503E400F1D194 /* StarRatingCell.xib */; };
-		8964252C1D35400500F1D194 /* AddFormulaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964252A1D35400500F1D194 /* AddFormulaTextCell.swift */; };
-		8964252D1D35400500F1D194 /* AddFormulaTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8964252B1D35400500F1D194 /* AddFormulaTextCell.xib */; };
-		8977FECC1D327CBE000159A2 /* CategoryPickViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8977FECA1D327CBE000159A2 /* CategoryPickViewCell.swift */; };
-		8977FECD1D327CBE000159A2 /* CategoryPickViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8977FECB1D327CBE000159A2 /* CategoryPickViewCell.xib */; };
 		89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BEB1D2D1B460082B625 /* LayoutButton.swift */; };
 		89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BEE1D2D1B5F0082B625 /* HeaderReusableView.swift */; };
 		89A17BF11D2D1B5F0082B625 /* HeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A17BEF1D2D1B5F0082B625 /* HeaderReusableView.xib */; };
@@ -71,8 +88,6 @@
 		89B9248D1D05B7AB00BBF003 /* FormulaDetailFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B9248B1D05B7AB00BBF003 /* FormulaDetailFooterCell.xib */; };
 		89B9B4D21D4269BB002F2E66 /* FeedCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4D11D4269BB002F2E66 /* FeedCellLayout.swift */; };
 		89B9B5041D43765A002F2E66 /* CategoryMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4E61D43765A002F2E66 /* CategoryMenuViewController.swift */; };
-		89B9B5051D43765A002F2E66 /* PopMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4E71D43765A002F2E66 /* PopMenuAnimator.swift */; };
-		89B9B5061D43765A002F2E66 /* PopMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4E81D43765A002F2E66 /* PopMenuPresentationController.swift */; };
 		89B9B5071D43765A002F2E66 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4EA1D43765A002F2E66 /* CommentTableViewController.swift */; };
 		89B9B5081D43765A002F2E66 /* FormulaDetaiViewlController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4EB1D43765A002F2E66 /* FormulaDetaiViewlController.swift */; };
 		89B9B5091D43765A002F2E66 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B4ED1D43765A002F2E66 /* FeedViewController.swift */; };
@@ -87,20 +102,11 @@
 		89B9B51F1D437823002F2E66 /* BaseFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B51C1D437823002F2E66 /* BaseFormulaViewController.swift */; };
 		89B9B5201D437823002F2E66 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B51D1D437823002F2E66 /* ContainerViewController.swift */; };
 		89B9B5221D43784B002F2E66 /* DetailFormulaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5211D43784B002F2E66 /* DetailFormulaLayout.swift */; };
-		89B9B5271D437876002F2E66 /* AddFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9B5241D437876002F2E66 /* AddFormula.storyboard */; };
-		89B9B5281D437876002F2E66 /* AddNewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5251D437876002F2E66 /* AddNewFormulaViewController.swift */; };
-		89B9B5291D437876002F2E66 /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5261D437876002F2E66 /* FormulaInputViewController.swift */; };
-		89B9B52C1D438637002F2E66 /* AddFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */; };
 		89B9B52F1D43C788002F2E66 /* AddFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B9B52D1D43C788002F2E66 /* AddFeed.storyboard */; };
-		89B9B5311D43D2DB002F2E66 /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */; };
-		89B9B5331D43D4AD002F2E66 /* FeedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */; };
-		89B9B5351D44A745002F2E66 /* PickPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5341D44A745002F2E66 /* PickPhotosViewController.swift */; };
-		89B9B5371D44B971002F2E66 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9B5361D44B971002F2E66 /* PhotoCell.swift */; };
 		89BE42AB1D01981000E525D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE429C1D01981000E525D4 /* AppDelegate.swift */; };
 		89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE429F1D01981000E525D4 /* LaunchScreen.storyboard */; };
 		89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE42A11D01981000E525D4 /* Main.storyboard */; };
 		89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE42A41D01981000E525D4 /* UIColor+Cube.swift */; };
-		89C1F5841D306E8500F79BAC /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F5831D306E8500F79BAC /* FormulaTextView.swift */; };
 		89C1F5881D30AF7C00F79BAC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C1F5871D30AF7C00F79BAC /* Reveal.framework */; };
 		89C1F58A1D30C08900F79BAC /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */; };
 		89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */; };
@@ -132,26 +138,13 @@
 		89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EEDCBB1D02EF6D007257C3 /* Storyboard+Cube.swift */; };
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
-		89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */; };
 		89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF40E1D33AF7900096B5A /* CubeCategory.plist */; };
-		89FAF4121D33BF4E00096B5A /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4111D33BF4E00096B5A /* KeyButton.swift */; };
-		89FAF4161D33BF9500096B5A /* FormulaTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4141D33BF9500096B5A /* FormulaTextViewCell.swift */; };
-		89FAF4171D33BF9500096B5A /* FormulaTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF4151D33BF9500096B5A /* FormulaTextViewCell.xib */; };
-		89FAF41A1D33BFD400096B5A /* CategoryIndicaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF4191D33BFD400096B5A /* CategoryIndicaterView.swift */; };
-		89FAF41D1D33BFE600096B5A /* CubeCategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAF41C1D33BFE600096B5A /* CubeCategoryItemView.swift */; };
 		F98DF060D34CD49A5294FA21 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4556DDEFF79F93AFCD55797 /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSearchBar.swift; sourceTree = "<group>"; };
 		8906AB771D260355007D44D7 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
-		890718371D3255BA001B526D /* AddSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSectionHeaderView.swift; sourceTree = "<group>"; };
-		890718391D3255F8001B526D /* AddSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSectionHeaderView.xib; sourceTree = "<group>"; };
-		890718401D325B7A001B526D /* NameTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTextViewCell.swift; sourceTree = "<group>"; };
-		890718411D325B7A001B526D /* NameTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameTextViewCell.xib; sourceTree = "<group>"; };
-		890718451D326ACD001B526D /* HeaderFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderFormulaView.swift; sourceTree = "<group>"; };
-		890718481D32798A001B526D /* CategorySeletedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySeletedCell.swift; sourceTree = "<group>"; };
-		890718491D32798A001B526D /* CategorySeletedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySeletedCell.xib; sourceTree = "<group>"; };
 		8909CE621D41BFB300511243 /* ConversationIndicatorTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationIndicatorTitleView.swift; sourceTree = "<group>"; };
 		8909CE681D41ECA800511243 /* FeedDefaultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDefaultCell.swift; sourceTree = "<group>"; };
 		8909CE6A1D41EF7400511243 /* FeedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTextView.swift; sourceTree = "<group>"; };
@@ -166,9 +159,50 @@
 		894018F11D38FC41000703E5 /* TestPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestPlayground.playground; sourceTree = "<group>"; };
 		89402B5C1D421BD000FEEA95 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		89534D551D47BC0800205C4A /* UIImageView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cube.swift"; sourceTree = "<group>"; };
+		89534D581D47D1C000205C4A /* AddFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddFormula.storyboard; sourceTree = "<group>"; };
+		89534D591D47D1C000205C4A /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
+		89534D5A1D47D1C000205C4A /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
+		89534D621D47D1EF00205C4A /* NewFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeedViewController.swift; sourceTree = "<group>"; };
+		89534D6C1D47D30500205C4A /* PickPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosViewController.swift; sourceTree = "<group>"; };
+		89534D6F1D47D31B00205C4A /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		89534D721D47D32500205C4A /* FeedNewFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewFormulaView.swift; sourceTree = "<group>"; };
+		89534D741D47D32500205C4A /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
+		89534D751D47D32500205C4A /* FeedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaCell.swift; sourceTree = "<group>"; };
+		89534DB21D47D35400205C4A /* AddFormulaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFormulaTextCell.swift; sourceTree = "<group>"; };
+		89534DB31D47D35400205C4A /* AddFormulaTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFormulaTextCell.xib; sourceTree = "<group>"; };
+		89534DB51D47D35400205C4A /* CategoryIndicaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicaterView.swift; sourceTree = "<group>"; };
+		89534DB71D47D35400205C4A /* CategoryPickViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickViewCell.swift; sourceTree = "<group>"; };
+		89534DB81D47D35400205C4A /* CategoryPickViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryPickViewCell.xib; sourceTree = "<group>"; };
+		89534DB91D47D35400205C4A /* CategorySeletedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySeletedCell.swift; sourceTree = "<group>"; };
+		89534DBA1D47D35400205C4A /* CategorySeletedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySeletedCell.xib; sourceTree = "<group>"; };
+		89534DBC1D47D35400205C4A /* CubeCategoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCategoryItemView.swift; sourceTree = "<group>"; };
+		89534DBE1D47D35400205C4A /* FormulaTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextViewCell.swift; sourceTree = "<group>"; };
+		89534DBF1D47D35400205C4A /* FormulaTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormulaTextViewCell.xib; sourceTree = "<group>"; };
+		89534DC21D47D35400205C4A /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
+		89534DC51D47D35400205C4A /* HeaderFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderFormulaView.swift; sourceTree = "<group>"; };
+		89534DC71D47D35400205C4A /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
+		89534DC91D47D35400205C4A /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
+		89534DCA1D47D35400205C4A /* NameTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTextViewCell.swift; sourceTree = "<group>"; };
+		89534DCB1D47D35400205C4A /* NameTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameTextViewCell.xib; sourceTree = "<group>"; };
+		89534DCE1D47D35400205C4A /* AddSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSectionHeaderView.swift; sourceTree = "<group>"; };
+		89534DCF1D47D35400205C4A /* AddSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSectionHeaderView.xib; sourceTree = "<group>"; };
+		89534DD11D47D35400205C4A /* StarRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingCell.swift; sourceTree = "<group>"; };
+		89534DD21D47D35400205C4A /* StarRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingCell.xib; sourceTree = "<group>"; };
+		89534DE91D47D48100205C4A /* DetailCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentCell.swift; sourceTree = "<group>"; };
+		89534DEA1D47D48100205C4A /* DetailCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCommentCell.xib; sourceTree = "<group>"; };
+		89534DEC1D47D48100205C4A /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		89534DED1D47D48100205C4A /* DetailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCollectionViewCell.xib; sourceTree = "<group>"; };
+		89534DEF1D47D48100205C4A /* DetailFormulasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailFormulasCell.swift; sourceTree = "<group>"; };
+		89534DF01D47D48100205C4A /* DetailFormulasCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailFormulasCell.xib; sourceTree = "<group>"; };
+		89534DF21D47D48100205C4A /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
+		89534DF41D47D48100205C4A /* DetailMasterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMasterCell.swift; sourceTree = "<group>"; };
+		89534DF51D47D48100205C4A /* DetailMasterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMasterCell.xib; sourceTree = "<group>"; };
+		89534DF71D47D48100205C4A /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
+		89534DF81D47D48100205C4A /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
+		89534E051D47D5E000205C4A /* PopMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuAnimator.swift; sourceTree = "<group>"; };
+		89534E061D47D5E000205C4A /* PopMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuPresentationController.swift; sourceTree = "<group>"; };
 		895A6B421D4605CC0060C3E1 /* FeedFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaView.swift; sourceTree = "<group>"; };
 		895A6B431D4605CC0060C3E1 /* FeedFormulaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedFormulaView.xib; sourceTree = "<group>"; };
-		895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewFormulaView.swift; sourceTree = "<group>"; };
 		895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedBiggerImageCell.swift; sourceTree = "<group>"; };
 		895A6B501D46640D0060C3E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		895A6B521D46640D0060C3E1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -179,28 +213,11 @@
 		895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Cube.swift"; sourceTree = "<group>"; };
 		895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCheckCell.swift; sourceTree = "<group>"; };
-		895BC0D21D3E177500EA47BA /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
-		895BC0D61D3E3FA600EA47BA /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
-		895BC0D71D3E3FA600EA47BA /* DetailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCollectionViewCell.xib; sourceTree = "<group>"; };
-		895BC0DA1D40A7D200EA47BA /* DetailMasterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMasterCell.swift; sourceTree = "<group>"; };
-		895BC0DB1D40A7D200EA47BA /* DetailMasterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMasterCell.xib; sourceTree = "<group>"; };
-		895BC0DE1D40B8DA00EA47BA /* DetailFormulasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailFormulasCell.swift; sourceTree = "<group>"; };
-		895BC0DF1D40B8DA00EA47BA /* DetailFormulasCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailFormulasCell.xib; sourceTree = "<group>"; };
-		895BC0E21D40BCAA00EA47BA /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
-		895BC0E31D40BCAA00EA47BA /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
-		895BC0E61D40CE7100EA47BA /* DetailCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentCell.swift; sourceTree = "<group>"; };
-		895BC0E71D40CE7100EA47BA /* DetailCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCommentCell.xib; sourceTree = "<group>"; };
 		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
 		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
 		895D10EF1D21211100CEF7FA /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		895D10F21D21214F00CEF7FA /* FormulaComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaComment.swift; sourceTree = "<group>"; };
 		896425141D34DDCC00F1D194 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
-		8964251A1D3503E400F1D194 /* StarRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingCell.swift; sourceTree = "<group>"; };
-		8964251B1D3503E400F1D194 /* StarRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingCell.xib; sourceTree = "<group>"; };
-		8964252A1D35400500F1D194 /* AddFormulaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFormulaTextCell.swift; sourceTree = "<group>"; };
-		8964252B1D35400500F1D194 /* AddFormulaTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFormulaTextCell.xib; sourceTree = "<group>"; };
-		8977FECA1D327CBE000159A2 /* CategoryPickViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickViewCell.swift; sourceTree = "<group>"; };
-		8977FECB1D327CBE000159A2 /* CategoryPickViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryPickViewCell.xib; sourceTree = "<group>"; };
 		89A17BEB1D2D1B460082B625 /* LayoutButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutButton.swift; sourceTree = "<group>"; };
 		89A17BEE1D2D1B5F0082B625 /* HeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		89A17BEF1D2D1B5F0082B625 /* HeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderReusableView.xib; sourceTree = "<group>"; };
@@ -214,8 +231,6 @@
 		89B9248B1D05B7AB00BBF003 /* FormulaDetailFooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormulaDetailFooterCell.xib; sourceTree = "<group>"; };
 		89B9B4D11D4269BB002F2E66 /* FeedCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCellLayout.swift; sourceTree = "<group>"; };
 		89B9B4E61D43765A002F2E66 /* CategoryMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMenuViewController.swift; sourceTree = "<group>"; };
-		89B9B4E71D43765A002F2E66 /* PopMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuAnimator.swift; sourceTree = "<group>"; };
-		89B9B4E81D43765A002F2E66 /* PopMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMenuPresentationController.swift; sourceTree = "<group>"; };
 		89B9B4EA1D43765A002F2E66 /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		89B9B4EB1D43765A002F2E66 /* FormulaDetaiViewlController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetaiViewlController.swift; sourceTree = "<group>"; };
 		89B9B4ED1D43765A002F2E66 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -230,22 +245,13 @@
 		89B9B51C1D437823002F2E66 /* BaseFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFormulaViewController.swift; sourceTree = "<group>"; };
 		89B9B51D1D437823002F2E66 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		89B9B5211D43784B002F2E66 /* DetailFormulaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailFormulaLayout.swift; sourceTree = "<group>"; };
-		89B9B5241D437876002F2E66 /* AddFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddFormula.storyboard; sourceTree = "<group>"; };
-		89B9B5251D437876002F2E66 /* AddNewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFormulaViewController.swift; sourceTree = "<group>"; };
-		89B9B5261D437876002F2E66 /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
-		89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedViewController.swift; sourceTree = "<group>"; };
 		89B9B52E1D43C788002F2E66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddFeed.storyboard; sourceTree = "<group>"; };
-		89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
-		89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaCell.swift; sourceTree = "<group>"; };
-		89B9B5341D44A745002F2E66 /* PickPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosViewController.swift; sourceTree = "<group>"; };
-		89B9B5361D44B971002F2E66 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		89BE429C1D01981000E525D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BE42A01D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89BE42A21D01981000E525D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		89BE42A41D01981000E525D4 /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
 		89BE42C71D019B4D00E525D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89C1F5831D306E8500F79BAC /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
 		89C1F5871D30AF7C00F79BAC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = ../Reveal.framework; sourceTree = "<group>"; };
 		89C1F5891D30C08900F79BAC /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		89C1F58C1D30EB0200F79BAC /* KeyButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButtonItem.swift; sourceTree = "<group>"; };
@@ -278,13 +284,7 @@
 		89F58F181D01696300361474 /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
 		89FAF40E1D33AF7900096B5A /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
-		89FAF4111D33BF4E00096B5A /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
-		89FAF4141D33BF9500096B5A /* FormulaTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextViewCell.swift; sourceTree = "<group>"; };
-		89FAF4151D33BF9500096B5A /* FormulaTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormulaTextViewCell.xib; sourceTree = "<group>"; };
-		89FAF4191D33BFD400096B5A /* CategoryIndicaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicaterView.swift; sourceTree = "<group>"; };
-		89FAF41C1D33BFE600096B5A /* CubeCategoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCategoryItemView.swift; sourceTree = "<group>"; };
 		D4124C5E540B7B86B417D0A1 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		E4556DDEFF79F93AFCD55797 /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0775269DE256FE5B2FC3E43 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
@@ -319,44 +319,6 @@
 				8906AB6D1D241D4E007D44D7 /* FormulaSearchBar.swift */,
 			);
 			path = SearchBar;
-			sourceTree = "<group>";
-		};
-		890718361D3254D8001B526D /* SectionHeader */ = {
-			isa = PBXGroup;
-			children = (
-				890718371D3255BA001B526D /* AddSectionHeaderView.swift */,
-				890718391D3255F8001B526D /* AddSectionHeaderView.xib */,
-			);
-			path = SectionHeader;
-			sourceTree = "<group>";
-		};
-		8907183F1D325B6F001B526D /* NameTextViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				89FAF4051D333F7A00096B5A /* FormulaNameTextField.swift */,
-				890718401D325B7A001B526D /* NameTextViewCell.swift */,
-				890718411D325B7A001B526D /* NameTextViewCell.xib */,
-			);
-			path = NameTextViewCell;
-			sourceTree = "<group>";
-		};
-		890718441D326AC5001B526D /* HeaderFormulaView */ = {
-			isa = PBXGroup;
-			children = (
-				890718451D326ACD001B526D /* HeaderFormulaView.swift */,
-			);
-			path = HeaderFormulaView;
-			sourceTree = "<group>";
-		};
-		890718471D327972001B526D /* CategorySeletedCell */ = {
-			isa = PBXGroup;
-			children = (
-				890718481D32798A001B526D /* CategorySeletedCell.swift */,
-				890718491D32798A001B526D /* CategorySeletedCell.xib */,
-				8977FECA1D327CBE000159A2 /* CategoryPickViewCell.swift */,
-				8977FECB1D327CBE000159A2 /* CategoryPickViewCell.xib */,
-			);
-			path = CategorySeletedCell;
 			sourceTree = "<group>";
 		};
 		8909CE611D41BF9E00511243 /* Conversation */ = {
@@ -412,6 +374,272 @@
 				894018EF1D38AE60000703E5 /* ActionSheetView.swift */,
 			);
 			path = ActionSheetView;
+			sourceTree = "<group>";
+		};
+		89534D571D47D1C000205C4A /* NewFormula */ = {
+			isa = PBXGroup;
+			children = (
+				89534D581D47D1C000205C4A /* AddFormula.storyboard */,
+				89534D591D47D1C000205C4A /* FormulaInputViewController.swift */,
+				89534D5A1D47D1C000205C4A /* NewFormulaViewController.swift */,
+			);
+			path = NewFormula;
+			sourceTree = "<group>";
+		};
+		89534D5E1D47D1EF00205C4A /* NewFeed */ = {
+			isa = PBXGroup;
+			children = (
+				89534D621D47D1EF00205C4A /* NewFeedViewController.swift */,
+			);
+			path = NewFeed;
+			sourceTree = "<group>";
+		};
+		89534D6B1D47D30500205C4A /* PickImage */ = {
+			isa = PBXGroup;
+			children = (
+				89534D6C1D47D30500205C4A /* PickPhotosViewController.swift */,
+			);
+			path = PickImage;
+			sourceTree = "<group>";
+		};
+		89534D6E1D47D31B00205C4A /* PickImage */ = {
+			isa = PBXGroup;
+			children = (
+				89534D6F1D47D31B00205C4A /* PhotoCell.swift */,
+			);
+			path = PickImage;
+			sourceTree = "<group>";
+		};
+		89534D711D47D32500205C4A /* NewFeed */ = {
+			isa = PBXGroup;
+			children = (
+				89534D721D47D32500205C4A /* FeedNewFormulaView.swift */,
+				89534D731D47D32500205C4A /* MediaCell */,
+			);
+			path = NewFeed;
+			sourceTree = "<group>";
+		};
+		89534D731D47D32500205C4A /* MediaCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534D741D47D32500205C4A /* FeedMediaAddCell.swift */,
+				89534D751D47D32500205C4A /* FeedMediaCell.swift */,
+			);
+			path = MediaCell;
+			sourceTree = "<group>";
+		};
+		89534DB01D47D35400205C4A /* NewFormula */ = {
+			isa = PBXGroup;
+			children = (
+				89534DB11D47D35400205C4A /* AddFormulaTextCell */,
+				89534DB41D47D35400205C4A /* CategoryIndicater */,
+				89534DB61D47D35400205C4A /* CategorySeletedCell */,
+				89534DBB1D47D35400205C4A /* CubeCategoryItem */,
+				89534DBD1D47D35400205C4A /* FormulaTextCell */,
+				89534DC01D47D35400205C4A /* FormulaTextDetailCell */,
+				89534DC11D47D35400205C4A /* FormulaTextView */,
+				89534DC41D47D35400205C4A /* HeaderFormulaView */,
+				89534DC61D47D35400205C4A /* KeyButton */,
+				89534DC81D47D35400205C4A /* NameTextViewCell */,
+				89534DCC1D47D35400205C4A /* RatingDetailCell */,
+				89534DCD1D47D35400205C4A /* SectionHeader */,
+				89534DD01D47D35400205C4A /* StarRatingCell */,
+			);
+			path = NewFormula;
+			sourceTree = "<group>";
+		};
+		89534DB11D47D35400205C4A /* AddFormulaTextCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DB21D47D35400205C4A /* AddFormulaTextCell.swift */,
+				89534DB31D47D35400205C4A /* AddFormulaTextCell.xib */,
+			);
+			path = AddFormulaTextCell;
+			sourceTree = "<group>";
+		};
+		89534DB41D47D35400205C4A /* CategoryIndicater */ = {
+			isa = PBXGroup;
+			children = (
+				89534DB51D47D35400205C4A /* CategoryIndicaterView.swift */,
+			);
+			path = CategoryIndicater;
+			sourceTree = "<group>";
+		};
+		89534DB61D47D35400205C4A /* CategorySeletedCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DB71D47D35400205C4A /* CategoryPickViewCell.swift */,
+				89534DB81D47D35400205C4A /* CategoryPickViewCell.xib */,
+				89534DB91D47D35400205C4A /* CategorySeletedCell.swift */,
+				89534DBA1D47D35400205C4A /* CategorySeletedCell.xib */,
+			);
+			path = CategorySeletedCell;
+			sourceTree = "<group>";
+		};
+		89534DBB1D47D35400205C4A /* CubeCategoryItem */ = {
+			isa = PBXGroup;
+			children = (
+				89534DBC1D47D35400205C4A /* CubeCategoryItemView.swift */,
+			);
+			path = CubeCategoryItem;
+			sourceTree = "<group>";
+		};
+		89534DBD1D47D35400205C4A /* FormulaTextCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DBE1D47D35400205C4A /* FormulaTextViewCell.swift */,
+				89534DBF1D47D35400205C4A /* FormulaTextViewCell.xib */,
+			);
+			path = FormulaTextCell;
+			sourceTree = "<group>";
+		};
+		89534DC01D47D35400205C4A /* FormulaTextDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FormulaTextDetailCell;
+			sourceTree = "<group>";
+		};
+		89534DC11D47D35400205C4A /* FormulaTextView */ = {
+			isa = PBXGroup;
+			children = (
+				89534DC21D47D35400205C4A /* FormulaTextView.swift */,
+				89534DC31D47D35400205C4A /* StartRatingCell */,
+			);
+			path = FormulaTextView;
+			sourceTree = "<group>";
+		};
+		89534DC31D47D35400205C4A /* StartRatingCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StartRatingCell;
+			sourceTree = "<group>";
+		};
+		89534DC41D47D35400205C4A /* HeaderFormulaView */ = {
+			isa = PBXGroup;
+			children = (
+				89534DC51D47D35400205C4A /* HeaderFormulaView.swift */,
+			);
+			path = HeaderFormulaView;
+			sourceTree = "<group>";
+		};
+		89534DC61D47D35400205C4A /* KeyButton */ = {
+			isa = PBXGroup;
+			children = (
+				89534DC71D47D35400205C4A /* KeyButton.swift */,
+			);
+			path = KeyButton;
+			sourceTree = "<group>";
+		};
+		89534DC81D47D35400205C4A /* NameTextViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DC91D47D35400205C4A /* FormulaNameTextField.swift */,
+				89534DCA1D47D35400205C4A /* NameTextViewCell.swift */,
+				89534DCB1D47D35400205C4A /* NameTextViewCell.xib */,
+			);
+			path = NameTextViewCell;
+			sourceTree = "<group>";
+		};
+		89534DCC1D47D35400205C4A /* RatingDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RatingDetailCell;
+			sourceTree = "<group>";
+		};
+		89534DCD1D47D35400205C4A /* SectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				89534DCE1D47D35400205C4A /* AddSectionHeaderView.swift */,
+				89534DCF1D47D35400205C4A /* AddSectionHeaderView.xib */,
+			);
+			path = SectionHeader;
+			sourceTree = "<group>";
+		};
+		89534DD01D47D35400205C4A /* StarRatingCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DD11D47D35400205C4A /* StarRatingCell.swift */,
+				89534DD21D47D35400205C4A /* StarRatingCell.xib */,
+			);
+			path = StarRatingCell;
+			sourceTree = "<group>";
+		};
+		89534DE71D47D48100205C4A /* FormulaDetail */ = {
+			isa = PBXGroup;
+			children = (
+				89534DEB1D47D48100205C4A /* DetailCell */,
+				89534DF11D47D48100205C4A /* HeaderView */,
+				89534DF31D47D48100205C4A /* MasterCell */,
+				89534DF61D47D48100205C4A /* SeparatorCell */,
+				89534DEE1D47D48100205C4A /* FormulasCell */,
+				89534DE81D47D48100205C4A /* CommentCell */,
+			);
+			path = FormulaDetail;
+			sourceTree = "<group>";
+		};
+		89534DE81D47D48100205C4A /* CommentCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DE91D47D48100205C4A /* DetailCommentCell.swift */,
+				89534DEA1D47D48100205C4A /* DetailCommentCell.xib */,
+			);
+			path = CommentCell;
+			sourceTree = "<group>";
+		};
+		89534DEB1D47D48100205C4A /* DetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DEC1D47D48100205C4A /* DetailCollectionViewCell.swift */,
+				89534DED1D47D48100205C4A /* DetailCollectionViewCell.xib */,
+			);
+			path = DetailCell;
+			sourceTree = "<group>";
+		};
+		89534DEE1D47D48100205C4A /* FormulasCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DEF1D47D48100205C4A /* DetailFormulasCell.swift */,
+				89534DF01D47D48100205C4A /* DetailFormulasCell.xib */,
+			);
+			path = FormulasCell;
+			sourceTree = "<group>";
+		};
+		89534DF11D47D48100205C4A /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				89534DF21D47D48100205C4A /* DetailHeaderView.swift */,
+			);
+			path = HeaderView;
+			sourceTree = "<group>";
+		};
+		89534DF31D47D48100205C4A /* MasterCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DF41D47D48100205C4A /* DetailMasterCell.swift */,
+				89534DF51D47D48100205C4A /* DetailMasterCell.xib */,
+			);
+			path = MasterCell;
+			sourceTree = "<group>";
+		};
+		89534DF61D47D48100205C4A /* SeparatorCell */ = {
+			isa = PBXGroup;
+			children = (
+				89534DF71D47D48100205C4A /* DetailSeparatorCell.swift */,
+				89534DF81D47D48100205C4A /* DetailSeparatorCell.xib */,
+			);
+			path = SeparatorCell;
+			sourceTree = "<group>";
+		};
+		89534E041D47D5E000205C4A /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				89534E051D47D5E000205C4A /* PopMenuAnimator.swift */,
+				89534E061D47D5E000205C4A /* PopMenuPresentationController.swift */,
+			);
+			path = Transitions;
 			sourceTree = "<group>";
 		};
 		895A6B411D4605CC0060C3E1 /* FeedFormulaView */ = {
@@ -490,24 +718,6 @@
 			path = StarRatingView;
 			sourceTree = "<group>";
 		};
-		896425191D3503DC00F1D194 /* StarRatingCell */ = {
-			isa = PBXGroup;
-			children = (
-				8964251A1D3503E400F1D194 /* StarRatingCell.swift */,
-				8964251B1D3503E400F1D194 /* StarRatingCell.xib */,
-			);
-			path = StarRatingCell;
-			sourceTree = "<group>";
-		};
-		896425291D353FF500F1D194 /* AddFormulaTextCell */ = {
-			isa = PBXGroup;
-			children = (
-				8964252A1D35400500F1D194 /* AddFormulaTextCell.swift */,
-				8964252B1D35400500F1D194 /* AddFormulaTextCell.xib */,
-			);
-			path = AddFormulaTextCell;
-			sourceTree = "<group>";
-		};
 		89A17BEA1D2D1B460082B625 /* LayoutButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,30 +735,10 @@
 			path = HeaderView;
 			sourceTree = "<group>";
 		};
-		89A17BF21D2D1B9B0082B625 /* AddFormula */ = {
-			isa = PBXGroup;
-			children = (
-				896425291D353FF500F1D194 /* AddFormulaTextCell */,
-				890718441D326AC5001B526D /* HeaderFormulaView */,
-				89FAF41B1D33BFE600096B5A /* CubeCategoryItem */,
-				89FAF4181D33BFD400096B5A /* CategoryIndicater */,
-				89FAF4131D33BF9500096B5A /* FormulaTextCell */,
-				896425191D3503DC00F1D194 /* StarRatingCell */,
-				890718471D327972001B526D /* CategorySeletedCell */,
-				8907183F1D325B6F001B526D /* NameTextViewCell */,
-				890718361D3254D8001B526D /* SectionHeader */,
-				89FAF4101D33BF4E00096B5A /* KeyButton */,
-				89C1F5821D306E7500F79BAC /* FormulaTextView */,
-			);
-			path = AddFormula;
-			sourceTree = "<group>";
-		};
 		89B9B4E51D43765A002F2E66 /* CategoryMenu */ = {
 			isa = PBXGroup;
 			children = (
 				89B9B4E61D43765A002F2E66 /* CategoryMenuViewController.swift */,
-				89B9B4E71D43765A002F2E66 /* PopMenuAnimator.swift */,
-				89B9B4E81D43765A002F2E66 /* PopMenuPresentationController.swift */,
 			);
 			path = CategoryMenu;
 			sourceTree = "<group>";
@@ -638,29 +828,6 @@
 			path = BaseFormula;
 			sourceTree = "<group>";
 		};
-		89B9B5231D437876002F2E66 /* AddFormula */ = {
-			isa = PBXGroup;
-			children = (
-				89B9B5241D437876002F2E66 /* AddFormula.storyboard */,
-				89B9B5251D437876002F2E66 /* AddNewFormulaViewController.swift */,
-				89B9B5261D437876002F2E66 /* FormulaInputViewController.swift */,
-			);
-			path = AddFormula;
-			sourceTree = "<group>";
-		};
-		89B9B52A1D438619002F2E66 /* AddFeed */ = {
-			isa = PBXGroup;
-			children = (
-				89B9B52B1D438637002F2E66 /* AddFeedViewController.swift */,
-				89B9B5301D43D2DB002F2E66 /* FeedMediaAddCell.swift */,
-				89B9B5321D43D4AD002F2E66 /* FeedMediaCell.swift */,
-				89B9B5341D44A745002F2E66 /* PickPhotosViewController.swift */,
-				89B9B5361D44B971002F2E66 /* PhotoCell.swift */,
-				895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */,
-			);
-			path = AddFeed;
-			sourceTree = "<group>";
-		};
 		89BE429E1D01981000E525D4 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -682,14 +849,6 @@
 				89534D551D47BC0800205C4A /* UIImageView+Cube.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		89C1F5821D306E7500F79BAC /* FormulaTextView */ = {
-			isa = PBXGroup;
-			children = (
-				89C1F5831D306E8500F79BAC /* FormulaTextView.swift */,
-			);
-			path = FormulaTextView;
 			sourceTree = "<group>";
 		};
 		89C1F58B1D30EAE600F79BAC /* Keyboard */ = {
@@ -719,16 +878,17 @@
 		89E663601D03F18200E90926 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				89B9B5231D437876002F2E66 /* AddFormula */,
 				89B9B5171D4376AB002F2E66 /* Navigation */,
 				89B9B5111D43769B002F2E66 /* Tabbar */,
+				89B9B51A1D437823002F2E66 /* BaseFormula */,
 				89B9B4E51D43765A002F2E66 /* CategoryMenu */,
+				89B9B4F31D43765A002F2E66 /* MyFormula */,
+				89B9B4EE1D43765A002F2E66 /* LibraryFormula */,
 				89B9B4E91D43765A002F2E66 /* DetailFormula */,
 				89B9B4EC1D43765A002F2E66 /* Feed */,
-				89B9B52A1D438619002F2E66 /* AddFeed */,
-				89B9B51A1D437823002F2E66 /* BaseFormula */,
-				89B9B4EE1D43765A002F2E66 /* LibraryFormula */,
-				89B9B4F31D43765A002F2E66 /* MyFormula */,
+				89534D571D47D1C000205C4A /* NewFormula */,
+				89534D5E1D47D1EF00205C4A /* NewFeed */,
+				89534D6B1D47D30500205C4A /* PickImage */,
 				89B9B4F51D43765A002F2E66 /* Performance */,
 				89B9B4F71D43765A002F2E66 /* Setting */,
 				89B9B4F91D43765A002F2E66 /* Timer */,
@@ -739,19 +899,21 @@
 		89E6C5DF1D03F0D3005ACFB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				89534D6E1D47D31B00205C4A /* PickImage */,
 				8909CE671D41EC9100511243 /* Feed */,
+				89534D711D47D32500205C4A /* NewFeed */,
 				8909CE611D41BF9E00511243 /* Conversation */,
 				895BC0CF1D3DE7C900EA47BA /* CategoryCheckCell */,
 				894018EE1D38AE4B000703E5 /* ActionSheetView */,
 				894018EB1D388419000703E5 /* CubeAlert */,
 				894018E61D387CD6000703E5 /* CubeHUD */,
 				896425131D34DDBF00F1D194 /* StarRatingView */,
-				89A17BF21D2D1B9B0082B625 /* AddFormula */,
+				89E6C5E01D03F0D3005ACFB9 /* Formula */,
+				89534DE71D47D48100205C4A /* FormulaDetail */,
+				89534DB01D47D35400205C4A /* NewFormula */,
 				89A17BEA1D2D1B460082B625 /* LayoutButton */,
 				8906AB6C1D241D36007D44D7 /* SearchBar */,
 				895D10E61D21166A00CEF7FA /* Comment */,
-				89E6C5E01D03F0D3005ACFB9 /* Formula */,
-				89E6C5E11D03F0D3005ACFB9 /* Backup */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -766,25 +928,6 @@
 				89E6C5E71D03F0D3005ACFB9 /* DetailCell */,
 			);
 			path = Formula;
-			sourceTree = "<group>";
-		};
-		89E6C5E11D03F0D3005ACFB9 /* Backup */ = {
-			isa = PBXGroup;
-			children = (
-				895BC0D61D3E3FA600EA47BA /* DetailCollectionViewCell.swift */,
-				895BC0D71D3E3FA600EA47BA /* DetailCollectionViewCell.xib */,
-				895BC0D21D3E177500EA47BA /* DetailHeaderView.swift */,
-				895BC0DA1D40A7D200EA47BA /* DetailMasterCell.swift */,
-				895BC0DB1D40A7D200EA47BA /* DetailMasterCell.xib */,
-				895BC0DE1D40B8DA00EA47BA /* DetailFormulasCell.swift */,
-				895BC0DF1D40B8DA00EA47BA /* DetailFormulasCell.xib */,
-				895BC0E21D40BCAA00EA47BA /* DetailSeparatorCell.swift */,
-				895BC0E31D40BCAA00EA47BA /* DetailSeparatorCell.xib */,
-				895BC0E61D40CE7100EA47BA /* DetailCommentCell.swift */,
-				895BC0E71D40CE7100EA47BA /* DetailCommentCell.xib */,
-			);
-			name = Backup;
-			path = Formula/Backup;
 			sourceTree = "<group>";
 		};
 		89E6C5E41D03F0D3005ACFB9 /* CardCell */ = {
@@ -855,6 +998,7 @@
 				89BE429E1D01981000E525D4 /* Base.lproj */,
 				89BE42A31D01981000E525D4 /* Extension */,
 				895D10ED1D21211100CEF7FA /* Models */,
+				89534E041D47D5E000205C4A /* Transitions */,
 				89E6C5DF1D03F0D3005ACFB9 /* Views */,
 				89E663601D03F18200E90926 /* ViewControllers */,
 				89F58F1F1D01696400361474 /* Main.storyboard */,
@@ -869,39 +1013,6 @@
 				89BE429B1D01980F00E525D4 /* Lucuber-Bridging-Header.h */,
 			);
 			path = Lucuber;
-			sourceTree = "<group>";
-		};
-		89FAF4101D33BF4E00096B5A /* KeyButton */ = {
-			isa = PBXGroup;
-			children = (
-				89FAF4111D33BF4E00096B5A /* KeyButton.swift */,
-			);
-			path = KeyButton;
-			sourceTree = "<group>";
-		};
-		89FAF4131D33BF9500096B5A /* FormulaTextCell */ = {
-			isa = PBXGroup;
-			children = (
-				89FAF4141D33BF9500096B5A /* FormulaTextViewCell.swift */,
-				89FAF4151D33BF9500096B5A /* FormulaTextViewCell.xib */,
-			);
-			path = FormulaTextCell;
-			sourceTree = "<group>";
-		};
-		89FAF4181D33BFD400096B5A /* CategoryIndicater */ = {
-			isa = PBXGroup;
-			children = (
-				89FAF4191D33BFD400096B5A /* CategoryIndicaterView.swift */,
-			);
-			path = CategoryIndicater;
-			sourceTree = "<group>";
-		};
-		89FAF41B1D33BFE600096B5A /* CubeCategoryItem */ = {
-			isa = PBXGroup;
-			children = (
-				89FAF41C1D33BFE600096B5A /* CubeCategoryItemView.swift */,
-			);
-			path = CubeCategoryItem;
 			sourceTree = "<group>";
 		};
 		C55311E3E5BA5686C07CE867 /* Pods */ = {
@@ -975,40 +1086,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8977FECD1D327CBE000159A2 /* CategoryPickViewCell.xib in Resources */,
+				89534E031D47D48100205C4A /* DetailSeparatorCell.xib in Resources */,
+				89534E011D47D48100205C4A /* DetailMasterCell.xib in Resources */,
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
-				895BC0E11D40B8DA00EA47BA /* DetailFormulasCell.xib in Resources */,
+				89534DFE1D47D48100205C4A /* DetailFormulasCell.xib in Resources */,
+				89534DD41D47D35400205C4A /* AddFormulaTextCell.xib in Resources */,
 				89E6C5F41D03F0D3005ACFB9 /* NormalFormulaCell.xib in Resources */,
 				89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */,
 				895A6B451D4605CC0060C3E1 /* FeedFormulaView.xib in Resources */,
+				89534DFA1D47D48100205C4A /* DetailCommentCell.xib in Resources */,
 				89BE42AE1D01981000E525D4 /* Main.storyboard in Resources */,
+				89534DFC1D47D48100205C4A /* DetailCollectionViewCell.xib in Resources */,
 				892316D11D23B6F1006BCCE7 /* NoResultCell.xib in Resources */,
-				89FAF4171D33BF9500096B5A /* FormulaTextViewCell.xib in Resources */,
 				89E663931D04039A00E90926 /* FormulaDetailMasterCell.xib in Resources */,
-				895BC0D91D3E3FA600EA47BA /* DetailCollectionViewCell.xib in Resources */,
-				890718431D325B7A001B526D /* NameTextViewCell.xib in Resources */,
 				89BE42AD1D01981000E525D4 /* LaunchScreen.storyboard in Resources */,
 				89E6C5F21D03F0D3005ACFB9 /* FormulaDetailCell.xib in Resources */,
+				89534DD91D47D35400205C4A /* CategorySeletedCell.xib in Resources */,
+				89534DE41D47D35400205C4A /* AddSectionHeaderView.xib in Resources */,
 				89C1F58A1D30C08900F79BAC /* FormulaKeyboard.plist in Resources */,
 				89E6C5F01D03F0D3005ACFB9 /* CardFormulaCell.xib in Resources */,
-				89B9B5271D437876002F2E66 /* AddFormula.storyboard in Resources */,
-				895BC0E51D40BCAA00EA47BA /* DetailSeparatorCell.xib in Resources */,
-				895BC0DD1D40A7D200EA47BA /* DetailMasterCell.xib in Resources */,
+				89534DE21D47D35400205C4A /* NameTextViewCell.xib in Resources */,
+				89534DD71D47D35400205C4A /* CategoryPickViewCell.xib in Resources */,
+				89534D5B1D47D1C000205C4A /* AddFormula.storyboard in Resources */,
 				89EEDCB11D02A3ED007257C3 /* Formulas.json in Resources */,
-				8907183A1D3255F8001B526D /* AddSectionHeaderView.xib in Resources */,
+				89534DE61D47D35400205C4A /* StarRatingCell.xib in Resources */,
 				89B9247F1D05572B00BBF003 /* Resgin.storyboard in Resources */,
 				89C2EDB41D01A0E9009365BA /* Assets.xcassets in Resources */,
 				89B9B52F1D43C788002F2E66 /* AddFeed.storyboard in Resources */,
 				89E663971D04099A00E90926 /* FormulaDetailSeparatorCell.xib in Resources */,
 				89F58F211D01696400361474 /* Main.storyboard in Resources */,
 				895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */,
-				8964251D1D3503E400F1D194 /* StarRatingCell.xib in Resources */,
 				89A17BF11D2D1B5F0082B625 /* HeaderReusableView.xib in Resources */,
 				89E6639B1D040C2400E90926 /* FormulaDetailContentCell.xib in Resources */,
-				8907184B1D32798A001B526D /* CategorySeletedCell.xib in Resources */,
-				895BC0E91D40CE7100EA47BA /* DetailCommentCell.xib in Resources */,
-				8964252D1D35400500F1D194 /* AddFormulaTextCell.xib in Resources */,
 				89B9248D1D05B7AB00BBF003 /* FormulaDetailFooterCell.xib in Resources */,
+				89534DDC1D47D35400205C4A /* FormulaTextViewCell.xib in Resources */,
 				89E6638F1D03FA8700E90926 /* HeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1069,63 +1180,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				89E663891D03F95B00E90926 /* DetailSubCollectionView.swift in Sources */,
-				895BC0E01D40B8DA00EA47BA /* DetailFormulasCell.swift in Sources */,
-				89B9B52C1D438637002F2E66 /* AddFeedViewController.swift in Sources */,
 				8906AB6E1D241D4E007D44D7 /* FormulaSearchBar.swift in Sources */,
 				89B9B5201D437823002F2E66 /* ContainerViewController.swift in Sources */,
 				89B9B50A1D43765A002F2E66 /* LibraryFormulaViewController.swift in Sources */,
 				89B9B50D1D43765A002F2E66 /* MyFormulaViewController.swift in Sources */,
 				89B9B50F1D43765A002F2E66 /* SettingViewController.swift in Sources */,
 				893F66621D360123009DF822 /* FormulaContent.swift in Sources */,
-				89B9B5371D44B971002F2E66 /* PhotoCell.swift in Sources */,
 				89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */,
-				89B9B5051D43765A002F2E66 /* PopMenuAnimator.swift in Sources */,
-				89B9B5061D43765A002F2E66 /* PopMenuPresentationController.swift in Sources */,
+				89534DDF1D47D35400205C4A /* KeyButton.swift in Sources */,
+				89534DFF1D47D48100205C4A /* DetailHeaderView.swift in Sources */,
 				89B9B5221D43784B002F2E66 /* DetailFormulaLayout.swift in Sources */,
-				89FAF4161D33BF9500096B5A /* FormulaTextViewCell.swift in Sources */,
+				89534E021D47D48100205C4A /* DetailSeparatorCell.swift in Sources */,
+				89534DE01D47D35400205C4A /* FormulaNameTextField.swift in Sources */,
+				89534D701D47D31B00205C4A /* PhotoCell.swift in Sources */,
+				89534DFB1D47D48100205C4A /* DetailCollectionViewCell.swift in Sources */,
 				894018ED1D38842A000703E5 /* CubeAlert.swift in Sources */,
 				895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */,
 				89B9B5041D43765A002F2E66 /* CategoryMenuViewController.swift in Sources */,
-				89B9B5291D437876002F2E66 /* FormulaInputViewController.swift in Sources */,
 				89E6638B1D03F96E00E90926 /* DetailSubCollectionViewLayout.swift in Sources */,
+				89534DD61D47D35400205C4A /* CategoryPickViewCell.swift in Sources */,
+				89534DDB1D47D35400205C4A /* FormulaTextViewCell.swift in Sources */,
 				89B9B5151D43769B002F2E66 /* MainTabbarController.swift in Sources */,
-				895BC0E81D40CE7100EA47BA /* DetailCommentCell.swift in Sources */,
 				8909CE6D1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift in Sources */,
+				89534E001D47D48100205C4A /* DetailMasterCell.swift in Sources */,
 				89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */,
 				895D10F01D21211100CEF7FA /* Formula.swift in Sources */,
 				89B924871D0571A500BBF003 /* CubeUserDefaults.swift in Sources */,
-				8964252C1D35400500F1D194 /* AddFormulaTextCell.swift in Sources */,
-				8977FECC1D327CBE000159A2 /* CategoryPickViewCell.swift in Sources */,
-				895A6B471D460ED20060C3E1 /* FeedNewFormulaView.swift in Sources */,
+				89534D5D1D47D1C000205C4A /* NewFormulaViewController.swift in Sources */,
 				894018EA1D3880CF000703E5 /* CubeConfig.swift in Sources */,
+				89534D6D1D47D30500205C4A /* PickPhotosViewController.swift in Sources */,
 				8909CE691D41ECA800511243 /* FeedDefaultCell.swift in Sources */,
-				89B9B5331D43D4AD002F2E66 /* FeedMediaCell.swift in Sources */,
+				89534DDA1D47D35400205C4A /* CubeCategoryItemView.swift in Sources */,
 				895A6B441D4605CC0060C3E1 /* FeedFormulaView.swift in Sources */,
 				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
-				895BC0E41D40BCAA00EA47BA /* DetailSeparatorCell.swift in Sources */,
 				89B9248C1D05B7AB00BBF003 /* FormulaDetailFooterCell.swift in Sources */,
 				89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */,
 				89B9B51E1D437823002F2E66 /* BaseFormulaLayout.swift in Sources */,
 				89B9B5071D43765A002F2E66 /* CommentTableViewController.swift in Sources */,
-				890718381D3255BA001B526D /* AddSectionHeaderView.swift in Sources */,
+				89534D771D47D32500205C4A /* FeedMediaAddCell.swift in Sources */,
 				89B9B5091D43765A002F2E66 /* FeedViewController.swift in Sources */,
+				89534DF91D47D48100205C4A /* DetailCommentCell.swift in Sources */,
 				89EEDCA71D0297D7007257C3 /* CreatJSON.swift in Sources */,
-				89B9B5311D43D2DB002F2E66 /* FeedMediaAddCell.swift in Sources */,
-				895BC0DC1D40A7D200EA47BA /* DetailMasterCell.swift in Sources */,
 				89B924811D055A9000BBF003 /* RegsinViewController.swift in Sources */,
 				89B9B5081D43765A002F2E66 /* FormulaDetaiViewlController.swift in Sources */,
-				89B9B5281D437876002F2E66 /* AddNewFormulaViewController.swift in Sources */,
-				89B9B5351D44A745002F2E66 /* PickPhotosViewController.swift in Sources */,
+				89534DE51D47D35400205C4A /* StarRatingCell.swift in Sources */,
+				89534E071D47D5E000205C4A /* PopMenuAnimator.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* FormulaDetailCell.swift in Sources */,
+				89534DD81D47D35400205C4A /* CategorySeletedCell.swift in Sources */,
 				894018F01D38AE60000703E5 /* ActionSheetView.swift in Sources */,
 				89B9B5191D4376AB002F2E66 /* MainNavigationController.swift in Sources */,
 				8906AB781D260355007D44D7 /* Animation.swift in Sources */,
+				89534DDD1D47D35400205C4A /* FormulaTextView.swift in Sources */,
 				89C1F58D1D30EB0200F79BAC /* KeyButtonItem.swift in Sources */,
-				89FAF41D1D33BFE600096B5A /* CubeCategoryItemView.swift in Sources */,
 				895A6B631D475FC20060C3E1 /* UIImage+Cube.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
-				8907184A1D32798A001B526D /* CategorySeletedCell.swift in Sources */,
 				89E6C5EF1D03F0D3005ACFB9 /* CardFormulaCell.swift in Sources */,
 				89E663921D04039A00E90926 /* FormulaDetailMasterCell.swift in Sources */,
 				895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */,
@@ -1134,28 +1243,29 @@
 				89C2EDBD1D01C38F009365BA /* UIBarButtonItem+Cube.swift in Sources */,
 				895A6B491D4626C00060C3E1 /* FeedBiggerImageCell.swift in Sources */,
 				89B9B51F1D437823002F2E66 /* BaseFormulaViewController.swift in Sources */,
-				89C1F5841D306E8500F79BAC /* FormulaTextView.swift in Sources */,
+				89534D761D47D32500205C4A /* FeedNewFormulaView.swift in Sources */,
 				892316D01D23B6F1006BCCE7 /* NoResultCell.swift in Sources */,
 				89BE42AF1D01981000E525D4 /* UIColor+Cube.swift in Sources */,
-				895BC0D31D3E177500EA47BA /* DetailHeaderView.swift in Sources */,
+				89534D5C1D47D1C000205C4A /* FormulaInputViewController.swift in Sources */,
+				89534DD31D47D35400205C4A /* AddFormulaTextCell.swift in Sources */,
 				89B9B50E1D43765A002F2E66 /* PerformanceViewController.swift in Sources */,
+				89534D681D47D1EF00205C4A /* NewFeedViewController.swift in Sources */,
 				89B9B4D21D4269BB002F2E66 /* FeedCellLayout.swift in Sources */,
+				89534D781D47D32500205C4A /* FeedMediaCell.swift in Sources */,
+				89534DE31D47D35400205C4A /* AddSectionHeaderView.swift in Sources */,
 				89E6C4E41D0303F7005ACFB9 /* UIFont+Cube.swift in Sources */,
 				895A6B611D4669BF0060C3E1 /* AVUser+Cube.swift in Sources */,
-				895BC0D81D3E3FA600EA47BA /* DetailCollectionViewCell.swift in Sources */,
 				894018E81D387CF6000703E5 /* CubeHUD.swift in Sources */,
-				8964251C1D3503E400F1D194 /* StarRatingCell.swift in Sources */,
-				89FAF41A1D33BFD400096B5A /* CategoryIndicaterView.swift in Sources */,
-				890718461D326ACD001B526D /* HeaderFormulaView.swift in Sources */,
-				89FAF4121D33BF4E00096B5A /* KeyButton.swift in Sources */,
 				896425151D34DDCC00F1D194 /* StarRatingView.swift in Sources */,
 				89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */,
-				890718421D325B7A001B526D /* NameTextViewCell.swift in Sources */,
 				8909CE631D41BFB300511243 /* ConversationIndicatorTitleView.swift in Sources */,
-				89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */,
+				89534E081D47D5E000205C4A /* PopMenuPresentationController.swift in Sources */,
 				89402B5D1D421BD000FEEA95 /* Feed.swift in Sources */,
+				89534DFD1D47D48100205C4A /* DetailFormulasCell.swift in Sources */,
+				89534DD51D47D35400205C4A /* CategoryIndicaterView.swift in Sources */,
 				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
 				89534D561D47BC0800205C4A /* UIImageView+Cube.swift in Sources */,
+				89534DDE1D47D35400205C4A /* HeaderFormulaView.swift in Sources */,
 				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
 				89E6639A1D040C2400E90926 /* FormulaDetailContentCell.swift in Sources */,
@@ -1163,6 +1273,7 @@
 				89E663961D04099A00E90926 /* FormulaDetailSeparatorCell.swift in Sources */,
 				89B9B5101D43765A002F2E66 /* TimerViewController.swift in Sources */,
 				895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */,
+				89534DE11D47D35400205C4A /* NameTextViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

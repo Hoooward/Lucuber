@@ -1,5 +1,5 @@
 //
-//  AddNewFormulaViewController.swift
+//  NewFormulaViewController.swift
 //  Lucuber
 //
 //  Created by Howard on 7/10/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class AddNewFormulaViewController: UIViewController {
+class NewFormulaViewController: UIViewController {
     
 // MARK: - CellIdentifier
     private let NameTextViewCellIdentifier = "NameTextViewCell"
@@ -18,8 +18,17 @@ class AddNewFormulaViewController: UIViewController {
     private let StarRatingCellIdentifier = "StarRatingCell"
     private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
     private let AddFormulaTextCellIdentifier = "AddFormulaTextCell"
+    
+    enum EditType {
+        case NewFormula
+        case NewAttchment
+        case Edit
+    }
 
 // MARK: - Properties
+    
+    var editType: EditType = .NewFormula
+    
     private let headerViewHeight: CGFloat = 170
     @IBOutlet weak var headerView: HeaderFormulaView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
@@ -93,9 +102,9 @@ class AddNewFormulaViewController: UIViewController {
         setupNavigationbar()
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddNewFormulaViewController.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFormulaViewController.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
     
     
@@ -156,7 +165,7 @@ class AddNewFormulaViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate&dataSource
-extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
+extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
     
     /// Section Name
     enum Section: Int {
@@ -396,7 +405,7 @@ extension AddNewFormulaViewController: UITableViewDataSource, UITableViewDelegat
 }
 
 // MARK: - UIScrollerDelegate
-extension AddNewFormulaViewController: UIScrollViewDelegate {
+extension NewFormulaViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         addFormulaTextIsActive = true
         dismissCategoryPickViewCell()

@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="991" y="1298"/>
         </scene>
-        <!--Feed View Controller-->
+        <!--Feeds View Controller-->
         <scene sceneID="ttK-uf-NUY">
             <objects>
-                <viewController id="HR6-Y1-pX0" customClass="FeedViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HR6-Y1-pX0" customClass="FeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WIg-uf-R77"/>
                         <viewControllerLayoutGuide type="bottom" id="DjX-xT-cbX"/>

@@ -1,5 +1,5 @@
 //
-//  AddFeedViewController.swift
+//  NewFeedViewController.swift
 //  Lucuber
 //
 //  Created by Howard on 7/23/16.
@@ -13,7 +13,7 @@ import AssetsLibrary
 import Photos
 import Ruler
 
-class AddFeedViewController: UIViewController {
+class NewFeedViewController: UIViewController {
 
     // MARK: - Properties
     enum Attachment {
@@ -187,7 +187,7 @@ class AddFeedViewController: UIViewController {
 }
 
 // MARK: - CollectionViewDelegate & DataSource -> MediaCell
-extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     enum Section: Int {
         case Image = 0
@@ -348,7 +348,7 @@ extension AddFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 // MARK: - ScrollerViewDelegate
 
-extension AddFeedViewController: UITextViewDelegate {
+extension NewFeedViewController: UITextViewDelegate {
     
     
     func textViewDidBeginEditing(textView: UITextView) {
@@ -367,7 +367,7 @@ extension AddFeedViewController: UITextViewDelegate {
 
 // MARK: - ScrollerViewDelegate
 
-extension AddFeedViewController: UIScrollViewDelegate {
+extension NewFeedViewController: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         messageTextView.resignFirstResponder()
@@ -381,7 +381,7 @@ extension AddFeedViewController: UIScrollViewDelegate {
 }
 
 // MARK: - ImagePickerDelegate
-extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
@@ -408,7 +408,7 @@ extension AddFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
    
 }
 
-extension AddFeedViewController: ReturnPickedPhotosDelegate {
+extension NewFeedViewController: ReturnPickedPhotosDelegate {
     func returnSeletedImages(images: [UIImage], imageAssets: [PHAsset]) {
         
         for image in images {
