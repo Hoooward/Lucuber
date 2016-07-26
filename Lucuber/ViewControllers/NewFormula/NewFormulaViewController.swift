@@ -101,6 +101,8 @@ class NewFormulaViewController: UIViewController {
     
     func next(sender: UIBarButtonItem) {
         
+        
+        view.endEditing(true)
         if isReadyForSave {
             
             let vc = UIStoryboard(name: "AddFeed", bundle: nil).instantiateViewControllerWithIdentifier("NewFeedViewController") as! NewFeedViewController
@@ -183,6 +185,7 @@ class NewFormulaViewController: UIViewController {
         
         tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - headerViewHeight - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
+        tableView.setContentOffset(CGPoint(x: 0, y: -(64 + headerViewHeightConstraint.constant)), animated: false)
         
         tableView.registerNib(UINib(nibName: NameTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: NameTextViewCellIdentifier)
         tableView.registerNib(UINib(nibName: CategorySeletedCellIdentifier, bundle: nil), forCellReuseIdentifier: CategorySeletedCellIdentifier)
@@ -369,7 +372,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         }
         switch section {
         case .AddFormula:
-            return 100
+            return 80
         default:
             return 30
         }
