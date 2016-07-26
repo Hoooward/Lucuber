@@ -162,7 +162,6 @@ class AddFeedViewController: UIViewController {
             newFeed.contentBody = messageTextView.text
             newFeed.creator = user
             newFeed.imagesUrl = photoUrls
-            newFeed.kind = "text"
             newFeed.category = FeedCategory.Topic.rawValue
             
             var error: NSError?

@@ -22,23 +22,31 @@ struct FeedCellLayout {
         let discussionImageViewFrame: CGRect
         
     }
+    var defaultLayout: DefaultLayout
+    
+    struct BiggerImageLayout {
+        
+        let biggerImageViewFrame: CGRect
+        
+    }
+    var biggerImageLayout: BiggerImageLayout?
+    
+    
     
     /// Cell的高度
     var height: CGFloat = 0
-    var defaultLayout: DefaultLayout
     
     
     init(feed: Feed) {
         
-        if let kind = FeedKind(rawValue: feed.kind!) {
-            switch kind{
-            case .Text:
-                height = FeedDefaultCell.heightOfFeed(feed)
-            default:
-                break
-                
-            }
-            
+       
+        switch feed.attachment {
+        case .Text:
+            height = FeedDefaultCell.heightOfFeed(feed)
+        case .BigImage:
+            height = FeedBiggerImageCell.heightOfFeed(feed)
+        default:
+            break
         }
         
         let avatarImageViewFrame = CGRect(x: 15, y: 10, width: 40, height: 40)
@@ -87,9 +95,20 @@ struct FeedCellLayout {
             discussionImageViewFrame: discussionImageViewFrame
         )
         
-        
-        
         self.defaultLayout = defaultLayout
+        
+        let beginY = CGRectGetMaxY(messageTextViewFrame) + 15
+        
+        switch feed.attachment {
+        case .BigImage:
+            
+             let biggerImageViewFrame = CGRect(origin: CGPoint(x: 65, y: beginY), size: CubeConfig.FeedBiggerImageCell.imageSize)
+             let biggerImageLayout = BiggerImageLayout(biggerImageViewFrame: biggerImageViewFrame)
+             self.biggerImageLayout = biggerImageLayout
+            
+        default:
+            break
+        }
     }
     
 }

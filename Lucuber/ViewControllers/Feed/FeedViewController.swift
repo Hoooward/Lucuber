@@ -11,6 +11,7 @@ import UIKit
 
 
 private let FeedDefaultCellIdentifier = "FeedDefaultCell"
+private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
 
 class FeedViewController: UIViewController {
     
@@ -46,6 +47,7 @@ class FeedViewController: UIViewController {
             
             tableView.registerClass(FeedDefaultCell.self, forCellReuseIdentifier: FeedDefaultCellIdentifier)
             
+            tableView.registerClass(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
         
         }
     }
@@ -175,10 +177,23 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
-        cell.configureWithFeed(feeds[indexPath.row], layout: FeedViewController.LayoutsCatch.FeedCellLayoutOfFeed(feeds[indexPath.row]), needshowCategory: false)
         
-        return cell
+        let feed = feeds[indexPath.row]
+        
+        switch feed.attachment {
+        case .Text:
+            let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
+            cell.configureWithFeed(feed, layout: FeedViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+            return cell
+        case .BigImage:
+            let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
+            cell.configureWithFeed(feed, layout: FeedViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+        default:
+            break
+        }
+        
+        
+        return UITableViewCell()
     }
     
     

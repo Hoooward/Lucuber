@@ -28,6 +28,7 @@
 		894018ED1D38842A000703E5 /* CubeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894018EC1D38842A000703E5 /* CubeAlert.swift */; };
 		894018F01D38AE60000703E5 /* ActionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894018EF1D38AE60000703E5 /* ActionSheetView.swift */; };
 		89402B5D1D421BD000FEEA95 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89402B5C1D421BD000FEEA95 /* Feed.swift */; };
+		89534D561D47BC0800205C4A /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89534D551D47BC0800205C4A /* UIImageView+Cube.swift */; };
 		895A6B441D4605CC0060C3E1 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B421D4605CC0060C3E1 /* FeedFormulaView.swift */; };
 		895A6B451D4605CC0060C3E1 /* FeedFormulaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895A6B431D4605CC0060C3E1 /* FeedFormulaView.xib */; };
 		895A6B471D460ED20060C3E1 /* FeedNewFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */; };
@@ -164,6 +165,7 @@
 		894018EF1D38AE60000703E5 /* ActionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
 		894018F11D38FC41000703E5 /* TestPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestPlayground.playground; sourceTree = "<group>"; };
 		89402B5C1D421BD000FEEA95 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		89534D551D47BC0800205C4A /* UIImageView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cube.swift"; sourceTree = "<group>"; };
 		895A6B421D4605CC0060C3E1 /* FeedFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaView.swift; sourceTree = "<group>"; };
 		895A6B431D4605CC0060C3E1 /* FeedFormulaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedFormulaView.xib; sourceTree = "<group>"; };
 		895A6B461D460ED20060C3E1 /* FeedNewFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewFormulaView.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				89E6C4E31D0303F7005ACFB9 /* UIFont+Cube.swift */,
 				89E065D71D042FF5000B7D08 /* String+Cube.swift */,
 				895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */,
+				89534D551D47BC0800205C4A /* UIImageView+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1152,6 +1155,7 @@
 				89FAF4061D333F7A00096B5A /* FormulaNameTextField.swift in Sources */,
 				89402B5D1D421BD000FEEA95 /* Feed.swift in Sources */,
 				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
+				89534D561D47BC0800205C4A /* UIImageView+Cube.swift in Sources */,
 				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,
 				89E6639A1D040C2400E90926 /* FormulaDetailContentCell.swift in Sources */,

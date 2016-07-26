@@ -112,6 +112,7 @@ class Feed: AVObject, AVSubclassing  {
     }
     
     
+    
     /// 作者
     static let Feedkey_creator = "creator"
     @NSManaged var creator: AVUser?
@@ -119,8 +120,8 @@ class Feed: AVObject, AVSubclassing  {
     static let Feedkey_body = "contentBody"
     @NSManaged var contentBody: String?
     
-    static let Feedkey_kind = "kind"
-    @NSManaged var kind: String?
+    static let Feedkey_kind = "kindString"
+    @NSManaged var kindString: String?
     
     static let Feedkey_category = "category"
     @NSManaged var category: String?
@@ -131,21 +132,33 @@ class Feed: AVObject, AVSubclassing  {
     static let FeedKey_comments = "comments"
     @NSManaged var comments: [String]?
     
- 
     
-    enum Attachment {
-        case BigImage
-        case MultiImages
-        case NoImage
+    var kind: FeedKind {
+        if let kindString = self.kindString,
+            let kind = FeedKind.init(rawValue: kindString) {
+            return kind
+        }
+        return .Text
     }
     
+    enum Attachment: String {
+        case BigImage = "bigImage"
+        case MultiImages = "MultiImages"
+        case Text = "text"
+    }
     
-    func attachmentType() -> Attachment {
+//    static let FeedKey_attachment = "attachmentString"
+//    @NSManaged var attachmentString: String?
+    
+    var attachment: Attachment {
         guard let imagesUrl = imagesUrl else {
-            return .NoImage
+            return .Text
         }
+        if imagesUrl.count == 0 { return .Text }
         return imagesUrl.count > 1 ? .MultiImages : .BigImage
     }
+    
+    
     
 }
 

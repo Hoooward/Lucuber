@@ -50,4 +50,5 @@ final public class CubeConfig {
         public static let MaxSize: CGFloat = 800
     }
     
+    
 }

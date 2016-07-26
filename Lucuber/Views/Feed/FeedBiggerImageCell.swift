@@ -41,7 +41,13 @@ class FeedBiggerImageCell: FeedDefaultCell {
     override func configureWithFeed(feed: Feed, layout: FeedCellLayout, needshowCategory: Bool) {
         super.configureWithFeed(feed, layout: layout, needshowCategory: needshowCategory)
         
+        if let biggerImageLayout = layout.biggerImageLayout {
+            biggerImageView.frame = biggerImageLayout.biggerImageViewFrame
+        }
         
+        let url = NSURL(string: feed.imagesUrl!.first!)!
+        biggerImageView.setImageWithURL(url)
+      
         
     }
     

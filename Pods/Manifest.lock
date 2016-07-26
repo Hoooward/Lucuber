@@ -1,12 +1,14 @@
 PODS:
-  - AVOSCloud (3.1.6.8)
-  - Ruler (0.6)
+  - AVOSCloud (3.3.5)
+  - Kingfisher (2.4.2)
+  - Ruler (0.7.1)
   - SnapKit (0.15.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - AVOSCloud
-  - Ruler
+  - Kingfisher (~> 2.4)
+  - Ruler (~> 0.7.1)
   - SnapKit (~> 0.15.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -16,15 +18,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :commit: 73670b94292b8d8496c398a973f56ac67789ba9f
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  AVOSCloud: 4b06ec4444ca0ee0543e6cf729b11e5f3f956977
-  Ruler: b36ec3bbc5fc6c3b7f629a6052cc1c17ada4b280
+  AVOSCloud: 1fe170768bee7e05bc3ea86e38d5bddb105cb957
+  Kingfisher: 05bf8d04408aaa70fcd2c8c81b9f1d0f1ad313dd
+  Ruler: ca20ae2a4a39d029d515daf9a8b8bb70b59ae441
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 08e0c4ed67960e966451dea23c52770d6c63d6ca
+PODFILE CHECKSUM: 0b788a143605221dfbbddcdd1c0a14b96d1e9932
 
 COCOAPODS: 1.0.1
