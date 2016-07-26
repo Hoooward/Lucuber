@@ -15,6 +15,8 @@ enum ContentStyle {
 
 extension String {
     
+    
+
 
     
     func setAttributesFitDetailLayout(style: ContentStyle) -> NSMutableAttributedString {
@@ -133,6 +135,18 @@ extension String {
             }
             return components.joinWithSeparator("")
         }
+    }
+    
+    ///只有空格
+    var isDirty: Bool {
+        if self.characters.count == 0 {
+            return true
+        }
+        if self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).characters.count == 0 {
+            return true
+        }
+        
+        return false
     }
 }
 

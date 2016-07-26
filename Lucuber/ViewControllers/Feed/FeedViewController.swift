@@ -15,6 +15,7 @@ private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
 
 class FeedsViewController: UIViewController {
     
+    // MARK: - PrepareForSegue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowAddFeed" {
             let navigationVC = segue.destinationViewController as! UINavigationController
@@ -86,6 +87,7 @@ class FeedsViewController: UIViewController {
 
  
     private lazy var newFeedActionSheetView: ActionSheetView = {
+        
         let view = ActionSheetView(items: [
             .Option(
                 title: "文字和图片",
@@ -103,8 +105,13 @@ class FeedsViewController: UIViewController {
                 titleColor: UIColor.cubeTintColor(),
                 action: { [weak self] in
                     guard let strongSelf = self else { return }
-                    strongSelf.newFeedAttachmentType = .Formula
-                    strongSelf.performSegueWithIdentifier("ShowAddFeed", sender: nil)
+                    
+                    let navigationVC = UIStoryboard(name: "AddFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
+                    let newVc = navigationVC.rootViewController as! NewFormulaViewController
+                    newVc.editType = NewFormulaViewController.EditType.NewAttchment
+                    
+                    strongSelf.presentViewController(navigationVC, animated: true, completion: nil)
+                   
                 }
             ),
             .Option(
@@ -120,12 +127,21 @@ class FeedsViewController: UIViewController {
             ]
         )
         return view
+        
+       
+        
+        
+        
+        
+        
     }()
     
     // MARK: - Target
     @IBAction func creatNewFeed(sender: AnyObject) {
         if let window = view.window {
             newFeedActionSheetView.showInView(window)
+            
+         
         }
     }
     

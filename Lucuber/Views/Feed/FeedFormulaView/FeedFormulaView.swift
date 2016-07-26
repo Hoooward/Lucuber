@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FeedFormulaView: UIView {
     
     class func creatFeedFormulaViewFromNib() -> FeedFormulaView {
         return NSBundle.mainBundle().loadNibNamed("FeedFormulaView", owner: nil, options: nil).last! as! FeedFormulaView
+    }
+    
+    var formula: Formula? {
+        didSet {
+            
+            if let formula = formula {
+                nameLabel.text = formula.name
+            }
+        }
     }
 
     @IBOutlet weak var imageView: UIImageView!

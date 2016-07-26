@@ -12,78 +12,57 @@ import UIKit
 class NewFormulaViewController: UIViewController {
     
 
-    
     enum EditType {
+        /// 新公式
         case NewFormula
+        /// 新话题的公式附件
         case NewAttchment
+        /// 编辑公式
         case EditFormula
     }
 
 // MARK: - Properties
-//    
-//    var editType: EditType = .NewFormula {
-//        willSet {
-//            switch newValue {
-//            case .NewFormula:
-//                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(NewFeedViewController.saveFormula))
-//            default:
-//                <#code#>
-//            }
-//        }
-//    }
     
-    func creatNewFormula() -> Formula {
-        return Formula(name: "公式名称", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L, rating: 3)
-    }
-    
+    var editType: EditType = .NewFormula
+   
     private let headerViewHeight: CGFloat = 170
-    @IBOutlet weak var headerView: HeaderFormulaView!
-    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableView: UITableView!
-    private let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
-    
-
-
-    var formula = Formula(name: "公式名称", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L, rating: 3)
-    //TODO: Test FormulaTexts
-    
     private var keyboardFrame = CGRectZero
     private var categoryPickViewIsShow = false
     private var activeFormulaTextCellIndexPath = NSIndexPath(forItem: 0, inSection: 2)
     
     private var addFormulaTextIsActive = true {
+        
         didSet {
             if let Addcell = tableView.cellForRowAtIndexPath(addFormulaTextIndexPath) as? AddFormulaTextCell {
                 Addcell.changeIndicaterLabelStatus(addFormulaTextIsActive)
-                
             }
         }
     }
-    
-    
    
+    @IBOutlet weak var headerView: HeaderFormulaView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
+    private let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
+    
+    var formula = Formula.creatNewDefaultFormula()
+    
     
     var categoryPickViewIndexPath = NSIndexPath(forRow: 1, inSection: 1)
     var addFormulaTextIndexPath = NSIndexPath(forRow: 0, inSection: 3)
     
-    private lazy var formulaInputViewController: FormulaInputViewController = { let viewController = FormulaInputViewController {
-        [unowned self]  button in
-        if let cell = self.tableView.cellForRowAtIndexPath(self.activeFormulaTextCellIndexPath) as? FormulaTextViewCell {
-            cell.textView.insertKeyButtonTitle(button)
-        }
+    private lazy var formulaInputViewController: FormulaInputViewController = {
+        
+        let viewController = FormulaInputViewController { [unowned self]  button in
+            
+            if let cell = self.tableView.cellForRowAtIndexPath(self.activeFormulaTextCellIndexPath) as? FormulaTextViewCell {
+                cell.textView.insertKeyButtonTitle(button)
+            }
+            
         }
         return viewController
     }()
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-   
-    }
-    
+
    
 // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -108,17 +87,55 @@ class NewFormulaViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFormulaViewController.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
     
+    deinit {
+        print("NewFormula死了")
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     
 // MARK: - Observer&Target Funcation
+    
+    func save(sender: UIBarButtonItem) {
+        
+    }
+    
+    func next(sender: UIBarButtonItem) {
+        
+        if isReadyForSave {
+            
+            let vc = UIStoryboard(name: "AddFeed", bundle: nil).instantiateViewControllerWithIdentifier("NewFeedViewController") as! NewFeedViewController
+            vc.attachment = NewFeedViewController.Attachment.Formula
+            vc.attachmentFormula = formula
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            
+            CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
+            
+        }
+        
+        
+    }
+    
+    private var isReadyForSave: Bool {
+       
+        let isReady = true
+      
+        // TODO: - 判断是否信息被正确填写
+        
+        return isReady
+    }
+    
     func keyboardDidShow(notification: NSNotification) {
+        
         if let rect = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue() {
             keyboardFrame = rect
-            
         }
         
     }
     
     func addFormulaDetailDidChanged(notification: NSNotification) {
+        
         guard let dict = notification.userInfo as? [String: AnyObject] else {
             return
         }
@@ -126,20 +143,14 @@ class NewFormulaViewController: UIViewController {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
             cell.categoryLabel.text = item.englishText
         }
+        
     }
     
     @IBAction func dismiss(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-// MARK: - Deinit
-    deinit {
-        print("NewFormula死了")
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
- 
-    
+
 // MARK: - MakeUI
     
     private let NameTextViewCellIdentifier = "NameTextViewCell"
@@ -151,6 +162,25 @@ class NewFormulaViewController: UIViewController {
     
     private func makeUI() {
         
+        switch editType {
+            
+        case .NewFormula:
+            
+            navigationItem.title = "新公式"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
+            
+        case .NewAttchment:
+            
+            navigationItem.title = "创建公式(1/2)"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "下一步", style: .Plain, target: self, action: #selector(NewFormulaViewController.next(_:)))
+            
+        case .EditFormula:
+            
+            navigationItem.title = "编辑公式"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
+            
+        }
+        
         tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - headerViewHeight - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
         
@@ -161,10 +191,7 @@ class NewFormulaViewController: UIViewController {
         tableView.registerNib(UINib(nibName: StarRatingCellIdentifier, bundle: nil), forCellReuseIdentifier: StarRatingCellIdentifier)
         tableView.registerNib(UINib(nibName: AddFormulaTextCellIdentifier, bundle: nil), forCellReuseIdentifier: AddFormulaTextCellIdentifier)
         
-        let titleView = UILabel()
-        titleView.text = "创建新公式"
-        titleView.sizeToFit()
-        navigationItem.titleView = titleView
+        
         addChildViewController(formulaInputViewController)
         //TODO: 键盘布局有问题
         childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)

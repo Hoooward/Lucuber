@@ -34,6 +34,9 @@ class NewFeedViewController: UIViewController {
     private var pickedImageAssets = [PHAsset]()
     
     var newFeed = Feed()
+    var attachmentFormula: Formula? 
+   
+   
     
     private var isNeverInputMessage = true
     private var isReadyForPost = false {
@@ -56,7 +59,7 @@ class NewFeedViewController: UIViewController {
         return imagePicker
     }()
     
-    @IBOutlet weak var formulaView: UIView!
+    @IBOutlet weak var formulaView: FeedFormulaView!
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
@@ -92,8 +95,8 @@ class NewFeedViewController: UIViewController {
             
         case .Formula:
             title = "新公式"
-            
             mediaCollectionView.hidden = true
+            formulaView.formula = attachmentFormula
             formulaView.hidden = false
         }
         
@@ -128,7 +131,6 @@ class NewFeedViewController: UIViewController {
               vc.delegate = self
               vc.pickedImageSet = Set(pickedImageAssets)
               vc.imageLimit = mediaImages.count
-                
             }
         }
     }
@@ -182,7 +184,14 @@ class NewFeedViewController: UIViewController {
     
     @IBAction func cancel(sender: AnyObject) {
         
-        dismissViewControllerAnimated(true, completion: nil)
+        switch attachment {
+        case .Formula:
+            navigationController?.popViewControllerAnimated(true)
+        default:
+            dismissViewControllerAnimated(true, completion: nil)
+            
+        }
+        
     }
 }
 
@@ -346,7 +355,7 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-// MARK: - ScrollerViewDelegate
+// MARK: - TextViewDelegate
 
 extension NewFeedViewController: UITextViewDelegate {
     

@@ -8,7 +8,7 @@
         <!--New Feed View Controller-->
         <scene sceneID="yiG-pO-2yR">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="aev-nc-3eR" customClass="NewFeedViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewFeedViewController" automaticallyAdjustsScrollViewInsets="NO" id="aev-nc-3eR" customClass="NewFeedViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J2P-oz-7vA"/>
                         <viewControllerLayoutGuide type="bottom" id="e50-A7-sT9"/>

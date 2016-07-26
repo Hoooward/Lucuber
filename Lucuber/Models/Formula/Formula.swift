@@ -10,6 +10,7 @@ import Foundation
 import SwiftyJSON
 
 class Formula:  CustomStringConvertible {
+    
     var name: String = ""
     var contents = [FormulaContent]()
     var imageName: String = "cube_Placehold_image_1"
@@ -21,7 +22,10 @@ class Formula:  CustomStringConvertible {
     
     var rating: Int = 3
     
-    init () {
+    init () { }
+    
+    class func creatNewDefaultFormula() -> Formula {
+        return Formula(name: "公式名称", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", level: 3, favorate: false, modifyDate: "", category: .x3x3, type: .F2L, rating: 3)
     }
     
     init(name: String, contents: [FormulaContent], imageName: String, level: Int, favorate: Bool, modifyDate: String, category: Category, type: Type, rating: Int)

@@ -28,10 +28,10 @@
             </objects>
             <point key="canvasLocation" x="-44.5" y="1898.5"/>
         </scene>
-        <!--Add New Formula View Controller-->
+        <!--New Formula View Controller-->
         <scene sceneID="pOi-lf-XEP">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gTn-LB-dxy" customClass="AddNewFormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewFormulaViewController" automaticallyAdjustsScrollViewInsets="NO" id="gTn-LB-dxy" customClass="NewFormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wen-wD-ESg"/>
                         <viewControllerLayoutGuide type="bottom" id="lOJ-o4-m3D"/>

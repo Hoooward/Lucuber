@@ -23,6 +23,10 @@ class HeaderFormulaView: UIView {
             
         }
     }
+    
+    var isReadyforSave: Bool {
+        return nameLabel.text?.characters.count > 0
+    }
 
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
@@ -83,8 +87,8 @@ class HeaderFormulaView: UIView {
         }
         if let name = dict[AddFormulaNotification.NameChanged.rawValue] as? String,
            let formula = formula {
-            let newName = name.characters.count > 0 ? name : "Name"
-            nameLabel.text = newName
+            let newName = name.isDirty ? "Name" : name
+            nameLabel.text = newName.trimming(String.TrimmingType.WhitespaceAndNewLine)
             formula.name = newName
         }
         
