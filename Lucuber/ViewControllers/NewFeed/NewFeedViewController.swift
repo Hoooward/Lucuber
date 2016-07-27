@@ -14,13 +14,16 @@ import Photos
 import Ruler
 
 class NewFeedViewController: UIViewController {
-
-    // MARK: - Properties
+    
     enum Attachment {
+        /// 文字陪图片
         case Media
+        /// 公式固件
         case Formula
     }
     
+    // MARK: - Properties
+
     var attachment: Attachment = .Media
     var mediaImages = [UIImage]() {
         didSet {
@@ -39,6 +42,7 @@ class NewFeedViewController: UIViewController {
    
     
     private var isNeverInputMessage = true
+    
     private var isReadyForPost = false {
         willSet {
             postFeedBarButton.enabled = newValue
@@ -93,11 +97,14 @@ class NewFeedViewController: UIViewController {
             mediaCollectionView.hidden = false
             formulaView.hidden = true
             
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: #selector(NewFeedViewController.cancel(_:)))
+            
         case .Formula:
-            title = "新公式"
+            title = "创建公式(2/2)"
             mediaCollectionView.hidden = true
             formulaView.formula = attachmentFormula
             formulaView.hidden = false
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "上一步", style: .Plain, target: self, action: #selector(NewFeedViewController.cancel(_:)))
         }
         
         view.backgroundColor = UIColor.cubeBackgroundColor()
@@ -187,7 +194,7 @@ class NewFeedViewController: UIViewController {
         switch attachment {
         case .Formula:
             navigationController?.popViewControllerAnimated(true)
-        default:
+        case .Media:
             dismissViewControllerAnimated(true, completion: nil)
             
         }
@@ -369,7 +376,6 @@ extension NewFeedViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(textView: UITextView) {
-        print(textView.text.characters.count)
         isReadyForPost = textView.text.characters.count > 0
     }
 }

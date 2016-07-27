@@ -32,6 +32,7 @@ class FeedsViewController: UIViewController {
     private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
     
     var feeds = [Feed]()
+    var uploadingFeeds = [Feed]()
     
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -164,29 +165,71 @@ class FeedsViewController: UIViewController {
 
 extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
+    enum Section: Int {
+        case uploadingFeed = 0
+        case Feed
+        case loadMore
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feeds.count
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .uploadingFeed:
+            return uploadingFeeds.count
+        case .Feed:
+            return feeds.count
+        case .loadMore:
+            return 0
+        }
+        
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        func cellForFeed(feed: Feed) -> UITableViewCell {
+            
+            switch feed.attachment {
+                
+            case .Text:
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
+                cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+                return cell
+                
+            case .BigImage:
+                let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
+                cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+                return cell
+            default:
+                return UITableViewCell()
+            }
+        }
         
         let feed = feeds[indexPath.row]
         
-        switch feed.attachment {
-        case .Text:
-            let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
-            cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
-            return cell
-        case .BigImage:
-            let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
-            cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+        switch section {
+            
+        case .uploadingFeed:
+            return cellForFeed(feed)
+            
+        case .Feed:
+            return cellForFeed(feed)
+            
         default:
-            break
+            return UITableViewCell()
         }
         
-        
-        return UITableViewCell()
     }
     
     
