@@ -80,6 +80,7 @@ internal func fetchFeedWithCategory(category: FeedCategory,
             
             if let newFeeds = newFeeds as? [Feed] {
                 
+                print("newFeeds.count = \(newFeeds.count)")
                 completion?(newFeeds)
             }
         }

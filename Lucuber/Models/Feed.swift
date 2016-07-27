@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 public class DiscoveredUser: Hashable {
     
@@ -109,6 +110,20 @@ public enum FeedCategory: String {
     
 }
 
+//public struct ImageCoordinator {
+//    
+//    var imageUrl: String
+//        
+//   
+//    var image: UIImage?
+//    
+//    public static func formImageUrl(urls: String) -> ImageCoordinator {
+//       
+//        return ImageCoordinator(imageUrl: urls, image: nil)
+//    }
+//    
+//}
+
 class Feed: AVObject, AVSubclassing  {
     
     class func parseClassName() -> String {
@@ -130,7 +145,7 @@ class Feed: AVObject, AVSubclassing  {
     @NSManaged var contentBody: String?
     
     ///种类, FeedCategory -> 公式, 成绩, 话题
-    @NSManaged var category: String?
+    @NSManaged var category: String
     
     ///图片附件URL
     @NSManaged var imagesUrl: [String]?
@@ -140,14 +155,30 @@ class Feed: AVObject, AVSubclassing  {
     
     
     ///附件的种类
-    enum Attachment: String {
+    enum Attachment  {
         
-        case BigImage = "bigImage"
-        case MultiImages = "MultiImages"
-        case Text = "text"
-        case Formula = "Formula"
+        case BigImage(String)
+        case AnyImages([String])
+        case Text
+        case Formula
+        
         
     }
+    
+    
+//    internal var imageCoordinators: [ImageCoordinator]? {
+//        
+//        guard let imagesUrl = imagesUrl else {
+//            return nil
+//        }
+//        if !imagesUrl.isEmpty {
+//            
+//            return imagesUrl.map {
+//                ImageCoordinator.formImageUrl($0)
+//            }
+//        }
+//    }
+//  
     
     
     ///通过 ImageURL 的数量来判断 附件的种类
@@ -157,9 +188,25 @@ class Feed: AVObject, AVSubclassing  {
             return .Text
         }
         
-        if imagesUrl.count == 0 { return .Text }
+        if imagesUrl.isEmpty {
+            return .Text
+        }
         
-        return imagesUrl.count > 1 ? .MultiImages : .BigImage
+        if imagesUrl.isEmpty && FeedCategory(rawValue: self.category) == .Formula {
+            return .Formula
+        }
+        
+        if imagesUrl.count > 1 {
+            
+            return Attachment.AnyImages(imagesUrl)
+            
+        } else {
+            
+            return Attachment.BigImage(imagesUrl.first!)
+            
+        }
+        
+        
     }
     
     

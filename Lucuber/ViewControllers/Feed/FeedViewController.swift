@@ -95,6 +95,7 @@ class FeedsViewController: UIViewController {
     private static var LayoutsCatch = LayoutCatch()
     private let FeedDefaultCellIdentifier = "FeedDefaultCell"
     private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
+    private let FeedAnyImagesCellIdentifier = "FeedAnyImagesCell"
     private let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
     
     @IBOutlet weak var tableView: UITableView! {
@@ -114,6 +115,7 @@ class FeedsViewController: UIViewController {
             
             tableView.registerClass(FeedDefaultCell.self, forCellReuseIdentifier: FeedDefaultCellIdentifier)
             tableView.registerClass(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
+            tableView.registerClass(FeedAnyImagesCell.self, forCellReuseIdentifier: FeedAnyImagesCellIdentifier)
             tableView.registerNib(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
             
         }
@@ -129,8 +131,12 @@ class FeedsViewController: UIViewController {
         
         tableView.contentOffset.y = CGRectGetHeight(searchBar.frame)
         
-        uploadFeed()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+        uploadFeed()
     }
  
     
@@ -306,6 +312,15 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
                 cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
                 return cell
+                
+            case .AnyImages(_):
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier(FeedAnyImagesCellIdentifier, forIndexPath: indexPath) as! FeedAnyImagesCell
+                
+                cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+                
+                return cell
+                
             default:
                 return UITableViewCell()
             }

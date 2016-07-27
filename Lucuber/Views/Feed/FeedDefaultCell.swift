@@ -37,11 +37,11 @@ class FeedDefaultCell: UITableViewCell {
         //println("messageTextView.text: >>>\(messageTextView.text)<<<")
         messageTextView.frame = defaultLayout.messageTextViewFrame
         
-        nickNameLabel.text = feed.creator?.username ?? "Howard"
+        nickNameLabel.text = feed.creator?.username ?? "iTychooo"
         nickNameLabel.frame = defaultLayout.nicknameLabelFrame
         
         
-        avatarImageView.image = UIImage(named: "PLL1")
+        avatarImageView.image = UIImage(named: "Howard")
         avatarImageView.frame = defaultLayout.avatarImageViewFrame
         
         categoryButton.setTitle(feed.category, forState: .Normal)

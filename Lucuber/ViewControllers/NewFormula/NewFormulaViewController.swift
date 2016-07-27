@@ -116,7 +116,6 @@ class NewFormulaViewController: UIViewController {
             
         }
         
-        
     }
     
     private var isReadyForSave: Bool {

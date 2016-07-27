@@ -30,7 +30,13 @@ struct FeedCellLayout {
         
     }
     var biggerImageLayout: BiggerImageLayout?
+   
+    struct AnyImagesLayout {
+        
+        let mediaCollectionViewFrame: CGRect
+    }
     
+    var anyImagesLayout: AnyImagesLayout?
     
     
     /// Cell的高度
@@ -45,6 +51,8 @@ struct FeedCellLayout {
             height = FeedDefaultCell.heightOfFeed(feed)
         case .BigImage:
             height = FeedBiggerImageCell.heightOfFeed(feed)
+        case .AnyImages:
+            height = FeedAnyImagesCell.heightOfFeed(feed)
         default:
             break
         }
@@ -54,7 +62,7 @@ struct FeedCellLayout {
         let nicknameLabelFrame: CGRect
         let categoryButtonFrame: CGRect
         
-        if let category = FeedCategory(rawValue: feed.category!) {
+        if let category = FeedCategory(rawValue: feed.category) {
             
             let rect = (category.rawValue as NSString).boundingRectWithSize(CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: CubeConfig.FeedDetailCell.categryButtonAttributies, context: nil)
             
@@ -100,11 +108,19 @@ struct FeedCellLayout {
         let beginY = CGRectGetMaxY(messageTextViewFrame) + 15
         
         switch feed.attachment {
+            
         case .BigImage:
             
              let biggerImageViewFrame = CGRect(origin: CGPoint(x: 65, y: beginY), size: CubeConfig.FeedBiggerImageCell.imageSize)
              let biggerImageLayout = BiggerImageLayout(biggerImageViewFrame: biggerImageViewFrame)
              self.biggerImageLayout = biggerImageLayout
+            
+            
+        case .AnyImages:
+            
+            let mediaCollectionViewFrame = CGRect(origin: CGPoint(x:65, y: beginY), size: CubeConfig.FeedAnyImagesCell.mediaCollectionViewSize)
+            
+            self.anyImagesLayout = AnyImagesLayout(mediaCollectionViewFrame: mediaCollectionViewFrame)
             
         default:
             break

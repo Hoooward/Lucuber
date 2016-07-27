@@ -21,6 +21,7 @@ class FeedMediaCell: UICollectionViewCell {
         
         imageView.backgroundColor = UIColor.cubeBackgroundColor()
         imageView.layer.borderWidth = 1.0 / UIScreen.mainScreen().scale
+        imageView.layer.borderColor = UIColor.lightGrayColor().CGColor
         imageView.userInteractionEnabled = true
         contentView.backgroundColor = UIColor.clearColor()
         
