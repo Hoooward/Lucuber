@@ -10,8 +10,7 @@ import UIKit
 
 
 
-private let FeedDefaultCellIdentifier = "FeedDefaultCell"
-private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
+
 
 class FeedsViewController: UIViewController {
     
@@ -35,6 +34,11 @@ class FeedsViewController: UIViewController {
     
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    private let FeedDefaultCellIdentifier = "FeedDefaultCell"
+    private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
+    private let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             searchBar.sizeToFit()
@@ -50,6 +54,7 @@ class FeedsViewController: UIViewController {
             
             tableView.registerClass(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
         
+            tableView.registerNib(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
         }
     }
     

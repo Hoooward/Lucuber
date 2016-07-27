@@ -76,6 +76,8 @@
 		895D10F01D21211100CEF7FA /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10EF1D21211100CEF7FA /* Formula.swift */; };
 		895D10F31D21214F00CEF7FA /* FormulaComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10F21D21214F00CEF7FA /* FormulaComment.swift */; };
 		896425151D34DDCC00F1D194 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896425141D34DDCC00F1D194 /* StarRatingView.swift */; };
+		89948BBD1D488DDA0075A3D0 /* LoadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89948BBB1D488DDA0075A3D0 /* LoadMoreTableViewCell.swift */; };
+		89948BBE1D488DDA0075A3D0 /* LoadMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89948BBC1D488DDA0075A3D0 /* LoadMoreTableViewCell.xib */; };
 		89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BEB1D2D1B460082B625 /* LayoutButton.swift */; };
 		89A17BF01D2D1B5F0082B625 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A17BEE1D2D1B5F0082B625 /* HeaderReusableView.swift */; };
 		89A17BF11D2D1B5F0082B625 /* HeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A17BEF1D2D1B5F0082B625 /* HeaderReusableView.xib */; };
@@ -220,6 +222,8 @@
 		895D10EF1D21211100CEF7FA /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		895D10F21D21214F00CEF7FA /* FormulaComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaComment.swift; sourceTree = "<group>"; };
 		896425141D34DDCC00F1D194 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
+		89948BBB1D488DDA0075A3D0 /* LoadMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableViewCell.swift; sourceTree = "<group>"; };
+		89948BBC1D488DDA0075A3D0 /* LoadMoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreTableViewCell.xib; sourceTree = "<group>"; };
 		89A17BEB1D2D1B460082B625 /* LayoutButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutButton.swift; sourceTree = "<group>"; };
 		89A17BEE1D2D1B5F0082B625 /* HeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		89A17BEF1D2D1B5F0082B625 /* HeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderReusableView.xib; sourceTree = "<group>"; };
@@ -334,6 +338,7 @@
 		8909CE671D41EC9100511243 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				89948BBA1D488DC90075A3D0 /* LoadMoreCell */,
 				895A6B411D4605CC0060C3E1 /* FeedFormulaView */,
 				8909CE681D41ECA800511243 /* FeedDefaultCell.swift */,
 				895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */,
@@ -720,6 +725,15 @@
 			path = StarRatingView;
 			sourceTree = "<group>";
 		};
+		89948BBA1D488DC90075A3D0 /* LoadMoreCell */ = {
+			isa = PBXGroup;
+			children = (
+				89948BBB1D488DDA0075A3D0 /* LoadMoreTableViewCell.swift */,
+				89948BBC1D488DDA0075A3D0 /* LoadMoreTableViewCell.xib */,
+			);
+			path = LoadMoreCell;
+			sourceTree = "<group>";
+		};
 		89A17BEA1D2D1B460082B625 /* LayoutButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,6 +1103,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89948BBE1D488DDA0075A3D0 /* LoadMoreTableViewCell.xib in Resources */,
 				89534E031D47D48100205C4A /* DetailSeparatorCell.xib in Resources */,
 				89534E011D47D48100205C4A /* DetailMasterCell.xib in Resources */,
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
@@ -1231,6 +1246,7 @@
 				89534E071D47D5E000205C4A /* PopMenuAnimator.swift in Sources */,
 				89E6C5F11D03F0D3005ACFB9 /* FormulaDetailCell.swift in Sources */,
 				89534DD81D47D35400205C4A /* CategorySeletedCell.swift in Sources */,
+				89948BBD1D488DDA0075A3D0 /* LoadMoreTableViewCell.swift in Sources */,
 				894018F01D38AE60000703E5 /* ActionSheetView.swift in Sources */,
 				89B9B5191D4376AB002F2E66 /* MainNavigationController.swift in Sources */,
 				8906AB781D260355007D44D7 /* Animation.swift in Sources */,
