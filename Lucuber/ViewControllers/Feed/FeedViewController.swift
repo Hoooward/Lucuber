@@ -30,10 +30,21 @@ class FeedsViewController: UIViewController {
  
     private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
     
-    var feeds = [Feed]()
-    
+  
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(FeedsViewController.pullRefreshFeed(_:)), forControlEvents: .ValueChanged)
+        return refreshControl
+        
+    }()
+    
+    var feeds = [Feed]()
+    var uploadingFeeds = [Feed]()
+ 
     
     private let FeedDefaultCellIdentifier = "FeedDefaultCell"
     private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
@@ -43,6 +54,9 @@ class FeedsViewController: UIViewController {
         didSet {
             searchBar.sizeToFit()
             tableView.tableHeaderView = searchBar
+            
+            
+            tableView.addSubview(refreshControl)
             
             tableView.backgroundColor = UIColor.whiteColor()
             tableView.tableFooterView = UIView()
@@ -72,9 +86,112 @@ class FeedsViewController: UIViewController {
         
     }
     
+    func pullRefreshFeed(sender: UIRefreshControl) {
+        
+        uploadFeedWithMode(FeedsViewController.UploadFeedMode.Top) { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
+    }
+    
+    enum UploadFeedMode {
+        case Top
+        case LoadMore
+    }
+    
+    var isUploadingFeed = false
+    var currentPageIndex = 1
+    
+    var lastFeedCreatedDate: NSDate {
+        
+        if feeds.isEmpty { return NSDate() }
+        return feeds.last!.createdAt
+        
+    }
+    var limitCount = 10
+    
+    private func uploadFeedWithMode(mode: UploadFeedMode = .Top, finish: (() -> Void)? = nil) {
+        
+        if isUploadingFeed {
+            finish?()
+            return
+        }
+        
+        isUploadingFeed = true
+        
+        if mode == .Top  && feeds.isEmpty {
+            activityIndicator.startAnimating()
+        }
+        
+        switch mode {
+        case .Top:
+            currentPageIndex = 1
+            
+            let query = AVQuery(className: Feed.parseClassName())
+            query.limit = limitCount
+            query.addDescendingOrder("updatedAt")
+            
+            query.findObjectsInBackgroundWithBlock({ (result, error) in
+                if error == nil {
+                    self.feeds.removeAll()
+                    self.feeds = result as! [Feed]
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.activityIndicator.stopAnimating()
+                        self.tableView.reloadData()
+                        
+                        finish?()
+            
+                       self.isUploadingFeed = false
+                    })
+                }
+            })
+            
+        case .LoadMore:
+            currentPageIndex += 1
+            
+           
+            
+            let query = AVQuery(className: Feed.parseClassName())
+            query.limit = limitCount
+            query.whereKey("createdAt", lessThan: lastFeedCreatedDate)
+            query.addDescendingOrder("updatedAt")
+            
+            query.findObjectsInBackgroundWithBlock({ (result, error) in
+                if error == nil {
+                    let firstInsertIndex = self.feeds.count
+                    
+                    if let result = result as? [Feed] {
+                        result.forEach {
+                            self.feeds.append($0)
+                        }
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        self.activityIndicator.stopAnimating()
+                        
+                        var indexPaths = [NSIndexPath]()
+                        for (index, _) in result.enumerate() {
+                            let indexPath = NSIndexPath(forRow: firstInsertIndex + index, inSection: Section.Feed.rawValue)
+                            indexPaths.append(indexPath)
+                        }
+                        
+                        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Fade)
+                        
+                        self.isUploadingFeed = false
+                        finish?()
+                    })
+                }
+            })
+            
+        }
+        
+    }
+    
     private func loadNewComment() {
-        activityIndicator.startAnimating()
+        self.activityIndicator.startAnimating()
         let query = AVQuery(className: Feed.parseClassName())
+        query.limit = 10
         query.addDescendingOrder("updatedAt")
         
         query.findObjectsInBackgroundWithBlock({ (result, error) in
@@ -133,12 +250,7 @@ class FeedsViewController: UIViewController {
         )
         return view
         
-       
-        
-        
-        
-        
-        
+
     }()
     
     // MARK: - Target
@@ -160,8 +272,6 @@ class FeedsViewController: UIViewController {
         return searchBar
     }()
     
-
-   
     
 }
 
@@ -169,42 +279,138 @@ class FeedsViewController: UIViewController {
 
 extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
+    enum Section: Int {
+        case uploadingFeed = 0
+        case Feed
+        case loadMore
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feeds.count
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .uploadingFeed:
+            return uploadingFeeds.count
+        case .Feed:
+            return feeds.count
+        case .loadMore:
+            return feeds.isEmpty ? 0 : 1
+        }
+        
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let feed = feeds[indexPath.row]
-        
-        switch feed.attachment {
-        case .Text:
-            let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
-            cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
-            return cell
-        case .BigImage:
-            let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
-            cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
-        default:
-            break
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
         }
         
+        func cellForFeed(feed: Feed) -> UITableViewCell {
+            
+            switch feed.attachment {
+                
+            case .Text:
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier(FeedDefaultCellIdentifier, forIndexPath: indexPath) as! FeedDefaultCell
+                cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+                return cell
+                
+            case .BigImage:
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
+                cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+                return cell
+            default:
+                return UITableViewCell()
+            }
+        }
         
-        return UITableViewCell()
+    
+        
+        switch section {
+            
+        case .uploadingFeed:
+            let feed = uploadingFeeds[indexPath.row]
+            return cellForFeed(feed)
+            
+        case .Feed:
+            let feed = feeds[indexPath.row]
+            return cellForFeed(feed)
+            
+        case .loadMore:
+            
+            return tableView.dequeueReusableCellWithIdentifier(LoadMoreTableViewCellIdentifier, forIndexPath: indexPath)
+        }
+        
     }
     
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let feed = feeds[indexPath.row]
-        let height = FeedsViewController.LayoutsCatch.heightOfFeed(feed)
-        print(height)
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        return height
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+
+        
+        switch section {
+            
+        case .loadMore:
+            
+            
+            guard let cell = cell as? LoadMoreTableViewCell else {
+                return
+            }
+            
+            cell.isLoading = true
+            
+            uploadFeedWithMode(FeedsViewController.UploadFeedMode.LoadMore) {
+                
+                cell.isLoading = false
+                
+            }
+ 
+            
+        default:
+            break
+        }
+    }
+    
+    
+    
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+            
+        case .uploadingFeed:
+            let feed = uploadingFeeds[indexPath.row]
+            return FeedsViewController.LayoutsCatch.heightOfFeed(feed)
+            
+        case .Feed :
+            let feed = feeds[indexPath.row]
+            return FeedsViewController.LayoutsCatch.heightOfFeed(feed)
+            
+        case .loadMore:
+            return 60
+        }
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        
     }
     
     

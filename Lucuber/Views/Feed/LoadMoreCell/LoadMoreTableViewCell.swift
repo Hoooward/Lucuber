@@ -17,8 +17,11 @@ class LoadMoreTableViewCell: UITableViewCell {
                loadingActivityIndicator.startAnimating()
                 noMoreResultLabel.hidden = true
             } else {
-                loadingActivityIndicator.stopAnimating()
-                noMoreResultLabel.hidden = false
+                delay(0.3) {
+                    self.loadingActivityIndicator.stopAnimating()
+                    
+                    self.noMoreResultLabel.hidden = false
+                }
             }
         }
     }
@@ -36,7 +39,8 @@ class LoadMoreTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        noMoreResultLabel.hidden = true
+        separatorInset = UIEdgeInsets(top: 0, left: screenWidth, bottom: 0, right: 0)
+//        noMoreResultLabel.hidden = true
     }
 
  
