@@ -9,18 +9,11 @@
 import Foundation
 
 
-
 extension AVQuery {
     
     enum DefaultKey: String {
         case UpdatedTime = "updatedAt"
         case CreatTime = "createdAt"
-    }
-    
-    enum FeedSortStyle {
-        case All
-        case Formula
-        case Image
     }
     
     class var getFeeds: AVQuery {

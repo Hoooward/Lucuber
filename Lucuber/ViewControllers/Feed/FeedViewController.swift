@@ -248,11 +248,10 @@ class FeedsViewController: UIViewController {
     func pullRefreshFeed(sender: UIRefreshControl) {
         uploadFeed()
     }
-   
     
 }
 
-
+// MARK: - TableViewDelegate&DataSource
 
 extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -272,10 +271,13 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         switch section {
+            
         case .uploadingFeed:
             return uploadingFeeds.count
+            
         case .Feed:
             return feeds.count
+            
         case .loadMore:
             return feeds.isEmpty ? 0 : 1
         }
@@ -284,6 +286,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
@@ -307,9 +310,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
         }
-        
-    
-        
+   
         switch section {
             
         case .uploadingFeed:
@@ -334,32 +335,23 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError()
         }
         
-
-        
         switch section {
             
         case .loadMore:
-            
-            
             guard let cell = cell as? LoadMoreTableViewCell else {
                 return
             }
-            
             cell.isLoading = true
-            
             uploadFeed(UploadFeedMode.LoadMore) {
                 cell.isLoading = false
             }
- 
             
         default:
             break
         }
     }
     
-    
-    
-    
+ 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         guard let section = Section(rawValue: indexPath.section) else {
