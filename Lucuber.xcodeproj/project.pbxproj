@@ -70,6 +70,8 @@
 		895A6B491D4626C00060C3E1 /* FeedBiggerImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B481D4626C00060C3E1 /* FeedBiggerImageCell.swift */; };
 		895A6B611D4669BF0060C3E1 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */; };
 		895A6B631D475FC20060C3E1 /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */; };
+		895B7F021D48D23700732F4E /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B7F011D48D23700732F4E /* UITableView+Cube.swift */; };
+		895B7F051D48DC9F00732F4E /* CubeService+LeanCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B7F041D48DC9F00732F4E /* CubeService+LeanCloud.swift */; };
 		895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */; };
 		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
 		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
@@ -216,6 +218,8 @@
 		895A6B5C1D46640D0060C3E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		895A6B601D4669BF0060C3E1 /* AVUser+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Cube.swift"; sourceTree = "<group>"; };
 		895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
+		895B7F011D48D23700732F4E /* UITableView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Cube.swift"; sourceTree = "<group>"; };
+		895B7F041D48DC9F00732F4E /* CubeService+LeanCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CubeService+LeanCloud.swift"; sourceTree = "<group>"; };
 		895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCheckCell.swift; sourceTree = "<group>"; };
 		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
 		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
@@ -671,6 +675,14 @@
 			path = TestAVCloud;
 			sourceTree = "<group>";
 		};
+		895B7F031D48DC7A00732F4E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				895B7F041D48DC9F00732F4E /* CubeService+LeanCloud.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		895BC0CF1D3DE7C900EA47BA /* CategoryCheckCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +876,7 @@
 				895A6B621D475FC20060C3E1 /* UIImage+Cube.swift */,
 				89534D551D47BC0800205C4A /* UIImageView+Cube.swift */,
 				89534E091D47E33100205C4A /* UINavigationController+Cube.swift */,
+				895B7F011D48D23700732F4E /* UITableView+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1015,6 +1028,7 @@
 				89BE429E1D01981000E525D4 /* Base.lproj */,
 				89BE42A31D01981000E525D4 /* Extension */,
 				895D10ED1D21211100CEF7FA /* Models */,
+				895B7F031D48DC7A00732F4E /* Services */,
 				89534E041D47D5E000205C4A /* Transitions */,
 				89E6C5DF1D03F0D3005ACFB9 /* Views */,
 				89E663601D03F18200E90926 /* ViewControllers */,
@@ -1219,6 +1233,7 @@
 				89534DD61D47D35400205C4A /* CategoryPickViewCell.swift in Sources */,
 				89534DDB1D47D35400205C4A /* FormulaTextViewCell.swift in Sources */,
 				89B9B5151D43769B002F2E66 /* MainTabbarController.swift in Sources */,
+				895B7F051D48DC9F00732F4E /* CubeService+LeanCloud.swift in Sources */,
 				8909CE6D1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift in Sources */,
 				89534E001D47D48100205C4A /* DetailMasterCell.swift in Sources */,
 				89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */,
@@ -1231,6 +1246,7 @@
 				89534DDA1D47D35400205C4A /* CubeCategoryItemView.swift in Sources */,
 				895A6B441D4605CC0060C3E1 /* FeedFormulaView.swift in Sources */,
 				89B924891D0578D400BBF003 /* BorderTextField.swift in Sources */,
+				895B7F021D48D23700732F4E /* UITableView+Cube.swift in Sources */,
 				89B9248C1D05B7AB00BBF003 /* FormulaDetailFooterCell.swift in Sources */,
 				89E065D81D042FF5000B7D08 /* String+Cube.swift in Sources */,
 				89B9B51E1D437823002F2E66 /* BaseFormulaLayout.swift in Sources */,

@@ -8,13 +8,10 @@
 
 import UIKit
 
-
-
-
-
 class FeedsViewController: UIViewController {
     
     // MARK: - PrepareForSegue
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowAddFeed" {
             let navigationVC = segue.destinationViewController as! UINavigationController
@@ -24,15 +21,6 @@ class FeedsViewController: UIViewController {
     }
     
     // MARK: - Properties
-    private static var LayoutsCatch = LayoutCatch()
-    
-    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
- 
-    private lazy var activityIndicatorTitleView = ConversationIndicatorTitleView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
-    
-  
-
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private lazy var refreshControl: UIRefreshControl = {
         
@@ -42,172 +30,17 @@ class FeedsViewController: UIViewController {
         
     }()
     
-    var feeds = [Feed]()
-    var uploadingFeeds = [Feed]()
- 
+    private lazy var searchBar: UISearchBar = {
+        
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .Minimal
+        searchBar.placeholder = NSLocalizedString("Search", comment: "")
+        searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchbar_textfield_background"), forState: .Normal)
+        searchBar.delegate = self
+        return searchBar
+        
+    }()
     
-    private let FeedDefaultCellIdentifier = "FeedDefaultCell"
-    private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
-    private let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
-    
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            searchBar.sizeToFit()
-            tableView.tableHeaderView = searchBar
-            
-            
-            tableView.addSubview(refreshControl)
-            
-            tableView.backgroundColor = UIColor.whiteColor()
-            tableView.tableFooterView = UIView()
-            tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-            
-            tableView.rowHeight = 300
-            
-            tableView.registerClass(FeedDefaultCell.self, forCellReuseIdentifier: FeedDefaultCellIdentifier)
-            
-            tableView.registerClass(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
-        
-            tableView.registerNib(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
-        }
-    }
-    
-    // MARK: - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
-        navigationItem.title = "话题"
-        
-        
-        loadNewComment()
-        
-
-        tableView.contentOffset.y = CGRectGetHeight(searchBar.frame)
-        
-    }
-    
-    func pullRefreshFeed(sender: UIRefreshControl) {
-        
-        uploadFeedWithMode(FeedsViewController.UploadFeedMode.Top) { [weak self] in
-            self?.refreshControl.endRefreshing()
-        }
-    }
-    
-    enum UploadFeedMode {
-        case Top
-        case LoadMore
-    }
-    
-    var isUploadingFeed = false
-    var currentPageIndex = 1
-    
-    var lastFeedCreatedDate: NSDate {
-        
-        if feeds.isEmpty { return NSDate() }
-        return feeds.last!.createdAt
-        
-    }
-    var limitCount = 10
-    
-    private func uploadFeedWithMode(mode: UploadFeedMode = .Top, finish: (() -> Void)? = nil) {
-        
-        if isUploadingFeed {
-            finish?()
-            return
-        }
-        
-        isUploadingFeed = true
-        
-        if mode == .Top  && feeds.isEmpty {
-            activityIndicator.startAnimating()
-        }
-        
-        switch mode {
-        case .Top:
-            currentPageIndex = 1
-            
-            let query = AVQuery(className: Feed.parseClassName())
-            query.limit = limitCount
-            query.addDescendingOrder("updatedAt")
-            
-            query.findObjectsInBackgroundWithBlock({ (result, error) in
-                if error == nil {
-                    self.feeds.removeAll()
-                    self.feeds = result as! [Feed]
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.activityIndicator.stopAnimating()
-                        self.tableView.reloadData()
-                        
-                        finish?()
-            
-                       self.isUploadingFeed = false
-                    })
-                }
-            })
-            
-        case .LoadMore:
-            currentPageIndex += 1
-            
-           
-            
-            let query = AVQuery(className: Feed.parseClassName())
-            query.limit = limitCount
-            query.whereKey("createdAt", lessThan: lastFeedCreatedDate)
-            query.addDescendingOrder("updatedAt")
-            
-            query.findObjectsInBackgroundWithBlock({ (result, error) in
-                if error == nil {
-                    let firstInsertIndex = self.feeds.count
-                    
-                    if let result = result as? [Feed] {
-                        result.forEach {
-                            self.feeds.append($0)
-                        }
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        self.activityIndicator.stopAnimating()
-                        
-                        var indexPaths = [NSIndexPath]()
-                        for (index, _) in result.enumerate() {
-                            let indexPath = NSIndexPath(forRow: firstInsertIndex + index, inSection: Section.Feed.rawValue)
-                            indexPaths.append(indexPath)
-                        }
-                        
-                        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Fade)
-                        
-                        self.isUploadingFeed = false
-                        finish?()
-                    })
-                }
-            })
-            
-        }
-        
-    }
-    
-    private func loadNewComment() {
-        self.activityIndicator.startAnimating()
-        let query = AVQuery(className: Feed.parseClassName())
-        query.limit = 10
-        query.addDescendingOrder("updatedAt")
-        
-        query.findObjectsInBackgroundWithBlock({ (result, error) in
-            if error == nil {
-                self.feeds = result as! [Feed]
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.activityIndicator.stopAnimating()
-                self.tableView.reloadData()
-              
-            })
-            }
-        })
-    }
-
- 
     private lazy var newFeedActionSheetView: ActionSheetView = {
         
         let view = ActionSheetView(items: [
@@ -217,7 +50,7 @@ class FeedsViewController: UIViewController {
                 action: { [weak self] in
                     guard let strongSelf = self else { return }
                     
-                  
+                    
                     strongSelf.newFeedAttachmentType = .Media
                     strongSelf.performSegueWithIdentifier("ShowAddFeed", sender: nil)
                 }
@@ -233,7 +66,7 @@ class FeedsViewController: UIViewController {
                     newVc.editType = NewFormulaViewController.EditType.NewAttchment
                     
                     strongSelf.presentViewController(navigationVC, animated: true, completion: nil)
-                   
+                    
                 }
             ),
             .Option(
@@ -250,28 +83,172 @@ class FeedsViewController: UIViewController {
         )
         return view
         
-
     }()
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
+    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
+    
+    var feeds = [Feed]()
+    var uploadingFeeds = [Feed]()
+ 
+    private static var LayoutsCatch = LayoutCatch()
+    private let FeedDefaultCellIdentifier = "FeedDefaultCell"
+    private let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
+    private let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
+    
+    @IBOutlet weak var tableView: UITableView! {
+        
+        didSet {
+            
+            searchBar.sizeToFit()
+            tableView.tableHeaderView = searchBar
+            
+            tableView.addSubview(refreshControl)
+            
+            tableView.backgroundColor = UIColor.whiteColor()
+            tableView.tableFooterView = UIView()
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            
+            tableView.rowHeight = 300
+            
+            tableView.registerClass(FeedDefaultCell.self, forCellReuseIdentifier: FeedDefaultCellIdentifier)
+            tableView.registerClass(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
+            tableView.registerNib(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
+            
+        }
+    }
+
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
+        navigationItem.title = "话题"
+        
+        tableView.contentOffset.y = CGRectGetHeight(searchBar.frame)
+        
+        uploadFeed()
+        
+    }
+ 
+    
+    
+    // MARK: - UploadingFeed 
+    
+    var isUploadingFeed = false
+    var lastFeedCreatedDate: NSDate {
+        
+        if feeds.isEmpty { return NSDate() }
+        return feeds.last!.createdAt
+        
+    }
+    
+    private func uploadFeed(mode: UploadFeedMode = .Top, finish: (() -> Void)? = nil) {
+        
+        if isUploadingFeed {
+            finish?()
+            return
+        }
+        
+        isUploadingFeed = true
+        
+        if mode == .Top  && feeds.isEmpty {
+            activityIndicator.startAnimating()
+        }
+        
+        let failureHandler: (error: NSError) -> Void  = { error in
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+               
+                CubeAlert.alertSorry(message: error.localizedFailureReason, inViewController: self)
+                
+                self?.activityIndicator.stopAnimating()
+                
+                finish?()
+            }
+        }
+        
+        let completion: ([Feed]) -> Void = { feeds in
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+            
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.isUploadingFeed = false
+                strongSelf.activityIndicator.stopAnimating()
+                
+                let newFeeds = feeds
+                
+                var wayToUpdata = UITableView.WayToUpdata.None
+                
+                if strongSelf.feeds.isEmpty {
+                    wayToUpdata = .ReloadData
+                }
+                
+                switch mode {
+                    
+                case .Top:
+                    
+                    wayToUpdata = .ReloadData
+                    strongSelf.feeds = newFeeds
+                    
+                    strongSelf.refreshControl.endRefreshing()
+                    
+                case .LoadMore:
+                    
+                    let oldFeedsCount = strongSelf.feeds.count
+                    
+                    let oldFeedIDs = Set<String>(strongSelf.feeds.map { $0.objectId })
+                    
+                    var newRealFeeds = [Feed]()
+                    for feed in newFeeds {
+                        if !oldFeedIDs.contains(feed.objectId) {
+                           newRealFeeds.append(feed)
+                        }
+                    }
+                    
+                    strongSelf.feeds += newRealFeeds
+                    
+                    let newFeedCount = strongSelf.feeds.count
+                    
+                    let indexPaths = Array(oldFeedsCount..<newFeedCount).map {
+                       NSIndexPath(forRow:$0, inSection: Section.Feed.rawValue)
+                    }
+                    
+                    wayToUpdata = .Insert(indexPaths)
+                    
+                }
+            
+                wayToUpdata.performWithTableView(strongSelf.tableView)
+                
+                finish?()
+            }
+            
+        }
+        
+        fetchFeedWithCategory(FeedCategory.All, uploadingFeedMode: mode,lastFeedCreatDate: lastFeedCreatedDate, completion: completion, failureHandler: failureHandler)
+    }
+    
+  
+
+ 
+  
     
     // MARK: - Target
     @IBAction func creatNewFeed(sender: AnyObject) {
         if let window = view.window {
             newFeedActionSheetView.showInView(window)
-            
-         
         }
     }
     
+    func pullRefreshFeed(sender: UIRefreshControl) {
+        uploadFeed()
+    }
    
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .Minimal
-        searchBar.placeholder = NSLocalizedString("Search", comment: "")
-        searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchbar_textfield_background"), forState: .Normal)
-        searchBar.delegate = self
-        return searchBar
-    }()
-    
     
 }
 
@@ -370,10 +347,8 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.isLoading = true
             
-            uploadFeedWithMode(FeedsViewController.UploadFeedMode.LoadMore) {
-                
+            uploadFeed(UploadFeedMode.LoadMore) {
                 cell.isLoading = false
-                
             }
  
             

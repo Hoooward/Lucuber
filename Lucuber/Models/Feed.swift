@@ -37,14 +37,7 @@ public func ==(lhs: DiscoveredUser, rhs: DiscoveredUser) -> Bool {
 }
 
 
-public enum FeedCategory: String {
-    
-    case Formula = "公式"
-    case Record = "成绩"
-    case Topic = "话题"
-    
-    
-}
+
 
 
 public enum FeedKind: String {
@@ -105,61 +98,79 @@ public func ==(lhs: DiscoveredFeed, rhs: DiscoveredFeed) -> Bool {
     return lhs.id == rhs.id
 }
 
+
+public enum FeedCategory: String {
+    
+    case All = "所有"
+    case Formula = "公式"
+    case Record = "成绩"
+    case Topic = "话题"
+
+    
+}
+
 class Feed: AVObject, AVSubclassing  {
     
     class func parseClassName() -> String {
         return "Feed"
     }
     
-    
-    
-    /// 作者
     static let Feedkey_creator = "creator"
+    static let Feedkey_body = "contentBody"
+    static let Feedkey_kind = "kindString"
+    static let Feedkey_category = "category"
+    static let FeedKey_imagesURL = "imagesUrl"
+    static let FeedKey_comments = "comments"
+    
+    
+    ///作者
     @NSManaged var creator: AVUser?
     
-    static let Feedkey_body = "contentBody"
+    ///内容
     @NSManaged var contentBody: String?
     
-    static let Feedkey_kind = "kindString"
-    @NSManaged var kindString: String?
-    
-    static let Feedkey_category = "category"
+    ///种类, FeedCategory -> 公式, 成绩, 话题
     @NSManaged var category: String?
     
-    static let FeedKey_imagesURL = "imagesUrl"
+    ///图片附件URL
     @NSManaged var imagesUrl: [String]?
     
-    static let FeedKey_comments = "comments"
+    ///评论
     @NSManaged var comments: [String]?
     
     
-    var kind: FeedKind {
-        if let kindString = self.kindString,
-            let kind = FeedKind.init(rawValue: kindString) {
-            return kind
-        }
-        return .Text
-    }
-    
+    ///附件的种类
     enum Attachment: String {
+        
         case BigImage = "bigImage"
         case MultiImages = "MultiImages"
         case Text = "text"
+        case Formula = "Formula"
+        
     }
     
-//    static let FeedKey_attachment = "attachmentString"
-//    @NSManaged var attachmentString: String?
     
+    ///通过 ImageURL 的数量来判断 附件的种类
     var attachment: Attachment {
+        
         guard let imagesUrl = imagesUrl else {
             return .Text
         }
+        
         if imagesUrl.count == 0 { return .Text }
+        
         return imagesUrl.count > 1 ? .MultiImages : .BigImage
     }
     
     
     
+    //    var kind: FeedKind {
+    //        if let kindString = self.kindString,
+    //            let kind = FeedKind.init(rawValue: kindString) {
+    //            return kind
+    //        }
+    //        return .Text
+    //    }
 }
 
 
