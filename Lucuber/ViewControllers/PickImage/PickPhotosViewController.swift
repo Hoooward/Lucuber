@@ -20,6 +20,7 @@ class PickPhotosViewController: UICollectionViewController {
     /*
      参考: http://kayosite.com/ios-development-and-detail-of-photo-framework-part-two.html
     */
+    var imageManager = PHCachingImageManager()
 
     var images: PHFetchResult? {
         didSet {
@@ -31,7 +32,6 @@ class PickPhotosViewController: UICollectionViewController {
     }
     
     weak var delegate: ReturnPickedPhotosDelegate?
-    var imageManager = PHCachingImageManager()
     
     var pickedImages = [PHAsset]()
     var pickedImageSet = Set<PHAsset>()
@@ -147,7 +147,7 @@ class PickPhotosViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? PhotoCell {
-            cell.imageManager = imageManager
+            cell.imageManager = self.imageManager
             
             if let imageAsset = images?[indexPath.row] as? PHAsset {
                 cell.imageAsset = imageAsset

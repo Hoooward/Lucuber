@@ -16,10 +16,11 @@ class FeedDefaultCell: UITableViewCell {
         return maxWidth
     }()
     
-//    class func heightOfFeed(feed: AnyObject) -> CGFloat {
-//        
-//    }
+
     var feed: Feed?
+    
+    var tapAvataraction: ((FeedDefaultCell) -> Void)?
+    
     
     class func heightOfFeed(feed: Feed) -> CGFloat {
         

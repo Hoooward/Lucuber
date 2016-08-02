@@ -9,27 +9,39 @@
 import UIKit
 
 class FeedBiggerImageCell: FeedDefaultCell {
+    
+    var tapMediaAction: ((transitionView: UIView, image: UIImage?, index: Int) -> Void)?
 
     override class func heightOfFeed(feed: Feed) -> CGFloat {
+        
         let height = super.heightOfFeed(feed) + CubeConfig.FeedBiggerImageCell.imageSize.height + 15
         return ceil(height)
+        
     }
     
     lazy var biggerImageView: UIImageView = {
+        
         let imageView = UIImageView()
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
+        
         imageView.frame = CGRect(x: 65, y: 0, width: CubeConfig.FeedBiggerImageCell.imageSize.width, height: CubeConfig.FeedBiggerImageCell.imageSize.height)
+        
         imageView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor
         imageView.layer.borderWidth = 1.0 / UIScreen.mainScreen().scale
+        
         imageView.userInteractionEnabled = true
-        let tap = UIGestureRecognizer(target: self, action: #selector(FeedBiggerImageCell.tap(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(FeedBiggerImageCell.tap(_:)))
         imageView.addGestureRecognizer(tap)
+        
         return imageView
+        
     }()
     
     func tap(sender: UIGestureRecognizer) {
-        
+       
+        printLog("")
+        tapMediaAction?(transitionView: biggerImageView, image: biggerImageView.image, index: 0)
     }
     
     override func prepareForReuse() {

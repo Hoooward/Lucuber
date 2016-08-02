@@ -171,6 +171,7 @@ class FeedsViewController: UIViewController {
                 CubeAlert.alertSorry(message: error.localizedFailureReason, inViewController: self)
                 
                 self?.activityIndicator.stopAnimating()
+                self?.refreshControl.endRefreshing()
                 
                 finish?()
             }
@@ -350,7 +351,41 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError()
         }
         
+        
+        
         switch section {
+            
+        case .Feed:
+    
+            let feed = feeds[indexPath.row]
+            
+            guard let cell = cell as? FeedBiggerImageCell else {
+                break
+            }
+            
+            cell.tapMediaAction = { [weak self] transitionView, image, index in
+                
+                guard let image = image else {
+                    return
+                }
+                print(image)
+                
+                let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewControllerWithIdentifier("MediaPreviewViewController") as! MediaPreviewViewController
+                
+                
+                vc.afterDismissAction = { [weak self] in
+                 
+                    self?.view.window?.makeKeyAndVisible()
+                }
+                
+                vc.previewMedias = [image]
+                
+                mediaPreviewWindow.rootViewController = vc
+                mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+                mediaPreviewWindow.makeKeyAndVisible()
+                
+            }
+    
             
         case .loadMore:
             guard let cell = cell as? LoadMoreTableViewCell else {

@@ -75,6 +75,8 @@
 		895B7F091D48FA9300732F4E /* FeedAnyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B7F081D48FA9300732F4E /* FeedAnyImagesCell.swift */; };
 		895B7F0B1D49080300732F4E /* FeedMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895B7F0A1D49080300732F4E /* FeedMediaCell.xib */; };
 		895B7F0D1D4909E700732F4E /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B7F0C1D4909E700732F4E /* ImageCache.swift */; };
+		895B7F101D49E27000732F4E /* MediaPreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 895B7F0F1D49E27000732F4E /* MediaPreview.storyboard */; };
+		895B7F141D49E9A700732F4E /* MediaPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B7F131D49E9A700732F4E /* MediaPreviewViewController.swift */; };
 		895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */; };
 		895D10E91D2116A000CEF7FA /* CommentFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */; };
 		895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */; };
@@ -147,6 +149,9 @@
 		89F58F211D01696400361474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F1F1D01696400361474 /* Main.storyboard */; };
 		89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F58F241D01696400361474 /* LaunchScreen.storyboard */; };
 		89FAF40F1D33AF7900096B5A /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89FAF40E1D33AF7900096B5A /* CubeCategory.plist */; };
+		89FC6FB51D4F44F9001B91CA /* MediaViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FC6FB31D4F44F9001B91CA /* MediaViewCell.swift */; };
+		89FC6FB61D4F44F9001B91CA /* MediaViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89FC6FB41D4F44F9001B91CA /* MediaViewCell.xib */; };
+		89FC6FB81D4F4554001B91CA /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FC6FB71D4F4554001B91CA /* MediaView.swift */; };
 		F98DF060D34CD49A5294FA21 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4556DDEFF79F93AFCD55797 /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
@@ -226,6 +231,8 @@
 		895B7F081D48FA9300732F4E /* FeedAnyImagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedAnyImagesCell.swift; sourceTree = "<group>"; };
 		895B7F0A1D49080300732F4E /* FeedMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedMediaCell.xib; sourceTree = "<group>"; };
 		895B7F0C1D4909E700732F4E /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		895B7F0F1D49E27000732F4E /* MediaPreview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MediaPreview.storyboard; sourceTree = "<group>"; };
+		895B7F131D49E9A700732F4E /* MediaPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewController.swift; sourceTree = "<group>"; };
 		895BC0D01D3DE7E200EA47BA /* CategoryCheckCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCheckCell.swift; sourceTree = "<group>"; };
 		895D10E71D2116A000CEF7FA /* CommentFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormulaCell.swift; sourceTree = "<group>"; };
 		895D10E81D2116A000CEF7FA /* CommentFormulaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormulaCell.xib; sourceTree = "<group>"; };
@@ -301,6 +308,9 @@
 		89F58F201D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F58F251D01696400361474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89FAF40E1D33AF7900096B5A /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
+		89FC6FB31D4F44F9001B91CA /* MediaViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewCell.swift; sourceTree = "<group>"; };
+		89FC6FB41D4F44F9001B91CA /* MediaViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaViewCell.xib; sourceTree = "<group>"; };
+		89FC6FB71D4F4554001B91CA /* MediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
 		D4124C5E540B7B86B417D0A1 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		E4556DDEFF79F93AFCD55797 /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0775269DE256FE5B2FC3E43 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
@@ -692,6 +702,18 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		895B7F0E1D49E26200732F4E /* MediaPreview */ = {
+			isa = PBXGroup;
+			children = (
+				895B7F0F1D49E27000732F4E /* MediaPreview.storyboard */,
+				895B7F131D49E9A700732F4E /* MediaPreviewViewController.swift */,
+				89FC6FB31D4F44F9001B91CA /* MediaViewCell.swift */,
+				89FC6FB41D4F44F9001B91CA /* MediaViewCell.xib */,
+				89FC6FB71D4F4554001B91CA /* MediaView.swift */,
+			);
+			path = MediaPreview;
+			sourceTree = "<group>";
+		};
 		895BC0CF1D3DE7C900EA47BA /* CategoryCheckCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -917,6 +939,7 @@
 		89E663601D03F18200E90926 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				895B7F0E1D49E26200732F4E /* MediaPreview */,
 				89B9B5171D4376AB002F2E66 /* Navigation */,
 				89B9B5111D43769B002F2E66 /* Tabbar */,
 				89B9B51A1D437823002F2E66 /* BaseFormula */,
@@ -1128,6 +1151,7 @@
 			files = (
 				89948BBE1D488DDA0075A3D0 /* LoadMoreTableViewCell.xib in Resources */,
 				89534E031D47D48100205C4A /* DetailSeparatorCell.xib in Resources */,
+				895B7F101D49E27000732F4E /* MediaPreview.storyboard in Resources */,
 				89534E011D47D48100205C4A /* DetailMasterCell.xib in Resources */,
 				89F58F261D01696400361474 /* LaunchScreen.storyboard in Resources */,
 				89534DFE1D47D48100205C4A /* DetailFormulasCell.xib in Resources */,
@@ -1157,6 +1181,7 @@
 				89B9B52F1D43C788002F2E66 /* AddFeed.storyboard in Resources */,
 				89E663971D04099A00E90926 /* FormulaDetailSeparatorCell.xib in Resources */,
 				89F58F211D01696400361474 /* Main.storyboard in Resources */,
+				89FC6FB61D4F44F9001B91CA /* MediaViewCell.xib in Resources */,
 				895D10EA1D2116A000CEF7FA /* CommentFormulaCell.xib in Resources */,
 				89A17BF11D2D1B5F0082B625 /* HeaderReusableView.xib in Resources */,
 				89E6639B1D040C2400E90926 /* FormulaDetailContentCell.xib in Resources */,
@@ -1306,13 +1331,16 @@
 				894018E81D387CF6000703E5 /* CubeHUD.swift in Sources */,
 				896425151D34DDCC00F1D194 /* StarRatingView.swift in Sources */,
 				89A17BEC1D2D1B460082B625 /* LayoutButton.swift in Sources */,
+				89FC6FB81D4F4554001B91CA /* MediaView.swift in Sources */,
 				8909CE631D41BFB300511243 /* ConversationIndicatorTitleView.swift in Sources */,
 				89534E081D47D5E000205C4A /* PopMenuPresentationController.swift in Sources */,
 				89402B5D1D421BD000FEEA95 /* Feed.swift in Sources */,
 				89534DFD1D47D48100205C4A /* DetailFormulasCell.swift in Sources */,
 				89534DD51D47D35400205C4A /* CategoryIndicaterView.swift in Sources */,
 				89B924831D05623000BBF003 /* RegisterPickNameViewController.swift in Sources */,
+				89FC6FB51D4F44F9001B91CA /* MediaViewCell.swift in Sources */,
 				89534D561D47BC0800205C4A /* UIImageView+Cube.swift in Sources */,
+				895B7F141D49E9A700732F4E /* MediaPreviewViewController.swift in Sources */,
 				89534DDE1D47D35400205C4A /* HeaderFormulaView.swift in Sources */,
 				89B924851D05702200BBF003 /* RegisterPickMobileViewController.swift in Sources */,
 				89C2EDB71D01A387009365BA /* Helper.swift in Sources */,

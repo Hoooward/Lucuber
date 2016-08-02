@@ -50,7 +50,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feed_media_add" translatesAutoresizingMaskIntoConstraints="NO" id="2e9-nN-PYX">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="feed_media_add" translatesAutoresizingMaskIntoConstraints="NO" id="2e9-nN-PYX">
                                                                     <rect key="frame" x="10" y="10" width="30" height="30"/>
                                                                 </imageView>
                                                             </subviews>
