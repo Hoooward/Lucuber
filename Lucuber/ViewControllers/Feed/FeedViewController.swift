@@ -372,6 +372,12 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewControllerWithIdentifier("MediaPreviewViewController") as! MediaPreviewViewController
                 
+                vc.startIndex = index
+                vc.transitionView = transitionView
+                let frame = transitionView.convertRect(transitionView.bounds, toView: self?.view)
+                vc.previewImageViewInitalFrame = frame
+                vc.bottomPreviewImage = image
+                
                 
                 vc.afterDismissAction = { [weak self] in
                  

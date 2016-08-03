@@ -36,7 +36,7 @@ final class MediaView: UIView {
         let size = CGSize(width: floor(image.size.width), height: floor(image.size.height))
         
         imageView.frame = CGRect(origin: CGPointZero, size: size)
-        print("imageSize = \(size)")
+//        print("imageSize = \(size)")
         
         let widthScale = scrollView.bounds.size.width / size.width
         let minSclae = widthScale
@@ -184,32 +184,37 @@ final class MediaView: UIView {
     // MARK: Notification & target
     @objc private func doubleTapToZoom(sender: UIGestureRecognizer) {
         
-        
         let zoomPoint = sender.locationInView(self)
         
         if !isZoomIn {
             isZoomIn = true
             
             zoomScaleBeforeZoomIn = scrollView.zoomScale
-            let zoomRect = CGRect(x: zoomPoint.x, y: zoomPoint.y, width: screenWidth, height: screenHeight)
-            scrollView.zoomToRect(zoomRect, animated: true)
+            scrollView.cube_zoomToPoint(zoomPoint, withScale: scrollView.zoomScale * 2)
+            scrollView.scrollEnabled = true
+            
         } else {
-            isZoomIn = false
+            
+            if let zoomScale = zoomScaleBeforeZoomIn {
+                zoomScaleBeforeZoomIn = nil
+                isZoomIn = false
+                scrollView.cube_zoomToPoint(zoomPoint, withScale: zoomScale)
+                scrollView.scrollEnabled = false
+            }
         }
-        
-        
-        //当前的缩放比例
-        let currentSclae = scrollView.zoomScale
-        
-        
-        
-        print("当前的缩放比例 = \(currentSclae)")
     }
-    
+
     @objc private func tapToDismiss(sender: UIGestureRecognizer) {
-        
-        delay(0.35) { [weak self] in
-            self?.tapToDismissAction?()
+       
+        if let zoomScale = zoomScaleBeforeZoomIn {
+            let quickZoomDuration: NSTimeInterval = 0.35
+            scrollView.cube_zoomToPoint(CGPointZero, withScale: zoomScale, animationDuration: quickZoomDuration, animationCurve: .EaseInOut)
+            delay(quickZoomDuration) { [weak self] in
+                self?.tapToDismissAction?()
+            }
+        } else {
+            
+            self.tapToDismissAction?()
         }
         
         
@@ -220,12 +225,11 @@ final class MediaView: UIView {
 extension MediaView: UIScrollViewDelegate {
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        print(#function)
         return imageView
     }
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        print(#function)
+        
         if inTapZoom {
             inTapZoom = false
             return
@@ -234,9 +238,11 @@ extension MediaView: UIScrollViewDelegate {
         if let image = image {
             recenterImage(image)
             
+            zoomScaleBeforeZoomIn = scrollView.minimumZoomScale
+            isZoomIn = !(scrollView.zoomScale == scrollView.minimumZoomScale)
+            scrollView.scrollEnabled = isZoomIn
         }
     }
-    
 }
 
 

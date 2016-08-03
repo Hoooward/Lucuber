@@ -152,6 +152,8 @@
 		89FC6FB51D4F44F9001B91CA /* MediaViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FC6FB31D4F44F9001B91CA /* MediaViewCell.swift */; };
 		89FC6FB61D4F44F9001B91CA /* MediaViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89FC6FB41D4F44F9001B91CA /* MediaViewCell.xib */; };
 		89FC6FB81D4F4554001B91CA /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FC6FB71D4F4554001B91CA /* MediaView.swift */; };
+		89FC6FBA1D51D904001B91CA /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FC6FB91D51D904001B91CA /* UIScrollView+Cube.swift */; };
+		89FC6FBC1D51DE85001B91CA /* MediaControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FC6FBB1D51DE85001B91CA /* MediaControlView.swift */; };
 		F98DF060D34CD49A5294FA21 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4556DDEFF79F93AFCD55797 /* Pods_Lucuber.framework */; };
 /* End PBXBuildFile section */
 
@@ -311,6 +313,8 @@
 		89FC6FB31D4F44F9001B91CA /* MediaViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewCell.swift; sourceTree = "<group>"; };
 		89FC6FB41D4F44F9001B91CA /* MediaViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaViewCell.xib; sourceTree = "<group>"; };
 		89FC6FB71D4F4554001B91CA /* MediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		89FC6FB91D51D904001B91CA /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
+		89FC6FBB1D51DE85001B91CA /* MediaControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaControlView.swift; sourceTree = "<group>"; };
 		D4124C5E540B7B86B417D0A1 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		E4556DDEFF79F93AFCD55797 /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0775269DE256FE5B2FC3E43 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
@@ -710,6 +714,7 @@
 				89FC6FB31D4F44F9001B91CA /* MediaViewCell.swift */,
 				89FC6FB41D4F44F9001B91CA /* MediaViewCell.xib */,
 				89FC6FB71D4F4554001B91CA /* MediaView.swift */,
+				89FC6FBB1D51DE85001B91CA /* MediaControlView.swift */,
 			);
 			path = MediaPreview;
 			sourceTree = "<group>";
@@ -908,6 +913,7 @@
 				89534D551D47BC0800205C4A /* UIImageView+Cube.swift */,
 				89534E091D47E33100205C4A /* UINavigationController+Cube.swift */,
 				895B7F011D48D23700732F4E /* UITableView+Cube.swift */,
+				89FC6FB91D51D904001B91CA /* UIScrollView+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1271,6 +1277,7 @@
 				89B9B5151D43769B002F2E66 /* MainTabbarController.swift in Sources */,
 				895B7F051D48DC9F00732F4E /* CubeService+LeanCloud.swift in Sources */,
 				8909CE6D1D41F3DA00511243 /* FeedUploadingErrorContainerView.swift in Sources */,
+				89FC6FBC1D51DE85001B91CA /* MediaControlView.swift in Sources */,
 				89534E001D47D48100205C4A /* DetailMasterCell.swift in Sources */,
 				89EEDCBC1D02EF6D007257C3 /* Storyboard+Cube.swift in Sources */,
 				895D10F01D21211100CEF7FA /* Formula.swift in Sources */,
@@ -1307,6 +1314,7 @@
 				895A6B631D475FC20060C3E1 /* UIImage+Cube.swift in Sources */,
 				89E6C5F31D03F0D3005ACFB9 /* NormalFormulaCell.swift in Sources */,
 				89E6638E1D03FA8700E90926 /* HeaderCell.swift in Sources */,
+				89FC6FBA1D51D904001B91CA /* UIScrollView+Cube.swift in Sources */,
 				89E6C5EF1D03F0D3005ACFB9 /* CardFormulaCell.swift in Sources */,
 				89E663921D04039A00E90926 /* FormulaDetailMasterCell.swift in Sources */,
 				895BC0D11D3DE7E200EA47BA /* CategoryCheckCell.swift in Sources */,
