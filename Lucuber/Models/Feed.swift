@@ -124,6 +124,77 @@ public enum FeedCategory: String {
 //    
 //}
 
+public typealias JSONDictionary = [String: AnyObject]
+
+public func decodeJSON(data: NSData) -> JSONDictionary? {
+    
+    if data.length > 0 {
+        guard let result = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()) else {
+            return JSONDictionary()
+        }
+        
+        if let dictionary = result as? JSONDictionary {
+            return dictionary
+        } else if let array = result as? [JSONDictionary] {
+            return ["data": array]
+        } else {
+            return JSONDictionary()
+        }
+    } else {
+        return JSONDictionary()
+    }
+}
+
+public func encodeJSON(dict: JSONDictionary) -> NSData? {
+    return dict.count > 0 ? (try? NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions())) : nil
+}
+
+public struct ImageAttachment {
+    
+    //后面可以尝试将小头像以二进制序列方式存储
+    public let metadata: String?
+    public let URLString: String
+    
+    public var image: UIImage?
+    
+    public var isTemporary: Bool {
+        return image != nil
+    }
+    
+    public init(metadata: String?, URLString: String, image: UIImage?) {
+        self.metadata = metadata
+        self.image = image
+        self.URLString = URLString
+    }
+    
+    public var thumbnailImageData: NSData? {
+        guard metadata?.characters.count > 0 else {
+            return nil
+        }
+        
+        if let data = metadata?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion:  false) {
+            if  let metadataInfo = decodeJSON(data) {
+                if let thumbnailString = metadataInfo["thumbnail"] as? String {
+                    let imageData = NSData(base64EncodedString: thumbnailString, options: NSDataBase64DecodingOptions(rawValue: 0))
+                    return imageData
+                }
+            }
+        }
+        return nil
+    }
+    
+    public var thumbnailImage: UIImage? {
+        
+        if let imageData = thumbnailImageData {
+            let image = UIImage(data: imageData)
+            return image
+        }
+        return nil
+    }
+    
+    
+}
+
 class Feed: AVObject, AVSubclassing  {
     
     class func parseClassName() -> String {
@@ -156,30 +227,11 @@ class Feed: AVObject, AVSubclassing  {
     
     ///附件的种类
     enum Attachment  {
-        
-        case BigImage(String)
-        case AnyImages([String])
+        case Image([ImageAttachment])
         case Text
         case Formula
         
-        
     }
-    
-    
-//    internal var imageCoordinators: [ImageCoordinator]? {
-//        
-//        guard let imagesUrl = imagesUrl else {
-//            return nil
-//        }
-//        if !imagesUrl.isEmpty {
-//            
-//            return imagesUrl.map {
-//                ImageCoordinator.formImageUrl($0)
-//            }
-//        }
-//    }
-//  
-    
     
     ///通过 ImageURL 的数量来判断 附件的种类
     var attachment: Attachment {
@@ -194,31 +246,14 @@ class Feed: AVObject, AVSubclassing  {
         
         if imagesUrl.isEmpty && FeedCategory(rawValue: self.category) == .Formula {
             return .Formula
-        }
-        
-        if imagesUrl.count > 1 {
-            
-            return Attachment.AnyImages(imagesUrl)
-            
-        } else {
-            
-            return Attachment.BigImage(imagesUrl.first!)
             
         }
         
-        
+        return .Image(imagesUrl.map {ImageAttachment(metadata: nil, URLString: $0, image: nil)})
     }
     
     
-    
-    //    var kind: FeedKind {
-    //        if let kindString = self.kindString,
-    //            let kind = FeedKind.init(rawValue: kindString) {
-    //            return kind
-    //        }
-    //        return .Text
-    //    }
-}
+ }
 
 
 

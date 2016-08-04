@@ -47,8 +47,10 @@ final public class CubeConfig {
     }
     
     public struct FeedAnyImagesCell {
-        public static let imageSize = CGSize(width: 80, height: 80)
-        public static let mediaCollectionViewSize = CGSize(width: screenWidth, height: 80)
+        public static let maxImageCount = 4
+        public static let width = CGFloat((screenWidth - 65 - 15 - 16) / 4)
+        public static let imageSize = CGSize(width: width, height: width)
+        public static let mediaCollectionViewSize = CGSize(width: screenWidth, height: width)
     }
     
     public struct NewFeedFullImage {

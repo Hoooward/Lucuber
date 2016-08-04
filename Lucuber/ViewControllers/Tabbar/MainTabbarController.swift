@@ -25,6 +25,8 @@ class MainTabbarController: UITabBarController {
 //            newUser.setUserNickName("Hoooward")
 //            newUser.setUserAvatarImageUrl("www.feng.com")
             
+            
+            AVUser.logInWithUsername("huoyunlong", password: "12345")
             newUser.signUpInBackgroundWithBlock {
                 succeeded, error in
                 if succeeded {

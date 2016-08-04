@@ -26,8 +26,8 @@ class FeedAnyImagesCell: FeedDefaultCell  {
         
         switch feed.attachment {
             
-        case .AnyImages(let urls):
-            imageUrls = urls
+        case .Image(let imageAttachments):
+            self.imageAttachments = imageAttachments
             
         default:
             break
@@ -39,7 +39,9 @@ class FeedAnyImagesCell: FeedDefaultCell  {
         
     }
     
-    var imageUrls = [String]() {
+  
+    
+    var imageAttachments: [ImageAttachment] = [] {
         didSet {
             mediaCollectionView.reloadData()
         }
@@ -59,7 +61,6 @@ class FeedAnyImagesCell: FeedDefaultCell  {
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         
         
         return collectionView
@@ -85,14 +86,15 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageUrls.count
+        return imageAttachments.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaCellIdentifier, forIndexPath: indexPath) as! FeedMediaCell
         
-        if let url = NSURL(string: imageUrls[indexPath.row]) {
+        let urls = imageAttachments.map { $0.URLString }
+        if let url = NSURL(string: urls[indexPath.row]) {
             cell.imageView.setImageWithURL(url)
         }
         

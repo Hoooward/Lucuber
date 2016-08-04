@@ -15,6 +15,7 @@ class MediaPreviewViewController: UIViewController {
     // MARK: Properties
     
     
+    var showFinished = false
  
     var previewMedias: [UIImage] = []
     
@@ -51,7 +52,6 @@ class MediaPreviewViewController: UIViewController {
     
     var afterDismissAction: (() -> Void)?
     
-    var showFinished = false
     
     let mediaViewCellID = "MediaViewCell"
     
@@ -81,6 +81,9 @@ class MediaPreviewViewController: UIViewController {
         topPreviewImageView.frame = previewImageViewInitalFrame
         bottomPreviewImageView.frame = previewImageViewInitalFrame
         
+        topPreviewImageView.contentMode = .ScaleAspectFill
+        bottomPreviewImageView.contentMode = .ScaleAspectFill
+        
         view.addSubview(bottomPreviewImageView)
         view.addSubview(topPreviewImageView)
         
@@ -103,12 +106,12 @@ class MediaPreviewViewController: UIViewController {
         
         topPreviewImageView.alpha = 0
         bottomPreviewImageView.alpha = 1
-//        view.backgroundColor = UIColor.clearColor()
         
-        view.alpha = 1
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor.clearColor()
+        
         UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations:{ [weak self] in
             
+            self?.view.backgroundColor = UIColor.blackColor()
             print(self?.view)
             print(self?.view.backgroundColor)
 //            self?.mediasCollectionView.backgroundColor = UIColor.blackColor()
@@ -117,6 +120,8 @@ class MediaPreviewViewController: UIViewController {
                 self?.topPreviewImageView.alpha = 1
                 self?.bottomPreviewImageView.alpha = 0
             }
+            
+           
             
             let frame = CGRect(x: 0, y: (screenHeight - previewImageViewHeight) * 0.5, width: previewImageViewWidht, height: previewImageViewHeight)
             
@@ -142,7 +147,10 @@ class MediaPreviewViewController: UIViewController {
                     self?.topPreviewImageView.alpha = 0
                     self?.bottomPreviewImageView.alpha = 0
                     
-                    }, completion: { _ in  })
+                    }, completion: { _ in
+                        
+                        self?.showFinished = true
+                })
                 
         })
         
@@ -155,7 +163,6 @@ class MediaPreviewViewController: UIViewController {
         swip2.direction = .Down
         view.addGestureRecognizer(swip2)
         
-        view.backgroundColor = UIColor.clearColor()
         
         
     }
@@ -182,8 +189,56 @@ class MediaPreviewViewController: UIViewController {
     
     func dismiss(sender: UIGestureRecognizer?) {
         
-        mediaPreviewWindow.windowLevel = UIWindowLevelNormal
-        afterDismissAction?()
+        guard showFinished else {
+            return
+        }
+        
+        let finishDismissaction: () -> Void = { [weak self] in
+            
+            mediaPreviewWindow.windowLevel = UIWindowLevelNormal
+            
+            self?.afterDismissAction?()
+            
+            delay(0.05) {
+                mediaPreviewWindow.rootViewController = nil
+            }
+        }
+        
+        if let _ = topPreviewImage {
+            topPreviewImageView.alpha = 1
+            bottomPreviewImageView.alpha = 0
+            
+        } else {
+            bottomPreviewImageView.alpha = 1
+        }
+        
+        self.view.backgroundColor = UIColor.clearColor()
+        UIView.animateWithDuration(0.1, delay: 0, options: .CurveEaseInOut, animations: {
+            [weak self] in
+            self?.mediasCollectionView.alpha = 0
+            self?.mediaControlView.alpha = 0
+            }, completion: nil)
+        
+        
+        let frame = self.previewImageViewInitalFrame ?? CGRectZero
+        
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+            [weak self] in
+            
+            if let _ = self?.topPreviewImage {
+                self?.topPreviewImageView.alpha = 0
+                self?.bottomPreviewImageView.alpha = 1
+            }
+            
+            self?.topPreviewImageView.frame = frame
+            self?.bottomPreviewImageView.frame = frame
+            
+            }, completion: { _ in
+                finishDismissaction()
+            }
+        )
+        
+       
     }
 
 }

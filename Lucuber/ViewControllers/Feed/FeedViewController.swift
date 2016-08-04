@@ -308,20 +308,23 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
                 return cell
                 
-            case .BigImage:
+            case .Image(let imagesAttachments):
+                
+                if imagesAttachments.count  > 1 {
+                    
+                    let cell = tableView.dequeueReusableCellWithIdentifier(FeedAnyImagesCellIdentifier, forIndexPath: indexPath) as! FeedAnyImagesCell
+                    
+                    cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
+                    
+                    return cell
+                }
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(FeedBiggerImageCellIdentifier, forIndexPath: indexPath) as! FeedBiggerImageCell
-                cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
-                return cell
-                
-            case .AnyImages(_):
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier(FeedAnyImagesCellIdentifier, forIndexPath: indexPath) as! FeedAnyImagesCell
                 
                 cell.configureWithFeed(feed, layout: FeedsViewController.LayoutsCatch.FeedCellLayoutOfFeed(feed), needshowCategory: false)
                 
                 return cell
-                
+  
             default:
                 return UITableViewCell()
             }
@@ -368,19 +371,22 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 guard let image = image else {
                     return
                 }
-                print(image)
                 
                 let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewControllerWithIdentifier("MediaPreviewViewController") as! MediaPreviewViewController
                 
                 vc.startIndex = index
-                vc.transitionView = transitionView
+//                vc.transitionView = transitionView
                 let frame = transitionView.convertRect(transitionView.bounds, toView: self?.view)
                 vc.previewImageViewInitalFrame = frame
                 vc.bottomPreviewImage = image
                 
+                delay(0) {
+//                    transitionView.alpha = 0
+                }
                 
                 vc.afterDismissAction = { [weak self] in
                  
+//                    transitionView.alpha = 1
                     self?.view.window?.makeKeyAndVisible()
                 }
                 

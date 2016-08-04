@@ -49,10 +49,12 @@ struct FeedCellLayout {
         switch feed.attachment {
         case .Text:
             height = FeedDefaultCell.heightOfFeed(feed)
-        case .BigImage:
-            height = FeedBiggerImageCell.heightOfFeed(feed)
-        case .AnyImages:
-            height = FeedAnyImagesCell.heightOfFeed(feed)
+        case .Image(let imagesAttachments):
+            if imagesAttachments.count > 1 {
+                height = FeedAnyImagesCell.heightOfFeed(feed)
+            } else {
+                height = FeedBiggerImageCell.heightOfFeed(feed)
+            }
         default:
             break
         }
@@ -109,11 +111,22 @@ struct FeedCellLayout {
         
         switch feed.attachment {
             
-        case .BigImage:
+        case .Image(let imagesAttachments):
             
-             let biggerImageViewFrame = CGRect(origin: CGPoint(x: 65, y: beginY), size: CubeConfig.FeedBiggerImageCell.imageSize)
-             let biggerImageLayout = BiggerImageLayout(biggerImageViewFrame: biggerImageViewFrame)
-             self.biggerImageLayout = biggerImageLayout
+            if imagesAttachments.count > 1 {
+                
+                let mediaCollectionViewFrame = CGRect(origin: CGPoint(x:65, y: beginY), size: CubeConfig.FeedAnyImagesCell.mediaCollectionViewSize)
+                
+                self.anyImagesLayout = AnyImagesLayout(mediaCollectionViewFrame: mediaCollectionViewFrame)
+            }
+            
+            if imagesAttachments.count == 1 {
+                
+                let biggerImageViewFrame = CGRect(origin: CGPoint(x: 65, y: beginY), size: CubeConfig.FeedBiggerImageCell.imageSize)
+                let biggerImageLayout = BiggerImageLayout(biggerImageViewFrame: biggerImageViewFrame)
+                self.biggerImageLayout = biggerImageLayout
+                
+            }
             
             
         case .AnyImages:

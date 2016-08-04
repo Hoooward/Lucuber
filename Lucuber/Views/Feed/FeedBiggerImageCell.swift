@@ -57,8 +57,18 @@ class FeedBiggerImageCell: FeedDefaultCell {
             biggerImageView.frame = biggerImageLayout.biggerImageViewFrame
         }
         
-        let url = NSURL(string: feed.imagesUrl!.first!)!
-        biggerImageView.setImageWithURL(url)
+        switch feed.attachment {
+        case .Image(let imageAttachments):
+            
+            if let attachment = imageAttachments.first,
+               let url = NSURL(string: attachment.URLString) {
+                biggerImageView.setImageWithURL(url)
+            }
+            
+        default:
+            break
+        }
+        
       
         
     }
