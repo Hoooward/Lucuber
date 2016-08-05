@@ -50,6 +50,7 @@ struct FeedCellLayout {
         case .Text:
             height = FeedDefaultCell.heightOfFeed(feed)
         case .Image(let imagesAttachments):
+            print(imagesAttachments)
             if imagesAttachments.count > 1 {
                 height = FeedAnyImagesCell.heightOfFeed(feed)
             } else {
@@ -128,13 +129,7 @@ struct FeedCellLayout {
                 
             }
             
-            
-        case .AnyImages:
-            
-            let mediaCollectionViewFrame = CGRect(origin: CGPoint(x:65, y: beginY), size: CubeConfig.FeedAnyImagesCell.mediaCollectionViewSize)
-            
-            self.anyImagesLayout = AnyImagesLayout(mediaCollectionViewFrame: mediaCollectionViewFrame)
-            
+  
         default:
             break
         }

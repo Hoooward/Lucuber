@@ -12,6 +12,7 @@ private let FeedMediaCellIdentifier = "FeedMediaCell"
 
 class FeedAnyImagesCell: FeedDefaultCell  {
     
+    var tapMediaAction: tapMediaActionTypealias
     
     override class func heightOfFeed(feed: Feed) -> CGFloat {
         
@@ -93,16 +94,17 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaCellIdentifier, forIndexPath: indexPath) as! FeedMediaCell
         
-        let urls = imageAttachments.map { $0.URLString }
-        if let url = NSURL(string: urls[indexPath.row]) {
-            cell.imageView.setImageWithURL(url)
-        }
+        let attachment = imageAttachments[indexPath.row]
+        
+        cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment, withSize: cell.imageView.size)
         
         cell.deleteImageView.hidden = true
+        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
         return CubeConfig.FeedAnyImagesCell.imageSize
     }
     
@@ -111,6 +113,15 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? FeedMediaCell {
+            
+            let transitionView = cell.imageView
+            let image = cell.imageView.image
+            let imageAttachments = self.imageAttachments
+            let index = indexPath.row
+            tapMediaAction?(transitionView: transitionView, image: image, imageAttachments: imageAttachments, index: index)
+        }
         
     }
     

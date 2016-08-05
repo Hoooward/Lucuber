@@ -7,26 +7,35 @@
 //
 
 import UIKit
+import MonkeyKing
 
 let mediaPreviewWindow = UIWindow(frame: screenBounds)
 
+enum PreviewMedia {
+    case Message
+    case AttachmentType(ImageAttachment)
+}
+
+
 class MediaPreviewViewController: UIViewController {
     
+  
     // MARK: Properties
     
+    var previewMedias: [PreviewMedia] = []
     
     var showFinished = false
  
-    var previewMedias: [UIImage] = []
+//    var previewMedias: [UIImage] = []
     
-    var startIndex: Int = 0
-    
-    var currentIndex: Int = 0 {
-        
+    var startIndex: Int = 0 {
         didSet {
-            
+            currentIndex = startIndex
         }
     }
+    
+    var currentIndex: Int = 0
+    
     
     private lazy var topPreviewImageView: UIImageView = {
         let imageView = UIImageView()
@@ -60,6 +69,7 @@ class MediaPreviewViewController: UIViewController {
         didSet {
             mediasCollectionView.showsVerticalScrollIndicator = false
             mediasCollectionView.showsHorizontalScrollIndicator = false
+            mediasCollectionView.pagingEnabled = true
         }
     }
     /*
@@ -174,17 +184,34 @@ class MediaPreviewViewController: UIViewController {
         
         if isFirstLayoutSubviews {
             
+            let index = startIndex
+            
+            let targetIndexPath = NSIndexPath(forItem: index, inSection: 0)
+            mediasCollectionView.scrollToItemAtIndexPath(targetIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: false)
+            
+            
+            delay(0.1) { [weak self] in
+                
+                
+                
+                guard let cell = self?.mediasCollectionView.cellForItemAtIndexPath(targetIndexPath) as? MediaViewCell else {
+                    return
+                }
+                
+                guard let previewMedia = self?.previewMedias[index] else {
+                    return
+                }
+                
+                self?.prepareForSharewithCell(cell, previewMedia: previewMedia)
+            }
+          
         }
+        
+        isFirstLayoutSubviews = false
     }
     
     deinit {
         print("预览视图已死")
-    }
-    
-    private func makeUI() {
-        
-        
-        
     }
     
     func dismiss(sender: UIGestureRecognizer?) {
@@ -220,7 +247,13 @@ class MediaPreviewViewController: UIViewController {
             }, completion: nil)
         
         
-        let frame = self.previewImageViewInitalFrame ?? CGRectZero
+        var frame = self.previewImageViewInitalFrame ?? CGRectZero
+        
+        if currentIndex != startIndex {
+            let offsetIndex = currentIndex - startIndex
+            frame.origin.x += CGFloat(offsetIndex) * frame.width + CGFloat(offsetIndex) * 4
+            
+        }
         
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
             [weak self] in
@@ -240,6 +273,59 @@ class MediaPreviewViewController: UIViewController {
         
        
     }
+    
+    private func prepareForSharewithCell(cell: MediaViewCell, previewMedia: PreviewMedia) {
+        
+        switch previewMedia {
+        case .AttachmentType(_):
+            
+            mediaControlView.type = .Image
+            
+            mediaControlView.shareAction = {
+                [weak self] in
+                
+                guard let image = cell.mediaView.image else {
+                    return
+                }
+                
+      
+                
+//                let sessionMessage = MonkeyKing.Message.WeChat(.Session(info: info))
+                
+               MonkeyKing.registerAccount(MonkeyKing.Account.WeChat(appID: "wxd930ea5d5a258f4f", appKey: "6cfda8ca2d5a0e63fe47ad897d5de995"))
+                
+                let info = MonkeyKing.Info(
+                    title: nil,
+                    description: nil,
+                    thumbnail: nil,
+                    media: .Image(image)
+                )
+               
+          
+                let sessionMessage = MonkeyKing.Message.WeChat(.Session(info: info))
+                
+                let weChatSessionActivity = AnyActivity(type: "com.Lucuber.China.Wechat.Sesstion", title: "微信好友", image: UIImage(), message: sessionMessage, completionHandler: { (result) in
+                    print("发送 \(result)")
+                })
+                
+                let timeLineMessage = MonkeyKing.Message.WeChat(.Timeline(info: info))
+                
+                let weChatTimelineActivity = AnyActivity(type: "com.Lucuber.China.Wechat.Sesstion", title: "微信朋友圈", image: UIImage(), message: timeLineMessage, completionHandler: { (result) in
+                    print("发送 \(result)")
+                })
+                
+                
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
+                activityViewController.excludedActivityTypes = [UIActivityTypeMessage,UIActivityTypeMail]
+                
+                self?.presentViewController(activityViewController, animated: true, completion: nil)
+            }
+            
+            
+        default:
+            break
+        }
+    }
 
 }
 
@@ -250,19 +336,31 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(previewMedias.count)
         return previewMedias.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(mediaViewCellID, forIndexPath: indexPath) as! MediaViewCell
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? MediaViewCell {
+            
             let previewMedia = previewMedias[indexPath.row]
-            cell.mediaView.image = previewMedia
+            
+            switch previewMedia {
+                
+            case .AttachmentType(let attachment):
+                
+               ImageCache.shardInstance.imageOfAttachment(attachment, withSideLenght: nil, completion: { (url, image, cacheType) in
+                    cell.mediaView.image = image
+               })
+                
+            default:
+                break
+            }
             
             cell.mediaView.tapToDismissAction = {
                 [weak self] in
@@ -282,9 +380,53 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
     
   
     
+}
+
+extension MediaPreviewViewController: UIScrollViewDelegate {
     
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        let cellWidth = screenWidth
+        let index = Int(scrollView.contentOffset.x / cellWidth)
+        
+        
+        currentIndex = index
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        
+        if let cell = mediasCollectionView.cellForItemAtIndexPath(indexPath) as? MediaViewCell {
+          
+            guard let image = cell.mediaView.image else {
+                return
+            }
+            
+            let attachment = self.previewMedias[index]
+            
+            prepareForSharewithCell(cell, previewMedia: attachment)
+            
+            switch attachment {
+            case .AttachmentType(_):
+                
+                bottomPreviewImageView.image = image
+                
+                let previewImageWidth = image.size.width
+                let previewImageHeight = image.size.height
+                
+                let previewImageViewWidth = screenWidth
+                let previewImageViewHeight = (previewImageHeight / previewImageWidth) * previewImageViewWidth
+                
+                let frame = CGRect(x: 0, y: (screenHeight - previewImageViewHeight) * 0.5, width: previewImageViewWidth, height: previewImageViewHeight)
+                
+                bottomPreviewImageView.frame = frame
+                
+                
+            default:
+                break
+            }
+            
+        }
+    }
     
-    
+
 }
 
 

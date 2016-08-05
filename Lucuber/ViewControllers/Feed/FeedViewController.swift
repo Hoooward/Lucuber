@@ -362,11 +362,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
             let feed = feeds[indexPath.row]
             
-            guard let cell = cell as? FeedBiggerImageCell else {
-                break
-            }
-            
-            cell.tapMediaAction = { [weak self] transitionView, image, index in
+            let tapMediaAction: tapMediaActionTypealias = { [weak self] transitionView, image, attachments, index in
                 
                 guard let image = image else {
                     return
@@ -375,28 +371,37 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewControllerWithIdentifier("MediaPreviewViewController") as! MediaPreviewViewController
                 
                 vc.startIndex = index
-//                vc.transitionView = transitionView
+                //                vc.transitionView = transitionView
                 let frame = transitionView.convertRect(transitionView.bounds, toView: self?.view)
                 vc.previewImageViewInitalFrame = frame
                 vc.bottomPreviewImage = image
                 
                 delay(0) {
-//                    transitionView.alpha = 0
+                    //                    transitionView.alpha = 0
                 }
                 
                 vc.afterDismissAction = { [weak self] in
-                 
-//                    transitionView.alpha = 1
+                    
+                    //                    transitionView.alpha = 1
                     self?.view.window?.makeKeyAndVisible()
                 }
                 
-                vc.previewMedias = [image]
+                vc.previewMedias = attachments.map { PreviewMedia.AttachmentType($0) }
                 
                 mediaPreviewWindow.rootViewController = vc
                 mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
                 mediaPreviewWindow.makeKeyAndVisible()
                 
             }
+            
+            if let cell = cell as? FeedBiggerImageCell {
+                cell.tapMediaAction = tapMediaAction
+            }
+            
+            if let cell = cell as? FeedAnyImagesCell {
+                cell.tapMediaAction = tapMediaAction
+            }
+    
     
             
         case .loadMore:

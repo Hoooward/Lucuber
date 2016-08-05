@@ -26,10 +26,10 @@ final class ImageCache {
        return "attachment-\(sideLenght)-\(URLString)"
     }
     
-    func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?) -> UIImage? {
+    func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?, completion:(url: NSURL, image: UIImage?, cacheType: CacheType) -> Void)  {
         
         guard let attachmentURL = NSURL(string: attachment.URLString) else {
-            return nil
+            return
         }
         
         var sideLenght: CGFloat = 0
@@ -49,7 +49,7 @@ final class ImageCache {
             
             if let image = image {
                 dispatch_async(dispatch_get_main_queue()) {
-                    return image
+                    completion(url: attachmentURL, image: image, cacheType: cacheType)
                 }
                 
             } else {
@@ -61,24 +61,60 @@ final class ImageCache {
                         
                         if sideLenght != 0 {
                             
-                            let pixelSideLenght = sideLenght * UIScreen.mainScreen().scale
+                            resultImage = image.scaleToSideLenght(sideLenght)
                             
-                            let pixelWidth = image.size.width * image.scale
-                            let pixelHeight = image.size.width * image.scale
+                            let originalData = UIImageJPEGRepresentation(resultImage, 1.0)
                             
-                            if pixelWidth > pixelHeight {
-                                
-                            }
+                            Kingfisher.ImageCache.defaultCache.storeImage(resultImage, originalData: originalData, forKey: sideLengtKey, toDisk: true, completionHandler: { 
+                            })
                             
                         }
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                               completion(url: attachmentURL, image: resultImage, cacheType: cacheType)
+                        }
+                        
+                    } else {
+                        
+                        ImageDownloader.defaultDownloader.downloadImageWithURL(attachmentURL, options: options, progressBlock: { (receivedSize, totalSize) in
+                            
+                            }, completionHandler: { (image, error, imageURL, originalData) in
+                                
+                                if let image = image {
+                                    
+                                    Kingfisher.ImageCache.defaultCache.storeImage(image, originalData: originalData, forKey: originKey, toDisk: true, completionHandler: nil)
+                                    
+                                    var resultImage = image
+                                    
+                                    if sideLenght != 0 {
+                                        
+                                        resultImage = image.scaleToSideLenght(sideLenght)
+                                        
+                                        let originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                                        
+                                        Kingfisher.ImageCache.defaultCache.storeImage(resultImage, originalData: originalData, forKey: sideLengtKey, toDisk: true, completionHandler: nil)
+                                        
+                                        
+                                        
+                                    }
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                          completion(url: attachmentURL, image: resultImage, cacheType: cacheType)
+                                    }
+                                    
+                                } else {
+                                    
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                       completion(url: attachmentURL, image: nil, cacheType: cacheType)
+                                    }
+                                }
+                        })
+                        
                     }
                 })
+                
+                
             }
         }
-        
-        
-        return UIImage()
-        
         
         
     }

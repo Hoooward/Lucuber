@@ -8,6 +8,78 @@
 
 import UIKit
 
+extension UIImage {
+
+    public func scaleToSideLenght(sidLenght: CGFloat) -> UIImage {
+        let pixelSideLenght = sidLenght * UIScreen.mainScreen().scale
+        let pixelWidth = size.width * scale
+        let pixelHeight = size.height * scale
+        
+        
+        print("pixelSideLenght = \(pixelSideLenght)")
+        print("scale = \(UIScreen.mainScreen().scale)")
+        print("imagescale = \(scale)")
+        print("pixelWidth = \(pixelWidth)")
+        print("pixelHeight = \(pixelHeight)")
+        var newSize = CGSizeZero
+        
+        if pixelWidth > pixelHeight {
+            
+            if pixelHeight < pixelSideLenght {
+                return self
+            }
+            
+            let newHeight = pixelSideLenght
+            let newWidth = (newHeight / pixelHeight) * pixelWidth
+            newSize = CGSize(width: floor(newWidth), height: floor(newHeight))
+            
+        } else {
+            
+            if pixelWidth < pixelSideLenght {
+                return self
+            }
+            
+            let newWidth = pixelSideLenght
+            let newHeight = (newWidth / pixelWidth) * pixelHeight
+            newSize = CGSize(width: floor(newWidth), height: floor(newHeight))
+            
+        }
+        
+        if scale == UIScreen.mainScreen().scale {
+            let newSize = CGSize(width: floor(newSize.width / scale), height: floor(newSize.height / scale))
+            
+            UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
+            let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+            drawInRect(rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            if let image = newImage {
+                return image
+            }
+            
+            return self
+            
+        } else {
+            
+            UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
+            let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+            drawInRect(rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            if let image = newImage {
+                return image
+            }
+            
+            return self
+            
+        }
+
+        
+    }
+}
+
 
 extension UIImage {
     

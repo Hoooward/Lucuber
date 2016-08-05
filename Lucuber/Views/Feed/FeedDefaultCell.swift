@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias tapMediaActionTypealias =  ((transitionView: UIView, image: UIImage?, imageAttachments: [ImageAttachment], index: Int) -> Void)?
+
 class FeedDefaultCell: UITableViewCell {
 
 

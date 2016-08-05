@@ -101,28 +101,12 @@ public func ==(lhs: DiscoveredFeed, rhs: DiscoveredFeed) -> Bool {
 
 
 public enum FeedCategory: String {
-    
     case All = "所有"
     case Formula = "公式"
     case Record = "成绩"
     case Topic = "话题"
-
-    
 }
 
-//public struct ImageCoordinator {
-//    
-//    var imageUrl: String
-//        
-//   
-//    var image: UIImage?
-//    
-//    public static func formImageUrl(urls: String) -> ImageCoordinator {
-//       
-//        return ImageCoordinator(imageUrl: urls, image: nil)
-//    }
-//    
-//}
 
 public typealias JSONDictionary = [String: AnyObject]
 

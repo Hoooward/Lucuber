@@ -33,7 +33,7 @@
                 <outlet property="activityIndicator" destination="eoI-pg-oqf" id="KYU-TQ-GWb"/>
                 <outlet property="mediaView" destination="UcI-DC-RzX" id="2f4-4F-Oux"/>
             </connections>
-            <point key="canvasLocation" x="68.5" y="269.5"/>
+            <point key="canvasLocation" x="-118.5" y="266.5"/>
         </collectionViewCell>
     </objects>
 </document>

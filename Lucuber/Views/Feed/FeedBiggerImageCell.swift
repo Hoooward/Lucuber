@@ -8,9 +8,11 @@
 
 import UIKit
 
+
+
 class FeedBiggerImageCell: FeedDefaultCell {
     
-    var tapMediaAction: ((transitionView: UIView, image: UIImage?, index: Int) -> Void)?
+    var tapMediaAction: tapMediaActionTypealias
 
     override class func heightOfFeed(feed: Feed) -> CGFloat {
         
@@ -40,9 +42,17 @@ class FeedBiggerImageCell: FeedDefaultCell {
     
     func tap(sender: UIGestureRecognizer) {
        
-        printLog("")
-        tapMediaAction?(transitionView: biggerImageView, image: biggerImageView.image, index: 0)
+        if let feed = feed {
+            switch feed.attachment {
+            case .Image(let imageAttachments):
+                tapMediaAction?(transitionView: biggerImageView, image: biggerImageView.image, imageAttachments : imageAttachments , index: 0)
+            default:
+                break
+            }
+        }
     }
+    
+    var imageAttachment: ImageAttachment?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -60,16 +70,16 @@ class FeedBiggerImageCell: FeedDefaultCell {
         switch feed.attachment {
         case .Image(let imageAttachments):
             
-            if let attachment = imageAttachments.first,
-               let url = NSURL(string: attachment.URLString) {
-                biggerImageView.setImageWithURL(url)
+            if let attachment = imageAttachments.first {
+                //大图还是使用原始大小的图片.
+                imageAttachment = attachment
+                biggerImageView.cube_setImageAtFeedCellWithAttachment(attachment, withSize: nil)
             }
             
         default:
             break
         }
         
-      
         
     }
     
