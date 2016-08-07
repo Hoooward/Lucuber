@@ -10,7 +10,7 @@ import UIKit
 
 
 
-private let buttonWidth: CGFloat = 20
+private let buttonWidth: CGFloat = 30
 
 class FormulaInputAccessoryView: UIView {
 
@@ -36,6 +36,10 @@ class FormulaInputAccessoryView: UIView {
                $0.selected = false
             }
         }
+        
+    }
+    
+    func clearButtonClicked(button: UIButton) {
         
     }
     
@@ -94,21 +98,37 @@ class FormulaInputAccessoryView: UIView {
        
         NSLayoutConstraint.activateConstraints([FRWidth, FRHeight, FLWidth, FLHeight, BLWidth, BLHeight, BRWidth, BRHeight])
         
-        let clearButtonConstraintH = NSLayoutConstraint(item: clearButton, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
+        let clearButtonConstraintH = NSLayoutConstraint(item: clearButton, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -15)
         
          let clearButtonConstraintV = NSLayoutConstraint(item: clearButton, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         
+//        let clearButtonWidth = NSLayoutConstraint(item: clearButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: buttonWidth)
+//        let clearButtonHeight = NSLayoutConstraint(item: clearButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: buttonWidth)
+        
         NSLayoutConstraint.activateConstraints([clearButtonConstraintH, clearButtonConstraintV])
         
+        print(clearButton.frame)
+        print(self.subviews)
         
+        layoutIfNeeded()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+//        clearButton.frame = CGRect(x: self.bounds.width - clearButton.width - 10, y: (self.bounds.height - clearButton.height) / 2, width: 20, height: 20)
+        print(clearButton.frame)
     }
  
     lazy var clearButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "清空"
-        button.titleLabel?.textColor = UIColor ( red: 0.8504, green: 0.2182, blue: 0.1592, alpha: 1.0 )
+        button.setTitle("清空", forState: .Normal)
+        button.setTitleColor(UIColor( red: 0.8504, green: 0.2182, blue: 0.1592, alpha: 1.0 )
+            , forState: .Normal)
+//        button.setTitleColor(UIColor.lightGrayColor(), forState: .Disabled)
+        
         button.sizeToFit()
-        button.size = CGSize(width: buttonWidth, height: buttonWidth)
+        button.addTarget(self, action: #selector(FormulaInputAccessoryView.clearButtonClicked(_:)), forControlEvents: .TouchUpInside)
         return button
     }()
     
