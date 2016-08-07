@@ -34,7 +34,7 @@ extension String {
             attributes = [
                 NSForegroundColorAttributeName: UIColor.cubeFormulaDetailTextColor(),
                 NSFontAttributeName: UIFont.cubeFormulaDetailTextFont()]
-            textStyle.alignment = .Center
+//            textStyle.alignment = .Center
         }
         attributeText.addAttributes(attributes, range: NSRange(location: 0, length: self.characters.count))
        

@@ -103,14 +103,14 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BL" translatesAutoresizingMaskIntoConstraints="NO" id="IxS-qB-NC8">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BR" translatesAutoresizingMaskIntoConstraints="NO" id="IxS-qB-NC8">
                                                 <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="2Pj-fY-bN5"/>
                                                     <constraint firstAttribute="height" constant="20" id="adu-7D-55T"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BR" translatesAutoresizingMaskIntoConstraints="NO" id="iF6-z7-FZn">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BL" translatesAutoresizingMaskIntoConstraints="NO" id="iF6-z7-FZn">
                                                 <rect key="frame" x="105" y="5" width="20" height="20"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FL" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-Mz-0MZ">

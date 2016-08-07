@@ -24,6 +24,26 @@ extension AVQuery {
         
     }
     
+    class func getFormula(mode: UploadFormulaMode) -> AVQuery {
+        
+        switch mode {
+        case .My:
+            let query = AVQuery(className: Formula.parseClassName())
+            query.addAscendingOrder("name")
+            return query
+            
+        case .Library:
+            let query = AVQuery(className: Formula.parseClassName())
+            query.addAscendingOrder("name")
+            return query
+        }
+    }
+    
+}
+
+public enum UploadFormulaMode {
+    case My
+    case Library
 }
 
 
@@ -31,6 +51,34 @@ public enum UploadFeedMode {
     case Top
     case LoadMore
 }
+
+internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode, completion: (([Formula]) -> Void)?, failureHandler: ((NSError) -> Void)? ) {
+    
+    
+    let query = AVQuery.getFormula(uploadingFormulaMode)
+    // LeanCloud 限定最多返回1000条
+    query.limit = 1000
+    
+    
+    query.findObjectsInBackgroundWithBlock { (formulas, error) in
+        
+        if error != nil {
+            
+            failureHandler?(error)
+        }
+        
+        if let formulas = formulas as? [Formula] {
+            completion?(formulas)
+            
+        }
+        
+        
+        
+    }
+    
+}
+
+
 
 
 internal func fetchFeedWithCategory(category: FeedCategory,
@@ -80,13 +128,15 @@ internal func fetchFeedWithCategory(category: FeedCategory,
             
             if let newFeeds = newFeeds as? [Feed] {
                 
-                print("newFeeds.count = \(newFeeds.count)")
+//                print("newFeeds.count = \(newFeeds.count)")
                 completion?(newFeeds)
             }
         }
     }
     
 }
+
+
 
 
 

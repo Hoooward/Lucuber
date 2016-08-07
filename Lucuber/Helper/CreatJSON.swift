@@ -8,11 +8,7 @@
 
 import UIKit
 
-
-
 func creatJSON() {
-    
-    
     
     var dict = [String: AnyObject]()
     
@@ -26,11 +22,11 @@ func creatJSON() {
     
     func creatF2L() {
         var f2l =  dict["F2L"] as! [[String : AnyObject]]
-        for (index, text) in F2LFormulas.enumerate() {
+        for (index, contentArray) in F2LFormulas.enumerate() {
             
             let ID = "\(index + 1)"
             let name = "F2L " + "\(index + 1)"
-            let formulaString = [text]
+            let formulaString = contentArray
             let imageName = "F2L" + "\(index + 1)"
             let level = 3
             let favorate = false
@@ -51,11 +47,11 @@ func creatJSON() {
     
     func creatOLL() {
         var oll =  dict["OLL"] as! [[String : AnyObject]]
-        for (index, text) in OLLFormulas.enumerate() {
+        for (index, contentArray) in OLLFormulas.enumerate() {
             
             let ID = "\(index + 1)"
             let name = "OLL " + "\(index + 1)"
-            let formulaString = [text]
+            let formulaString = contentArray
             let imageName = "OLL" + "\(index + 1)"
             let level = 3
             let favorate = false
@@ -76,11 +72,11 @@ func creatJSON() {
     
     func creatPLL() {
         var pll =  dict["PLL"] as! [[String : AnyObject]]
-        for (index, text) in PLLFormula.enumerate() {
+        for (index, contentArray) in PLLFormulas.enumerate() {
             
             let ID = String(format: "%d", index + 1)
             let name =  "PLL " + "\(index + 1)"
-            let formulaString = [text]
+            let formulaString = contentArray
             let imageName = "PLL" + "\(index + 1)"
             let level = 3
             let favorate = false
@@ -106,16 +102,15 @@ func creatJSON() {
     creatPLL()
     
     
-//    print(dict)
-    
-    
     do {
         let data = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
 //        let jason = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-        let _ = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        let result = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        
+        
+        print(result)
     } catch {
         
-        
     }
-    
 }
+

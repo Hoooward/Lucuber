@@ -16,35 +16,12 @@ class MainTabbarController: UITabBarController {
         super.viewDidLoad()
         tabBar.tintColor = UIColor.cubeTintColor()
         
-      
-        if AVUser.currentUser() == nil {
-            
-            let newUser = AVUser()
-            newUser.username = "huoyunlong"
-            newUser.password = "12345"
-//            newUser.setUserNickName("Hoooward")
-//            newUser.setUserAvatarImageUrl("www.feng.com")
-            
-            
-            AVUser.logInWithUsername("huoyunlong", password: "12345")
-            newUser.signUpInBackgroundWithBlock {
-                succeeded, error in
-                if succeeded {
-                    print("注册成功")
-                } else {
-                    print("注册失败" + "errorCode = \(error.code)")
-                    //注册失败返回202错误代码,因为重名
-                }
-            }
-            
-            
-        }
         
-        
-        
-//        print("currentUser", AVUser.currentUser())
+
         
       
+//        creatJSON()
+//        pushFormulaDataOnLeanCloud()
         
         
 //        AVOSCloud.requestSmsCodeWithPhoneNumber("18500800404") { (succeeded, error) in
@@ -95,12 +72,11 @@ class MainTabbarController: UITabBarController {
 //            print(object)
 //        }
 //
-        
-        
-        
-        
-        
+
         
         
     }
+
+    
+    
 }

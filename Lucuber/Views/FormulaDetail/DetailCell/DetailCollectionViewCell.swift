@@ -50,8 +50,8 @@ class DetailCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: false)
-        formula = nil
-        tableView.reloadData()
+//        formula = nil
+//        tableView.reloadData()
     }
     
     override func layoutSubviews() {
@@ -89,6 +89,7 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         case .Separator:
             return 1
         case .Formulas:
+            print("formulaContentCount = \(formula?.contents)")
             return formula?.contents.count ?? 1
         case .Comment:
             return 1

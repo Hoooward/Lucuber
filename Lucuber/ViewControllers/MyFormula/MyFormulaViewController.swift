@@ -19,7 +19,7 @@ class MyFormulaViewController: BaseFormulaViewController {
         //测试数据
         var formulas = [Formula]()
         for index in 1...12 {
-            let formula = Formula()
+            let formula = Formula.creatNewDefaultFormula()
             formula.name = "F2L - " + "\(index)"
             let content = FormulaContent()
             content.text = "r' (R2 U R' U)(R U' U' R' U) (r R')"
@@ -48,6 +48,8 @@ class MyFormulaViewController: BaseFormulaViewController {
 //        }
 //    
 //    }
+    
+    
     
 
    
