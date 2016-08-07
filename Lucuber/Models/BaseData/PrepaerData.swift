@@ -89,8 +89,9 @@ class FormulaManager {
                 
                 let imageName = item["imageName"].stringValue
                 let favorate = item["favorate"].boolValue
+                let ID = item["ID"].intValue
                 
-                let formula = Formula(name: name, contents: formulaContent, imageName: imageName,  favorate: favorate, category: Category.x3x3, type: type, rating: 3)
+                let formula = Formula(name: name, contents: formulaContent, imageName: imageName,  favorate: favorate, category: Category.x3x3, type: type, rating: 3, serialNumber: ID)
                 formula.isLibraryFormula = true
                 formulas.append(formula)
             }

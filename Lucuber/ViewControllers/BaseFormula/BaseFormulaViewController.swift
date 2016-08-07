@@ -134,6 +134,95 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
             }
         }
     }
+    
+    var isUploadingFormula = false
+    
+    func uploadFormulas(mode: UploadFormulaMode = .Library, finfish: (() -> Void)? ) {
+        
+        //0.1 从本地获取是否需要重新加载数据的标记,需要不需要更新就执行1
+        
+        //1. 从本地数据库加载
+        
+        if isUploadingFormula {
+            finfish?()
+            return
+        }
+        
+        isUploadingFormula = true
+        
+        //TODO: - 添加 activityIndicatorView
+        
+        let failureHandler: (error: NSError) -> Void = {
+            error in
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                CubeAlert.alertSorry(message: "加载失败,请重试", inViewController: self)
+                
+                finfish?()
+            }
+        }
+        
+        let completion: ([Formula]) -> Void = {
+            
+            formulas in
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.isUploadingFormula = false
+                
+                var resultFormula = [[Formula]]()
+                
+                if !formulas.isEmpty {
+                    
+                    var f2lFormulas = [Formula]()
+                    var ollFormulas = [Formula]()
+                    var pllFormulas = [Formula]()
+                    
+                    formulas.forEach {
+                        
+                        
+                        switch $0.type {
+                        case.F2L:
+                            f2lFormulas.append($0)
+                        case .OLL:
+                            ollFormulas.append($0)
+                        case .PLL:
+                            pllFormulas.append($0)
+                        }
+                        
+                    }
+                    
+                    if !ollFormulas.isEmpty {
+                        resultFormula.append(ollFormulas)
+                    }
+                    
+                    if !pllFormulas.isEmpty {
+                        resultFormula.append(pllFormulas)
+                    }
+                    if !f2lFormulas.isEmpty {
+                        resultFormula.append(f2lFormulas)
+                    }
+                    
+                    strongSelf.formulasData = resultFormula
+                    
+                }
+                
+                finfish?()
+                
+            }
+        }
+        
+        fetchFormulaWithMode(mode, completion: completion, failureHandler: failureHandler)
+        
+    }
+    
+    
+
 
 }
 // MARK: - SearchBar Delegate

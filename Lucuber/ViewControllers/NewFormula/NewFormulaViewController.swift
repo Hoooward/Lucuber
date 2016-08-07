@@ -8,8 +8,37 @@
 
 import UIKit
 
+class InputAccessoryView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        makeUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("InputAccessoryView 正常死亡")
+    }
+    
+    func makeUI() {
+        
+        addSubview(switchButton)
+    }
+    
+    lazy var switchButton: UISwitch = {
+        let button = UISwitch(frame: CGRectZero)
+        return button
+    }()
+}
+
 
 class NewFormulaViewController: UIViewController {
+    
+    let testInputAccessoryView = FormulaInputAccessoryView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
     
 
     enum EditType {
@@ -97,6 +126,13 @@ class NewFormulaViewController: UIViewController {
     
     func save(sender: UIBarButtonItem) {
         
+        //保存公式. 
+        //条件判断. 什么情况下可以保存
+        
+        //1 保存到本地
+        
+        //2 保存到服务器
+        
     }
     
     func next(sender: UIBarButtonItem) {
@@ -142,7 +178,7 @@ class NewFormulaViewController: UIViewController {
         }
         if  let item = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
-            cell.categoryLabel.text = item.englishText
+//            cell.categoryLabel.text = item.englishText
         }
         
     }
@@ -251,35 +287,77 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
             
         case .Name:
-            cell = tableView.dequeueReusableCellWithIdentifier(NameTextViewCellIdentifier, forIndexPath: indexPath) as! NameTextViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(NameTextViewCellIdentifier, forIndexPath: indexPath) as! NameTextViewCell
             
+            
+            /// 修改公式名字
+            cell.nameDidChanged = { [weak self] newText in
+                self?.formula.name = newText
+            }
+          
+            return cell
         case .Category:
+            
             guard let row = DetailRow(rawValue: indexPath.row) else {
                 fatalError()
             }
+            
             switch row {
                 
             case .CategoryDetailRow:
-                cell = tableView.dequeueReusableCellWithIdentifier(CategorySeletedCellIdentifier, forIndexPath: indexPath) as! CategorySeletedCell
+                let cell = tableView.dequeueReusableCellWithIdentifier(CategorySeletedCellIdentifier, forIndexPath: indexPath) as! CategorySeletedCell
+                
+                
+                
+                return cell
                 
             case .CategoryPickViewRow:
                 
                 if categoryPickViewIsShow {
-                    cell = tableView.dequeueReusableCellWithIdentifier(CategotryPickViewCellIdentifier, forIndexPath: indexPath) as! CategoryPickViewCell
+                    
+                    let cell = tableView.dequeueReusableCellWithIdentifier(CategotryPickViewCellIdentifier, forIndexPath: indexPath) as! CategoryPickViewCell
+                   
+                    
+                    cell.categoryDidChanged = { [weak self] category in
+                        
+                        self?.formula.category = Category(rawValue: category.chineseText)!
+                        
+                        let cell = self?.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
+                        cell.categoryLabel.text = category.englishText
+                    }
+                    
+                    return cell
+                    
                 } else {
-                    cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
+                    
+                    let  cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
+                    
+                    cell.ratingDidChanged = { [weak self] ratring in
+                        self?.formula.rating = ratring
+                    }
+                    
+                    return cell
                 }
                 
             case .StarRatingRow:
-                    cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
+                
+                    let cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
+                
+                    cell.ratingDidChanged = { [weak self] ratring in
+                        self?.formula.rating = ratring
+                    }
+                    return cell
             }
             
         case .Formulas:
             
-            cell = tableView.dequeueReusableCellWithIdentifier(FormulaTextViewCellIdentifier, forIndexPath: indexPath) as! FormulaTextViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(FormulaTextViewCellIdentifier, forIndexPath: indexPath) as! FormulaTextViewCell
             formulaInputViewController.view.frame.size = keyboardFrame.size
-            (cell as! FormulaTextViewCell).formulaContent = formula.contents[indexPath.row]
-            (cell as! FormulaTextViewCell).textView.inputView = formulaInputViewController.view
+            cell.formulaContent = formula.contents[indexPath.row]
+            cell.textView.inputView = formulaInputViewController.view
+            cell.textView.inputAccessoryView = testInputAccessoryView
+            
+            return cell
             
         case .AddFormula:
            cell = tableView.dequeueReusableCellWithIdentifier(AddFormulaTextCellIdentifier, forIndexPath: indexPath)

@@ -11,6 +11,9 @@ import UIKit
 class NameTextViewCell: UITableViewCell {
 
     @IBOutlet weak var textField: FormulaNameTextField!
+    
+    var nameDidChanged: ((newText: String) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
@@ -21,8 +24,12 @@ class NameTextViewCell: UITableViewCell {
     }
     
     //通知HeaderView更新Name
+    
     func textFieldDidChanged(notification: NSNotification) {
-        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.NameChanged.rawValue : self.textField.text!])
+        let newText = self.textField.text!
+        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.NameChanged.rawValue : newText])
+        
+        nameDidChanged?(newText: newText)
         
     }
     

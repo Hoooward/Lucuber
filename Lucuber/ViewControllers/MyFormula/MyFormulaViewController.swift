@@ -17,26 +17,28 @@ class MyFormulaViewController: BaseFormulaViewController {
         seletedCategory = Category.x3x3
         
         //测试数据
-        var formulas = [Formula]()
-        for index in 1...12 {
-            let formula = Formula.creatNewDefaultFormula()
-            formula.name = "F2L - " + "\(index)"
-            let content = FormulaContent()
-            content.text = "r' (R2 U R' U)(R U' U' R' U) (r R')"
-            formula.contents.append(content)
-            formula.imageName = "cube_Placehold_image_" + "\(index)"
-            formulas.append(formula)
-        }
-        formulasData.append(formulas)
+//        var formulas = [Formula]()
+//        for index in 1...12 {
+//            let formula = Formula.creatNewDefaultFormula()
+//            formula.name = "F2L - " + "\(index)"
+//            let content = FormulaContent()
+//            content.text = "r' (R2 U R' U)(R U' U' R' U) (r R')"
+//            formula.contents.append(content)
+//            formula.imageName = "cube_Placehold_image_" + "\(index)"
+//            formulas.append(formula)
+//        }
+//        formulasData.append(formulas)
         
-//        print("myData = \(formulasData)")
-        
-        
-
-       
         
       
         
+        
+        uploadFormulas(.My) {
+            [weak self] in
+            
+            self?.collectionView?.reloadData()
+        }
+            
         
     }
     

@@ -34,7 +34,8 @@ extension AVQuery {
             
         case .Library:
             let query = AVQuery(className: Formula.parseClassName())
-            query.addAscendingOrder("name")
+            query.whereKey("isLibraryFormula", equalTo: NSNumber(bool: true))
+            query.addAscendingOrder("serialNumber")
             return query
         }
     }

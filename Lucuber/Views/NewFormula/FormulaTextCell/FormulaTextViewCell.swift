@@ -37,32 +37,33 @@ class FormulaTextViewCell: UITableViewCell {
         placeholderLabel.textColor = UIColor.addFormulaPlaceholderTextColor()
         placeholderLabel.font = UIFont.addFormulaPlaceholderTextFont()
         
-        
-        
-        
-        
     }
     
     private func updateUI() {
         if let formulaContent = formulaContent {
             
-   
             var indicaterImagename = ""
             var placeholderText = ""
+            
             switch formulaContent.rotation {
+                
             case .FR(let imageName, let placeText):
                 indicaterImagename = imageName
                 placeholderText = placeText
+                
             case .FL(let imageName, let placeText):
                 indicaterImagename = imageName
                 placeholderText = placeText
+                
             case .BL(let imageName, let placeText):
                 indicaterImagename = imageName
                 placeholderText = placeText
+                
             case .BR(let imageName, let placeText):
                 indicaterImagename = imageName
                 placeholderText = placeText
             }
+            
             indicaterImageView.image = UIImage(named: indicaterImagename)
             placeholderLabel.text = placeholderText
             

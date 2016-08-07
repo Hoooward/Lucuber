@@ -24,6 +24,8 @@ class CategoryPickViewCell: UITableViewCell {
     @IBOutlet weak var pickView: UIPickerView!
     var categorys: [CategoryItem] = []
     
+    var categoryDidChanged: ((category: CategoryItem) -> Void)?
+    
 // MARK: - Initialization
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -80,6 +82,8 @@ extension CategoryPickViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //发送通知到HeaderView
         NSNotificationCenter.defaultCenter().postNotificationName(CategotyPickViewDidSeletedRowNotification, object: nil, userInfo: [AddFormulaNotification.CategoryChanged.rawValue : categorys[row]])
+        
+        categoryDidChanged?(category: categorys[row])
     }
     
 }

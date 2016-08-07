@@ -9,16 +9,49 @@
 import Foundation
 import SwiftyJSON
 
+public enum Category: String {
+    
+    case x2x2 = "二阶"
+    case x3x3 = "三阶"
+    case x4x4 = "四阶"
+    case x5x5 = "五阶"
+    case x6x6 = "六阶"
+    case x7x7 = "七阶"
+    case x8x8 = "八阶"
+    case x9x9 = "九阶"
+    case x10x10 = "十阶"
+    case x11x11 = "十一阶"
+    case Other = "其他"
+    case SquareOne = "Square One"
+    case Megaminx = "Megaminx"
+    case Pyraminx = "Pyraminx"
+    case RubiksClock = "魔表"
+}
+
+public enum Type: String {
+    case F2L = "F2L"
+    case PLL = "PLL"
+    case OLL = "OLL"
+}
+
 class Formula: AVObject, AVSubclassing  {
     
     class func parseClassName() -> String {
         return "Formula"
     }
     
+    /// 判断是否是系统公式库中的公式
     @NSManaged var isLibraryFormula: Bool
+    
+    /// 公式库公式ID, 1..2..3..4..5..6,排序用. 用户创建的公式不需要此属性
+    @NSManaged var serialNumber: Int
     
     ///名字
     @NSManaged var name: String
+    
+    var nickName: String {
+        return type.rawValue + "name"
+    }
     
     ///图片名字
     @NSManaged var imageName: String
@@ -107,6 +140,7 @@ class Formula: AVObject, AVSubclassing  {
         super.init()
     }
     
+    /// 用户创建公式使用的
     init(name: String, contents: [FormulaContent], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int)
     {
         super.init()
@@ -118,6 +152,20 @@ class Formula: AVObject, AVSubclassing  {
         self.category = category
         self.type = type
         self.rating = rating
+    }
+    
+    /// 系统公式库创建所使用的.
+    init(name: String, contents: [FormulaContent], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int, serialNumber: Int) {
+        super.init()
+        self.isLibraryFormula = false
+        self.name = name
+        self.contents = contents
+        self.imageName = imageName
+        self.favorate = favorate
+        self.category = category
+        self.type = type
+        self.rating = rating
+        self.serialNumber = serialNumber
     }
   
     class func creatNewDefaultFormula() -> Formula {
@@ -132,70 +180,8 @@ class Formula: AVObject, AVSubclassing  {
     
 }
 
-class Formulas:  CustomStringConvertible {
-    
-    ///名字
-    var name: String = ""
-    ///公式内容
-    var contents = [FormulaContent]()
-    var imageName: String = "cube_Placehold_image_1"
-    var favorate = false
-    var modifyDate = ""
-    var category = Category.x3x3
-    var type = Type.F2L
-    
-    var rating: Int = 3
-    
-    init () { }
-    
-    class func creatNewDefaultFormula() -> Formulas {
-        return Formulas(name: "公式名称", contents: [FormulaContent()], imageName: "cube_Placehold_image_1",  favorate: false, modifyDate: "", category: .x3x3, type: .F2L, rating: 3)
-    }
-    
-    init(name: String, contents: [FormulaContent], imageName: String, favorate: Bool, modifyDate: String, category: Category, type: Type, rating: Int)
-    {
-        self.name = name
-        self.contents = contents
-        self.imageName = imageName
-        self.favorate = favorate
-        self.modifyDate = modifyDate
-        self.category = category
-        self.type = type
-        self.rating = rating
-    }
-    
-    var description: String {
-        get {
-            return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n" + "-------------------------------"
-        }
-    }
-    
-}
 
-public enum Category: String {
-    
-    case x2x2 = "二阶"
-    case x3x3 = "三阶"
-    case x4x4 = "四阶"
-    case x5x5 = "五阶"
-    case x6x6 = "六阶"
-    case x7x7 = "七阶"
-    case x8x8 = "八阶"
-    case x9x9 = "九阶"
-    case x10x10 = "十阶"
-    case x11x11 = "十一阶"
-    case Other = "其他"
-    case SquareOne = "Square One"
-    case Megaminx = "Megaminx"
-    case Pyraminx = "Pyraminx"
-    case RubiksClock = "魔表"
-}
 
-enum Type: String {
-    case F2L = "F2L"
-    case PLL = "PLL"
-    case OLL = "OLL"
-}
 
 
 

@@ -18,6 +18,9 @@ class StarRatingCell: UITableViewCell {
     }
 
     @IBOutlet weak var starRatingView: StarRatingView!
+    
+    var ratingDidChanged: ((rating: Int) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
@@ -35,6 +38,8 @@ class StarRatingCell: UITableViewCell {
 extension StarRatingCell: StarRatingViewDelegate {
     
     func ratingDidChange(rateView: StarRatingView, rating: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.StartRatingChanged.rawValue: rating])
+//        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.StartRatingChanged.rawValue: rating])
+        
+        ratingDidChanged?(rating: rating)
     }
 }
