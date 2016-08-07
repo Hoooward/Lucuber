@@ -10,9 +10,8 @@ import UIKit
 
 class RotationButton: UIButton {
 
-    
-    init(rotation: Rotation) {
-        super.init(frame: CGRectZero)
+
+    func upDateButtonStyleWithRotation(rotation: Rotation) {
         
         switch rotation {
         case .FR(_, _):
@@ -35,12 +34,21 @@ class RotationButton: UIButton {
             setImage(UIImage(named: "BR"), forState: .Selected)
             break
         }
+ 
+    }
+    
+    init(rotation: Rotation) {
+        super.init(frame: CGRectZero)
+        
+        upDateButtonStyleWithRotation(rotation)
         
     }
     
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        super.init(coder: aDecoder)
+//        fatalError("init(coder:) has not been implemented")
     }
   
 

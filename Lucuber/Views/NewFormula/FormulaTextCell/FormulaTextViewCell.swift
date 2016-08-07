@@ -11,6 +11,7 @@ import UIKit
 class FormulaTextViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var rotationButton: RotationButton!
     @IBOutlet weak var textView: FormulaTextView!
     @IBOutlet weak var formulaLabel: UILabel!
     @IBOutlet weak var placeholderLabel: UILabel!
@@ -42,6 +43,8 @@ class FormulaTextViewCell: UITableViewCell {
     private func updateUI() {
         if let formulaContent = formulaContent {
             
+            rotationButton.upDateButtonStyleWithRotation(formulaContent.rotation)
+            
             var indicaterImagename = ""
             var placeholderText = ""
             
@@ -50,6 +53,7 @@ class FormulaTextViewCell: UITableViewCell {
             case .FR(let imageName, let placeText):
                 indicaterImagename = imageName
                 placeholderText = placeText
+                
                 
             case .FL(let imageName, let placeText):
                 indicaterImagename = imageName
@@ -86,7 +90,13 @@ class FormulaTextViewCell: UITableViewCell {
 extension FormulaTextViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
         placeholderLabel.hidden = true
-            self.formulaLabel.alpha = 0
+        self.formulaLabel.alpha = 0
+        
+//        spring(1) {
+            self.rotationButton.selected = true
+//            
+//        }
+        
     }
     
     func textViewDidEndEditing(textView: UITextView) {
@@ -97,6 +107,11 @@ extension FormulaTextViewCell: UITextViewDelegate {
         
         formulaContent?.text = textView.text
         
+        
+//        spring(1) {
+            self.rotationButton.selected = false
+            
+//        }
         
     }
 }

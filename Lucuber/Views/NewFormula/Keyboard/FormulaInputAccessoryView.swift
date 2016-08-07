@@ -41,6 +41,7 @@ class FormulaInputAccessoryView: UIView {
     
     func clearButtonClicked(button: UIButton) {
         
+        print(#function)
     }
     
     private func makeUI() {
@@ -102,8 +103,6 @@ class FormulaInputAccessoryView: UIView {
         
          let clearButtonConstraintV = NSLayoutConstraint(item: clearButton, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         
-//        let clearButtonWidth = NSLayoutConstraint(item: clearButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: buttonWidth)
-//        let clearButtonHeight = NSLayoutConstraint(item: clearButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: buttonWidth)
         
         NSLayoutConstraint.activateConstraints([clearButtonConstraintH, clearButtonConstraintV])
         
@@ -125,7 +124,6 @@ class FormulaInputAccessoryView: UIView {
         button.setTitle("清空", forState: .Normal)
         button.setTitleColor(UIColor( red: 0.8504, green: 0.2182, blue: 0.1592, alpha: 1.0 )
             , forState: .Normal)
-//        button.setTitleColor(UIColor.lightGrayColor(), forState: .Disabled)
         
         button.sizeToFit()
         button.addTarget(self, action: #selector(FormulaInputAccessoryView.clearButtonClicked(_:)), forControlEvents: .TouchUpInside)
