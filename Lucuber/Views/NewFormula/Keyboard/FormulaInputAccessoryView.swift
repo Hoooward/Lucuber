@@ -14,6 +14,63 @@ private let buttonWidth: CGFloat = 30
 
 class FormulaInputAccessoryView: UIView {
 
+
+    private var rotationButtons: [RotationButton] = []
+    
+    var contentDidChanged: ((FormulaContent) -> Void)?
+    
+    var seletedContent: FormulaContent? {
+        
+        didSet {
+            if let rotation = seletedContent?.rotation {
+                
+                switch rotation {
+              
+                case .FR:
+                    FRButton.selected = true
+                    rotationButtons.filter {$0 != FRButton}.forEach { $0.selected = false }
+                case .FL:
+                    FLButton.selected = true
+                    rotationButtons.filter {$0 != FLButton}.forEach { $0.selected = false }
+                case .BL:
+                    BLButton.selected = true
+                    rotationButtons.filter {$0 != BLButton}.forEach { $0.selected = false }
+                case .BR:
+                    BRButton.selected = true
+                    rotationButtons.filter {$0 != BRButton}.forEach { $0.selected = false }
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: - Target&Notification
+    func rotationButtonClicked(button: RotationButton) {
+        
+        if button.selected == true {
+            return
+        }
+        
+        button.selected = !button.selected
+        
+        rotationButtons.filter {$0 != button}.forEach { $0.selected = false }
+        
+        if let content = seletedContent, let rotation = button.rotation {
+            
+            content.rotation = rotation
+            
+            contentDidChanged?(content)
+        }
+        
+    }
+    
+    func clearButtonClicked(button: UIButton) {
+        
+        print(#function)
+    }
+    
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -24,25 +81,6 @@ class FormulaInputAccessoryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    private var rotationButtons: [RotationButton] = []
-    
-    func rotationButtonClicked(button: RotationButton) {
-        button.selected = !button.selected
-        
-        rotationButtons.forEach {
-            
-            if $0 !== button {
-               $0.selected = false
-            }
-        }
-        
-    }
-    
-    func clearButtonClicked(button: UIButton) {
-        
-        print(#function)
-    }
     
     private func makeUI() {
         
@@ -105,19 +143,10 @@ class FormulaInputAccessoryView: UIView {
         
         
         NSLayoutConstraint.activateConstraints([clearButtonConstraintH, clearButtonConstraintV])
-        
-        print(clearButton.frame)
-        print(self.subviews)
-        
-        layoutIfNeeded()
+
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        clearButton.frame = CGRect(x: self.bounds.width - clearButton.width - 10, y: (self.bounds.height - clearButton.height) / 2, width: 20, height: 20)
-        print(clearButton.frame)
-    }
+
  
     lazy var clearButton: UIButton = {
         let button = UIButton()

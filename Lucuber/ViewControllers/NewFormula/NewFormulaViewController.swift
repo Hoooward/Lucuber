@@ -8,39 +8,11 @@
 
 import UIKit
 
-class InputAccessoryView: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        makeUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        print("InputAccessoryView 正常死亡")
-    }
-    
-    func makeUI() {
-        
-        addSubview(switchButton)
-    }
-    
-    lazy var switchButton: UISwitch = {
-        let button = UISwitch(frame: CGRectZero)
-        return button
-    }()
-}
-
 
 class NewFormulaViewController: UIViewController {
     
-    let testInputAccessoryView = FormulaInputAccessoryView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
+    let formulaInputAccessoryView = FormulaInputAccessoryView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
     
-
     enum EditType {
         /// 新公式
         case NewFormula
@@ -262,9 +234,11 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         guard let section = Section(rawValue: section) else {
             fatalError()
         }
+        
         switch section {
         case .Name:
             return 1
@@ -282,20 +256,19 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             fatalError()
         }
       
-        var cell = UITableViewCell()
-        
         switch section {
             
         case .Name:
+            
             let cell = tableView.dequeueReusableCellWithIdentifier(NameTextViewCellIdentifier, forIndexPath: indexPath) as! NameTextViewCell
             
-            
-            /// 修改公式名字
+            /// update formula's name
             cell.nameDidChanged = { [weak self] newText in
                 self?.formula.name = newText
             }
           
             return cell
+            
         case .Category:
             
             guard let row = DetailRow(rawValue: indexPath.row) else {
@@ -332,6 +305,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     
                     let  cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
                     
+                    /// update formula's rating
                     cell.ratingDidChanged = { [weak self] ratring in
                         self?.formula.rating = ratring
                     }
@@ -343,9 +317,11 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                     let cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
                 
+                    /// update formula's rating
                     cell.ratingDidChanged = { [weak self] ratring in
                         self?.formula.rating = ratring
                     }
+                    
                     return cell
             }
             
@@ -355,17 +331,27 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             formulaInputViewController.view.frame.size = keyboardFrame.size
             cell.formulaContent = formula.contents[indexPath.row]
             cell.textView.inputView = formulaInputViewController.view
-            cell.textView.inputAccessoryView = testInputAccessoryView
+            cell.textView.inputAccessoryView = formulaInputAccessoryView
+            
+   
+            
+            cell.contentDidChanged = { [weak self] content in
+                
+                self?.formulaInputAccessoryView.seletedContent = content
+            }
             
             return cell
             
         case .AddFormula:
-           cell = tableView.dequeueReusableCellWithIdentifier(AddFormulaTextCellIdentifier, forIndexPath: indexPath)
+            
+           let cell = tableView.dequeueReusableCellWithIdentifier(AddFormulaTextCellIdentifier, forIndexPath: indexPath)
+            
+            return cell
         }
         
-        
-        return cell
     }
+    
+
     
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -406,6 +392,30 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             activeFormulaTextCellIndexPath = indexPath
             cell.textView.becomeFirstResponder()
             addFormulaTextIsActive = false
+            
+            
+            /// 在选中cell时,会自动弹出textView的键盘. 在此设置闭包
+            formulaInputAccessoryView.contentDidChanged = { [weak self] content in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                // get cell frome tableView
+                let cell = strongSelf.tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
+                cell.rotationButton.rotation = content.rotation
+                
+                // Because the formula's content is a 计算 property, so I must found some way
+                // to 赋值
+                let index = indexPath.row
+                var catchContents = strongSelf.formula.contents
+                
+                catchContents.removeAtIndex(index)
+                catchContents.insert(content, atIndex: index)
+
+                strongSelf.formula.contents = catchContents
+                
+            }
             
         case .AddFormula:
     

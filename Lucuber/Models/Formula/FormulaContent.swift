@@ -21,6 +21,9 @@ enum Rotation {
 //魔方整体顺时针旋转 180° 的状态
 //魔方整体顺时针旋转 270° 的状态
 
+//func ==(lhs: Rotation, rhs: Rotation) -> Bool {
+//    return lhs.rwa == rhs.id
+//}
 
 
 let FRrotation: Rotation = Rotation.FR("FR", "图例的状态")

@@ -10,28 +10,38 @@ import UIKit
 
 class RotationButton: UIButton {
 
+    var rotation: Rotation? {
+        didSet {
+            if let rotation = rotation {
+                upDateButtonStyleWithRotation(rotation)
+            }
+        }
+    }
 
     func upDateButtonStyleWithRotation(rotation: Rotation) {
         
         switch rotation {
         case .FR(_, _):
-            setImage(UIImage(named: "FR_gray"), forState: .Normal)
-            setImage(UIImage(named: "FR"), forState: .Selected)
-            break
+            setBackgroundImage(UIImage(named: "FR_gray"), forState: .Normal)
+            setBackgroundImage(UIImage(named: "FR"), forState: .Selected)
+
             
         case .FL(_, _):
-            setImage(UIImage(named: "FL_gray"), forState: .Normal)
-            setImage(UIImage(named: "FL"), forState: .Selected)
-            break
+
+            setBackgroundImage(UIImage(named: "FL_gray"), forState: .Normal)
+            setBackgroundImage(UIImage(named: "FL"), forState: .Selected)
+        
             
         case .BL(_, _):
-            setImage(UIImage(named: "BL_gray"), forState: .Normal)
-            setImage(UIImage(named: "BL"), forState: .Selected)
+            setBackgroundImage(UIImage(named: "BL_gray"), forState: .Normal)
+            setBackgroundImage(UIImage(named: "BL"), forState: .Selected)
+
             break
             
         case .BR(_, _):
-            setImage(UIImage(named: "BR_gray"), forState: .Normal)
-            setImage(UIImage(named: "BR"), forState: .Selected)
+            setBackgroundImage(UIImage(named: "BR_gray"), forState: .Normal)
+            setBackgroundImage(UIImage(named: "BR"), forState: .Selected)
+
             break
         }
  
@@ -39,7 +49,7 @@ class RotationButton: UIButton {
     
     init(rotation: Rotation) {
         super.init(frame: CGRectZero)
-        
+        self.rotation = rotation
         upDateButtonStyleWithRotation(rotation)
         
     }

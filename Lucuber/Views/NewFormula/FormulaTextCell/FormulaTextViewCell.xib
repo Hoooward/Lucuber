@@ -52,7 +52,7 @@
                             <constraint firstAttribute="height" constant="20" id="S2D-HR-qeE"/>
                             <constraint firstAttribute="width" constant="20" id="TOb-Og-KqM"/>
                         </constraints>
-                        <state key="normal" image="FR_gray"/>
+                        <state key="normal" backgroundImage="FR"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -90,6 +90,5 @@
     </objects>
     <resources>
         <image name="FR" width="30" height="30"/>
-        <image name="FR_gray" width="30" height="30"/>
     </resources>
 </document>

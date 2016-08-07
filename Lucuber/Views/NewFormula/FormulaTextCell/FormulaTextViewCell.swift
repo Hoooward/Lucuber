@@ -16,6 +16,9 @@ class FormulaTextViewCell: UITableViewCell {
     @IBOutlet weak var formulaLabel: UILabel!
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var indicaterImageView: UIImageView!
+    
+    var contentDidChanged: ((FormulaContent) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
@@ -68,7 +71,7 @@ class FormulaTextViewCell: UITableViewCell {
                 placeholderText = placeText
             }
             
-            indicaterImageView.image = UIImage(named: indicaterImagename)
+//            indicaterImageView.image = UIImage(named: indicaterImagename)
             placeholderLabel.text = placeholderText
             
         }
@@ -82,7 +85,8 @@ class FormulaTextViewCell: UITableViewCell {
         formulaLabel.text = ""
         textView.text = ""
         placeholderLabel.hidden = false
-        updateUI()
+        
+//        updateUI()
     }
   
 }
@@ -91,11 +95,11 @@ extension FormulaTextViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
         placeholderLabel.hidden = true
         self.formulaLabel.alpha = 0
+        self.rotationButton.selected = true
         
-//        spring(1) {
-            self.rotationButton.selected = true
-//            
-//        }
+        if let content = formulaContent {
+            contentDidChanged?(content)
+        }
         
     }
     
@@ -106,12 +110,13 @@ extension FormulaTextViewCell: UITextViewDelegate {
         
         
         formulaContent?.text = textView.text
+        self.rotationButton.selected = false
+        
+        if let content = formulaContent {
+            contentDidChanged?(content)
+        }
         
         
-//        spring(1) {
-            self.rotationButton.selected = false
-            
-//        }
         
     }
 }
