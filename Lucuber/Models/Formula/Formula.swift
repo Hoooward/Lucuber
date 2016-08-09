@@ -29,12 +29,55 @@ public enum Category: String {
 }
 
 public enum Type: String {
+    /// 三阶
+    case CROSS = "Cross"
     case F2L = "F2L"
     case PLL = "PLL"
     case OLL = "OLL"
+    
+    //之后要添加Type, 不仅仅要在 plist 文件中添加, 还要来这里添加
+//    case test1 = "111"
+//    case test2 = "222"
+//    case test3 = "333"
 }
 
 class Formula: AVObject, AVSubclassing  {
+    
+    func prepareForPushToLeanCloud() {
+        
+        //准备保存前, 将空白的 content 内容删除掉
+        
+        var catchContents = self.contents
+        
+        
+        // 如果某一个创建的content其中的text isDirty, 是删除掉这个content
+        for (index, content) in catchContents.enumerate() {
+            if content.text?.isDirty ?? true {
+                catchContents.removeAtIndex(index)
+            }
+        }
+        
+        self.contents = catchContents
+    }
+    
+    
+    /// 判断信息是否都正确填写
+    func isReadyforPushToLeanCloud() -> Bool {
+        
+        var contentIsReady = false
+        
+        // 如果contents的第一个text有值, 就可以
+        if let content = self.contents.first , let text = content.text {
+            contentIsReady = !text.isDirty
+        }
+        
+        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !contentIsReady {
+            
+            return false
+        }
+        
+        return true
+    }
     
     class func parseClassName() -> String {
         return "Formula"
@@ -174,7 +217,7 @@ class Formula: AVObject, AVSubclassing  {
 
     override var description: String {
         get {
-            return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n" + "-------------------------------"
+            return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n"  + "type = \(type)" + "-------------------------------"
         }
     }
     

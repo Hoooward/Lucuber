@@ -126,7 +126,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJc-SW-huK" customClass="CategoryIndicaterView" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="210" y="2" width="30" height="30"/>
+                                                        <rect key="frame" x="210" y="11" width="30" height="30"/>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="dc8-Lp-PQr">
                                                         <rect key="frame" x="247" y="34" width="8" height="13"/>
@@ -146,11 +146,17 @@
                                                     <constraint firstAttribute="trailing" secondItem="kaW-lv-atl" secondAttribute="trailing" constant="30" id="Sjj-84-41F"/>
                                                     <constraint firstItem="3Hb-Ra-Pto" firstAttribute="leading" secondItem="FlT-2D-gMW" secondAttribute="leading" constant="10" id="cBB-0U-xYQ"/>
                                                     <constraint firstAttribute="width" constant="270" id="ejx-Cs-wyc"/>
+                                                    <constraint firstItem="oJc-SW-huK" firstAttribute="centerY" secondItem="AdM-ZE-YRa" secondAttribute="centerY" constant="7" id="hfV-En-VcS"/>
                                                     <constraint firstItem="YaP-uH-HFD" firstAttribute="top" secondItem="AdM-ZE-YRa" secondAttribute="bottom" constant="3" id="lOD-OS-Npb"/>
                                                     <constraint firstAttribute="bottom" secondItem="3Hb-Ra-Pto" secondAttribute="bottom" constant="10" id="u5n-An-fvd"/>
                                                     <constraint firstItem="AdM-ZE-YRa" firstAttribute="top" secondItem="3Hb-Ra-Pto" secondAttribute="top" id="vOs-Ob-eiX"/>
                                                     <constraint firstItem="kaW-lv-atl" firstAttribute="leading" secondItem="3Hb-Ra-Pto" secondAttribute="trailing" constant="10" id="xrF-a5-VOE"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="J3O-vK-k0G"/>
+                                                    </mask>
+                                                </variation>
                                                 <connections>
                                                     <outlet property="contentLabel" destination="kaW-lv-atl" id="M42-Oo-g4t"/>
                                                     <outlet property="countLabel" destination="YaP-uH-HFD" id="4Np-87-LbG"/>

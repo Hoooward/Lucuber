@@ -9,50 +9,139 @@
 import UIKit
 
 class RotationButton: UIButton {
+    
+    enum Style {
+        case Square
+        case Cercle
+    }
 
     var rotation: Rotation? {
         didSet {
-            if let rotation = rotation {
-                upDateButtonStyleWithRotation(rotation)
-            }
+//            if let rotation = rotation {
+//                upDateButtonStyleWithRotation(rotation)
+//            }
         }
     }
 
-    func upDateButtonStyleWithRotation(rotation: Rotation) {
-        
+    func upDateButtonStyleWithRotation(style: Style , rotation: Rotation, animation: Bool = false) {
+
         switch rotation {
+           
         case .FR(_, _):
-            setBackgroundImage(UIImage(named: "FR_gray"), forState: .Normal)
-            setBackgroundImage(UIImage(named: "FR"), forState: .Selected)
+            
+            var normalImage = ""
+            var seletcedImage = ""
+            
+            switch style {
+            case .Square:
+                normalImage = "FR_square_groy"
+                seletcedImage = "FR_square"
+                
+            case .Cercle:
+                normalImage = "FR_gray"
+                seletcedImage = "FR"
+     
+            }
+            
+            setBackgroundImage(UIImage(named: normalImage), forState: .Normal)
+            setBackgroundImage(UIImage(named: seletcedImage), forState: .Selected)
 
             
+         
         case .FL(_, _):
-
-            setBackgroundImage(UIImage(named: "FL_gray"), forState: .Normal)
-            setBackgroundImage(UIImage(named: "FL"), forState: .Selected)
-        
             
-        case .BL(_, _):
-            setBackgroundImage(UIImage(named: "BL_gray"), forState: .Normal)
-            setBackgroundImage(UIImage(named: "BL"), forState: .Selected)
+            var normalImage = ""
+            var seletcedImage = ""
+            
+            switch style {
+            case .Square:
+                normalImage = "FL_square_groy"
+                seletcedImage = "FR_square"
+                
+            case .Cercle:
+                normalImage = "FL_gray"
+                seletcedImage = "FL"
+                
+            }
+            
+            setBackgroundImage(UIImage(named: normalImage), forState: .Normal)
+            setBackgroundImage(UIImage(named: seletcedImage), forState: .Selected)
 
-            break
+        
+        case .BL(_, _):
+            
+            var normalImage = ""
+            var seletcedImage = ""
+            
+            switch style {
+            case .Square:
+                normalImage = "BL_square_groy"
+                seletcedImage = "BL_square"
+                
+            case .Cercle:
+                normalImage = "BL_gray"
+                seletcedImage = "BL"
+                
+            }
+            
+            setBackgroundImage(UIImage(named: normalImage), forState: .Normal)
+            setBackgroundImage(UIImage(named: seletcedImage), forState: .Selected)
+
             
         case .BR(_, _):
-            setBackgroundImage(UIImage(named: "BR_gray"), forState: .Normal)
-            setBackgroundImage(UIImage(named: "BR"), forState: .Selected)
-
-            break
+            
+            var normalImage = ""
+            var seletcedImage = ""
+            
+            switch style {
+            case .Square:
+                normalImage = "BR_square_groy"
+                seletcedImage = "BR_square"
+                
+            case .Cercle:
+                normalImage = "BR_gray"
+                seletcedImage = "BR"
+                
+            }
+            
+            setBackgroundImage(UIImage(named: normalImage), forState: .Normal)
+            setBackgroundImage(UIImage(named: seletcedImage), forState: .Selected)
         }
+        
+        if animation { POPAnimation() }
  
     }
     
-    init(rotation: Rotation) {
-        super.init(frame: CGRectZero)
-        self.rotation = rotation
-        upDateButtonStyleWithRotation(rotation)
+    func POPAnimation() {
+        let animation = CAKeyframeAnimation()
+        animation.keyPath = "transform.scale"
+        animation.values = [0, 0.2, -0.2, 0.2, 0]
+        animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.duration = CFTimeInterval(1)
+        animation.additive = true
+        self.layer.addAnimation(animation, forKey: "pop")
+    }
+    
+    override func setBackgroundImage(image: UIImage?, forState state: UIControlState) {
+        super.setBackgroundImage(image, forState: state)
         
     }
+    
+    
+    // frome storyboard dont use this
+    init(style: Style, rotation: Rotation) {
+        super.init(frame: CGRectZero)
+        self.rotation = rotation
+        upDateButtonStyleWithRotation(style, rotation: rotation)
+        
+    }
+    
+    // to formula inputAccessoryView
+    func makeSquareButton(rotation: Rotation) {
+        
+    }
+    
     
     
     required init?(coder aDecoder: NSCoder) {

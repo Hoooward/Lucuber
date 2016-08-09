@@ -178,7 +178,7 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
                 var resultFormula = [[Formula]]()
                 
                 if !formulas.isEmpty {
-                    
+                    var crossFormulas = [Formula]()
                     var f2lFormulas = [Formula]()
                     var ollFormulas = [Formula]()
                     var pllFormulas = [Formula]()
@@ -187,6 +187,8 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
                         
                         
                         switch $0.type {
+                        case .CROSS:
+                            crossFormulas.append($0)
                         case.F2L:
                             f2lFormulas.append($0)
                         case .OLL:
@@ -195,6 +197,10 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
                             pllFormulas.append($0)
                         }
                         
+                    }
+                    
+                    if !crossFormulas.isEmpty {
+                        resultFormula.append(crossFormulas)
                     }
                     
                     if !ollFormulas.isEmpty {

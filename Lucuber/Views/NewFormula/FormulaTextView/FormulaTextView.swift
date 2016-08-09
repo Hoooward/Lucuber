@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol FormulaTextViewDelegate: class {
+    
+    func formulaContentTextDidChanged()
+}
+
 class FormulaTextView: UITextView {
+    
+    var customDelegate: FormulaTextViewDelegate?
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
@@ -18,6 +25,8 @@ class FormulaTextView: UITextView {
         super.init(coder: aDecoder)
         makeUI()
     }
+    
+    var updateFormulaContentText: (() -> Void)?
     
     private func makeUI() {
         textContainer.lineFragmentPadding = 0
@@ -93,6 +102,9 @@ class FormulaTextView: UITextView {
             break
         }
         
+        
+//        updateFormulaContentText?()
+        customDelegate?.formulaContentTextDidChanged()
         
         spring(1.0) {
             self.placeholdTextLabel.hidden = self.text.characters.count > 0

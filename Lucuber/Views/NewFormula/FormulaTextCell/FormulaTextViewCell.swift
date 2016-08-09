@@ -17,10 +17,14 @@ class FormulaTextViewCell: UITableViewCell {
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var indicaterImageView: UIImageView!
     
-    var contentDidChanged: ((FormulaContent) -> Void)?
+    var updateInputAccessoryView: ((FormulaContent) -> Void)?
+    
+    var saveFormulaContent: ((FormulaContent) -> Void)?
+       
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        textView.customDelegate = self
         makeUI()
     }
     
@@ -46,28 +50,23 @@ class FormulaTextViewCell: UITableViewCell {
     private func updateUI() {
         if let formulaContent = formulaContent {
             
-            rotationButton.upDateButtonStyleWithRotation(formulaContent.rotation)
+            rotationButton.upDateButtonStyleWithRotation(RotationButton.Style.Cercle, rotation: formulaContent.rotation)
             
-            var indicaterImagename = ""
             var placeholderText = ""
             
             switch formulaContent.rotation {
                 
-            case .FR(let imageName, let placeText):
-                indicaterImagename = imageName
+            case .FR(_, let placeText):
                 placeholderText = placeText
                 
                 
-            case .FL(let imageName, let placeText):
-                indicaterImagename = imageName
+            case .FL(_, let placeText):
                 placeholderText = placeText
                 
-            case .BL(let imageName, let placeText):
-                indicaterImagename = imageName
+            case .BL(_, let placeText):
                 placeholderText = placeText
                 
-            case .BR(let imageName, let placeText):
-                indicaterImagename = imageName
+            case .BR(_, let placeText):
                 placeholderText = placeText
             }
             
@@ -91,17 +90,32 @@ class FormulaTextViewCell: UITableViewCell {
   
 }
 
-extension FormulaTextViewCell: UITextViewDelegate {
+extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate{
+    
+    func formulaContentTextDidChanged() {
+        formulaContent?.text = textView.text
+        
+        if let content = formulaContent {
+            updateInputAccessoryView?(content)
+            saveFormulaContent?(content)
+        }
+    }
+    
     func textViewDidBeginEditing(textView: UITextView) {
         placeholderLabel.hidden = true
         self.formulaLabel.alpha = 0
+        
         self.rotationButton.selected = true
+        self.rotationButton.POPAnimation()
         
         if let content = formulaContent {
-            contentDidChanged?(content)
+            updateInputAccessoryView?(content)
+            saveFormulaContent?(content)
         }
         
     }
+    
+    
     
     func textViewDidEndEditing(textView: UITextView) {
         placeholderLabel.hidden = textView.text.characters.count > 0
@@ -113,7 +127,9 @@ extension FormulaTextViewCell: UITextViewDelegate {
         self.rotationButton.selected = false
         
         if let content = formulaContent {
-            contentDidChanged?(content)
+            print(content)
+            updateInputAccessoryView?(content)
+            saveFormulaContent?(content)
         }
         
         
