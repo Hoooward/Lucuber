@@ -11,10 +11,12 @@ import UIKit
 class MyFormulaViewController: BaseFormulaViewController {
 
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = FormulaUserMode.Card
         seletedCategory = Category.x3x3
+        uploadMode = .My
         
         //测试数据
 //        var formulas = [Formula]()
@@ -29,11 +31,10 @@ class MyFormulaViewController: BaseFormulaViewController {
 //        }
 //        formulasData.append(formulas)
         
-        
       
         
         
-        uploadFormulas(.My) {
+        uploadFormulas(uploadMode, category: seletedCategory!) {
             [weak self] in
             
             self?.collectionView?.reloadData()
@@ -42,14 +43,6 @@ class MyFormulaViewController: BaseFormulaViewController {
         
     }
     
-    
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        if let button = parentViewController?.navigationItem.rightBarButtonItem as? CategoryBarButtonItem  {
-//            button.seletedCategory = seletedCategory
-//        }
-//    
-//    }
     
     
     

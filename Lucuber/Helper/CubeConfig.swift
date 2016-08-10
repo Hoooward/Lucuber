@@ -8,6 +8,13 @@
 
 import UIKit
 
+public let FRrotation: Rotation = Rotation.FR("FR", "图例的状态")
+public let FLrotation: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
+public let BLrotation: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
+public let BRrotation: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
+
+public let defaultRotations = [FRrotation, FLrotation, BLrotation, BRrotation]
+
 
 final public class CubeConfig {
    

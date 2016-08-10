@@ -18,7 +18,7 @@ final class CubeHUD: NSObject {
     
     lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
         return view
     }()
     
@@ -47,6 +47,7 @@ final class CubeHUD: NSObject {
                 self.sharedInstance.containerView.alpha = 0
                 windows.addSubview(self.sharedInstance.containerView)
                 self.sharedInstance.containerView.frame = windows.bounds
+                self.sharedInstance.containerView.frame = CGRect(x: (screenWidth - 200) * 0.5, y: (screenHeight - 150) * 0.5, width: 200, height: 150)
                 
                 springWithCompletion(0.1, animations: {
                         self.sharedInstance.containerView.alpha = 1
@@ -99,7 +100,7 @@ final class CubeHUD: NSObject {
             
             if self.sharedInstance.isShowing {
                     self.sharedInstance.activityIndicator.transform = CGAffineTransformIdentity
-                springWithCompletion(0.2, animations: {
+                springWithCompletion(0.5, animations: {
                     
                     self.sharedInstance.activityIndicator.transform = CGAffineTransformMakeScale(0.00001, 0.0001)
                     self.sharedInstance.activityIndicator.alpha = 0

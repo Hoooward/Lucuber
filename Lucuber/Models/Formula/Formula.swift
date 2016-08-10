@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
 public enum Category: String {
     
@@ -26,6 +27,16 @@ public enum Category: String {
     case Megaminx = "Megaminx"
     case Pyraminx = "Pyraminx"
     case RubiksClock = "魔表"
+    
+    
+    func convertToRCategory() -> RCategory {
+        switch self {
+        default:
+            let r = RCategory()
+            r.categoryString = self.rawValue
+            return r
+        }
+    }
 }
 
 public enum Type: String {
@@ -83,6 +94,9 @@ class Formula: AVObject, AVSubclassing  {
         return "Formula"
     }
     
+    
+    
+    
     /// 判断是否是系统公式库中的公式
     @NSManaged var isLibraryFormula: Bool
     
@@ -95,6 +109,7 @@ class Formula: AVObject, AVSubclassing  {
     var nickName: String {
         return type.rawValue + "name"
     }
+    
     
     ///图片名字
     @NSManaged var imageName: String
@@ -220,31 +235,22 @@ class Formula: AVObject, AVSubclassing  {
             return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n"  + "type = \(type)" + "-------------------------------"
         }
     }
-    
+
 }
-/// 第一个参数是 imageName 第二个参数是 placeholder
-enum Rotation {
+
+public enum Rotation {
     
+    /// 第一个参数是 imageName 第二个参数是 placeholder
     case FR (String, String)
     case FL (String, String)
     case BL (String, String)
     case BR (String, String)
     
+    // private let FLrotation: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
 }
-//魔方整体顺时针旋转 90° 的状态
-//魔方整体顺时针旋转 180° 的状态
-//魔方整体顺时针旋转 270° 的状态
 
-
-let FRrotation: Rotation = Rotation.FR("FR", "图例的状态")
-let FLrotation: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
-let BLrotation: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
-let BRrotation: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
-
-let defaultRotations = [FRrotation, FLrotation, BLrotation, BRrotation]
 
 class FormulaContent: CustomStringConvertible {
-    
     
     var text: String?
     var rotation: Rotation = FRrotation
@@ -257,7 +263,6 @@ class FormulaContent: CustomStringConvertible {
             let attributsStr = text.setAttributesFitDetailLayout(ContentStyle.Detail)
             let rect =  attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - margin - margin - 25 - 15, CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.init(rawValue: 1),  context: nil)
             
-            //            print("formula.cellHeight = ", rect.size.height + 30)
             return rect.size.height + 30
         }
         

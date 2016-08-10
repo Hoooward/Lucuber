@@ -26,7 +26,6 @@ extension UIFont {
         return UIFont(name: "Menlo-Regular", size: 14)!
     }
     
-    
     class func cubeFormulaDetailBracketsFont() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 14)!
     }
@@ -46,7 +45,5 @@ extension UIFont {
     class func feedBottomLabelFont() -> UIFont {
         return UIFont.systemFontOfSize(14)
     }
-    
-
 
 }

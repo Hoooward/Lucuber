@@ -10,5 +10,6 @@ pod 'SnapKit', '~> 0.15.0'    ##AutoLayout第三方架构
 pod 'Kingfisher', '~> 2.4'
 pod 'Ruler', '~> 0.7.1'
 pod 'MonkeyKing', '~> 0.9.2'
+pod 'RealmSwift'
 #pod 'LeanCloud', :git => 'git@github.com:leancloud/swift-sdk.git', :tag => '0.0.1.beta'
 end

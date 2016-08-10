@@ -8,7 +8,6 @@
 
 import UIKit
 
-// MARK: - 提供快速生成navigationBar上按钮的方法
 extension UIBarButtonItem {
     
     class func itemWithCustomButton(normalImage:UIImage?, seletedImage: UIImage?,targer: AnyObject, action: Selector) -> UIBarButtonItem {

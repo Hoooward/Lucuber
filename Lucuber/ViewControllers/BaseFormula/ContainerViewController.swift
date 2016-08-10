@@ -21,6 +21,8 @@ class CategoryBarButtonItem: UIBarButtonItem {
 }
 
 
+
+
 class ContainerViewController: UIViewController, SegueHandlerType {
     
     
@@ -32,6 +34,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     var topControlSeletedButton: UIButton?
     var containerScrollerView = UIScrollView()
     
+    
+    /// Right category barButtonItems
+    var categoryItems = [Category]()
     
     ///记录containerScrollerView的偏移量,用来判断左右被移动的距离,决定是否发送通知取消searchBar的第一响应
     var containerScrollerOffsetX: CGFloat = 0 {
@@ -88,7 +93,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         addChileViewController()
         addTopControl()
         setupScrollerView()
-        
     }
     
     
@@ -113,6 +117,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         formulaLibraryVC.title = "公式库"
         addChildViewController(formulaLibraryVC)
     }
+    
     
     private func addTopControl() {
         topControl.frame = CGRect(x: 0, y: 64, width: UIScreen.mainScreen().bounds.width, height: 36)
@@ -195,12 +200,46 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController,
             let category = presentingVC.seletedCategory {
             
-            let menuHeight = CubeConfig.CagetoryMenu.rowHeight * CGFloat(menuVC.cubeCategorys.count ) + 20 + 10
+            let formulas = presentingVC.formulasData
+            
+            var categorys = Set<Category>()
+            
+            formulas.forEach {
+                
+                $0.forEach {
+                    if categorys.contains($0.category) {
+                        return
+                    }
+                    categorys.insert(category)
+                }
+            }
+            
+            
+            
+            
+            let menuHeight = CubeConfig.CagetoryMenu.rowHeight * CGFloat(categorys.count ) + 20 + 10
             
             menuAnimator.presentedFrmae = CGRect(x: CubeConfig.CagetoryMenu.menuOrignX, y: 60, width: CubeConfig.CagetoryMenu.menuWidth, height: menuHeight)
             menuVC.transitioningDelegate = menuAnimator
             menuVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             menuVC.seletedCategory = category
+            menuVC.cubeCategorys = Array(categorys)
+            
+            menuVC.categoryDidChanged = {
+                category in
+        
+                presentingVC.uploadFormulas( presentingVC.uploadMode, category: category) {
+                    
+                    presentingVC.collectionView?.reloadData()
+                    
+                }
+               
+                presentingVC.seletedCategory = category
+                
+                button.title = category.rawValue + " ▾"
+                
+                
+            }
  
             presentViewController(menuVC, animated: true, completion: nil)
             

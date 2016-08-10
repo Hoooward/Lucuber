@@ -9,7 +9,6 @@
 import UIKit
 
 
-
 class MainTabbarController: UITabBarController {
  
     override func viewDidLoad() {
@@ -17,7 +16,23 @@ class MainTabbarController: UITabBarController {
         tabBar.tintColor = UIColor.cubeTintColor()
         
         
-
+//        let rFromla = RFormula()
+//        
+//        rFromla.name = "F2L - Test"
+//        rFromla.creatUser = AVUser.currentUser().converRealmModel()
+//        
+//        let realm = try! Realm()
+//        
+//        try! realm.write {
+//            realm.add(rFromla)
+//        }
+        
+        
+        
+//        let puppies = realm.objects(RFormula)
+        
+//        print(puppies)
+        
         
       
 //        creatJSON()

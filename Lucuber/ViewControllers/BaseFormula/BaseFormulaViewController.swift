@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let CardCellIdentifier = "CardFormulaCell"
 private let NormalCellIdentifier = "NormalFormulaCell"
@@ -26,6 +27,7 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
         view.addSubview(searchBar)
+        view.addSubview(activityIndicator)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,6 +41,8 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
 //    var formulaManager = FormulaManager.shardManager()
     var formulasData: [[Formula]] = []
     var searchResult: [Formula] = []
+    
+    var uploadMode = UploadFormulaMode.My
     
     var searchBarActive = false
     var haveSearchResult: Bool {
@@ -63,6 +67,14 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
     
     /// 当前控制器所选择显示的公式种类
     var seletedCategory: Category?
+    
+    
+    lazy var activityIndicator: UIActivityIndicatorView =  {
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        indicator.frame.origin = CGPoint(x: (screenWidth - indicator.frame.width) / 2, y: 64 + 120)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     
     // MARK: 生命周期
     override func viewDidLoad() {
@@ -101,6 +113,7 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
     
     private func makeUI() {
 //        view.addSubview(searchBar)
+        collectionView!.addSubview(activityIndicator)
         collectionView!.backgroundColor = UIColor.whiteColor()
         collectionView!.registerNib(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
         collectionView!.registerNib(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
@@ -137,20 +150,24 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
     
     var isUploadingFormula = false
     
-    func uploadFormulas(mode: UploadFormulaMode = .Library, finfish: (() -> Void)? ) {
+    func uploadFormulas(mode: UploadFormulaMode = .Library, category: Category, finfish: (() -> Void)? ) {
         
         //0.1 从本地获取是否需要重新加载数据的标记,需要不需要更新就执行1
         
         //1. 从本地数据库加载
-        
         if isUploadingFormula {
             finfish?()
             return
         }
-        
+      
         isUploadingFormula = true
         
-        //TODO: - 添加 activityIndicatorView
+        self.activityIndicator.startAnimating()
+        
+        
+//        CubeHUD.showActivityIndicator()
+      
+        
         
         let failureHandler: (error: NSError) -> Void = {
             error in
@@ -158,6 +175,7 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
             dispatch_async(dispatch_get_main_queue()) { [weak self] in
                 
                 CubeAlert.alertSorry(message: "加载失败,请重试", inViewController: self)
+                 self?.activityIndicator.stopAnimating()
                 
                 finfish?()
             }
@@ -174,8 +192,25 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
                 }
                 
                 strongSelf.isUploadingFormula = false
+                strongSelf.searchBar.hidden = false
                 
                 var resultFormula = [[Formula]]()
+                
+                if !formulas.isEmpty {
+                    
+                    var types = Set<Type>()
+                    
+                    formulas.forEach {
+                        
+                        if types.contains($0.type) {
+                            return
+                        }
+                        types.insert($0.type)
+                    }
+                    
+                    
+                }
+                
                 
                 if !formulas.isEmpty {
                     var crossFormulas = [Formula]()
@@ -215,20 +250,31 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
                     }
                     
                     strongSelf.formulasData = resultFormula
+             
+                   
                     
+                } else {
+                    
+                   strongSelf.searchBar.hidden = true
+                   strongSelf.formulasData = resultFormula
                 }
+                
+                strongSelf.activityIndicator.stopAnimating()
+                
+                CubeHUD.hideActivityIndicator()
                 
                 finfish?()
                 
             }
         }
         
-        fetchFormulaWithMode(mode, completion: completion, failureHandler: failureHandler)
-        
+       
+  
+            
+        fetchFormulaWithMode(mode, category:category, completion: completion, failureHandler: failureHandler)
+            
+    
     }
-    
-    
-
 
 }
 // MARK: - SearchBar Delegate
@@ -296,11 +342,11 @@ extension BaseFormulaViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive {
                 return haveSearchResult ? searchResult.count : 1
             }
-            return formulasData[0].count
+            return formulasData[section].count
         case 1:
-            return formulasData[1].count
+            return formulasData[section].count
         case 2:
-            return formulasData[2].count
+            return formulasData[section].count
         default:
             return 0
         }

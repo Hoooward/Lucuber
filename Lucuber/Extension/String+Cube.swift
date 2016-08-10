@@ -14,11 +14,7 @@ enum ContentStyle {
 }
 
 extension String {
-    
-    
-
-
-    
+   
     func setAttributesFitDetailLayout(style: ContentStyle) -> NSMutableAttributedString {
         let attributeText = NSMutableAttributedString(string: self)
         

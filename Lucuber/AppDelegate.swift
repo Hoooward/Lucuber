@@ -23,7 +23,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FormulaComment.registerSubclass()
         Feed.registerSubclass()
         
+        
+        
+        /// 如果已经登录,就去获取是否需要更新公式的bool值
+        /// 因为 getObjectInBackgroundWithId 是并发的, 应用程序一启动如果第一个视图是 Formula
+        /// 的话会第一时间使用 NeedUpdateLibrary 属性进行 Formula 数据加载. 即使在 LeanCloud 中 将
+        /// 值设为 ture 后的第一次启动, NeedUpdateLibrary 的值还是 false. 第二次启动才会更新 Libray.
+        if let user = AVUser.currentUser()  {
+            
+            // 如果已经更新后的UserDefault为真, 不用做任何事情.
+            if !UserDefaults.needUpdateLibrary() {
+                
+                let query = AVQuery(className: "_User")
+                
+                query.getObjectInBackgroundWithId(user.objectId) {
+                    result, error in
+                    
+                    if error == nil {
+                        let need = result.objectForKey("needUpdateLibrary") as! Bool
+                        print("launch = \(need)")
+                        UserDefaults.setNeedUpdateLibrary(need)
+                    }
+                    
+                }
+            }
+           
+        } else {
+            // 如果没有登录, 直接设置为 true
+            UserDefaults.setNeedUpdateLibrary(true)
+        }
        
+         
         let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).last!
         print(path)
         

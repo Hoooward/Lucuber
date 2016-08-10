@@ -15,7 +15,8 @@ class LibraryFormulaViewController: BaseFormulaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = FormulaUserMode.Normal
-        seletedCategory = Category.Megaminx
+        seletedCategory = Category.x3x3
+        uploadMode = .Library
         
 //        FormulaManager.shardManager().loadNewFormulas { [weak self] in
 //            self?.formulasData = FormulaManager.shardManager().Alls
@@ -29,7 +30,7 @@ class LibraryFormulaViewController: BaseFormulaViewController {
         collectionView!.alwaysBounceVertical = true
         self.collectionView!.addSubview(refreshControl)
         
-        uploadFormulas(.Library) {
+        uploadFormulas(self.uploadMode, category: seletedCategory!) {
             [weak self] in
             
             self?.collectionView?.reloadData()

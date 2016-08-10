@@ -39,8 +39,6 @@ public func ==(lhs: DiscoveredUser, rhs: DiscoveredUser) -> Bool {
 
 
 
-
-
 public enum FeedKind: String {
     case Text = "text"
     case URL = "web_page"

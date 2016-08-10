@@ -16,28 +16,22 @@ class CategoryMenuViewController: UIViewController {
     var formulsData: [Formula] = []
     
     var cubeCategorys = [Category.x3x3, Category.Megaminx, Category.x4x4, Category.RubiksClock, Category.SquareOne]
-//    var cubeCategorys = [Category.x3x3]
     
     var seletedCategory = Category.x3x3
     
+    
+    var categoryDidChanged: ((Category) -> Void)?
+    
+    var seletctedIndexPath: NSIndexPath {
+        return NSIndexPath(forRow: cubeCategorys.indexOf(seletedCategory)!, inSection: 0)
+    }
     
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         tableView.registerClass(CategoryCheckCell.self, forCellReuseIdentifier: CategoryCheckCell.reuseIdentifier)
         tableView.rowHeight = CubeConfig.CagetoryMenu.rowHeight
-        
-        
-        /// 尝试获取所有公式的Map
-        let _ = FormulaManager.shardManager().Alls.map {
-            formulas in
-            formulas.map { formula in
-                
-                self.formulsData.append(formula)
-            }
-        }
         
     }
 }
@@ -57,13 +51,37 @@ extension CategoryMenuViewController: UITableViewDelegate, UITableViewDataSource
         cell.colorTitleLabelTextColor = UIColor.cubeTintColor()
         cell.checkImageView.hidden = !(seletedCategory == category)
         
+        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
+        let oldCell = tableView.cellForRowAtIndexPath(seletctedIndexPath) as! CategoryCheckCell
+        oldCell.checkImageView.hidden = true
+        
+        let newCell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryCheckCell
+        let newCategory = cubeCategorys[indexPath.row]
+        self.seletedCategory = newCategory
+        newCell.checkImageView.hidden = false
+        
+        
+        
+        print(newCategory)
+        categoryDidChanged?(newCategory)
+        
+        delay(0.25) {
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    
+        
     }
+    
+ 
+    
+    
     
     
 }
