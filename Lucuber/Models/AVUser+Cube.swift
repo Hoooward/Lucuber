@@ -11,8 +11,6 @@ import Foundation
 
 extension AVUser {
     
-   
-    
     private static let userNickNameKey = "userNickNameKey"
     private static let userAvatarImageUrlkey = "userAvatarImageUrlkey"
     
