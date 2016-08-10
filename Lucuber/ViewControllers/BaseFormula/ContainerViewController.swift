@@ -200,21 +200,13 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController,
             let category = presentingVC.seletedCategory {
             
-            let formulas = presentingVC.formulasData
             
-            var categorys = Set<Category>()
+            var categorys = getCategoryMenusInRealm(presentingVC.uploadMode)
             
-            formulas.forEach {
+            if categorys.isEmpty {
                 
-                $0.forEach {
-                    if categorys.contains($0.category) {
-                        return
-                    }
-                    categorys.insert(category)
-                }
+                categorys.append(.x3x3)
             }
-            
-            
             
             
             let menuHeight = CubeConfig.CagetoryMenu.rowHeight * CGFloat(categorys.count ) + 20 + 10
@@ -223,7 +215,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             menuVC.transitioningDelegate = menuAnimator
             menuVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             menuVC.seletedCategory = category
-            menuVC.cubeCategorys = Array(categorys)
+            menuVC.cubeCategorys = categorys
             
             menuVC.categoryDidChanged = {
                 category in

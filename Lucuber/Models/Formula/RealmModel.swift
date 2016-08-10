@@ -12,29 +12,52 @@ import RealmSwift
 class RCategory: Object {
     
     dynamic var categoryString = ""
-    
-    override static func primaryKey() -> String? {
-        return "categoryString"
-    }
-    
+    dynamic var mode = ""
     
     func convertToCategory() -> Category {
        return Category(rawValue: categoryString)!
     }
 }
 
-internal func saveCategoryMenus(category: [Category]) {
+
+internal func saveCategoryMenusInRealm(categorys: [Category], mode: UploadFormulaMode) {
     
     let realm = try! Realm()
+    
+    
     try! realm.write {
-        realm.add(category.map { $0.convertToRCategory()}, update: true)
+        realm.delete(realm.objects(RCategory))
     }
+    
+    
+    var modeString: String = ""
+    
+    switch mode {
+        
+    case .My:
+        modeString = "My"
+    case .Library:
+        
+        modeString = "Library"
+    }
+    
+    try! realm.write {
+        var result = [RCategory]()
+        for category in categorys {
+            let r = category.convertToRCategory()
+            r.mode = modeString
+            result.append(r)
+        }
+        realm.add(result)
+    }
+    
 }
 
-internal func getCategoryMenus() -> [Category] {
+internal func getCategoryMenusInRealm(mode: UploadFormulaMode) -> [Category] {
     
     let realm = try! Realm()
-    return realm.objects(RCategory).map { $0.convertToCategory() }
+    let predicate = NSPredicate(format: "mode == %@", mode.rawValue)
+    return realm.objects(RCategory).filter(predicate).map { $0.convertToCategory() }
 }
 
 internal func saveUploadFormulasInRealm(formulas: [Formula]) {

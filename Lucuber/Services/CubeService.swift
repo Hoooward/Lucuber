@@ -43,9 +43,9 @@ extension AVQuery {
     
 }
 
-public enum UploadFormulaMode {
-    case My
-    case Library
+public enum UploadFormulaMode: String {
+    case My = "My"
+    case Library = "Library"
 }
 
 
@@ -68,10 +68,10 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
         
         if needUpdate {
             
-            //直接请求所有的公式, 不区分类型或种类, 因为要更新 Realm
             let query = AVQuery.getFormula(uploadingFormulaMode)
             query.limit = 1000
             
+            /// 直接请求所有的公式, 不区分类型或种类, 因为要更新 Realm
             query.findObjectsInBackgroundWithBlock { (formulas, error) in
                 
                 if error != nil {
@@ -81,20 +81,33 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                 
                 if let formulas = formulas as? [Formula] {
                     
+                    /// 更新 needUpdateLibrary
                     UserDefaults.setNeedUpdateLibrary(false)
                     
                     if let user = AVUser.currentUser() {
-                    
                         user.setNeedUpdateLibrary(false)
                         user.saveInBackgroundWithBlock({ (sessuce, error) in
                             print("更新用户成功")
                         })
                     }
                     
-                    saveUploadFormulasInRealm(formulas)
                  
                     /// 将 Result 过滤一下, 只使用符合 category 的 formula
                     completion?(formulas.filter{$0.category == category})
+                    
+                    /// 更新数据库中的 Formula
+                    saveUploadFormulasInRealm(formulas)
+                    
+                    /// 更新 categoryMenu 的数据
+                    var categorys = Set<Category>()
+                    
+                    formulas.forEach {
+                        if !categorys.contains($0.category) {
+                            categorys.insert($0.category)
+                        }
+                    }
+                    
+                    saveCategoryMenusInRealm(Array(categorys), mode: uploadingFormulaMode)
                     
                 }
             }
