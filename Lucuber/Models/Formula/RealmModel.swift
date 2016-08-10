@@ -19,6 +19,16 @@ class RCategory: Object {
     }
 }
 
+/// 因为每次 uploadFormula 时, 公式对应的 Content 不能正确 update
+/// 所以删除掉, 重新的写入
+internal func deleteRContentInRealm() {
+    let realm = try! Realm()
+    
+    try! realm.write {
+       realm.delete(realm.objects(RContent))
+    }
+}
+
 
 internal func saveCategoryMenusInRealm(categorys: [Category], mode: UploadFormulaMode) {
     

@@ -96,6 +96,7 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                     completion?(formulas.filter{$0.category == category})
                     
                     /// 更新数据库中的 Formula
+                    deleteRContentInRealm()
                     saveUploadFormulasInRealm(formulas)
                     
                     /// 更新 categoryMenu 的数据
