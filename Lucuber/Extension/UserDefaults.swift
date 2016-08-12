@@ -65,7 +65,6 @@ extension UserDefaults {
             return Category(rawValue: categoryString)!
             
         } else {
-            
             return Category.x3x3
         }
     }
