@@ -14,9 +14,10 @@ class MyFormulaViewController: BaseFormulaViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userMode = FormulaUserMode.Card
-        seletedCategory = Category.x3x3
         uploadMode = .My
+        seletedCategory = UserDefaults.getSeletedCategory(uploadMode)
         
         //测试数据
 //        var formulas = [Formula]()

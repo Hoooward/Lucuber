@@ -86,7 +86,7 @@ class NewFeedViewController: UIViewController {
     }
     
     deinit {
-        printLog(self, "死了")
+         printLog("正确牺牲了. ~oye, bye")
     }
     
     func makeUI() {
@@ -162,7 +162,7 @@ class NewFeedViewController: UIViewController {
                             photoUrls.append(url)
                         }
                     } else {
-                        printLog("图片上传失败", error?.localizedFailureReason)
+                        printLog("图片上传失败 \((error?.localizedFailureReason)!)")
                     }
                 }
             }
@@ -178,7 +178,7 @@ class NewFeedViewController: UIViewController {
             if newFeed.save(&error) {
                 printLog("发表成功")
             } else {
-                printLog("发表失败", error?.localizedFailureReason)
+                printLog("发表失败 \(error?.localizedFailureReason)" )
             }
             
             

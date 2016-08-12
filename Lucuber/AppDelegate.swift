@@ -64,7 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        AVUser.loginTestUser1()
         if let user = AVUser.currentUser() {
             
-            printLog("当前登录账户: ", user.username)
+            printLog("当前登录账户:\(user.username)")
+        } else {
+            AVUser.loginTestUser1()
         }
         
         

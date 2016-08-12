@@ -15,8 +15,8 @@ class LibraryFormulaViewController: BaseFormulaViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userMode = FormulaUserMode.Normal
-        seletedCategory = Category.x3x3
         uploadMode = .Library
+        seletedCategory = UserDefaults.getSeletedCategory(uploadMode)
         
 //        FormulaManager.shardManager().loadNewFormulas { [weak self] in
 //            self?.formulasData = FormulaManager.shardManager().Alls

@@ -87,7 +87,9 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                     UserDefaults.setNeedUpdateLibrary(false)
                     
                     if let user = AVUser.currentUser() {
+                        
                         user.setNeedUpdateLibrary(false)
+                        
                         user.saveInBackgroundWithBlock({ (sessuce, error) in
                             printLog("更新用户成功")
                         })
@@ -103,7 +105,6 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                     /// 更新数据库中的 Formula
                     saveUploadFormulasAtRealm(formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
                    
-                    
                 }
             }
             

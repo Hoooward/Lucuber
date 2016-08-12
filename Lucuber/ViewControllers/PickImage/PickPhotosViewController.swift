@@ -39,7 +39,7 @@ class PickPhotosViewController: UICollectionViewController {
     var imageLimit = 0
     
     deinit {
-        printLog(self, "死了")
+        printLog("正确牺牲了. ~oye, bye")
     }
     
     override func viewDidLoad() {

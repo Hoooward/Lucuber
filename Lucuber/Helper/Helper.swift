@@ -45,7 +45,7 @@ func printLog<T>(message: T, file: String = #file,
                              method: String = #function,
                              line: Int = #line) {
     #if DEBUG
-    printLog("\((file as NSString).lastPathComponent)[\(line)], \(method):: \n \(message)")
+    print("\((file as NSString).lastPathComponent)[\(line)]:\(message)")
     #endif
 }
 

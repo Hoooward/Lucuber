@@ -203,10 +203,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             
             var categorys = getCategoryMenusAtRealm(presentingVC.uploadMode)
             
-            if categorys.isEmpty {
-                
-                categorys.append(.x3x3)
-            }
+            if categorys.isEmpty { categorys.append(.x3x3) }
             
             
             let menuHeight = CubeConfig.CagetoryMenu.rowHeight * CGFloat(categorys.count ) + 20 + 10
@@ -230,6 +227,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
                 
                 button.title = category.rawValue + " ▾"
                 
+                UserDefaults.setSelectedCategory(category, mode: presentingVC.uploadMode)
+                    
                 
             }
  
