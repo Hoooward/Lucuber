@@ -120,7 +120,7 @@ class FormulaManager {
                 }
                 
             }catch {
-                print("解析JSON 失败")
+                printLog("解析JSON 失败")
             }
         }
         
@@ -176,7 +176,7 @@ extension AVUser {
        
         AVUser.logInWithUsernameInBackground("12345", password: "12345") { (user, error) in
             
-            print("登录测试账户成功 -> \(user.username)")
+            printLog("登录测试账户成功 -> \(user.username)")
         }
         
     }
@@ -193,7 +193,7 @@ extension AVUser {
         
         AVUser.logInWithUsernameInBackground("admin", password: "h1Y2775852") { (user, error) in
             
-            print("登录管理员账户成功 -> \(user.username)")
+            printLog("登录管理员账户成功 -> \(user.username)")
         }
     }
     
@@ -210,7 +210,7 @@ extension AVUser {
             successed , error) in
             
             if error != nil {
-                print("当前user: \(user.username), 已成为管理员")
+                printLog("当前user: \(user.username), 已成为管理员")
             }
         }
     }

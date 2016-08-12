@@ -53,7 +53,7 @@ extension PopMenuAnimator: UIViewControllerAnimatedTransitioning {
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         guard let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) else {
-            print("转场视图准备失败")
+            printLog("转场视图准备失败")
             return
         }
         

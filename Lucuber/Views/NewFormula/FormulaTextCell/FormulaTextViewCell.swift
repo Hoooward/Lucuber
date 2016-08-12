@@ -127,7 +127,7 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate{
         self.rotationButton.selected = false
         
         if let content = formulaContent {
-            print(content)
+            printLog(content)
             updateInputAccessoryView?(content)
             saveFormulaContent?(content)
         }

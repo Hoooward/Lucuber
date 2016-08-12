@@ -48,7 +48,7 @@ class LibraryFormulaViewController: BaseFormulaViewController {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
                 dispatch_async(dispatch_get_main_queue(), {
-                    print(json)
+                    printLog(json)
                     self.refreshControl.endRefreshing()
                     
                 })

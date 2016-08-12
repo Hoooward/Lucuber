@@ -84,10 +84,10 @@ internal func saveCategoryMenusAtRealm(categorys:[Category],
                 realm.add(rNew)
             }
             
-            print("\(UploadFormulaMode.My.rawValue) -> " + "CategoryMenuList 添加新类别成功")
+            printLog("\(UploadFormulaMode.My.rawValue) -> " + "CategoryMenuList 添加新类别成功")
             
         } else {
-            print("\(UploadFormulaMode.My.rawValue) -> " + "此类别已经在数据库中了")
+            printLog("\(UploadFormulaMode.My.rawValue) -> " + "此类别已经在数据库中了")
         }
         
     }

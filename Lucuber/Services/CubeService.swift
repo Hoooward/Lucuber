@@ -89,7 +89,7 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                     if let user = AVUser.currentUser() {
                         user.setNeedUpdateLibrary(false)
                         user.saveInBackgroundWithBlock({ (sessuce, error) in
-                            print("更新用户成功")
+                            printLog("更新用户成功")
                         })
                     }
                     
@@ -183,7 +183,7 @@ internal func fetchFeedWithCategory(category: FeedCategory,
             
             if let newFeeds = newFeeds as? [Feed] {
                 
-//                print("newFeeds.count = \(newFeeds.count)")
+//                printLog("newFeeds.count = \(newFeeds.count)")
                 completion?(newFeeds)
             }
         }

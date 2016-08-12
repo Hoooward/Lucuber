@@ -68,7 +68,7 @@ extension CategoryMenuViewController: UITableViewDelegate, UITableViewDataSource
         
         
         
-        print(newCategory)
+        printLog(newCategory)
         categoryDidChanged?(newCategory)
         
         delay(0.25) {

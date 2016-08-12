@@ -27,7 +27,7 @@ class CommentTableViewController: UITableViewController {
     var formula: Formula? {
         didSet {
             if let formula = formula {
-               print("Comment-formula: \(formula)")
+               printLog("Comment-formula: \(formula)")
             }
         }
     }
@@ -49,11 +49,11 @@ class CommentTableViewController: UITableViewController {
     }
     
     func creatNewComment() {
-        print("写新评论")
+        printLog("写新评论")
 //        let content = "S deletes the whole line you are on and enters into insert mode."
         let content = "评论" + NSUUID().UUIDString
         
-        print("上传中")
+        printLog("上传中")
         
         
         
@@ -65,7 +65,7 @@ class CommentTableViewController: UITableViewController {
         newComment.saveInBackgroundWithBlock({ (success, error) in
             if success {
                 self.formulaComments.append(newComment)
-                print("发布成功")
+                printLog("发布成功")
                 dispatch_async(dispatch_get_main_queue(), { 
                     self.tableView.reloadData()
                 })

@@ -73,7 +73,7 @@ class FormulaDetaiViewlController: UIViewController, SegueHandlerType{
     }
     
     deinit {
-        print("公式详情视图死了")
+        printLog("公式详情视图死了")
     }
     
     

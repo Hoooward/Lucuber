@@ -36,7 +36,7 @@ final class MediaView: UIView {
         let size = CGSize(width: floor(image.size.width), height: floor(image.size.height))
         
         imageView.frame = CGRect(origin: CGPointZero, size: size)
-//        print("imageSize = \(size)")
+//        printLog("imageSize = \(size)")
         
         let widthScale = scrollView.bounds.size.width / size.width
         let minSclae = widthScale
@@ -58,15 +58,15 @@ final class MediaView: UIView {
         let scale = scrollView.minimumZoomScale
         let scaleImageSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
         
-        print("scaleImageSize = \(scaleImageSize)")
+        printLog("scaleImageSize = \(scaleImageSize)")
         
 //        imageView.frame.size = scaleImageSize
         
         let hSpace = scaleImageSize.width < scrollViewSize.width ? (scrollViewSize.width - scaleImageSize.width) * 0.5 : 0
         let vSpace = scaleImageSize.height < scrollViewSize.height ? (scrollViewSize.height - scaleImageSize.height) * 0.5 : 0
-        print("hSpace = \(hSpace)")
-        print(scrollView.frame)
-        print(imageView.frame)
+        printLog("hSpace = \(hSpace)")
+        printLog(scrollView.frame)
+        printLog(imageView.frame)
         
         scrollView.contentInset = UIEdgeInsets(top: vSpace, left: hSpace, bottom: vSpace, right: hSpace)
         
@@ -134,7 +134,7 @@ final class MediaView: UIView {
     }
     
     deinit {
-        print("cell 中的 MediaView已死")
+        printLog("cell 中的 MediaView已死")
     }
 
     

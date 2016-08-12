@@ -84,7 +84,7 @@ class NewFormulaViewController: UIViewController {
     }
     
     deinit {
-        print("NewFormula死了")
+        printLog("NewFormula死了")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -92,7 +92,7 @@ class NewFormulaViewController: UIViewController {
 // MARK: - Observer&Target Funcation
     
     func save(sender: UIBarButtonItem) {
-        print(self.formula)
+        printLog(self.formula)
         
         //保存公式. 
         //条件判断. 什么情况下可以保存
@@ -112,7 +112,7 @@ class NewFormulaViewController: UIViewController {
                 
                 formula.saveEventually({ (success, error) in
                     if error != nil { return }
-                    print("新建公式保存成功")
+                    printLog("新建公式保存成功")
                 })
                 
                 saveUploadFormulasAtRealm([formula], mode: nil, isCreatNewFormula: true)
@@ -672,7 +672,7 @@ extension NewFormulaViewController: UIScrollViewDelegate {
         dismissCategoryPickViewCell()
         dismissTypePickViewCell()
         view.endEditing(true)
-//        print(formula)
+//        printLog(formula)
     }
     
     //设置Header的方法缩小

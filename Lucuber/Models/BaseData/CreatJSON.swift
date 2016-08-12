@@ -108,7 +108,7 @@ func creatJSON() {
         let result = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
         
         
-        print(result)
+        printLog(result)
     } catch {
         
     }

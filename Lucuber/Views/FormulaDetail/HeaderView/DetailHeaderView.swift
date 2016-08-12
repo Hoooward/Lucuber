@@ -29,7 +29,7 @@ class DetailHeaderView: UIView {
             if let formula = formula {
                
                 nameLabel.text = formula.name
-                print("imageName = ", formula.imageName)
+                printLog("imageName = ", formula.imageName)
                 imageView.image = UIImage(named: formula.imageName)
                 ratingView.rating = formula.rating
                 ratingView.maxRating = 5

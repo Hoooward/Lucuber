@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if error == nil {
                         let need = result.objectForKey("needUpdateLibrary") as! Bool
-                        print("launch = \(need)")
+                        printLog("launch = \(need)")
                         UserDefaults.setNeedUpdateLibrary(need)
                     }
                     
@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
          
         let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).last!
-        print(path)
+        printLog(path)
         
         
         
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        AVUser.loginTestUser1()
         if let user = AVUser.currentUser() {
             
-            print("当前登录账户: ", user.username)
+            printLog("当前登录账户: ", user.username)
         }
         
         
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        print(#function)
+        printLog(#function)
     }
 
     func applicationDidEnterBackground(application: UIApplication) {

@@ -62,7 +62,7 @@ extension String {
                 attributeText.addAttributes(attributes, range: result.range)
             }
         } catch {
-            print("设置括弧颜色失败")
+            printLog("设置括弧颜色失败")
         }
         
         return setNumbersColor(attributeText, style: style)
@@ -87,7 +87,7 @@ extension String {
                 attributeText.addAttributes(attributes, range: result.range)
             }
         } catch {
-            print("设置括弧颜色失败")
+            printLog("设置括弧颜色失败")
         }
         return setQuotationMarksColor(attributeText)
     }
@@ -100,7 +100,7 @@ extension String {
             for _ in checkingResult {
             }
         } catch {
-            print("设置括弧颜色失败")
+            printLog("设置括弧颜色失败")
         }
         return attributeText
         

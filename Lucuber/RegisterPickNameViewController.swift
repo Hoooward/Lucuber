@@ -49,7 +49,7 @@ class RegisterPickNameViewController: UIViewController {
         guard let text = textField.text else {
             return
         }
-        print(#function)
+        printLog(#function)
         isDirty = !text.isEmpty
     }
     func next(button: UIBarButtonItem) {

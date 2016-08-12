@@ -99,12 +99,12 @@ class BaseFormulaViewController: UICollectionViewController, SegueHandlerType {
         if let offsetX = notification.object as? CGFloat {
             //代表进入第二个集合视图
             if offsetX == screenWidth && self.isKindOfClass(LibraryFormulaViewController) {
-                print("我是第二个视图")
+                printLog("我是第二个视图")
                 changeLayoutButtonSeletedStatus()
             }
             //代表进入第一个集合视图
             if offsetX == 0 && self.isKindOfClass(MyFormulaViewController) {
-                print("我是第一个视图")
+                printLog("我是第一个视图")
                 changeLayoutButtonSeletedStatus()
             }
             cancelSearch()
@@ -426,7 +426,7 @@ extension BaseFormulaViewController: UICollectionViewDelegateFlowLayout {
 
     }
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print(#function)
+        printLog(#function)
     
         let seletedFormula = formulasData[indexPath.section][indexPath.row]
         let formulas = formulasData[indexPath.section]

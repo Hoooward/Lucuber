@@ -29,12 +29,12 @@ class BaseFormulaLayout: UICollectionViewFlowLayout {
     /**
      override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
      let attris = super.layoutAttributesForElementsInRect(rect)
-     print(#function)
+     printLog(#function)
      return attris
      }
      
      override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-     print(#function)
+     printLog(#function)
      return nil
      }
      */

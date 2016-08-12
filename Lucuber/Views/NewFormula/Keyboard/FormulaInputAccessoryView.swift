@@ -88,7 +88,7 @@ class FormulaInputAccessoryView: UIView {
     
     func clearButtonClicked(button: UIButton) {
         
-        print(#function)
+        printLog(#function)
     }
     
     

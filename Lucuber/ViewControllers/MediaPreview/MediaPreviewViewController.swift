@@ -122,8 +122,8 @@ class MediaPreviewViewController: UIViewController {
         UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations:{ [weak self] in
             
             self?.view.backgroundColor = UIColor.blackColor()
-            print(self?.view)
-            print(self?.view.backgroundColor)
+            printLog(self?.view)
+            printLog(self?.view.backgroundColor)
 //            self?.mediasCollectionView.backgroundColor = UIColor.blackColor()
             
             if let _ = self?.topPreviewImage {
@@ -211,7 +211,7 @@ class MediaPreviewViewController: UIViewController {
     }
     
     deinit {
-        print("预览视图已死")
+        printLog("预览视图已死")
     }
     
     func dismiss(sender: UIGestureRecognizer?) {
@@ -305,13 +305,13 @@ class MediaPreviewViewController: UIViewController {
                 let sessionMessage = MonkeyKing.Message.WeChat(.Session(info: info))
                 
                 let weChatSessionActivity = AnyActivity(type: "com.Lucuber.China.Wechat.Sesstion", title: "微信好友", image: UIImage(), message: sessionMessage, completionHandler: { (result) in
-                    print("发送 \(result)")
+                    printLog("发送 \(result)")
                 })
                 
                 let timeLineMessage = MonkeyKing.Message.WeChat(.Timeline(info: info))
                 
                 let weChatTimelineActivity = AnyActivity(type: "com.Lucuber.China.Wechat.Sesstion", title: "微信朋友圈", image: UIImage(), message: timeLineMessage, completionHandler: { (result) in
-                    print("发送 \(result)")
+                    printLog("发送 \(result)")
                 })
                 
                 

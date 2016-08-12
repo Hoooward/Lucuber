@@ -89,7 +89,7 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         case .Separator:
             return 1
         case .Formulas:
-            print("formulaContentCount = \(formula?.contents)")
+            printLog("formulaContentCount = \(formula?.contents)")
             return formula?.contents.count ?? 1
         case .Comment:
             return 1

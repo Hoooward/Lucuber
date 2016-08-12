@@ -31,7 +31,7 @@ class MainTabbarController: UITabBarController {
         
 //        let puppies = realm.objects(RFormula)
         
-//        print(puppies)
+//        printLog(puppies)
         
         
       
@@ -47,10 +47,10 @@ class MainTabbarController: UITabBarController {
 //            try AVUser.signUpOrLoginWithMobilePhoneNumber("18500800404", smsCode: "350877")
 //            
 //        } catch  {
-//            print(error)
+//            printLog(error)
 //        }
         
-//        print(AVUser.currentUser())
+//        printLog(AVUser.currentUser())
         
 //        let testObject: AVObject = AVObject(className: "TestObject")
 //        testObject["foor"] = "Bar"
@@ -81,10 +81,10 @@ class MainTabbarController: UITabBarController {
 //        
 ////        
 //        let q: AVQuery = AVQuery.init(className: "Formulas")
-//        print(AVUser.currentUser().objectId)
+//        printLog(AVUser.currentUser().objectId)
 //        q.whereKey("user", equalTo: AVUser.currentUser())
 //        q.findObjectsInBackgroundWithBlock { (object, error) in
-//            print(object)
+//            printLog(object)
 //        }
 //
 

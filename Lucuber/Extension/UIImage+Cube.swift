@@ -16,11 +16,11 @@ extension UIImage {
         let pixelHeight = size.height * scale
         
         
-        print("pixelSideLenght = \(pixelSideLenght)")
-        print("scale = \(UIScreen.mainScreen().scale)")
-        print("imagescale = \(scale)")
-        print("pixelWidth = \(pixelWidth)")
-        print("pixelHeight = \(pixelHeight)")
+        printLog("pixelSideLenght = \(pixelSideLenght)")
+        printLog("scale = \(UIScreen.mainScreen().scale)")
+        printLog("imagescale = \(scale)")
+        printLog("pixelWidth = \(pixelWidth)")
+        printLog("pixelHeight = \(pixelHeight)")
         var newSize = CGSizeZero
         
         if pixelWidth > pixelHeight {
