@@ -52,6 +52,8 @@ public enum Type: String {
 //    case test3 = "333"
 }
 
+
+
 class Formula: AVObject, AVSubclassing  {
     
     func prepareForPushToLeanCloud() {
@@ -96,6 +98,8 @@ class Formula: AVObject, AVSubclassing  {
     
     
     
+    @NSManaged var objectID: String
+    
     
     /// 判断是否是系统公式库中的公式
     @NSManaged var isLibraryFormula: Bool
@@ -109,6 +113,8 @@ class Formula: AVObject, AVSubclassing  {
     var nickName: String {
         return type.rawValue + "name"
     }
+    
+    var creatUserID: String = ""
     
     
     ///图片名字
@@ -210,7 +216,10 @@ class Formula: AVObject, AVSubclassing  {
         self.category = category
         self.type = type
         self.rating = rating
+        self.objectID = NSUUID().UUIDString
     }
+    
+  
     
     /// 系统公式库创建所使用的.
     init(name: String, contents: [FormulaContent], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int, serialNumber: Int) {
@@ -224,6 +233,7 @@ class Formula: AVObject, AVSubclassing  {
         self.type = type
         self.rating = rating
         self.serialNumber = serialNumber
+        self.objectID = NSUUID().UUIDString
     }
   
     class func creatNewDefaultFormula() -> Formula {
@@ -235,6 +245,8 @@ class Formula: AVObject, AVSubclassing  {
             return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n"  + "type = \(type)" + "-------------------------------"
         }
     }
+    
+
 
 }
 

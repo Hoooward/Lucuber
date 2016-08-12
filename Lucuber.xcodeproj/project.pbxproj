@@ -180,6 +180,7 @@
 		894018E91D3880CF000703E5 /* CubeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeConfig.swift; sourceTree = "<group>"; };
 		894018EC1D38842A000703E5 /* CubeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAlert.swift; sourceTree = "<group>"; };
 		894018EF1D38AE60000703E5 /* ActionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
+		89419EAA1D5DE5CE002F67E5 /* UUIDString.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = UUIDString.playground; sourceTree = "<group>"; };
 		89534D551D47BC0800205C4A /* UIImageView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cube.swift"; sourceTree = "<group>"; };
 		89534D581D47D1C000205C4A /* AddFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddFormula.storyboard; sourceTree = "<group>"; };
 		89534D591D47D1C000205C4A /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
@@ -998,6 +999,7 @@
 				89FAF40E1D33AF7900096B5A /* CubeCategory.plist */,
 				894018E91D3880CF000703E5 /* CubeConfig.swift */,
 				897A41071D59C49F00F68D5D /* CubeType.plist */,
+				89419EAA1D5DE5CE002F67E5 /* UUIDString.playground */,
 			);
 			path = Helper;
 			sourceTree = "<group>";

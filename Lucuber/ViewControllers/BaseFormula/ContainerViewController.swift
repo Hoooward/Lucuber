@@ -201,7 +201,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             let category = presentingVC.seletedCategory {
             
             
-            var categorys = getCategoryMenusInRealm(presentingVC.uploadMode)
+            var categorys = getCategoryMenusAtRealm(presentingVC.uploadMode)
             
             if categorys.isEmpty {
                 

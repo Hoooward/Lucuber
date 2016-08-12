@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -56,6 +57,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          
         let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).last!
         print(path)
+        
+        
+        
+        
+//        AVUser.loginTestUser1()
+        if let user = AVUser.currentUser() {
+            
+            print("当前登录账户: ", user.username)
+        }
+        
+        
+//        let realm = try! Realm()
+//        
+//        try! realm.write {
+//            realm.delete(realm.objects(RFormula))
+//        }
+        
+   
         
         return true
     }

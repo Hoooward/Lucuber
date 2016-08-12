@@ -31,12 +31,14 @@ extension AVQuery {
             let query = AVQuery(className: Formula.parseClassName())
             query.addAscendingOrder("name")
             query.whereKey("creatUser", equalTo: AVUser.currentUser())
+            query.limit = 1000
             return query
             
         case .Library:
             let query = AVQuery(className: Formula.parseClassName())
             query.whereKey("isLibraryFormula", equalTo: NSNumber(bool: true))
             query.addAscendingOrder("serialNumber")
+            query.limit = 1000
             return query
         }
     }
@@ -69,7 +71,7 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
         if needUpdate {
             
             let query = AVQuery.getFormula(uploadingFormulaMode)
-            query.limit = 1000
+
             
             /// 直接请求所有的公式, 不区分类型或种类, 因为要更新 Realm
             query.findObjectsInBackgroundWithBlock { (formulas, error) in
@@ -95,20 +97,12 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                     /// 将 Result 过滤一下, 只使用符合 category 的 formula
                     completion?(formulas.filter{$0.category == category})
                     
+                    /// 删除 Library 中 Formula 对应的 content
+                    deleteLibraryFormulasRContentAtRealm()
+                    
                     /// 更新数据库中的 Formula
-                    deleteRContentInRealm()
-                    saveUploadFormulasInRealm(formulas)
-                    
-                    /// 更新 categoryMenu 的数据
-                    var categorys = Set<Category>()
-                    
-                    formulas.forEach {
-                        if !categorys.contains($0.category) {
-                            categorys.insert($0.category)
-                        }
-                    }
-                    
-                    saveCategoryMenusInRealm(Array(categorys), mode: uploadingFormulaMode)
+                    saveUploadFormulasAtRealm(formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
+                   
                     
                 }
             }
@@ -128,9 +122,10 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
     case .My:
         
         // 我的公式, 如果Realm中没有数据, 则尝试从网络加载, 否则不需要从网络加载
-        let result =  getFormulsFormRealmWithMode(uploadingFormulaMode, category: category)
-        if result.isEmpty { task() }
+        let result = getFormulsFormRealmWithMode(uploadingFormulaMode, category: category)
         
+        result.isEmpty ? task() : completion?(result)
+
     case .Library:
         
         task()
@@ -139,26 +134,6 @@ internal func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
 
     
 }
-
-internal func fetchCategoryMenuList() -> [Category] {
-    
-    let query = AVQuery(className: "categoryMenu")
-    
-    let result = query.findObjects() as! [AVObject]
-    
-    
-    var categorys = [Category]()
-    
-    result.forEach {
-        if let string = $0.valueForKey("categoryString") as? String,
-            let category = Category(rawValue: string){
-            categorys.append(category)
-        }
-    }
-    
-    return categorys
-}
-
 
 
 internal func fetchFeedWithCategory(category: FeedCategory,

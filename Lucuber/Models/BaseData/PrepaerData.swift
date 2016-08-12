@@ -142,10 +142,45 @@ internal func pushFormulaDataOnLeanCloud() {
     
     FormulaManager.shardManager().loadNewFormulasFormJSON()
     let formulaDatas = FormulaManager.shardManager().parseAllFormulas()
+    
+    
+    var Auser = AVUser()
+    let query = AVQuery(className: "_User")
+  
+    
+    if let user = query.getObjectWithId("57a58cb5a633bd006043f0d7") as? AVUser {
+        Auser = user
+    }
+
+    
+    formulaDatas.forEach {
+        
+        let acl = AVACL()
+        acl.setPublicReadAccess(true)
+        acl.setWriteAccess(true, forRole: AVRole(name: "Administrator"))
+        
+        $0.ACL = acl
+        $0.creatUser = Auser
+        $0.creatUserID = Auser.objectId
+        
+    }
+    
     AVObject.saveAll(formulaDatas)
     
 }
 
+extension AVUser {
+    
+    class func loginTestUser1() {
+        
+       
+        AVUser.logInWithUsernameInBackground("12345", password: "12345") { (user, error) in
+            
+            print("登录测试账户成功 -> \(user.username)")
+        }
+        
+    }
+}
 
 
 extension AVUser {

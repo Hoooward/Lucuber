@@ -378,12 +378,12 @@ extension BaseFormulaViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive && haveSearchResult {
                 formula = searchResult[indexPath.item]
             } else {
-                formula = formulasData[0][indexPath.item]
+                formula = formulasData[indexPath.section][indexPath.item]
             }
         case 1:
-            formula = formulasData[1][indexPath.item]
+            formula = formulasData[indexPath.section][indexPath.item]
         case 2:
-            formula = formulasData[2][indexPath.item]
+            formula = formulasData[indexPath.section][indexPath.item]
         default:
             break
         }

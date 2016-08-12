@@ -39,15 +39,14 @@ enum AddFormulaNotification: String {
  * 自定义 print 用于 Debug， 利用 #file #function #line 来分别输出
  * 文件名 函数名 行号
  * 可以利用 #if DEBUG
- * #endif 来分割print方法，让此print失效，达到发布程序取消print并节省性能的目的。
+ *  来分割print方法，让此print失效，达到发布程序取消print并节省性能的目的。
  */
-func printLog<T>(message: T,
-              file: String = #file,
-              method: String = #function,
-              line: Int = #line) {
-    //
-    print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
-    //
+func printLog<T>(message: T, file: String = #file,
+                             method: String = #function,
+                             line: Int = #line) {
+    #if DEBUG
+    print("\((file as NSString).lastPathComponent)[\(line)], \(method):: \n \(message)")
+    #endif
 }
 
 

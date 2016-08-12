@@ -97,6 +97,37 @@ class NewFormulaViewController: UIViewController {
         //保存公式. 
         //条件判断. 什么情况下可以保存
         
+        if self.formula.isReadyforPushToLeanCloud() {
+            
+            if let user = AVUser.currentUser() {
+                
+                formula.creatUser = user
+                formula.creatUserID = user.objectId
+                
+                let acl = AVACL()
+                acl.setPublicReadAccess(true)
+                acl.setWriteAccess(true, forUser: AVUser.currentUser())
+                formula.ACL = acl
+                
+                
+                formula.saveEventually({ (success, error) in
+                    if error != nil { return }
+                    print("新建公式保存成功")
+                })
+                
+                saveUploadFormulasAtRealm([formula], mode: nil, isCreatNewFormula: true)
+                
+                
+                
+            } else {
+                
+                //当前没有登录
+            }
+            
+
+            
+        }
+        
         //1 保存到本地
         
         //2 保存到服务器
