@@ -22,6 +22,23 @@ class CategoryPickViewCell: UITableViewCell {
     
 // MARK: - Properties
     @IBOutlet weak var pickView: UIPickerView!
+    
+    var primaryCategory: Category? {
+        didSet {
+            
+            if categorys.isEmpty {
+                return
+            }
+            
+            
+            if let primaryCategory = primaryCategory {
+                
+                let index = categorys.map { $0.chineseText }.indexOf(primaryCategory.rawValue) ?? 0
+                pickView.selectRow(index, inComponent: 0, animated: true)
+            }
+        }
+    }
+    
     var categorys: [CategoryItem] = []
     
     var categoryDidChanged: ((category: CategoryItem) -> Void)?

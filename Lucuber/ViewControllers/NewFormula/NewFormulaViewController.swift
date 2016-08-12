@@ -27,6 +27,8 @@ class NewFormulaViewController: UIViewController {
     var editType: EditType = .NewFormula
     
     var afterSaveNewFormula:(() -> Void)?
+    
+
    
     private let headerViewHeight: CGFloat = 170
     private var keyboardFrame = CGRectZero
@@ -48,7 +50,13 @@ class NewFormulaViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
     
-    var formula = Formula.creatNewDefaultFormula()
+    var formula = Formula() {
+        
+        didSet {
+            
+            headerView.formula = formula
+        }
+    }
     
     
     var categoryPickViewIndexPath = NSIndexPath(forRow: 1, inSection: 1)
@@ -66,17 +74,15 @@ class NewFormulaViewController: UIViewController {
         }
         return viewController
     }()
-
+    
+    
 
    
 // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        headerView.formula = formula
         
-        
-
         makeUI()
         
         
@@ -318,6 +324,8 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(CategorySeletedCellIdentifier, forIndexPath: indexPath) as! CategorySeletedCell
                 
+                cell.primaryCategory = formula.category
+                
                 return cell
 
             }
@@ -328,6 +336,8 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 if categoryPickViewIsShow {
                     let cell = tableView.dequeueReusableCellWithIdentifier(CategotryPickViewCellIdentifier, forIndexPath: indexPath) as! CategoryPickViewCell
                     
+                    
+                    cell.primaryCategory = formula.category
                     
                     // update formula's category
                     cell.categoryDidChanged = { [weak self] categoryString in
@@ -347,7 +357,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 } else {
                     
                     let cell = tableView.dequeueReusableCellWithIdentifier(TypeSelectedCellIdentifier, forIndexPath: indexPath) as! TypeSelectedCell
-                    
+                    cell.primaryType = formula.type
                     return cell
                 }
             }
@@ -359,7 +369,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     
                     let cell = tableView.dequeueReusableCellWithIdentifier(TypePickViewCellIdentifier, forIndexPath: indexPath) as! TypePickViewCell
                     
-                    cell.category = self.formula.category
+                    cell.primaryType = formula.type
                     
                     
                     /// update formula's type
@@ -367,8 +377,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         
                         self?.formula.type = type
                         if let cell = self?.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as?  TypeSelectedCell {
-                            
-                            cell.typeLabel.text = type.rawValue
+                            cell.primaryType = type
                         }
                         
                     }
@@ -380,6 +389,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 if categoryPickViewIsShow {
                     
                     let cell = tableView.dequeueReusableCellWithIdentifier(TypeSelectedCellIdentifier, forIndexPath: indexPath) as! TypeSelectedCell
+                    cell.primaryType = formula.type
                     
                     return cell
                 }
@@ -427,6 +437,14 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 
                 strongSelf.navigationItem.rightBarButtonItem?.enabled = strongSelf.formula.isReadyforPushToLeanCloud()
+                
+            }
+            
+            
+            cell.didEndEditing = { [weak self] in
+                
+//                let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
+                self?.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 
             }
             
@@ -565,7 +583,8 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
 
             
         case .Formulas:
-            return 50
+             return  formula.contents[indexPath.row].cellHeight
+          
         default:
             return 40
         }

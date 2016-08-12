@@ -70,12 +70,21 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         case .ShowAddFormula:
             
             
+            
             let nvc = segue.destinationViewController as! UINavigationController
             let vc = nvc.viewControllers[0] as! NewFormulaViewController
             
             vc.editType = NewFormulaViewController.EditType.NewFormula
             
+            vc.view.alpha = 1
+            
             if let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController {
+                
+                let formula = Formula.creatNewDefaultFormula()
+               
+                formula.category = presentingVC.seletedCategory ?? Category.x3x3
+                
+                vc.formula = formula
                 
                 vc.afterSaveNewFormula = {
                     

@@ -31,9 +31,16 @@ class TypePickViewCell: UITableViewCell {
     }
     
     
-    var category: Category? {
+    var primaryType: Type? {
         didSet {
             loadTypeFromMainBundle()
+            
+            if let type = primaryType {
+                
+                let index = typesText.indexOf(type.rawValue) ?? 0
+                
+                pickView.selectRow(index, inComponent: 0, animated: false)
+            }
         }
     }
 
@@ -43,8 +50,8 @@ class TypePickViewCell: UITableViewCell {
         let path = NSBundle.mainBundle().pathForResource("CubeType.plist", ofType: nil)!
         let dict = NSDictionary(contentsOfFile: path)!
         
-        if let category = category,
-            let types = dict[category.rawValue] as? [String] {
+        if let type = primaryType,
+            let types = dict[type.rawValue] as? [String] {
             
             self.typesText = types
             

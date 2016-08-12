@@ -11,6 +11,18 @@ import UIKit
 class TypeSelectedCell: UITableViewCell {
 
     @IBOutlet weak var typeLabel: UILabel!
+    
+    
+    var primaryType: Type? {
+        
+        didSet {
+            
+            if let type = primaryType {
+                
+                typeLabel.text = type.rawValue
+            }
+        }
+    }
 
     
 }

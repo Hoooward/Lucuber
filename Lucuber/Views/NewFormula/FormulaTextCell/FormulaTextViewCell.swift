@@ -20,6 +20,9 @@ class FormulaTextViewCell: UITableViewCell {
     var updateInputAccessoryView: ((FormulaContent) -> Void)?
     
     var saveFormulaContent: ((FormulaContent) -> Void)?
+    
+    
+    var didEndEditing: (() -> Void)?
        
     
     override func awakeFromNib() {
@@ -31,12 +34,15 @@ class FormulaTextViewCell: UITableViewCell {
     
     var formulaContent: FormulaContent? {
         didSet {
-            updateUI()
+   
+                updateUI()
+    
         }
     }
  
     private func makeUI() {
-        self.formulaLabel.alpha = 0
+        
+//        self.formulaLabel.alpha = 0
         textView.delegate = self
         formulaLabel.textColor = UIColor.cubeFormulaDetailTextColor()
         formulaLabel.font = UIFont.cubeFormulaDetailTextFont()
@@ -51,6 +57,17 @@ class FormulaTextViewCell: UITableViewCell {
         if let formulaContent = formulaContent {
             
             rotationButton.upDateButtonStyleWithRotation(RotationButton.Style.Cercle, rotation: formulaContent.rotation)
+            
+            if let formulaText = formulaContent.text  {
+                
+                formulaLabel.text = formulaText
+                formulaLabel.hidden = formulaText.isEmpty
+                placeholderLabel.hidden = !formulaText.isEmpty
+            } else {
+                formulaLabel.hidden = true
+                placeholderLabel.hidden = false
+            }
+            
             
             var placeholderText = ""
             
@@ -70,7 +87,6 @@ class FormulaTextViewCell: UITableViewCell {
                 placeholderText = placeText
             }
             
-//            indicaterImageView.image = UIImage(named: indicaterImagename)
             placeholderLabel.text = placeholderText
             
         }
@@ -102,8 +118,17 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate{
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
+        
+        if let formulaText = formulaLabel.text {
+            
+            if !formulaText.isEmpty {
+                
+                textView.text = formulaText
+            }
+        }
+        
         placeholderLabel.hidden = true
-        self.formulaLabel.alpha = 0
+        self.formulaLabel.hidden = true
         
         self.rotationButton.selected = true
         self.rotationButton.POPAnimation()
@@ -120,18 +145,18 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate{
     func textViewDidEndEditing(textView: UITextView) {
         placeholderLabel.hidden = textView.text.characters.count > 0
         self.formulaLabel.attributedText = textView.text.setAttributesFitDetailLayout(.Detail)
-        self.formulaLabel.alpha = 1
+        self.formulaLabel.hidden = false
         
         
         formulaContent?.text = textView.text
         self.rotationButton.selected = false
         
         if let content = formulaContent {
-            printLog(content)
             updateInputAccessoryView?(content)
             saveFormulaContent?(content)
+            
+            didEndEditing?()
         }
-        
         
         
     }

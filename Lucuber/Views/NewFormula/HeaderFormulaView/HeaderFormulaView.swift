@@ -19,7 +19,9 @@ class HeaderFormulaView: UIView {
             guard let formula = formula else {
                 return
             }
+            printLog(formula)
             setFormulaImageButtonBackgroundImage(formula.imageName)
+            indicaterView.configureWithCategory(formula.category.rawValue)
             
         }
     }
@@ -112,6 +114,7 @@ class HeaderFormulaView: UIView {
     }
     
     private func makeUI() {
+        
         imageButton.layer.cornerRadius = 4
         imageButton.layer.masksToBounds = true
         centerBackView.layer.cornerRadius = 10
@@ -129,13 +132,6 @@ class HeaderFormulaView: UIView {
     
 
     
-    lazy var categoryView: CubeCategoryItemView = {
-        let view = CubeCategoryItemView()
-        view.configureWithCategory("3x3x3")
-        //TODO: 这个frame有问题
-        view.frame = view.bubbleImageView.frame
-        return view
-    }()
 
     
 }

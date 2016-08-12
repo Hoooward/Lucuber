@@ -268,7 +268,7 @@ class FormulaContent: CustomStringConvertible {
     var rotation: Rotation = FRrotation
     
     var cellHeight: CGFloat {
-        let height: CGFloat = 40
+        let height: CGFloat = 50
         
         let margin = CubeConfig.DetailFormula.screenMargin
         if let text = text where text.characters.count > 0 {
