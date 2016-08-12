@@ -53,15 +53,37 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         switch segueIdentifierForSegue(segue) {
+            
         case .ShowFormulaDetail:
-            let vc = segue.destinationViewController as!FormulaDetaiViewlController
+            
+            let vc = segue.destinationViewController as! FormulaDetaiViewlController
+            
             if let dict = sender as? [String: AnyObject] {
-                vc.seletedFormula =  dict["seletedFormula"] as? Formula
+                
+                vc.seletedFormula = dict["seletedFormula"] as? Formula
                 vc.formulas = dict["formulas"] as? [Formula]
                 vc.hidesBottomBarWhenPushed = true
+                
             }
         case .ShowAddFormula:
+            
+            
+            let nvc = segue.destinationViewController as! UINavigationController
+            let vc = nvc.viewControllers[0] as! NewFormulaViewController
+            
+            vc.editType = NewFormulaViewController.EditType.NewFormula
+            
+            if let presentingVC = childViewControllers[Int(containerScrollerOffsetX / screenWidth)] as? BaseFormulaViewController {
+                
+                vc.afterSaveNewFormula = {
+                    
+                    presentingVC.collectionView?.reloadData()
+                }
+            }
+            
+            
             break
         }
         

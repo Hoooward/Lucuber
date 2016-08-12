@@ -25,6 +25,8 @@ class NewFormulaViewController: UIViewController {
 // MARK: - Properties
     
     var editType: EditType = .NewFormula
+    
+    var afterSaveNewFormula:(() -> Void)?
    
     private let headerViewHeight: CGFloat = 170
     private var keyboardFrame = CGRectZero
@@ -91,46 +93,48 @@ class NewFormulaViewController: UIViewController {
     
 // MARK: - Observer&Target Funcation
     
+    var isSaveing: Bool = false
+    
     func save(sender: UIBarButtonItem) {
-        printLog(self.formula)
         
-        //保存公式. 
-        //条件判断. 什么情况下可以保存
+        if isSaveing { return }
+        
         
         if self.formula.isReadyforPushToLeanCloud() {
             
-            if let user = AVUser.currentUser() {
+            isSaveing = true
+            
+            let completion: (() -> Void) = {
                 
-                formula.creatUser = user
-                formula.creatUserID = user.objectId
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.isSaveing = false
+                    self.afterSaveNewFormula?()
+                    
+                }
                 
-                let acl = AVACL()
-                acl.setPublicReadAccess(true)
-                acl.setWriteAccess(true, forUser: AVUser.currentUser())
-                formula.ACL = acl
-                
-                
-                formula.saveEventually({ (success, error) in
-                    if error != nil { return }
-                    printLog("新建公式保存成功")
-                })
-                
-                saveUploadFormulasAtRealm([formula], mode: nil, isCreatNewFormula: true)
-                
-                
-                
-            } else {
-                
-                //当前没有登录
             }
             
-
+            let failureHandler: (NSError) -> Void = { error in
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.isSaveing = false
+                    CubeAlert.alertSorry(message: error.domain, inViewController: self)
+                }
+                
+            }
+            
+            
+            saveNewFormulaToRealmAndPushToLeanCloud(self.formula, completion: completion, failureHandler: failureHandler)
+          
+           
+            
+        } else {
             
         }
         
-        //1 保存到本地
         
-        //2 保存到服务器
         
     }
     

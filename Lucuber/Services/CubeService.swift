@@ -45,6 +45,9 @@ extension AVQuery {
     
 }
 
+
+
+
 public enum UploadFormulaMode: String {
     case My = "My"
     case Library = "Library"
@@ -193,7 +196,44 @@ internal func fetchFeedWithCategory(category: FeedCategory,
 }
 
 
-
+internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
+                                                      completion: (() -> Void)?,
+                                                      failureHandler: ((NSError) -> Void)? ) {
+    
+    
+        if let user = AVUser.currentUser() {
+            
+            newFormula.creatUser = user
+            newFormula.creatUserID = user.objectId
+            
+            let acl = AVACL()
+            acl.setPublicReadAccess(true)
+            acl.setWriteAccess(true, forUser: AVUser.currentUser())
+            newFormula.ACL = acl
+            
+            
+            newFormula.saveEventually({ (success, error) in
+                if error  == nil {
+                    printLog("新公式保存到 LeanCloud 成功")
+                } else {
+                    printLog("新公式保存到 LeanCloud 失败")
+                }
+            })
+            
+            saveUploadFormulasAtRealm([newFormula], mode: nil, isCreatNewFormula: true)
+            
+            completion?()
+            
+            
+        } else {
+            
+            let error = NSError(domain: "没有登录用户", code: 0, userInfo: nil)
+            failureHandler?(error)
+        }
+        
+    
+    
+}
 
 
 

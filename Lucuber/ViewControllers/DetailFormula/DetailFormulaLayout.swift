@@ -9,7 +9,9 @@
 import UIKit
 
 class DetailFormulaLayout: UICollectionViewFlowLayout {
+    
     override func prepareLayout() {
+        
         super.prepareLayout()
         itemSize = screenBounds.size
         scrollDirection = .Horizontal
@@ -18,7 +20,5 @@ class DetailFormulaLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
     }
-    
- 
-    
+  
 }
