@@ -310,8 +310,12 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
             /// update formula's name
             cell.nameDidChanged = { [weak self] newText in
+                
                 self?.formula.name = newText
                 self?.navigationItem.rightBarButtonItem?.enabled = self?.formula.isReadyforPushToLeanCloud() ?? false
+                
+                /// update headerView
+                self?.headerView.formula = self?.formula
             }
           
             return cell
@@ -349,6 +353,9 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         let cell = self?.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
                         cell.categoryLabel.text = categoryString.englishText
                         
+                        
+                        /// update the headerView
+                        self?.headerView.formula = self?.formula
                         
                     }
                     
@@ -393,8 +400,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     
                     return cell
                 }
-                
-                
+            
             }
             
             let cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell

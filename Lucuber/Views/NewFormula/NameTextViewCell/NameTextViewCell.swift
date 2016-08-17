@@ -27,7 +27,6 @@ class NameTextViewCell: UITableViewCell {
     
     func textFieldDidChanged(notification: NSNotification) {
         let newText = self.textField.text!
-        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.NameChanged.rawValue : newText])
         
         nameDidChanged?(newText: newText)
         

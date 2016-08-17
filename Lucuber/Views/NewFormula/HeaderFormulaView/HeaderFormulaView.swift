@@ -23,6 +23,11 @@ class HeaderFormulaView: UIView {
             setFormulaImageButtonBackgroundImage(formula.imageName)
             indicaterView.configureWithCategory(formula.category.rawValue)
             
+            
+            var newName = formula.name.trimming(String.TrimmingType.WhitespaceAndNewLine)
+            newName = newName.isDirty ? "名称" : newName
+            self.nameLabel.text = newName
+            
         }
     }
     
@@ -76,11 +81,6 @@ class HeaderFormulaView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
-        
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: AddFormulaDetailDidChangedNotification, object: nil)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HeaderFormulaView.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
     }
     
     func addFormulaDetailDidChanged(notification: NSNotification) {

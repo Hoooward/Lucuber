@@ -38,7 +38,6 @@ class StarRatingCell: UITableViewCell {
 extension StarRatingCell: StarRatingViewDelegate {
     
     func ratingDidChange(rateView: StarRatingView, rating: Int) {
-//        NSNotificationCenter.defaultCenter().postNotificationName(AddFormulaDetailDidChangedNotification, object: nil, userInfo: [AddFormulaNotification.StartRatingChanged.rawValue: rating])
         
         ratingDidChanged?(rating: rating)
     }
