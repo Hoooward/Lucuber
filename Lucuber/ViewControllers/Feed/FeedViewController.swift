@@ -44,6 +44,7 @@ class FeedsViewController: UIViewController {
     private lazy var newFeedActionSheetView: ActionSheetView = {
         
         let view = ActionSheetView(items: [
+            
             .Option(
                 title: "文字和图片",
                 titleColor: UIColor.cubeTintColor(),
@@ -63,7 +64,11 @@ class FeedsViewController: UIViewController {
                     
                     let navigationVC = UIStoryboard(name: "AddFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
                     let newVc = navigationVC.rootViewController as! NewFormulaViewController
+                    
+                    /// 由于初始化顺序,下面三行代码先后顺序不可改变
                     newVc.editType = NewFormulaViewController.EditType.NewAttchment
+                    newVc.view.alpha = 1
+                    newVc.formula = Formula.creatNewDefaultFormula()
                     
                     strongSelf.presentViewController(navigationVC, animated: true, completion: nil)
                     

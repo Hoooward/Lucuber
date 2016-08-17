@@ -26,6 +26,7 @@ class HeaderFormulaView: UIView {
             
             var newName = formula.name.trimming(String.TrimmingType.WhitespaceAndNewLine)
             newName = newName.isDirty ? "名称" : newName
+            
             self.nameLabel.text = newName
             
         }

@@ -34,15 +34,15 @@ class FormulaTextViewCell: UITableViewCell {
     
     var formulaContent: FormulaContent? {
         didSet {
-   
+            
+            if let _ = formulaContent {
                 updateUI()
-    
+            }
         }
     }
  
     private func makeUI() {
         
-//        self.formulaLabel.alpha = 0
         textView.delegate = self
         formulaLabel.textColor = UIColor.cubeFormulaDetailTextColor()
         formulaLabel.font = UIFont.cubeFormulaDetailTextFont()
@@ -58,10 +58,10 @@ class FormulaTextViewCell: UITableViewCell {
             
             rotationButton.upDateButtonStyleWithRotation(RotationButton.Style.Cercle, rotation: formulaContent.rotation)
             
-            if let formulaText = formulaContent.text  {
+            if let formulaText = formulaContent.text   {
                 
                 formulaLabel.text = formulaText
-                formulaLabel.hidden = formulaText.isEmpty
+                formulaLabel.hidden = textView.isFirstResponder()
                 placeholderLabel.hidden = !formulaText.isEmpty
             } else {
                 formulaLabel.hidden = true
@@ -85,6 +85,7 @@ class FormulaTextViewCell: UITableViewCell {
                 
             case .BR(_, let placeText):
                 placeholderText = placeText
+                
             }
             
             placeholderLabel.text = placeholderText

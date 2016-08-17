@@ -328,6 +328,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(CategorySeletedCellIdentifier, forIndexPath: indexPath) as! CategorySeletedCell
                 
+                printLog(formula.categoryString)
                 cell.primaryCategory = formula.category
                 
                 return cell
