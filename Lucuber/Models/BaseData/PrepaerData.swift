@@ -174,10 +174,12 @@ extension AVUser {
     class func loginTestUser1() {
         
        
-        AVUser.logInWithUsernameInBackground("12345", password: "12345") { (user, error) in
-            
-            printLog("登录测试账户成功 -> \(user.username)")
-        }
+//        AVUser.logInWithUsernameInBackground("12345", password: "12345") { (user, error) in
+//            
+//            printLog("登录测试账户成功 -> \(user.username)")
+//        }
+        
+        AVUser.logInWithUsername("12345", password: "12345")
         
     }
 }

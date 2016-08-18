@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -7,21 +7,30 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderReusableView" id="U6b-Vx-4bR" customClass="HeaderReusableView" customModule="Lucuber" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="15"/>
+            <rect key="frame" x="0.0" y="0.0" width="330" height="18"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OLL-顶层复原 共52个" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhC-Lj-GMf" userLabel="Name Label">
-                    <rect key="frame" x="230" y="2" width="80" height="10"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="8"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OLL-顶层复原" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhC-Lj-GMf" userLabel="Name Label">
+                    <rect key="frame" x="10" y="3" width="64" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="共 12 个" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scX-oA-itq" userLabel="Name Label">
+                    <rect key="frame" x="79" y="3" width="37" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="scX-oA-itq" firstAttribute="leading" secondItem="rhC-Lj-GMf" secondAttribute="trailing" constant="5" id="1fx-Uu-HpN"/>
+                <constraint firstItem="scX-oA-itq" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="2Q4-tx-DVg"/>
                 <constraint firstItem="rhC-Lj-GMf" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Kdt-yh-gec"/>
                 <constraint firstItem="rhC-Lj-GMf" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="KyR-jW-iYm"/>
+                <constraint firstItem="rhC-Lj-GMf" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="Qaz-9a-d1Y"/>
                 <constraint firstItem="rhC-Lj-GMf" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="flf-mA-5wa"/>
-                <constraint firstAttribute="trailing" secondItem="rhC-Lj-GMf" secondAttribute="trailing" constant="10" id="ogN-yK-ads"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
@@ -30,9 +39,10 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="countLabel" destination="scX-oA-itq" id="XOJ-wT-yh5"/>
                 <outlet property="titleLabel" destination="rhC-Lj-GMf" id="tA8-LS-SO0"/>
             </connections>
-            <point key="canvasLocation" x="448" y="335.5"/>
+            <point key="canvasLocation" x="285" y="265"/>
         </collectionReusableView>
     </objects>
 </document>

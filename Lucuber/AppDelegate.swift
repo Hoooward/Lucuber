@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if error == nil {
                         let need = result.objectForKey("needUpdateLibrary") as! Bool
-                        printLog("launch = \(need)")
+                        printLog("isNeedUploadFormulasFromLeanCloud: \(need)")
                         UserDefaults.setNeedUpdateLibrary(need)
                     }
                     

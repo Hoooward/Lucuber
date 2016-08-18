@@ -324,6 +324,19 @@ extension BaseFormulaViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         let reusableView = collectionView.dequeueReusableSupplementaryViewOfKind( UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, forIndexPath: indexPath) as! HeaderReusableView
+        
+        
+        /// formulaData 是一个二维数组, 按照公式的不同 type 进行分类. 拿到数组的第一个元素就组成新的type数组. 用来设置section Header 的 Lable Text
+        var formulaTypes = formulasData.map { $0.first?.type }
+        reusableView.type = formulaTypes[indexPath.section]
+        
+        
+        var counts = formulasData.map { $0.count }
+        
+        reusableView.count = counts[indexPath.section]
+        
+        
+        
         return reusableView
     }
 

@@ -156,13 +156,20 @@ internal func getFormulsFormRealmWithMode(mode: UploadFormulaMode, category: Cat
     switch mode {
         
     case .My:
-        let id = AVUser.currentUser().objectId
-        let predicate = NSPredicate(format: "creatUserID = %@", id)
-        let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        let result =  realm.objects(RFormula).filter(predicate).filter(predicate2).map { $0.convertToFromula() }
-        return result
+        
+        if let currentUser = AVUser.currentUser() {
+            
+            let id = currentUser.objectId
+            let predicate = NSPredicate(format: "creatUserID = %@", id)
+            let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
+            let result =  realm.objects(RFormula).filter(predicate).filter(predicate2).map { $0.convertToFromula() }
+            return result
+        }
+        
+        return [Formula]()
         
     case .Library:
+        
         let predicate = NSPredicate(format: "isLibraryFormulas == true")
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
         return realm.objects(RFormula).filter(predicate).filter(predicate2).map { $0.convertToFromula() }

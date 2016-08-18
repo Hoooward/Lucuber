@@ -16,11 +16,7 @@ class CategoryBarButtonItem: UIBarButtonItem {
         }
     }
     
-    
-    
 }
-
-
 
 
 class ContainerViewController: UIViewController, SegueHandlerType {
