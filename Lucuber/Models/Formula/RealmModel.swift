@@ -55,7 +55,12 @@ internal func saveCategoryMenusAtRealm(categorys:[Category],
                 let predicate = NSPredicate(format: "mode == %@", mode.rawValue)
                 realm.delete(realm.objects(RCategory).filter(predicate))
                 
+                
+                
                 printLog("\(mode.rawValue) -> " + "重新从服务器获取公式后, 删除 Realm 中的所有 CategoryMenuList")
+                
+                // if Library categorys have changed, 必须将之前选中的公式类别更改为默认的三阶, 不然可能之前存储的选中类别已不存在.
+                UserDefaults.setSelectedCategory(Category.x3x3, mode: UploadFormulaMode.Library)
                 
                 var result = [RCategory]()
                 for category in categorys {
