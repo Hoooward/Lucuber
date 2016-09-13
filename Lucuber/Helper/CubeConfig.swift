@@ -20,6 +20,8 @@ final public class CubeConfig {
    
     public static let forcedHideActivityIndicatorTimeInterval: NSTimeInterval = 30
     
+    public static let getCodeInSeconds = 59
+    
     
     
     public struct CagetoryMenu {

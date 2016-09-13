@@ -9,24 +9,27 @@
 import UIKit
 
 class RegisterPickNameViewController: UIViewController {
+    
+    // MARK: - Properties
 
- 
-    var mobile: String?
-    var areaCode: String?
+    var loginType: LoginType?
+    var nickName: String?
+    var phoneNumber: String?
     
     @IBOutlet weak var nameTextField: UITextField!
+    
     private lazy var nextButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "下一步", style: .Plain, target: self, action: #selector(RegisterPickNameViewController.next(_:)))
         return button
     }()
-    
-
     
     private var isDirty = false {
         willSet {
             nextButton.enabled = newValue
         }
     }
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,23 +38,45 @@ class RegisterPickNameViewController: UIViewController {
         navigationItem.rightBarButtonItem = nextButton
         navigationItem.rightBarButtonItem?.enabled = false
       
-        
+       
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
         view.backgroundColor = UIColor.cubeViewBackgroundColor()
         nameTextField.backgroundColor = UIColor.whiteColor()
         nameTextField.textColor = UIColor.cubeInputTextColor()
+        nameTextField.tintColor = UIColor.cubeTintColor()
         nameTextField.placeholder = " "
         nameTextField.delegate = self
         nameTextField.addTarget(self, action: #selector(RegisterPickNameViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+        nameTextField.becomeFirstResponder()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let type = loginType {
+            
+            switch type {
+            case .Login:
+                title = "登录"
+            case .Resgin:
+                title = "注册"
+            }
+        }
+        
+    }
+    
+    // MARK: - Target & Action
+    
     func textFieldDidChange(textField: UITextField) {
+        
         guard let text = textField.text else {
             return
         }
-        printLog(#function)
         isDirty = !text.isEmpty
+        nickName = text
     }
+    
     func next(button: UIBarButtonItem) {
         showRegisterMobileViewController()
     }
@@ -65,8 +90,9 @@ class RegisterPickNameViewController: UIViewController {
         case "ShowRegisterPickMobile":
     
             let vc = segue.destinationViewController as! RegisterPickMobileViewController
-            vc.mobile = mobile
-            vc.areaCode = areaCode
+            vc.nickName = nickName
+            vc.loginType = loginType
+            
         default:
             break
         }
@@ -77,6 +103,7 @@ class RegisterPickNameViewController: UIViewController {
         guard let text = nameTextField.text else {
             return
         }
+        
         let user = User()
         user.username = text.trimming(.WhitespaceAndNewLine)
         

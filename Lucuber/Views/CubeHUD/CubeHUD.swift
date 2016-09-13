@@ -47,7 +47,7 @@ final class CubeHUD: NSObject {
                 self.sharedInstance.containerView.alpha = 0
                 windows.addSubview(self.sharedInstance.containerView)
                 self.sharedInstance.containerView.frame = windows.bounds
-                self.sharedInstance.containerView.frame = CGRect(x: (screenWidth - 200) * 0.5, y: (screenHeight - 150) * 0.5, width: 200, height: 150)
+//                self.sharedInstance.containerView.frame = CGRect(x: (screenWidth - 200) * 0.5, y: (screenHeight - 150) * 0.5, width: 200, height: 150)
                 
                 springWithCompletion(0.1, animations: {
                         self.sharedInstance.containerView.alpha = 1

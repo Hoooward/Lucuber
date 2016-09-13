@@ -67,6 +67,8 @@ class FormulaInputViewController: UIViewController {
         
         for index in 0..<buttonCount {
             let button = KeyButton()
+            
+            
             let row = index / colCount
             let col = index % colCount
             buttonX = (buttonWidth + buttonMargin) * CGFloat(col) + screenMargin

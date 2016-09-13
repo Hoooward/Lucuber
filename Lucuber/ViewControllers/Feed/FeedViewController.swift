@@ -44,7 +44,6 @@ class FeedsViewController: UIViewController {
     private lazy var newFeedActionSheetView: ActionSheetView = {
         
         let view = ActionSheetView(items: [
-            
             .Option(
                 title: "文字和图片",
                 titleColor: UIColor.cubeTintColor(),

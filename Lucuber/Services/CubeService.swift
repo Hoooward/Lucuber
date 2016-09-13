@@ -235,6 +235,30 @@ internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
     
 }
 
+// MARK: - Login
+
+func validateMobile(mobile: String, failureHandler: (NSError? -> Void)?, completion: (() -> Void)?) {
+    
+    
+    let query = AVQuery(className: "_User")
+    query.whereKey("mobilePhoneNumber", equalTo: mobile)
+    
+    query.findObjectsInBackgroundWithBlock({ (users, error) in
+        
+        if let findUsers = users where findUsers.count == 0 {
+         
+            completion?()
+            
+        } else {
+            
+            failureHandler?(error)
+        }
+        
+    })
+
+    
+}
+
 
 
 
