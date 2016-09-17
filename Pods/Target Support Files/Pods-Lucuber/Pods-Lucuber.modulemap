@@ -1,0 +1,6 @@
+framework module Pods_Lucuber {
+  umbrella header "Pods-Lucuber-umbrella.h"
+
+  export *
+  module * { export * }
+}
