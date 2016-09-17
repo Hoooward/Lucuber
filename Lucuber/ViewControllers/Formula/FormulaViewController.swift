@@ -9,11 +9,32 @@
 import UIKit
 
 class FormulaViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    let topControl = UIView()
+    let topIndicater = UIView()
+    var topControlSeletedButton: UIButton?
+    var containerScrollerView = UIScrollView()
+    
+    var containerScrollerOffsetX: CGFloat = 0
+    
+    // MARK: - Segue
+    
+    enum SegueIdentifier: String {
+        case ShowFormulaDetail = "ShowFormulaDetail"
+        case ShowAddFormula = "ShowAddFormula"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +43,6 @@ class FormulaViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
