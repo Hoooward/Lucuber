@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Lucuber
+
 //
 //  Created by Tychooo on 16/9/17.
 //  Copyright © 2016年 Tychooo. All rights reserved.
