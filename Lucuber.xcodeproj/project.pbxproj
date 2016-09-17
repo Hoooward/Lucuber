@@ -15,6 +15,10 @@
 		E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */; };
 		E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65FF1D8D961F005CE518 /* Result.storyboard */; };
 		E4DF66041D8D9633005CE518 /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF66021D8D9633005CE518 /* Timer.storyboard */; };
+		E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */; };
+		E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */; };
+		E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660A1D8D9B03005CE518 /* FormulaViewController.swift */; };
+		E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660C1D8D9D1B005CE518 /* UINavigationController+Cube.swift */; };
 		E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */; };
 		E4FFAA9B1D8D29DE0039BA8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA931D8D29DE0039BA8A /* Assets.xcassets */; };
 		E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */; };
@@ -32,6 +36,10 @@
 		E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		E4DF66001D8D961F005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Result.storyboard; sourceTree = SOURCE_ROOT; };
 		E4DF66031D8D9633005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Timer.storyboard; sourceTree = SOURCE_ROOT; };
+		E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
+		E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Cube.swift"; sourceTree = "<group>"; };
+		E4DF660A1D8D9B03005CE518 /* FormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaViewController.swift; sourceTree = "<group>"; };
+		E4DF660C1D8D9D1B005CE518 /* UINavigationController+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Cube.swift"; sourceTree = "<group>"; };
 		E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4FFAA931D8D29DE0039BA8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				E4DF65E41D8D92D6005CE518 /* Formula.storyboard */,
+				E4DF660A1D8D9B03005CE518 /* FormulaViewController.swift */,
 			);
 			path = Formula;
 			sourceTree = "<group>";
@@ -139,6 +148,16 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		E4DF66051D8D9738005CE518 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */,
+				E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */,
+				E4DF660C1D8D9D1B005CE518 /* UINavigationController+Cube.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		E4FFAA731D8D29A30039BA8A = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +184,7 @@
 				E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */,
 				E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
+				E4DF66051D8D9738005CE518 /* Extension */,
 				E4DF65F11D8D94B1005CE518 /* ViewControllers */,
 			);
 			path = Lucuber;
@@ -299,9 +319,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
+				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
+				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
+				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

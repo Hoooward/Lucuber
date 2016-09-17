@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Formula View Controller-->
         <scene sceneID="221-VO-LLJ">
             <objects>
-                <viewController id="dX3-HB-lAD" sceneMemberID="viewController">
+                <viewController id="dX3-HB-lAD" customClass="FormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eu1-Ee-aps"/>
                         <viewControllerLayoutGuide type="bottom" id="78i-wz-6h6"/>
@@ -28,7 +28,7 @@
         <!--公式-->
         <scene sceneID="gUB-O9-Owu">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUu-an-wGK" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUu-an-wGK" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="公式" image="tabbar_gongshi" selectedImage="tabbar_gongshi_sele" id="7md-lu-zpP"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
