@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
+		E4410E211D8D8F18009BB8F0 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4410E201D8D8F18009BB8F0 /* MainTabbarController.swift */; };
+		E4410E231D8D8F2B009BB8F0 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4410E221D8D8F2B009BB8F0 /* MainNavigationController.swift */; };
 		E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */; };
 		E4FFAA9B1D8D29DE0039BA8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA931D8D29DE0039BA8A /* Assets.xcassets */; };
 		E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */; };
@@ -19,6 +21,8 @@
 		5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
+		E4410E201D8D8F18009BB8F0 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		E4410E221D8D8F2B009BB8F0 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4FFAA931D8D29DE0039BA8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +61,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E4410E1D1D8D8F08009BB8F0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E4410E1E1D8D8F08009BB8F0 /* Navigation */,
+				E4410E1F1D8D8F08009BB8F0 /* TabBar */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E4410E1E1D8D8F08009BB8F0 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E4410E221D8D8F2B009BB8F0 /* MainNavigationController.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		E4410E1F1D8D8F08009BB8F0 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				E4410E201D8D8F18009BB8F0 /* MainTabbarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		E4FFAA731D8D29A30039BA8A = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +113,7 @@
 				E4FFAA961D8D29DE0039BA8A /* Main.storyboard */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
 				E4FFAA991D8D29DE0039BA8A /* ViewController.swift */,
+				E4410E1D1D8D8F08009BB8F0 /* ViewControllers */,
 			);
 			path = Lucuber;
 			sourceTree = "<group>";
@@ -214,6 +244,8 @@
 			files = (
 				E4FFAA9F1D8D29DE0039BA8A /* ViewController.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
+				E4410E231D8D8F2B009BB8F0 /* MainNavigationController.swift in Sources */,
+				E4410E211D8D8F18009BB8F0 /* MainTabbarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
