@@ -29,14 +29,16 @@ class FormulaViewController: UIViewController {
     private lazy var layoutBarButtonItem: UIBarButtonItem = {
         
         let button = LayoutButton()
-        button.addTarget(self, action: #selector(FormulaViewController.layoutButtonClicked(buttonItem:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(FormulaViewController.layoutButtonClicked(button:)), for: .touchUpInside)
         return UIBarButtonItem(customView: button)
         
     }()
     
-    private lazy var categoryBarButtonItem: UIBarButtonItem = {
+    private lazy var categoryBarButtonItem: CategoryButton = {
     
-        return UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(FormulaViewController.categoryButtonClicked(buttonItem:)))
+        let buttonItem = CategoryButton(title: "", style: .plain, target: self, action: #selector(FormulaViewController.categoryButtonClicked(buttonItem:)))
+        buttonItem.seletedCategory = .x3x3
+        return buttonItem
         
     }()
     
@@ -61,14 +63,17 @@ class FormulaViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+    
     }
     
 
     // MARK: - Action & Target
 
-    @objc private func layoutButtonClicked(buttonItem: UIBarButtonItem) {
+    @objc private func layoutButtonClicked(button: UIView) {
         
-        printLog("")
+        if let _ = button as? LayoutButton {
+            printLog("")
+        }
         
     }
     
@@ -89,6 +94,7 @@ class FormulaViewController: UIViewController {
         
         title = "复原大法"
         navigationItem.leftBarButtonItem = layoutBarButtonItem
+        navigationItem.rightBarButtonItem = categoryBarButtonItem
         
         addChileViewControllers()
         makeUI()

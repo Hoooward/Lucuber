@@ -15,7 +15,19 @@ class CategoryButton: UIBarButtonItem {
             
             if let category = newValue {
                 self.title = category.rawValue + " ▾"
+//                setTitle(category.rawValue + " ▾", for: .normal)
             }
         }
     }
+    
+//    init() {
+//        super.init(frame: CGRect.zero)
+//        setTitle(Category.x3x3.rawValue + " ▾", for: .normal)
+//        setTitleColor(UIColor.cubeTintColor(), for: .normal)
+//        sizeToFit()
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 }
