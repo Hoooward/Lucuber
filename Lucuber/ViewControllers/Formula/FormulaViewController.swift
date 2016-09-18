@@ -13,9 +13,6 @@ class FormulaViewController: UIViewController {
     // MARK: - Properties
     
     var topControlSeletedButton: UIButton?
-    
-//    var containerScrollerView = UIScrollView()
-    
     var containerScrollerOffsetX: CGFloat = 0
     
     private lazy var containerScrollerView: UIScrollView  = {
@@ -48,42 +45,9 @@ class FormulaViewController: UIViewController {
         let view = TopControl(childViewControllers: self.childViewControllers)
         view.frame = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: Config.TopControl.height)
         view.backgroundColor = UIColor.clear
-        
         return view
         
     }()
-    
-    
-    // MARK: - Segue
-    
-    enum SegueIdentifier: String {
-        case ShowFormulaDetail = "ShowFormulaDetail"
-        case ShowAddFormula = "ShowAddFormula"
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    
-    }
-    
-
-    // MARK: - Action & Target
-
-    @objc private func layoutButtonClicked(button: UIView) {
-        
-        if let _ = button as? LayoutButton {
-            printLog("")
-        }
-        
-    }
-    
-    @objc private func categoryButtonClicked(buttonItem: UIBarButtonItem) {
-        
-        if let _ = buttonItem as? CategoryButton {
-            printLog("")
-        }
-    }
-    
     
     // MARK: - Life Cycle
    
@@ -137,6 +101,36 @@ class FormulaViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         printLog("\(self) is Dead")
+    }
+    
+    
+    // MARK: - Action & Target
+    
+    @objc private func layoutButtonClicked(button: UIView) {
+        
+        if let _ = button as? LayoutButton {
+            printLog("")
+        }
+        
+    }
+    
+    @objc private func categoryButtonClicked(buttonItem: UIBarButtonItem) {
+        
+        if let _ = buttonItem as? CategoryButton {
+            printLog("")
+        }
+    }
+    
+    // MARK: - Segue
+    
+    enum SegueIdentifier: String {
+        case ShowFormulaDetail = "ShowFormulaDetail"
+        case ShowAddFormula = "ShowAddFormula"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
     }
     
 }

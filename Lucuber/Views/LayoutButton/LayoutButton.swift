@@ -7,11 +7,7 @@
 
 import UIKit
 
-public enum FormulaUserMode {
-    
-    case Normal
-    case Card
-}
+
 
 class LayoutButton: UIButton {
     
@@ -30,6 +26,7 @@ class LayoutButton: UIButton {
                 
             }
         }
+            
         }
     }
     

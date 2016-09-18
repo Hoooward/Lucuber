@@ -20,9 +20,9 @@ class MainNavigationController: UINavigationController {
         navigationBarLine.isHidden = true
         
         navigationBar.setBackgroundImage(UIImage(named: "navigationbarBackgroundWhite"), for: .any, barMetrics: .default)
-        let imageView = UIImageView(image: UIImage(named: "navigationbarBackgroundWhite"))
-        imageView.frame = CGRect(x: 0 , y: -20, width: UIScreen.main.bounds.width, height: 64)
-        navigationBar.insertSubview(imageView, at: 0)
+//        let imageView = UIImageView(image: UIImage(named: "navigationbarBackgroundWhite"))
+//        imageView.frame = CGRect(x: 0 , y: -20, width: UIScreen.main.bounds.width, height: 64)
+//        navigationBar.insertSubview(imageView, at: 0)
         
     }
 

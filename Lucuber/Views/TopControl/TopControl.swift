@@ -10,6 +10,7 @@ import UIKit
 
 class TopControl: UIView {
     
+    // MARK: - Properties
     var seletedButton: UIButton?
     
     var buttonCount: Int = 0
@@ -31,6 +32,8 @@ class TopControl: UIView {
     private lazy var backgroundView: UIImageView = UIImageView()
 
     
+    // MARK: - Lift Cycle
+    
     init(childViewControllers: [UIViewController]) {
         
         super.init(frame: CGRect.zero)
@@ -40,7 +43,6 @@ class TopControl: UIView {
         
         makeUI(childViewControllers)
     }
-    
     
     private func makeUI(_ childViewControllers: [UIViewController]) {
         
@@ -82,6 +84,10 @@ class TopControl: UIView {
         backgroundView.frame = self.bounds
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Target & Action
     
     func updateIndicaterPozition(scrollerViewOffsetX: CGFloat) {
@@ -114,8 +120,5 @@ class TopControl: UIView {
     }
     
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
 }

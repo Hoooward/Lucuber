@@ -27,3 +27,10 @@ public enum Category: String {
     case RubiksClock = "魔表"
     
 }
+
+/// FormulaViewController's collectionView Layout
+public enum FormulaUserMode {
+    
+    case Normal
+    case Card
+}
