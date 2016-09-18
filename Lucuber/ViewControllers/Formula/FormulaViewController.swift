@@ -12,12 +12,90 @@ class FormulaViewController: UIViewController {
     
     // MARK: - Properties
     
-    let topControl = UIView()
-    let topIndicater = UIView()
     var topControlSeletedButton: UIButton?
-    var containerScrollerView = UIScrollView()
+    
+//    var containerScrollerView = UIScrollView()
     
     var containerScrollerOffsetX: CGFloat = 0
+    
+    private lazy var containerScrollerView: UIScrollView  = {
+        
+        let scrollerView = UIScrollView(frame: UIScreen.main.bounds)
+        scrollerView.delegate = self
+        scrollerView.isPagingEnabled = true
+        return scrollerView
+    }()
+    
+    private lazy var layoutBarButtonItem: UIBarButtonItem = {
+        
+        let button = LayoutButton()
+        button.addTarget(self, action: #selector(FormulaViewController.layoutButtonClicked(buttonItem:)), for: .touchUpInside)
+        return UIBarButtonItem(customView: button)
+        
+    }()
+    
+    private lazy var categoryBarButtonItem: UIBarButtonItem = {
+    
+        return UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(FormulaViewController.categoryButtonClicked(buttonItem:)))
+        
+    }()
+    
+
+    lazy var topControl: TopControl = {
+        
+        let view = TopControl(childViewControllers: self.childViewControllers)
+        view.frame = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: Config.TopControl.height)
+        view.backgroundColor = UIColor.clear
+        
+        return view
+        
+    }()
+    
+    
+  
+    
+    private func addChileViewControllers() {
+        
+        let myFormulaLayout = BaseFormulaLayout()
+        let myFormula = MyFormulaViewController(collectionViewLayout: myFormulaLayout)
+        myFormula.title = "我的公式"
+        
+        let libraryFormulaLayout = BaseFormulaLayout()
+        let LibraryFormula = LibraryFormulaViewController(collectionViewLayout: libraryFormulaLayout)
+        LibraryFormula.title = "公式库"
+        
+        addChildViewController(myFormula)
+        addChildViewController(LibraryFormula)
+    }
+    
+    // MARK: - Action & Target
+    
+    @objc private func topControlButtonClicked(button: UIButton) {
+        
+        topControlSeletedButton?.isEnabled = true
+        button.isEnabled = false
+        topControlSeletedButton = button
+        
+        let index = button.tag
+        let offSetX = CGFloat(index) * UIScreen.main.bounds.width
+        
+        
+        
+        printLog("")
+    }
+    
+    @objc private func layoutButtonClicked(buttonItem: UIBarButtonItem) {
+        
+        printLog("")
+        
+    }
+    
+    @objc private func categoryButtonClicked(buttonItem: UIBarButtonItem) {
+        
+        if let _ = buttonItem as? CategoryButton {
+            printLog("")
+        }
+    }
     
     // MARK: - Segue
     
@@ -28,21 +106,103 @@ class FormulaViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+    }
+    
+    // MARK: - Life Cycle
+    
+    private func makeUI() {
+        
+        view.addSubview(topControl)
+        
+        topControl.buttonClickedUpdateIndicaterPoztion = { [unowned self] buttonTag in
+            
+            let index = buttonTag - Config.TopControl.buttonTagBaseValue
+            let offsetX =  CGFloat(index) * UIScreen.main.bounds.width
+            self.containerScrollerView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+        }
+        
+        view.insertSubview(containerScrollerView, at: 0)
+        containerScrollerView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(childViewControllers.count), height: 0)
+        
+        scrollViewDidEndScrollingAnimation(containerScrollerView)
         
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        automaticallyAdjustsScrollViewInsets = false
+        title = "复原大法"
+        
+        navigationItem.leftBarButtonItem = layoutBarButtonItem
+        
+        
+        
+        addChileViewControllers()
+        makeUI()
+        
+        printLog(topControl.subviews)
+        
        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-
-
 }
+
+extension FormulaViewController: UIScrollViewDelegate {
+    
+    /// 滚动结束触发
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+        containerScrollerOffsetX = scrollView.contentOffset.x
+        
+        let index = Int(scrollView.contentOffset.x / UIScreen.main.bounds.width)
+        let vc = childViewControllers[index] as! UICollectionViewController
+        
+        vc.view.frame = CGRect(x: CGFloat(index) * UIScreen.main.bounds.width, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
+        let topEdge = 64 + Config.TopControl.height + 44
+        let bottomEdge: CGFloat = 49
+        
+        
+        vc.collectionView?.backgroundColor = index == 0 ? UIColor.red : UIColor.gray
+        
+        vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
+        vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
+        
+        scrollView.addSubview(vc.view)
+        
+        
+        // updateNavigationBarButtonItemStatus
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        topControl.updateIndicaterPozition(scrollerViewOffsetX: scrollView.contentOffset.x)
+        
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        scrollViewDidEndScrollingAnimation(scrollView)
+        
+        topControl.updateButtonStatus(scrollerViewOffsetX: scrollView.contentOffset.x)
+        
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
