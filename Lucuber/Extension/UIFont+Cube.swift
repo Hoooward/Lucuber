@@ -10,6 +10,10 @@ import UIKit
 
 extension UIFont {
     
+    class func topControlButtonTitleFont() -> UIFont {
+        return UIFont.systemFont(ofSize: 16)
+    }
+    
     class func navigationBarTitleFont() -> UIFont {
         return UIFont.boldSystemFont(ofSize: 17)
     }

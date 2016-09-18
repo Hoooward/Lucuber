@@ -52,7 +52,48 @@ class FormulaViewController: UIViewController {
     }()
     
     
-  
+    // MARK: - Segue
+    
+    enum SegueIdentifier: String {
+        case ShowFormulaDetail = "ShowFormulaDetail"
+        case ShowAddFormula = "ShowAddFormula"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+    
+
+    // MARK: - Action & Target
+
+    @objc private func layoutButtonClicked(buttonItem: UIBarButtonItem) {
+        
+        printLog("")
+        
+    }
+    
+    @objc private func categoryButtonClicked(buttonItem: UIBarButtonItem) {
+        
+        if let _ = buttonItem as? CategoryButton {
+            printLog("")
+        }
+    }
+    
+    
+    // MARK: - Life Cycle
+   
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        automaticallyAdjustsScrollViewInsets = false
+        
+        title = "复原大法"
+        navigationItem.leftBarButtonItem = layoutBarButtonItem
+        
+        addChileViewControllers()
+        makeUI()
+       
+    }
     
     private func addChileViewControllers() {
         
@@ -68,47 +109,6 @@ class FormulaViewController: UIViewController {
         addChildViewController(LibraryFormula)
     }
     
-    // MARK: - Action & Target
-    
-    @objc private func topControlButtonClicked(button: UIButton) {
-        
-        topControlSeletedButton?.isEnabled = true
-        button.isEnabled = false
-        topControlSeletedButton = button
-        
-        let index = button.tag
-        let offSetX = CGFloat(index) * UIScreen.main.bounds.width
-        
-        
-        
-        printLog("")
-    }
-    
-    @objc private func layoutButtonClicked(buttonItem: UIBarButtonItem) {
-        
-        printLog("")
-        
-    }
-    
-    @objc private func categoryButtonClicked(buttonItem: UIBarButtonItem) {
-        
-        if let _ = buttonItem as? CategoryButton {
-            printLog("")
-        }
-    }
-    
-    // MARK: - Segue
-    
-    enum SegueIdentifier: String {
-        case ShowFormulaDetail = "ShowFormulaDetail"
-        case ShowAddFormula = "ShowAddFormula"
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
-    // MARK: - Life Cycle
     
     private func makeUI() {
         
@@ -128,28 +128,9 @@ class FormulaViewController: UIViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
-        automaticallyAdjustsScrollViewInsets = false
-        title = "复原大法"
-        
-        navigationItem.leftBarButtonItem = layoutBarButtonItem
-        
-        
-        
-        addChileViewControllers()
-        makeUI()
-        
-        printLog(topControl.subviews)
-        
-       
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        printLog("\(self) is Dead")
     }
     
 }

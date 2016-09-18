@@ -49,10 +49,10 @@ class TopControl: UIView {
         
         for index in 0..<childViewControllers.count {
             let button = UIButton(type: .custom)
-            button.tag = index + 100
+            button.tag = index + Config.TopControl.buttonTagBaseValue
             button.setTitle(childViewControllers[index].title, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            button.setTitleColor(UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1), for: .normal)
+            button.titleLabel?.font = UIFont.topControlButtonTitleFont()
+            button.setTitleColor(UIColor.cubeTopControlButtonNormalTitleColor(), for: .normal)
             button.setTitleColor(UIColor.cubeTintColor(), for: .disabled)
             buttonX = buttonWidth * CGFloat(index)
             button.frame = CGRect(x: buttonX, y: 0, width: buttonWidth, height: buttonHeight)
@@ -95,7 +95,7 @@ class TopControl: UIView {
         
         let index = Int(scrollerViewOffsetX / UIScreen.main.bounds.width)
         
-        if let button = viewWithTag(index + 100) as? UIButton {
+        if let button = viewWithTag(index + Config.TopControl.buttonTagBaseValue) as? UIButton {
             buttonClicked(button: button)
         }
         

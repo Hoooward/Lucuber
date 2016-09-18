@@ -10,6 +10,10 @@ import UIKit
 
 extension UIColor {
     
+    class func cubeTopControlButtonNormalTitleColor() -> UIColor {
+        return UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+    }
+    
     class func cubeNavgationBarTitleColor() -> UIColor {
         return UIColor(red: 0.247, green: 0.247, blue: 0.247, alpha: 1.0)
     }
