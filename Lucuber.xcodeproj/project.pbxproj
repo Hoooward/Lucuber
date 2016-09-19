@@ -19,6 +19,8 @@
 		E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */; };
 		E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */; };
 		E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */; };
+		E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BB01D8FA3E20090671F /* FormulaSearchBar.swift */; };
+		E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BB31D8FA5890090671F /* CubeService.swift */; };
 		E4D536BC1D8DB0A1008A426A /* LayoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D536BB1D8DB0A1008A426A /* LayoutButton.swift */; };
 		E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E41D8D92D6005CE518 /* Formula.storyboard */; };
 		E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E91D8D9353005CE518 /* Feed.storyboard */; };
@@ -53,6 +55,8 @@
 		E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFormulaLayout.swift; sourceTree = "<group>"; };
+		E4B09BB01D8FA3E20090671F /* FormulaSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSearchBar.swift; sourceTree = "<group>"; };
+		E4B09BB31D8FA5890090671F /* CubeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeService.swift; sourceTree = "<group>"; };
 		E4D536BB1D8DB0A1008A426A /* LayoutButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutButton.swift; sourceTree = "<group>"; };
 		E4DF65E51D8D92D6005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Formula.storyboard; sourceTree = "<group>"; };
 		E4DF65EA1D8D9353005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
@@ -136,9 +140,26 @@
 			path = TopControl;
 			sourceTree = "<group>";
 		};
+		E4B09BAF1D8FA3D60090671F /* FormulaSearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				E4B09BB01D8FA3E20090671F /* FormulaSearchBar.swift */,
+			);
+			path = FormulaSearchBar;
+			sourceTree = "<group>";
+		};
+		E4B09BB21D8FA57A0090671F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E4B09BB31D8FA5890090671F /* CubeService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4B09BAF1D8FA3D60090671F /* FormulaSearchBar */,
 				E4B09BA41D8E65460090671F /* TopControl */,
 				E4B09B9A1D8E38910090671F /* CategoryButton */,
 				E4D536BA1D8DB095008A426A /* LayoutButton */,
@@ -269,6 +290,7 @@
 				E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */,
 				E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
+				E4B09BB21D8FA57A0090671F /* Services */,
 				E4B09B9D1D8E38C30090671F /* Models */,
 				E4D536B91D8DB095008A426A /* Views */,
 				E4DF66051D8D9738005CE518 /* Extension */,
@@ -406,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
@@ -418,6 +441,7 @@
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
+				E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */,
 				E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */,
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
 				E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */,

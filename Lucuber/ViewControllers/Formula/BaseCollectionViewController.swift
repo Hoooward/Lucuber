@@ -8,36 +8,103 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let CardCellIdentifier = "CardFormulaCell"
+private let NormalCellIdentifier = "NormalFormulaCell"
+private let DetailCellIdentifier = "DetailFormulaCell"
+private let NoResultCellIdentifier = "NoResultCell"
+private let HeaderViewIdentifier = "HeaderReusableView"
 
-class BaseCollectionViewController: UICollectionViewController {
+class BaseCollectionViewController: UICollectionViewController, SegueHandlerType {
+    
+    // MARK: - Properties
+    
+    enum SegueIdentifier: String {
+        case ShowFormulaDetail = "ShowFormulaDetail"
+    }
+    
+    
+    var formulasData: [[Formula]] = []
+    var searchResult: [Formula] = []
+    
+    var uploadMode: UploadFormulaMode = .My
+    
+    /// 当前控制器所选择显示的公式种类
+    var seletedCategory: Category?
+    
+    
+    var serchBarActive = false
+    var haveSearchResult: Bool {
+        return searchResult.count > 0
+    }
+    
+    private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
+    private lazy var searchBar: FormulaSearchBar = {
+        let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
+        let searchBar = FormulaSearchBar(frame: rect)
+        searchBar.delegate = self
+    
+        // 添加属性观察
+        self.collectionView?.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
+        return searchBar
+    }()
+    
+    
+    /// 缓存进入搜索模式前的UserMode
+    var cacheBeforeSearchUserMode: FormulaUserMode?
+    var userMode: FormulaUserMode = .Card {
+        
+        didSet {
+            
+            switch userMode {
+                
+            case .Card:
+                view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
 
+            case .Normal:
+                view.backgroundColor = UIColor.white
+            }
+            
+            collectionView?.reloadData()
+        }
+    }
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        indicator.frame.origin = CGPoint(x: (UIScreen.main.bounds.width - indicator.frame.width) * 0.5, y: 64 + 120)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        makeUI()
+    }
+    
+    private func makeUI() {
+        view.addSubview(searchBar)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    deinit {
+        collectionView?.removeObserver(self, forKeyPath: "contentOffset")
+    }
+    
+    // MARK: - Action & Target & Observer
+    
+    /// 在 collectionView 的 offset Y 发生变化的时候， 即时更新 searchBar 的位置
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        guard let key = keyPath,
+              key == "contentOffset",
+              let collectionView = object as? UICollectionView  else {
+            return
+        }
+        
+        searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarOriginY + ((-1 * collectionView.contentOffset.y) - searchBarOriginY - searchBar.frame.size.height), width: searchBar.frame.width, height: searchBar.frame.height)
+        
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -53,9 +120,8 @@ class BaseCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
     
-        // Configure the cell
     
         return cell
     }
@@ -91,4 +157,9 @@ class BaseCollectionViewController: UICollectionViewController {
     }
     */
 
+}
+
+extension BaseCollectionViewController: UISearchBarDelegate {
+    
+    
 }

@@ -34,3 +34,7 @@ public enum FormulaUserMode {
     case Normal
     case Card
 }
+
+public class Formula {
+    
+}
