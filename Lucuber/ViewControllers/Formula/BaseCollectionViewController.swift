@@ -84,6 +84,11 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     private func makeUI() {
         view.addSubview(searchBar)
+        view.addSubview(activityIndicator)
+        
+        
+        // TODO:
+        activityIndicator.startAnimating()
     }
 
     deinit {
