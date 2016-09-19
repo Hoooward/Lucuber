@@ -30,14 +30,15 @@ class CardFormulaCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 6
         contentView.layer.masksToBounds = true
         
-        contentView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3).CGColor
+        contentView.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
         contentView.layer.borderWidth = 1.0
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
     }
     
     func updateUI() {
+        
         if let formula = formula {
             contentLabel.attributedText = formula.contents.first!.text!.setAttributesFitDetailLayout(ContentStyle.Normal)
             imageView.image = UIImage(named: formula.imageName)
