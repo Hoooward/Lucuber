@@ -108,8 +108,14 @@ class FormulaViewController: UIViewController {
     
     @objc private func layoutButtonClicked(button: UIView) {
         
-        if let _ = button as? LayoutButton {
-            printLog("")
+        if let button = button as? LayoutButton {
+            
+            button.isSelected = !button.isSelected
+            
+            if let vc = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
+                vc.userMode = vc.userMode == .Card ? .Normal : .Card
+            }
+            
         }
         
     }

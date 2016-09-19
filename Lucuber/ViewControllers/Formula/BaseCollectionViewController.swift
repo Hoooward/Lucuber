@@ -32,13 +32,13 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     var seletedCategory: Category?
     
     
-    var serchBarActive = false
+    var searchBarActive = false
     var haveSearchResult: Bool {
         return searchResult.count > 0
     }
     
     private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
-    private lazy var searchBar: FormulaSearchBar = {
+    lazy var searchBar: FormulaSearchBar = {
         let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
         let searchBar = FormulaSearchBar(frame: rect)
         searchBar.delegate = self
@@ -110,6 +110,20 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
     }
 
+    
+    func changeLayoutButton(enable: Bool) {
+        
+        if let layoutButtonItem = parent?.navigationItem.leftBarButtonItem {
+            layoutButtonItem.isEnabled = enable
+        }
+    }
+    
+    func changeLayoutButtonStatus() {
+        
+        if let layoutButton = parent?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
+            layoutButton.userMode = userMode
+        }
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -166,5 +180,80 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 
 extension BaseCollectionViewController: UISearchBarDelegate {
     
+    func cancelSearch() {
+        searchResult.removeAll()
+        
+        searchBar.resignFirstResponder()
+        searchBar.dismissCancelButton()
+        searchBar.text = ""
+        searchBarActive = false
+        
+        if let _ = cacheBeforeSearchUserMode {
+            userMode = cacheBeforeSearchUserMode!
+            cacheBeforeSearchUserMode = nil
+        }
+        
+        changeLayoutButton(enable: true)
+        collectionView?.reloadData()
+        
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.characters.count == 0 {
+            searchResult.removeAll()
+        }
+        
+        searchBarActive = true
+        
+        // TODO: 搜索公式
+//        searchResult = 
+        
+        collectionView?.reloadData()
+    
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        cancelSearch()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if let searchBar = searchBar as? FormulaSearchBar {
+            searchBar.showCancelButton()
+        }
+        searchBarActive = true
+        cacheBeforeSearchUserMode = userMode
+        if cacheBeforeSearchUserMode != .Normal {
+            userMode = .Normal
+        }
+        changeLayoutButton(enable: false)
+        collectionView?.reloadData()
+        
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

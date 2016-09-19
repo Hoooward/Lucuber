@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 class LayoutButton: UIButton {
     
     var userMode: FormulaUserMode? {
