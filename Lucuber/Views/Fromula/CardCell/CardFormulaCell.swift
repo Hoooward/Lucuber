@@ -26,7 +26,7 @@ class CardFormulaCell: UICollectionViewCell {
         super.awakeFromNib()
         
         contentLabel.font = UIFont.cubeFormulaNormalContentFont()
-        contentView.backgroundColor = UIColor.whiteColor()
+        contentView.backgroundColor = UIColor.white
         contentView.layer.cornerRadius = 6
         contentView.layer.masksToBounds = true
         
