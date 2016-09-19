@@ -152,6 +152,52 @@ extension String {
 }
 
 
+extension String {
+    
+    public enum TrimmingType {
+        ///去除两端空格
+        case whitespace
+        
+        ///去除换行和两端空格 
+        case whitespaceAndNewLine
+        
+        ///去除所有空格
+        case squashingWhiteSpace
+    }
+    
+    public func trimming(trimmingType: TrimmingType) -> String {
+        
+        switch trimmingType {
+            
+        case .whitespace:
+            
+            return trimmingCharacters(in: NSCharacterSet.whitespaces)
+            
+        case .whitespaceAndNewLine:
+            
+            return trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+            
+        case .squashingWhiteSpace:
+            
+            let compoents = components(separatedBy: NSCharacterSet.whitespaces).filter {
+                !$0.isEmpty
+            }
+            
+            return compoents.joined(separator: "")
+            
+        }
+    }
+    
+    /// 只有空格
+    public var isDirty: Bool {
+        
+        if self.characters.count == 0 || self.trimmingCharacters(in: NSCharacterSet.whitespaces).characters.count == 0  {
+            return true
+        }
+        
+        return false
+    }
+}
 
 
 
