@@ -10,7 +10,6 @@ import UIKit
 
 private let CardCellIdentifier = "CardFormulaCell"
 private let NormalCellIdentifier = "NormalFormulaCell"
-private let DetailCellIdentifier = "DetailFormulaCell"
 private let NoResultCellIdentifier = "NoResultCell"
 private let HeaderViewIdentifier = "HeaderReusableView"
 
@@ -83,8 +82,17 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     
     private func makeUI() {
+        
         view.addSubview(searchBar)
-        view.addSubview(activityIndicator)
+        collectionView?.addSubview(activityIndicator)
+        
+        collectionView?.backgroundColor = UIColor.white
+        
+        collectionView?.register(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
+        collectionView?.register(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
+        collectionView?.register(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
+        collectionView?.register(UINib(nibName: HeaderViewIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: HeaderViewIdentifier)
+
         
         
         // TODO:

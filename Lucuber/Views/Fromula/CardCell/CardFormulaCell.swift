@@ -25,7 +25,7 @@ class CardFormulaCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentLabel.font = UIFont.cubeFormulaNormalContentFont()
+        contentLabel.font = UIFont.formulaNormalContent()
         contentView.backgroundColor = UIColor.white
         contentView.layer.cornerRadius = 6
         contentView.layer.masksToBounds = true
@@ -40,12 +40,17 @@ class CardFormulaCell: UICollectionViewCell {
     func updateUI() {
         
         if let formula = formula {
-            contentLabel.attributedText = formula.contents.first!.text!.setAttributesFitDetailLayout(ContentStyle.Normal)
+            
+            
+            if let text = formula.contents.first?.text {
+                
+                contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
+            }
+            
             imageView.image = UIImage(named: formula.imageName)
             nameLabel.text = formula.name
             starRatingView.maxRating = formula.rating
             starRatingView.rating = formula.rating
-            
             indicaterLabel.text = formula.category.rawValue
         }
         

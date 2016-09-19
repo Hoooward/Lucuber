@@ -228,9 +228,11 @@ class FormulaContent: CustomStringConvertible {
         let height: CGFloat = 50
         
         let margin = Config.DetailFormula.screenMargin
+        
         if let text = text, text.characters.count > 0 {
-            let attributsStr = text.setAttributesFitDetailLayout(ContentStyle.Detail)
-            let rect =  attributsStr.boundingRectWithSize(CGSizeMake(screenWidth - margin - margin - 25 - 15, CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.init(rawValue: 1),  context: nil)
+            
+            let attributesText = text.setAttributesFitDetailLayout(style: .detail)
+            let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - (margin * 2) - 25 - 15, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.init(rawValue: 1), context: nil)
             
             return rect.size.height + 30
         }

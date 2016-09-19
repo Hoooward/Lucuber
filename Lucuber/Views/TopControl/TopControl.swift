@@ -53,8 +53,8 @@ class TopControl: UIView {
             let button = UIButton(type: .custom)
             button.tag = index + Config.TopControl.buttonTagBaseValue
             button.setTitle(childViewControllers[index].title, for: .normal)
-            button.titleLabel?.font = UIFont.topControlButtonTitleFont()
-            button.setTitleColor(UIColor.cubeTopControlButtonNormalTitleColor(), for: .normal)
+            button.titleLabel?.font = UIFont.topControlButtonTitle()
+            button.setTitleColor(UIColor.topControlButtonNormalTitle(), for: .normal)
             button.setTitleColor(UIColor.cubeTintColor(), for: .disabled)
             buttonX = buttonWidth * CGFloat(index)
             button.frame = CGRect(x: buttonX, y: 0, width: buttonWidth, height: buttonHeight)

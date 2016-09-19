@@ -23,10 +23,16 @@ class NormalFormulaCell: UICollectionViewCell {
     }
     
     private func updateUI() {
+        
         if let formula = formula {
+            
+            if let text = formula.contents.first?.text {
+                
+                contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
+            }
+            
             imageView.image = UIImage(named: formula.imageName)
             nameLabel.text = formula.name
-            contentLabel.attributedText = formula.contents.first!.text!.setAttributesFitDetailLayout(ContentStyle.Normal)
             indicaterLabel.text = formula.category.rawValue
             starRatingView.maxRating = formula.rating
             starRatingView.rating = formula.rating
@@ -35,8 +41,10 @@ class NormalFormulaCell: UICollectionViewCell {
     }
     
     override func awakeFromNib() {
+        
         super.awakeFromNib()
-        contentLabel.font = UIFont.cubeFormulaNormalContentFont()
+        
+        contentLabel.font = UIFont.formulaNormalContent()
         imageView.layer.cornerRadius = 2
         imageView.clipsToBounds = true
     }

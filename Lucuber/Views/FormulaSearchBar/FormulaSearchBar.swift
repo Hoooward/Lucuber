@@ -26,7 +26,7 @@ class FormulaSearchBar: UISearchBar {
         
         searchBarStyle = .minimal
         tintColor = UIColor.cubeTintColor()
-        barTintColor = UIColor.cubeInputTextColor()
+        barTintColor = UIColor.inputText()
         placeholder = "搜索"
     }
     
