@@ -10,43 +10,43 @@ import UIKit
 
 extension UIFont {
     
-    class func topControlButtonTitleFont() -> UIFont {
+    class func topControlButtonTitle() -> UIFont {
         return UIFont.systemFont(ofSize: 16)
     }
     
-    class func navigationBarTitleFont() -> UIFont {
+    class func navigationBarTitle() -> UIFont {
         return UIFont.boldSystemFont(ofSize: 17)
     }
     
-    class func cubeFormulaNormalContentFont() -> UIFont {
+    class func formulaNormalContent() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 12)!
     }
     
-    class func cubeFormulaNormalBracketsFont() -> UIFont {
+    class func formulaNormalBrackets() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 12)!
     }
     
-    class func cubeFormulaDetailTextFont() -> UIFont {
+    class func formulaDetailContent() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 14)!
     }
     
-    class func cubeFormulaDetailBracketsFont() -> UIFont {
+    class func formulaDetailBrackets() -> UIFont {
         return UIFont(name: "Menlo-Regular", size: 14)!
     }
     
-    class func addFormulaPlaceholderTextFont() -> UIFont {
+    class func addFormulaPlaceholderText() -> UIFont {
         return UIFont.systemFont(ofSize: 12)
     }
     
-    class func feedCategoryButtonTitleFont() -> UIFont {
+    class func feedCategoryButtonTitle() -> UIFont {
         return UIFont.systemFont(ofSize: 12)
     }
     
-    class func feedMessageTextViewFont() -> UIFont {
+    class func feedMessageTextView() -> UIFont {
         return UIFont.systemFont(ofSize: 17)
     }
     
-    class func feedBottomLabelFont() -> UIFont {
+    class func feedBottomLabel() -> UIFont {
         return UIFont.systemFont(ofSize: 14)
     }
 
