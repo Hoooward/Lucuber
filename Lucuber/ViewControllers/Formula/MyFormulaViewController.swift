@@ -20,7 +20,6 @@ class MyFormulaViewController: BaseCollectionViewController {
         uploadMode = .my
         
         
-        
       
     }
 

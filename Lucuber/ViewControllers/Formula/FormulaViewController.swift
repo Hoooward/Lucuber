@@ -142,6 +142,8 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
             break
             
+        default:
+            break
         }
         
     }
