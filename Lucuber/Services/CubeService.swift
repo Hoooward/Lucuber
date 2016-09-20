@@ -10,13 +10,13 @@ import Foundation
 import AVOSCloud
 
 public enum UploadFormulaMode: String {
-    case My = "My"
-    case Library = "Library"
+    case my = "My"
+    case library = "Library"
 }
 
 
 public enum UploadFeedMode {
-    case Top
-    case LoadMore
+    case top
+    case loadMore
 }
 

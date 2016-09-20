@@ -18,25 +18,30 @@ class NormalFormulaCell: UICollectionViewCell {
     
     var formula: Formula? {
         didSet{
-            updateUI()
+//            updateUI()
         }
     }
     
-    private func updateUI() {
+    func configerCell(with formula: Formula?) {
         
-        if let formula = formula {
-            
-            if let text = formula.contents.first?.text {
-                
-                contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
-            }
-            
-            imageView.image = UIImage(named: formula.imageName)
-            nameLabel.text = formula.name
-            indicaterLabel.text = formula.category.rawValue
-            starRatingView.maxRating = formula.rating
-            starRatingView.rating = formula.rating
+        guard let formula = formula else {
+            return
         }
+        updateUI(with: formula)
+    }
+    
+    private func updateUI(with formula: Formula) {
+        
+        if let text = formula.contents.first?.text {
+            
+            contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
+        }
+        
+        imageView.image = UIImage(named: formula.imageName)
+        nameLabel.text = formula.name
+        indicaterLabel.text = formula.category.rawValue
+        starRatingView.maxRating = formula.rating
+        starRatingView.rating = formula.rating
         
     }
     

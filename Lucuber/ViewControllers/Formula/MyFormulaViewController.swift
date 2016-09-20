@@ -15,6 +15,12 @@ class MyFormulaViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        userMode = .card
+        uploadMode = .my
+        
+        
+        
       
     }
 

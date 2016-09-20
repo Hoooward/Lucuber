@@ -18,26 +18,27 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     // MARK: - Properties
     
     enum SegueIdentifier: String {
-        case ShowFormulaDetail = "ShowFormulaDetail"
+        case showFormulaDetail = "ShowFormulaDetail"
     }
     
     
-    var formulasData: [[Formula]] = []
-    var searchResult: [Formula] = []
+    fileprivate var formulasData: [[Formula]] = []
+    fileprivate var searchResult: [Formula] = []
     
-    var uploadMode: UploadFormulaMode = .My
+    var uploadMode: UploadFormulaMode = .my
     
     /// 当前控制器所选择显示的公式种类
     var seletedCategory: Category?
     
     
-    var searchBarActive = false
-    var haveSearchResult: Bool {
+    fileprivate var searchBarActive = false
+    fileprivate var haveSearchResult: Bool {
         return searchResult.count > 0
     }
     
     private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
-    lazy var searchBar: FormulaSearchBar = {
+    
+    fileprivate lazy var searchBar: FormulaSearchBar = {
         let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
         let searchBar = FormulaSearchBar(frame: rect)
         searchBar.delegate = self
@@ -50,16 +51,16 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     /// 缓存进入搜索模式前的UserMode
     var cacheBeforeSearchUserMode: FormulaUserMode?
-    var userMode: FormulaUserMode = .Card {
+    var userMode: FormulaUserMode = .card {
         
         didSet {
             
             switch userMode {
                 
-            case .Card:
+            case .card:
                 view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
 
-            case .Normal:
+            case .normal:
                 view.backgroundColor = UIColor.white
             }
             
@@ -119,7 +120,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
 
     
-    func changeLayoutButton(enable: Bool) {
+    fileprivate func changeLayoutButton(enable: Bool) {
         
         if let layoutButtonItem = parent?.navigationItem.leftBarButtonItem {
             layoutButtonItem.isEnabled = enable
@@ -132,57 +133,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             layoutButton.userMode = userMode
         }
     }
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    
-    
-        return cell
-    }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }
 
@@ -232,8 +182,8 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         }
         searchBarActive = true
         cacheBeforeSearchUserMode = userMode
-        if cacheBeforeSearchUserMode != .Normal {
-            userMode = .Normal
+        if cacheBeforeSearchUserMode != .normal {
+            userMode = .normal
         }
         changeLayoutButton(enable: false)
         collectionView?.reloadData()
@@ -243,6 +193,145 @@ extension BaseCollectionViewController: UISearchBarDelegate {
 }
 
 
+// MARK: - CollectionView Delegate & Layout
+
+extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
+   
+    
+    
+     override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
+        if searchBarActive {
+            return 1
+        }
+        
+        return formulasData.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        
+        switch section {
+            
+        case 0:
+            
+            if searchBarActive {
+                return haveSearchResult ? searchResult.count : 1
+            }
+            
+            return formulasData[section].count
+            
+        
+        default:
+            
+            return formulasData[section].count
+            
+        }
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if  searchBarActive && !haveSearchResult {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoResultCellIdentifier, for: indexPath)
+            
+            return cell
+        }
+        
+        switch userMode {
+            
+        case .normal:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NormalCellIdentifier, for: indexPath)
+            
+            return cell
+            
+        case .card:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCellIdentifier, for: indexPath)
+            
+            return cell
+        }
+        
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if searchBarActive && !haveSearchResult {
+            return
+        }
+        
+        var formula: Formula!
+        
+        switch indexPath.section {
+            
+        case 0:
+            
+            if searchBarActive && haveSearchResult {
+                
+                formula = searchResult[indexPath.item]
+            }
+            
+        default:
+            
+            formula = formulasData[indexPath.section][indexPath.item]
+        }
+        
+        switch userMode {
+            
+        case .normal:
+            
+            guard let cell = cell as? NormalFormulaCell else {
+                
+                return
+            }
+            
+            cell.configerCell(with: formula)
+            
+        case .card:
+            
+            guard let cell = cell as? CardFormulaCell else {
+                
+                return
+            }
+            
+            cell.configerCell(with: formula)
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        switch userMode {
+            
+        case .normal:
+            return Config.FormulaCell.NormalCellEdgeInsets
+            
+        case .card:
+            return Config.FormulaCell.CardCellEdgeInsets
+        }
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        printLog("Did Seleted one Formula")
+        
+        let seletedFormula = formulasData[indexPath.section][indexPath.row]
+        let formulas = formulasData[indexPath.section]
+        
+        let dict: [String: Any] = ["formuls": formulas, "seletedFormula" : seletedFormula]
+        self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
+    }
+    
+    
+    
+    
+    
+    
+}
 
 
 

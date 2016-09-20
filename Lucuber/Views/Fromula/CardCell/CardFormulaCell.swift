@@ -18,8 +18,17 @@ class CardFormulaCell: UICollectionViewCell {
     
     var formula: Formula? {
         didSet {
-            updateUI()
+//            updateUI()
         }
+    }
+    
+    public func configerCell(with formula: Formula?) {
+        
+        guard let formula = formula else {
+            return
+        }
+        
+        updateUI(with: formula)
     }
     
     override func awakeFromNib() {
@@ -37,22 +46,18 @@ class CardFormulaCell: UICollectionViewCell {
         
     }
     
-    func updateUI() {
+    private func updateUI(with formula: Formula) {
         
-        if let formula = formula {
+        if let text = formula.contents.first?.text {
             
-            
-            if let text = formula.contents.first?.text {
-                
-                contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
-            }
-            
-            imageView.image = UIImage(named: formula.imageName)
-            nameLabel.text = formula.name
-            starRatingView.maxRating = formula.rating
-            starRatingView.rating = formula.rating
-            indicaterLabel.text = formula.category.rawValue
+            contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
         }
+        
+        imageView.image = UIImage(named: formula.imageName)
+        nameLabel.text = formula.name
+        starRatingView.maxRating = formula.rating
+        starRatingView.rating = formula.rating
+        indicaterLabel.text = formula.category.rawValue
         
     }
 }

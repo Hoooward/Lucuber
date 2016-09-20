@@ -32,8 +32,8 @@ public enum Category: String {
 /// FormulaViewController's collectionView Layout
 public enum FormulaUserMode {
     
-    case Normal
-    case Card
+    case normal
+    case card
 }
 
 

@@ -23,6 +23,12 @@ public class Config {
         public static let BRrotation: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
     }
     
+    public struct FormulaCell {
+        
+        public static let NormalCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        public static let CardCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
     public struct DetailFormula {
         public static let screenMargin: CGFloat = 38
         public static let masterRowHeight: CGFloat = 50

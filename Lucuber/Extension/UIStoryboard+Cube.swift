@@ -20,7 +20,7 @@ extension SegueHandlerType where Self: UIViewController, SegueIdentifier.RawValu
         performSegue(withIdentifier: identifier.rawValue, sender: sender)
     }
     
-    func segueIdentifierFor(segue: UIStoryboardSegue) -> SegueIdentifier {
+    func segueIdentifier(for segue: UIStoryboardSegue) -> SegueIdentifier {
         guard let identifier = segue.identifier,
               let segueIdentifier = SegueIdentifier(rawValue: identifier) else {
             fatalError("无效的 Segue Identifier")

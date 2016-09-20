@@ -16,10 +16,10 @@ class LayoutButton: UIButton {
             
             switch mode {
                 
-            case .Normal:
+            case .normal:
                 isSelected = false
                 
-            case .Card:
+            case .card:
                 isSelected = true
                 
             }

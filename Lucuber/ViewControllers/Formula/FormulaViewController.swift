@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaViewController: UIViewController {
+class FormulaViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Properties
     
@@ -40,7 +40,7 @@ class FormulaViewController: UIViewController {
     }()
     
 
-    lazy var topControl: TopControl = {
+    fileprivate lazy var topControl: TopControl = {
         
         let view = TopControl(childViewControllers: self.childViewControllers)
         view.frame = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: Config.TopControl.height)
@@ -113,7 +113,7 @@ class FormulaViewController: UIViewController {
             button.isSelected = !button.isSelected
             
             if let vc = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
-                vc.userMode = vc.userMode == .Card ? .Normal : .Card
+                vc.userMode = vc.userMode == .card ? .normal : .card
             }
             
         }
@@ -130,12 +130,19 @@ class FormulaViewController: UIViewController {
     // MARK: - Segue
     
     enum SegueIdentifier: String {
-        case ShowFormulaDetail = "ShowFormulaDetail"
-        case ShowAddFormula = "ShowAddFormula"
+        case showFormulaDetail = "ShowFormulaDetail"
+        case showAddFormula = "ShowAddFormula"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        switch segueIdentifier(for: segue) {
+            
+        case .showFormulaDetail:
+            
+            break
+            
+        }
         
     }
     
@@ -183,6 +190,8 @@ extension FormulaViewController: UIScrollViewDelegate {
     }
     
 }
+
+
 
 
 
