@@ -10,8 +10,10 @@ import Foundation
 import AVOSCloud
 
 public enum UploadFormulaMode: String {
+    
     case my = "My"
     case library = "Library"
+    
 }
 
 

@@ -20,6 +20,7 @@ class MyFormulaViewController: BaseCollectionViewController {
         uploadMode = .my
         
         
+        seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
       
     }
 

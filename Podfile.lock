@@ -1,12 +1,20 @@
 PODS:
   - AVOSCloud (3.4.0)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
+  - RealmSwift (1.1.0):
+    - Realm (= 1.1.0)
 
 DEPENDENCIES:
   - AVOSCloud
+  - RealmSwift (~> 1.1.0)
 
 SPEC CHECKSUMS:
   AVOSCloud: 771c8d77bc9b9f2cc8ac2eb4b58eaf368337ac95
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
+  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
 
-PODFILE CHECKSUM: 6c62c7f0349fbd6e05b080e5eab6b3a0cf7b1397
+PODFILE CHECKSUM: 704b8bbfb1c2448e9e4f4da42eebd4fe0b06a18f
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.2
