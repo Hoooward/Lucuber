@@ -10,6 +10,9 @@ import UIKit
 
 public class Config {
     
+    public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30
+    
+    
     public struct TopControl {
         public static let height: CGFloat = 36
         public static let indicaterHeight: CGFloat = 2

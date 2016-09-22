@@ -250,10 +250,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 
                 finish?()
                 
-                
-                
             }
-            
         }
         
        
