@@ -133,6 +133,135 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             layoutButton.userMode = userMode
         }
     }
+    
+    
+    fileprivate var isUploadingFormula: Bool = false
+    
+    func uploadingFormulas(with mode: UploadFormulaMode = .library, category: Category, finish: (() -> Void)? ) {
+        
+        
+        if isUploadingFormula {
+            finish?()
+            return
+        }
+        
+        isUploadingFormula = true
+        
+        self.activityIndicator.startAnimating()
+        
+        /// 网络请求失败 -> 闭包
+        let failureHandler: (_ error: NSError) -> Void = {
+            error in
+            
+            DispatchQueue.main.async {
+                [unowned self] in
+                
+                // TODO: Alert
+                self.activityIndicator.stopAnimating()
+                finish?()
+            }
+        }
+        
+        
+        let completion: ([Formula]) -> Void = {
+            
+            formulas in
+            
+            DispatchQueue.main.async {
+                
+                [weak self] in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.isUploadingFormula = false
+                strongSelf.searchBar.isHidden = false
+                
+                var resultFormula = [[Formula]]()
+                
+                
+                if !formulas.isEmpty {
+                    
+                    var types = Set<Type>()
+                    
+                    formulas.forEach {
+                        
+                        if types.contains($0.type) {
+                            return
+                        }
+                        
+                        types.insert($0.type)
+                    }
+                }
+                
+                if !formulas.isEmpty {
+                    
+                    var crossFormulas = [Formula]()
+                    var f2lFormulas = [Formula]()
+                    var ollFormulas = [Formula]()
+                    var pllFormulas = [Formula]()
+                    
+                    formulas.forEach {
+                        
+                        switch $0.type {
+                            
+                        case .CROSS:
+                            crossFormulas.append($0)
+                            
+                        case .F2L:
+                            f2lFormulas.append($0)
+                            
+                        case .OLL:
+                            ollFormulas.append($0)
+                            
+                        case .PLL:
+                            pllFormulas.append($0)
+                        }
+                    }
+                    
+                    if !crossFormulas.isEmpty {
+                        resultFormula.append(crossFormulas)
+                    }
+                    
+                    if !ollFormulas.isEmpty {
+                        resultFormula.append(ollFormulas)
+                    }
+                    
+                    if !pllFormulas.isEmpty {
+                        resultFormula.append(pllFormulas)
+                    }
+                    
+                    if !f2lFormulas.isEmpty {
+                        resultFormula.append(f2lFormulas)
+                    }
+                    
+                    strongSelf.formulasData = resultFormula
+                    
+                } else {
+                    
+                    strongSelf.searchBar.isHidden = true
+                    strongSelf.formulasData = resultFormula
+                    
+                }
+                
+                strongSelf.activityIndicator.stopAnimating()
+                
+                
+                finish?()
+                
+                
+                
+            }
+            
+        }
+        
+       
+        fetchFormulaWithMode(uploadingFormulaMode: mode, category: category, completion: completion, failureHandler: failureHandler)
+        
+         
+     }
+    
 
 }
 

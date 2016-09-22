@@ -55,7 +55,7 @@ extension AVQuery {
     
 }
 
-public func fecthFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
+public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                                  category: Category,
                                  completion: (([Formula]) -> Void)?,
                                  failureHandler: ((NSError) -> Void)?) {
