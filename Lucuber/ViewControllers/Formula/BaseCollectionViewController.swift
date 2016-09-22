@@ -156,7 +156,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             DispatchQueue.main.async {
                 [unowned self] in
                 
-                // TODO: Alert
+                
                 self.activityIndicator.stopAnimating()
                 finish?()
             }

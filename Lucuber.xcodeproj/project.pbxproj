@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
-		E4207A291D93C7E2003CF073 /* CubeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A281D93C7E2003CF073 /* CubeHUD.swift */; };
 		E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
+		E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */; };
+		E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A301D93D8C0003CF073 /* CubeAlert.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
@@ -59,8 +60,9 @@
 		5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
-		E4207A281D93C7E2003CF073 /* CubeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeHUD.swift; sourceTree = "<group>"; };
 		E4207A2A1D93CA7F003CF073 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeHUD.swift; sourceTree = "<group>"; };
+		E4207A301D93D8C0003CF073 /* CubeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAlert.swift; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
@@ -137,10 +139,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E4207A271D93C7D8003CF073 /* CubeAlert */ = {
+		E4207A2C1D93D8AB003CF073 /* CubeHUD */ = {
 			isa = PBXGroup;
 			children = (
-				E4207A281D93C7E2003CF073 /* CubeHUD.swift */,
+				E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */,
+			);
+			path = CubeHUD;
+			sourceTree = "<group>";
+		};
+		E4207A2F1D93D8B8003CF073 /* CubeAlert */ = {
+			isa = PBXGroup;
+			children = (
+				E4207A301D93D8C0003CF073 /* CubeAlert.swift */,
 			);
 			path = CubeAlert;
 			sourceTree = "<group>";
@@ -198,7 +208,8 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E4207A271D93C7D8003CF073 /* CubeAlert */,
+				E4207A2F1D93D8B8003CF073 /* CubeAlert */,
+				E4207A2C1D93D8AB003CF073 /* CubeHUD */,
 				E4E021F61D901A3A00DED99A /* StarRatingView */,
 				E4E021E61D9019AA00DED99A /* Fromula */,
 				E4B09BAF1D8FA3D60090671F /* FormulaSearchBar */,
@@ -541,15 +552,16 @@
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
 				E4E021F81D901A4800DED99A /* StarRatingView.swift in Sources */,
-				E4207A291D93C7E2003CF073 /* CubeHUD.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
 				E4D536BC1D8DB0A1008A426A /* LayoutButton.swift in Sources */,
+				E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,
+				E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
