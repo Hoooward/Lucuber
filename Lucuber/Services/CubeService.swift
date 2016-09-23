@@ -170,6 +170,7 @@ internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
         
         saveUploadFormulasAtRealm(formulas: [newFormula], mode: nil, isCreatNewFormula: true)
         
+        
         completion?()
         
         

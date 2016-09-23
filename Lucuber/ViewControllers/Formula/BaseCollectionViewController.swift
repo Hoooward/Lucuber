@@ -21,7 +21,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         case showFormulaDetail = "ShowFormulaDetail"
     }
     
-    
     fileprivate var formulasData: [[Formula]] = []
     fileprivate var searchResult: [Formula] = []
     
@@ -155,6 +154,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             
             DispatchQueue.main.async {
                 [unowned self] in
+                
+                
+                
                 
                 
                 self.activityIndicator.stopAnimating()

@@ -10,7 +10,6 @@ import UIKit
 
 class FormulaSearchBar: UISearchBar {
     
-    
     // MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)

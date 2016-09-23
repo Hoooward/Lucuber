@@ -50,6 +50,7 @@ class TopControl: UIView {
         var buttonX: CGFloat = 0
         
         for index in 0..<childViewControllers.count {
+            
             let button = UIButton(type: .custom)
             button.tag = index + Config.TopControl.buttonTagBaseValue
             button.setTitle(childViewControllers[index].title, for: .normal)
