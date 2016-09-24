@@ -24,10 +24,10 @@ public class Config {
     }
     
     public struct BaseRotation {
-        public static let FRrotation: Rotation = Rotation.FR("FR", "图例的状态")
-        public static let FLrotation: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
-        public static let BLrotation: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
-        public static let BRrotation: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
+        public static let FR: Rotation = Rotation.FR("FR", "图例的状态")
+        public static let FL: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
+        public static let BL: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
+        public static let BR: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
     }
     
     public struct FormulaCell {
@@ -54,6 +54,12 @@ public class Config {
         public static let rowHeight: CGFloat = 44
         public static let menuWidth: CGFloat = UIScreen.main.bounds.width * 0.5
         public static let menuOrignX: CGFloat = UIScreen.main.bounds.width - CategoryMenu.menuWidth - 10
+    }
+    
+    public struct InputAccessory {
+        
+        public static let buttonWidth: CGFloat = 35
+        public static let buttonHeight: CGFloat = 25
     }
     
 }

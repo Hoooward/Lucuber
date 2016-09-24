@@ -12,6 +12,9 @@ class NewFormulaViewController: UIViewController {
     
     // MARK: - Properties
     
+    let formulaInputAccessoryView = InputAccessoryView()
+    
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

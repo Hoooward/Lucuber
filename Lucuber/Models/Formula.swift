@@ -222,7 +222,7 @@ public enum Rotation {
 class FormulaContent: CustomStringConvertible {
     
     var text: String?
-    var rotation: Rotation = Config.BaseRotation.FRrotation
+    var rotation: Rotation = Config.BaseRotation.FR
     
     var cellHeight: CGFloat {
         let height: CGFloat = 50
@@ -248,16 +248,16 @@ class FormulaContent: CustomStringConvertible {
         switch rotation {
             
         case "FR":
-            self.rotation = Config.BaseRotation.FRrotation
+            self.rotation = Config.BaseRotation.FR
             
         case "FL":
-            self.rotation = Config.BaseRotation.FLrotation
+            self.rotation = Config.BaseRotation.FL
             
         case "BL":
-            self.rotation = Config.BaseRotation.BLrotation
+            self.rotation = Config.BaseRotation.BL
             
         case "BR":
-            self.rotation = Config.BaseRotation.BRrotation
+            self.rotation = Config.BaseRotation.BR
             
         default:
             break

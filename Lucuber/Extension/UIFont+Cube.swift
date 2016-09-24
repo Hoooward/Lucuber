@@ -49,5 +49,10 @@ extension UIFont {
     class func feedBottomLabel() -> UIFont {
         return UIFont.systemFont(ofSize: 14)
     }
+    
+    class func customKeyboardKeyTitle() -> UIFont {
+        
+        return UIFont(name: "Avenir Next", size: 18)!
+    }
 
 }

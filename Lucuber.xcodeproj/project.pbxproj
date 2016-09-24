@@ -22,6 +22,9 @@
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
 		E479261E1D968166004D58BF /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479261D1D968166004D58BF /* InputAccessoryView.swift */; };
 		E47926211D96820B004D58BF /* RotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926201D96820B004D58BF /* RotationButton.swift */; };
+		E47926241D968C74004D58BF /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926231D968C74004D58BF /* KeyButton.swift */; };
+		E47926261D968CDB004D58BF /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
+		E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479262A1D96906C004D58BF /* FormulaInputViewController.swift */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -83,6 +86,9 @@
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
 		E479261D1D968166004D58BF /* InputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 		E47926201D96820B004D58BF /* RotationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationButton.swift; sourceTree = "<group>"; };
+		E47926231D968C74004D58BF /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
+		E47926251D968CDB004D58BF /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		E479262A1D96906C004D58BF /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 		E479261B1D968156004D58BF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				E47926221D968C63004D58BF /* KeyButton */,
 				E479261F1D968200004D58BF /* RotationButton */,
 				E479261C1D968156004D58BF /* AccessoryView */,
 			);
@@ -249,6 +256,22 @@
 			path = RotationButton;
 			sourceTree = "<group>";
 		};
+		E47926221D968C63004D58BF /* KeyButton */ = {
+			isa = PBXGroup;
+			children = (
+				E47926231D968C74004D58BF /* KeyButton.swift */,
+			);
+			path = KeyButton;
+			sourceTree = "<group>";
+		};
+		E47926291D969050004D58BF /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				E479262A1D96906C004D58BF /* FormulaInputViewController.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
 		E4B09B9A1D8E38910090671F /* CategoryButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +285,7 @@
 			children = (
 				E4B09B9E1D8E38D10090671F /* Formula.swift */,
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
+				E47926251D968CDB004D58BF /* Keyboard.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -318,6 +342,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E47926291D969050004D58BF /* Keyboard */,
 				E4217F281D9664DE00E575AB /* NewFormula */,
 				E4217F221D962C4100E575AB /* CategoryMenu */,
 				E4DF65F91D8D94B1005CE518 /* TabBar */,
@@ -644,12 +669,15 @@
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E479261E1D968166004D58BF /* InputAccessoryView.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
+				E47926241D968C74004D58BF /* KeyButton.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4E021F81D901A4800DED99A /* StarRatingView.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */,
+				E47926261D968CDB004D58BF /* Keyboard.swift in Sources */,
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
+				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
 				E4D536BC1D8DB0A1008A426A /* LayoutButton.swift in Sources */,

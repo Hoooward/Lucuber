@@ -76,5 +76,14 @@ extension UIColor {
     class func cubeBackgroundColor() -> UIColor {
         return UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1.0)
     }
+    
+    class func inputAccessoryPlaceholderColor() -> UIColor {
+        return UIColor(red: 0.6889, green: 0.7137, blue: 0.7345, alpha: 1.0)
+    }
+    
+    class func customKeyboardKeyTitle() -> UIColor {
+        return UIColor(red: 160/255.0, green: 160/255.0, blue: 160/255.0, alpha: 1)
+    }
+    
 }
 
