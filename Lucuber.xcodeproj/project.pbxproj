@@ -25,6 +25,32 @@
 		E47926241D968C74004D58BF /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926231D968C74004D58BF /* KeyButton.swift */; };
 		E47926261D968CDB004D58BF /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
 		E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479262A1D96906C004D58BF /* FormulaInputViewController.swift */; };
+		E479262E1D96D0B7004D58BF /* NewFormulaHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479262D1D96D0B7004D58BF /* NewFormulaHeadView.swift */; };
+		E47926311D96D27A004D58BF /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926301D96D27A004D58BF /* CategoryIndicatorView.swift */; };
+		E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926341D96DC5F004D58BF /* CategoryPickViewCell.swift */; };
+		E479264B1D96DC5F004D58BF /* CategoryPickViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926351D96DC5F004D58BF /* CategoryPickViewCell.xib */; };
+		E479264C1D96DC5F004D58BF /* CategorySeletedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926361D96DC5F004D58BF /* CategorySeletedCell.swift */; };
+		E479264D1D96DC5F004D58BF /* CategorySeletedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926371D96DC5F004D58BF /* CategorySeletedCell.xib */; };
+		E479264E1D96DC5F004D58BF /* FormulaTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926391D96DC5F004D58BF /* FormulaTextViewCell.swift */; };
+		E479264F1D96DC5F004D58BF /* FormulaTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E479263A1D96DC5F004D58BF /* FormulaTextViewCell.xib */; };
+		E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479263C1D96DC5F004D58BF /* FormulaNameTextField.swift */; };
+		E47926511D96DC5F004D58BF /* NameTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479263D1D96DC5F004D58BF /* NameTextViewCell.swift */; };
+		E47926521D96DC5F004D58BF /* NameTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E479263E1D96DC5F004D58BF /* NameTextViewCell.xib */; };
+		E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926401D96DC5F004D58BF /* NewFormulaTextCell.swift */; };
+		E47926541D96DC5F004D58BF /* NewFormulaTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926411D96DC5F004D58BF /* NewFormulaTextCell.xib */; };
+		E47926551D96DC5F004D58BF /* StarRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926431D96DC5F004D58BF /* StarRatingCell.swift */; };
+		E47926561D96DC5F004D58BF /* StarRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926441D96DC5F004D58BF /* StarRatingCell.xib */; };
+		E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926461D96DC5F004D58BF /* TypePickViewCell.swift */; };
+		E47926581D96DC5F004D58BF /* TypePickViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926471D96DC5F004D58BF /* TypePickViewCell.xib */; };
+		E47926591D96DC5F004D58BF /* TypeSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926481D96DC5F004D58BF /* TypeSelectedCell.swift */; };
+		E479265A1D96DC5F004D58BF /* TypeSelectedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926491D96DC5F004D58BF /* TypeSelectedCell.xib */; };
+		E479265D1D96DD44004D58BF /* CateogyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479265C1D96DD44004D58BF /* CateogyItemView.swift */; };
+		E47926611D96E005004D58BF /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = E479265E1D96E005004D58BF /* CubeCategory.plist */; };
+		E47926621D96E005004D58BF /* CubeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = E479265F1D96E005004D58BF /* CubeType.plist */; };
+		E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = E47926601D96E005004D58BF /* FormulaKeyboard.plist */; };
+		E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926671D96E06F004D58BF /* FormulaTextView.swift */; };
+		E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */; };
+		E47926761D96EB85004D58BF /* NewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -89,6 +115,32 @@
 		E47926231D968C74004D58BF /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
 		E47926251D968CDB004D58BF /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		E479262A1D96906C004D58BF /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
+		E479262D1D96D0B7004D58BF /* NewFormulaHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaHeadView.swift; sourceTree = "<group>"; };
+		E47926301D96D27A004D58BF /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
+		E47926341D96DC5F004D58BF /* CategoryPickViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickViewCell.swift; sourceTree = "<group>"; };
+		E47926351D96DC5F004D58BF /* CategoryPickViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryPickViewCell.xib; sourceTree = "<group>"; };
+		E47926361D96DC5F004D58BF /* CategorySeletedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySeletedCell.swift; sourceTree = "<group>"; };
+		E47926371D96DC5F004D58BF /* CategorySeletedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySeletedCell.xib; sourceTree = "<group>"; };
+		E47926391D96DC5F004D58BF /* FormulaTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextViewCell.swift; sourceTree = "<group>"; };
+		E479263A1D96DC5F004D58BF /* FormulaTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormulaTextViewCell.xib; sourceTree = "<group>"; };
+		E479263C1D96DC5F004D58BF /* FormulaNameTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaNameTextField.swift; sourceTree = "<group>"; };
+		E479263D1D96DC5F004D58BF /* NameTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTextViewCell.swift; sourceTree = "<group>"; };
+		E479263E1D96DC5F004D58BF /* NameTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameTextViewCell.xib; sourceTree = "<group>"; };
+		E47926401D96DC5F004D58BF /* NewFormulaTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaTextCell.swift; sourceTree = "<group>"; };
+		E47926411D96DC5F004D58BF /* NewFormulaTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewFormulaTextCell.xib; sourceTree = "<group>"; };
+		E47926431D96DC5F004D58BF /* StarRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingCell.swift; sourceTree = "<group>"; };
+		E47926441D96DC5F004D58BF /* StarRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingCell.xib; sourceTree = "<group>"; };
+		E47926461D96DC5F004D58BF /* TypePickViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypePickViewCell.swift; sourceTree = "<group>"; };
+		E47926471D96DC5F004D58BF /* TypePickViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TypePickViewCell.xib; sourceTree = "<group>"; };
+		E47926481D96DC5F004D58BF /* TypeSelectedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeSelectedCell.swift; sourceTree = "<group>"; };
+		E47926491D96DC5F004D58BF /* TypeSelectedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TypeSelectedCell.xib; sourceTree = "<group>"; };
+		E479265C1D96DD44004D58BF /* CateogyItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogyItemView.swift; sourceTree = "<group>"; };
+		E479265E1D96E005004D58BF /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
+		E479265F1D96E005004D58BF /* CubeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeType.plist; sourceTree = "<group>"; };
+		E47926601D96E005004D58BF /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
+		E47926671D96E06F004D58BF /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
+		E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSectionHeaderView.swift; sourceTree = "<group>"; };
+		E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewSectionHeaderView.xib; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -224,6 +276,9 @@
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E479265E1D96E005004D58BF /* CubeCategory.plist */,
+				E479265F1D96E005004D58BF /* CubeType.plist */,
+				E47926601D96E005004D58BF /* FormulaKeyboard.plist */,
 				E466068B1D8E3533002306D0 /* Helper.swift */,
 				E4B09BA21D8E3D340090671F /* Config.swift */,
 			);
@@ -272,6 +327,121 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
+		E479262C1D96D0B7004D58BF /* NewFormulaHeader */ = {
+			isa = PBXGroup;
+			children = (
+				E479262D1D96D0B7004D58BF /* NewFormulaHeadView.swift */,
+			);
+			path = NewFormulaHeader;
+			sourceTree = "<group>";
+		};
+		E479262F1D96D26B004D58BF /* CategoryIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				E47926301D96D27A004D58BF /* CategoryIndicatorView.swift */,
+			);
+			path = CategoryIndicator;
+			sourceTree = "<group>";
+		};
+		E47926321D96DC5F004D58BF /* NewFormulaCell */ = {
+			isa = PBXGroup;
+			children = (
+				E479266E1D96E2EE004D58BF /* SectionHeader */,
+				E47926331D96DC5F004D58BF /* CategoryCell */,
+				E47926381D96DC5F004D58BF /* FormulaTextCell */,
+				E479263B1D96DC5F004D58BF /* NameTextViewCell */,
+				E479263F1D96DC5F004D58BF /* NewFormulaTextCell */,
+				E47926421D96DC5F004D58BF /* StarRatingCell */,
+				E47926451D96DC5F004D58BF /* TypeCell */,
+			);
+			path = NewFormulaCell;
+			sourceTree = "<group>";
+		};
+		E47926331D96DC5F004D58BF /* CategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				E47926341D96DC5F004D58BF /* CategoryPickViewCell.swift */,
+				E47926351D96DC5F004D58BF /* CategoryPickViewCell.xib */,
+				E47926361D96DC5F004D58BF /* CategorySeletedCell.swift */,
+				E47926371D96DC5F004D58BF /* CategorySeletedCell.xib */,
+			);
+			path = CategoryCell;
+			sourceTree = "<group>";
+		};
+		E47926381D96DC5F004D58BF /* FormulaTextCell */ = {
+			isa = PBXGroup;
+			children = (
+				E47926391D96DC5F004D58BF /* FormulaTextViewCell.swift */,
+				E479263A1D96DC5F004D58BF /* FormulaTextViewCell.xib */,
+			);
+			path = FormulaTextCell;
+			sourceTree = "<group>";
+		};
+		E479263B1D96DC5F004D58BF /* NameTextViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E479263C1D96DC5F004D58BF /* FormulaNameTextField.swift */,
+				E479263D1D96DC5F004D58BF /* NameTextViewCell.swift */,
+				E479263E1D96DC5F004D58BF /* NameTextViewCell.xib */,
+			);
+			path = NameTextViewCell;
+			sourceTree = "<group>";
+		};
+		E479263F1D96DC5F004D58BF /* NewFormulaTextCell */ = {
+			isa = PBXGroup;
+			children = (
+				E47926401D96DC5F004D58BF /* NewFormulaTextCell.swift */,
+				E47926411D96DC5F004D58BF /* NewFormulaTextCell.xib */,
+			);
+			name = NewFormulaTextCell;
+			path = newFormulaTextCell;
+			sourceTree = "<group>";
+		};
+		E47926421D96DC5F004D58BF /* StarRatingCell */ = {
+			isa = PBXGroup;
+			children = (
+				E47926431D96DC5F004D58BF /* StarRatingCell.swift */,
+				E47926441D96DC5F004D58BF /* StarRatingCell.xib */,
+			);
+			path = StarRatingCell;
+			sourceTree = "<group>";
+		};
+		E47926451D96DC5F004D58BF /* TypeCell */ = {
+			isa = PBXGroup;
+			children = (
+				E47926461D96DC5F004D58BF /* TypePickViewCell.swift */,
+				E47926471D96DC5F004D58BF /* TypePickViewCell.xib */,
+				E47926481D96DC5F004D58BF /* TypeSelectedCell.swift */,
+				E47926491D96DC5F004D58BF /* TypeSelectedCell.xib */,
+			);
+			path = TypeCell;
+			sourceTree = "<group>";
+		};
+		E479265B1D96DD39004D58BF /* CategoryItem */ = {
+			isa = PBXGroup;
+			children = (
+				E479265C1D96DD44004D58BF /* CateogyItemView.swift */,
+			);
+			path = CategoryItem;
+			sourceTree = "<group>";
+		};
+		E47926661D96E065004D58BF /* FormulaTextView */ = {
+			isa = PBXGroup;
+			children = (
+				E47926671D96E06F004D58BF /* FormulaTextView.swift */,
+			);
+			path = FormulaTextView;
+			sourceTree = "<group>";
+		};
+		E479266E1D96E2EE004D58BF /* SectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */,
+				E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */,
+			);
+			path = SectionHeader;
+			sourceTree = "<group>";
+		};
 		E4B09B9A1D8E38910090671F /* CategoryButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +487,11 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E47926661D96E065004D58BF /* FormulaTextView */,
+				E479265B1D96DD39004D58BF /* CategoryItem */,
+				E479262F1D96D26B004D58BF /* CategoryIndicator */,
+				E479262C1D96D0B7004D58BF /* NewFormulaHeader */,
+				E47926321D96DC5F004D58BF /* NewFormulaCell */,
 				E479261B1D968156004D58BF /* Keyboard */,
 				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 				E4207A2F1D93D8B8003CF073 /* CubeAlert */,
@@ -590,18 +765,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47926621D96E005004D58BF /* CubeType.plist in Resources */,
 				E4DF66041D8D9633005CE518 /* Timer.storyboard in Resources */,
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
+				E47926561D96DC5F004D58BF /* StarRatingCell.xib in Resources */,
 				E4E021F31D9019AA00DED99A /* HeaderReusableView.xib in Resources */,
+				E479264B1D96DC5F004D58BF /* CategoryPickViewCell.xib in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
+				E479265A1D96DC5F004D58BF /* TypeSelectedCell.xib in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E4FFAA9B1D8D29DE0039BA8A /* Assets.xcassets in Resources */,
 				E4E021F11D9019AA00DED99A /* CardFormulaCell.xib in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
+				E47926541D96DC5F004D58BF /* NewFormulaTextCell.xib in Resources */,
+				E47926761D96EB85004D58BF /* NewSectionHeaderView.xib in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
+				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
+				E47926581D96DC5F004D58BF /* TypePickViewCell.xib in Resources */,
+				E479264D1D96DC5F004D58BF /* CategorySeletedCell.xib in Resources */,
 				E4E021FF1D90454A00DED99A /* NoResultCell.xib in Resources */,
 				E4E021F51D9019AA00DED99A /* NormalFormulaCell.xib in Resources */,
+				E479264F1D96DC5F004D58BF /* FormulaTextViewCell.xib in Resources */,
+				E47926521D96DC5F004D58BF /* NameTextViewCell.xib in Resources */,
+				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
 				E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,14 +850,20 @@
 			files = (
 				E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */,
 				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
+				E47926511D96DC5F004D58BF /* NameTextViewCell.swift in Sources */,
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
+				E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */,
 				E4E021F21D9019AA00DED99A /* HeaderReusableView.swift in Sources */,
+				E479264E1D96DC5F004D58BF /* FormulaTextViewCell.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E479261E1D968166004D58BF /* InputAccessoryView.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E47926241D968C74004D58BF /* KeyButton.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
+				E47926551D96DC5F004D58BF /* StarRatingCell.swift in Sources */,
+				E47926311D96D27A004D58BF /* CategoryIndicatorView.swift in Sources */,
+				E479265D1D96DD44004D58BF /* CateogyItemView.swift in Sources */,
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4E021F81D901A4800DED99A /* StarRatingView.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
@@ -690,16 +883,24 @@
 				E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
+				E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */,
+				E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,
 				E4E021F41D9019AA00DED99A /* NormalFormulaCell.swift in Sources */,
 				E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */,
 				E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */,
+				E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */,
 				E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */,
+				E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */,
+				E479264C1D96DC5F004D58BF /* CategorySeletedCell.swift in Sources */,
+				E47926591D96DC5F004D58BF /* TypeSelectedCell.swift in Sources */,
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
+				E479262E1D96D0B7004D58BF /* NewFormulaHeadView.swift in Sources */,
 				E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
+				E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */,

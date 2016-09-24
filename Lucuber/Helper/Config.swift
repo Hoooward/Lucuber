@@ -11,6 +11,8 @@ import UIKit
 extension Notification.Name {
     
     static let formulaCategoryMenuDidmissNotification = Notification.Name("formulaCategoryMenuDismissNotification")
+    
+    static let categotyPickViewDidSeletedRowNotification = Notification.Name("categotyPickViewDidSeletedRowNotification")
 }
 
 public class Config {
@@ -60,6 +62,17 @@ public class Config {
         
         public static let buttonWidth: CGFloat = 35
         public static let buttonHeight: CGFloat = 25
+    }
+    
+    public struct NewFormulaNotificationKey {
+        
+        public static let name: String = "nameChanged" 
+        public static let category: String = "categoryChanged"
+        public static let categoryEnglish: String = "categoryEnglishChanged"
+        public static let categoryChinese: String = "categoryChineseChanged"
+        public static let starRating: String = "starRatingChanged"
+        public static let formula: String = "formulaChanged"
+        
     }
     
 }

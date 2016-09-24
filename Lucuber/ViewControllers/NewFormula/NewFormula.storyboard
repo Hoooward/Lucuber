@@ -46,7 +46,7 @@
                                     <outlet property="delegate" destination="yeF-N7-h19" id="fUP-pe-RBv"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsd-yr-Dgi" userLabel="HeaderView" customClass="HeaderFormulaView" customModule="Lucuber" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsd-yr-Dgi" userLabel="HeaderView" customClass="NewFormulaHeadView" customModule="Lucuber" customModuleProvider="target">
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQl-ss-yia" userLabel="FormulaView">
                                         <subviews>
@@ -74,7 +74,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6R-8d-P7p" customClass="CategoryIndicaterView" customModule="Lucuber" customModuleProvider="target"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6R-8d-P7p" customClass="CategoryIndicatorView" customModule="Lucuber" customModuleProvider="target"/>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L2F-mu-6Jx" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -107,7 +107,7 @@
                                                 </constraints>
                                                 <state key="normal" backgroundImage="formula_content_help_seleted"/>
                                                 <connections>
-                                                    <action selector="helpButtonClicked:" destination="hsd-yr-Dgi" eventType="touchUpInside" id="ZM0-fx-EyX"/>
+                                                    <action selector="helpButtonClickedWithSender:" destination="hsd-yr-Dgi" eventType="touchUpInside" id="rhX-JN-UAa"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -161,18 +161,18 @@
                                     <constraint firstItem="CQl-ss-yia" firstAttribute="leading" secondItem="hsd-yr-Dgi" secondAttribute="leading" constant="20" id="tjX-9H-aHY"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="BLIndicaterView" destination="cRl-DZ-wrG" id="acF-Ri-wSM"/>
-                                    <outlet property="BRIndicaterView" destination="feT-En-DqS" id="bts-tc-hrp"/>
-                                    <outlet property="FLIndicaterView" destination="pyc-a1-mTl" id="cZL-SH-gEd"/>
-                                    <outlet property="FRIndicaterView" destination="f0c-xW-t0T" id="Iwm-bb-95B"/>
+                                    <outlet property="BLIndicatorView" destination="cRl-DZ-wrG" id="Bft-9Q-wWJ"/>
+                                    <outlet property="BRIndicatorView" destination="feT-En-DqS" id="Rhy-rn-Yi1"/>
+                                    <outlet property="FLIndicatorView" destination="pyc-a1-mTl" id="iFI-9g-hgc"/>
+                                    <outlet property="FRIndicatorView" destination="f0c-xW-t0T" id="wRA-wY-eKW"/>
                                     <outlet property="centerBackView" destination="CQl-ss-yia" id="iIR-zn-aYM"/>
-                                    <outlet property="creatTimeLabel" destination="6UW-W8-Vvi" id="Fsg-mQ-Mbp"/>
-                                    <outlet property="creatUserLabel" destination="nhj-5W-hpw" id="d7J-gL-fjh"/>
-                                    <outlet property="helpButton" destination="8WR-Db-gJj" id="CUl-dP-nSE"/>
+                                    <outlet property="creatTimeLabel" destination="6UW-W8-Vvi" id="TUv-6g-Iyh"/>
+                                    <outlet property="creatUserLabel" destination="nhj-5W-hpw" id="z7v-PH-95a"/>
+                                    <outlet property="helpButton" destination="8WR-Db-gJj" id="AZ0-GR-WUS"/>
                                     <outlet property="imageButton" destination="bmF-M1-qy5" id="Nxo-9r-d33"/>
-                                    <outlet property="indicaterView" destination="L6R-8d-P7p" id="AFB-LE-byD"/>
-                                    <outlet property="nameLabel" destination="MFa-wb-cT1" id="YPX-uM-1Og"/>
-                                    <outlet property="starRatingView" destination="L2F-mu-6Jx" id="Dvb-dv-i6I"/>
+                                    <outlet property="indicatorView" destination="L6R-8d-P7p" id="7eP-Sr-qvi"/>
+                                    <outlet property="nameLabel" destination="MFa-wb-cT1" id="BpX-AG-hjQ"/>
+                                    <outlet property="starRatingView" destination="L2F-mu-6Jx" id="Jnp-z6-AcR"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -199,14 +199,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="headerView" destination="hsd-yr-Dgi" id="OXE-SY-sXI"/>
-                        <outlet property="headerViewHeightConstraint" destination="TSe-1H-jD2" id="Zup-t0-ufr"/>
-                        <outlet property="tableView" destination="Gqt-lw-MJ3" id="Esi-Yn-ZdG"/>
+                        <outlet property="headerView" destination="hsd-yr-Dgi" id="b8P-w8-nAz"/>
+                        <outlet property="headerViewHeightConstraint" destination="TSe-1H-jD2" id="3GJ-9M-Vnj"/>
+                        <outlet property="tableView" destination="Gqt-lw-MJ3" id="VUf-Qu-2kb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8P-fK-cT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="807" y="1718"/>
+            <point key="canvasLocation" x="625" y="1898"/>
         </scene>
     </scenes>
     <resources>

@@ -8,6 +8,15 @@
 
 import Foundation
 
+///魔方类型 english - 3x3x3, Chinese - 三阶
+class CategoryItem {
+    var englishText = ""
+    var chineseText = ""
+    init(eText: String, cText: String) {
+        self.englishText = eText
+        self.chineseText = cText
+    }
+}
 
 class KeyButtonItem {
     

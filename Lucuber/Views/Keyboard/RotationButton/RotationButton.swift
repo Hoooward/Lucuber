@@ -17,7 +17,7 @@ class RotationButton: UIButton {
     
     var rotation: Rotation?
     
-    private func updateButtonStyle(with rotationStyle: Style, rotation: Rotation, animation: Bool = false) {
+    func updateButtonStyle(with rotationStyle: Style, rotation: Rotation, animation: Bool = false) {
         
         var normalImage = ""
         var selectedImage = ""
@@ -99,7 +99,7 @@ class RotationButton: UIButton {
         
     }
     
-    private func POPAnimation() {
+    func POPAnimation() {
         
         let animation = CAKeyframeAnimation()
         animation.keyPath = "transform.scale"

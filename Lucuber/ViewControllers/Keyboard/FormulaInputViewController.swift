@@ -147,8 +147,6 @@ class FormulaInputViewController: UIViewController {
         
     }
 
-
-    
     
     // MARK: - Action & Target 
     func keyButtonDidClick(button: KeyButton) {
