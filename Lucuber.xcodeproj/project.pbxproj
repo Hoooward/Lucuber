@@ -19,6 +19,9 @@
 		E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4217F291D96655100E575AB /* NewFormula.storyboard */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
+		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
+		E479261E1D968166004D58BF /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479261D1D968166004D58BF /* InputAccessoryView.swift */; };
+		E47926211D96820B004D58BF /* RotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926201D96820B004D58BF /* RotationButton.swift */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -77,6 +80,9 @@
 		E4217F291D96655100E575AB /* NewFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFormula.storyboard; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
+		E479261D1D968166004D58BF /* InputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
+		E47926201D96820B004D58BF /* RotationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationButton.swift; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -204,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				E4217F291D96655100E575AB /* NewFormula.storyboard */,
+				E47926191D967E32004D58BF /* NewFormulaViewController.swift */,
 			);
 			path = NewFormula;
 			sourceTree = "<group>";
@@ -215,6 +222,31 @@
 				E4B09BA21D8E3D340090671F /* Config.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		E479261B1D968156004D58BF /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				E479261F1D968200004D58BF /* RotationButton */,
+				E479261C1D968156004D58BF /* AccessoryView */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		E479261C1D968156004D58BF /* AccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				E479261D1D968166004D58BF /* InputAccessoryView.swift */,
+			);
+			path = AccessoryView;
+			sourceTree = "<group>";
+		};
+		E479261F1D968200004D58BF /* RotationButton */ = {
+			isa = PBXGroup;
+			children = (
+				E47926201D96820B004D58BF /* RotationButton.swift */,
+			);
+			path = RotationButton;
 			sourceTree = "<group>";
 		};
 		E4B09B9A1D8E38910090671F /* CategoryButton */ = {
@@ -261,6 +293,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E479261B1D968156004D58BF /* Keyboard */,
 				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 				E4207A2F1D93D8B8003CF073 /* CubeAlert */,
 				E4207A2C1D93D8AB003CF073 /* CubeHUD */,
@@ -609,8 +642,10 @@
 				E4E021F21D9019AA00DED99A /* HeaderReusableView.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
+				E479261E1D968166004D58BF /* InputAccessoryView.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
+				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4E021F81D901A4800DED99A /* StarRatingView.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */,
@@ -642,6 +677,7 @@
 				E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */,
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
 				E4B09BA61D8E65510090671F /* TopControl.swift in Sources */,
+				E47926211D96820B004D58BF /* RotationButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,9 +21,6 @@
                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
-                    <connections>
-                        <segue destination="yeF-N7-h19" kind="relationship" relationship="rootViewController" id="sqC-uz-Yn6"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1sT-ec-fNR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,8 +147,8 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="g4d-9m-LlZ"/>
                                                 <exclude reference="i8j-k0-diI"/>
+                                                <exclude reference="g4d-9m-LlZ"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -209,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8P-fK-cT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="671" y="1898"/>
+            <point key="canvasLocation" x="807" y="1718"/>
         </scene>
     </scenes>
     <resources>

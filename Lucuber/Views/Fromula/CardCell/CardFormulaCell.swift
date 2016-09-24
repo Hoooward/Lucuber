@@ -16,11 +16,6 @@ class CardFormulaCell: UICollectionViewCell {
     @IBOutlet weak var starRatingView: StarRatingView!
     @IBOutlet weak var indicaterLabel: UILabel!
     
-    var formula: Formula? {
-        didSet {
-//            updateUI()
-        }
-    }
     
     public func configerCell(with formula: Formula?) {
         
@@ -28,7 +23,7 @@ class CardFormulaCell: UICollectionViewCell {
             return
         }
         
-        printLog(formula)
+//        printLog(formula)
         updateUI(with: formula)
     }
     

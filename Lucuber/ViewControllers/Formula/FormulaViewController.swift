@@ -12,6 +12,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Properties
     
+    @IBOutlet weak var newFormulaButton: UIButton!
     var topControlSeletedButton: UIButton?
     var containerScrollerOffsetX: CGFloat = 0
     
@@ -106,6 +107,16 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Action & Target
     
+    
+    @IBAction func newFormulaButtonClicked(_ sender: AnyObject) {
+//        let storyboard = UIStoryboard(name: "NewFormula", bundle: nil)
+//        
+//        let navigationController = storyboard.instantiateInitialViewController()
+        
+        performSegue(identifier: .showNewFormula, sender: nil)
+    }
+    
+    
     @objc private func layoutButtonClicked(button: UIView) {
         
         if let button = button as? LayoutButton {
@@ -182,7 +193,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     
     enum SegueIdentifier: String {
         case showFormulaDetail = "ShowFormulaDetail"
-        case showAddFormula = "ShowAddFormula"
+        case showNewFormula = "ShowNewFormula"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -72,6 +72,9 @@
                                         <exclude reference="mIx-sU-v76"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="newFormulaButtonClicked:" destination="dX3-HB-lAD" eventType="touchUpInside" id="L9N-MD-ABh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,6 +84,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lt6-Qk-mcl"/>
+                    <connections>
+                        <outlet property="newFormulaButton" destination="7mJ-Cr-lKZ" id="kbw-V4-JHu"/>
+                        <segue destination="vqd-NG-bg4" kind="presentation" identifier="ShowNewFormula" id="tUZ-bw-IOL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47O-UW-60H" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="XOb-UH-7xw" customClass="CategoryMenuAnimator" customModule="Lucuber" customModuleProvider="target"/>
@@ -93,7 +100,7 @@
                 <viewControllerPlaceholder storyboardName="NewFormula" id="vqd-NG-bg4" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lJv-B0-RbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="697"/>
+            <point key="canvasLocation" x="83" y="671"/>
         </scene>
         <!--公式-->
         <scene sceneID="gUB-O9-Owu">
