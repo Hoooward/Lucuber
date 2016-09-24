@@ -28,8 +28,13 @@ public class Config {
     
     public struct FormulaCell {
         
-        public static let NormalCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        public static let CardCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        public static let normalCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        public static let cardCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        public static let normalCellSize: CGSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
+        
+        public static let cardCellSize: CGSize = CGSize(width: (UIScreen.main.bounds.width - (10 + 10 + 10)) * 0.5, height: 280)
+
     }
     
     public struct DetailFormula {

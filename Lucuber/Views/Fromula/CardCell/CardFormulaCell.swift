@@ -28,6 +28,7 @@ class CardFormulaCell: UICollectionViewCell {
             return
         }
         
+        printLog(formula)
         updateUI(with: formula)
     }
     

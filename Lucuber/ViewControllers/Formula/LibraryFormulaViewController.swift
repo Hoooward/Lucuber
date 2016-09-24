@@ -8,14 +8,22 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
 
 class LibraryFormulaViewController: BaseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        userMode = .normal
+        uploadMode = .library
+        
+        seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
+        
+        uploadingFormulas(with: uploadMode, category: seletedCategory, finish: {
+            
+            self.collectionView?.reloadData()
+        })
     }
-
 
 }

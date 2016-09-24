@@ -21,6 +21,12 @@ class MyFormulaViewController: BaseCollectionViewController {
         
         
         seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
+        
+        
+        uploadingFormulas(with: uploadMode, category: seletedCategory, finish: {
+            
+            self.collectionView?.reloadData()
+        })
       
     }
 

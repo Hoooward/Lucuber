@@ -54,4 +54,12 @@ class NormalFormulaCell: UICollectionViewCell {
         imageView.clipsToBounds = true
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageView.image = nil
+        nameLabel.text = ""
+        
+    }
+    
 }

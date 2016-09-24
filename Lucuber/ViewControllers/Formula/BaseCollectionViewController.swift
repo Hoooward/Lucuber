@@ -27,7 +27,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     var uploadMode: UploadFormulaMode = .my
     
     /// 当前控制器所选择显示的公式种类
-    var seletedCategory: Category?
+    var seletedCategory: Category = .x3x3
     
     
     fileprivate var searchBarActive = false
@@ -50,6 +50,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     /// 缓存进入搜索模式前的UserMode
     var cacheBeforeSearchUserMode: FormulaUserMode?
+    
     var userMode: FormulaUserMode = .card {
         
         didSet {
@@ -75,6 +76,21 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }()
 
     
+    // MARK: - Left Cycle
+    
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        
+        super.init(collectionViewLayout: layout)
+        
+        // 在这里添加 Searchbar 工作正常， 如果在 ViewDidLoad中添加不正常
+        view.addSubview(searchBar)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -83,9 +99,8 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     private func makeUI() {
         
-        view.addSubview(searchBar)
+//        view.addSubview(searchBar)
         collectionView?.addSubview(activityIndicator)
-        
         collectionView?.backgroundColor = UIColor.white
         
         collectionView?.register(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
@@ -156,8 +171,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 [unowned self] in
                 
                 
+                CubeAlert.alertSorry(message: "加载失败，请检查您的网络连接或稍后再试。", inViewController: self)
                 
-                
+                // TODO: 这里目前没有重试的入口
                 
                 self.activityIndicator.stopAnimating()
                 finish?()
@@ -168,6 +184,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         let completion: ([Formula]) -> Void = {
             
             formulas in
+            
             
             DispatchQueue.main.async {
                 
@@ -249,6 +266,8 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 
                 strongSelf.activityIndicator.stopAnimating()
                 
+                printLog(strongSelf.formulasData)
+                
                 
                 finish?()
                 
@@ -267,12 +286,16 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 extension BaseCollectionViewController: UISearchBarDelegate {
     
     func cancelSearch() {
+        
         searchResult.removeAll()
         
         searchBar.resignFirstResponder()
         searchBar.dismissCancelButton()
         searchBar.text = ""
         searchBarActive = false
+        
+        printLog(self.searchBar)
+        printLog(self)
         
         if let _ = cacheBeforeSearchUserMode {
             userMode = cacheBeforeSearchUserMode!
@@ -292,7 +315,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         
         searchBarActive = true
         
-        // TODO: 搜索公式
+        // FIXME: 搜索公式
 //        searchResult = 
         
         collectionView?.reloadData()
@@ -301,6 +324,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
+        printLog(searchBar)
         cancelSearch()
     }
     
@@ -400,11 +424,18 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             if searchBarActive && haveSearchResult {
                 
                 formula = searchResult[indexPath.item]
+            } else {
+                formula = formulasData[indexPath.section][indexPath.item]
             }
             
         default:
             
             formula = formulasData[indexPath.section][indexPath.item]
+        }
+        
+        
+        if searchBarActive && !haveSearchResult {
+            return
         }
         
         switch userMode {
@@ -430,15 +461,30 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        switch userMode {
+        case .normal:
+            
+            return Config.FormulaCell.normalCellSize
+            
+        case .card:
+            
+            return  Config.FormulaCell.cardCellSize
+        
+        }
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         switch userMode {
             
         case .normal:
-            return Config.FormulaCell.NormalCellEdgeInsets
+            return Config.FormulaCell.normalCellEdgeInsets
             
         case .card:
-            return Config.FormulaCell.CardCellEdgeInsets
+            return Config.FormulaCell.cardCellEdgeInsets
         }
     }
     

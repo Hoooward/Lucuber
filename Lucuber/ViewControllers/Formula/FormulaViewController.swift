@@ -148,6 +148,30 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
     }
     
+    fileprivate func updateNavigationBarButtonItemStatus() {
+        
+        guard
+            let layoutButton = navigationItem.leftBarButtonItem?.customView as? LayoutButton,
+            let categoryButton = navigationItem.rightBarButtonItem as? CategoryButton else {
+                
+            return
+        }
+        
+        if let vc = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
+            
+            layoutButton.userMode = vc.userMode
+            categoryButton.seletedCategory = vc.seletedCategory
+        }
+        
+        childViewControllers.forEach {
+            vc in
+            if let vc = vc as? BaseCollectionViewController {
+                
+                vc.cancelSearch()
+            }
+        }
+    }
+    
 }
 
 extension FormulaViewController: UIScrollViewDelegate {
@@ -166,15 +190,15 @@ extension FormulaViewController: UIScrollViewDelegate {
         let bottomEdge: CGFloat = 49
         
         
-        vc.collectionView?.backgroundColor = index == 0 ? UIColor.red : UIColor.gray
-        
         vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
         vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         
         scrollView.addSubview(vc.view)
         
         
-        // updateNavigationBarButtonItemStatus
+        
+        updateNavigationBarButtonItemStatus()
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

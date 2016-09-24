@@ -128,6 +128,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
     case .my :
         
         // 我的公式, 如果Realm中没有数据, 则尝试从网络加载, 否则不需要从网络加载
+        
         let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
         
         result.isEmpty ? task() : completion?(result)
@@ -211,6 +212,37 @@ func validateMobile(mobile: String, failureHandler: ((NSError?) -> Void)?, compl
 }
 
 
+/// 如果已经登录,就去获取是否需要更新公式的bool值
+/// 因为 getObjectInBackgroundWithId 是并发的, 应用程序一启动如果第一个视图是 Formula
+/// 的话会第一时间使用 NeedUpdateLibrary 属性进行 Formula 数据加载. 即使在 LeanCloud 中 将
+/// 值设为 ture 后的第一次启动, NeedUpdateLibrary 的值还是 false. 第二次启动才会更新 Libray.
+public func initializeWhetherNeedUploadLibraryFormulas() {
+    
+    
+    if let user = AVUser.current() {
+        
+        if !UserDefaults.isNeedUpdateLibrary() {
+            
+            let query = AVQuery(className: "_User")
+            
+            query?.getObjectInBackground(withId: user.objectId) {
+                
+                result , error in
+                
+                if error == nil {
+                    
+                    let need = result?.object(forKey: "needUpdateLibrary") as! Bool
+                    printLog("is Need Upload Formulas From LeanCloud")
+                    UserDefaults.setNeedUpdateLibrary(need: need)
+                }
+            }
+        }
+        
+    } else {
+        
+        UserDefaults.setNeedUpdateLibrary(need: true)
+    }
+}
 
 
 

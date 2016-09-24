@@ -22,6 +22,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         
+        Formula.registerSubclass()
+        
+        
+        
+        initializeWhetherNeedUploadLibraryFormulas()
+        
+        
+        
+        // TODO: 测试登陆账户
+        if let user = AVUser.current() {
+            
+            printLog("当前登录账户:\(user.username)")
+            
+        } else {
+            
+            AVUser.logIn(withUsername: "12345", password: "12345")
+        }
+
+        
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+        printLog(path)
         
         return true
     }
