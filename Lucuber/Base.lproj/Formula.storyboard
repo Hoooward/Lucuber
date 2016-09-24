@@ -6,6 +6,46 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Category Menu Controller-->
+        <scene sceneID="j1c-FY-Z0R">
+            <objects>
+                <viewController storyboardIdentifier="CategoryMenuController" id="Bow-K7-zcI" customClass="CategoryMenuController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iPZ-sl-dyg"/>
+                        <viewControllerLayoutGuide type="bottom" id="5vz-vN-ovX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0A8-AE-7iA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="popover" translatesAutoresizingMaskIntoConstraints="NO" id="JIY-hJ-bVX"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vAa-rc-Iq2">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Bow-K7-zcI" id="lYl-xR-qLi"/>
+                                    <outlet property="delegate" destination="Bow-K7-zcI" id="xXJ-1P-ceb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="vAa-rc-Iq2" firstAttribute="top" secondItem="iPZ-sl-dyg" secondAttribute="bottom" constant="20" id="2vz-zg-rmS"/>
+                            <constraint firstItem="JIY-hJ-bVX" firstAttribute="leading" secondItem="0A8-AE-7iA" secondAttribute="leading" id="52i-kL-XY3"/>
+                            <constraint firstItem="JIY-hJ-bVX" firstAttribute="top" secondItem="0A8-AE-7iA" secondAttribute="top" id="Nhg-GL-Hpc"/>
+                            <constraint firstAttribute="trailing" secondItem="JIY-hJ-bVX" secondAttribute="trailing" id="SUY-Xc-cp5"/>
+                            <constraint firstItem="5vz-vN-ovX" firstAttribute="top" secondItem="vAa-rc-Iq2" secondAttribute="bottom" constant="10" id="TEi-Ke-VST"/>
+                            <constraint firstItem="5vz-vN-ovX" firstAttribute="top" secondItem="JIY-hJ-bVX" secondAttribute="bottom" id="kBJ-tS-aIH"/>
+                            <constraint firstAttribute="trailing" secondItem="vAa-rc-Iq2" secondAttribute="trailing" id="tlG-lg-4RS"/>
+                            <constraint firstItem="vAa-rc-Iq2" firstAttribute="leading" secondItem="0A8-AE-7iA" secondAttribute="leading" id="uJe-7S-6nb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="vAa-rc-Iq2" id="YBr-XT-Eqb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qct-Nr-Yyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-522.39999999999998" y="-111.0944527736132"/>
+        </scene>
         <!--Formula View Controller-->
         <scene sceneID="221-VO-LLJ">
             <objects>
@@ -22,6 +62,7 @@
                     <navigationItem key="navigationItem" id="Lt6-Qk-mcl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47O-UW-60H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="XOb-UH-7xw" customClass="CategoryMenuAnimator" customModule="Lucuber" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-522" y="636"/>
         </scene>
@@ -47,6 +88,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="popover" width="340" height="271"/>
         <image name="tabbar_gongshi" width="30" height="30"/>
         <image name="tabbar_gongshi_sele" width="30" height="30"/>
     </resources>

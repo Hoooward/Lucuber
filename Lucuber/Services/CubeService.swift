@@ -22,7 +22,6 @@ public enum UploadFeedMode {
     case loadMore
 }
 
-
 extension AVQuery {
     
     private enum DefaultKey: String {

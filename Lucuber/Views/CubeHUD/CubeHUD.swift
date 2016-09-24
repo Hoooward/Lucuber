@@ -25,6 +25,22 @@ public class CubeHUD: NSObject {
         
     }()
     
+    private lazy var indicatorLabel: UILabel = {
+        
+        let label = UILabel()
+        
+        label.text = "正在加载..."
+        return label
+        
+    }()
+    
+    
+    var indicatorText: String = " " {
+        willSet {
+            indicatorLabel.text = newValue
+        }
+    }
+    
     private lazy var activitIndicator: UIActivityIndicatorView = {
         
         let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -59,7 +75,6 @@ public class CubeHUD: NSObject {
                 window.addSubview(self.shardInstance.containerView)
                 self.shardInstance.containerView.frame = window.bounds
                 
-                
                 springWithCompletion(duration: 0.1, animations: {
                     
                     self.shardInstance.containerView.alpha = 1
@@ -68,19 +83,29 @@ public class CubeHUD: NSObject {
                         
                         self.shardInstance.containerView.addSubview(self.shardInstance.activitIndicator)
                         self.shardInstance.activitIndicator.center = self.shardInstance.containerView.center
+                        self.shardInstance.containerView.addSubview(self.shardInstance.indicatorLabel)
+                        self.shardInstance.indicatorLabel.center = CGPoint(x: self.shardInstance.containerView.center.x, y: self.shardInstance.containerView.center.y + 25)
                         self.shardInstance.activitIndicator.startAnimating()
                         
                         self.shardInstance.activitIndicator.alpha = 0
+                        self.shardInstance.indicatorLabel.alpha = 0
                         self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                        
+                        self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
                         
                         springWithCompletion(duration: 0.2, animations: {
                             
                             self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
                             self.shardInstance.activitIndicator.alpha = 1
                             
+                            self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
+                            self.shardInstance.indicatorLabel.alpha = 1
+                            
                             }, completions: { finished in
                                 
                                 self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
+                                
+                                self.shardInstance.indicatorLabel.transform = CGAffineTransform.identity
                                 
                                 if let dismissTimer = self.shardInstance.dismissTimer {
                                     
@@ -125,15 +150,21 @@ public class CubeHUD: NSObject {
             if self.shardInstance.isShowing {
                 
                 self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
+                self.shardInstance.indicatorLabel.transform = CGAffineTransform.identity
                 
                 springWithCompletion(duration: 0.5, animations: {
                     
                     self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
                     self.shardInstance.activitIndicator.alpha = 0
                     
+                    
+                    self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                    self.shardInstance.indicatorLabel.alpha = 0
+                    
                     }, completions: { finished in
                         
                         self.shardInstance.activitIndicator.removeFromSuperview()
+                        self.shardInstance.indicatorLabel.removeFromSuperview()
                         
                         springWithCompletion(duration: 0.1, animations: {
                             
@@ -146,7 +177,6 @@ public class CubeHUD: NSObject {
                                 completion()
                                 
                         })
-                        
                 })
             }
         }

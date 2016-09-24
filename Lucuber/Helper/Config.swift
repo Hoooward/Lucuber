@@ -8,10 +8,14 @@
 
 import UIKit
 
+extension Notification.Name {
+    
+    static let formulaCategoryMenuDidmissNotification = Notification.Name("formulaCategoryMenuDismissNotification")
+}
+
 public class Config {
     
     public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30
-    
     
     public struct TopControl {
         public static let height: CGFloat = 36
@@ -44,4 +48,20 @@ public class Config {
         public static let ratingViewWidth: CGFloat = 100
         public static let commentRowHeight: CGFloat = 80
     }
+   
+    public struct CategoryMenu {
+        
+        public static let rowHeight: CGFloat = 44
+        public static let menuWidth: CGFloat = UIScreen.main.bounds.width * 0.5
+        public static let menuOrignX: CGFloat = UIScreen.main.bounds.width - CategoryMenu.menuWidth - 10
+    }
+    
 }
+
+
+
+
+
+
+
+

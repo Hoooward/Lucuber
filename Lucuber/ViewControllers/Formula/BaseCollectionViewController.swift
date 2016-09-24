@@ -29,25 +29,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     /// 当前控制器所选择显示的公式种类
     var seletedCategory: Category = .x3x3
     
-    
-    fileprivate var searchBarActive = false
-    fileprivate var haveSearchResult: Bool {
-        return searchResult.count > 0
-    }
-    
-    private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
-    
-    fileprivate lazy var searchBar: FormulaSearchBar = {
-        let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
-        let searchBar = FormulaSearchBar(frame: rect)
-        searchBar.delegate = self
-    
-        // 添加属性观察
-        self.collectionView?.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
-        return searchBar
-    }()
-    
-    
     /// 缓存进入搜索模式前的UserMode
     var cacheBeforeSearchUserMode: FormulaUserMode?
     
@@ -59,7 +40,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 
             case .card:
                 view.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
-
+                
             case .normal:
                 view.backgroundColor = UIColor.white
             }
@@ -67,6 +48,23 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             collectionView?.reloadData()
         }
     }
+    
+    
+    fileprivate var searchBarActive = false
+    fileprivate var haveSearchResult: Bool {
+        return searchResult.count > 0
+    }
+    private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
+    
+    fileprivate lazy var searchBar: FormulaSearchBar = {
+        let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
+        let searchBar = FormulaSearchBar(frame: rect)
+        searchBar.delegate = self
+    
+        /// add KVO
+        self.collectionView?.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
+        return searchBar
+    }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -79,9 +77,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     // MARK: - Left Cycle
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
-        
         super.init(collectionViewLayout: layout)
-        
         // 在这里添加 Searchbar 工作正常， 如果在 ViewDidLoad中添加不正常
         view.addSubview(searchBar)
     }
@@ -90,16 +86,13 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         makeUI()
     }
     
     private func makeUI() {
         
-//        view.addSubview(searchBar)
         collectionView?.addSubview(activityIndicator)
         collectionView?.backgroundColor = UIColor.white
         
@@ -107,11 +100,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         collectionView?.register(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
         collectionView?.register(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
         collectionView?.register(UINib(nibName: HeaderViewIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: HeaderViewIdentifier)
-
-        
-        
-        // TODO:
-        activityIndicator.startAnimating()
     }
 
     deinit {
@@ -120,9 +108,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // MARK: - Action & Target & Observer
     
-    /// 在 collectionView 的 offset Y 发生变化的时候， 即时更新 searchBar 的位置
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
+        /// 在 collectionView 的 offset Y 发生变化的时候， 即时更新 searchBar 的位置
         guard let key = keyPath,
               key == "contentOffset",
               let collectionView = object as? UICollectionView  else {
@@ -130,7 +118,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         }
         
         searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBarOriginY + ((-1 * collectionView.contentOffset.y) - searchBarOriginY - searchBar.frame.size.height), width: searchBar.frame.width, height: searchBar.frame.height)
-        
     }
 
     
@@ -149,10 +136,11 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     
     
+    // MARK: - Network
+    
     fileprivate var isUploadingFormula: Bool = false
     
     func uploadingFormulas(with mode: UploadFormulaMode = .library, category: Category, finish: (() -> Void)? ) {
-        
         
         if isUploadingFormula {
             finish?()
@@ -163,13 +151,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
         self.activityIndicator.startAnimating()
         
-        /// 网络请求失败 -> 闭包
         let failureHandler: (_ error: NSError) -> Void = {
             error in
             
-            DispatchQueue.main.async {
-                [unowned self] in
-                
+            DispatchQueue.main.async { [unowned self] in
                 
                 CubeAlert.alertSorry(message: "加载失败，请检查您的网络连接或稍后再试。", inViewController: self)
                 
@@ -180,15 +165,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             }
         }
         
-        
-        let completion: ([Formula]) -> Void = {
+        let completion: ([Formula]) -> Void = { formulas in
             
-            formulas in
-            
-            
-            DispatchQueue.main.async {
-                
-                [weak self] in
+            DispatchQueue.main.async { [weak self] in
                 
                 guard let strongSelf = self else {
                     return
@@ -198,7 +177,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 strongSelf.searchBar.isHidden = false
                 
                 var resultFormula = [[Formula]]()
-                
                 
                 if !formulas.isEmpty {
                     
@@ -266,22 +244,20 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 
                 strongSelf.activityIndicator.stopAnimating()
                 
-                printLog(strongSelf.formulasData)
-                
+//                printLog(strongSelf.formulasData)
                 
                 finish?()
                 
             }
         }
-        
        
         fetchFormulaWithMode(uploadingFormulaMode: mode, category: category, completion: completion, failureHandler: failureHandler)
         
-         
      }
-    
 
 }
+
+// MARK: - SearhBarDelegate
 
 extension BaseCollectionViewController: UISearchBarDelegate {
     
@@ -294,8 +270,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBarActive = false
         
-        printLog(self.searchBar)
-        printLog(self)
+//        printLog(self.searchBar)
         
         if let _ = cacheBeforeSearchUserMode {
             userMode = cacheBeforeSearchUserMode!
@@ -306,7 +281,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         collectionView?.reloadData()
         
     }
-    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count == 0 {
@@ -324,7 +298,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-        printLog(searchBar)
+//        printLog(searchBar)
         cancelSearch()
     }
     
@@ -341,9 +315,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         collectionView?.reloadData()
         
     }
-    
 }
-
 
 // MARK: - CollectionView Delegate & Layout
 
@@ -405,7 +377,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             
             return cell
         }
-        
         
     }
     

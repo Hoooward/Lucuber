@@ -15,3 +15,12 @@ func printLog<T>(_ message: T, file: String = #file, method: String = #function,
     #endif
 }
 
+
+func delay(_ delay: Double, clouser: @escaping ()->()) {
+    
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+        clouser()
+    }
+
+}

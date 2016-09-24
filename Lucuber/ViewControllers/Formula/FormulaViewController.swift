@@ -120,10 +120,61 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
     }
     
+    private lazy var menuAnimator: CategoryMenuAnimator = CategoryMenuAnimator()
+    
     @objc private func categoryButtonClicked(buttonItem: UIBarButtonItem) {
         
-        if let _ = buttonItem as? CategoryButton {
-            printLog("")
+        guard let button = buttonItem as? CategoryButton else {
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: "Formula", bundle: nil)
+        
+        if
+            let menuVC = storyboard.instantiateViewController(withIdentifier: "CategoryMenuController") as? CategoryMenuController,
+            let presentingVC = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
+            
+            
+            let category = presentingVC.seletedCategory
+            
+            var categorys = getCategoryMenusAtRealm(mode: presentingVC.uploadMode)
+            
+            if categorys.isEmpty {
+                
+                categorys.append(.x3x3)
+            }
+            
+            let menuHeight = Config.CategoryMenu.rowHeight * CGFloat(categorys.count) + 20 + 10
+            
+            menuAnimator.presentedFrame = CGRect(x: Config.CategoryMenu.menuOrignX, y: 60, width: Config.CategoryMenu.menuWidth, height: menuHeight)
+            
+            menuVC.transitioningDelegate = self.menuAnimator
+            
+            menuVC.modalPresentationStyle = UIModalPresentationStyle.custom
+            
+            
+            
+            menuVC.seletedCateogry = category
+            menuVC.categorys = categorys
+            
+            menuVC.categoryDidChanged = {
+                
+                category in
+                
+                presentingVC.uploadingFormulas(with: presentingVC.uploadMode, category: category) {
+                    
+                    presentingVC.collectionView?.reloadData()
+                }
+                
+                presentingVC.seletedCategory = category
+                
+                UserDefaults.setSelected(category: category, mode: presentingVC.uploadMode)
+                
+                button.seletedCategory = category
+            }
+            
+            present(menuVC, animated: true, completion: nil)
+            
         }
     }
     
