@@ -17,7 +17,7 @@ class CategoryMenuController: UIViewController, UITableViewDelegate, UITableView
     var formulasData: [Formula] = []
     
     var categorys: [Category] = [.x3x3, .Megaminx, .x4x4, .RubiksClock, .SquareOne]
-        
+    
     
     var seletedCateogry: Category = .x3x3
     

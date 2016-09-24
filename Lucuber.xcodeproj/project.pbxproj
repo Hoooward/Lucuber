@@ -16,6 +16,7 @@
 		E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4217F201D962C1B00E575AB /* CatogoryMenuPresentationController.swift */; };
 		E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4217F231D962C4B00E575AB /* CategoryMenuController.swift */; };
 		E4217F271D962EFF00E575AB /* CateogryMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4217F261D962EFF00E575AB /* CateogryMenuCell.swift */; };
+		E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4217F291D96655100E575AB /* NewFormula.storyboard */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
@@ -73,6 +74,7 @@
 		E4217F201D962C1B00E575AB /* CatogoryMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatogoryMenuPresentationController.swift; sourceTree = "<group>"; };
 		E4217F231D962C4B00E575AB /* CategoryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMenuController.swift; sourceTree = "<group>"; };
 		E4217F261D962EFF00E575AB /* CateogryMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogryMenuCell.swift; sourceTree = "<group>"; };
+		E4217F291D96655100E575AB /* NewFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFormula.storyboard; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
@@ -198,6 +200,14 @@
 			path = CategoryMenuCell;
 			sourceTree = "<group>";
 		};
+		E4217F281D9664DE00E575AB /* NewFormula */ = {
+			isa = PBXGroup;
+			children = (
+				E4217F291D96655100E575AB /* NewFormula.storyboard */,
+			);
+			path = NewFormula;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +285,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4217F281D9664DE00E575AB /* NewFormula */,
 				E4217F221D962C4100E575AB /* CategoryMenu */,
 				E4DF65F91D8D94B1005CE518 /* TabBar */,
 				E4DF65F51D8D94B1005CE518 /* Navigation */,
@@ -530,6 +541,7 @@
 				E4E021F11D9019AA00DED99A /* CardFormulaCell.xib in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
+				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E4E021FF1D90454A00DED99A /* NoResultCell.xib in Resources */,
 				E4E021F51D9019AA00DED99A /* NormalFormulaCell.xib in Resources */,
 				E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */,

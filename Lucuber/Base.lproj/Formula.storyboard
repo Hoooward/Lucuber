@@ -44,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qct-Nr-Yyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-522.39999999999998" y="-111.0944527736132"/>
+            <point key="canvasLocation" x="-522" y="-39"/>
         </scene>
         <!--Formula View Controller-->
         <scene sceneID="221-VO-LLJ">
@@ -57,7 +57,28 @@
                     <view key="view" contentMode="scaleToFill" id="jiv-bs-rKs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mJ-Cr-lKZ">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="BU1-8U-UYJ"/>
+                                    <constraint firstAttribute="height" constant="40" id="ISF-zA-x9O"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="QyG-VI-UpD"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="mIx-sU-v76"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="plus"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="QyG-VI-UpD"/>
+                                        <exclude reference="mIx-sU-v76"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="78i-wz-6h6" firstAttribute="top" secondItem="7mJ-Cr-lKZ" secondAttribute="bottom" constant="20" id="WL7-gU-iXD"/>
+                            <constraint firstAttribute="trailing" secondItem="7mJ-Cr-lKZ" secondAttribute="trailing" constant="20" id="mwD-lg-xTa"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lt6-Qk-mcl"/>
                 </viewController>
@@ -65,6 +86,14 @@
                 <customObject id="XOb-UH-7xw" customClass="CategoryMenuAnimator" customModule="Lucuber" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-522" y="636"/>
+        </scene>
+        <!--NewFormula-->
+        <scene sceneID="bvE-bL-U1H">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewFormula" id="vqd-NG-bg4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lJv-B0-RbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="371" y="697"/>
         </scene>
         <!--公式-->
         <scene sceneID="gUB-O9-Owu">
@@ -88,7 +117,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="popover" width="340" height="271"/>
+        <image name="plus" width="44" height="44"/>
+        <image name="popover" width="69" height="271"/>
         <image name="tabbar_gongshi" width="30" height="30"/>
         <image name="tabbar_gongshi_sele" width="30" height="30"/>
     </resources>
