@@ -67,7 +67,7 @@
                     <constraint firstItem="RzW-IZ-j14" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mch-qt-XgW"/>
                     <constraint firstItem="b0c-Ui-9tF" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tcD-ak-YfW"/>
                     <constraint firstItem="k22-5h-CPC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="wFy-EG-ZfH"/>
-                    <constraint firstAttribute="trailing" secondItem="k22-5h-CPC" secondAttribute="trailing" constant="40" id="wwO-5H-caN"/>
+                    <constraint firstAttribute="trailing" secondItem="k22-5h-CPC" secondAttribute="trailing" constant="20" id="wwO-5H-caN"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

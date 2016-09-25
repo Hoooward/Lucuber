@@ -118,7 +118,7 @@ public func getCategoryMenusAtRealm(mode: UploadFormulaMode) -> [Category] {
     
     let realm = try! Realm()
     let predicate = NSPredicate(format: "mode == %@", mode.rawValue)
-    return realm.objects(RCategory.self).filter(predicate).map { $0.convertToCategory() }
+    return realm.objects(RCategory.self).filter(predicate).map { $0.convertToCategory() }.sorted { $0.sortIndex < $1.sortIndex }
     
 }
 

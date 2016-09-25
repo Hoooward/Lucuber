@@ -69,8 +69,10 @@ class FormulaTextViewCell: UITableViewCell {
             rotationButton.updateButtonStyle(with: .cercle, rotation: formulaContent.rotation)
             
             
-            if let formulaText = formulaContent.text   {
-                formulaLabel.text = formulaText
+            if let formulaText = formulaContent.text {
+                
+                
+                formulaLabel.attributedText = formulaText.setAttributesFitDetailLayout(style: .center)
                 formulaLabel.isHidden = textView.isFirstResponder
                 placeholderLabel.isHidden = !formulaText.isEmpty
                 
@@ -141,8 +143,9 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         
         placeholderLabel.isHidden = textView.text.characters.count > 0
-        self.formulaLabel.attributedText = textView.text.setAttributesFitDetailLayout(style: .detail)
+        self.formulaLabel.attributedText = textView.text.setAttributesFitDetailLayout(style: .center)
         self.formulaLabel.isHidden = false
+        
         
         formulaContent?.text = textView.text
         self.rotationButton.isSelected = false

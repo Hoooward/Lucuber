@@ -69,7 +69,7 @@ class CategoryMenuController: UIViewController, UITableViewDelegate, UITableView
         
         categoryDidChanged?(categorys[indexPath.row])
         
-        delay(0.25) {
+        delay(0.1) {
             
             self.dismiss(animated: true, completion: nil)
         }

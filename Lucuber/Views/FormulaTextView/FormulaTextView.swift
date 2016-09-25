@@ -124,10 +124,13 @@ class FormulaTextView: UITextView {
             self.selectedRange = NSRange(location: range.location + (newText.characters.count == 1 ? 1 : 2), length: 0)
             
         case .spaceKey:
-            newText += " "
-            let range = self.selectedRange
-            replaceCharactersInRange(currentText: currentText, range: range, newText: newText)
-            self.selectedRange = NSRange(location: range.location + 1, length: 0)
+            
+            if !currentText.isDirty {
+                newText += " "
+                let range = self.selectedRange
+                replaceCharactersInRange(currentText: currentText, range: range, newText: newText)
+                self.selectedRange = NSRange(location: range.location + 1, length: 0)
+            }
             
         default:
             break
@@ -135,7 +138,7 @@ class FormulaTextView: UITextView {
         
         customDelegate?.formulaContentTextDidChanged()
         
-        spring(duration: 1.0) {
+        spring(duration: 0.1) {
             self.placeholdTextLabel.isHidden = self.text.characters.count > 0
         }
         

@@ -296,12 +296,10 @@ class FormulaContent: CustomStringConvertible {
     var cellHeight: CGFloat {
         let height: CGFloat = 50
         
-        let margin = Config.DetailFormula.screenMargin
-        
         if let text = text, text.characters.count > 0 {
             
-            let attributesText = text.setAttributesFitDetailLayout(style: .detail)
-            let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - (margin * 2) - 25 - 15, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.init(rawValue: 1), context: nil)
+            let attributesText = text.setAttributesFitDetailLayout(style: .center)
+            let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 60 - 20 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
             
             return rect.size.height + 30
         }

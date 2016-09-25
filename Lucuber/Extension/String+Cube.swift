@@ -11,6 +11,7 @@ import UIKit
 enum FormulaContentShowStyle {
     case normal
     case detail
+    case center
 }
 
 typealias AttributesDict = [String: AnyObject]
@@ -39,7 +40,14 @@ extension String {
                 NSForegroundColorAttributeName: UIColor.formulaDetailText(),
                 NSFontAttributeName: UIFont.formulaDetailContent()
             ]
-            //            textStyle.alignment = .center
+            
+        case .center:
+            attributes = [
+                NSForegroundColorAttributeName: UIColor.formulaDetailText(),
+                NSFontAttributeName: UIFont.formulaDetailContent()
+            ]
+            
+            textStyle.alignment = .center
         }
         
         let range = NSRange(location: 0, length: self.characters.count)
@@ -78,7 +86,15 @@ extension String {
                         NSForegroundColorAttributeName: UIColor.formulaDetailBrackets(),
                         NSFontAttributeName: UIFont.formulaDetailBrackets()
                     ]
+                    
+                case .center:
+                    attributes = [
+                        NSForegroundColorAttributeName: UIColor.formulaDetailBrackets(),
+                        NSFontAttributeName: UIFont.formulaDetailBrackets()
+                    ]
+                    
                 }
+                
                 
                 attributesText.addAttributes(attributes, range: result.range)
             }
@@ -112,6 +128,9 @@ extension String {
                     attributes = [NSForegroundColorAttributeName: UIColor.formulaNormalNumber()]
                     
                 case .detail:
+                    attributes = [NSForegroundColorAttributeName: UIColor.formulaDetailNumber()]
+                    
+                case .center:
                     attributes = [NSForegroundColorAttributeName: UIColor.formulaDetailNumber()]
                 }
                 
