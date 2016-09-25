@@ -27,6 +27,42 @@ public enum Category: String {
     case Pyraminx = "Pyraminx"
     case RubiksClock = "魔表"
     
+    var sortIndex: Int {
+        
+        switch self {
+        case .x2x2:
+            return 1
+        case .x3x3:
+            return 2
+        case .x4x4:
+            return 3
+        case .x5x5:
+            return 4
+        case .x6x6:
+            return 5
+        case .x7x7:
+            return 6
+        case .x8x8:
+            return 7
+        case .x9x9:
+            return 8
+        case .x10x10:
+            return 9
+        case .x11x11:
+            return 10
+        case .SquareOne:
+            return 11
+        case .Megaminx:
+            return 12
+        case .Pyraminx:
+            return 13
+        case .RubiksClock:
+            return 14
+        case .Other:
+            return 15
+        }
+    }
+    
 }
 
 /// FormulaViewController's collectionView Layout

@@ -183,7 +183,9 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
             
             menuVC.seletedCateogry = category
-            menuVC.categorys = categorys
+            menuVC.categorys = categorys.sorted {
+                $0.sortIndex < $1.sortIndex
+            }
             
             menuVC.categoryDidChanged = {
                 
