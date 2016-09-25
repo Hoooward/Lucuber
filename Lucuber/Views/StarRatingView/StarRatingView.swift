@@ -14,14 +14,29 @@ import UIKit
 
 class StarRatingView: UIView {
     
-    var notSelectedImage: UIImage = #imageLiteral(resourceName: "star_empty")
+    var notSelectedImage: UIImage = UIImage(named: "star_empty")! {
+        didSet {
+            refresh()
+        }
+    }
     
-    var fullSelectedImage: UIImage = #imageLiteral(resourceName: "star_full")
+    var fullSelectedImage: UIImage = UIImage(named: "star_full")! {
+        didSet {
+            refresh()
+        }
+    }
     
-    var halfSeletedImage: UIImage = #imageLiteral(resourceName: "star_full")
+    var halfSeletedImage: UIImage = UIImage(named: "star_full")! {
+        didSet {
+            refresh()
+        }
+    }
     
-    @IBInspectable var rating: Int = 0
-    
+    @IBInspectable var rating: Int = 0 {
+        didSet {
+            refresh()
+        }
+    }
     
     var imageViews = [UIImageView]()
     var maxRating: Int = 5 {
@@ -37,7 +52,7 @@ class StarRatingView: UIView {
             }
             
             setNeedsLayout()
-            
+            refresh()
         }
     }
     
