@@ -122,7 +122,7 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
             
             if !formulaText.isEmpty {
                 
-                textView.text = formulaText
+                textView.attributedText = formulaText.setAttributesFitDetailLayout(style: .detail)
             }
         }
         

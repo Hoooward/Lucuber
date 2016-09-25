@@ -1090,6 +1090,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = M8E7Y88Q7R;
 				INFOPLIST_FILE = Lucuber/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1105,6 +1106,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = M8E7Y88Q7R;
 				INFOPLIST_FILE = Lucuber/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
