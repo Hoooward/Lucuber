@@ -117,9 +117,7 @@ class TopControl: UIView {
         button.isEnabled = false
         seletedButton = button
         
-        
         buttonClickedUpdateIndicaterPoztion?(button.tag)
-        printLog("")
         
     }
     

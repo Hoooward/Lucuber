@@ -9,36 +9,39 @@
 import UIKit
 
 @objc protocol StarRatingViewDelegate {
+    
     func ratingDidChange(rateView: StarRatingView, rating: Int)
 }
 
 class StarRatingView: UIView {
     
-    var notSelectedImage: UIImage = UIImage(named: "star_empty")! {
+    // MARK: - Properties
+    
+    private var notSelectedImage: UIImage = UIImage(named: "star_empty")! {
         didSet {
             refresh()
         }
     }
     
-    var fullSelectedImage: UIImage = UIImage(named: "star_full")! {
+    private var fullSelectedImage: UIImage = UIImage(named: "star_full")! {
         didSet {
             refresh()
         }
     }
     
-    var halfSeletedImage: UIImage = UIImage(named: "star_full")! {
+    private var halfSeletedImage: UIImage = UIImage(named: "star_full")! {
         didSet {
             refresh()
         }
     }
     
+    @IBInspectable var editable: Bool = true
     @IBInspectable var rating: Int = 0 {
         didSet {
             refresh()
         }
     }
     
-    var imageViews = [UIImageView]()
     var maxRating: Int = 5 {
         didSet {
             imageViews.forEach { $0.removeFromSuperview() }
@@ -56,29 +59,14 @@ class StarRatingView: UIView {
         }
     }
     
-    var midMargin: CGFloat = 0
-    var leftMargin: CGFloat = 0
-    var minImageSize: CGSize = CGSize.zero
-    
+    private var imageViews = [UIImageView]() 
     weak var delegate: StarRatingViewDelegate?
     
-    @IBInspectable var editable: Bool = true
+    private var midMargin: CGFloat = 0
+    private var leftMargin: CGFloat = 0
+    private var minImageSize: CGSize = CGSize.zero
     
-    private func refresh() {
-        
-        imageViews.enumerated().forEach {
-            index, imageView in
-            
-            if self.rating >= index + 1 {
-                imageView.image = fullSelectedImage
-            } else if rating > index {
-                imageView.image = halfSeletedImage
-            } else {
-                imageView.image = notSelectedImage
-            }
-        }
-    
-    }
+    // MARK: - Life Cycle
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -98,6 +86,24 @@ class StarRatingView: UIView {
             index, imageView in
             
             imageView.frame = CGRect(x: self.leftMargin + CGFloat(index) * (self.midMargin + imageWidth), y: 0, width: imageWidth, height: imageHeight)
+        }
+        
+    }
+    
+    // MARK: - Action & Target
+    
+    private func refresh() {
+        
+        imageViews.enumerated().forEach {
+            index, imageView in
+            
+            if self.rating >= index + 1 {
+                imageView.image = fullSelectedImage
+            } else if rating > index {
+                imageView.image = halfSeletedImage
+            } else {
+                imageView.image = notSelectedImage
+            }
         }
         
     }
