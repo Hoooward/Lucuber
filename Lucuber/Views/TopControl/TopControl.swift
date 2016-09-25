@@ -17,6 +17,7 @@ class TopControl: UIView {
     var buttonWidth: CGFloat = 0
     
     var buttonClickedUpdateIndicaterPoztion: ((Int) -> Void)?
+    var updateNewFormulaButtonPoztion: (() -> Void)?
     
     private lazy var indicaterView: UIView = {
         
@@ -95,6 +96,8 @@ class TopControl: UIView {
         
         let scale = (CGFloat(buttonCount - 1) * UIScreen.main.bounds.width) / (UIScreen.main.bounds.width - buttonWidth)
         indicaterView.center.x = scrollerViewOffsetX / scale + (buttonWidth * 0.5)
+        
+        updateNewFormulaButtonPoztion?()
 
     }
     

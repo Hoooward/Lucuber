@@ -66,6 +66,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="mIx-sU-v76"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="plus"/>
+                                <state key="disabled" backgroundImage="plus"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="QyG-VI-UpD"/>
@@ -86,6 +87,7 @@
                     <navigationItem key="navigationItem" id="Lt6-Qk-mcl"/>
                     <connections>
                         <outlet property="newFormulaButton" destination="7mJ-Cr-lKZ" id="kbw-V4-JHu"/>
+                        <outlet property="newFormulaButtonTrailing" destination="mwD-lg-xTa" id="B1L-DB-x30"/>
                         <segue destination="vqd-NG-bg4" kind="presentation" identifier="ShowNewFormula" id="tUZ-bw-IOL"/>
                     </connections>
                 </viewController>

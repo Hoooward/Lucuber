@@ -204,7 +204,40 @@ public class Formula: AVObject, AVSubclassing {
             return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n"  + "type = \(type)" + "-------------------------------"
         }
     }
-
+    
+    /// 判断信息是否都正确填写
+    func isReadyforPushToLeanCloud() -> Bool {
+        
+        var contentIsReady = false
+        
+        // 如果contents的第一个text有值, 就可以
+        if let content = self.contents.first , let text = content.text {
+            contentIsReady = !text.isDirty
+        }
+        
+        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !contentIsReady {
+            
+            return false
+        }
+        
+        return true
+    }
+    
+    func prepareForPushToLeanCloud() {
+        
+        //准备保存前, 将空白的 content 内容删除掉
+        
+        var catchContents = self.contents
+        
+        // 如果某一个创建的content其中的text isDirty, 是删除掉这个content
+        for (index, content) in catchContents.enumerated() {
+            if content.text?.isDirty ?? true {
+                catchContents.remove(at: index)
+            }
+        }
+        
+        self.contents = catchContents
+    }
 
 }
 

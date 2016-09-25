@@ -107,6 +107,7 @@ class InputAccessoryView: UIView {
         
         self.backgroundColor = UIColor.white
         self.alpha = 1
+        self.isUserInteractionEnabled = true
         
         FRButton.translatesAutoresizingMaskIntoConstraints = false
         FLButton.translatesAutoresizingMaskIntoConstraints = false

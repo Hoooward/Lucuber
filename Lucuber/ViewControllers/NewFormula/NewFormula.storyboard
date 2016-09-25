@@ -21,6 +21,9 @@
                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
+                    <connections>
+                        <segue destination="yeF-N7-h19" kind="relationship" relationship="rootViewController" id="xWf-nS-2bE"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1sT-ec-fNR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -191,7 +194,7 @@
                         <barButtonItem key="leftBarButtonItem" title="取消" id="vbt-G9-ck0">
                             <color key="tintColor" red="0.1660759896" green="0.57775348419999994" blue="0.99855363370000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="dismiss:" destination="yeF-N7-h19" id="ePc-PG-8IS"/>
+                                <action selector="dismissWithSender:" destination="yeF-N7-h19" id="dFK-Pt-565"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="保存" id="AhE-28-v3Y">

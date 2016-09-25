@@ -15,6 +15,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     @IBOutlet weak var newFormulaButton: UIButton!
     var topControlSeletedButton: UIButton?
     var containerScrollerOffsetX: CGFloat = 0
+    @IBOutlet weak var newFormulaButtonTrailing: NSLayoutConstraint!
     
     private lazy var containerScrollerView: UIScrollView  = {
         
@@ -90,6 +91,22 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             let index = buttonTag - Config.TopControl.buttonTagBaseValue
             let offsetX =  CGFloat(index) * UIScreen.main.bounds.width
             self.containerScrollerView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+
+        }
+        
+        let defaultConstat = self.newFormulaButtonTrailing.constant
+        topControl.updateNewFormulaButtonPoztion = { [unowned self] in
+            
+            // NewFormulaButton tranfrom X
+            let maxDistance: CGFloat = 80
+            let maxOffsetX = UIScreen.main.bounds.width
+            let scale =  maxOffsetX / maxDistance
+            
+            self.newFormulaButtonTrailing.constant = defaultConstat - (self.containerScrollerView.contentOffset.x / scale)
+            self.newFormulaButton.layoutIfNeeded()
+            
+            self.newFormulaButton.alpha = 1 - (self.containerScrollerView.contentOffset.x / 100)
+            
         }
         
         view.insertSubview(containerScrollerView, at: 0)
@@ -204,8 +221,27 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
             break
             
-        default:
-            break
+        case .showNewFormula:
+            
+            let nvc = segue.destination as! UINavigationController
+            let vc = nvc.viewControllers[0] as! NewFormulaViewController
+            
+            vc.editType = .newFormula
+            
+            vc.view.alpha = 1
+            
+            if let presentingVC = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
+                
+                let formula = Formula.creatNewDefaultFormula()
+                
+                formula.category = presentingVC.seletedCategory
+                vc.formula = formula
+                
+                vc.savedNewFormula = {
+                    
+                    presentingVC.collectionView?.reloadData()
+                }
+            }
         }
         
     }
@@ -232,6 +268,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 vc.cancelSearch()
             }
         }
+        
     }
     
 }
@@ -261,12 +298,16 @@ extension FormulaViewController: UIScrollViewDelegate {
         
         updateNavigationBarButtonItemStatus()
         
+        newFormulaButton.isEnabled = true
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         topControl.updateIndicaterPozition(scrollerViewOffsetX: scrollView.contentOffset.x)
         
+        
+        newFormulaButton.isEnabled = false
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
