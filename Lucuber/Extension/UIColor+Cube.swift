@@ -54,7 +54,8 @@ extension UIColor {
     }
     
     class func addFormulaNotActive() -> UIColor {
-        return UIColor ( red: 0.6667, green: 0.6667, blue: 0.6667, alpha: 1.0 )
+//        return UIColor (red: 0.6667, green: 0.6667, blue: 0.6667, alpha: 1.0 )
+        return UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1)
     }
     
     class func addFormulaActive() -> UIColor {

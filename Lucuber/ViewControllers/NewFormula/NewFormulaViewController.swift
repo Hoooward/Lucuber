@@ -489,6 +489,8 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             fatalError()
         }
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         view.endEditing(true)
         
         switch section {
@@ -619,7 +621,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
             
         case .addFormula:
-            return 80
+            return 50
         default:
             return 30
         }

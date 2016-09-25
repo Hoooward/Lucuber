@@ -12,14 +12,28 @@ class NewFormulaTextCell: UITableViewCell {
 
     @IBOutlet weak var indicaterLabel: UILabel!
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        indicaterLabel.text = "添加新输入框"
+        indicaterLabel.textColor = UIColor.cubeTintColor()
+        indicaterLabel.highlightedTextColor = UIColor.cubeTintColor()
+    }
+    
     var active: Bool = true {
         didSet {
             changeIndicaterLabelStatus(active: active)
         }
     }
+    
     func changeIndicaterLabelStatus(active: Bool) {
-        indicaterLabel.textColor = active ? UIColor.addFormulaActive() : UIColor.addFormulaNotActive()
+        
+        indicaterLabel.textColor = active ? UIColor.cubeTintColor() : UIColor.addFormulaNotActive()
         self.isUserInteractionEnabled = active
+        
+        self.contentView.backgroundColor = active ? UIColor.white : UIColor.addFormulaNotActive()
+        
     }
 
 }
