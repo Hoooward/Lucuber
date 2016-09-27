@@ -20,7 +20,7 @@ public class CubeHUD: NSObject {
     private lazy var containerView: UIView = {
         
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         return view
         
     }()
@@ -83,7 +83,7 @@ public class CubeHUD: NSObject {
                         
                         self.shardInstance.containerView.addSubview(self.shardInstance.activitIndicator)
                         self.shardInstance.activitIndicator.center = self.shardInstance.containerView.center
-                        self.shardInstance.containerView.addSubview(self.shardInstance.indicatorLabel)
+//                        self.shardInstance.containerView.addSubview(self.shardInstance.indicatorLabel)
                         self.shardInstance.indicatorLabel.center = CGPoint(x: self.shardInstance.containerView.center.x, y: self.shardInstance.containerView.center.y + 25)
                         self.shardInstance.activitIndicator.startAnimating()
                         

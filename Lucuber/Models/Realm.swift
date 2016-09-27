@@ -265,7 +265,7 @@ extension AVUser {
 class RUser: Object {
     
     dynamic var userID: String = ""
-    dynamic var nickName: String = ""
+    dynamic var nickName: String?
     dynamic var userName: String = ""
     dynamic var avatarImageUrl: String?
     
@@ -273,8 +273,10 @@ class RUser: Object {
         
         let user = AVUser()
         user.set(userID: userID)
-        user.set(nikeName: nickName)
         
+        if let nickName = nickName {
+            user.set(nikeName: nickName)
+        }
         
         if let url = avatarImageUrl {
             user.setUserAvatar(imageUrl: url)
@@ -293,6 +295,7 @@ extension Formula {
         let formula = RFormula()
         formula.objectID = objectID
         formula.name = name
+        
         formula.imageName = imageName
         formula.favorate = favorate
         formula.creatUserID = creatUser.objectId

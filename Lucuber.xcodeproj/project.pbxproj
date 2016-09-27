@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
+		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
 		E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
 		E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */; };
 		E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A301D93D8C0003CF073 /* CubeAlert.swift */; };
@@ -51,6 +52,8 @@
 		E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926671D96E06F004D58BF /* FormulaTextView.swift */; };
 		E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */; };
 		E47926761D96EB85004D58BF /* NewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */; };
+		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
+		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
@@ -87,6 +90,14 @@
 		E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E021F91D9023C700DED99A /* String+Cube.swift */; };
 		E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E021FC1D90454A00DED99A /* NoResultCell.swift */; };
 		E4E021FF1D90454A00DED99A /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4E021FD1D90454A00DED99A /* NoResultCell.xib */; };
+		E4F9F1171D991E040076C57C /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F10D1D991E040076C57C /* BorderButton.swift */; };
+		E4F9F1181D991E040076C57C /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F10E1D991E040076C57C /* BorderTextField.swift */; };
+		E4F9F1191D991E040076C57C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F10F1D991E040076C57C /* CameraPreviewView.swift */; };
+		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
+		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
+		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
+		E4F9F11D1D991E040076C57C /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */; };
+		E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1161D991E040076C57C /* RegisterMainViewController.swift */; };
 		E4FF41C91D91605000B64C46 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41C81D91605000B64C46 /* Realm.swift */; };
 		E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */; };
 		E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */; };
@@ -99,6 +110,7 @@
 		5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
+		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		E4207A2A1D93CA7F003CF073 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeHUD.swift; sourceTree = "<group>"; };
 		E4207A301D93D8C0003CF073 /* CubeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAlert.swift; sourceTree = "<group>"; };
@@ -142,6 +154,8 @@
 		E47926671D96E06F004D58BF /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
 		E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSectionHeaderView.swift; sourceTree = "<group>"; };
 		E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewSectionHeaderView.xib; sourceTree = "<group>"; };
+		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
+		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -178,6 +192,14 @@
 		E4E021F91D9023C700DED99A /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		E4E021FC1D90454A00DED99A /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		E4E021FD1D90454A00DED99A /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
+		E4F9F10D1D991E040076C57C /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
+		E4F9F10E1D991E040076C57C /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
+		E4F9F10F1D991E040076C57C /* CameraPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
+		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
+		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
+		E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickNameViewController.swift; sourceTree = "<group>"; };
+		E4F9F1161D991E040076C57C /* RegisterMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterMainViewController.swift; sourceTree = "<group>"; };
 		E4FF41C81D91605000B64C46 /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Cube.swift"; sourceTree = "<group>"; };
 		E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -444,6 +466,14 @@
 			path = SectionHeader;
 			sourceTree = "<group>";
 		};
+		E497E9FB1D9A04D300BB9A2D /* NavigationTitleLabel */ = {
+			isa = PBXGroup;
+			children = (
+				E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */,
+			);
+			path = NavigationTitleLabel;
+			sourceTree = "<group>";
+		};
 		E4AF556C1D97BD320053B9CE /* NewFormulaButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -497,6 +527,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E497E9FB1D9A04D300BB9A2D /* NavigationTitleLabel */,
 				E4AF556C1D97BD320053B9CE /* NewFormulaButton */,
 				E47926661D96E065004D58BF /* FormulaTextView */,
 				E479265B1D96DD39004D58BF /* CategoryItem */,
@@ -528,6 +559,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4F9F10C1D991E040076C57C /* Login */,
 				E47926291D969050004D58BF /* Keyboard */,
 				E4217F281D9664DE00E575AB /* NewFormula */,
 				E4217F221D962C4100E575AB /* CategoryMenu */,
@@ -617,6 +649,7 @@
 				E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */,
 				E4207A2A1D93CA7F003CF073 /* Animation.swift */,
 				E4207A321D93E1CB003CF073 /* UIViewController+Cube.swift */,
+				E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -674,6 +707,22 @@
 				E4E021FD1D90454A00DED99A /* NoResultCell.xib */,
 			);
 			path = NoResult;
+			sourceTree = "<group>";
+		};
+		E4F9F10C1D991E040076C57C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E48A74A31D992251006151F4 /* Resgin.storyboard */,
+				E4F9F10D1D991E040076C57C /* BorderButton.swift */,
+				E4F9F10E1D991E040076C57C /* BorderTextField.swift */,
+				E4F9F10F1D991E040076C57C /* CameraPreviewView.swift */,
+				E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */,
+				E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */,
+				E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */,
+				E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */,
+				E4F9F1161D991E040076C57C /* RegisterMainViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		E4FFAA731D8D29A30039BA8A = {
@@ -784,6 +833,7 @@
 				E479264B1D96DC5F004D58BF /* CategoryPickViewCell.xib in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
 				E479265A1D96DC5F004D58BF /* TypeSelectedCell.xib in Resources */,
+				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E4FFAA9B1D8D29DE0039BA8A /* Assets.xcassets in Resources */,
 				E4E021F11D9019AA00DED99A /* CardFormulaCell.xib in Resources */,
@@ -859,8 +909,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */,
+				E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */,
+				E4F9F11D1D991E040076C57C /* RegisterPickNameViewController.swift in Sources */,
 				E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */,
 				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
+				E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */,
 				E47926511D96DC5F004D58BF /* NameTextViewCell.swift in Sources */,
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
 				E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */,
@@ -893,9 +947,13 @@
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,
 				E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
+				E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
 				E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */,
 				E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */,
+				E4F9F1181D991E040076C57C /* BorderTextField.swift in Sources */,
+				E4F9F1191D991E040076C57C /* CameraPreviewView.swift in Sources */,
+				E4F9F1171D991E040076C57C /* BorderButton.swift in Sources */,
 				E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
@@ -908,6 +966,7 @@
 				E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */,
 				E479264C1D96DC5F004D58BF /* CategorySeletedCell.swift in Sources */,
 				E47926591D96DC5F004D58BF /* TypeSelectedCell.swift in Sources */,
+				E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */,
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
 				E479262E1D96D0B7004D58BF /* NewFormulaHeadView.swift in Sources */,
 				E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */,
@@ -916,6 +975,7 @@
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */,
+				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
 				E4B09BA61D8E65510090671F /* TopControl.swift in Sources */,
 				E47926211D96820B004D58BF /* RotationButton.swift in Sources */,

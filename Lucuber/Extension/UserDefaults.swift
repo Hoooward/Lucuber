@@ -9,11 +9,32 @@
 import UIKit
 
 fileprivate let needUpdateLibraryKey = "needUpdateLibraryKey"
+fileprivate let newUserNickNameKey = "newUserNickName"
+fileprivate let newUserAvatarURLKey = "newUserAvatarURL"
 
 
-
+/// AVUser
 extension UserDefaults {
     
+    class func setNewUser(avatarURL: String) {
+        
+        standard.set(avatarURL, forKey: newUserAvatarURLKey)
+    }
+    
+    class func getNewUserAvatarURL() -> String? {
+        
+        return standard.object(forKey: newUserAvatarURLKey) as? String
+    }
+    
+    class func setNewUser(userName: String) {
+        
+        standard.set(userName, forKey: newUserNickNameKey)
+    }
+    
+    class func getNewUserNickName() -> String? {
+        
+        return standard.object(forKey: newUserNickNameKey) as? String
+    }
     
     class func setNeedUpdateLibrary(need: Bool) {
         

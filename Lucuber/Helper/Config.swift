@@ -13,11 +13,21 @@ extension Notification.Name {
     static let formulaCategoryMenuDidmissNotification = Notification.Name("formulaCategoryMenuDismissNotification")
     
     static let categotyPickViewDidSeletedRowNotification = Notification.Name("categotyPickViewDidSeletedRowNotification")
+    
+    
+    
 }
 
 public class Config {
     
     public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30
+    
+    public static let mobilePhoneCodeInSeconds = 59
+    
+    public struct ErrorCode {
+        
+        public static let registered: Int = 888888
+    }
     
     public struct TopControl {
         public static let height: CGFloat = 36
@@ -73,6 +83,11 @@ public class Config {
         public static let starRating: String = "starRatingChanged"
         public static let formula: String = "formulaChanged"
         
+    }
+    
+    public struct Avatar {
+        
+        public static let maxSize: CGSize = CGSize(width: 414, height: 414)
     }
     
 }

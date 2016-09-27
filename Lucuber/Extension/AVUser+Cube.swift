@@ -34,9 +34,9 @@ extension AVUser {
         setObject(userID, forKey: userID)
     }
     
-    func getUserNickName() -> String {
+    func getUserNickName() -> String? {
         
-        return object(forKey: userNickNameKey) as? String ?? "无"
+        return object(forKey: userNickNameKey) as? String
     }
     
     func getUserAvatarImageUrl() -> String? {

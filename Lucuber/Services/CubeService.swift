@@ -186,7 +186,11 @@ internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
 
 // MARK: - Login
 
-func validateMobile(mobile: String, failureHandler: ((NSError?) -> Void)?, completion: (() -> Void)?) {
+func validateMobile(mobile: String,
+                    checkType: LoginType,
+                    failureHandler: ((NSError?) -> Void)?,
+                    completion: (() -> Void)?) {
+    
     
     
     let query = AVQuery(className: "_User")
@@ -196,25 +200,68 @@ func validateMobile(mobile: String, failureHandler: ((NSError?) -> Void)?, compl
         
         users, error in
         
-        if let findUsers = users , findUsers.count == 0 {
+        switch checkType {
             
-            completion?()
+        case .register:
             
-        } else {
+            if error == nil {
+                
+                if let findUsers = users {
+                    
+                    // 有找个一个存在的用户
+                    if let user = findUsers.first as? AVUser,
+                       let _ = user.getUserNickName(),
+                       let _ = user.getUserAvatarImageUrl() {
+                        
+                        // 账户已经注册。且有头像， 有昵称
+                        let error = NSError(domain: "", code: Config.ErrorCode.registered, userInfo: nil)
+                        failureHandler?(error)
+                        
+                    } else {
+                        completion?()
+                        
+                    }
+                    
+                } else {
+                    completion?()
+                }
+                
+            } else {
+               
+                failureHandler?(error as? NSError)
+            }
             
-            failureHandler?(error as NSError?)
+            
+        case .login:
+            
+            if error == nil {
+                
+                if let findUsers = users, findUsers.count > 0 {
+                    
+                    completion?()
+                    
+                } else {
+                    
+                    failureHandler?(error as NSError?)
+                }
+                
+            } else {
+                
+                 failureHandler?(error as NSError?)
+                
+            }
+ 
         }
-        
+
     }
     
-    
 }
-
 
 /// 如果已经登录,就去获取是否需要更新公式的bool值
 /// 因为 getObjectInBackgroundWithId 是并发的, 应用程序一启动如果第一个视图是 Formula
 /// 的话会第一时间使用 NeedUpdateLibrary 属性进行 Formula 数据加载. 即使在 LeanCloud 中 将
 /// 值设为 ture 后的第一次启动, NeedUpdateLibrary 的值还是 false. 第二次启动才会更新 Libray.
+
 public func initializeWhetherNeedUploadLibraryFormulas() {
     
     
@@ -241,6 +288,129 @@ public func initializeWhetherNeedUploadLibraryFormulas() {
         
         UserDefaults.setNeedUpdateLibrary(need: true)
     }
+}
+
+
+
+/// 获取短信验证码
+public func fetchMobileVerificationCode(phoneNumber: String,
+                                        failureHandler: ((NSError) -> Void)?,
+                                        completion: (() -> Void)? ) {
+    
+    AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { succeeded, error in
+        
+        if succeeded {
+            
+            completion?()
+            
+        } else {
+            
+            if let error = error as? NSError {
+                
+                failureHandler?(error)
+                
+            } else {
+                
+                let error = NSError(domain: "请求失败", code: 1100, userInfo: nil)
+                
+                failureHandler?(error)
+            }
+            
+        }
+    }
+    
+}
+
+
+/// 注册登录
+public func signUpOrLogin(withPhonerNumber phoneNumber: String,
+                          smsCode: String,
+                          failureHandler: ((NSError) -> Void)?,
+                          completion: ((AVUser) -> Void)? ) {
+    
+    AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
+        
+        
+        if error == nil {
+            
+            printLog("登录成功")
+            
+            if let user = user {
+                
+                completion?(user)
+                
+            }
+            
+        } else {
+            
+            if let error = error as? NSError {
+                
+                failureHandler?(error)
+                
+            } else {
+                
+                let error = NSError(domain: "请求失败", code: 1111, userInfo: nil)
+                failureHandler?(error)
+            }
+        }
+        
+    }
+}
+
+
+
+/// 上传头像
+public func updateAvatar(withImageData imageData: Data,
+                                      failureHandler: ((NSError?)->Void)?,
+                                      completion: ((String) -> Void)? ) {
+    
+    let uploadFile = AVFile(data: imageData)!
+    
+    uploadFile.saveInBackground({ succeeded, error in
+        
+        if succeeded {
+            
+            completion?(uploadFile.url)
+            
+        } else {
+            
+            failureHandler?(error as NSError?)
+        }
+        
+    })
+    
+}
+
+/// 上传用户信息
+public func updateUserInfo(nickName: String, avatarURL: String,
+                                 failureHandler: ((NSError?)->Void)?,
+                                 completion: (() -> Void)? ) {
+    
+    // TODO: - 如果保存失败， 如何处理
+    if let currentUser = AVUser.current() {
+        
+        currentUser.set(nikeName: nickName)
+        currentUser.setUserAvatar(imageUrl: avatarURL)
+        currentUser.saveInBackground({ successed, error in
+            
+            if error != nil {
+                
+                failureHandler?(error as? NSError)
+                
+            } else {
+                completion?()
+            }
+            
+        })
+        
+    } else {
+       
+        let error = NSError(domain: "", code: 9999, userInfo: nil)
+        
+        failureHandler?(error)
+        
+    }
+    
 }
 
 

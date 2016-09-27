@@ -8,8 +8,11 @@
 
 import UIKit
 import AVOSCloud
+import Photos
+import CoreTelephony
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -24,6 +27,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Formula.registerSubclass()
         
+        
+        // 1 判断是否登录
+        
+        if let currentUser = AVUser.current() {
+            
+            if let avatarURL = currentUser.getUserAvatarImageUrl(),
+                let nickName = currentUser.getUserNickName() {
+                
+                // 进入 Main
+                
+                let storyboard = UIStoryboard(name: "Main" , bundle: nil)
+                
+                let vc = storyboard.instantiateInitialViewController()
+                
+                
+            } else {
+            
+                // 进入 Main ， 进入设置选项卡， 设置头像。
+            }
+            
+        } else {
+            
+            // 进入 Register
+        }
+        
+     
         
         
         initializeWhetherNeedUploadLibraryFormulas()
