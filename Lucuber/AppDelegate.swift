@@ -32,66 +32,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = determineRootViewController()
         window?.makeKeyAndVisible()
         
-        /// 注册通知
+        /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
-        
-        
-        // 1 判断是否登录
-        
-        if let currentUser = AVUser.current() {
-            
-            if let avatarURL = currentUser.getUserAvatarImageUrl(),
-                let nickName = currentUser.getUserNickName() {
-                
-                // 进入 Main
-                
-                let storyboard = UIStoryboard(name: "Main" , bundle: nil)
-                
-                let vc = storyboard.instantiateInitialViewController()
-                
-                
-            } else {
-            
-                // 进入 Main ， 进入设置选项卡， 设置头像。
-            }
-            
-        } else {
-            
-            // 进入 Register
-        }
-        
-     
-        
         
         initializeWhetherNeedUploadLibraryFormulas()
         
         
-        
-//        // TODO: 测试登陆账户
-//        if let user = AVUser.current() {
-//            
-//            printLog("当前登录账户:\(user.username)")
-//            
-//        } else {
-//            
-//            AVUser.logIn(withUsername: "12345", password: "12345")
-//        }
-
-        
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)
         
-        
-        if let user = AVUser.current() {
+        if let _ = AVUser.current() {
             printLog("currentUser = \(AVUser.current())")
-            
             printLog("userNickName: \(AVUser.current().getUserNickName())")
             printLog("userAvatarURL: = \(AVUser.current().getUserAvatarImageUrl())")
             
         } else {
-            
             printLog("尚未登录")
         }
+        
         return true
     }
 

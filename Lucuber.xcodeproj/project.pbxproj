@@ -54,6 +54,7 @@
 		E47926761D96EB85004D58BF /* NewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */; };
 		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
 		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
+		E4A963AA1D9D183F00305F3D /* MyFormulaVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A963A91D9D183F00305F3D /* MyFormulaVisitorView.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B991D8E38610090671F /* UIBarButtonItem+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
@@ -156,6 +157,7 @@
 		E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewSectionHeaderView.xib; sourceTree = "<group>"; };
 		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
+		E4A963A91D9D183F00305F3D /* MyFormulaVisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaVisitorView.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B981D8E38610090671F /* UIBarButtonItem+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Cube.swift"; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -474,6 +476,14 @@
 			path = NavigationTitleLabel;
 			sourceTree = "<group>";
 		};
+		E4A963A81D9D182C00305F3D /* VisitorView */ = {
+			isa = PBXGroup;
+			children = (
+				E4A963A91D9D183F00305F3D /* MyFormulaVisitorView.swift */,
+			);
+			path = VisitorView;
+			sourceTree = "<group>";
+		};
 		E4AF556C1D97BD320053B9CE /* NewFormulaButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,6 +569,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4A963A81D9D182C00305F3D /* VisitorView */,
 				E4F9F10C1D991E040076C57C /* Login */,
 				E47926291D969050004D58BF /* Keyboard */,
 				E4217F281D9664DE00E575AB /* NewFormula */,
@@ -949,6 +960,7 @@
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
+				E4A963AA1D9D183F00305F3D /* MyFormulaVisitorView.swift in Sources */,
 				E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */,
 				E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */,
 				E4F9F1181D991E040076C57C /* BorderTextField.swift in Sources */,

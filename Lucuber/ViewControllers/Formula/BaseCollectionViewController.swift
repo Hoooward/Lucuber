@@ -17,11 +17,13 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // MARK: - Properties
     
+    lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
+    
     enum SegueIdentifier: String {
         case showFormulaDetail = "ShowFormulaDetail"
     }
     
-    fileprivate var formulasData: [[Formula]] = []
+    var formulasData: [[Formula]] = []
     fileprivate var searchResult: [Formula] = []
     
     var uploadMode: UploadFormulaMode = .my
@@ -235,11 +237,14 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                     
                     strongSelf.formulasData = resultFormula
                     
+                    strongSelf.vistorView.isHidden = true
+                    
                 } else {
                     
                     strongSelf.searchBar.isHidden = true
                     strongSelf.formulasData = resultFormula
                     
+                    strongSelf.view.addSubview(strongSelf.vistorView)
                 }
                 
                 strongSelf.activityIndicator.stopAnimating()

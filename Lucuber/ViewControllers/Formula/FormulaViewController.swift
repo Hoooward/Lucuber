@@ -17,6 +17,8 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     var containerScrollerOffsetX: CGFloat = 0
     @IBOutlet weak var newFormulaButtonTrailing: NSLayoutConstraint!
     
+
+    
     private lazy var containerScrollerView: UIScrollView  = {
         
         let scrollerView = UIScrollView(frame: UIScreen.main.bounds)
@@ -281,9 +283,10 @@ extension FormulaViewController: UIScrollViewDelegate {
         containerScrollerOffsetX = scrollView.contentOffset.x
         
         let index = Int(scrollView.contentOffset.x / UIScreen.main.bounds.width)
-        let vc = childViewControllers[index] as! UICollectionViewController
+        let vc = childViewControllers[index] as! BaseCollectionViewController
         
         vc.view.frame = CGRect(x: CGFloat(index) * UIScreen.main.bounds.width, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
         
         let topEdge = 64 + Config.TopControl.height + 44
         let bottomEdge: CGFloat = 49
@@ -292,6 +295,20 @@ extension FormulaViewController: UIScrollViewDelegate {
         vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
         vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         
+//        
+//        if vc.formulasData.isEmpty {
+//            printLog("没有公式数据")
+//            // 显示 Vistis View
+//            
+//            self.view.addSubview(vistorView)
+//        } else {
+//            
+//            vistorView.removeFromSuperview()
+//        }
+        
+        
+        
+//        printLog("FormulaviewController.view = \(vc.view)")
         scrollView.addSubview(vc.view)
         
         
