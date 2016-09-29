@@ -58,11 +58,11 @@ class RegisterPickNameViewController: UIViewController {
             
             switch type {
             case .login:
-//                title = "登录"
-                navigationItem.titleView = NavigationTitleLabel(title: "登录")
+                title = "登录"
+//                navigationItem.titleView = NavigationTitleLabel(title: "登录")
             case .register:
-                navigationItem.titleView = NavigationTitleLabel(title: "注册")
-//                title = "注册"
+//                navigationItem.titleView = NavigationTitleLabel(title: "注册")
+                title = "注册"
             }
         }
         

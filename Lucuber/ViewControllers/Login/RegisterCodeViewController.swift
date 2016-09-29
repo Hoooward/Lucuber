@@ -101,11 +101,11 @@ class RegisterCodeViewController: UIViewController {
             switch type {
                 
             case .login:
-                //                title = "登录"
-                navigationItem.titleView = NavigationTitleLabel(title: "登录")
+                title = "登录"
+//                navigationItem.titleView = NavigationTitleLabel(title: "登录")
             case .register:
-                navigationItem.titleView = NavigationTitleLabel(title: "注册")
-                //                title = "注册"
+//                navigationItem.titleView = NavigationTitleLabel(title: "注册")
+                title = "注册"
             }
         }
         
@@ -212,16 +212,18 @@ class RegisterCodeViewController: UIViewController {
                     
                 case .login:
                     
-                    if let _ = AVUser.current().getUserAvatarImageUrl() {
-                        // 进入 Main
-                        
-                        
-                    } else {
-                        
-                        // 如果没有设置头像， 先进入选择头像的界面。
-                        self.performSegue(withIdentifier: "ShowPickAvatar", sender: user)
-                        
-                    }
+                    // 进入 Main
+                    NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+                  break
+//                    if let _ = AVUser.current().getUserAvatarImageUrl() {
+//                        
+//                        
+//                    } else {
+//                        
+//                        // 如果没有设置头像， 先进入选择头像的界面。
+//                        self.performSegue(withIdentifier: "ShowPickAvatar", sender: user)
+//                        
+//                    }
                     
                 case .register:
                     

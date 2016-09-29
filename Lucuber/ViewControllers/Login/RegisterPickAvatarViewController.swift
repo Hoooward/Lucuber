@@ -26,7 +26,7 @@ class RegisterPickAvatarViewController: UIViewController {
     @IBOutlet weak var nikeNameLabel: UILabel!
     
     private lazy var nextButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "下一步", style: .plain, target: self, action: #selector(RegisterPickAvatarViewController.next(_:)))
+        let button = UIBarButtonItem(title: "完成注册", style: .plain, target: self, action: #selector(RegisterPickAvatarViewController.next(_:)))
         button.isEnabled = false
         return button
     }()
@@ -194,6 +194,8 @@ class RegisterPickAvatarViewController: UIViewController {
                             
                             CubeHUD.hideActivityIndicator()
                            // 用户信息更新完成。进入Main
+                            
+                            NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
                             
                     })
                     

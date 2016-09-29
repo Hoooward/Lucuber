@@ -32,6 +32,11 @@ class RegisterMainViewController: UIViewController, SegueHandlerType {
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
     }
     
+    
+    deinit {
+        printLog("注册试图已死")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)

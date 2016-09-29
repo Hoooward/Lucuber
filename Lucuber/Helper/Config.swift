@@ -15,6 +15,7 @@ extension Notification.Name {
     static let categotyPickViewDidSeletedRowNotification = Notification.Name("categotyPickViewDidSeletedRowNotification")
     
     
+    static let changeRootViewControllerNotification = Notification.Name("changeRootViewController")
     
 }
 

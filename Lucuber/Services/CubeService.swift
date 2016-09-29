@@ -236,21 +236,25 @@ func validateMobile(mobile: String,
             
             if error == nil {
                 
-                if let findUsers = users, findUsers.count > 0 {
+                if let finUserss = users {
                     
-                    completion?()
-                    
-                } else {
-                    
-                    failureHandler?(error as NSError?)
+                    if let user = finUserss.first as? AVUser,
+                        let _ = user.getUserNickName(),
+                        let _ = user.getUserAvatarImageUrl() {
+                        
+                        completion?()
+                        
+                    } else {
+                       
+                        failureHandler?(error as? NSError)
+                    }
                 }
                 
             } else {
                 
-                 failureHandler?(error as NSError?)
+                 failureHandler?(error as? NSError)
                 
             }
- 
         }
 
     }

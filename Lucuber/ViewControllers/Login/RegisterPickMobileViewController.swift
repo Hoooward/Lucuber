@@ -66,11 +66,11 @@ class RegisterPickMobileViewController: UIViewController {
             switch type {
                 
             case .login:
-                //                title = "登录"
-                navigationItem.titleView = NavigationTitleLabel(title: "登录")
+                title = "登录"
+//                navigationItem.titleView = NavigationTitleLabel(title: "登录")
             case .register:
-                navigationItem.titleView = NavigationTitleLabel(title: "注册")
-                //                title = "注册"
+//                navigationItem.titleView = NavigationTitleLabel(title: "注册")
+                title = "注册"
             }
         }
     }
@@ -159,9 +159,17 @@ class RegisterPickMobileViewController: UIViewController {
                         
                     case .register:
                         
-                        if let error = error, error.code == Config.ErrorCode.registered {
+                        if let error = error {
                             
-                            CubeAlert.alertSorry(message: "此手机号已经注册, 可返回直接登录。", inViewController: self)
+                            switch error.code {
+                                
+                            case Config.ErrorCode.registered:
+                                CubeAlert.alertSorry(message: "此手机号已经注册, 可返回直接登录。", inViewController: self)
+                                
+                            default :
+                                CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
+                                
+                            }
                             
                         } else {
                             

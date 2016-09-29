@@ -20,7 +20,7 @@ public class CubeHUD: NSObject {
     private lazy var containerView: UIView = {
         
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         return view
         
     }()
@@ -148,6 +148,8 @@ public class CubeHUD: NSObject {
         DispatchQueue.main.async {
             
             if self.shardInstance.isShowing {
+                
+                self.shardInstance.isShowing = false
                 
                 self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
                 self.shardInstance.indicatorLabel.transform = CGAffineTransform.identity
