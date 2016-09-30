@@ -30,16 +30,16 @@ class MyFormulaVisitorView: UIView {
         
         var images: [UIImage] = []
         
-        for index in 1...132 {
-            
-            let image = UIImage(named: "\(index)")!
-            images.append(image)
-            
-        }
-        
+//        for index in 1...132 {
+//            
+//            let image = UIImage(named: "\(index)")!
+//            images.append(image)
+//            
+//        }
+//        
         let imageView = UIImageView()
-//        imageView.animationDuration = 7
-        imageView.animationImages = images
+////        imageView.animationDuration = 7
+//        imageView.animationImages = images
         return imageView
         
     }()
@@ -75,9 +75,9 @@ class MyFormulaVisitorView: UIView {
         
         let imageViewCenterY = NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: -60)
         
-        let imageViewLeading = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 40)
+        let imageViewLeading = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 100)
         
-        let imageViewTrailing = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -40)
+        let imageViewTrailing = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -100)
         
         NSLayoutConstraint.activate([imageViewCenterX, imageViewCenterY, imageViewLeading, imageViewTrailing, imageViewScale])
         
