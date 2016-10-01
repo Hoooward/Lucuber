@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVOSCloud
 
 fileprivate let detailCellIdentifier = "DetailCollectionViewCell"
 
@@ -34,6 +35,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         }
         return nil
     }
+    
+    var oldMasterList: [String] = []
     
     
     private lazy var customNavigationItem: UINavigationItem = {
@@ -139,6 +142,11 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         view.backgroundColor = UIColor.white
         collectionView.backgroundColor = UIColor.white
         
+        /// 进入 Detail 控制器后先拿到 masterList
+        if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList()  {
+            oldMasterList = list
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,6 +162,31 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         }
         collectionView.reloadData()
         
+        updateNavigationBarTitle()
+        
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        /// 用户可能在 detail 界面更改是否已经掌握某个公式。判断新的 masterlist 与旧的是否一致
+        if let currentUser = AVUser.current(), let newList = currentUser.getMasterFormulasIDList() {
+            
+            if oldMasterList != newList {
+                
+                currentUser.saveEventually({ (successed, error) in
+                    if successed {
+                        printLog("用户的 master 更新成功。")
+                    }
+                })
+                
+            } else {
+                
+                printLog("不需要更新")
+            }
+
+        }
     }
     
     deinit {
@@ -173,6 +206,15 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         if let window = view.window {
             editFormulaSheetView.showInView(view: window)
         }
+    }
+    
+    func updateNavigationBarTitle() {
+        
+        let offSetX = collectionView.contentOffset.x
+        let index = Int(offSetX / UIScreen.main.bounds.width)
+        
+        let formula = formulaDatas[index]
+        self.customNavigationBar.items?.first?.title = formula.name
     }
     
     // MARK: - Segue
@@ -199,7 +241,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
 }
 
-extension FormulaDetailViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension FormulaDetailViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -221,16 +263,16 @@ extension FormulaDetailViewController: UICollectionViewDelegate, UICollectionVie
         
         let formula = formulaDatas[indexPath.item]
         cell.formula = formula
-//        self.customNavigationBar.items?.first?.title = formula.name
         self.seletedFormula = formula
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+ 
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        let formula = formulaDatas[indexPath.item]
-        self.customNavigationBar.items?.first?.title = formula.name
+        updateNavigationBarTitle()
+        
+        
     }
-    
 }

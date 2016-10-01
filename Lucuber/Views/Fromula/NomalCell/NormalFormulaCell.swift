@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVOSCloud
 
 class NormalFormulaCell: UICollectionViewCell {
     
@@ -15,7 +16,7 @@ class NormalFormulaCell: UICollectionViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var indicaterLabel: UILabel!
     @IBOutlet weak var starRatingView: StarRatingView!
-    
+    @IBOutlet weak var masterImageView: UIImageView!
     var formula: Formula? {
         didSet{
 //            updateUI()
@@ -43,15 +44,30 @@ class NormalFormulaCell: UICollectionViewCell {
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
         
+        
+        if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList() {
+            masterImageView.isHidden = !list.contains(formula.objectID)
+            
+        }
+        
+        
     }
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
+//        contentView.layer.cornerRadius = 6
+//        contentView.layer.masksToBounds = true
+//        
+//        contentView.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
+//        contentView.layer.borderWidth = 1.0
+        
         contentLabel.font = UIFont.formulaNormalContent()
         imageView.layer.cornerRadius = 2
         imageView.clipsToBounds = true
+        
+        masterImageView.isHidden = true
     }
     
     override func prepareForReuse() {

@@ -73,6 +73,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
         hidesBottomBarWhenPushed = false
+        
     }
     
     private func addChileViewControllers() {

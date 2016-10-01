@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,6 +50,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios-checkmark-empty" translatesAutoresizingMaskIntoConstraints="NO" id="ouo-2C-0Xg">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="XWr-yO-pUd"/>
+                            <constraint firstAttribute="width" constant="10" id="vDp-Sf-7hG"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
@@ -65,8 +70,10 @@
                 <constraint firstAttribute="bottom" secondItem="NmZ-Xq-u6j" secondAttribute="bottom" constant="10" id="Y36-pz-ZEh"/>
                 <constraint firstItem="NmZ-Xq-u6j" firstAttribute="top" secondItem="XHJ-eY-Sr3" secondAttribute="top" constant="10" id="YgE-Ep-eFQ"/>
                 <constraint firstItem="cuk-hF-THb" firstAttribute="centerY" secondItem="NmZ-Xq-u6j" secondAttribute="centerY" id="eFq-iP-lIO"/>
+                <constraint firstItem="ouo-2C-0Xg" firstAttribute="centerY" secondItem="XHJ-eY-Sr3" secondAttribute="centerY" id="iHd-HJ-sdg"/>
                 <constraint firstItem="AMD-JN-eZh" firstAttribute="centerY" secondItem="eBN-pv-Wjr" secondAttribute="centerY" id="iMt-8L-uIy"/>
                 <constraint firstItem="NmZ-Xq-u6j" firstAttribute="leading" secondItem="XHJ-eY-Sr3" secondAttribute="leading" constant="10" id="oL2-Uf-kzp"/>
+                <constraint firstAttribute="trailing" secondItem="ouo-2C-0Xg" secondAttribute="trailing" constant="12" id="vuV-ft-hwc"/>
                 <constraint firstItem="eBN-pv-Wjr" firstAttribute="top" secondItem="NmZ-Xq-u6j" secondAttribute="top" id="wqj-wa-XtA"/>
             </constraints>
             <size key="customSize" width="389" height="76"/>
@@ -80,6 +87,7 @@
                 <outlet property="contentLabel" destination="cuk-hF-THb" id="mew-Ov-v1K"/>
                 <outlet property="imageView" destination="NmZ-Xq-u6j" id="2ct-ec-nFc"/>
                 <outlet property="indicaterLabel" destination="q1N-Tg-Lmw" id="NKr-VS-N4W"/>
+                <outlet property="masterImageView" destination="ouo-2C-0Xg" id="qgn-IC-Hak"/>
                 <outlet property="nameLabel" destination="eBN-pv-Wjr" id="g45-hi-80R"/>
                 <outlet property="starRatingView" destination="AMD-JN-eZh" id="q5G-pS-iYP"/>
             </connections>
@@ -87,6 +95,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="ios-checkmark-empty" width="20" height="16"/>
         <image name="placeholder" width="575" height="600"/>
     </resources>
 </document>

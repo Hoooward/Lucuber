@@ -28,7 +28,9 @@ class DetailCollectionViewCell: UICollectionViewCell {
     
     var formula: Formula? {
         didSet {
+            
             headerView.formula = formula
+            tableView.reloadData() 
         }
     }
     
@@ -50,8 +52,8 @@ class DetailCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: false)
-//        formula = nil
-//        tableView.reloadData()
+        formula = nil
+        
     }
     
     override func layoutSubviews() {
@@ -110,6 +112,7 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         case .separator:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
+            printLog("cell height = \(formula?.contents[indexPath.row].cellHeight)")
            return formula?.contents[indexPath.row].cellHeight ?? 100
         case .comment:
             return Config.FormulaDetail.commentRowHeight
@@ -125,6 +128,7 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .master:
             let cell = tableView.dequeueReusableCell(withIdentifier: MasterCellIdentifier, for: indexPath) as! DetailMasterCell
+            cell.formula = formula
             return cell
             
         case .separator:
@@ -142,6 +146,7 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         }
  
     }
+    
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

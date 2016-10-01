@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVOSCloud
 
 class CardFormulaCell: UICollectionViewCell {
 
@@ -15,6 +16,7 @@ class CardFormulaCell: UICollectionViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var starRatingView: StarRatingView!
     @IBOutlet weak var indicaterLabel: UILabel!
+    @IBOutlet weak var masterImageView: UIImageView!
     
     
     public func configerCell(with formula: Formula?) {
@@ -23,7 +25,6 @@ class CardFormulaCell: UICollectionViewCell {
             return
         }
         
-//        printLog(formula)
         updateUI(with: formula)
     }
     
@@ -40,6 +41,8 @@ class CardFormulaCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
+        masterImageView.isHidden = true
+        
     }
     
     private func updateUI(with formula: Formula) {
@@ -54,6 +57,12 @@ class CardFormulaCell: UICollectionViewCell {
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
         indicaterLabel.text = formula.category.rawValue
+        
+        
+        if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList() {
+            masterImageView.isHidden = !list.contains(formula.objectID)
+            
+        }
         
     }
 }

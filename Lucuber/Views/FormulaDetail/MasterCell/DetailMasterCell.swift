@@ -21,8 +21,8 @@ class DetailMasterCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         indicatorView.isHidden = true
+       
     }
     
     var master: Master = .no {
@@ -33,16 +33,32 @@ class DetailMasterCell: UITableViewCell {
                 
             case .no:
                 indicatorView.isHidden = true
-//                masterLabel.textColor = UIColor.lightGray
+                 masterLabel.text = "未掌握"
                 
             case .yes:
                 indicatorView.isHidden = false
-//                masterLabel.textColor = UIColor.black
+                 masterLabel.text = "已掌握"
             }
         }
         
     }
-
+    
+    
+    
+    var formula: Formula? {
+        
+        didSet {
+            
+            if
+                let formula = formula,
+                let currentUset = AVUser.current(),
+                let list = currentUset.getMasterFormulasIDList() {
+                
+                master = list.contains(formula.objectID) ? .yes : .no
+            }
+        }
+    }
+    
     func changeMasterStatus(with formula: Formula?) {
        
         master = master == .no ? .yes : .no

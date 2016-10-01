@@ -15,8 +15,18 @@ fileprivate let userAvatarImageUrlKey = "userAvatarImageUrl"
 fileprivate let userID = "userID"
 fileprivate let needUpdateLibraryKey = "needUpdateLibrary"
 fileprivate let masterFormulasIDListKey = "masterFormulasIDList"
+fileprivate let needUpdateMasterListKey = "needUpdateMsterList"
 
 extension AVUser {
+    
+    func setNeedUpdateMasterListToLeanCloud(need: Bool) {
+        setObject(need, forKey: needUpdateLibraryKey)
+    }
+    
+    func getNeedUpdateMsterListtoLeanCloud() -> Bool {
+        
+        return object(forKey: needUpdateLibraryKey) as! Bool
+    }
     
     func getMasterFormulasIDList() -> [String]? {
         let list = object(forKey: masterFormulasIDListKey) as? [String]

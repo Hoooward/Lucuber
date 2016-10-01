@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -58,6 +57,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios-checkmark-empty" translatesAutoresizingMaskIntoConstraints="NO" id="Qyc-uz-qKf">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="NVC-Wo-KlY"/>
+                            <constraint firstAttribute="height" constant="8" id="eMy-hx-NB5"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
@@ -69,13 +74,15 @@
                 <constraint firstItem="x83-3g-vda" firstAttribute="top" secondItem="IYm-z0-vqn" secondAttribute="top" id="Cnw-7Y-AYf"/>
                 <constraint firstItem="iE4-Rq-mYV" firstAttribute="top" secondItem="x83-3g-vda" secondAttribute="bottom" constant="10" id="F4v-69-qoL"/>
                 <constraint firstItem="qKK-ud-zlO" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="leading" id="Hqu-DC-nJX"/>
-                <constraint firstAttribute="trailing" secondItem="qKK-ud-zlO" secondAttribute="trailing" constant="10" id="M4d-e6-Dxv"/>
+                <constraint firstAttribute="trailing" secondItem="qKK-ud-zlO" secondAttribute="trailing" constant="22" id="M4d-e6-Dxv"/>
                 <constraint firstItem="L2q-zL-u3E" firstAttribute="top" secondItem="x83-3g-vda" secondAttribute="bottom" constant="10" id="RXj-Sj-qtS"/>
                 <constraint firstItem="x83-3g-vda" firstAttribute="leading" secondItem="IYm-z0-vqn" secondAttribute="leading" id="Ynh-3B-Jw7"/>
                 <constraint firstAttribute="trailing" secondItem="x83-3g-vda" secondAttribute="trailing" id="aGK-qL-Mgu"/>
                 <constraint firstItem="iE4-Rq-mYV" firstAttribute="leading" secondItem="x83-3g-vda" secondAttribute="leading" id="bxK-ML-8xi"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qKK-ud-zlO" secondAttribute="bottom" constant="10" id="i71-zI-05g"/>
                 <constraint firstItem="NgG-dw-gTW" firstAttribute="leading" secondItem="L2q-zL-u3E" secondAttribute="leading" constant="-1" id="ijn-9h-WpK"/>
+                <constraint firstAttribute="bottom" secondItem="Qyc-uz-qKf" secondAttribute="bottom" constant="8" id="qg2-da-6wU"/>
+                <constraint firstAttribute="trailing" secondItem="Qyc-uz-qKf" secondAttribute="trailing" constant="8" id="yqc-kW-rdl"/>
             </constraints>
             <size key="customSize" width="170" height="254"/>
             <variation key="default">
@@ -87,6 +94,7 @@
                 <outlet property="contentLabel" destination="qKK-ud-zlO" id="Hhx-kh-Fbw"/>
                 <outlet property="imageView" destination="x83-3g-vda" id="WEr-e6-IH9"/>
                 <outlet property="indicaterLabel" destination="iE4-Rq-mYV" id="NpT-qm-yy1"/>
+                <outlet property="masterImageView" destination="Qyc-uz-qKf" id="JEJ-Ng-FFT"/>
                 <outlet property="nameLabel" destination="L2q-zL-u3E" id="m85-jt-CoQ"/>
                 <outlet property="starRatingView" destination="NgG-dw-gTW" id="OIY-rc-ggt"/>
             </connections>
@@ -94,6 +102,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="ios-checkmark-empty" width="20" height="16"/>
         <image name="placeholder" width="575" height="600"/>
     </resources>
 </document>
