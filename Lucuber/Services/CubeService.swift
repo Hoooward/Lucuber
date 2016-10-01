@@ -418,6 +418,16 @@ public func updateUserInfo(nickName: String, avatarURL: String,
 }
 
 
+// Logout
+
+public func logout() {
+    
+    AVUser.logOut()
+    
+//    NotificationCenter.default.post(Notification.Name.changeRootViewControllerNotification)
+    
+}
+
 
 
 

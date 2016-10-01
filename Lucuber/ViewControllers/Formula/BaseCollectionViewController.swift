@@ -472,7 +472,8 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         let seletedFormula = formulasData[indexPath.section][indexPath.row]
         let formulas = formulasData[indexPath.section]
         
-        let dict: [String: Any] = ["formuls": formulas, "seletedFormula" : seletedFormula]
+        let dict: [String: Any] = ["formulas": formulas, "seletedFormula" : seletedFormula]
+//        printLog(dict)
         self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
     }
     

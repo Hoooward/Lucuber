@@ -73,7 +73,7 @@ class RegisterCodeViewController: UIViewController {
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: nil, action: nil)
         
-         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "验证", style: .plain, target: self, action: #selector(RegisterCodeViewController.login(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: loginType == .login ? "登录" : "验证", style: .plain, target: self, action: #selector(RegisterCodeViewController.login(_:)))
         
         navigationItem.rightBarButtonItem?.isEnabled = false
        

@@ -69,6 +69,12 @@ class FormulaViewController: UIViewController, SegueHandlerType {
        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        hidesBottomBarWhenPushed = false
+    }
+    
     private func addChileViewControllers() {
         
         let myFormulaLayout = BaseFormulaLayout()
@@ -221,6 +227,15 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
         case .showFormulaDetail:
             
+            let vc = segue.destination as! FormulaDetailViewController
+            
+            if let dict = sender as? [String: AnyObject] {
+                
+                vc.seletedFormula = dict["seletedFormula"] as? Formula
+                vc.formulaDatas = dict["formulas"] as! [Formula]
+                vc.hidesBottomBarWhenPushed = true
+                
+            }
             break
             
         case .showNewFormula:

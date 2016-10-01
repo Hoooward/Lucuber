@@ -87,9 +87,17 @@ public class Config {
     }
     
     public struct Avatar {
-        
         public static let maxSize: CGSize = CGSize(width: 414, height: 414)
     }
+    
+    public struct FormulaDetail {
+        public static let screenMargin: CGFloat = 38
+        public static let masterRowHeight: CGFloat = 50
+        public static let separatorRowHeight: CGFloat = 40
+        public static let ratingViewWidth: CGFloat = 100
+        public static let commentRowHeight: CGFloat = 80
+    }
+    
     
 }
 

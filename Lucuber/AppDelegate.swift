@@ -50,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             printLog("尚未登录")
         }
         
+        
+//       logout()
+        
         return true
     }
 

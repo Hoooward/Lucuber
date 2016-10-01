@@ -38,15 +38,28 @@ class MyFormulaVisitorView: UIView {
 //        }
 //        
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "Lucuber icon")
 ////        imageView.animationDuration = 7
 //        imageView.animationImages = images
         return imageView
         
     }()
     
+    private lazy var indicatorLabel: UILabel = {
+        
+        let label = UILabel()
+        label.text = "欢迎使用 Lucuber"
+        label.font = UIFont.systemFont(ofSize: 12)
+        
+        label.textAlignment = .center
+        return label
+    }()
     
-    
-    
+    private func imageViewAnimation() {
+        
+        
+        imageView.alpha = 0
+    }
     
     // MARK: - Life Cycle
     
@@ -65,21 +78,29 @@ class MyFormulaVisitorView: UIView {
         
         addSubview(imageView)
         addSubview(describeLabel)
+        addSubview(indicatorLabel)
         describeLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        indicatorLabel.translatesAutoresizingMaskIntoConstraints = false
         
         
-        let imageViewScale = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: imageView, attribute: .height, multiplier: 1.3, constant: 0)
+        let imageViewScale = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: imageView, attribute: .height, multiplier: 1.1, constant: 0)
         
         let imageViewCenterX = NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         
-        let imageViewCenterY = NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: -60)
+        let imageViewCenterY = NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: -100)
         
-        let imageViewLeading = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 100)
+        let imageViewLeading = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 150)
         
-        let imageViewTrailing = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -100)
+        let imageViewTrailing = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -150)
         
         NSLayoutConstraint.activate([imageViewCenterX, imageViewCenterY, imageViewLeading, imageViewTrailing, imageViewScale])
+        
+        let indicatorLabelCenterX = NSLayoutConstraint(item: indicatorLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        
+        let indicatorLabelTop = NSLayoutConstraint(item: indicatorLabel, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 20)
+        
+        NSLayoutConstraint.activate([indicatorLabelCenterX, indicatorLabelTop])
         
         
         let leading = NSLayoutConstraint.init(item: describeLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 40)

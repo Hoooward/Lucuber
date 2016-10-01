@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCollectionViewCell" id="gTV-IL-0wX" customClass="DetailCollectionViewCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="316" height="486"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="316" height="486"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PpN-av-JrS">
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tableView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="PpN-av-JrS" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ISG-sC-psp"/>
+                <constraint firstItem="PpN-av-JrS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="RNH-dg-sIr"/>
+                <constraint firstAttribute="bottom" secondItem="PpN-av-JrS" secondAttribute="bottom" id="kcI-vp-RWC"/>
+                <constraint firstAttribute="trailing" secondItem="PpN-av-JrS" secondAttribute="trailing" id="uV5-RX-pld"/>
+            </constraints>
+            <size key="customSize" width="316" height="486"/>
+            <connections>
+                <outlet property="tableView" destination="PpN-av-JrS" id="bxN-re-wd0"/>
+            </connections>
+            <point key="canvasLocation" x="-30" y="24"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hUu-an-wGK">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,6 +88,7 @@
                         <outlet property="newFormulaButton" destination="7mJ-Cr-lKZ" id="kbw-V4-JHu"/>
                         <outlet property="newFormulaButtonTrailing" destination="mwD-lg-xTa" id="B1L-DB-x30"/>
                         <segue destination="vqd-NG-bg4" kind="presentation" identifier="ShowNewFormula" id="tUZ-bw-IOL"/>
+                        <segue destination="4r3-bi-KCl" kind="show" identifier="ShowFormulaDetail" id="mws-dW-0Pf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47O-UW-60H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -103,6 +103,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lJv-B0-RbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="83" y="671"/>
+        </scene>
+        <!--FormulaDetail-->
+        <scene sceneID="wUe-VA-WQS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FormulaDetail" id="4r3-bi-KCl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vl8-gq-R3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="108" y="766"/>
         </scene>
         <!--公式-->
         <scene sceneID="gUB-O9-Owu">

@@ -15,7 +15,11 @@ fileprivate let userAvatarImageUrlKey = "userAvatarImageUrl"
 fileprivate let userID = "userID"
 fileprivate let needUpdateLibraryKey = "needUpdateLibrary"
 
+    
+    
+
 extension AVUser {
+    
     
     func getNeedUpdateLibrary() -> Bool {
         return object(forKey: needUpdateLibraryKey) as! Bool
