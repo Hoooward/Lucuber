@@ -10,24 +10,17 @@ import UIKit
 
 class DetailHeaderView: UIView {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        makeUI()
+    // MARK: - Properties
+    
+    ///外界读取方便设置自己的frame
+    var headerHeight: CGFloat {
+        return creatTimeLabel.frame.maxY + 20
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        makeUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-   
     var formula: Formula? {
         didSet {
             if let formula = formula {
-               
+                
                 nameLabel.text = formula.name
                 printLog("imageName = \(formula.imageName)")
                 imageView.image = UIImage(named: formula.imageName)
@@ -38,42 +31,13 @@ class DetailHeaderView: UIView {
         }
     }
     
-    ///外界读取方便设置自己的frame
-    var headerHeight: CGFloat {
-        return creatTimeLabel.frame.maxY + 20
-    }
-    
-    func makeUI() {
-        
-        addSubview(imageView)
-        addSubview(nameLabel)
-        addSubview(creatUserLabel)
-        addSubview(creatTimeLabel)
-        addSubview(ratingView)
-        
-        let ratingWidth = Config.FormulaDetail.ratingViewWidth
-        let margin = Config.FormulaDetail.screenMargin
-        let imageWidth = UIScreen.main.bounds.width - margin - margin
-        
-        imageView.frame = CGRect(x: margin, y: 5, width: imageWidth, height: imageWidth)
-        
-        nameLabel.frame = CGRect(x: margin, y: imageView.frame.maxY + 15, width: imageWidth - ratingWidth, height: 24)
-        
-        ratingView.frame = CGRect(x: imageView.frame.maxX - ratingWidth, y: nameLabel.frame.origin.y, width: ratingWidth, height: 35)
-        
-        creatUserLabel.frame = CGRect(x: margin, y: nameLabel.frame.maxY + 8, width: imageWidth, height: 16)
-        
-        creatTimeLabel.frame = CGRect(x: margin, y: creatUserLabel.frame.maxY + 5, width: imageWidth, height: 16)
-    }
-    
-    
-
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "F2L 1"
         label.font = UIFont.systemFont(ofSize: 20)
         label.sizeToFit()
         return label
+        
     }()
     
     private lazy var creatUserLabel: UILabel = {
@@ -94,7 +58,7 @@ class DetailHeaderView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage(named: "placeholder")
+        //        imageView.image = UIImage(named: "placeholder")
         return imageView
     }()
     
@@ -105,6 +69,53 @@ class DetailHeaderView: UIView {
         view.editable = false
         return view
     }()
+
+    
+    // MARK: - Life Cycle
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        makeUI()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        makeUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Action & Target
+    
+    func makeUI() {
+        
+        addSubview(imageView)
+        addSubview(nameLabel)
+        addSubview(creatUserLabel)
+        addSubview(creatTimeLabel)
+        addSubview(ratingView)
+        
+        imageView.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
+        
+        let ratingWidth = Config.FormulaDetail.ratingViewWidth
+        let margin = Config.FormulaDetail.screenMargin
+        let imageWidth = UIScreen.main.bounds.width - margin - margin
+        
+        imageView.frame = CGRect(x: margin, y: 5, width: imageWidth, height: imageWidth)
+        
+        nameLabel.frame = CGRect(x: margin, y: imageView.frame.maxY + 15, width: imageWidth - ratingWidth, height: 24)
+        
+        ratingView.frame = CGRect(x: imageView.frame.maxX - ratingWidth, y: nameLabel.frame.origin.y, width: ratingWidth, height: 35)
+        
+        creatUserLabel.frame = CGRect(x: margin, y: nameLabel.frame.maxY + 8, width: imageWidth, height: 16)
+        
+        creatTimeLabel.frame = CGRect(x: margin, y: creatUserLabel.frame.maxY + 5, width: imageWidth, height: 16)
+    }
+    
+    
 }
 
 

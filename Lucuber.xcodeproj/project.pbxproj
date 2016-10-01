@@ -315,7 +315,8 @@
 			children = (
 				E4217F261D962EFF00E575AB /* CateogryMenuCell.swift */,
 			);
-			path = CategoryMenuCell;
+			name = CategoryMenuCell;
+			path = ../../CategoryMenuCell;
 			sourceTree = "<group>";
 		};
 		E4217F281D9664DE00E575AB /* NewFormula */ = {
@@ -695,7 +696,6 @@
 				E479262C1D96D0B7004D58BF /* NewFormulaHeader */,
 				E47926321D96DC5F004D58BF /* NewFormulaCell */,
 				E479261B1D968156004D58BF /* Keyboard */,
-				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 				E4207A2F1D93D8B8003CF073 /* CubeAlert */,
 				E4207A2C1D93D8AB003CF073 /* CubeHUD */,
 				E4E021F61D901A3A00DED99A /* StarRatingView */,
@@ -830,6 +830,7 @@
 			children = (
 				E4E021E81D9019AA00DED99A /* CardFormulaCell.swift */,
 				E4E021E91D9019AA00DED99A /* CardFormulaCell.xib */,
+				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 			);
 			path = CardCell;
 			sourceTree = "<group>";

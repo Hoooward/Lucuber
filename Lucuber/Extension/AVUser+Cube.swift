@@ -14,13 +14,60 @@ fileprivate let userNickNameKey = "userNickName"
 fileprivate let userAvatarImageUrlKey = "userAvatarImageUrl"
 fileprivate let userID = "userID"
 fileprivate let needUpdateLibraryKey = "needUpdateLibrary"
-
-    
-    
+fileprivate let masterFormulasIDListKey = "masterFormulasIDList"
 
 extension AVUser {
     
+    func getMasterFormulasIDList() -> [String]? {
+        let list = object(forKey: masterFormulasIDListKey) as? [String]
+//        printLog(list)
+        return list
+    }
     
+    func setMasterFormulasIDList(list: [String]) {
+        
+//        printLog(list)
+        setObject(list, forKey: masterFormulasIDListKey)
+    }
+    
+    
+    func addNewMasterFormula(_ formula: Formula) {
+       
+        var newList = [String]()
+        if let oldList = getMasterFormulasIDList() {
+            
+            newList = oldList
+            newList.append(formula.objectID)
+        
+        } else {
+            
+            newList.append(formula.objectID)
+        }
+        
+        setMasterFormulasIDList(list: newList)
+    }
+    
+    func deleteMasterFormula(_ formula: Formula) {
+        
+        guard let oldList = getMasterFormulasIDList() else {
+            return
+        }
+        
+        var newList = [String]()
+        newList = oldList
+        
+        if let index = newList.index(of: formula.objectID) {
+            
+            newList.remove(at: index)
+        }
+        
+        setMasterFormulasIDList(list: newList)
+    }
+    
+}
+    
+
+extension AVUser {
     func getNeedUpdateLibrary() -> Bool {
         return object(forKey: needUpdateLibraryKey) as! Bool
     }

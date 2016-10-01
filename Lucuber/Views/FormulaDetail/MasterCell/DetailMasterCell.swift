@@ -7,14 +7,65 @@
 //
 
 import UIKit
+import AVOSCloud
 
 class DetailMasterCell: UITableViewCell {
 
+    enum Master {
+        case no
+        case yes
+    }
+    
+    @IBOutlet weak var masterLabel: UILabel!
+    @IBOutlet weak var indicatorView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        indicatorView.isHidden = true
+    }
+    
+    var master: Master = .no {
+        
+        didSet {
+            
+            switch master {
+                
+            case .no:
+                indicatorView.isHidden = true
+//                masterLabel.textColor = UIColor.lightGray
+                
+            case .yes:
+                indicatorView.isHidden = false
+//                masterLabel.textColor = UIColor.black
+            }
+        }
+        
     }
 
- 
+    func changeMasterStatus(with formula: Formula?) {
+       
+        master = master == .no ? .yes : .no
+        
+        switch master {
+            
+        case .no:
+           
+            if let currentUser = AVUser.current(), let formula = formula {
+                
+                currentUser.deleteMasterFormula(formula)
+                masterLabel.text = "未掌握"
+            }
+            
+        case .yes:
+            
+            if let currentUser = AVUser.current(), let formula = formula {
+                
+                currentUser.addNewMasterFormula(formula)
+                masterLabel.text = "已掌握"
+            }
+        }
+        
+    }
     
 }

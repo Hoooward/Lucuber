@@ -16,17 +16,32 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未掌握" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OV-Sa-2Sp">
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios-checkmark-empty" translatesAutoresizingMaskIntoConstraints="NO" id="UR5-dG-vSQ">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="MRa-6M-4Dj"/>
+                            <constraint firstAttribute="width" constant="15" id="NDC-Ca-37q"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="9OV-Sa-2Sp" secondAttribute="trailing" constant="38" id="BWw-Ew-7dT"/>
+                    <constraint firstAttribute="trailing" secondItem="9OV-Sa-2Sp" secondAttribute="trailing" constant="68" id="BWw-Ew-7dT"/>
+                    <constraint firstAttribute="trailing" secondItem="UR5-dG-vSQ" secondAttribute="trailing" constant="42" id="EEf-7q-CyZ"/>
                     <constraint firstItem="9OV-Sa-2Sp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="brp-D2-AHW"/>
                     <constraint firstItem="9OV-Sa-2Sp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lHQ-sL-VIT"/>
+                    <constraint firstItem="UR5-dG-vSQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zuP-eF-9la"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="338" y="408"/>
+            <connections>
+                <outlet property="indicatorView" destination="UR5-dG-vSQ" id="6jb-Tl-7Sg"/>
+                <outlet property="masterLabel" destination="9OV-Sa-2Sp" id="TKR-dl-YhE"/>
+            </connections>
+            <point key="canvasLocation" x="325" y="408"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ios-checkmark-empty" width="20" height="16"/>
+    </resources>
 </document>

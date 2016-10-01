@@ -12,6 +12,8 @@ class MainTabbarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBar.tintColor = UIColor.cubeTintColor()
 
         // Do any additional setup after loading the view.
     }

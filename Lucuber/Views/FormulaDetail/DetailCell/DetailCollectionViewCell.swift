@@ -150,6 +150,15 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         }
         
         switch section {
+            
+        case .master:
+        
+            if let cell = tableView.cellForRow(at: indexPath) as? DetailMasterCell {
+                
+                cell.changeMasterStatus(with: formula)
+            }
+//            printLog("master is clicked")
+            
         case .comment:
             if let formula = formula,
                let closure = pushCommentViewController {

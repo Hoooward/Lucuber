@@ -233,7 +233,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 
                 vc.seletedFormula = dict["seletedFormula"] as? Formula
                 vc.formulaDatas = dict["formulas"] as! [Formula]
-                vc.hidesBottomBarWhenPushed = true
+//                vc.hidesBottomBarWhenPushed = true
                 
             }
             break
