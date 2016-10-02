@@ -16,7 +16,6 @@ public enum UploadFormulaMode: String {
     
 }
 
-
 public enum UploadFeedMode {
     case top
     case loadMore
@@ -126,15 +125,50 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
         
     case .my :
         
-        // 我的公式, 如果Realm中没有数据, 则尝试从网络加载, 否则不需要从网络加载
+        let query = AVQuery.getFormula(mode: uploadingFormulaMode)
         
+        printLog("开始获取我的公式")
+        query?.findObjectsInBackground { formulas, error in
+            
+//            if error != nil {
+//                
+//                failureHandler?(error as! NSError)
+//                let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
+//                completion?(result)
+//                printLog("更新我的公式失败， 使用 Realm 中的我的公式")
+//            }
+            
+            if let formulas = formulas as? [Formula] {
+                
+                /// 将 Result 过滤一下, 只使用符合 category 的 formula
+                completion?(formulas.filter{ $0.category == category })
+                
+                /// 删除 Library 中 Formula 对应的 content
+                deleteLibraryFormalsRContentAtRealm()
+                
+                /// 更新数据库中的 Formula
+                saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
+                
+                printLog("成功更新我的公式")
+                
+            } else {
+                
+                failureHandler?(error as! NSError)
+                let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
+                completion?(result)
+                printLog("更新我的公式失败， 使用 Realm 中的我的公式")
+                
+            }
+            
+            
+        }
+        
+    case .library:
+        // 公式库, 如果Realm中没有数据, 则尝试从网络加载, 否则不需要从网络加载
         let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
         
         result.isEmpty ? task() : completion?(result)
         
-    case .library:
-        
-        task()
     }
     
     
@@ -147,7 +181,6 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
 internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
                                                       completion: (() -> Void)?,
                                                       failureHandler: ((NSError) -> Void)? ) {
-    
     
     if let user = AVUser.current() {
         
@@ -266,32 +299,25 @@ func validateMobile(mobile: String,
 /// 的话会第一时间使用 NeedUpdateLibrary 属性进行 Formula 数据加载. 即使在 LeanCloud 中 将
 /// 值设为 ture 后的第一次启动, NeedUpdateLibrary 的值还是 false. 第二次启动才会更新 Libray.
 
-public func initializeWhetherNeedUploadLibraryFormulas() {
+public func updateCurrentUserInfo() {
     
     
     if let user = AVUser.current() {
         
-        if !UserDefaults.isNeedUpdateLibrary() {
+        user.fetchInBackground { user, error in
             
-            let query = AVQuery(className: "_User")
-            
-            query?.getObjectInBackground(withId: user.objectId) {
+            if let user = user as? AVUser {
                 
-                result , error in
-                
-                if error == nil {
+                if user.object(forKey: "needUpdateLibrary") as! Bool {
                     
-                    let need = result?.object(forKey: "needUpdateLibrary") as! Bool
-                    printLog("is Need Upload Formulas From LeanCloud")
-                    UserDefaults.setNeedUpdateLibrary(need: need)
+                    NotificationCenter.default.post(name: Notification.Name.updateFormulasLibraryNotification, object: nil)
                 }
             }
+            
+                
         }
-        
-    } else {
-        
-        UserDefaults.setNeedUpdateLibrary(need: true)
     }
+    
 }
 
 
@@ -428,7 +454,21 @@ public func logout() {
     
 }
 
+// 更新用户部分信息
 
+public func fetchCurrentUserInfo() {
+    
+    if let currentUser = AVUser.current() {
+        
+        var error: NSError?
+        
+        currentUser.fetch(&error)
+        
+        printLog(currentUser)
+        printLog(error)
+        
+    }
+}
 
 
 

@@ -27,11 +27,11 @@ extension UIFont {
     }
     
     class func formulaDetailContent() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 14)!
+        return UIFont(name: "Menlo-Regular", size: 15)!
     }
     
     class func formulaDetailBrackets() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 14)!
+        return UIFont(name: "Menlo-Regular", size: 15)!
     }
     
     class func addFormulaPlaceholderText() -> UIFont {

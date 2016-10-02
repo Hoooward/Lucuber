@@ -164,7 +164,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             
             DispatchQueue.main.async { [unowned self] in
                 
-                CubeAlert.alertSorry(message: "加载失败，请检查您的网络连接或稍后再试。", inViewController: self)
+//                CubeAlert.alertSorry(message: "加载失败，请检查您的网络连接或稍后再试。", inViewController: self)
                 
                 // TODO: 这里目前没有重试的入口
                 
@@ -457,7 +457,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         switch userMode {
@@ -469,7 +468,6 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             return Config.FormulaCell.cardCellEdgeInsets
         }
     }
-    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -483,7 +481,21 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
     }
     
-    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, for: indexPath) as! HeaderReusableView
+        
+        var formulaTypes = formulasData.map { $0.first?.type }
+        reusableView.type = formulaTypes[indexPath.section]
+        
+        
+        var counts = formulasData.map { $0.count }
+        
+        reusableView.count = counts[indexPath.section]
+        
+        return reusableView
+        
+    }
     
     
     

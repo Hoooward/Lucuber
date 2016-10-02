@@ -35,25 +35,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
         
-        initializeWhetherNeedUploadLibraryFormulas()
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.updateFormulasLibrary), name: Notification.Name.updateFormulasLibraryNotification, object: nil)
+        
+       
         
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)
         
-        if let _ = AVUser.current() {
-            printLog("currentUser = \(AVUser.current())")
-            printLog("userNickName: \(AVUser.current().getUserNickName())")
-            printLog("userAvatarURL: = \(AVUser.current().getUserAvatarImageUrl())")
-            
-        } else {
-            printLog("尚未登录")
-        }
-        
+//        if let currentUser = AVUser.current() {
+//            printLog("currentUser = \(AVUser.current())")
+//            printLog("userNickName: \(AVUser.current().getUserNickName())")
+//            printLog("userAvatarURL: = \(AVUser.current().getUserAvatarImageUrl())")
+//            
+//            
+//        } else {
+//            printLog("尚未登录")
+//        }
         
 //       logout()
         
         return true
+    }
+
+    
+    func updateFormulasLibrary() {
+        
+        CubeAlert.confirmOrCancel(title: "更新提示", message: " 目前「公式库」中的部分数据有所更新。", confirmTitle: "现在更新", cancelTitles: "取消", inViewController: window?.rootViewController, confirmAction: {
+            
+            printLog("正在更新")
+            CubeHUD.showActivityIndicator()
+            
+            let query = AVQuery.getFormula(mode: .library)
+            
+            query?.findObjectsInBackground { formulas, error in
+                
+                if let formulas = formulas as? [Formula] {
+                    
+                    
+                    if let user = AVUser.current() {
+                        
+                        user.setNeedUpdateLibrary(need: false)
+                        user.saveEventually { successed, error in
+                            
+                            if successed {
+                                printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
+                                
+                            } else {
+                                printLog("更新 currentUser 的 needUploadLibrary 属性失败")
+                            }
+                        }
+                    }
+                    
+                    deleteLibraryFormalsRContentAtRealm()
+                    
+                    saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
+                    
+                    CubeHUD.hideActivityIndicator()
+                }
+                
+            }
+   
+            }, cancelAction: {
+                
+                printLog("不更新")
+                
+        })
     }
 
     
@@ -90,6 +137,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.removeObserver(self)
     }
 
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        
+         updateCurrentUserInfo()
+    }
 }
 
 

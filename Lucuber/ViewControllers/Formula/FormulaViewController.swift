@@ -66,7 +66,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
         addChileViewControllers()
         makeUI()
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

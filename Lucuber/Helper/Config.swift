@@ -17,6 +17,8 @@ extension Notification.Name {
     
     static let changeRootViewControllerNotification = Notification.Name("changeRootViewController")
     
+    static let updateFormulasLibraryNotification = Notification.Name("updateFormulasLibrary")
+    
 }
 
 public class Config {

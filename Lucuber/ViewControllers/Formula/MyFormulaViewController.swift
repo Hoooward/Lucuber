@@ -12,20 +12,6 @@ private let reuseIdentifier = "Cell"
 
 class MyFormulaViewController: BaseCollectionViewController {
     
-//    override func loadView() {
-////        super.loadView()
-//        
-//        let view = MyFormulaVisitorView()
-//        
-//        view.backgroundColor = UIColor.black
-//        
-//        self.view = view
-//        
-//        printLog("")
-//    }
-//    
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
