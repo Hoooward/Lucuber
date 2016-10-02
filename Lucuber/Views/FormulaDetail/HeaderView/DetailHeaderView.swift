@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVOSCloud
 
 class DetailHeaderView: UIView {
 
@@ -21,11 +22,14 @@ class DetailHeaderView: UIView {
         didSet {
             if let formula = formula {
                 
+                
                 nameLabel.text = formula.name
-                printLog("imageName = \(formula.imageName)")
+//                printLog("imageName = \(formula.imageName)")
                 imageView.image = UIImage(named: formula.imageName)
                 ratingView.rating = formula.rating
                 ratingView.maxRating = 5
+                
+                changeFormulaNameLabelStatus()
                 
             }
         }
@@ -115,6 +119,18 @@ class DetailHeaderView: UIView {
         creatTimeLabel.frame = CGRect(x: margin, y: creatUserLabel.frame.maxY + 5, width: imageWidth, height: 16)
     }
     
+    
+    func changeFormulaNameLabelStatus() {
+        
+        if
+            let currentUser = AVUser.current(),
+            let list = currentUser.getMasterFormulasIDList(),
+            let formula = formula {
+            
+            nameLabel.textColor = list.contains(formula.objectID) ? UIColor.masterLabelText() : UIColor.black
+            
+        }
+    }
     
 }
 

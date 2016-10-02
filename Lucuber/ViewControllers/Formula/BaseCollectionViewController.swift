@@ -481,6 +481,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
     }
     
+    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, for: indexPath) as! HeaderReusableView

@@ -38,6 +38,14 @@ class NormalFormulaCell: UICollectionViewCell {
             contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
         }
         
+        if
+            let currentUser = AVUser.current(),
+            let list = currentUser.getMasterFormulasIDList() {
+            
+            nameLabel.textColor = list.contains(formula.objectID) ? UIColor.masterLabelText() : UIColor.black
+            
+        }
+        
         imageView.image = UIImage(named: formula.imageName)
         nameLabel.text = formula.name
         indicaterLabel.text = formula.category.rawValue

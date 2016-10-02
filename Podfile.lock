@@ -1,6 +1,7 @@
 PODS:
-  - AVOSCloud (3.4.0)
-  - Kingfisher (3.0.1)
+  - AVOSCloud (3.4.4)
+  - DGElasticPullToRefresh (1.1)
+  - Kingfisher (3.1.1)
   - Realm (1.1.0):
     - Realm/Headers (= 1.1.0)
   - Realm/Headers (1.1.0)
@@ -9,15 +10,17 @@ PODS:
 
 DEPENDENCIES:
   - AVOSCloud
+  - DGElasticPullToRefresh
   - Kingfisher (~> 3.0)
   - RealmSwift (~> 1.1.0)
 
 SPEC CHECKSUMS:
-  AVOSCloud: 771c8d77bc9b9f2cc8ac2eb4b58eaf368337ac95
-  Kingfisher: d5a491b45ea453d90a31bd2c0831d5243e73a73f
+  AVOSCloud: 50a81ba9fe043750592355d13589b108771f3724
+  DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
+  Kingfisher: 12b755ae697cc9f0fd3e550db8417fa1233e09ab
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
 
-PODFILE CHECKSUM: 9b682ad9a3e7a163b5b97598814e558fed934124
+PODFILE CHECKSUM: d7a1b879fd57074be666845eb52fe6dbead88ad8
 
 COCOAPODS: 1.1.0.beta.2

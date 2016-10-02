@@ -19,7 +19,16 @@ class LibraryFormulaViewController: BaseCollectionViewController {
         uploadMode = .library
         
         seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
-        
+//        
+//        uploadingFormulas(with: uploadMode, category: seletedCategory, finish: {
+//            
+//            self.collectionView?.reloadData()
+//        })
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         uploadingFormulas(with: uploadMode, category: seletedCategory, finish: {
             
             self.collectionView?.reloadData()

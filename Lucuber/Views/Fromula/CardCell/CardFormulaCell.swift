@@ -52,12 +52,19 @@ class CardFormulaCell: UICollectionViewCell {
             contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
         }
         
+        if
+            let currentUser = AVUser.current(),
+            let list = currentUser.getMasterFormulasIDList() {
+            
+                nameLabel.textColor = list.contains(formula.objectID) ? UIColor.masterLabelText() : UIColor.black
+            
+        }
+        
         imageView.image = UIImage(named: formula.imageName)
         nameLabel.text = formula.name
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
         indicaterLabel.text = formula.category.rawValue
-        
         
         if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList() {
             masterImageView.isHidden = !list.contains(formula.objectID)

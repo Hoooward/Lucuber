@@ -144,7 +144,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                 completion?(formulas.filter{ $0.category == category })
                 
                 /// 删除 Library 中 Formula 对应的 content
-                deleteLibraryFormalsRContentAtRealm()
+//                deleteLibraryFormalsRContentAtRealm()
                 
                 /// 更新数据库中的 Formula
                 saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)

@@ -161,8 +161,9 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.cellForRow(at: indexPath) as? DetailMasterCell {
                 
                 cell.changeMasterStatus(with: formula)
+                
+                headerView.changeFormulaNameLabelStatus()
             }
-//            printLog("master is clicked")
             
         case .comment:
             if let formula = formula,
