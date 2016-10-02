@@ -36,6 +36,24 @@ public func deleteLibraryFormalsRContentAtRealm() {
     
 }
 
+public func deleteMyFormulasRContentAtRealm() {
+    
+    let realm = try! Realm()
+    
+    try! realm.write {
+        
+        let predicate = NSPredicate(format: "isLibraryFormulas == %@", false as Bool as CVarArg)
+        let formulas = realm.objects(RFormula.self).filter(predicate)
+        
+        formulas.forEach {
+            
+            $0.contentsString.forEach {
+                realm.delete($0)
+            }
+        }
+    }
+}
+
 
 /**
  After loaded formulas from LeanCloud, or user creat new Formula,
