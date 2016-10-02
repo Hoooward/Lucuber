@@ -1,7 +1,7 @@
 PODS:
   - AVOSCloud (3.4.4)
-  - DGElasticPullToRefresh (1.1)
   - Kingfisher (3.1.1)
+  - PKHUD (3.2.1)
   - Realm (1.1.0):
     - Realm/Headers (= 1.1.0)
   - Realm/Headers (1.1.0)
@@ -10,17 +10,26 @@ PODS:
 
 DEPENDENCIES:
   - AVOSCloud
-  - DGElasticPullToRefresh
   - Kingfisher (~> 3.0)
+  - PKHUD (from `https://github.com/toyship/PKHUD.git`)
   - RealmSwift (~> 1.1.0)
+
+EXTERNAL SOURCES:
+  PKHUD:
+    :git: https://github.com/toyship/PKHUD.git
+
+CHECKOUT OPTIONS:
+  PKHUD:
+    :commit: 28fb970b41d63134e962f9da766b96670c0f55f0
+    :git: https://github.com/toyship/PKHUD.git
 
 SPEC CHECKSUMS:
   AVOSCloud: 50a81ba9fe043750592355d13589b108771f3724
-  DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
   Kingfisher: 12b755ae697cc9f0fd3e550db8417fa1233e09ab
+  PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
 
-PODFILE CHECKSUM: d7a1b879fd57074be666845eb52fe6dbead88ad8
+PODFILE CHECKSUM: 4e919ea63d8516f0e890753c27e74cd7d56e373a
 
 COCOAPODS: 1.1.0.beta.2

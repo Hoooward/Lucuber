@@ -37,6 +37,7 @@
 		E435C0471D9F4A370026FA08 /* DetailMasterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03B1D9F4A370026FA08 /* DetailMasterCell.xib */; };
 		E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */; };
 		E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */; };
+		E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
@@ -154,6 +155,7 @@
 		E435C03B1D9F4A370026FA08 /* DetailMasterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMasterCell.xib; sourceTree = "<group>"; };
 		E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
 		E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
+		E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				E435C0171D9E9D1A0026FA08 /* MyFormulaVisitorView.swift */,
+				E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */,
 			);
 			path = VisitorView;
 			sourceTree = "<group>";
@@ -452,6 +455,13 @@
 				E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */,
 			);
 			path = SeparatorCell;
+			sourceTree = "<group>";
+		};
+		E44C9E651DA13FA5001EEE40 /* NetworkError */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkError;
 			sourceTree = "<group>";
 		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
@@ -684,6 +694,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E44C9E651DA13FA5001EEE40 /* NetworkError */,
 				E435C02D1D9F4A370026FA08 /* FormulaDetail */,
 				E435C02A1D9EAA250026FA08 /* ActionSheetView */,
 				E435C0191D9EA21D0026FA08 /* Login */,
@@ -1141,6 +1152,7 @@
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
 				E479262E1D96D0B7004D58BF /* NewFormulaHeadView.swift in Sources */,
 				E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */,
+				E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
 				E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,

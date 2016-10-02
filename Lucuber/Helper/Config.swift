@@ -19,6 +19,8 @@ extension Notification.Name {
     
     static let updateFormulasLibraryNotification = Notification.Name("updateFormulasLibrary")
     
+    static let needReloadFormulaFromRealmNotification = Notification.Name("reloadFormulaFromRealm")
+    
 }
 
 public class Config {

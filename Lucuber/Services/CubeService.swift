@@ -56,70 +56,7 @@ extension AVQuery {
 public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                                  category: Category,
                                  completion: (([Formula]) -> Void)?,
-                                 failureHandler: ((NSError) -> Void)?) {
-    
-    
-//    let task: (() -> Void) = {
-//        
-//        let needUpdate = UserDefaults.isNeedUpdateLibrary()
-//        
-//        if needUpdate {
-//            
-//            let query = AVQuery.getFormula(mode: uploadingFormulaMode)
-//            
-//            
-//            /// 直接请求所有的公式, 不区分类型或种类, 因为要更新 Realm
-//            query?.findObjectsInBackground {
-//                
-//                formulas, error in
-//                
-//                if error != nil {
-//                    
-//                    failureHandler?(error as! NSError)
-//                }
-//                
-//                if let formulas = formulas as? [Formula] {
-//                    
-//                    /// 更新 needUpdateLibrary
-//                    UserDefaults.setNeedUpdateLibrary(need: false)
-//                    
-//                    if let user = AVUser.current() {
-//                        
-//                        user.setNeedUpdateLibrary(need: false)
-//                        user.saveInBackground {
-//                            sessuce, error in
-//                            
-//                            if sessuce {
-//                                
-//                                printLog("更新用户数据成功")
-//                                
-//                            } else {
-//                                
-//                                printLog("更新用户数据失败")
-//                            }
-//                        }
-//                    }
-//                    
-//                    /// 将 Result 过滤一下, 只使用符合 category 的 formula
-//                    completion?(formulas.filter{ $0.category == category })
-//                    
-//                    /// 删除 Library 中 Formula 对应的 content
-//                    deleteLibraryFormalsRContentAtRealm()
-//                    
-//                    /// 更新数据库中的 Formula
-//                    saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
-//                }
-//            }
-//            
-//        } else {
-//            
-//            let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
-//            
-//            completion?(result)
-//            
-//        }
-//    }
-   
+                                 failureHandler: ((NSError?) -> Void)?) {
     
     switch uploadingFormulaMode {
         
@@ -130,13 +67,14 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
         printLog("开始获取我的公式")
         query?.findObjectsInBackground { formulas, error in
             
-//            if error != nil {
-//                
-//                failureHandler?(error as! NSError)
-//                let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
-//                completion?(result)
-//                printLog("更新我的公式失败， 使用 Realm 中的我的公式")
-//            }
+            if error != nil {
+                
+                failureHandler?(error as? NSError)
+                let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
+                completion?(result)
+                printLog("更新我的公式失败， 使用 Realm 中的我的公式")
+ 
+            }
             
             if let formulas = formulas as? [Formula] {
                 
@@ -151,71 +89,68 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                 
                 printLog("成功更新我的公式")
                 
-            } else {
-                
-                failureHandler?(error as! NSError)
-                let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
-                completion?(result)
-                printLog("更新我的公式失败， 使用 Realm 中的我的公式")
-                
             }
-            
-            
         }
         
     case .library:
         
-        let task: (() -> Void) = {
-            
-            let query = AVQuery.getFormula(mode: .library)
-            
-            query?.findObjectsInBackground { formulas, error in
-                
-                if error != nil {
-                    
-                    failureHandler?(error as! NSError)
-                }
-                
-                if let formulas = formulas as? [Formula] {
-                    
-                    if let user = AVUser.current() {
-                        
-                        user.setNeedUpdateLibrary(need: false)
-                        user.saveEventually { successed, error in
-                            
-                            if successed {
-                                printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
-                                
-                            } else {
-                                printLog("更新 currentUser 的 needUploadLibrary 属性失败")
-                            }
-                        }
-                    }
-                    
-                    /// 将 Result 过滤一下, 只使用符合 category 的 formula
-                    completion?(formulas.filter{ $0.category == category })
-                    
-                    deleteLibraryFormalsRContentAtRealm()
-                    
-                    saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
-                    
-                }
-            }
-        }
-        
         // 公式库, 如果Realm中没有数据, 则尝试从网络加载, 否则不需要从网络加载
         let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
         
-        result.isEmpty ? task() : completion?(result)
-        
+        if result.isEmpty {
+            
+            
+            failureHandler?(nil)
+            NotificationCenter.default.post(name: Notification.Name.updateFormulasLibraryNotification, object: nil)
+            
+        } else {
+            
+            completion?(result)
         }
+        
     }
 
+}
 
 
-
-
-
+public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Void)?, failureHandler: ((NSError) -> Void)?) {
+    
+    
+    let query = AVQuery.getFormula(mode: .library)
+    
+    query?.findObjectsInBackground { formulas, error in
+        
+        if error != nil {
+            
+            failureHandler?(error as! NSError)
+        }
+        
+        if let formulas = formulas as? [Formula] {
+            
+            if let user = AVUser.current() {
+                
+                user.setNeedUpdateLibrary(need: false)
+                user.saveEventually { successed, error in
+                    
+                    if successed {
+                        printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
+                        
+                    } else {
+                        printLog("更新 currentUser 的 needUploadLibrary 属性失败")
+                    }
+                }
+            }
+            
+            deleteLibraryFormalsRContentAtRealm()
+            
+            saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
+            
+            completion?()
+            
+        }
+    }
+    
+}
 
 
 internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,

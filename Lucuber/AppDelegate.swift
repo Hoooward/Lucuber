@@ -10,6 +10,7 @@ import UIKit
 import AVOSCloud
 import Photos
 import CoreTelephony
+import PKHUD
 
 @UIApplicationMain
 
@@ -43,15 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)
         
-//        if let currentUser = AVUser.current() {
-//            printLog("currentUser = \(AVUser.current())")
-//            printLog("userNickName: \(AVUser.current().getUserNickName())")
-//            printLog("userAvatarURL: = \(AVUser.current().getUserAvatarImageUrl())")
-//            
-//            
-//        } else {
-//            printLog("尚未登录")
-//        }
         
 //       logout()
         
@@ -59,48 +51,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     
+    var updateFormulaAlertItShow = false
+    
+    let alertWindow = UIWindow()
     func updateFormulasLibrary() {
         
-        CubeAlert.confirmOrCancel(title: "更新提示", message: " 目前「公式库」中的部分数据有所更新。", confirmTitle: "现在更新", cancelTitles: "取消", inViewController: window?.rootViewController, confirmAction: {
+        if !updateFormulaAlertItShow {
             
-            printLog("正在更新")
-            CubeHUD.showActivityIndicator()
+            updateFormulaAlertItShow = true
             
-            let query = AVQuery.getFormula(mode: .library)
-            
-            query?.findObjectsInBackground { formulas, error in
+            CubeAlert.confirmOrCancel(title: "更新提示", message: " 目前「公式库」中的部分数据有所更新。", confirmTitle: "现在更新", cancelTitles: "取消", inViewController: window?.rootViewController, confirmAction: {
                 
-                if let formulas = formulas as? [Formula] {
+                
+                self.updateFormulaAlertItShow = false
+                
+                HUD.show(.label("正在更新公式库..."))
+                
+                fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: {
+                    
+                    self.updateFormulaAlertItShow = false
+                    
+                    HUD.flash(.label("更新成功"), delay: 2)
+                    
+                    NotificationCenter.default.post(name: Notification.Name.needReloadFormulaFromRealmNotification, object: nil)
                     
                     
-                    if let user = AVUser.current() {
+                    }, failureHandler: { _ in
                         
-                        user.setNeedUpdateLibrary(need: false)
-                        user.saveEventually { successed, error in
-                            
-                            if successed {
-                                printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
-                                
-                            } else {
-                                printLog("更新 currentUser 的 needUploadLibrary 属性失败")
-                            }
+                        HUD.flash(.label("更新失败，似乎已断开与互联网的连接。"), delay: 2) { _ in
                         }
-                    }
-                    
-                    deleteLibraryFormalsRContentAtRealm()
-                    
-                    saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
-                    
-                    CubeHUD.hideActivityIndicator()
-                }
+                        
+                        // 如果更新失败暂时不管。
+                        
+                })
                 
-            }
-   
-            }, cancelAction: {
                 
-                printLog("不更新")
-                
-        })
+                }, cancelAction: {
+                    
+                    self.updateFormulaAlertItShow = false
+                    printLog("不更新")
+                    
+            })
+        }
+        
+        
     }
 
     

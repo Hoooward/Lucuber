@@ -328,6 +328,10 @@ extension FormulaViewController: UIScrollViewDelegate {
         scrollView.addSubview(vc.view)
         
         
+        if index > 0 {
+            
+            NotificationCenter.default.post(name: Notification.Name.needReloadFormulaFromRealmNotification, object: nil)
+        }
         
         updateNavigationBarButtonItemStatus()
         

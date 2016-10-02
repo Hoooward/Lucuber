@@ -58,7 +58,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
     
-    fileprivate lazy var searchBar: FormulaSearchBar = {
+    lazy var searchBar: FormulaSearchBar = {
         let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
         let searchBar = FormulaSearchBar(frame: rect)
         searchBar.delegate = self
@@ -146,7 +146,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // MARK: - Network
     
-    fileprivate var isUploadingFormula: Bool = false
+    var isUploadingFormula: Bool = false
     
     func uploadingFormulas(with mode: UploadFormulaMode = .library, category: Category, finish: (() -> Void)? ) {
         
@@ -159,7 +159,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
         self.activityIndicator.startAnimating()
         
-        let failureHandler: (_ error: NSError) -> Void = {
+        let failureHandler: (_ error: NSError?) -> Void = {
             error in
             
             DispatchQueue.main.async { [unowned self] in
@@ -168,6 +168,11 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 
                 // TODO: 这里目前没有重试的入口
                 
+                self.searchBar.isHidden = true
+                self.isUploadingFormula = false
+                
+                self.view.addSubview(self.vistorView)
+                self.isUploadingFormula = false
                 self.activityIndicator.stopAnimating()
                 finish?()
             }
@@ -248,6 +253,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
                 } else {
                     
                     strongSelf.searchBar.isHidden = true
+                    strongSelf.isUploadingFormula = false
                     strongSelf.formulasData = resultFormula
                     
                     strongSelf.view.addSubview(strongSelf.vistorView)
@@ -265,6 +271,69 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         fetchFormulaWithMode(uploadingFormulaMode: mode, category: category, completion: completion, failureHandler: failureHandler)
         
      }
+    
+    func parseFormulasData(with formulas: [Formula]) -> [[Formula]] {
+        
+        var resultFormula = [[Formula]]()
+        
+        if !formulas.isEmpty {
+            
+            var types = Set<Type>()
+            
+            formulas.forEach {
+                
+                if types.contains($0.type) {
+                    return
+                }
+                
+                types.insert($0.type)
+            }
+        }
+        
+        if !formulas.isEmpty {
+            
+            var crossFormulas = [Formula]()
+            var f2lFormulas = [Formula]()
+            var ollFormulas = [Formula]()
+            var pllFormulas = [Formula]()
+            
+            formulas.forEach {
+                
+                switch $0.type {
+                    
+                case .CROSS:
+                    crossFormulas.append($0)
+                    
+                case .F2L:
+                    f2lFormulas.append($0)
+                    
+                case .OLL:
+                    ollFormulas.append($0)
+                    
+                case .PLL:
+                    pllFormulas.append($0)
+                }
+            }
+            
+            if !crossFormulas.isEmpty {
+                resultFormula.append(crossFormulas)
+            }
+            
+            if !ollFormulas.isEmpty {
+                resultFormula.append(ollFormulas)
+            }
+            
+            if !pllFormulas.isEmpty {
+                resultFormula.append(pllFormulas)
+            }
+            
+            if !f2lFormulas.isEmpty {
+                resultFormula.append(f2lFormulas)
+            }
+            
+        }
+        return resultFormula
+    }
 
 }
 

@@ -53,7 +53,7 @@ public class CubeHUD: NSObject {
     
     class func showActivityIndicator() {
         
-        showActivityIndicatorWhile(blockingUI: false)
+        showActivityIndicatorWhile(blockingUI: true)
     }
     
     class func showActivityIndicatorWhile(blockingUI: Bool = false) {
