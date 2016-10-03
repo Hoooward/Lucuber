@@ -27,7 +27,7 @@ extension UIFont {
     }
     
     class func formulaDetailContent() -> UIFont {
-        return UIFont(name: "Menlo-Regular", size: 15)!
+        return UIFont(name: "Menlo-Regular", size: 18)!
     }
     
     class func formulaDetailBrackets() -> UIFont {

@@ -8,7 +8,7 @@
         <!--Formula Detail View Controller-->
         <scene sceneID="dUP-Ml-dDP">
             <objects>
-                <viewController id="Nc2-BK-DNv" customClass="FormulaDetailViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="Nc2-BK-DNv" customClass="FormulaDetailViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="to8-7L-17K"/>
                         <viewControllerLayoutGuide type="bottom" id="e43-8T-pBD"/>

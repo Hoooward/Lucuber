@@ -2,7 +2,21 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "BL_square_groy.pdf"
+      "filename" : "BL_square_groy.pdf",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 12,
+          "top" : 12,
+          "right" : 21,
+          "left" : 2
+        }
+      }
     }
   ],
   "info" : {

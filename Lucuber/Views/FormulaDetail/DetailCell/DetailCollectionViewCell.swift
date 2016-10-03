@@ -12,6 +12,7 @@ private let MasterCellIdentifier = "DetailMasterCell"
 private let FormulasCellIdentifier = "DetailFormulasCell"
 private let SeparatorCellIdentifier = "DetailSeparatorCell"
 private let DetailCommentCellIdentifier = "DetailCommentCell"
+private let FormulaContentCellIdentifier = "FormulaContentCell"
 
 class DetailCollectionViewCell: UICollectionViewCell {
 
@@ -46,6 +47,8 @@ class DetailCollectionViewCell: UICollectionViewCell {
         tableView.register(UINib(nibName: FormulasCellIdentifier,bundle: nil), forCellReuseIdentifier: FormulasCellIdentifier)
         tableView.register(UINib(nibName: SeparatorCellIdentifier,bundle: nil), forCellReuseIdentifier: SeparatorCellIdentifier)
         tableView.register(UINib(nibName: DetailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: DetailCommentCellIdentifier)
+//        tableView.register(UINib(nibName: FormulaContentCellIdentifier,bundle: nil), forCellReuseIdentifier: FormulaContentCellIdentifier)
+        tableView.register(FormulaContentCell.self, forCellReuseIdentifier: FormulaContentCellIdentifier)
         
     }
     
@@ -69,14 +72,15 @@ class DetailCollectionViewCell: UICollectionViewCell {
 extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
     
     enum Section: Int {
-        case master = 0
-        case separator = 1
-        case formulas = 2
-        case comment
+        case separator = 0
+        case formulas = 1
+        case separatorTwo = 2
+        case master = 3
+        case comment = 4
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     
@@ -91,9 +95,10 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
             return 1
         case .separator:
             return 1
+        case .separatorTwo:
+            return 0
         case .formulas:
-            printLog("formulaContentCount = \(formula?.contents)")
-            return formula?.contents.count ?? 1
+            return 1
         case .comment:
             return 1
     
@@ -111,9 +116,12 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
             return Config.FormulaDetail.masterRowHeight
         case .separator:
             return Config.FormulaDetail.separatorRowHeight
+        case .separatorTwo:
+            return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-            printLog("cell height = \(formula?.contents[indexPath.row].cellHeight)")
-           return formula?.contents[indexPath.row].cellHeight ?? 100
+//            printLog("cell height = \(formula?.contents[indexPath.row].cellHeight)")
+//           return formula?.contents[indexPath.row].cellHeight ?? 100
+            return 200
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }
@@ -134,10 +142,14 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         case .separator:
             let cell = tableView.dequeueReusableCell(withIdentifier: SeparatorCellIdentifier, for: indexPath)
             return cell
-            
+        case .separatorTwo:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SeparatorCellIdentifier, for: indexPath)
+            return cell
         case .formulas:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FormulasCellIdentifier, for: indexPath) as! DetailFormulasCell
-            cell.formulaContent = formula?.contents[indexPath.row]
+//            let cell = tableView.dequeueReusableCell(withIdentifier: FormulasCellIdentifier, for: indexPath) as! DetailFormulasCell
+//            cell.formulaContent = formula?.contents[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: FormulaContentCellIdentifier, for: indexPath) as! FormulaContentCell
+            cell.formula = formula
             return cell
             
         case .comment:
@@ -162,14 +174,15 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.changeMasterStatus(with: formula)
                 
-                headerView.changeFormulaNameLabelStatus()
+//                headerView.changeFormulaNameLabelStatus()
             }
             
         case .comment:
-            if let formula = formula,
-               let closure = pushCommentViewController {
-                closure(formula)
-            }
+//            if let formula = formula,
+//               let closure = pushCommentViewController {
+//                closure(formula)
+//            }
+            break
         default:
             return
         }

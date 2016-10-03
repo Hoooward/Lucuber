@@ -315,6 +315,7 @@ class FormulaContent: CustomStringConvertible {
     var rotation: Rotation = Config.BaseRotation.FR
     
     var cellHeight: CGFloat {
+        
         let height: CGFloat = 50
         
         if let text = text, text.characters.count > 0 {
@@ -327,6 +328,7 @@ class FormulaContent: CustomStringConvertible {
         
         return height
     }
+    
     
     init() { }
     

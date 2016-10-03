@@ -102,6 +102,12 @@ public class Config {
         public static let commentRowHeight: CGFloat = 80
     }
     
+    public struct ContentCell {
+        
+        public static let topMarge: CGFloat = 10
+        public static let marge: CGFloat = 38
+    }
+    
     
 }
 

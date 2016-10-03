@@ -39,6 +39,10 @@
 		E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */; };
 		E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */; };
 		E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */; };
+		E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */; };
+		E4610F531DA29F180018CB67 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F4E1DA29F180018CB67 /* Palette.swift */; };
+		E4610F541DA29F180018CB67 /* TwicketSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F501DA29F180018CB67 /* TwicketSegmentedControl.swift */; };
+		E4610F551DA29F180018CB67 /* UIViewShadowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F511DA29F180018CB67 /* UIViewShadowExtension.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
@@ -159,6 +163,11 @@
 		E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
 		E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
 		E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
+		E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaContentCell.swift; sourceTree = "<group>"; };
+		E4610F4E1DA29F180018CB67 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		E4610F4F1DA29F180018CB67 /* TwicketSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwicketSegmentedControl.h; sourceTree = "<group>"; };
+		E4610F501DA29F180018CB67 /* TwicketSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwicketSegmentedControl.swift; sourceTree = "<group>"; };
+		E4610F511DA29F180018CB67 /* UIViewShadowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewShadowExtension.swift; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
@@ -403,6 +412,7 @@
 				E435C0371D9F4A370026FA08 /* HeaderView */,
 				E435C0391D9F4A370026FA08 /* MasterCell */,
 				E435C03C1D9F4A370026FA08 /* SeparatorCell */,
+				E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */,
 			);
 			path = FormulaDetail;
 			sourceTree = "<group>";
@@ -473,6 +483,17 @@
 				E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */,
 			);
 			path = DetailTitleView;
+			sourceTree = "<group>";
+		};
+		E4610F4C1DA29F180018CB67 /* TwicketSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				E4610F4E1DA29F180018CB67 /* Palette.swift */,
+				E4610F4F1DA29F180018CB67 /* TwicketSegmentedControl.h */,
+				E4610F501DA29F180018CB67 /* TwicketSegmentedControl.swift */,
+				E4610F511DA29F180018CB67 /* UIViewShadowExtension.swift */,
+			);
+			path = TwicketSegmentedControl;
 			sourceTree = "<group>";
 		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
@@ -705,6 +726,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4610F4C1DA29F180018CB67 /* TwicketSegmentedControl */,
 				E4610F411DA1F29D0018CB67 /* DetailTitleView */,
 				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 				E44C9E651DA13FA5001EEE40 /* NetworkError */,
@@ -1106,6 +1128,7 @@
 				E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */,
 				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
 				E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */,
+				E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */,
 				E47926511D96DC5F004D58BF /* NameTextViewCell.swift in Sources */,
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
 				E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */,
@@ -1123,6 +1146,7 @@
 				E47926311D96D27A004D58BF /* CategoryIndicatorView.swift in Sources */,
 				E479265D1D96DD44004D58BF /* CateogyItemView.swift in Sources */,
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
+				E4610F531DA29F180018CB67 /* Palette.swift in Sources */,
 				E4E021F81D901A4800DED99A /* StarRatingView.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */,
@@ -1154,10 +1178,12 @@
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,
+				E4610F541DA29F180018CB67 /* TwicketSegmentedControl.swift in Sources */,
 				E4E021F41D9019AA00DED99A /* NormalFormulaCell.swift in Sources */,
 				E435C0411D9F4A370026FA08 /* DetailCollectionViewCell.swift in Sources */,
 				E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */,
 				E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */,
+				E4610F551DA29F180018CB67 /* UIViewShadowExtension.swift in Sources */,
 				E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
 				E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */,

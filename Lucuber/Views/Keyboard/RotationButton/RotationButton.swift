@@ -13,6 +13,7 @@ class RotationButton: UIButton {
     enum Style {
         case square
         case cercle
+        case big
     }
     
     var rotation: Rotation?
@@ -34,6 +35,10 @@ class RotationButton: UIButton {
             case .cercle:
                 normalImage = "FR_gray"
                 selectedImage = "FR"
+                
+            case .big:
+                normalImage = "FR_square_groy_big"
+                selectedImage = "FR_square_big"
             }
             setBackgroundImage(UIImage(named: normalImage), for: .normal)
             setBackgroundImage(UIImage(named: selectedImage), for: .selected)
@@ -50,6 +55,10 @@ class RotationButton: UIButton {
             case .cercle:
                 normalImage = "FL_gray"
                 selectedImage = "FL"
+                
+            case .big:
+                normalImage = "FL_square_groy_big"
+                selectedImage = "FL_square_big"
             }
             
             setBackgroundImage(UIImage(named: normalImage), for: .normal)
@@ -68,6 +77,10 @@ class RotationButton: UIButton {
                 normalImage = "BL_gray"
                 selectedImage = "BL"
                 
+            case .big:
+                normalImage = "BL_square_groy_big"
+                selectedImage = "BL_square_big"
+                
             }
             
             setBackgroundImage(UIImage(named: normalImage), for: .normal)
@@ -85,6 +98,9 @@ class RotationButton: UIButton {
                 normalImage = "BR_gray"
                 selectedImage = "BR"
                 
+            case .big:
+                normalImage = "BR_square_groy_big"
+                selectedImage = "BR_square_big"
             }
             
             setBackgroundImage(UIImage(named: normalImage), for: .normal)

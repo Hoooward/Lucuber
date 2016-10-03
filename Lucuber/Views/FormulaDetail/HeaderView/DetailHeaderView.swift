@@ -29,7 +29,7 @@ class DetailHeaderView: UIView {
                 ratingView.rating = formula.rating
                 ratingView.maxRating = 5
                 
-                changeFormulaNameLabelStatus()
+//                changeFormulaNameLabelStatus()
                 
             }
         }
@@ -39,6 +39,7 @@ class DetailHeaderView: UIView {
         let label = UILabel()
         label.text = "F2L 1"
         label.font = UIFont.systemFont(ofSize: 20)
+//        label.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
         label.sizeToFit()
         return label
         

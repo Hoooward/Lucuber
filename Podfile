@@ -8,6 +8,7 @@ pod 'AVOSCloud'
 pod 'RealmSwift' , '~> 1.1.0'
 pod 'Kingfisher', '~> 3.0'
 pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
+#pod 'TwicketSegmentedControl'
 
 
 end
