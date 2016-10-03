@@ -311,20 +311,7 @@ extension FormulaViewController: UIScrollViewDelegate {
         vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
         vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         
-//        
-//        if vc.formulasData.isEmpty {
-//            printLog("没有公式数据")
-//            // 显示 Vistis View
-//            
-//            self.view.addSubview(vistorView)
-//        } else {
-//            
-//            vistorView.removeFromSuperview()
-//        }
-        
-        
-        
-//        printLog("FormulaviewController.view = \(vc.view)")
+
         scrollView.addSubview(vc.view)
         
         

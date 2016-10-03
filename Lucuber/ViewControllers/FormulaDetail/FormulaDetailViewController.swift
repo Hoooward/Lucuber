@@ -42,12 +42,23 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     private lazy var customNavigationItem: UINavigationItem = {
         
         let item = UINavigationItem(title: "Detail")
+        item.titleView = self.titleView
         
         item.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_back"), style: .plain, target: self, action: #selector(FormulaDetailViewController.popViewController))
         
         item.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_settings"), style: .plain, target: self, action: #selector(FormulaDetailViewController.editFormula))
         
         return item
+    }()
+    
+    fileprivate lazy var titleView: DetailTitleView = {
+        
+        let titleView = DetailTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
+        
+        titleView.nameLabel.text = "测试"
+        titleView.stateInfoLabel.text = "当前21个公式"
+            
+        return titleView
     }()
     
     fileprivate lazy var customNavigationBar: UINavigationBar = {
@@ -61,6 +72,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         bar.shadowImage = UIImage()
         bar.barStyle = UIBarStyle.blackTranslucent
         bar.setBackgroundImage(UIImage(named:"navigationbar_backgroud"), for: UIBarMetrics.default)
+    
         
         let textAttributes = [NSForegroundColorAttributeName: UIColor.black,
                               NSFontAttributeName: UIFont.navigationBarTitle()]
@@ -214,7 +226,27 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         let index = Int(offSetX / UIScreen.main.bounds.width)
         
         let formula = formulaDatas[index]
-        self.customNavigationBar.items?.first?.title = formula.name
+        self.titleView.nameLabel.text = formula.name
+        
+        let type = formula.type
+        
+        
+        var titleText = ""
+        
+        switch type {
+            
+        case .CROSS:
+            titleText = type.rawValue + " - 中心块与底部十字"
+        case .F2L:
+            titleText = type.rawValue + " - 中间层"
+        case .OLL:
+            titleText = type.rawValue + " - 顶层定向"
+        case .PLL:
+            titleText = type.rawValue + " - 顶层排列"
+  
+        }
+        
+        self.titleView.stateInfoLabel.text = titleText
     }
     
     // MARK: - Segue

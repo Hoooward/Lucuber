@@ -14,13 +14,14 @@ import AVOSCloud
 
 class LibraryFormulaViewController: BaseCollectionViewController {
     
+    // MARK: - Properties
+    
     let indicatorView = UpdateLibraryErrorView(frame: UIScreen.main.bounds)
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         userMode = .normal
         uploadMode = .library

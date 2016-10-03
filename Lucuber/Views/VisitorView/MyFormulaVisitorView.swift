@@ -48,7 +48,7 @@ class MyFormulaVisitorView: UIView {
     private lazy var indicatorLabel: UILabel = {
         
         let label = UILabel()
-        label.text = "欢迎使用 Lucuber"
+//        label.text = "欢迎使用 Lucuber"
         label.font = UIFont.systemFont(ofSize: 12)
         
         label.textAlignment = .center
@@ -120,22 +120,7 @@ class MyFormulaVisitorView: UIView {
     
     // MARK: - Action & Target
     
-    
-    
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        
-//        return nil
-//    }
-//    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
 }
 

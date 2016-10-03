@@ -9,6 +9,27 @@
 import Foundation
 import AVOSCloud
 
+extension Array {
+   
+    func pareseTwoDimensionalToOne(_ catchArray: [[Formula]]) -> [Formula] {
+        
+        var resultArray: [Formula] = []
+ 
+        _ = catchArray.map {
+            $0.map {
+                resultArray.append($0)
+            }
+        }
+        
+        return resultArray
+    }
+}
+
+extension UISearchBar {
+    
+    
+}
+
 public enum Category: String {
     
     case x2x2 = "二阶"

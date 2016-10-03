@@ -15,7 +15,7 @@ class HeaderReusableView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let color = UIColor.cubeTintColor()
+        let color = UIColor.lightGray
         titleLabel.textColor = color
         countLabel.textColor = color
     }

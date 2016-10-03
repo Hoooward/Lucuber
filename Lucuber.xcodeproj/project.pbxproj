@@ -38,6 +38,7 @@
 		E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */; };
 		E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */; };
 		E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */; };
+		E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
@@ -72,6 +73,7 @@
 		E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926671D96E06F004D58BF /* FormulaTextView.swift */; };
 		E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */; };
 		E47926761D96EB85004D58BF /* NewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */; };
+		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
 		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
 		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
@@ -156,6 +158,7 @@
 		E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
 		E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
 		E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
+		E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 		E47926671D96E06F004D58BF /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
 		E47926731D96EB85004D58BF /* NewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSectionHeaderView.swift; sourceTree = "<group>"; };
 		E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewSectionHeaderView.xib; sourceTree = "<group>"; };
+		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
@@ -317,8 +321,7 @@
 			children = (
 				E4217F261D962EFF00E575AB /* CateogryMenuCell.swift */,
 			);
-			name = CategoryMenuCell;
-			path = ../../CategoryMenuCell;
+			path = CategoryMenuCell;
 			sourceTree = "<group>";
 		};
 		E4217F281D9664DE00E575AB /* NewFormula */ = {
@@ -462,6 +465,14 @@
 			children = (
 			);
 			path = NetworkError;
+			sourceTree = "<group>";
+		};
+		E4610F411DA1F29D0018CB67 /* DetailTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */,
+			);
+			path = DetailTitleView;
 			sourceTree = "<group>";
 		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
@@ -694,6 +705,8 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4610F411DA1F29D0018CB67 /* DetailTitleView */,
+				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 				E44C9E651DA13FA5001EEE40 /* NetworkError */,
 				E435C02D1D9F4A370026FA08 /* FormulaDetail */,
 				E435C02A1D9EAA250026FA08 /* ActionSheetView */,
@@ -821,6 +834,7 @@
 				E4207A2A1D93CA7F003CF073 /* Animation.swift */,
 				E4207A321D93E1CB003CF073 /* UIViewController+Cube.swift */,
 				E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */,
+				E480BB941DA1E5110080098A /* Array+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -841,7 +855,6 @@
 			children = (
 				E4E021E81D9019AA00DED99A /* CardFormulaCell.swift */,
 				E4E021E91D9019AA00DED99A /* CardFormulaCell.xib */,
-				E4217F251D962EF000E575AB /* CategoryMenuCell */,
 			);
 			path = CardCell;
 			sourceTree = "<group>";
@@ -1090,6 +1103,7 @@
 				E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */,
 				E4F9F11D1D991E040076C57C /* RegisterPickNameViewController.swift in Sources */,
 				E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */,
+				E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */,
 				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
 				E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */,
 				E47926511D96DC5F004D58BF /* NameTextViewCell.swift in Sources */,
@@ -1125,6 +1139,7 @@
 				E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
+				E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E4217F271D962EFF00E575AB /* CateogryMenuCell.swift in Sources */,
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,

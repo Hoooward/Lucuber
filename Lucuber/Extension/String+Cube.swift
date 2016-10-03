@@ -216,6 +216,12 @@ extension String {
         
         return false
     }
+    
+ 
+    public func trimmingSearchtext() -> String {
+       return self.lowercased().trimming(trimmingType: .squashingWhiteSpace)
+        
+    }
 }
 
 

@@ -341,6 +341,32 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 
 extension BaseCollectionViewController: UISearchBarDelegate {
     
+    func pareseTwoDimensionalToOne() -> [Formula] {
+        
+        var resultArray: [Formula] = []
+        
+        _ = formulasData.map {
+            
+            $0.map {
+                
+                resultArray.append($0) }
+        }
+        return resultArray
+        
+    }
+    
+    func searchFormulas(with searchText: String?) -> [Formula] {
+        
+        guard let text = searchText, text.characters.count > 0 else {
+            return []
+        }
+        
+        return pareseTwoDimensionalToOne().filter {
+            
+            $0.name.trimmingSearchtext().contains(text.trimmingSearchtext())
+        }
+    }
+    
     func cancelSearch() {
         
         searchResult.removeAll()
@@ -370,7 +396,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBarActive = true
         
         // FIXME: 搜索公式
-//        searchResult = 
+        searchResult = searchFormulas(with: searchText)
         
         collectionView?.reloadData()
     
@@ -540,10 +566,21 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        printLog("Did Seleted one Formula")
+        var seletedFormula: Formula!
+        var formulas: [Formula]!
         
-        let seletedFormula = formulasData[indexPath.section][indexPath.row]
-        let formulas = formulasData[indexPath.section]
+        if searchBarActive {
+            
+            seletedFormula = searchResult[indexPath.row]
+            formulas = searchResult
+            
+            
+        } else {
+            seletedFormula = formulasData[indexPath.section][indexPath.row]
+            formulas = formulasData[indexPath.section]
+            
+        }
+        
         
         let dict: [String: Any] = ["formulas": formulas, "seletedFormula" : seletedFormula]
 //        printLog(dict)
