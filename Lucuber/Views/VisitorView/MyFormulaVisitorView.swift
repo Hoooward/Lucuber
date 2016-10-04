@@ -40,7 +40,6 @@ class MyFormulaVisitorView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Lucuber icon")
 ////        imageView.animationDuration = 7
-//        imageView.animationImages = images
         return imageView
         
     }()

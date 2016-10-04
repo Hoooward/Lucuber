@@ -15,6 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_feeds_active" translatesAutoresizingMaskIntoConstraints="NO" id="WmD-Jd-c04" userLabel="Icon Image View">
+                        <color key="tintColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="gtR-3c-Ucl"/>
                             <constraint firstAttribute="width" constant="24" id="hqG-7G-66t"/>
@@ -42,7 +43,7 @@
                     <constraint firstItem="WEx-rk-NIs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yKX-oX-Zc2"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-364" y="100"/>
+            <point key="canvasLocation" x="-138" y="109"/>
         </tableViewCell>
     </objects>
     <resources>

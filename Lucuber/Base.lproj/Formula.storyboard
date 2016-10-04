@@ -48,7 +48,7 @@
         <!--Formula View Controller-->
         <scene sceneID="221-VO-LLJ">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="dX3-HB-lAD" customClass="FormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dX3-HB-lAD" customClass="FormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eu1-Ee-aps"/>
                         <viewControllerLayoutGuide type="bottom" id="78i-wz-6h6"/>

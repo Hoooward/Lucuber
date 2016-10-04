@@ -281,7 +281,6 @@ public class Formula: AVObject, AVSubclassing {
     }
     
     func prepareForPushToLeanCloud() {
-        
         //准备保存前, 将空白的 content 内容删除掉
         
         var catchContents = self.contents
@@ -295,7 +294,34 @@ public class Formula: AVObject, AVSubclassing {
         
         self.contents = catchContents
     }
-
+    
+    
+    var contentLabelMaxHeight: CGFloat {
+        
+        var height: CGFloat = 0
+        
+        for (_, content) in contents.enumerated() {
+            
+            if let text = content.text {
+                
+                let attributesText = text.setAttributesFitDetailLayout(style: .center)
+                let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+                
+                if rect.height > height {
+                    height = rect.height
+                }
+                
+            }
+        }
+        
+        return height
+    }
+    
+    var formulaContentCellHeight: CGFloat {
+        
+        return contentLabelMaxHeight + 25 + 35 + 25 + 40
+    }
+    
 }
 
 public enum Rotation {
@@ -328,6 +354,10 @@ class FormulaContent: CustomStringConvertible {
         
         return height
     }
+    
+ 
+    
+    
     
     
     init() { }

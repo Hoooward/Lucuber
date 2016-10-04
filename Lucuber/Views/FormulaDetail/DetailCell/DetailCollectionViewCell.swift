@@ -119,9 +119,10 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
         case .separatorTwo:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-//            printLog("cell height = \(formula?.contents[indexPath.row].cellHeight)")
-//           return formula?.contents[indexPath.row].cellHeight ?? 100
-            return 200
+            if let formula = formula {
+                return formula.formulaContentCellHeight
+            }
+            return 0
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }
@@ -146,12 +147,9 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SeparatorCellIdentifier, for: indexPath)
             return cell
         case .formulas:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: FormulasCellIdentifier, for: indexPath) as! DetailFormulasCell
-//            cell.formulaContent = formula?.contents[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: FormulaContentCellIdentifier, for: indexPath) as! FormulaContentCell
             cell.formula = formula
             return cell
-            
         case .comment:
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailCommentCellIdentifier, for: indexPath)
             return cell

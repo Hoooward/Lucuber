@@ -92,30 +92,30 @@ class FormulaContentCell: UITableViewCell {
             
         }
         
-        var contentLabelMaxHeight: CGFloat = 0
+//        let contentLabelMaxHeight: CGFloat = formula.contentLabelMaxHeight
         
-        for (_, content) in formula.contents.enumerated() {
-            
-            if let text = content.text {
-                
-                let attributesText = text.setAttributesFitDetailLayout(style: .center)
-                let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-                
-                
-                if rect.height > contentLabelMaxHeight {
-                    contentLabelMaxHeight = rect.height
-                }
-                
-            }
-        }
-        
+//        for (_, content) in formula.contents.enumerated() {
+//            
+//            if let text = content.text {
+//                
+//                let attributesText = text.setAttributesFitDetailLayout(style: .center)
+//                let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+//                
+//                
+//                if rect.height > contentLabelMaxHeight {
+//                    contentLabelMaxHeight = rect.height
+//                }
+//                
+//            }
+//        }
+//        
         
 //        
 //        let indicatorLabelFrame = CGRect(x: 38 , y: 0, width: UIScreen.main.bounds.width - 38 - 38, height: 25)
 //        indicatorLabel.frame = indicatorLabelFrame
         
         
-        let rect = CGRect(x: 45, y: 25, width: UIScreen.main.bounds.width - 45 - 45, height: contentLabelMaxHeight)
+        let rect = CGRect(x: 45, y: 25, width: UIScreen.main.bounds.width - 45 - 45, height: formula.contentLabelMaxHeight)
         contentLabel.frame = rect
         
        
