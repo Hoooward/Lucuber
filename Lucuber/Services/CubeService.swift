@@ -1,10 +1,8 @@
 //
 //  CubeService.swift
 //  Lucuber
-//
 //  Created by Tychooo on 16/9/19.
 //  Copyright © 2016年 Tychooo. All rights reserved.
-//
 
 import Foundation
 import AVOSCloud

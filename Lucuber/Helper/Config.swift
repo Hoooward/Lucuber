@@ -21,6 +21,8 @@ extension Notification.Name {
     
     static let needReloadFormulaFromRealmNotification = Notification.Name("reloadFormulaFromRealm")
     
+    static let updateMessageStatesNotification = Notification.Name("updateMessageStates")
+    
 }
 
 public class Config {
@@ -28,6 +30,23 @@ public class Config {
     public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30
     
     public static let mobilePhoneCodeInSeconds = 59
+    
+    
+    public class func chatCellAvatarSize() -> CGFloat {
+        return 40.0
+    }
+    
+    public class func chatCellGapBetweenTextContentLabelAndAvatar() -> CGFloat {
+        return 23
+    }
+    
+    public class func chatCellGapBetweenWallAndAvatar() -> CGFloat {
+        return 15
+    }
+    
+    public class func chatTextGapBetweenWallAndContentLabel() -> CGFloat {
+        return 50
+    }
     
     public struct ErrorCode {
         
@@ -106,6 +125,44 @@ public class Config {
         
         public static let topMarge: CGFloat = 10
         public static let marge: CGFloat = 38
+    }
+    
+    public struct ChatCell {
+        
+        public static let marginTopForGroup: CGFloat = 22
+        public static let nameLabelHeightForGroup: CGFloat = 17
+        
+        public static let magicWidth: CGFloat = 4
+        
+        public static let lineSpacing: CGFloat = 5
+        
+        public static let minTextWidth: CGFloat = 17
+        
+        public static let gapBetweenDotImageViewAndBubble: CGFloat = 13
+        
+        public static let gapBetweenAvatarImageViewAndBubble: CGFloat = 5
+        
+        public static let playImageViewXOffset: CGFloat = 3
+        
+        public static let locationNameLabelHeight: CGFloat = 20
+        
+//        public static let mediaPreferredWidth: CGFloat = Ruler.iPhoneHorizontal(192, 225, 250).value
+//        public static let mediaPreferredHeight: CGFloat = Ruler.iPhoneHorizontal(208, 244, 270).value
+//        
+        public static let mediaMinWidth: CGFloat = 60
+        public static let mediaMinHeight: CGFloat = 45
+        
+//        public static let imageMaxWidth: CGFloat = Ruler.iPhoneHorizontal(230, 260, 300).value
+        
+        public static let centerXOffset: CGFloat = 4
+        
+        public static let bubbleCornerRadius: CGFloat = 18
+        
+        public static let imageAppearDuration: TimeInterval = 0.1
+        
+        public static let textAttributes:[String: NSObject] = [
+            NSFontAttributeName: UIFont.chatTextFont(),
+            ]
     }
     
     

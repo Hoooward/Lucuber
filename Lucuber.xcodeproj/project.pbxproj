@@ -38,6 +38,17 @@
 		E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */; };
 		E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */; };
 		E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */; };
+		E45DA0501DA5E2DD0050DD4D /* ConversationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA04F1DA5E2DD0050DD4D /* ConversationTitleView.swift */; };
+		E45DA0551DA736040050DD4D /* ChatSectionDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0531DA736040050DD4D /* ChatSectionDateCell.swift */; };
+		E45DA0561DA736040050DD4D /* ChatSectionDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45DA0541DA736040050DD4D /* ChatSectionDateCell.xib */; };
+		E45DA05A1DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0581DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift */; };
+		E45DA05B1DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45DA0591DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib */; };
+		E45DA05D1DA737910050DD4D /* ChatBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA05C1DA737910050DD4D /* ChatBaseCell.swift */; };
+		E45DA05F1DA73B590050DD4D /* ChatLeftTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA05E1DA73B590050DD4D /* ChatLeftTextCell.swift */; };
+		E45DA0611DA73C5B0050DD4D /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0601DA73C5B0050DD4D /* ChatTextView.swift */; };
+		E45DA0631DA771E60050DD4D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
+		E45DA0651DA7974C0050DD4D /* ChatRightTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0641DA7974C0050DD4D /* ChatRightTextCell.swift */; };
+		E45DA0681DA797B90050DD4D /* ChatRightBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0671DA797B90050DD4D /* ChatRightBaseCell.swift */; };
 		E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */; };
 		E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */; };
 		E4610F531DA29F180018CB67 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F4E1DA29F180018CB67 /* Palette.swift */; };
@@ -162,6 +173,17 @@
 		E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
 		E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
 		E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
+		E45DA04F1DA5E2DD0050DD4D /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
+		E45DA0531DA736040050DD4D /* ChatSectionDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSectionDateCell.swift; sourceTree = "<group>"; };
+		E45DA0541DA736040050DD4D /* ChatSectionDateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSectionDateCell.xib; sourceTree = "<group>"; };
+		E45DA0581DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCollectionViewCell.swift; sourceTree = "<group>"; };
+		E45DA0591DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCollectionViewCell.xib; sourceTree = "<group>"; };
+		E45DA05C1DA737910050DD4D /* ChatBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBaseCell.swift; sourceTree = "<group>"; };
+		E45DA05E1DA73B590050DD4D /* ChatLeftTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLeftTextCell.swift; sourceTree = "<group>"; };
+		E45DA0601DA73C5B0050DD4D /* ChatTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
+		E45DA0621DA771E60050DD4D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		E45DA0641DA7974C0050DD4D /* ChatRightTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRightTextCell.swift; sourceTree = "<group>"; };
+		E45DA0671DA797B90050DD4D /* ChatRightBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRightBaseCell.swift; sourceTree = "<group>"; };
 		E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
 		E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaContentCell.swift; sourceTree = "<group>"; };
 		E4610F4E1DA29F180018CB67 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
@@ -477,6 +499,46 @@
 			path = NetworkError;
 			sourceTree = "<group>";
 		};
+		E45DA04C1DA5E2B90050DD4D /* ConversationTitle */ = {
+			isa = PBXGroup;
+			children = (
+				E45DA04F1DA5E2DD0050DD4D /* ConversationTitleView.swift */,
+			);
+			path = ConversationTitle;
+			sourceTree = "<group>";
+		};
+		E45DA0511DA735A10050DD4D /* ConversationCell */ = {
+			isa = PBXGroup;
+			children = (
+				E45DA0571DA736CE0050DD4D /* LoadMoreCollectionViewCell */,
+				E45DA0521DA735A10050DD4D /* ChatSectionDateCell */,
+				E45DA05C1DA737910050DD4D /* ChatBaseCell.swift */,
+				E45DA05E1DA73B590050DD4D /* ChatLeftTextCell.swift */,
+				E45DA0601DA73C5B0050DD4D /* ChatTextView.swift */,
+				E45DA0641DA7974C0050DD4D /* ChatRightTextCell.swift */,
+				E45DA0671DA797B90050DD4D /* ChatRightBaseCell.swift */,
+			);
+			path = ConversationCell;
+			sourceTree = "<group>";
+		};
+		E45DA0521DA735A10050DD4D /* ChatSectionDateCell */ = {
+			isa = PBXGroup;
+			children = (
+				E45DA0531DA736040050DD4D /* ChatSectionDateCell.swift */,
+				E45DA0541DA736040050DD4D /* ChatSectionDateCell.xib */,
+			);
+			path = ChatSectionDateCell;
+			sourceTree = "<group>";
+		};
+		E45DA0571DA736CE0050DD4D /* LoadMoreCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E45DA0581DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift */,
+				E45DA0591DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib */,
+			);
+			path = LoadMoreCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		E4610F411DA1F29D0018CB67 /* DetailTitleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,6 +757,7 @@
 				E4B09B9E1D8E38D10090671F /* Formula.swift */,
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
+				E45DA0621DA771E60050DD4D /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -726,6 +789,8 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E45DA0511DA735A10050DD4D /* ConversationCell */,
+				E45DA04C1DA5E2B90050DD4D /* ConversationTitle */,
 				E4610F4C1DA29F180018CB67 /* TwicketSegmentedControl */,
 				E4610F411DA1F29D0018CB67 /* DetailTitleView */,
 				E4217F251D962EF000E575AB /* CategoryMenuCell */,
@@ -1059,8 +1124,10 @@
 				E435C0441D9F4A370026FA08 /* DetailFormulasCell.xib in Resources */,
 				E479264F1D96DC5F004D58BF /* FormulaTextViewCell.xib in Resources */,
 				E47926521D96DC5F004D58BF /* NameTextViewCell.xib in Resources */,
+				E45DA0561DA736040050DD4D /* ChatSectionDateCell.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
 				E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */,
+				E45DA05B1DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,11 +1207,13 @@
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E479261E1D968166004D58BF /* InputAccessoryView.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
+				E45DA05F1DA73B590050DD4D /* ChatLeftTextCell.swift in Sources */,
 				E47926241D968C74004D58BF /* KeyButton.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
 				E47926551D96DC5F004D58BF /* StarRatingCell.swift in Sources */,
 				E47926311D96D27A004D58BF /* CategoryIndicatorView.swift in Sources */,
 				E479265D1D96DD44004D58BF /* CateogyItemView.swift in Sources */,
+				E45DA0651DA7974C0050DD4D /* ChatRightTextCell.swift in Sources */,
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4610F531DA29F180018CB67 /* Palette.swift in Sources */,
 				E4E021F81D901A4800DED99A /* StarRatingView.swift in Sources */,
@@ -1155,6 +1224,7 @@
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
 				E435C0201D9EA21D0026FA08 /* BorderButton.swift in Sources */,
 				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
+				E45DA0611DA73C5B0050DD4D /* ChatTextView.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
 				E435C02C1D9EAA250026FA08 /* ActionSheetView.swift in Sources */,
@@ -1168,16 +1238,19 @@
 				E4217F271D962EFF00E575AB /* CateogryMenuCell.swift in Sources */,
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,
 				E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */,
+				E45DA0631DA771E60050DD4D /* Message.swift in Sources */,
 				E435C0431D9F4A370026FA08 /* DetailFormulasCell.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
 				E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */,
 				E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */,
+				E45DA0551DA736040050DD4D /* ChatSectionDateCell.swift in Sources */,
 				E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,
+				E45DA0681DA797B90050DD4D /* ChatRightBaseCell.swift in Sources */,
 				E4610F541DA29F180018CB67 /* TwicketSegmentedControl.swift in Sources */,
 				E4E021F41D9019AA00DED99A /* NormalFormulaCell.swift in Sources */,
 				E435C0411D9F4A370026FA08 /* DetailCollectionViewCell.swift in Sources */,
@@ -1188,11 +1261,14 @@
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
 				E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */,
 				E479264C1D96DC5F004D58BF /* CategorySeletedCell.swift in Sources */,
+				E45DA05D1DA737910050DD4D /* ChatBaseCell.swift in Sources */,
 				E47926591D96DC5F004D58BF /* TypeSelectedCell.swift in Sources */,
 				E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */,
+				E45DA0501DA5E2DD0050DD4D /* ConversationTitleView.swift in Sources */,
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
 				E479262E1D96D0B7004D58BF /* NewFormulaHeadView.swift in Sources */,
 				E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */,
+				E45DA05A1DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift in Sources */,
 				E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
 				E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */,

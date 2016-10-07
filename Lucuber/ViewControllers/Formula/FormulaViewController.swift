@@ -17,7 +17,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     var containerScrollerOffsetX: CGFloat = 0
     @IBOutlet weak var newFormulaButtonTrailing: NSLayoutConstraint!
     
-
     
     private lazy var containerScrollerView: UIScrollView  = {
         
@@ -234,6 +233,13 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 
                 vc.seletedFormula = dict["seletedFormula"] as? Formula
                 vc.formulaDatas = dict["formulas"] as! [Formula]
+                
+                
+                let index = Int(containerScrollerView.contentOffset.x / UIScreen.main.bounds.width)
+                
+                
+                vc.uploadMode = index == 0 ? .my : .library
+                
 //                vc.hidesBottomBarWhenPushed = true
                 
             }

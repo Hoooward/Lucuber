@@ -20,6 +20,7 @@ class NewFormulaViewController: UIViewController {
         case newFormula
         case newAttchment
         case editFormula
+        case addToMy
     }
     
     var editType: EditType = .newFormula
@@ -103,6 +104,11 @@ class NewFormulaViewController: UIViewController {
             navigationItem.title = "编辑公式"
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
             
+        case .addToMy:
+            
+            navigationItem.title = "添加至我的公式"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "添加", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
+            
         }
  
         
@@ -129,6 +135,16 @@ class NewFormulaViewController: UIViewController {
             , height: 226)
         NotificationCenter.default.addObserver(self, selector: #selector(NewFormulaViewController.keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyforPushToLeanCloud()
     }
     
 
@@ -205,6 +221,8 @@ class NewFormulaViewController: UIViewController {
 //            CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
 //            
 //        }
+        
+    // TODO: 分别处理多个Edit的方法。
         
     }
     
@@ -320,6 +338,11 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: nameTextViewCellIdentifier, for: indexPath) as! NameTextViewCell
             
+            if !formula.name.isEmpty {
+                
+                cell.textField.text = formula.name
+                cell.textField.placeholdTextLabel.isHidden = true
+            }
             /// update formula's name
             cell.nameDidChanged = { [weak self] newText in
                 

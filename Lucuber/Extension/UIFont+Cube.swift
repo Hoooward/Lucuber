@@ -55,5 +55,9 @@ extension UIFont {
         return UIFont(name: "Avenir Next", size: 18)!
     }
     
+    public class func chatTextFont() -> UIFont {
+        return UIFont.systemFont(ofSize: 16)
+    }
+    
 
 }

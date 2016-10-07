@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         
         Formula.registerSubclass()
+        Message.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds

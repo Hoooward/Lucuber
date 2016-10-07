@@ -21,6 +21,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
     
     fileprivate let layout = DetailLayout()
+    
     var collectionView: UICollectionView!
     
     var formulaDatas: [Formula] = []
@@ -37,6 +38,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
     
     var oldMasterList: [String] = []
+    
+    var uploadMode: UploadFormulaMode = .library
     
     
     private lazy var customNavigationItem: UINavigationItem = {
@@ -91,16 +94,18 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     private func creatActionSheetViewItems() -> [ActionSheetView.Item] {
         
         let editItem = ActionSheetView.Item.Option(
+            
             title: "编辑此公式",
             titleColor: UIColor.cubeTintColor(),
+            
             action: { [weak self] in
                 guard let strongSelf = self else { return }
                 
                 let sb = UIStoryboard(name: "NewFormula", bundle: nil)
                 let navigationVC = sb.instantiateInitialViewController() as! MainNavigationController
                 let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
+                viewController.editType = .editFormula
                 viewController.view.alpha = 1
-                viewController.editType = NewFormulaViewController.EditType.editFormula
                 viewController.formula = strongSelf.seletedFormula!
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
@@ -127,9 +132,38 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 
             })
         
+        let copyToMy = ActionSheetView.Item.Option(
+            
+            title: "编辑并添加到公式",
+            titleColor: UIColor.cubeTintColor(),
+            
+            action: { [weak self] in
+                guard let strongSelf = self else { return }
+                
+                let sb = UIStoryboard(name: "NewFormula", bundle: nil)
+                let navigationVC = sb.instantiateInitialViewController() as! MainNavigationController
+                let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
+                viewController.editType = .addToMy
+                viewController.view.alpha = 1
+                if let formula = strongSelf.seletedFormula {
+                    
+                    viewController.formula = formula.copy(with: nil) as! Formula
+                }
+                strongSelf.present(navigationVC, animated: true, completion: nil)
+                
+            })
         
         
-        return [editItem, deleteItem]
+        
+        switch uploadMode {
+        case .my:
+            
+            return [editItem, deleteItem]
+        case .library:
+            return [copyToMy]
+        }
+        
+//        return [editItem, deleteItem]
     }
     
     // MARK: - Life Cycle

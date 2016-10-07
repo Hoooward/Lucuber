@@ -267,6 +267,7 @@ public class Formula: AVObject, AVSubclassing {
         
         var contentIsReady = false
         
+        
         // 如果contents的第一个text有值, 就可以
         if let content = self.contents.first , let text = content.text {
             contentIsReady = !text.isDirty
@@ -320,6 +321,12 @@ public class Formula: AVObject, AVSubclassing {
     var formulaContentCellHeight: CGFloat {
         
         return contentLabelMaxHeight + 25 + 35 + 25 + 40
+    }
+    
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Formula(name: name, contents: contents, imageName: imageName, favorate: favorate, category: category, type: type, rating: rating)
+        return copy
     }
     
 }

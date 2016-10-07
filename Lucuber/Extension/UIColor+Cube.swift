@@ -91,5 +91,18 @@ extension UIColor {
         return UIColor(red: 160/255.0, green: 160/255.0, blue: 160/255.0, alpha: 1)
     }
     
+    class func cubeGrayColor() -> UIColor {
+        return UIColor(red: 142.0/255.0, green: 142.0/255.0, blue: 147.0/255.0, alpha: 1.0)
+    }
+    
+    class func leftBubbleTintColor() -> UIColor {
+        return UIColor(white: 231 / 255.0, alpha: 1.0)
+    }
+    
+    class func rightBubbleTintColor() -> UIColor {
+        return UIColor.cubeTintColor()
+    }
+    
+    
 }
 
