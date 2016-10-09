@@ -292,12 +292,10 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         switch segueIdentifier(for: segue) {
             
         case .comment:
-//            let commentVC = segue.destinationViewController as! CommentTableViewController
-//            commentVC.formula = sender as? Formula
+            let vc = segue.destination as! CommentViewController
+            vc.formula = sender as? Formula
             
-            break
         case .edit:
-            
             let editVC = segue.destination as! NewFormulaViewController
             editVC.view.alpha = 1
             editVC.editType = NewFormulaViewController.EditType.editFormula

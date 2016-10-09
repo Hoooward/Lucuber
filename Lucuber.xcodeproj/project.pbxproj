@@ -136,6 +136,7 @@
 		E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E021F91D9023C700DED99A /* String+Cube.swift */; };
 		E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E021FC1D90454A00DED99A /* NoResultCell.swift */; };
 		E4E021FF1D90454A00DED99A /* NoResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4E021FD1D90454A00DED99A /* NoResultCell.xib */; };
+		E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -282,6 +283,7 @@
 		E4E021F91D9023C700DED99A /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		E4E021FC1D90454A00DED99A /* NoResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultCell.swift; sourceTree = "<group>"; };
 		E4E021FD1D90454A00DED99A /* NoResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResultCell.xib; sourceTree = "<group>"; };
+		E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMan.swift; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				E466068B1D8E3533002306D0 /* Helper.swift */,
 				E4B09BA21D8E3D340090671F /* Config.swift */,
 				E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */,
+				E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1267,6 +1270,7 @@
 				E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */,
 				E4E021F21D9019AA00DED99A /* HeaderReusableView.swift in Sources */,
 				E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */,
+				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
 				E479264E1D96DC5F004D58BF /* FormulaTextViewCell.swift in Sources */,
 				E435C0451D9F4A370026FA08 /* DetailHeaderView.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,

@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Formula.registerSubclass()
         Message.registerSubclass()
+        FormulaComment.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds

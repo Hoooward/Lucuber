@@ -9,10 +9,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="cpq-w1-uqo" customClass="CommentHeaderView" customModule="Lucuber" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="368" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="381" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdy-GF-Ubt" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdy-GF-Ubt" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="10" id="3rL-Z5-pRa"/>
@@ -28,13 +28,8 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建时间: 16-07" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-y6-oDj">
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                    <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来自: Hoooward" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfX-M7-Jtm">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="来自: Hoooward" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfX-M7-Jtm">
+                    <frame key="frameInset" minX="64" minY="62" width="62" height="10"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="8"/>
                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -58,6 +53,13 @@
                         <constraint firstAttribute="width" secondItem="oL4-xH-vDN" secondAttribute="height" multiplier="1:1" id="gNp-Lh-nu5"/>
                     </constraints>
                 </imageView>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="创建时间: 16-07" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-y6-oDj">
+                    <frame key="frameInset" minX="64" minY="76" width="61" height="10"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -66,7 +68,7 @@
                 <constraint firstItem="vdy-GF-Ubt" firstAttribute="top" secondItem="ta7-Jl-YCL" secondAttribute="bottom" constant="8" id="KPA-WL-6fg"/>
                 <constraint firstItem="oL4-xH-vDN" firstAttribute="leading" secondItem="cpq-w1-uqo" secondAttribute="leading" constant="15" id="LaW-lV-Ekr"/>
                 <constraint firstItem="MfE-y6-oDj" firstAttribute="leading" secondItem="gfX-M7-Jtm" secondAttribute="leading" id="MgU-cJ-o1x"/>
-                <constraint firstItem="ta7-Jl-YCL" firstAttribute="centerY" secondItem="oL4-xH-vDN" secondAttribute="centerY" constant="-6" id="PWz-Uk-7J3"/>
+                <constraint firstItem="ta7-Jl-YCL" firstAttribute="centerY" secondItem="oL4-xH-vDN" secondAttribute="centerY" id="PWz-Uk-7J3"/>
                 <constraint firstAttribute="bottom" secondItem="Xs1-MA-fx9" secondAttribute="bottom" id="QCQ-zp-25t"/>
                 <constraint firstItem="gfX-M7-Jtm" firstAttribute="top" secondItem="MfE-y6-oDj" secondAttribute="bottom" constant="1" id="SEQ-9c-qgN"/>
                 <constraint firstItem="gfX-M7-Jtm" firstAttribute="leading" secondItem="oL4-xH-vDN" secondAttribute="trailing" constant="9" id="XRJ-6e-1Z8"/>
@@ -90,7 +92,7 @@
                 <outlet property="nameLabelCenterYConstraint" destination="PWz-Uk-7J3" id="W1a-um-y8X"/>
                 <outlet property="starRatingView" destination="vdy-GF-Ubt" id="fFk-E9-nRy"/>
             </connections>
-            <point key="canvasLocation" x="78" y="-445"/>
+            <point key="canvasLocation" x="84.5" y="-430"/>
         </view>
     </objects>
     <resources>

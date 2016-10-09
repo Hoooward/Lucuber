@@ -169,6 +169,8 @@ class MessageToolbar: UIToolbar {
     
     private func makeUI () {
         
+        sendButton.isHidden = true
+        
         addSubview(voiceRecordButton)
         addSubview(messageTextView)
         addSubview(micButton)
