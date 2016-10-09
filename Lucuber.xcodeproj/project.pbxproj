@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
+		E40EAEB91DA9F1BB0068404B /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */; };
+		E40EAEBB1DA9F1F20068404B /* CommentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */; };
 		E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
 		E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */; };
 		E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A301D93D8C0003CF073 /* CubeAlert.swift */; };
@@ -49,6 +51,8 @@
 		E45DA0631DA771E60050DD4D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
 		E45DA0651DA7974C0050DD4D /* ChatRightTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0641DA7974C0050DD4D /* ChatRightTextCell.swift */; };
 		E45DA0681DA797B90050DD4D /* ChatRightBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0671DA797B90050DD4D /* ChatRightBaseCell.swift */; };
+		E45DA06A1DA7A3080050DD4D /* ChatLeftImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0691DA7A3080050DD4D /* ChatLeftImageCell.swift */; };
+		E45DA06D1DA7A41F0050DD4D /* MessageLoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA06C1DA7A41F0050DD4D /* MessageLoadingProgressView.swift */; };
 		E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */; };
 		E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */; };
 		E4610F531DA29F180018CB67 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F4E1DA29F180018CB67 /* Palette.swift */; };
@@ -90,6 +94,12 @@
 		E47926761D96EB85004D58BF /* NewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
 		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
+		E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */; };
+		E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */; };
+		E48BCD451DA89F2100C4A1B7 /* ChatRightImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD441DA89F2100C4A1B7 /* ChatRightImageCell.swift */; };
+		E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD471DA8AA0C00C4A1B7 /* CommentViewController.swift */; };
+		E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */; };
+		E48BCD4D1DA90C4D00C4A1B7 /* MessageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD4C1DA90C4D00C4A1B7 /* MessageToolbar.swift */; };
 		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
@@ -144,6 +154,8 @@
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
+		E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
+		E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentHeaderView.xib; sourceTree = "<group>"; };
 		E4207A2A1D93CA7F003CF073 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeHUD.swift; sourceTree = "<group>"; };
 		E4207A301D93D8C0003CF073 /* CubeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAlert.swift; sourceTree = "<group>"; };
@@ -184,6 +196,8 @@
 		E45DA0621DA771E60050DD4D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		E45DA0641DA7974C0050DD4D /* ChatRightTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRightTextCell.swift; sourceTree = "<group>"; };
 		E45DA0671DA797B90050DD4D /* ChatRightBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRightBaseCell.swift; sourceTree = "<group>"; };
+		E45DA0691DA7A3080050DD4D /* ChatLeftImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLeftImageCell.swift; sourceTree = "<group>"; };
+		E45DA06C1DA7A41F0050DD4D /* MessageLoadingProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLoadingProgressView.swift; sourceTree = "<group>"; };
 		E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
 		E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaContentCell.swift; sourceTree = "<group>"; };
 		E4610F4E1DA29F180018CB67 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
@@ -226,6 +240,12 @@
 		E47926741D96EB85004D58BF /* NewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewSectionHeaderView.xib; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
+		E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeRuler.swift; sourceTree = "<group>"; };
+		E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Cube.swift"; sourceTree = "<group>"; };
+		E48BCD441DA89F2100C4A1B7 /* ChatRightImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRightImageCell.swift; sourceTree = "<group>"; };
+		E48BCD471DA8AA0C00C4A1B7 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comment.storyboard; sourceTree = "<group>"; };
+		E48BCD4C1DA90C4D00C4A1B7 /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
 		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -304,6 +324,15 @@
 				5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E40EAEB71DA9F1AC0068404B /* CommentHeader */ = {
+			isa = PBXGroup;
+			children = (
+				E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */,
+				E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */,
+			);
+			path = CommentHeader;
 			sourceTree = "<group>";
 		};
 		E4207A2C1D93D8AB003CF073 /* CubeHUD */ = {
@@ -517,6 +546,8 @@
 				E45DA0601DA73C5B0050DD4D /* ChatTextView.swift */,
 				E45DA0641DA7974C0050DD4D /* ChatRightTextCell.swift */,
 				E45DA0671DA797B90050DD4D /* ChatRightBaseCell.swift */,
+				E45DA0691DA7A3080050DD4D /* ChatLeftImageCell.swift */,
+				E48BCD441DA89F2100C4A1B7 /* ChatRightImageCell.swift */,
 			);
 			path = ConversationCell;
 			sourceTree = "<group>";
@@ -537,6 +568,14 @@
 				E45DA0591DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib */,
 			);
 			path = LoadMoreCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		E45DA06B1DA7A4120050DD4D /* MessageLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				E45DA06C1DA7A41F0050DD4D /* MessageLoadingProgressView.swift */,
+			);
+			path = MessageLoadingView;
 			sourceTree = "<group>";
 		};
 		E4610F411DA1F29D0018CB67 /* DetailTitleView */ = {
@@ -566,6 +605,7 @@
 				E47926601D96E005004D58BF /* FormulaKeyboard.plist */,
 				E466068B1D8E3533002306D0 /* Helper.swift */,
 				E4B09BA21D8E3D340090671F /* Config.swift */,
+				E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -727,6 +767,23 @@
 			path = SectionHeader;
 			sourceTree = "<group>";
 		};
+		E48BCD461DA8A9FF00C4A1B7 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				E48BCD471DA8AA0C00C4A1B7 /* CommentViewController.swift */,
+				E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		E48BCD4B1DA90C4300C4A1B7 /* MessageToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				E48BCD4C1DA90C4D00C4A1B7 /* MessageToolbar.swift */,
+			);
+			path = MessageToolbar;
+			sourceTree = "<group>";
+		};
 		E497E9FB1D9A04D300BB9A2D /* NavigationTitleLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,6 +846,9 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E40EAEB71DA9F1AC0068404B /* CommentHeader */,
+				E48BCD4B1DA90C4300C4A1B7 /* MessageToolbar */,
+				E45DA06B1DA7A4120050DD4D /* MessageLoadingView */,
 				E45DA0511DA735A10050DD4D /* ConversationCell */,
 				E45DA04C1DA5E2B90050DD4D /* ConversationTitle */,
 				E4610F4C1DA29F180018CB67 /* TwicketSegmentedControl */,
@@ -830,6 +890,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E48BCD461DA8A9FF00C4A1B7 /* Comment */,
 				E435C0231D9EA39E0026FA08 /* FormulaDetail */,
 				E4F9F10C1D991E040076C57C /* Login */,
 				E47926291D969050004D58BF /* Keyboard */,
@@ -922,6 +983,7 @@
 				E4207A321D93E1CB003CF073 /* UIViewController+Cube.swift */,
 				E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */,
 				E480BB941DA1E5110080098A /* Array+Cube.swift */,
+				E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1123,9 +1185,11 @@
 				E4E021F51D9019AA00DED99A /* NormalFormulaCell.xib in Resources */,
 				E435C0441D9F4A370026FA08 /* DetailFormulasCell.xib in Resources */,
 				E479264F1D96DC5F004D58BF /* FormulaTextViewCell.xib in Resources */,
+				E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */,
 				E47926521D96DC5F004D58BF /* NameTextViewCell.xib in Resources */,
 				E45DA0561DA736040050DD4D /* ChatSectionDateCell.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
+				E40EAEBB1DA9F1F20068404B /* CommentHeaderView.xib in Resources */,
 				E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */,
 				E45DA05B1DA736DD0050DD4D /* LoadMoreCollectionViewCell.xib in Resources */,
 			);
@@ -1186,6 +1250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E45DA06A1DA7A3080050DD4D /* ChatLeftImageCell.swift in Sources */,
 				E435C03F1D9F4A370026FA08 /* DetailCommentCell.swift in Sources */,
 				E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */,
 				E435C0461D9F4A370026FA08 /* DetailMasterCell.swift in Sources */,
@@ -1193,6 +1258,7 @@
 				E4F9F11D1D991E040076C57C /* RegisterPickNameViewController.swift in Sources */,
 				E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */,
 				E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */,
+				E40EAEB91DA9F1BB0068404B /* CommentHeaderView.swift in Sources */,
 				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
 				E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */,
 				E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */,
@@ -1200,6 +1266,7 @@
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
 				E47926681D96E06F004D58BF /* FormulaTextView.swift in Sources */,
 				E4E021F21D9019AA00DED99A /* HeaderReusableView.swift in Sources */,
+				E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */,
 				E479264E1D96DC5F004D58BF /* FormulaTextViewCell.swift in Sources */,
 				E435C0451D9F4A370026FA08 /* DetailHeaderView.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
@@ -1249,14 +1316,18 @@
 				E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
+				E48BCD451DA89F2100C4A1B7 /* ChatRightImageCell.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,
 				E45DA0681DA797B90050DD4D /* ChatRightBaseCell.swift in Sources */,
 				E4610F541DA29F180018CB67 /* TwicketSegmentedControl.swift in Sources */,
 				E4E021F41D9019AA00DED99A /* NormalFormulaCell.swift in Sources */,
 				E435C0411D9F4A370026FA08 /* DetailCollectionViewCell.swift in Sources */,
 				E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */,
+				E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */,
 				E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */,
+				E45DA06D1DA7A41F0050DD4D /* MessageLoadingProgressView.swift in Sources */,
 				E4610F551DA29F180018CB67 /* UIViewShadowExtension.swift in Sources */,
+				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
 				E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
 				E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */,
@@ -1275,6 +1346,7 @@
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */,
+				E48BCD4D1DA90C4D00C4A1B7 /* MessageToolbar.swift in Sources */,
 				E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */,
 				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,

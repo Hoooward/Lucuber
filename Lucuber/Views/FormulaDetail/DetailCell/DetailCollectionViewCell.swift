@@ -180,6 +180,9 @@ extension DetailCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
 //               let closure = pushCommentViewController {
 //                closure(formula)
 //            }
+            if let formula = formula {
+                pushCommentViewController?(formula)
+            }
             break
         default:
             return

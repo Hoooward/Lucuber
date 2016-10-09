@@ -23,6 +23,8 @@ extension Notification.Name {
     
     static let updateMessageStatesNotification = Notification.Name("updateMessageStates")
     
+    static let updateDraftOfConversationNotification = Notification.Name("updateDraftOfconversation")
+    
 }
 
 public class Config {
@@ -146,13 +148,13 @@ public class Config {
         
         public static let locationNameLabelHeight: CGFloat = 20
         
-//        public static let mediaPreferredWidth: CGFloat = Ruler.iPhoneHorizontal(192, 225, 250).value
-//        public static let mediaPreferredHeight: CGFloat = Ruler.iPhoneHorizontal(208, 244, 270).value
-//        
+        public static let mediaPreferredWidth: CGFloat = CubeRuler.iPhoneHorizontal(192, 225, 250).value
+        public static let mediaPreferredHeight: CGFloat = CubeRuler.iPhoneHorizontal(208, 244, 270).value
+//
         public static let mediaMinWidth: CGFloat = 60
         public static let mediaMinHeight: CGFloat = 45
         
-//        public static let imageMaxWidth: CGFloat = Ruler.iPhoneHorizontal(230, 260, 300).value
+        public static let imageMaxWidth: CGFloat = CubeRuler.iPhoneHorizontal(230, 260, 300).value
         
         public static let centerXOffset: CGFloat = 4
         

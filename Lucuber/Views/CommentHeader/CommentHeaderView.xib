@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="cpq-w1-uqo" customClass="CommentHeaderView" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="368" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdy-GF-Ubt" customClass="StarRatingView" customModule="Lucuber" customModuleProvider="target">
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="3rL-Z5-pRa"/>
+                        <constraint firstAttribute="width" constant="60" id="8Zq-GD-pvu"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建时间: 16-07" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-y6-oDj">
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来自: Hoooward" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfX-M7-Jtm">
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLz-qh-HvJ" customClass="CategoryIndicatorView" customModule="Lucuber" customModuleProvider="target"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OLL 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ta7-Jl-YCL">
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xs1-MA-fx9">
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Qpg-nM-5Jk"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cube_Placehold_image_2" translatesAutoresizingMaskIntoConstraints="NO" id="oL4-xH-vDN">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="OZ1-ZT-zBE"/>
+                        <constraint firstAttribute="width" secondItem="oL4-xH-vDN" secondAttribute="height" multiplier="1:1" id="gNp-Lh-nu5"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Xs1-MA-fx9" secondAttribute="trailing" id="0OW-o2-6fl"/>
+                <constraint firstAttribute="trailing" secondItem="tLz-qh-HvJ" secondAttribute="trailing" constant="15" id="3IC-Bz-UNF"/>
+                <constraint firstItem="vdy-GF-Ubt" firstAttribute="top" secondItem="ta7-Jl-YCL" secondAttribute="bottom" constant="8" id="KPA-WL-6fg"/>
+                <constraint firstItem="oL4-xH-vDN" firstAttribute="leading" secondItem="cpq-w1-uqo" secondAttribute="leading" constant="15" id="LaW-lV-Ekr"/>
+                <constraint firstItem="MfE-y6-oDj" firstAttribute="leading" secondItem="gfX-M7-Jtm" secondAttribute="leading" id="MgU-cJ-o1x"/>
+                <constraint firstItem="ta7-Jl-YCL" firstAttribute="centerY" secondItem="oL4-xH-vDN" secondAttribute="centerY" constant="-6" id="PWz-Uk-7J3"/>
+                <constraint firstAttribute="bottom" secondItem="Xs1-MA-fx9" secondAttribute="bottom" id="QCQ-zp-25t"/>
+                <constraint firstItem="gfX-M7-Jtm" firstAttribute="top" secondItem="MfE-y6-oDj" secondAttribute="bottom" constant="1" id="SEQ-9c-qgN"/>
+                <constraint firstItem="gfX-M7-Jtm" firstAttribute="leading" secondItem="oL4-xH-vDN" secondAttribute="trailing" constant="9" id="XRJ-6e-1Z8"/>
+                <constraint firstItem="tLz-qh-HvJ" firstAttribute="centerY" secondItem="oL4-xH-vDN" secondAttribute="centerY" id="XYx-Wu-iMj"/>
+                <constraint firstItem="vdy-GF-Ubt" firstAttribute="leading" secondItem="ta7-Jl-YCL" secondAttribute="leading" id="fa2-6f-MJ3"/>
+                <constraint firstItem="Xs1-MA-fx9" firstAttribute="leading" secondItem="cpq-w1-uqo" secondAttribute="leading" id="gSc-59-3Sh"/>
+                <constraint firstItem="gfX-M7-Jtm" firstAttribute="bottom" secondItem="oL4-xH-vDN" secondAttribute="bottom" id="me0-bU-5aE"/>
+                <constraint firstItem="oL4-xH-vDN" firstAttribute="top" secondItem="cpq-w1-uqo" secondAttribute="top" constant="10" id="ors-Gj-gdh"/>
+                <constraint firstItem="ta7-Jl-YCL" firstAttribute="leading" secondItem="oL4-xH-vDN" secondAttribute="trailing" constant="9" id="qYx-Nh-bE2"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="categoryIndicatorView" destination="tLz-qh-HvJ" id="boz-Gj-dba"/>
+                <outlet property="creatTimeLabel" destination="MfE-y6-oDj" id="JEo-3t-uOr"/>
+                <outlet property="creatUserLabel" destination="gfX-M7-Jtm" id="0Jc-B8-Lsp"/>
+                <outlet property="imageView" destination="oL4-xH-vDN" id="BO1-fH-WxL"/>
+                <outlet property="imageViewHeightConstraint" destination="OZ1-ZT-zBE" id="ufI-Mo-GBn"/>
+                <outlet property="indicatorViewCenterYConstraint" destination="XYx-Wu-iMj" id="Sws-2z-d9H"/>
+                <outlet property="nameLabel" destination="ta7-Jl-YCL" id="byu-Lb-yvi"/>
+                <outlet property="nameLabelCenterYConstraint" destination="PWz-Uk-7J3" id="W1a-um-y8X"/>
+                <outlet property="starRatingView" destination="vdy-GF-Ubt" id="fFk-E9-nRy"/>
+            </connections>
+            <point key="canvasLocation" x="78" y="-445"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cube_Placehold_image_2" width="304" height="304"/>
+    </resources>
+</document>

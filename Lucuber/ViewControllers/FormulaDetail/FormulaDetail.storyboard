@@ -18,10 +18,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="uzE-JB-UEH" kind="show" identifier="showCommentVC" id="Qdb-fx-bc6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vFt-9b-7vX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="17" y="162"/>
+        </scene>
+        <!--Comment-->
+        <scene sceneID="xvJ-8M-pUV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" id="uzE-JB-UEH" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JDJ-hl-aRx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="639" y="161"/>
         </scene>
     </scenes>
 </document>

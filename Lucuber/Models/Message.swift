@@ -49,7 +49,7 @@ enum MessageSendState: Int, CustomStringConvertible {
     }
 }
 
-class Message: AVObject, AVSubclassing {
+public class Message: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
         return "Message"
@@ -72,6 +72,24 @@ class Message: AVObject, AVSubclassing {
     
 }
 
+public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGFloat)? {
+    
+    guard !message.invalidated else {
+        return nil
+    }
+    
+//    if let mediaMetaData = message.mediaMetaData {
+//        if let metaDataInfo = decodeJSON(mediaMetaData.data) {
+//            if let
+//                width = metaDataInfo[YepConfig.MetaData.imageWidth] as? CGFloat,
+//                height = metaDataInfo[YepConfig.MetaData.imageHeight] as? CGFloat {
+//                return (width, height)
+//            }
+//        }
+//    }
+    
+    return (100, 100)
+}
 
 
 

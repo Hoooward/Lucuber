@@ -193,6 +193,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             oldMasterList = list
         }
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: nil, action: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
