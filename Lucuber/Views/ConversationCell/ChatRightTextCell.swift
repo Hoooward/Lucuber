@@ -107,6 +107,10 @@ class ChatRightTextCell: ChatRightBaseCell {
         self.message = message
         self.user = message.creatUser
         
+        self.nameLabel.text = "Tychooo"
+        
+        self.avatarImageView.image = UIImage(named: "Howard")
+        
         self.mediaTapAction = mediaTapAction
         
         textContentTextView.text = message.textContent

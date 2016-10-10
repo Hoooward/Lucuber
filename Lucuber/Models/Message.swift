@@ -11,12 +11,15 @@ import AVOSCloud
 
 enum MessageMediaType: Int, CustomStringConvertible {
     
-    case text  = 0
-    case Image = 1
+    case sectionDate = 0
+    case text  = 1
+    case Image = 2
     
     var description: String {
         
         switch self {
+        case .sectionDate:
+            return "sectionDate"
         case .text:
             return "text"
         case .Image :
@@ -49,6 +52,7 @@ enum MessageSendState: Int, CustomStringConvertible {
     }
 }
 
+
 public class Message: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
@@ -63,11 +67,46 @@ public class Message: AVObject, AVSubclassing {
     
     @NSManaged var invalidated: Bool
     
-//    var sendState: MessageSendState = .notSend
+    @NSManaged var mediaTypeRawValue: Int
+    
+    @NSManaged var messageID: String
+    
+    var mediaType: MessageMediaType {
+        get {
+            if let mediaType =  MessageMediaType(rawValue: mediaTypeRawValue) {
+                return mediaType
+            }
+            return .sectionDate
+        }
+        set {
+            mediaTypeRawValue = newValue.rawValue
+        }
+    }
+    
     var sendState: Int = MessageSendState.notSend.rawValue
     
-   
+    override init() {
+        super.init()
+        
+    }
     
+    init(contentText: String, creatUser: AVUser) {
+        super.init()
+        
+        self.textContent = contentText
+        self.creatUser = creatUser
+        
+        self.mediaTypeRawValue = 1
+        
+    }
+    
+    /// 判断是否是当前登录用户发送的 Message
+    var isfromMe: Bool {
+        guard let currentUser = AVUser.current() else {
+           return false
+        }
+        return currentUser.objectId == creatUser.objectId
+    }
     
     
 }

@@ -41,7 +41,7 @@ class CommentHeaderView: UIView {
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.init(rawValue: 0), animations: { [weak self] in
                     
                     self?.indicatorViewCenterYConstraint.constant = 0
-                    self?.heightConstraint?.constant = 60
+                    self?.heightConstraint?.constant -= 60
                     self?.nameLabelCenterYConstraint.constant = 0
                     self?.imageViewHeightConstraint.constant = 40
                     
@@ -58,10 +58,11 @@ class CommentHeaderView: UIView {
                 
             case .big:
                 
+//                self.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.init(rawValue: 0), animations: { [weak self] in
                     
                     self?.indicatorViewCenterYConstraint.constant = -30
-                    self?.heightConstraint?.constant = 120
+                    self?.heightConstraint?.constant += 60
                     self?.nameLabelCenterYConstraint.constant = -6
                     self?.imageViewHeightConstraint.constant = 100
                     
@@ -98,7 +99,12 @@ class CommentHeaderView: UIView {
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tap)
         
-        clipsToBounds = true
+//        clipsToBounds = true
+        
+        print(self.layer.anchorPoint)
+//        self.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
+//        self.layer.position = CGPoint(x: self.frame.width * 0.5 , y: 0)
+  
         
     }
     

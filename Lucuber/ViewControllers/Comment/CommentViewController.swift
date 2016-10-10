@@ -99,6 +99,13 @@ class CommentViewController: UIViewController {
     var headerView: CommentHeaderView?
     
     // MARK: - Life Cycle
+    fileprivate lazy var collectionViewWidth: CGFloat = {
+        return self.commentCollectionView.bounds.width
+    }()
+    
+    fileprivate lazy var messageTextViewMaxWidth: CGFloat = {
+        return self.collectionViewWidth - Config.chatCellGapBetweenWallAndAvatar() - Config.chatCellAvatarSize() - Config.chatCellGapBetweenTextContentLabelAndAvatar() - Config.chatTextGapBetweenWallAndContentLabel()
+    }()
     
     @IBOutlet weak var messageToolbar: MessageToolbar!
     @IBOutlet weak var commentCollectionView: UICollectionView!
@@ -114,6 +121,65 @@ class CommentViewController: UIViewController {
     fileprivate let chatLeftImageCellIdentifier = "ChatLeftImageCell"
     fileprivate let chatRightImageCellIdentifier = "ChatRightImageCell"
     
+    private var textContentLabelWidths = [String: CGFloat]()
+    fileprivate func textContentLabelWidthOfMessage(_ message: Message) -> CGFloat {
+        
+        if let key = message.objectId {
+            
+            if let textContentLabelWidth = textContentLabelWidths[key] {
+                return textContentLabelWidth
+            }
+        }
+        
+        let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
+        
+        let width = ceil(rect.width)
+        
+        if let key = message.objectId {
+            
+            textContentLabelWidths[key] = width
+        }
+        
+        return width
+        
+    }
+    
+    private var messageCellHeights = [String: CGFloat]()
+    fileprivate func heightOfMessage(_ message: Message) -> CGFloat {
+        
+        if let key = message.objectId {
+            
+            if let height = messageCellHeights[key] {
+                return height
+            }
+        }
+        
+        var height: CGFloat = 0
+        
+        switch message.mediaType {
+            
+        case .text:
+            
+            let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
+            
+            height = max(ceil(rect.height) + (11 * 2), Config.chatCellAvatarSize())
+            
+            if let key = message.objectId {
+                textContentLabelWidths[key] = ceil(rect.width)
+            }
+            
+            
+            // TODO: - 图片的 message 高度并未处理
+            
+            
+        default:
+            break
+            
+        }
+        
+        return height
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -122,35 +188,25 @@ class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         navigationItem.titleView = titleView
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_more"), style: .plain, target: self, action: #selector(CommentViewController.moreAction))
         
         makeHeaderView(with: formula)
       
-        
         commentCollectionView.keyboardDismissMode = .onDrag
         commentCollectionView.alwaysBounceVertical = true
         
-        
         commentCollectionView.register(UINib(nibName: loadMoreCollectionCellIdenfitifier, bundle: nil), forCellWithReuseIdentifier: loadMoreCollectionCellIdenfitifier)
-        
         commentCollectionView.register(UINib(nibName: chatSectionDateCellIdentifier, bundle: nil), forCellWithReuseIdentifier: chatSectionDateCellIdentifier)
-        
         commentCollectionView.register(ChatLeftTextCell.self, forCellWithReuseIdentifier: chatLeftTextCellIdentifier)
-        
         commentCollectionView.register(ChatLeftImageCell.self, forCellWithReuseIdentifier: chatLeftImageCellIdentifier)
-        
         commentCollectionView.register(ChatRightTextCell.self, forCellWithReuseIdentifier: chatRightTextCellIdentifier)
-        
         commentCollectionView.register(ChatRightImageCell.self, forCellWithReuseIdentifier: chatRightImageCellIdentifier)
         
         commentCollectionView.bounces = true
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.tapToDismissMessageToolbar))
         commentCollectionView.addGestureRecognizer(tap)
-        
         
         messageToolbarBottomConstraints.constant = 0
         
@@ -181,11 +237,8 @@ class CommentViewController: UIViewController {
                     }
                     
                     let bottom = keyboardHeight + strongSelf.messageToolbar.frame.height
-                    
                     strongSelf.commentCollectionView.contentInset.bottom = bottom
-                    
                     strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
-                    
                     strongSelf.messageToolbarBottomConstraints.constant = keyboardHeight
                     
                     strongSelf.view.layoutIfNeeded()
@@ -193,12 +246,9 @@ class CommentViewController: UIViewController {
                 } else {
                     
                     strongSelf.commentCollectionView.contentOffset.y += keyboardHeightIncrement
-                    
                     let bottom = keyboardHeight + strongSelf.messageToolbar.frame.height
-                    
                     strongSelf.commentCollectionView.contentInset.bottom = bottom
                     strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
-                    
                     strongSelf.messageToolbarBottomConstraints.constant = keyboardHeight
                     strongSelf.view.layoutIfNeeded()
                 }
@@ -224,34 +274,79 @@ class CommentViewController: UIViewController {
                 if strongSelf.messageToolbarBottomConstraints.constant > 0 {
                     strongSelf.commentCollectionView.contentOffset.y -= keyboardHeight
                     
-                    
                     let bottom = strongSelf.messageToolbar.frame.height
                     strongSelf.commentCollectionView.contentInset.bottom = bottom
                     strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
-                    
                     strongSelf.messageToolbarBottomConstraints.constant = 0
                     strongSelf.view.layoutIfNeeded()
                 }
             }
         }
         
-        
-//        commentCollectionView.contentInset.top = 64 + 60 + 20
         commentCollectionView.contentInset = UIEdgeInsets(top: 64 + 60 + 20, left: 0, bottom: 44, right: 0)
         print(commentCollectionView.contentInset)
+        
+        
+        
         
         loadNewComment()
     }
     
+    private var isFirstAppear: Bool = true
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if isFirstAppear {
+            
+            delay(0.1) {
+                
+                self.messageToolbar.textSendAction = { [weak self] messageToolbar in
+                   
+                    let text = messageToolbar.messageTextView.text!.trimming(trimmingType: .whitespaceAndNewLine)
+                    
+                    self?.cleanTextInput()
+                    self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
+                    
+                    
+                    if text.isEmpty {
+                        return
+                    }
+                    
+                    let newComment = FormulaComment()
+                    newComment.content = text
+                    newComment.author = AVUser.current()!
+                    newComment.atFormulaName = self?.formula?.name
+                    
+                    newComment.saveInBackground({ (success, error) in
+                        if success {
+                            
+                            printLog("发送成功。")
+                            self?.formulaComments.append(newComment)
+                            self?.messages.append(Message(contentText: newComment.content!, creatUser: newComment.author!))
+                            self?.commentCollectionView.reloadData()
+                        }
+                    })
+                    
+                    
+                    
+                }
+                
+            }
+        }
+        
+    }
+    
+    fileprivate func cleanTextInput() {
+        messageToolbar.messageTextView.text = ""
+        messageToolbar.state = .beginTextInput
     }
     
     func tapToDismissMessageToolbar() {
         
     }
+    
+//    func updateCommentCollectionViewWithMessageIDs
     
     func makeHeaderView(with formula: Formula?) {
         guard let formula = formula else {
@@ -312,8 +407,6 @@ class CommentViewController: UIViewController {
         
         headerView.heightConstraint = height
         
-
-       
         self.headerView = headerView
         
     }
@@ -323,17 +416,97 @@ class CommentViewController: UIViewController {
         
     }
     
+    fileprivate func tryChangedHeaderToSmall() {
+        
+        guard let headerView = headerView else {
+            return
+        }
+        
+        if headerView.status == .big {
+           headerView.status = .small
+        }
+    }
+    
+    fileprivate func trySnapContentOfCommentCollectionViewToBottom(needAnimation: Bool = false) {
+        
+//        if let lastToolbarFrame = messageToolbar.lastToobarFrame {
+//            if lastToolbarFrame == messageToolbar.frame {
+//                return
+//            } else {
+//                messageToolbar.lastToobarFrame = messageToolbar.frame
+//            }
+//        } else {
+//            
+//            messageToolbar.lastToobarFrame = messageToolbar.frame
+        
+//        }
+        
+        let newContentOffsetY = commentCollectionView.contentSize.height - messageToolbar.frame.origin.y
+        
+        let bottom = view.bounds.height - messageToolbar.frame.origin.y + 44
+        
+        guard newContentOffsetY + commentCollectionView.contentInset.top > 0  else {
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+                [weak self] in
+                if let strongSelf = self  {
+                    strongSelf.commentCollectionView.contentInset.bottom = bottom
+                    strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
+                }
+                
+                }, completion: nil)
+            
+            return
+        }
+        
+        var needDoAnimation = needAnimation
+        
+        let bottomInsetOffset = bottom - commentCollectionView.contentInset.bottom
+        
+        if bottomInsetOffset != 0 {
+            needDoAnimation = true
+        }
+        
+        if commentCollectionView.contentOffset.y != newContentOffsetY {
+            needDoAnimation = true
+        }
+        
+        guard needDoAnimation else {
+            return
+        }
+        
+        UIView.animate(withDuration: needAnimation ? 0.25 : 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+            [weak self] in
+            
+            if let strongSelf = self {
+                strongSelf.commentCollectionView.contentInset.bottom = bottom
+                strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
+                strongSelf.commentCollectionView.contentOffset.y = newContentOffsetY
+            }
+            
+            }, completion: nil)
+        
+    }
+    
+    
+    
+    var messages: [Message] = []
     var formulaComments: [FormulaComment] = []
     
     func loadNewComment() {
         let query = AVQuery(className: FormulaComment.parseClassName())
-        query?.addDescendingOrder("updatedAt")
+        query?.addDescendingOrder("creatAt")
         query?.whereKey(FormulaComment.FormulaCommentKey_atFormula, equalTo: formula?.name)
         
         query?.findObjectsInBackground({ (result, error) in
             if error == nil {
                 self.formulaComments = result as! [FormulaComment]
+                
+                self.messages = self.formulaComments.map{
+                    return Message(contentText: $0.content!, creatUser: $0.author!)
+                }
                 self.commentCollectionView.reloadData()
+                
             }
         })
     }
@@ -364,7 +537,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .message:
             
-            return formulaComments.count
+            return messages.count
         }
         
         
@@ -384,20 +557,29 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .message:
 //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatSectionDateCellIdentifier, for: indexPath)
+            
 //            return cell
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatLeftTextCellIdentifier, for: indexPath) as! ChatLeftTextCell
+            guard let message = messages[safe: indexPath.item] else {
+                fatalError("messages 越界")
+            }
             
-            let comment = formulaComments[indexPath.item]
-            
-            let message = Message()
-            message.textContent = comment.content!
-            message.creatUser = AVUser.current()
-            
-//            print(message)
-            cell.configureWithMessage(message: message, textContentLabelWidth: 200, collectionView: collectionView, indexPath: indexPath as! NSIndexPath)
-            
-            return cell
+            if message.isfromMe {
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatRightTextCellIdentifier, for: indexPath) as! ChatRightTextCell
+                
+                cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidthOfMessage(message), mediaTapAction: nil, collectionView: collectionView, indexPath: indexPath as NSIndexPath)
+                
+                return cell
+                
+            } else {
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatLeftTextCellIdentifier, for: indexPath) as! ChatLeftTextCell
+                
+                cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidthOfMessage(message), collectionView: collectionView, indexPath: indexPath as NSIndexPath)
+                
+                return cell
+            }
         }
     }
     
@@ -425,7 +607,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .loadPrevious:
             return CGSize(width: UIScreen.main.bounds.width, height: 20)
         case .message:
-            return CGSize(width: UIScreen.main.bounds.width, height: 50)
+            return CGSize(width: UIScreen.main.bounds.width, height: heightOfMessage(messages[indexPath.item]))
         }
     }
     

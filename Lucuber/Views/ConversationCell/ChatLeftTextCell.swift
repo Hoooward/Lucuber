@@ -90,6 +90,9 @@ class ChatLeftTextCell: ChatBaseCell {
         
         self.user = message.creatUser
         
+        self.nameLabel.text = "Tychooo"
+        self.avatarImageView.image = UIImage(named: "Howard")
+        
         textContentTextView.text = message.textContent
         
         //textContentTextView.attributedText = NSAttributedString(string: message.textContent, attributes: textAttributes)
@@ -127,6 +130,9 @@ class ChatLeftTextCell: ChatBaseCell {
                 } else {
                     topOffset = 0
                 }
+                
+                
+                
                 
                 let textContentTextViewFrame = CGRect(x: strongSelf.avatarImageView.frame.maxX + Config.chatCellGapBetweenTextContentLabelAndAvatar(), y: 3 + topOffset, width: textContentLabelWidth, height: strongSelf.bounds.height - topOffset - 3 * 2 - strongSelf.bottomGap)
                 

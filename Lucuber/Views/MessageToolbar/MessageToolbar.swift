@@ -90,16 +90,53 @@ class MessageToolbar: UIToolbar {
             switch newValue {
                 
             case .normal:
+                moreButton.isHidden = false
+                sendButton.isHidden = true
                 
-                break
+                messageTextView.isHidden = false
+                voiceRecordButton.isHidden = true
+                
+                micButton.setImage(UIImage(named: "item_mic"), for: .normal)
+                moreButton.setImage(UIImage(named: "item_more"), for: .normal)
+                
+                micButton.tintColor = UIColor.messageToolbarColor()
+                moreButton.tintColor = UIColor.messageToolbarColor()
+                
+                // TODO: - hideVoiceButton
                 
             case .beginTextInput:
-                break
+                
+                moreButton.isHidden = false
+                sendButton.isHidden = true
+                
+                moreButton.setImage(UIImage(named: "item_more"), for: .normal)
                 
             case .textInputing:
-                break
+                
+                moreButton.isHidden = true
+                sendButton.isHidden = false
+                
+                messageTextView.isHidden = false
+                voiceRecordButton.isHidden = true
                 
             case .voiceRecord:
+                
+                moreButton.isHidden = false
+                sendButton.isHidden = true
+                
+                messageTextView.isHidden = true
+                voiceRecordButton.isHidden = false
+                
+                messageTextView.text = nil
+                
+                micButton.setImage(UIImage(named: "icon_keyboard"), for: .normal)
+                moreButton.setImage(UIImage(named: "icon_more"), for: .normal)
+                
+                micButton.tintColor = UIColor.messageToolbarColor()
+                moreButton.tintColor = UIColor.messageToolbarColor()
+                
+                // TODO: - ShowVoiceButton
+                
                 break
                 
             }
@@ -143,8 +180,9 @@ class MessageToolbar: UIToolbar {
     lazy var sendButton: UIButton = {
         let button = UIButton()
         button.setTitle("发送", for: .normal)
-        button.tintColor = UIColor.cubeTintColor()
+//        button.tintColor = UIColor.cubeTintColor()
         button.setTitleColor(UIColor.cubeTintColor(), for: .normal)
+        button.setTitleColor(UIColor.lightGray, for: .highlighted)
         button.tintAdjustmentMode = .normal
         button.addTarget(self, action: #selector(MessageToolbar.trySendTextMessage), for: .touchUpInside)
         return button
@@ -270,8 +308,12 @@ class MessageToolbar: UIToolbar {
     
     // MARK: Target & Action & Notification
     
+    var textSendAction: ((MessageToolbar) -> Void)?
+    var moreMessageTypeAction: (() -> Void)?
+    
     func trySendTextMessage() {
         
+        textSendAction?(self)
     }
     
     func moreButtonClicked() {
@@ -289,6 +331,22 @@ class MessageToolbar: UIToolbar {
 }
 
 extension MessageToolbar: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        guard let text = textView.text else { return }
+        
+        state = text.isEmpty ? .beginTextInput : .textInputing
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        guard let text = textView.text else { return }
+        
+        state = text.isEmpty ? .beginTextInput : .textInputing
+        
+        
+    }
     
 }
 

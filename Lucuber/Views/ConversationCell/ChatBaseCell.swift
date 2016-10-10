@@ -51,6 +51,7 @@ class ChatBaseCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.addSubview(avatarImageView)
+        contentView.addSubview(nameLabel)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatBaseCell.menuWillShow(_ :)), name: NSNotification.Name.UIMenuControllerWillShowMenu, object: nil)
         
