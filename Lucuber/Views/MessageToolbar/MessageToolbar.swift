@@ -337,6 +337,8 @@ extension MessageToolbar: UITextViewDelegate {
         guard let text = textView.text else { return }
         
         state = text.isEmpty ? .beginTextInput : .textInputing
+        
+        printLog(state)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -344,6 +346,7 @@ extension MessageToolbar: UITextViewDelegate {
         guard let text = textView.text else { return }
         
         state = text.isEmpty ? .beginTextInput : .textInputing
+        printLog(state)
         
         
     }

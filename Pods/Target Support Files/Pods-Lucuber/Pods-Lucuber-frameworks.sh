@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AVOSCloudIM/AVOSCloudIM.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Kingfisher/Kingfisher.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PKHUD/PKHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AVOSCloudIM/AVOSCloudIM.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Kingfisher/Kingfisher.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PKHUD/PKHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"

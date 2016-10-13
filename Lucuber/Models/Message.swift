@@ -71,6 +71,10 @@ public class Message: AVObject, AVSubclassing {
     
     @NSManaged var messageID: String
     
+    @NSManaged var atObjectID: String
+    
+    @NSManaged var imageURLs: [String]
+    
     var mediaType: MessageMediaType {
         get {
             if let mediaType =  MessageMediaType(rawValue: mediaTypeRawValue) {

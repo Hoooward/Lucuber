@@ -8,51 +8,52 @@
 
 import UIKit
 import AVOSCloud
+import AVOSCloudIM
 
-class FormulaComment: AVObject, AVSubclassing {
-    
-    ///对哪个公式的评论
-    static let FormulaCommentKey_atFormula = "atFormulaName"
-    @NSManaged var atFormulaName: String?
-    
-    /// 评论内容
-    static let FormulaCommentKey_author = "author"
-    @NSManaged var content: String?
-    
-    /// 被喜欢
-    static let FormulaCommentKey_likeCount = "likeCount"
-    @NSManaged var likeCount: Int
-    
-    /// 评论作者
-    static let FormulaCommentkey_author = "author"
-    @NSManaged var author: AVUser?
-    
-    ///新公式文本
-    static let FormulaCommetnKey_fromulaText = "formulaText"
-    @NSManaged var formulaText: String?
-    
-    class func parseClassName() -> String {
-        return "FormulaComment"
-    }
-    
-    /*
-     init(author: AVUser?, content: String, formulaString: String?, likeCount: Int = 0) {
-     self.author = author
-     self.content = content
-     self.formulaString = formulaString
-     self.likeCount = likeCount
-     
-     super.init()
-     }
-     */
-}
+//class FormulaComment: AVObject, AVSubclassing {
+//    
+//    ///对哪个公式的评论
+//    static let FormulaCommentKey_atFormula = "atFormulaName"
+//    @NSManaged var atFormulaName: String?
+//    
+//    /// 评论内容
+//    static let FormulaCommentKey_author = "author"
+//    @NSManaged var content: String?
+//    
+//    /// 被喜欢
+//    static let FormulaCommentKey_likeCount = "likeCount"
+//    @NSManaged var likeCount: Int
+//    
+//    /// 评论作者
+//    static let FormulaCommentkey_author = "author"
+//    @NSManaged var author: AVUser?
+//    
+//    ///新公式文本
+//    static let FormulaCommetnKey_fromulaText = "formulaText"
+//    @NSManaged var formulaText: String?
+//    
+//    class func parseClassName() -> String {
+//        return "FormulaComment"
+//    }
+//    
+//    /*
+//     init(author: AVUser?, content: String, formulaString: String?, likeCount: Int = 0) {
+//     self.author = author
+//     self.content = content
+//     self.formulaString = formulaString
+//     self.likeCount = likeCount
+//     
+//     super.init()
+//     }
+//     */
+//}
 
-extension FormulaComment {
-    class func CuberFormulaCommentQueryIncludeKeys() -> [String] {
-        return [FormulaCommentKey_author, FormulaCommentKey_atFormula]
-    }
-}
-
+//extension FormulaComment {
+//    class func CuberFormulaCommentQueryIncludeKeys() -> [String] {
+//        return [FormulaCommentKey_author, FormulaCommentKey_atFormula]
+//    }
+//}
+//
 class CommentViewController: UIViewController {
     
     var formula: Formula?
@@ -180,9 +181,81 @@ class CommentViewController: UIViewController {
         return height
     }
     
+//    var client: AVIMClient?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        
+        messageToolbar.stateTransitionAction = {
+            [weak self] messageToolbar, previousState, currentStatue in
+            
+            switch currentStatue {
+                
+            case .beginTextInput:
+                self?.tryChangedHeaderToSmall()
+                self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
+                
+            case .textInputing:
+                
+                
+                self?.trySnapContentOfCommentCollectionViewToBottom()
+                break
+            
+            default:
+                break
+                
+            }
+        }
+
+        
+    }
+    
+    fileprivate func tryScrollToBottom() {
+        
+        
+        let messageToobarTop = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
+        
+        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
+        let invisbleHeight = messageToobarTop + 64 + headerHeight
+        let visibleHeight = commentCollectionView.frame.height - invisbleHeight
+        
+        let canScroll = visibleHeight <= commentCollectionView.contentSize.height
+        
+        printLog("collectionViewContentSize = \(commentCollectionView.contentSize)")
+        if canScroll {
+            
+            commentCollectionView.contentOffset.y = commentCollectionView.contentSize.height - commentCollectionView.frame.size.height + messageToobarTop
+            commentCollectionView.contentInset.bottom = messageToobarTop
+            commentCollectionView.scrollIndicatorInsets.bottom = messageToobarTop
+        }
+        
+            
+    }
+    
+    private var commentCollectionViewHasBeenMovedToBottomOnece = false
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !commentCollectionViewHasBeenMovedToBottomOnece {
+            
+            setCommentCollectionViewOriginalContentInset()
+            
+            tryScrollToBottom()
+            
+        }
+    }
+    
+    
+    private func setCommentCollectionViewOriginalContentInset() {
+        
+        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
+        commentCollectionView.contentInset.top = 64 + headerHeight + 5
+        
+        commentCollectionView.contentInset.bottom = messageToolbar.height + 10
+        commentCollectionView.scrollIndicatorInsets.bottom = messageToolbar.height
     }
     
     override func viewDidLoad() {
@@ -297,6 +370,8 @@ class CommentViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        commentCollectionViewHasBeenMovedToBottomOnece = true
+        
         if isFirstAppear {
             
             delay(0.1) {
@@ -309,24 +384,74 @@ class CommentViewController: UIViewController {
                     self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
                     
                     
-                    if text.isEmpty {
-                        return
-                    }
+                    if text.isEmpty { return }
                     
-                    let newComment = FormulaComment()
-                    newComment.content = text
-                    newComment.author = AVUser.current()!
-                    newComment.atFormulaName = self?.formula?.name
+                    guard let currentUser = AVUser.current() else { return }
                     
-                    newComment.saveInBackground({ (success, error) in
-                        if success {
+                    guard let formula = self?.formula else { return }
+                    
+                    
+                    let newMessage = Message()
+                    newMessage.textContent = text
+                    newMessage.mediaType = .text
+                    newMessage.creatUser = currentUser
+                    newMessage.invalidated = true
+                    newMessage.sendState =  MessageSendState.notSend.rawValue
+                    newMessage.atObjectID = formula.objectID
+                    
+                    newMessage.saveInBackground {
+                        successed, error in
+                        
+                        if error != nil {
+                            printLog("发送失败")
+                            // 标记发送失败
+                            newMessage.sendState = MessageSendState.failed.rawValue
                             
-                            printLog("发送成功。")
-                            self?.formulaComments.append(newComment)
-                            self?.messages.append(Message(contentText: newComment.content!, creatUser: newComment.author!))
-                            self?.commentCollectionView.reloadData()
+                            //保存发送失败信息
+                        
                         }
-                    })
+                        
+                        if successed {
+                            printLog("发送成功")
+                           
+                            self?.messages.append(newMessage)
+                            
+                            printLog("插入新 Message 前的 ContentSize = \(self?.commentCollectionView.contentSize)")
+                            
+//                            self?.commentCollectionView.reloadData()
+                            
+                            
+                            
+                            
+//                            self?.commentCollectionView.reloadItems(at: [indexPath])
+                            
+//                            self?.commentCollectionView.layoutIfNeeded()
+//                            self?.commentCollectionView.sizeToFit()
+                            
+//                            self?.commentCollectionView.collectionViewLayout.prepare()
+                            
+                            self?.commentCollectionView.performBatchUpdates({
+                                
+                                let indexPath = IndexPath(item: self!.messages.count - 1, section: 1)
+                                
+                                self?.commentCollectionView.insertItems(at: [indexPath])
+                                
+                                }, completion: {_ in
+                                    
+                                    self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
+                                    
+                                    printLog("插入新 Message 后的 ContentSize = \(self?.commentCollectionView.contentSize)")
+                            })
+                            
+                            
+//                            delay(2){
+                            
+//                            }
+                            
+                        }
+                        
+                        
+                    }
                     
                     
                     
@@ -441,6 +566,13 @@ class CommentViewController: UIViewController {
         
 //        }
         
+        printLog(messageToolbar.state)
+        
+        printLog("contentSize = \(commentCollectionView.contentSize)")
+        printLog("messageToobar.frame = \(messageToolbar.frame)")
+        printLog("collectionViewOffsetY = \(commentCollectionView.contentOffset)")
+        printLog("collectionViewContentInset = \(commentCollectionView.contentInset))")
+        
         let newContentOffsetY = commentCollectionView.contentSize.height - messageToolbar.frame.origin.y
         
         let bottom = view.bounds.height - messageToolbar.frame.origin.y + 44
@@ -486,29 +618,60 @@ class CommentViewController: UIViewController {
             
             }, completion: nil)
         
+        delay(1) {
+            
+            printLog("**************************************************************")
+//            printLog("newCollectionContentOffset: = \(self.commentCollectionView.contentOffset)")
+            printLog(self.messageToolbar.state)
+            
+            printLog("contentSize = \(self.commentCollectionView.contentSize)")
+            printLog("messageToobar.frame = \(self.messageToolbar.frame)")
+            printLog("collectionViewOffsetY = \(self.commentCollectionView.contentOffset)")
+            printLog("collectionViewContentInset = \(self.commentCollectionView.contentInset))")
+        }
+        
     }
     
     
     
     var messages: [Message] = []
-    var formulaComments: [FormulaComment] = []
     
     func loadNewComment() {
-        let query = AVQuery(className: FormulaComment.parseClassName())
-        query?.addDescendingOrder("creatAt")
-        query?.whereKey(FormulaComment.FormulaCommentKey_atFormula, equalTo: formula?.name)
         
-        query?.findObjectsInBackground({ (result, error) in
-            if error == nil {
-                self.formulaComments = result as! [FormulaComment]
+        let query = AVQuery(className: "Message")
+        query?.addDescendingOrder("creatAt")
+        
+        guard let formula = formula else { return }
+        query?.whereKey("atObjectID", equalTo: formula.objectID)
+        
+        query?.findObjectsInBackground {
+            result, error in
+            
+            if error != nil {
                 
-                self.messages = self.formulaComments.map{
-                    return Message(contentText: $0.content!, creatUser: $0.author!)
+                printLog("获取Message失败")
+            }
+            
+            if let messages = result as? [Message] {
+                
+                let oldMessages = self.messages
+                
+                self.messages = messages
+                
+                _ = oldMessages.map {
+                    self.messages.append($0)
                 }
+                
                 self.commentCollectionView.reloadData()
+                delay(2) {
+                    
+                    self.tryScrollToBottom()
+                }
+                
                 
             }
-        })
+            
+        }
     }
     
 }

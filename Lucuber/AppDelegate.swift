@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Formula.registerSubclass()
         Message.registerSubclass()
-        FormulaComment.registerSubclass()
+//        FormulaComment.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds
@@ -48,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
 //       logout()
+        
+        
         
         return true
     }
