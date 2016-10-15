@@ -8,56 +8,42 @@
 
 import UIKit
 import AVOSCloud
-import AVOSCloudIM
+import RealmSwift
 
-//class FormulaComment: AVObject, AVSubclassing {
-//    
-//    ///对哪个公式的评论
-//    static let FormulaCommentKey_atFormula = "atFormulaName"
-//    @NSManaged var atFormulaName: String?
-//    
-//    /// 评论内容
-//    static let FormulaCommentKey_author = "author"
-//    @NSManaged var content: String?
-//    
-//    /// 被喜欢
-//    static let FormulaCommentKey_likeCount = "likeCount"
-//    @NSManaged var likeCount: Int
-//    
-//    /// 评论作者
-//    static let FormulaCommentkey_author = "author"
-//    @NSManaged var author: AVUser?
-//    
-//    ///新公式文本
-//    static let FormulaCommetnKey_fromulaText = "formulaText"
-//    @NSManaged var formulaText: String?
-//    
-//    class func parseClassName() -> String {
-//        return "FormulaComment"
-//    }
-//    
-//    /*
-//     init(author: AVUser?, content: String, formulaString: String?, likeCount: Int = 0) {
-//     self.author = author
-//     self.content = content
-//     self.formulaString = formulaString
-//     self.likeCount = likeCount
-//     
-//     super.init()
-//     }
-//     */
-//}
-
-//extension FormulaComment {
-//    class func CuberFormulaCommentQueryIncludeKeys() -> [String] {
-//        return [FormulaCommentKey_author, FormulaCommentKey_atFormula]
-//    }
-//}
-//
 class CommentViewController: UIViewController {
     
     var formula: Formula?
+    var conversation: Conversation!
     
+    fileprivate lazy var messages: Results<Message> = {
+        
+        return messagesOfConversation(conversation: self.conversation, inRealm: self.realm)
+    }()
+    
+    
+    fileprivate var lastUpdateMessagesCount: Int = 0
+    fileprivate let messagesBunchCount = 20
+    
+    fileprivate var displayedMessagesRange: NSRange = NSRange() {
+        didSet {
+            needShowLoadPreviousSection = displayedMessagesRange.length >= messagesBunchCount
+        }
+    }
+    fileprivate var needShowLoadPreviousSection: Bool = false 
+    
+    var afterSentMessageAction: (() -> Void)?
+    var afterDeletedFeedAction: ((String) -> Void)?
+    var conversationIsDirty = false
+    
+    fileprivate var seletedIndexPathForMenu: IndexPath?
+    
+    fileprivate var realm: Realm!
+    
+//    fileprivate lazy var rMessages: Result<RMessage> = {
+//    
+//        return messag
+//    }
+//    
     
     private lazy var sectionDateFormatter: DateFormatter =  {
         let dateFormatter = DateFormatter()
@@ -97,9 +83,22 @@ class CommentViewController: UIViewController {
     }()
     
     
-    var headerView: CommentHeaderView?
     
-    // MARK: - Life Cycle
+    
+    
+    var headerView: CommentHeaderView?
+
+    @IBOutlet weak var messageToolbar: MessageToolbar!
+    @IBOutlet weak var commentCollectionView: UICollectionView!
+    
+    private var commentCollectionViewHasBeenMovedToBottomOnece = false
+    
+    @IBOutlet weak var messageToolbarBottomConstraints: NSLayoutConstraint!
+    
+    private let keyboardMan = KeyboardMan()
+    private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
+    
+    
     fileprivate lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width
     }()
@@ -108,38 +107,26 @@ class CommentViewController: UIViewController {
         return self.collectionViewWidth - Config.chatCellGapBetweenWallAndAvatar() - Config.chatCellAvatarSize() - Config.chatCellGapBetweenTextContentLabelAndAvatar() - Config.chatTextGapBetweenWallAndContentLabel()
     }()
     
-    @IBOutlet weak var messageToolbar: MessageToolbar!
-    @IBOutlet weak var commentCollectionView: UICollectionView!
-    @IBOutlet weak var messageToolbarBottomConstraints: NSLayoutConstraint!
-    
-    private let keyboardMan = KeyboardMan()
-    private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
-    
-    fileprivate let loadMoreCollectionCellIdenfitifier = "LoadMoreCollectionViewCell"
-    fileprivate let chatSectionDateCellIdentifier = "ChatSectionDateCell"
-    fileprivate let chatLeftTextCellIdentifier = "ChatLeftTextCell"
-    fileprivate let chatRightTextCellIdentifier = "ChatRightTextCell"
-    fileprivate let chatLeftImageCellIdentifier = "ChatLeftImageCell"
-    fileprivate let chatRightImageCellIdentifier = "ChatRightImageCell"
     
     private var textContentLabelWidths = [String: CGFloat]()
     fileprivate func textContentLabelWidthOfMessage(_ message: Message) -> CGFloat {
         
-        if let key = message.objectId {
+        let key = message.messageID
             
-            if let textContentLabelWidth = textContentLabelWidths[key] {
-                return textContentLabelWidth
-            }
+        if let textContentLabelWidth = textContentLabelWidths[key] {
+            return textContentLabelWidth
         }
+        
         
         let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
         
         let width = ceil(rect.width)
         
-        if let key = message.objectId {
+        if !key.isEmpty {
             
             textContentLabelWidths[key] = width
         }
+        
         
         return width
         
@@ -148,11 +135,10 @@ class CommentViewController: UIViewController {
     private var messageCellHeights = [String: CGFloat]()
     fileprivate func heightOfMessage(_ message: Message) -> CGFloat {
         
-        if let key = message.objectId {
+       let key = message.messageID
             
-            if let height = messageCellHeights[key] {
-                return height
-            }
+        if let height = messageCellHeights[key] {
+            return height
         }
         
         var height: CGFloat = 0
@@ -165,11 +151,11 @@ class CommentViewController: UIViewController {
             
             height = max(ceil(rect.height) + (11 * 2), Config.chatCellAvatarSize())
             
-            if let key = message.objectId {
+            if !key.isEmpty {
+                
                 textContentLabelWidths[key] = ceil(rect.width)
             }
-            
-            
+        
             // TODO: - 图片的 message 高度并未处理
             
             
@@ -181,12 +167,83 @@ class CommentViewController: UIViewController {
         return height
     }
     
-//    var client: AVIMClient?
+    
+    func makeHeaderView(with formula: Formula?) {
+        guard let formula = formula else {
+            return
+        }
+        
+        let headerView = CommentHeaderView.creatCommentHeaderViewFormNib()
+        headerView.formula = formula
+        
+        headerView.changeStatusAction = {
+            [weak self] status in
+            
+            switch status {
+            case .small:
+                
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+                    [weak self] in
+                    self?.commentCollectionView.contentInset.top = 64 + 60 + 20
+                    }, completion: nil)
+                
+                printLog(self?.commentCollectionView.contentInset)
+                
+            case .big:
+                
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+                    [weak self] in
+                    self?.commentCollectionView.contentInset.top = 64 + 120 + 20
+                    }, completion: nil)
+                
+                if let messageToolbar = self?.messageToolbar {
+                    
+                    if !messageToolbar.state.isAtBottom {
+                        messageToolbar.state = .normal
+                    }
+                }
+                
+                printLog(self?.commentCollectionView.contentInset)
+                
+                
+            }
+        }
+        
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(headerView)
+        
+        let views: [String: AnyObject] = [
+            "headerView": headerView
+        ]
+        
+        let constraintH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[headerView]|", options: [], metrics: nil, views: views)
+        
+        let top = NSLayoutConstraint(item: headerView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 64)
+        
+        let height = NSLayoutConstraint(item: headerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 60)
+        
+        NSLayoutConstraint.activate(constraintH)
+        NSLayoutConstraint.activate([top, height])
+        
+        headerView.heightConstraint = height
+        
+        self.headerView = headerView
+        
+    }
+    
+    
+    fileprivate let loadMoreCollectionCellIdenfitifier = "LoadMoreCollectionViewCell"
+    fileprivate let chatSectionDateCellIdentifier = "ChatSectionDateCell"
+    fileprivate let chatLeftTextCellIdentifier = "ChatLeftTextCell"
+    fileprivate let chatRightTextCellIdentifier = "ChatRightTextCell"
+    fileprivate let chatLeftImageCellIdentifier = "ChatLeftImageCell"
+    fileprivate let chatRightImageCellIdentifier = "ChatRightImageCell"
+    
+    // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-        
         
         messageToolbar.stateTransitionAction = {
             [weak self] messageToolbar, previousState, currentStatue in
@@ -202,64 +259,21 @@ class CommentViewController: UIViewController {
                 
                 self?.trySnapContentOfCommentCollectionViewToBottom()
                 break
-            
+                
             default:
                 break
                 
             }
         }
-
         
     }
-    
-    fileprivate func tryScrollToBottom() {
-        
-        
-        let messageToobarTop = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
-        
-        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
-        let invisbleHeight = messageToobarTop + 64 + headerHeight
-        let visibleHeight = commentCollectionView.frame.height - invisbleHeight
-        
-        let canScroll = visibleHeight <= commentCollectionView.contentSize.height
-        
-        printLog("collectionViewContentSize = \(commentCollectionView.contentSize)")
-        if canScroll {
-            
-            commentCollectionView.contentOffset.y = commentCollectionView.contentSize.height - commentCollectionView.frame.size.height + messageToobarTop
-            commentCollectionView.contentInset.bottom = messageToobarTop
-            commentCollectionView.scrollIndicatorInsets.bottom = messageToobarTop
-        }
-        
-            
-    }
-    
-    private var commentCollectionViewHasBeenMovedToBottomOnece = false
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if !commentCollectionViewHasBeenMovedToBottomOnece {
-            
-            setCommentCollectionViewOriginalContentInset()
-            
-            tryScrollToBottom()
-            
-        }
-    }
-    
-    
-    private func setCommentCollectionViewOriginalContentInset() {
-        
-        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
-        commentCollectionView.contentInset.top = 64 + headerHeight + 5
-        
-        commentCollectionView.contentInset.bottom = messageToolbar.height + 10
-        commentCollectionView.scrollIndicatorInsets.bottom = messageToolbar.height
-    }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        realm = try! Realm()
+        
+        lastUpdateMessagesCount = messages.count
         
         navigationItem.titleView = titleView
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_more"), style: .plain, target: self, action: #selector(CommentViewController.moreAction))
@@ -361,8 +375,7 @@ class CommentViewController: UIViewController {
         
         
         
-        
-        loadNewComment()
+//        loadNewComment()
     }
     
     private var isFirstAppear: Bool = true
@@ -377,89 +390,339 @@ class CommentViewController: UIViewController {
             delay(0.1) {
                 
                 self.messageToolbar.textSendAction = { [weak self] messageToolbar in
-                   
+                    
                     let text = messageToolbar.messageTextView.text!.trimming(trimmingType: .whitespaceAndNewLine)
                     
                     self?.cleanTextInput()
                     self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
-                    
+         
                     
                     if text.isEmpty { return }
                     
-                    guard let currentUser = AVUser.current() else { return }
-                    
-                    guard let formula = self?.formula else { return }
-                    
-                    
-                    let newMessage = Message()
-                    newMessage.textContent = text
-                    newMessage.mediaType = .text
-                    newMessage.creatUser = currentUser
-                    newMessage.invalidated = true
-                    newMessage.sendState =  MessageSendState.notSend.rawValue
-                    newMessage.atObjectID = formula.objectID
-                    
-                    newMessage.saveInBackground {
-                        successed, error in
+                    if let withFriend = self?.conversation.withFriend {
                         
-                        if error != nil {
-                            printLog("发送失败")
-                            // 标记发送失败
-                            newMessage.sendState = MessageSendState.failed.rawValue
+                        sendText(text: text, toRecipient: withFriend.userID, recipientType: "User", afterCreatedMessage: { [weak self] message in
                             
-                            //保存发送失败信息
-                        
-                        }
-                        
-                        if successed {
-                            printLog("发送成功")
-                           
-                            self?.messages.append(newMessage)
+                            self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in })
                             
-                            printLog("插入新 Message 前的 ContentSize = \(self?.commentCollectionView.contentSize)")
-                            
-//                            self?.commentCollectionView.reloadData()
-                            
-                            
-                            
-                            
-//                            self?.commentCollectionView.reloadItems(at: [indexPath])
-                            
-//                            self?.commentCollectionView.layoutIfNeeded()
-//                            self?.commentCollectionView.sizeToFit()
-                            
-//                            self?.commentCollectionView.collectionViewLayout.prepare()
-                            
-                            self?.commentCollectionView.performBatchUpdates({
+                            }, failureHandler: {
                                 
-                                let indexPath = IndexPath(item: self!.messages.count - 1, section: 1)
+                                printLog("发送失败")
                                 
-                                self?.commentCollectionView.insertItems(at: [indexPath])
+                            }, completion: { _ in
                                 
-                                }, completion: {_ in
-                                    
-                                    self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
-                                    
-                                    printLog("插入新 Message 后的 ContentSize = \(self?.commentCollectionView.contentSize)")
-                            })
-                            
-                            
-//                            delay(2){
-                            
-//                            }
-                            
-                        }
+                                printLog("发送成功")
+                                
+                                
+                        })
                         
+                    } else if let withGroup = self?.conversation.withGroup {
                         
+                        sendText(text: text, toRecipient: withGroup.groupID, recipientType: "User", afterCreatedMessage: { [weak self] message in
+                            
+                            self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in })
+                            
+                            }, failureHandler: {
+                                
+                                     printLog("发送失败")
+                            }, completion: { _ in
+                                
+                                printLog("发送成功")
+                                
+                                
+                        })
                     }
-                    
-                    
+              
                     
                 }
                 
+               
             }
         }
         
+        isFirstAppear = false
+        
+    }
+    
+    
+
+    
+    func updateCommentCollectionViewWithMessageIDs(messagesID: [String]? , messageAge: MessageAge, scrollToBottom: Bool, success: @escaping (Bool) -> Void) {
+        
+        guard navigationController?.topViewController == self else {
+            return
+        }
+        
+        if messagesID != nil {
+            
+        // 标记已读
+            batchMarkMessgesAsreaded()
+        }
+        
+        
+        let keyboardAndToobarHeight = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
+        
+        adjustConversationCollectionViewWithMessageIDs(messageIDs: messagesID, messageAge: messageAge, adjustHeight: keyboardAndToobarHeight, scrollToBottom: true, success: {
+            finished in
+            
+            success(finished)
+            
+        })
+        
+        if messageAge == .new {
+            conversationIsDirty = true
+        }
+        
+        if messagesID == nil {
+            
+            afterSentMessageAction?()
+            
+            // 订阅栏如果出现
+        }
+        
+    }
+    
+     private func adjustConversationCollectionViewWithMessageIDs(messageIDs: [String]?, messageAge: MessageAge, adjustHeight: CGFloat, scrollToBottom: Bool, success: @escaping (Bool) -> Void) {
+        
+        let _lastTimeMessagesCount = lastUpdateMessagesCount
+        lastUpdateMessagesCount = messages.count
+        
+        
+        if messages.count <= _lastTimeMessagesCount {
+            return
+        }
+        
+        let newMessageCount = Int(messages.count - _lastTimeMessagesCount)
+        
+        
+        let lastDisplayedMessagesRange = displayedMessagesRange
+        
+        displayedMessagesRange.length += newMessageCount
+        
+        let needReloadLoadPreviousSection = self.needShowLoadPreviousSection
+        
+        if let messageIDs = messageIDs {
+            
+            if newMessageCount != messageIDs.count {
+                commentCollectionView.reloadData()
+            }
+        }
+        
+        if newMessageCount > 0 {
+            
+            if let messageIDs = messageIDs {
+                
+                var indexPaths = [IndexPath]()
+                
+                for messageID in messageIDs {
+                    
+                    if
+                        let message = messageWithMessageID(messageID: messageID, inRealm: realm) ,
+                        let index = messages.index(of: message){
+                        
+                        let indexPath = IndexPath(item: index - displayedMessagesRange.location, section: Section.message.rawValue)
+                        
+                        indexPaths.append(indexPath)
+                    } else {
+                        
+                        printLog("unknow message")
+                    }
+                }
+                
+                switch messageAge {
+                    
+                case .new:
+                    
+                    commentCollectionView.performBatchUpdates({
+                        [weak self] in
+                        if needReloadLoadPreviousSection {
+                            
+                            self?.commentCollectionView.reloadSections(IndexSet(integer: Section.loadPrevious.rawValue))
+                            self?.needShowLoadPreviousSection = false
+                        }
+                        
+                        self?.commentCollectionView.insertItems(at: indexPaths)
+                        
+                        }, completion: nil)
+                    
+                case .old:
+                    
+                    let bottomOffset = commentCollectionView.contentSize.height - commentCollectionView.contentOffset.y
+                    
+                    CATransaction.begin()
+                    CATransaction.setDisableActions(true)
+                    
+                    commentCollectionView.performBatchUpdates({ [weak self] in
+                        if needReloadLoadPreviousSection {
+                            
+                            self?.commentCollectionView.reloadSections(IndexSet(integer: Section.loadPrevious.rawValue))
+                            self?.needShowLoadPreviousSection = false
+                        }
+                        
+                        self?.commentCollectionView.insertItems(at: indexPaths)
+                        
+                        }, completion: { [weak self] finished in
+                            if let strongSelf = self {
+                                
+                                var contentOffset = strongSelf.commentCollectionView.contentOffset
+                                contentOffset.y = strongSelf.commentCollectionView.contentSize.height - bottomOffset
+                                
+                                strongSelf.commentCollectionView.setContentOffset(contentOffset, animated: false)
+                                
+                                CATransaction.commit()
+                                
+                                // 上面的 CATransaction 保证了 CollectionView 在插入后不闪动
+                                /*
+                                 // 此时再做个 scroll 动画比较自然
+                                 let indexPath = NSIndexPath(forItem: newMessagesCount - 1, inSection: Section.Message.rawValue)
+                                 strongSelf.conversationCollectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredVertically, animated: true)
+                                 */
+                            }
+                        })
+                    
+                    
+                    break
+                }
+            } else {
+                
+                printLog("self message")
+                
+                 // 这里做了一个假设：本地刚创建的消息比所有的已有的消息都要新，这在创建消息里做保证（服务器可能传回创建在“未来”的消息）
+                var indexPaths = [IndexPath]()
+                
+                for i in 0..<newMessageCount {
+                    let indexPath = IndexPath(item: lastDisplayedMessagesRange.length + i, section: Section.message.rawValue)
+                    indexPaths.append(indexPath)
+                }
+                
+                commentCollectionView.performBatchUpdates({
+                    [weak self] in
+                    if needReloadLoadPreviousSection {
+                        
+                        self?.commentCollectionView.reloadSections(IndexSet(integer: Section.loadPrevious.rawValue))
+                        self?.needShowLoadPreviousSection = false
+                    }
+                    
+                    self?.commentCollectionView.insertItems(at: indexPaths)
+                    
+                    }, completion: nil)
+            }
+        }
+        
+        if newMessageCount > 0 {
+            
+            var newMessagesTotalHeight: CGFloat = 0
+            for i in _lastTimeMessagesCount..<messages.count {
+                
+                if let message = messages[safe: i] {
+                    let height = heightOfMessage(message) + 5
+                    newMessagesTotalHeight += height
+                }
+            }
+            
+            let keyboardAndTooBarHeight = adjustHeight
+            
+            let blockedHeight = 64 + (headerView != nil ? headerView!.height : 0) + keyboardAndTooBarHeight
+            
+            let visibleHeight = commentCollectionView.frame.height - blockedHeight
+            
+            let useableHeight = visibleHeight - commentCollectionView.contentSize.height
+            
+            if newMessagesTotalHeight > useableHeight {
+                
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+                    
+                    [weak self] in
+                    
+                    if let strongSelf = self {
+                        
+                        if scrollToBottom {
+                            
+                            let newContentSize = strongSelf.commentCollectionView.collectionViewLayout.collectionViewContentSize
+                            let newContentOffsetY = newContentSize.height - strongSelf.commentCollectionView.frame.height + keyboardAndTooBarHeight
+                            strongSelf.commentCollectionView.contentOffset.y = newContentOffsetY
+                            
+                        } else {
+                            
+                            strongSelf.commentCollectionView.contentOffset.y += newMessagesTotalHeight
+                        }
+                    }
+                    
+                        
+                    }, completion: { _ in
+                        success(true)
+                })
+            } else {
+                
+                success(true)
+            }
+        } else {
+            
+            success(true)
+        }
+        
+        
+    }
+    
+     fileprivate func batchMarkMessgesAsreaded() {
+       
+        DispatchQueue.main.async {
+            [weak self] in
+            
+            guard let _ = self else {
+                return
+            }
+            
+            
+        }
+        
+    }
+    
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !commentCollectionViewHasBeenMovedToBottomOnece {
+            
+            setCommentCollectionViewOriginalContentInset()
+            
+            tryScrollToBottom()
+            
+        }
+    }
+    
+    
+    // MARK: - Action & Target
+    
+    fileprivate func tryScrollToBottom() {
+        
+        let messageToobarTop = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
+        
+        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
+        let invisbleHeight = messageToobarTop + 64 + headerHeight
+        let visibleHeight = commentCollectionView.frame.height - invisbleHeight
+        
+        let canScroll = visibleHeight <= commentCollectionView.contentSize.height
+        
+        printLog("collectionViewContentSize = \(commentCollectionView.contentSize)")
+        if canScroll {
+            
+            commentCollectionView.contentOffset.y = commentCollectionView.contentSize.height - commentCollectionView.frame.size.height + messageToobarTop
+            commentCollectionView.contentInset.bottom = messageToobarTop
+            commentCollectionView.scrollIndicatorInsets.bottom = messageToobarTop
+        }
+        
+    }
+
+    
+    private func setCommentCollectionViewOriginalContentInset() {
+        
+        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
+        commentCollectionView.contentInset.top = 64 + headerHeight + 5
+        
+        commentCollectionView.contentInset.bottom = messageToolbar.height + 10
+        commentCollectionView.scrollIndicatorInsets.bottom = messageToolbar.height
     }
     
     fileprivate func cleanTextInput() {
@@ -471,70 +734,7 @@ class CommentViewController: UIViewController {
         
     }
     
-//    func updateCommentCollectionViewWithMessageIDs
-    
-    func makeHeaderView(with formula: Formula?) {
-        guard let formula = formula else {
-            return
-        }
-        
-        let headerView = CommentHeaderView.creatCommentHeaderViewFormNib()
-        headerView.formula = formula
-        
-        headerView.changeStatusAction = {
-            [weak self] status in
-            
-            switch status {
-            case .small:
-                
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
-                    [weak self] in
-                    self?.commentCollectionView.contentInset.top = 64 + 60 + 20
-                    }, completion: nil)
-                
-                printLog(self?.commentCollectionView.contentInset)
-                
-            case .big:
-                
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
-                    [weak self] in
-                    self?.commentCollectionView.contentInset.top = 64 + 120 + 20
-                    }, completion: nil)
-                
-                if let messageToolbar = self?.messageToolbar {
-                    
-                    if !messageToolbar.state.isAtBottom {
-                        messageToolbar.state = .normal
-                    }
-                }
-                
-                printLog(self?.commentCollectionView.contentInset)
-                
-                
-            }
-        }
-        
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(headerView)
-        
-        let views: [String: AnyObject] = [
-            "headerView": headerView
-        ]
-        
-        let constraintH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[headerView]|", options: [], metrics: nil, views: views)
-        
-        let top = NSLayoutConstraint(item: headerView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 64)
-        
-        let height = NSLayoutConstraint(item: headerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 60)
-        
-        NSLayoutConstraint.activate(constraintH)
-        NSLayoutConstraint.activate([top, height])
-        
-        headerView.heightConstraint = height
-        
-        self.headerView = headerView
-        
-    }
+
     
     func moreAction() {
         printLog("")
@@ -633,47 +833,307 @@ class CommentViewController: UIViewController {
     }
     
     
-    
-    var messages: [Message] = []
+   
     
     func loadNewComment() {
+
+       
+        var messageAge: MessageAge = .new
         
-        let query = AVQuery(className: "Message")
-        query?.addDescendingOrder("creatAt")
+        let query = AVQuery(className: "DiscoverMessage")
         
-        guard let formula = formula else { return }
-        query?.whereKey("atObjectID", equalTo: formula.objectID)
+        query?.limit = self.messagesBunchCount
         
-        query?.findObjectsInBackground {
-            result, error in
+        if let minMessageCreatedUnixTime = self.messages.last?.createdUnixTime {
+            
+            query?.whereKey("createdAt", greaterThan: minMessageCreatedUnixTime)
+            
+        } else {
+            
+            // 转圈
+        }
+        
+        query?.findObjectsInBackground { result, error in
             
             if error != nil {
-                
-                printLog("获取Message失败")
+                printLog("获取失败")
             }
             
-            if let messages = result as? [Message] {
+            if let leanCloudMessages = result as? [DiscoverMessage] {
                 
-                let oldMessages = self.messages
-                
-                self.messages = messages
-                
-                _ = oldMessages.map {
-                    self.messages.append($0)
+                guard let realm = try? Realm() else  {
+                    return
                 }
                 
-                self.commentCollectionView.reloadData()
-                delay(2) {
+                realm.beginWrite()
+                
+                for leanCloudMessage in leanCloudMessages {
                     
-                    self.tryScrollToBottom()
+                    if let messageID = leanCloudMessage.objectId {
+                        
+                        var message = messageWithMessageID(messageID: messageID, inRealm: realm)
+                        
+                        // 先判断获取到的信息是否为自己发送，并确定是否需要删除
+                        
+                        let deleted = leanCloudMessage.deletedByCreator
+                        
+                        if deleted {
+                            let leanCloudMessageCreatorObjectID = leanCloudMessage.creatUser.objectId ?? " "
+                            let meObjectID = AVUser.current().objectId ?? ""
+                            
+                            if  leanCloudMessageCreatorObjectID == meObjectID {
+                                
+                                if let message = message {
+                                    
+                                    // TODO - 删除message附件
+                                    realm.delete(message)
+                                    
+                                }
+                            }
+                        }
+                        
+                        
+                        if message == nil {
+                            
+                            let newMessage = Message()
+                            newMessage.messageID = messageID
+                            
+                            newMessage.createdUnixTime = leanCloudMessage.createdAt.timeIntervalSince1970
+                            
+                            if case .new = messageAge {
+                                // 确保网络来的新消息比任何已有的消息都要新，防止服务器消息延后发来导致插入到当前消息上面
+                                if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
+                                    if newMessage.createdUnixTime < latestMessage.createdUnixTime {
+                                        // 只考虑最近的消息，过了可能混乱的时机就不再考虑
+                                        if abs(newMessage.createdUnixTime - latestMessage.createdUnixTime) < 60 {
+                                            printLog("xbefore newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+                                            newMessage.createdUnixTime = latestMessage.createdUnixTime + 0.00005
+                                            printLog("xadjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            realm.add(newMessage)
+                            
+                            message = newMessage
+                        }
+                        
+                        if let message = message {
+                            
+                             // 纪录消息的发送者
+                            
+                            let messageSender = leanCloudMessage.creatUser
+                            
+                            if let userID = messageSender.objectId {
+                                
+                                var sender =  userWithUserID(userID: userID, inRealm: realm)
+                                
+                                if sender == nil {
+                                    
+                                    let newUser = messageSender.converRUserModel()
+                                    
+                                    // TODO: 可能需要标记newuser 为陌生人
+                                    
+                                    realm.add(newUser)
+                                    
+                                    sender = newUser
+                                    
+                                }
+                                
+                                if let sender = sender {
+                                    
+                                    message.creatUser = sender
+                                    
+                                    // 查询消息来自 group 还是 user
+                                    
+                                    var senderFromGroup: Group? = nil
+                                    
+                                    let recipientType = leanCloudMessage.recipientType
+                                    let recipientID = leanCloudMessage.recipientID
+                                    
+                                    if recipientType == "Group" {
+                                        
+                                        senderFromGroup = groupWithGroupID(groupID: recipientID, inRealm: realm)
+                                        
+                                        if senderFromGroup == nil {
+                                            
+                                            
+                                            let newGroup = Group()
+                                            newGroup.groupID = recipientID
+                                            newGroup.incloudMe = true
+                                            
+                                            // TODO: 初次还无法确定group 类型， 下面会请求 group 信息再确认
+                                            
+                                            realm.add(newGroup)
+                                            
+                                            senderFromGroup = newGroup
+                                            
+                                            // 若提及我， 才同步 group 进而
+                                            
+                                            
+                                            
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                    // 记录消息所属的 Conversation
+                                    
+                                    var conversation: Conversation?
+                                    
+                                    var conversationWithUser: RUser?
+                                    
+                                    
+                                    if let senderFromGroup = senderFromGroup {
+                                        conversation = senderFromGroup.conversation
+                                        
+                                    } else {
+                                        
+                                        var currentUserObjectID = ""
+                                        if let currentUser = AVUser.current() {
+                                            currentUserObjectID = currentUser.objectId
+                                        }
+                                        
+                                        if sender.userID !=  currentUserObjectID {
+                                            conversation = sender.conversation
+                                            conversationWithUser = sender
+                                            
+                                        } else {
+                                            
+                                            if leanCloudMessage.recipientID == "" {
+                                                
+//                                                message.deleted
+                                                return
+                                            }
+                                            
+                                            if let user = userWithUserID(userID: leanCloudMessage.recipientID, inRealm: realm) {
+                                                conversation = user.conversation
+                                                conversationWithUser = user
+                                                
+                                            } else {
+                                                
+                                                let newUser = RUser()
+                                                newUser.userID = leanCloudMessage.recipientID
+                                                
+                                                realm.add(newUser)
+                                                
+                                                // 网络获取这个新的 newUser 的信息
+                                                
+                                            }
+                                            
+                                            
+                                            
+                                        }
+                                    }
+                                    
+                                    var createdNewConversation = false
+                                    
+                                    if conversation == nil {
+                                        
+                                        let newConversation = Conversation()
+                                        
+                                        if let senderFromGroup = senderFromGroup {
+                                            
+                                            newConversation.type = ConversationType.group.rawValue
+                                            newConversation.withGroup = senderFromGroup
+                                            
+                                        } else {
+                                            newConversation.type = ConversationType.oneToOne.rawValue
+                                            newConversation.withFriend = conversationWithUser
+                                            
+                                        }
+                                        
+                                        realm.add(newConversation)
+                                        
+                                        conversation = newConversation
+                                        
+                                        createdNewConversation = true
+                                    }
+                                    
+                                    if let conversation = conversation {
+                                        
+                                        // TODO :- 同步已读
+                                        
+//                                        if message.conversation == nil &&
+//                                       
+//                                        }
+                                        
+                                        message.conversation = conversation
+                                        
+                                        var sectionDateMessageID: String?
+                                        
+                                        tryCreatDateSectionMessage(withNewMessage: message, conversation: conversation, realm: realm, completion: {
+                                            sectionDateMesage in
+                                            if let sectionDateMessage = sectionDateMesage {
+                                                
+                                                realm.add(sectionDateMessage)
+                                            }
+                                            
+                                            sectionDateMessageID = sectionDateMesage?.messageID
+                                            
+                                        })
+                                        
+                                        if createdNewConversation {
+                                            
+                                            //发送通知
+                                        }
+                                        
+                                        if let sectionDateMessageID = sectionDateMessageID {
+                                            
+                                        } else {
+                                            
+                                        }
+                                        
+                                    
+                                    } else {
+                                        
+                                        // 删除message
+                                        //                                        message.deleted
+                                    }
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    try? realm.commitWrite()
                 }
                 
-                
             }
+                
             
+            }
+        
+    }
+
+    
+}
+
+public enum TimeDirection {
+    
+    case future(minMessageID: String)
+    case past(maxMessageID: String)
+    case none
+    
+    public var messageAge: MessageAge {
+        switch self {
+        case .past:
+            return .old
+        default:
+            return .new
         }
     }
-    
 }
 
 extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

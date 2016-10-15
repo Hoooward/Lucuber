@@ -8,6 +8,7 @@
 
 import UIKit
 import AVOSCloud
+import RealmSwift
 
 fileprivate let detailCellIdentifier = "DetailCollectionViewCell"
 
@@ -293,7 +294,19 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             
         case .comment:
             let vc = segue.destination as! CommentViewController
-            vc.formula = sender as? Formula
+            
+            if let formula = sender as? Formula, let realm = try? Realm() {
+                
+                vc.formula = formula
+                
+                realm.beginWrite()
+                let formulaConversation = vc.prepareConversation(withFromula: formula, inRealm: realm)
+                try? realm.commitWrite()
+                
+                vc.conversation = formulaConversation
+            
+            }
+            
             
         case .edit:
             let editVC = segue.destination as! NewFormulaViewController

@@ -37,8 +37,8 @@ class ChatBaseCell: UICollectionViewCell {
         return imageView
     }()
     
-    var user: AVUser?
-    var tapAvatarAction: ((AVUser) -> Void)?
+    var user: RUser?
+    var tapAvatarAction: ((RUser) -> Void)?
     
     var deleteMessageAction: (() -> Void)?
     var reportMessageAction: (() -> Void)?

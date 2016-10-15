@@ -10,6 +10,60 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
+// formula
+
+func formulaWithFormulaID(formulaID: String , inRealm realm: Realm) -> RFormula? {
+    
+    let predicate = NSPredicate(format: "objectID = %@", formulaID)
+    
+    #if DEBUG
+//        let feeds = realm.objects(Feed).filter(predicate)
+//        if feeds.count > 1 {
+//            println("Warning: same feedID: \(feeds.count), \(feedID)")
+//        }
+    #endif
+    
+    return realm.objects(RFormula.self).filter(predicate).first
+    
+}
+
+// MEssage
+
+func userWithUserID(userID: String, inRealm realm: Realm) -> RUser? {
+    
+    let predicate = NSPredicate(format: "userID = %@", userID)
+    
+    return realm.objects(RUser.self).filter(predicate).first
+}
+
+
+func groupWithGroupID(groupID: String, inRealm realm: Realm) -> Group? {
+    
+    let predicate = NSPredicate(format: "groupID = %@" , groupID)
+    return realm.objects(Group.self).filter(predicate).first
+}
+
+
+func messagesOfConversation(conversation: Conversation, inRealm realm: Realm) -> Results<Message> {
+    
+    let predicate = NSPredicate(format: "conversation = %@", conversation)
+    let messages = realm.objects(Message.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true)
+    return messages
+    
+}
+
+func messageWithMessageID(messageID: String, inRealm realm: Realm) -> Message? {
+    
+    if messageID.isEmpty {
+        return nil
+    }
+    
+    let predicate = NSPredicate(format: "messageID = %@", messageID)
+    let message = realm.objects(Message.self).filter(predicate)
+    return message.first
+}
+
+
 /**
  After loaded Libray formulas form LeanCloud. need delete old formulas content
  and rewrite new content
@@ -287,6 +341,25 @@ class RUser: Object {
     dynamic var userName: String = ""
     dynamic var avatarImageUrl: String?
     
+    dynamic var introduction: String = ""
+    
+    public override static func indexedProperties() -> [String] {
+        return ["userID"]
+    }
+    
+    let messages = LinkingObjects(fromType: Message.self, property: "creatUser")
+    let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
+    
+    var conversation: Conversation? {
+        return conversations.first
+    }
+    
+    public let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
+    public let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
+//    public let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
+    
+    dynamic var leanCloudObjectID: String = ""
+    
     func convertToAVUser() -> AVUser {
         
         let user = AVUser()
@@ -300,7 +373,9 @@ class RUser: Object {
             user.setUserAvatar(imageUrl: url)
         }
         
+        
         user.username = userName
+        
         return user
     }
 }
@@ -347,6 +422,10 @@ class RFormula: Object {
     dynamic var rating = 0
     dynamic var isLibraryFormulas = false
     
+    
+    dynamic var group: Group?
+    
+    
     var contentsString = List<RContent>()
     
     func convertToFromula() -> Formula {
@@ -363,7 +442,25 @@ class RFormula: Object {
         formula.contents = contentsString.map { $0.convertToFormulaContent()}
         formula.creatUserID = creatUserID
         
+        
+        
         return formula
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

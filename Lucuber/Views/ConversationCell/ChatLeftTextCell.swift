@@ -143,7 +143,7 @@ class ChatLeftTextCell: ChatBaseCell {
                 strongSelf.bubbleBodyShapeLayer.path = UIBezierPath(roundedRect: bubbleBodyFrame, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width: Config.ChatCell.bubbleCornerRadius, height: Config.ChatCell.bubbleCornerRadius)).cgPath
                 
                 if strongSelf.inGroup {
-                    strongSelf.nameLabel.text = strongSelf.user?.getUserNickName()
+                    strongSelf.nameLabel.text = strongSelf.user?.nickName
                     
                     let height = Config.ChatCell.nameLabelHeightForGroup
                     let x = textContentTextViewFrame.origin.x

@@ -6,6 +6,7 @@
 
 import Foundation
 import AVOSCloud
+import RealmSwift
 
 public enum UploadFormulaMode: String {
     
@@ -442,6 +443,56 @@ public func fetchCurrentUserInfo() {
         
     }
 }
+
+// Message
+
+
+func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)? ) {
+    
+    let leanCloudMessage = message.convertToLMessage()
+    
+    
+    leanCloudMessage.saveInBackground {
+        successed, error in
+        if error != nil {
+            printLog("发送失败")
+            // 标记发送失败
+            printLog(error)
+            guard let realm = try? Realm() else {
+                
+                failureHandler?()
+                return
+            }
+            
+            try? realm.write {
+                message.sendStateInt = MessageSendState.failed.rawValue
+            }
+            
+            failureHandler?()
+            
+        }
+        
+        if successed {
+            printLog("发送成功")
+            
+            guard let realm = try? Realm() else {
+                
+                failureHandler?()
+                return
+            }
+            
+            try? realm.write {
+                message.sendStateInt = MessageSendState.successed.rawValue
+                message.messageID = leanCloudMessage.objectId
+            }
+            
+            completion?(successed)
+        }
+        
+    }
+    
+}
+
 
 
 
