@@ -15,6 +15,30 @@ public enum MessageAge {
     case new
 }
 
+func tryGetOrCreatMeInRealm(realm: Realm) -> RUser? {
+    
+    guard
+        let currentUser = AVUser.current(),
+        let userID = currentUser.objectId else {
+        return nil
+    }
+    
+    if let me = userWithUserID(userID: userID, inRealm: realm) {
+        return me
+        
+    } else {
+        
+        let me = currentUser.converRUserModel()
+        
+        try? realm.write {
+            realm.add(me)
+        }
+        
+        return me
+        
+    }
+}
+
 func sendText(text: String, toRecipient: String, recipientType: String, afterCreatedMessage: ((Message) -> Void)?, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)?) {
     
     
@@ -22,9 +46,10 @@ func sendText(text: String, toRecipient: String, recipientType: String, afterCre
         return
     }
     
+    // 创建新的实例
     let message = Message()
-    printLog("send newMessage.createdUnixTime: \(message.createdUnixTime)")
     
+    // 保证创建的新消息时间为最最最最新
     if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
         
         if message.createdUnixTime < latestMessage.createdUnixTime {
@@ -35,25 +60,27 @@ func sendText(text: String, toRecipient: String, recipientType: String, afterCre
     
     // 暂时只处理文字消息
     message.mediaTypeInt = MessageMediaType.text.rawValue
+    // 发送的消息默认下载完成
     message.downloadState = MessageDownloadState.downloaded.rawValue
-    //                        message.sendStateInt = MessageSendState.failed.rawValue
+    // 自己发的消息默认已读
     message.readed = true
     
-//    try? realm.commitWrite()
     
+    // 添加到 Realm
     try? realm.write {
         realm.add(message)
     }
     
-    if let me = AVUser.current() {
+    // message 的 creatUser = me
+    if let me = tryGetOrCreatMeInRealm(realm: realm) {
         
         try? realm.write {
-            message.creatUser = me.converRUserModel()
+            message.creatUser = me
         }
     }
     
     
-    // 如果没有 Conversation ， 创建
+    // 如果没有 Conversation ，创建
     var conversation: Conversation? = nil
     
     try? realm.write {
@@ -154,9 +181,9 @@ func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: C
         
         if let prevMessage = messages[safe: (index - 1)] {
             
-            if message.createdUnixTime - prevMessage.createdUnixTime > 180 {
+            if message.createdUnixTime - prevMessage.createdUnixTime > 10 {
                 
-                let sectionDateMessageCreatedUnixTime = message.createdUnixTime + 0.00005
+                let sectionDateMessageCreatedUnixTime = message.createdUnixTime - 0.00005
                 let sectionDateMessageID = "sectionDate-\(sectionDateMessageCreatedUnixTime)"
                 
                 if let _ = messageWithMessageID(messageID: sectionDateMessageID, inRealm: realm) {
@@ -253,10 +280,10 @@ class Message: Object {
     
     /// 判断是否是当前登录用户发送的 Message
     var isfromMe: Bool {
-        guard let currentUser = AVUser.current() else {
+        guard let currentUser = AVUser.current(), let userID = currenUser.objectId else {
             return false
         }
-        return currentUser.objectId == creatUser!.userID
+        return userID == creatUser!.userID
     }
     
     

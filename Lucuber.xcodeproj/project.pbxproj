@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		E4011F321DB1F90E00EEBBCF /* CommentViewController+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F311DB1F90E00EEBBCF /* CommentViewController+Feed.swift */; };
+		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
 		E40EAEB91DA9F1BB0068404B /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */; };
 		E40EAEBB1DA9F1F20068404B /* CommentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */; };
@@ -156,6 +157,7 @@
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		E4011F311DB1F90E00EEBBCF /* CommentViewController+Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Feed.swift"; sourceTree = "<group>"; };
+		E4011F331DB277BE00EEBBCF /* Date+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Cube.swift"; sourceTree = "<group>"; };
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentHeaderView.xib; sourceTree = "<group>"; };
@@ -990,6 +992,7 @@
 				E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */,
 				E480BB941DA1E5110080098A /* Array+Cube.swift */,
 				E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */,
+				E4011F331DB277BE00EEBBCF /* Date+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1302,6 +1305,7 @@
 				E45DA0611DA73C5B0050DD4D /* ChatTextView.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
+				E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */,
 				E435C02C1D9EAA250026FA08 /* ActionSheetView.swift in Sources */,
 				E435C0221D9EA21D0026FA08 /* CameraPreviewView.swift in Sources */,
 				E4D536BC1D8DB0A1008A426A /* LayoutButton.swift in Sources */,

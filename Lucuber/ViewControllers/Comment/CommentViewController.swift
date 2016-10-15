@@ -45,14 +45,14 @@ class CommentViewController: UIViewController {
 //    }
 //    
     
-    private lazy var sectionDateFormatter: DateFormatter =  {
+    fileprivate lazy var sectionDateFormatter: DateFormatter =  {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
     
-    private lazy var sectionDateInCurrentWeekFormatter: DateFormatter =  {
+    fileprivate lazy var sectionDateInCurrentWeekFormatter: DateFormatter =  {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE HH:mm"
         return dateFormatter
@@ -160,8 +160,19 @@ class CommentViewController: UIViewController {
             
             
         default:
-            break
+            height = 20
             
+        }
+        
+        if conversation.withGroup != nil {
+            if message.mediaType != MessageMediaType.sectionDate {
+                
+                if let sender = message.creatUser {
+                    if !sender.isMe() {
+                        height += Config.ChatCell.marginTopForGroup
+                    }
+                }
+            }
         }
         
         return height
@@ -271,9 +282,19 @@ class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+     
         realm = try! Realm()
         
         lastUpdateMessagesCount = messages.count
+        
+        if messages.count >= messagesBunchCount {
+            
+            displayedMessagesRange = NSRange(location: messages.count - messagesBunchCount, length: messagesBunchCount)
+        } else {
+            
+            displayedMessagesRange = NSRange(location: 0, length: messages.count)
+        }
+        
         
         navigationItem.titleView = titleView
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_more"), style: .plain, target: self, action: #selector(CommentViewController.moreAction))
@@ -418,7 +439,7 @@ class CommentViewController: UIViewController {
                         
                     } else if let withGroup = self?.conversation.withGroup {
                         
-                        sendText(text: text, toRecipient: withGroup.groupID, recipientType: "User", afterCreatedMessage: { [weak self] message in
+                        sendText(text: text, toRecipient: withGroup.groupID, recipientType: "group", afterCreatedMessage: { [weak self] message in
                             
                             self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in })
                             
@@ -1160,7 +1181,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .message:
             
-            return messages.count
+            return displayedMessagesRange.length
         }
         
         
@@ -1179,12 +1200,22 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         case .message:
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatSectionDateCellIdentifier, for: indexPath)
+
             
-//            return cell
-            
-            guard let message = messages[safe: indexPath.item] else {
+            guard let message = messages[safe: indexPath.item + displayedMessagesRange.location] else {
                 fatalError("messages 越界")
+            }
+            
+            if message.mediaType == .sectionDate {
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatSectionDateCellIdentifier, for: indexPath) as! ChatSectionDateCell
+                
+                
+                let createdAt = Date(timeIntervalSince1970: message.createdUnixTime)
+                
+                cell.sectionDateLabel.text = sectionDateFormatter.string(from: createdAt)
+                
+                return cell
             }
             
             if message.isfromMe {
@@ -1230,7 +1261,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .loadPrevious:
             return CGSize(width: UIScreen.main.bounds.width, height: 20)
         case .message:
-            return CGSize(width: UIScreen.main.bounds.width, height: heightOfMessage(messages[indexPath.item]))
+            return CGSize(width: UIScreen.main.bounds.width, height: heightOfMessage(messages[indexPath.item + displayedMessagesRange.location]))
         }
     }
     

@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 
+#import "AVIMMessageOption.h"
 #import "AVIMKeyedConversation.h"
 #import "AVIMConversationQuery.h"
 #import "AVIMTextMessage.h"

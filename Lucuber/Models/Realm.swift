@@ -334,6 +334,15 @@ extension AVUser {
     }
 }
 
+public enum UserFriendState: Int {
+    case Stranger       = 0   // 陌生人
+    case IssuedRequest  = 1   // 已对其发出好友请求
+    case Normal         = 2   // 正常状态的朋友
+    case Blocked        = 3   // 被屏蔽
+    case Me             = 4   // 自己
+    case Yep            = 5   // Yep官方账号
+}
+
 class RUser: Object {
     
     dynamic var userID: String = ""
@@ -377,6 +386,16 @@ class RUser: Object {
         user.username = userName
         
         return user
+    }
+    
+    func isMe() -> Bool {
+        
+        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
+            return false
+        }
+        
+        return userID == self.userID
+        
     }
 }
 
