@@ -268,17 +268,26 @@ class CommentViewController: UIViewController {
                     firstMessage = minMessage
                 }
                 
-                syncMessage(withRecipientID: recipiendID, messageAge: .old, lastMessage: nil, firstMessage: firstMessage, failureHandler: {
+                syncMessage(withRecipientID: recipiendID, messageAge: .old, lastMessage: nil, firstMessage: firstMessage, failureHandler: { [weak self] in
+                    
+                    self?.isLoadingPreviousMessages = false
+                    completion()
                     
                     printLog("从网络加载过去的 Messaage 失败")
-                    }, completion: { newMessageID in
+                    }, completion: { [weak self] newMessageID  in
                         
                         tryPostNewMessageReceivedNotification(withMessageIDs: newMessageID, messageAge: .old)
                         
+                        self?.isLoadingPreviousMessages = false
+                        
+                        if newMessageID.isEmpty {
+                            self?.noMorePreviousMessage = true
+                        }
+                        
+                        completion()
                         printLog("从网络加载过去的 Message 成功.")
                 })
             }
-            
         
         } else {
             
@@ -1227,6 +1236,7 @@ extension CommentViewController: UIScrollViewDelegate {
         
         
         guard !noMorePreviousMessage else {
+//            printLog("从上一次网络请求过去的 Message 得知已没有更旧的数据")
             return
         }
         
