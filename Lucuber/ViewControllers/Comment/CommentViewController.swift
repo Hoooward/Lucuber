@@ -282,10 +282,12 @@ class CommentViewController: UIViewController {
                         
                         if newMessageID.isEmpty {
                             self?.noMorePreviousMessage = true
+                            printLog("网络上没有更旧的 Message")
+                        } else {
+                            printLog("从网络加载过去的 Message 成功.")
                         }
                         
                         completion()
-                        printLog("从网络加载过去的 Message 成功.")
                 })
             }
         
@@ -537,6 +539,7 @@ class CommentViewController: UIViewController {
             
         case ConversationType.oneToOne.rawValue:
             
+            printLog("进入新的 Conversation ->> 开始同步最新的 Message")
             syncMessages({
                 
                 printLog("获取数据失败")
@@ -547,7 +550,7 @@ class CommentViewController: UIViewController {
             
         case ConversationType.group.rawValue:
             
-            
+           printLog("进入新的 Conversation ->> 开始同步最新的 Message")
             syncMessages({
                 
                 printLog("获取数据失败")
@@ -950,7 +953,7 @@ class CommentViewController: UIViewController {
         
         let canScroll = visibleHeight <= commentCollectionView.contentSize.height
         
-        printLog("collectionViewContentSize = \(commentCollectionView.contentSize)")
+//        printLog("collectionViewContentSize = \(commentCollectionView.contentSize)")
         if canScroll {
             
             commentCollectionView.contentOffset.y = commentCollectionView.contentSize.height - commentCollectionView.frame.size.height + messageToobarTop
@@ -1205,7 +1208,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     
-    
 }
 
 extension CommentViewController: UIScrollViewDelegate {
@@ -1218,7 +1220,6 @@ extension CommentViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        printLog(scrollView.contentOffset.y)
         
         if let dragBeginLocation = self.draBeginLocation {
             
@@ -1226,14 +1227,10 @@ extension CommentViewController: UIScrollViewDelegate {
             let deltaY = location.y - dragBeginLocation.y
             
             if deltaY < -30 {
-                
-                printLog("changeToSmall")
                 tryChangedHeaderToSmall()
                 
             }
-           
         }
-        
         
         guard !noMorePreviousMessage else {
 //            printLog("从上一次网络请求过去的 Message 得知已没有更旧的数据")

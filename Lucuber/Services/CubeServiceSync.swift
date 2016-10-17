@@ -66,26 +66,27 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     query?.whereKey("recipientID", equalTo: recipientID)
     
     
-    query?.countObjectsInBackground({ (count, error) in
-        
-        if error != nil {
-            printLog("获取总数失败")
-        } else {
-            printLog("服务器端移动找到 \(count) 个 Message")
-        }
-    })
+//    query?.countObjectsInBackground({ (count, error) in
+//        
+//        if error != nil {
+//            printLog("获取总数失败")
+//        } else {
+////            printLog("服务器端移动找到 \(count) 个 Message")
+//        }
+//    })
   
     
     switch messageAge {
     case .new:
         
         if let lastMessage = lastMessage {
+            printLog("从本地 Realm 获取最新的 Message 创建日期, 开始请求更新的 Message")
             let maxCreatedUnixTime = lastMessage.createdUnixTime
             query?.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
             
         } else {
             // 如果当前 Message 为空
-            
+            printLog("本地 Realm 中没有 Message, 开始请求最新的 20 条 Message")
             query?.whereKey("createdAt", lessThanOrEqualTo: NSDate())
             query?.order(byDescending: "createdAt")
             
@@ -94,6 +95,7 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     case .old:
         
         if let firstMessage = firstMessage {
+            printLog("从本地 Realm 获取最旧的 Message 创建日期, 开始请求更旧的 Message")
             let minCreatedUnixTime = firstMessage.createdUnixTime
             query?.whereKey("createdAt", lessThan: NSDate(timeIntervalSince1970: minCreatedUnixTime))
         }
@@ -106,10 +108,9 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
         result, error in
         
         if error != nil {
-            printLog("获取失败")
+            printLog("网络请求 Messages 数据失败")
             failureHandler?()
         }
-        
         
         var messageIDs = [String]()
         
@@ -119,12 +120,13 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
                 return
             }
             
-            printLog("newMessageCount = \(discoverMessages.count)" )
+            printLog("共获取到 **\(discoverMessages.count)** 个新 DiscoverMessages")
             
             realm.beginWrite()
-            
+            if !discoverMessages.isEmpty { printLog("开始将 DiscoverMessage 转换成 Message 并存入本地") }
             discoverMessages.forEach {
                 
+
                 // 将 DiscoverMessage 转换成 Message
                 
                 convertDiscoverMessageToRealmMessage(discoverMessage: $0, messageAge: messageAge, realm: realm) {
@@ -134,6 +136,7 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
                 }
                 
             }
+            if !discoverMessages.isEmpty { printLog(" DiscoverMessage 转换成 Message 已完成") }
             
             try? realm.commitWrite()
             
@@ -169,7 +172,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             
             }
         }
-    
         
         if message == nil {
             
