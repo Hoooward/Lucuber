@@ -64,15 +64,31 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     
     let query = AVQuery(className: "DiscoverMessage")
     query?.whereKey("recipientID", equalTo: recipientID)
-    query?.includeKey("creatarUser")
+    
+    
+    query?.countObjectsInBackground({ (count, error) in
+        
+        if error != nil {
+            printLog("获取总数失败")
+        } else {
+            printLog("服务器端移动找到 \(count) 个 Message")
+        }
+    })
+  
     
     switch messageAge {
     case .new:
-       
         
         if let lastMessage = lastMessage {
             let maxCreatedUnixTime = lastMessage.createdUnixTime
             query?.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
+            
+        } else {
+            // 如果当前 Message 为空
+            
+            query?.whereKey("createdAt", lessThanOrEqualTo: NSDate())
+            query?.order(byDescending: "createdAt")
+            
         }
         
     case .old:
@@ -83,6 +99,9 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
         }
     }
     
+    query?.limit = 20
+    // 此次请求需要将完整的 creatorUser 信息获取到.
+    query?.includeKey("creatarUser")
     query?.findObjectsInBackground {
         result, error in
         

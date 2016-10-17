@@ -90,7 +90,6 @@ class ChatLeftTextCell: ChatBaseCell {
         
         self.user = message.creatUser
         
-        printLog(self.user)
         if let _ = message.conversation?.withGroup {
             self.inGroup = true
         }

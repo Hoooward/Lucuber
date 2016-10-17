@@ -255,13 +255,34 @@ class CommentViewController: UIViewController {
         
         isLoadingPreviousMessages = true
         
-        printLog("尝试加载旧Message" )
+        printLog("准备加载旧Message" )
         
         if displayedMessagesRange.location == 0 {
+            
+            printLog("从网络加载过去的 Message")
+            
+        
+            if let recipiendID = self.conversation.recipiendID {
+                var firstMessage: Message?
+                if let minMessage = self.messages.first {
+                    firstMessage = minMessage
+                }
+                
+                syncMessage(withRecipientID: recipiendID, messageAge: .old, lastMessage: nil, firstMessage: firstMessage, failureHandler: {
+                    
+                    printLog("从网络加载过去的 Messaage 失败")
+                    }, completion: { newMessageID in
+                        
+                        tryPostNewMessageReceivedNotification(withMessageIDs: newMessageID, messageAge: .old)
+                        
+                        printLog("从网络加载过去的 Message 成功.")
+                })
+            }
             
         
         } else {
             
+            printLog("从本地 Realm 中加载过去的 Message")
             var newMessageCount = self.messagesBunchCount
             
             if displayedMessagesRange.location - newMessageCount < 0 {
@@ -310,6 +331,7 @@ class CommentViewController: UIViewController {
                         
                         self?.isLoadingPreviousMessages = false
                         completion()
+                        printLog("从本地加载过去的 Message 成功.")
                 })
                 
             }
@@ -581,14 +603,10 @@ class CommentViewController: UIViewController {
                             }, completion: { _ in
                                 
                                 printLog("发送成功")
-                                
-                                
                         })
                     }
-              
                     
                 }
-                
                
             }
         }
@@ -597,10 +615,7 @@ class CommentViewController: UIViewController {
         
     }
     
-    
-
-
-    
+   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -646,7 +661,6 @@ class CommentViewController: UIViewController {
                 if conversationID != currentVisibleConversationID {
                     return
                 }
-                
                 
                 var filteredMessageIDs = [String]()
                 
@@ -705,7 +719,6 @@ class CommentViewController: UIViewController {
         }
         
         if messagesID != nil {
-            
             // 标记已读
             batchMarkMessgesAsreaded()
         }
@@ -713,7 +726,12 @@ class CommentViewController: UIViewController {
         
         let keyboardAndToobarHeight = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
         
-        adjustCommentCollectionViewWithMessageIDs(messageIDs: messagesID, messageAge: messageAge, adjustHeight: keyboardAndToobarHeight, scrollToBottom: true, success: {
+        var scrollToBottom = true
+        if case .old = messageAge {
+            scrollToBottom = false
+        }
+        
+        adjustCommentCollectionViewWithMessageIDs(messageIDs: messagesID, messageAge: messageAge, adjustHeight: keyboardAndToobarHeight, scrollToBottom: scrollToBottom, success: {
             finished in
             
             success(finished)
@@ -887,10 +905,12 @@ class CommentViewController: UIViewController {
                             let newContentSize = strongSelf.commentCollectionView.collectionViewLayout.collectionViewContentSize
                             let newContentOffsetY = newContentSize.height - strongSelf.commentCollectionView.frame.height + keyboardAndTooBarHeight
                             strongSelf.commentCollectionView.contentOffset.y = newContentOffsetY
+                            printLog("更新 Message 后自动滚到最下方")
                             
                         } else {
                             
                             strongSelf.commentCollectionView.contentOffset.y += newMessagesTotalHeight
+                            printLog("更新 Messaage 后调整 contentOffsetY 为之前的状态.")
                         }
                     }
                     
