@@ -159,6 +159,8 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             newMessage.messageID = discoverMessage.objectId
             newMessage.textContent = discoverMessage.textContent
             newMessage.mediaTypeInt = discoverMessage.mediaTypeInt
+            // 全部标记为已读
+            newMessage.sendStateInt = MessageSendState.read.rawValue
             
             newMessage.createdUnixTime = discoverMessage.createdAt.timeIntervalSince1970
             if case .new = messageAge {
@@ -202,7 +204,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                 if let sender = sender {
                     
                     message.creatUser = sender
-                    
                     message.recipientID = discoverMessage.recipientID
                     message.recipientType = discoverMessage.recipientType
                     // 判断 message 来自 group 还是 user
