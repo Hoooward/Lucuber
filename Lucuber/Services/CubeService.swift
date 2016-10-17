@@ -452,16 +452,13 @@ func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> V
     
     let leanCloudMessage = message.convertToLMessage()
     
-    printLog(leanCloudMessage.creatarUser)
     
     leanCloudMessage.saveInBackground {
         successed, error in
+        
         if error != nil {
-            printLog("发送失败")
             // 标记发送失败
-            printLog(error)
             guard let realm = try? Realm() else {
-                
                 failureHandler?()
                 return
             }
@@ -490,6 +487,9 @@ func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> V
             
             completion?(successed)
         }
+        
+        // 通知 Cell 更改发送状态提示.
+        NotificationCenter.default.post(name: Notification.Name.updateMessageStatesNotification, object: nil)
         
     }
     

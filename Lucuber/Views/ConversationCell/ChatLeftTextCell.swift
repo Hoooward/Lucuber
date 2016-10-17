@@ -90,7 +90,11 @@ class ChatLeftTextCell: ChatBaseCell {
         
         self.user = message.creatUser
         
-        self.nameLabel.text = "Tychooo"
+        printLog(self.user)
+        if let _ = message.conversation?.withGroup {
+            self.inGroup = true
+        }
+        
         self.avatarImageView.image = UIImage(named: "Howard")
         
         textContentTextView.text = message.textContent
@@ -130,7 +134,6 @@ class ChatLeftTextCell: ChatBaseCell {
                 } else {
                     topOffset = 0
                 }
-                
                 
                 
                 

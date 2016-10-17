@@ -64,6 +64,7 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     
     let query = AVQuery(className: "DiscoverMessage")
     query?.whereKey("recipientID", equalTo: recipientID)
+    query?.includeKey("creatarUser")
     
     switch messageAge {
     case .new:
@@ -189,6 +190,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                    
                     let newUser = discoverMessage.creatarUser.converRUserModel()
                     
+                    printLog(discoverMessage.creatarUser)
                     // TODO: 如果需要标记 newUser 为陌生人
                     
                     realm.add(newUser)
@@ -211,7 +213,8 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         
                         senderFromGroup = groupWithGroupID(groupID: discoverMessage.recipientID, inRealm: realm)
                         
-                        // 如果没有在本地找到对应的 Group 创建它
+                        // 如果没有在本地找到对应的 Group 创建它#0	0x00000001093889bd in convertDiscoverMessageToRealmMessage(discoverMessage : DiscoverMessage, messageAge : MessageAge, realm : Realm, completion : ([String]) -> ()?) -> () at /Users/tychooo/Desktop/Lucuber2/Lucuber/Services/CubeServiceSync.swift:189
+
                         if senderFromGroup == nil {
                            
                             let newGroup = Group()
@@ -369,6 +372,7 @@ func sendText(text: String, toRecipient: String, recipientType: String, afterCre
     message.mediaTypeInt = MessageMediaType.text.rawValue
     // 发送的消息默认下载完成
     message.downloadState = MessageDownloadState.downloaded.rawValue
+    message.sendStateInt = MessageSendState.notSend.rawValue
     // 自己发的消息默认已读
     message.readed = true
     

@@ -107,16 +107,11 @@ class ChatRightTextCell: ChatRightBaseCell {
         self.message = message
         self.user = message.creatUser
         
-        self.nameLabel.text = "Tychooo"
-        
         self.avatarImageView.image = UIImage(named: "Howard")
         
         self.mediaTapAction = mediaTapAction
         
         textContentTextView.text = message.textContent
-        //textContentTextView.attributedText = NSAttributedString(string: message.textContent, attributes: textAttributes)
-        
-        //textContentTextView.textAlignment = textContentLabelWidth < YepConfig.minMessageTextLabelWidth ? .Center : .Left
         
         // 用 sizeThatFits 来对比，不需要 magicWidth 的时候就可以避免了
         var textContentLabelWidth = textContentLabelWidth
@@ -127,10 +122,6 @@ class ChatRightTextCell: ChatRightBaseCell {
         
         if ceil(size.width) != textContentLabelWidth {
             
-            //println("right ceil(size.width): \(ceil(size.width)), textContentLabelWidth: \(textContentLabelWidth)")
-            //println(">>>\(message.textContent)<<<")
-            
-            //textContentLabelWidth += YepConfig.ChatCell.magicWidth
             
             if abs(ceil(size.width) - textContentLabelWidth) >= Config.ChatCell.magicWidth {
                 textContentLabelWidth += Config.ChatCell.magicWidth

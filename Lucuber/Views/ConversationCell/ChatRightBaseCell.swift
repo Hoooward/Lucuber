@@ -46,9 +46,10 @@ class ChatRightBaseCell: ChatBaseCell {
                 }
                 
             case .successed:
-                dotImageView.image = UIImage(named: "icon_dot_unread")
-                dotImageView.isHidden = false
+//                dotImageView.image = UIImage(named: "icon_dot_unread")
+//                dotImageView.isHidden = false
                 
+                dotImageView.isHidden = true
                 removeSendingAnimation()
                 
             case .read:
