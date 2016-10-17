@@ -42,6 +42,8 @@
 		E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */; };
 		E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */; };
 		E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */; };
+		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
+		E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
 		E45DA0501DA5E2DD0050DD4D /* ConversationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA04F1DA5E2DD0050DD4D /* ConversationTitleView.swift */; };
 		E45DA0551DA736040050DD4D /* ChatSectionDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0531DA736040050DD4D /* ChatSectionDateCell.swift */; };
 		E45DA0561DA736040050DD4D /* ChatSectionDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45DA0541DA736040050DD4D /* ChatSectionDateCell.xib */; };
@@ -190,6 +192,8 @@
 		E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
 		E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
 		E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
+		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
+		E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeServiceSync.swift; sourceTree = "<group>"; };
 		E45DA04F1DA5E2DD0050DD4D /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
 		E45DA0531DA736040050DD4D /* ChatSectionDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSectionDateCell.swift; sourceTree = "<group>"; };
 		E45DA0541DA736040050DD4D /* ChatSectionDateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSectionDateCell.xib; sourceTree = "<group>"; };
@@ -847,6 +851,7 @@
 			isa = PBXGroup;
 			children = (
 				E4B09BB31D8FA5890090671F /* CubeService.swift */,
+				E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -993,6 +998,7 @@
 				E480BB941DA1E5110080098A /* Array+Cube.swift */,
 				E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */,
 				E4011F331DB277BE00EEBBCF /* Date+Cube.swift */,
+				E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1290,6 +1296,7 @@
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
 				E47926551D96DC5F004D58BF /* StarRatingCell.swift in Sources */,
 				E47926311D96D27A004D58BF /* CategoryIndicatorView.swift in Sources */,
+				E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */,
 				E479265D1D96DD44004D58BF /* CateogyItemView.swift in Sources */,
 				E45DA0651DA7974C0050DD4D /* ChatRightTextCell.swift in Sources */,
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
@@ -1311,6 +1318,7 @@
 				E4D536BC1D8DB0A1008A426A /* LayoutButton.swift in Sources */,
 				E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
+				E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,

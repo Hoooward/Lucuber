@@ -10,10 +10,7 @@ import Foundation
 import AVOSCloud
 import RealmSwift
 
-public enum MessageAge {
-    case old
-    case new
-}
+
 
 func tryGetOrCreatMeInRealm(realm: Realm) -> RUser? {
     
@@ -39,134 +36,6 @@ func tryGetOrCreatMeInRealm(realm: Realm) -> RUser? {
     }
 }
 
-func sendText(text: String, toRecipient: String, recipientType: String, afterCreatedMessage: ((Message) -> Void)?, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)?) {
-    
-    
-    guard let realm = try? Realm() else {
-        return
-    }
-    
-    // 创建新的实例
-    let message = Message()
-    
-    // 保证创建的新消息时间为最最最最新
-    if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
-        
-        if message.createdUnixTime < latestMessage.createdUnixTime {
-            message.createdUnixTime = latestMessage.createdUnixTime + 0.0005
-            //                                printLog("adjust")
-        }
-    }
-    
-    // 暂时只处理文字消息
-    message.mediaTypeInt = MessageMediaType.text.rawValue
-    // 发送的消息默认下载完成
-    message.downloadState = MessageDownloadState.downloaded.rawValue
-    // 自己发的消息默认已读
-    message.readed = true
-    
-    
-    // 添加到 Realm
-    try? realm.write {
-        realm.add(message)
-    }
-    
-    // message 的 creatUser = me
-    if let me = tryGetOrCreatMeInRealm(realm: realm) {
-        
-        try? realm.write {
-            message.creatUser = me
-        }
-    }
-    
-    
-    // 如果没有 Conversation ，创建
-    var conversation: Conversation? = nil
-    
-    try? realm.write {
-        
-        if recipientType == "User" {
-            
-            if let withFriend = userWithUserID(userID: toRecipient, inRealm: realm) {
-                conversation = withFriend.conversation
-            }
-            
-        } else {
-            
-            if let withGroup = groupWithGroupID(groupID: toRecipient, inRealm: realm) {
-                conversation = withGroup.conversation
-            }
-        }
-        
-        if conversation == nil {
-            
-            let newConversation = Conversation()
-            
-            
-            if recipientType == "User" {
-                
-                newConversation.type = ConversationType.oneToOne.rawValue
-                
-                if let withFriend = userWithUserID(userID: toRecipient, inRealm: realm) {
-                    newConversation.withFriend = withFriend
-                }
-                
-            } else {
-                
-                newConversation.type = ConversationType.group.rawValue
-                
-                if let withGroup = groupWithGroupID(groupID: toRecipient, inRealm: realm){
-                    newConversation.withGroup = withGroup
-                }
-                
-            }
-            
-            conversation = newConversation
-            
-        }
-        
-        if let conversation = conversation {
-            message.conversation = conversation
-            
-            // 创建日期 section
-            tryCreatDateSectionMessage(withNewMessage: message, conversation: conversation, realm: realm, completion: {
-                sectionDateMessage in
-                
-                if let sectionDateMessage = sectionDateMessage {
-                    
-                    realm.add(sectionDateMessage)
-                }
-            })
-            
-            conversation.updateUnixTime = Date().timeIntervalSince1970
-            
-            // 发送通知
-        }
-        
-    }
-    
-    try? realm.write {
-        message.textContent = text
-    }
-        
-    afterCreatedMessage?(message)
-        
-    
-    // 音效
-    
-    
-    //  网络发送
-    
-    convertToLeanCloudMessageAndSend(message: message, failureHandler: {
-        
-        failureHandler?()
-        
-        }, completion: { _ in
-            
-            completion?(true)
-    })
-    
-}
 
 
 func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: Conversation, realm: Realm, completion: ((Message?) -> Void)? ) {
@@ -221,7 +90,6 @@ func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: C
 
 class Message: Object {
     
-    dynamic var atObjectID: String = ""
     dynamic var creatUser: RUser?
     dynamic var mediaTypeInt: Int = 0
     dynamic var invalidate: Bool = false
@@ -236,7 +104,7 @@ class Message: Object {
     dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
     dynamic var arrivalUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    dynamic var readed: Bool = false
+    dynamic var readed: Bool = true
     dynamic var downloadState: Int = MessageDownloadState.noDownload.rawValue
     
     dynamic var deletedByCreator: Bool = false
@@ -246,6 +114,7 @@ class Message: Object {
     
     
     dynamic var conversation: Conversation?
+    
     
     var mediaType: MessageMediaType {
         get {
@@ -263,15 +132,26 @@ class Message: Object {
     
             let message = DiscoverMessage()
     
-            message.atObjectID = self.atObjectID
             message.textContent = self.textContent
-//            message.creatUser = (self.creatUser?.convertToAVUser())!
+            
+            // 在将本地创建的新 Message 推送到 LeanCloud的时候
+            // 目前只有一种可能, 消息的创建者是本机自己.
+            if isfromMe {
+                message.creatarUser = AVUser.current()
+                
+            } else {
+                
+                // 如果创建消息的不是自己, 通过UserID 获取User
+                
+            }
+            
             message.creatUserID = creatUser?.userID ?? ""
-//            message.imageURLs = self.imageURLs
             message.mediaTypeInt = self.mediaTypeInt
             message.sendState = self.sendStateInt
             message.invalidated = self.invalidate
             message.deletedByCreator = deletedByCreator
+            message.recipientType = self.recipientType
+            message.recipientID = self.recipientID
     
             return message
     
@@ -280,7 +160,7 @@ class Message: Object {
     
     /// 判断是否是当前登录用户发送的 Message
     var isfromMe: Bool {
-        guard let currentUser = AVUser.current(), let userID = currenUser.objectId else {
+        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
             return false
         }
         return userID == creatUser!.userID
@@ -296,10 +176,10 @@ public enum ConversationType: Int {
     public var nameForServer: String {
         switch self {
         case .oneToOne:
-            return "User"
+            return "user"
             
         case .group:
-            return "Circle"
+            return "group"
         }
         
     }
@@ -384,6 +264,24 @@ struct Recipient {
 
 public class Conversation: Object {
     
+    public var fakeID: String? {
+        
+        switch type {
+        case ConversationType.oneToOne.rawValue:
+            if let withFriend = withFriend {
+                return "user" + withFriend.userID
+            }
+        case ConversationType.group.rawValue:
+            if let withGroup = withGroup {
+                return "group" + withGroup.groupID
+            }
+        default:
+            return nil
+        }
+        
+        return nil
+    }
+    
   
     public var recipiendID: String? {
         
@@ -421,13 +319,7 @@ public class Conversation: Object {
     dynamic var mentionedMe: Bool = false
     dynamic var lastMentionedMeUnixTime: TimeInterval = Date().timeIntervalSince1970 - 60*60*12
     
-    //    var latestValidMessage: RMessage? {
-    //        
-    //        return messages.filter {
-    //            
-    //            $0
-    //        }
-    //    }
+  
 }
 
 enum MessageMediaType: Int, CustomStringConvertible {
@@ -488,8 +380,7 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     
     @NSManaged var textContent: String
     
-    @NSManaged var creatUser: AVUser
-    
+    @NSManaged var creatarUser: AVUser
     @NSManaged var creatUserID: String
     
     @NSManaged var compositedName: String
@@ -500,7 +391,6 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     
     //    @NSManaged var messageID: String
     
-    @NSManaged var atObjectID: String
     
     @NSManaged var imageURLs: [String]
     
@@ -512,46 +402,44 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     
     @NSManaged var recipientID: String
     
+    
     override init() {
         super.init()
         
     }
     
-    init(contentText: String, creatUser: AVUser) {
+    init(contentText: String) {
         super.init()
         
         self.textContent = contentText
-        self.creatUser = creatUser
         
         self.mediaTypeInt = 1
         
     }
 
-    func convertToMessage() -> Message {
-        
-        let message = Message()
-        
-        message.readed = true
-        message.atObjectID = atObjectID
-        message.mediaTypeInt = mediaTypeInt
-        message.invalidate = invalidated
-        message.sendStateInt = sendState
-        message.creatUser = creatUser.converRUserModel()
-//        message.imageURLs = imageURLs
-        message.textContent = textContent
-        message.messageID = objectId
-        message.leanCloudObjectID = objectId
-        message.createdUnixTime = createdAt.timeIntervalSince1970
-        message.updatedUnixTime = updatedAt.timeIntervalSince1970
-        
-        message.deletedByCreator = deletedByCreator
-        message.recipientID = recipientID
-        message.recipientType = recipientType
-        
-        
-        
-        return message
-    }
+//    func convertToMessage() -> Message {
+//        
+//        let message = Message()
+//        
+//        message.readed = true
+//        message.mediaTypeInt = mediaTypeInt
+//        message.invalidate = invalidated
+//        message.sendStateInt = sendState
+////        message.imageURLs = imageURLs
+//        message.textContent = textContent
+//        message.messageID = objectId
+//        message.leanCloudObjectID = objectId
+//        message.createdUnixTime = createdAt.timeIntervalSince1970
+//        message.updatedUnixTime = updatedAt.timeIntervalSince1970
+//        
+//        message.deletedByCreator = deletedByCreator
+//        message.recipientID = recipientID
+//        message.recipientType = recipientType
+//        
+//        
+//        
+//        return message
+//    }
 
     
 }

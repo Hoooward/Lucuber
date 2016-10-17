@@ -447,10 +447,12 @@ public func fetchCurrentUserInfo() {
 // Message
 
 
+
 func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)? ) {
     
     let leanCloudMessage = message.convertToLMessage()
     
+    printLog(leanCloudMessage.creatarUser)
     
     leanCloudMessage.saveInBackground {
         successed, error in

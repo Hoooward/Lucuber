@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-// formula
+// MARK: - Formula
 
 func formulaWithFormulaID(formulaID: String , inRealm realm: Realm) -> RFormula? {
     
@@ -92,9 +92,11 @@ public func deleteLibraryFormalsRContentAtRealm() {
 
 public func deleteMyFormulasRContentAtRealm() {
     
-    let realm = try! Realm()
+    guard let realm = try? Realm() else {
+        return
+    }
     
-    try! realm.write {
+    try? realm.write {
         
         let predicate = NSPredicate(format: "isLibraryFormulas == %@", false as Bool as CVarArg)
         let formulas = realm.objects(RFormula.self).filter(predicate)
@@ -328,7 +330,6 @@ extension AVUser {
         let rUser = RUser()
         rUser.avatarImageUrl = self.getUserAvatarImageUrl()
         rUser.userID = self.objectId
-        rUser.userName = self.username
         rUser.nickName = self.getUserNickName()
         return rUser
     }

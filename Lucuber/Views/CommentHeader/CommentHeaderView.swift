@@ -33,51 +33,57 @@ class CommentHeaderView: UIView {
     var changeStatusAction: ((Status) -> Void)?
     
     var status: Status = .small {
-        willSet {
+        
+        didSet {
             
-            switch newValue {
+            switch status {
             case .small:
                 
-                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.init(rawValue: 0), animations: { [weak self] in
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.beginFromCurrentState, animations: { [weak self] in
                     
                     self?.indicatorViewCenterYConstraint.constant = 0
                     self?.heightConstraint?.constant -= 60
                     self?.nameLabelCenterYConstraint.constant = 0
                     self?.imageViewHeightConstraint.constant = 40
                     
+                    self?.layoutIfNeeded()
+                    self?.superview?.layoutIfNeeded()
                     self?.creatUserLabel.alpha = 0
                     self?.creatTimeLabel.alpha = 0
                     self?.starRatingView.alpha = 0
                     
-                    self?.layoutIfNeeded()
                     
                     }, completion: {  _ in
-//                        self?.layoutIfNeeded()
                         
-                    })
+                })
                 
             case .big:
                 
-//                self.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
-                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.init(rawValue: 0), animations: { [weak self] in
+                //                self.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.beginFromCurrentState, animations: { [weak self] in
                     
                     self?.indicatorViewCenterYConstraint.constant = -30
                     self?.heightConstraint?.constant += 60
                     self?.nameLabelCenterYConstraint.constant = -6
                     self?.imageViewHeightConstraint.constant = 100
                     
+                    self?.layoutIfNeeded()
+                    self?.superview?.layoutIfNeeded()
                     self?.creatUserLabel.alpha = 1
                     self?.creatTimeLabel.alpha = 1
                     self?.starRatingView.alpha = 1
                     
-                    self?.layoutIfNeeded()
-               
+                    
                     }, completion: { _ in
-//                        self?.layoutIfNeeded()
+                        //                        self?.layoutIfNeeded()
                         
                 })
             }
+            
+            changeStatusAction?(status)
+            
         }
+    
     }
     
     var formula: Formula? {
@@ -102,8 +108,6 @@ class CommentHeaderView: UIView {
 //        clipsToBounds = true
         
         print(self.layer.anchorPoint)
-//        self.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
-//        self.layer.position = CGPoint(x: self.frame.width * 0.5 , y: 0)
   
         
     }
@@ -118,7 +122,7 @@ class CommentHeaderView: UIView {
     func changeStatus() {
         status = status == .small ? .big : .small
         
-        changeStatusAction?(status)
+        
     }
     
     private func updateUI() {
