@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Formula.registerSubclass()
         DiscoverMessage.registerSubclass()
+        Feed.registerSubclass()
 //        FormulaComment.registerSubclass()
         
         window = UIWindow()

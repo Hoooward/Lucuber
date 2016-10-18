@@ -22,7 +22,7 @@ public enum UploadFeedMode {
 
 extension AVQuery {
     
-    private enum DefaultKey: String {
+     enum DefaultKey: String {
         case updatedTime = "updatedAt"
         case creatTime = "createdAt"
     }
@@ -49,6 +49,8 @@ extension AVQuery {
             
         }
     }
+    
+ 
     
 }
 
@@ -495,6 +497,63 @@ func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> V
     
 }
 
+// Feed
+
+internal func fetchFeedWithCategory(category: FeedCategory,
+                                    uploadingFeedMode: UploadFeedMode,
+                                    lastFeedCreatDate: NSDate,
+                                    completion: (([Feed]) -> Void)?,
+                                    failureHandler: ((NSError) -> Void)? ) {
+    
+    let query = AVQuery(className: Feed.parseClassName())
+    query?.addDescendingOrder(AVQuery.DefaultKey.updatedTime.rawValue)
+    query?.limit = 10
+    
+    switch category {
+        
+    case .All:
+        // Do Noting
+        break
+        
+    case .Topic:
+        // Do Noting
+        break
+        
+    case .Formula:
+        query?.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Formula.rawValue)
+        
+    case .Record:
+        query?.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Record.rawValue)
+        
+    }
+    
+    switch uploadingFeedMode {
+        
+    case .top:
+        // Do Noting
+        break
+        
+    case .loadMore:
+        query?.whereKey(AVQuery.DefaultKey.creatTime.rawValue, lessThan: lastFeedCreatDate)
+    }
+    
+    query?.findObjectsInBackground { newFeeds, error in
+        
+        if error != nil {
+            
+            failureHandler?(error as! NSError)
+            
+        } else {
+            
+            if let newFeeds = newFeeds as? [Feed] {
+                
+                //                printLog("newFeeds.count = \(newFeeds.count)")
+                completion?(newFeeds)
+            }
+        }
+    }
+    
+}
 
 
 
