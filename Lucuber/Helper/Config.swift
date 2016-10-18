@@ -169,6 +169,26 @@ public class Config {
     }
     
     
+    public struct FeedDetailCell {
+        
+        public static let categryButtonAttributies = [NSFontAttributeName: UIFont.feedCategoryButtonTitle()]
+        
+        public static let messageTextViewAttributies = [NSFontAttributeName: UIFont.feedMessageTextView()]
+        
+        public static let bottomLabelTextAttributies = [NSFontAttributeName: UIFont.feedBottomLabel()]
+    }
+    
+    public struct FeedBiggerImageCell {
+        public static let imageSize = CGSize(width: 160, height: 160)
+    }
+    
+    public struct FeedAnyImagesCell {
+        public static let maxImageCount = 4
+        public static let width = CGFloat((UIScreen.main.bounds.width - 65 - 15 - 16) / 4)
+        public static let imageSize = CGSize(width: width, height: width)
+        public static let mediaCollectionViewSize = CGSize(width: UIScreen.main.bounds.width, height: width)
+    }
+    
 }
 
 
