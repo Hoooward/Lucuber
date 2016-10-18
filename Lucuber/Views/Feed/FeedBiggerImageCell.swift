@@ -33,6 +33,7 @@ class FeedBiggerImageCell: FeedBaseCell {
             if let attachment = imageAttachments.first {
                 //大图还是使用原始大小的图片.
                 imageAttachment = attachment
+                biggerImageView.showActivityIndicatorWhenLoading = true
                 biggerImageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: nil)
             }
             

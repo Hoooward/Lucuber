@@ -41,7 +41,9 @@ extension UIImageView {
                 let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
                 indicator.center = CGPoint(x: bounds.midX, y: bounds.midY)
                 
-                indicator.isHidden = true
+                
+                indicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
+//                indicator.isHidden = true
                 indicator.hidesWhenStopped = true
                 addSubview(indicator)
                 
@@ -85,15 +87,15 @@ extension UIImageView {
             return
         }
         
-        showActivityIndicatorWhenLoading = true
+        let showActivityIndicatorWhenLoading = self.showActivityIndicatorWhenLoading
         
+        var activityIndicator: UIActivityIndicatorView? = nil
         
         if showActivityIndicatorWhenLoading {
            
-            if let indicatorView = objc_getAssociatedObject(self, &activityIndicatorKey) as? UIActivityIndicatorView {
-                indicatorView.isHidden = false
-                indicatorView.startAnimating()
-            }
+            activityIndicator = self.activityIndicator
+            activityIndicator?.isHidden = false
+            activityIndicator?.startAnimating()
         }
         
         setImageAttachmentURL(URL: attachmentURL)
@@ -115,7 +117,7 @@ extension UIImageView {
             
             strongSelf.image = image
             
-            self?.activityIndicator?.stopAnimating()
+           activityIndicator?.stopAnimating()
  
             
         })

@@ -92,13 +92,27 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedMediaCellIdentifier, for: indexPath) as! FeedMediaCell
         
-        let attachment = imageAttachments[indexPath.row]
-        
-        cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: cell.imageView.size)
-        
-        cell.deleteImageView.isHidden = true
+//        let attachment = imageAttachments[indexPath.row]
+//        
+//        cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: cell.imageView.size)
+//        
+//        cell.deleteImageView.isHidden = true
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? FeedMediaCell else {
+            return
+        }
+        
+        let attachment = imageAttachments[indexPath.row]
+        cell.imageView.showActivityIndicatorWhenLoading = true
+        cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: cell.imageView.size)
+        cell.deleteImageView.isHidden = true
+
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
