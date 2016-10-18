@@ -13,6 +13,8 @@
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
 		E40EAEB91DA9F1BB0068404B /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */; };
 		E40EAEBB1DA9F1F20068404B /* CommentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */; };
+		E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
+		E41ECF2E1DB5CE54005BEFE4 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */; };
 		E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
 		E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */; };
 		E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A301D93D8C0003CF073 /* CubeAlert.swift */; };
@@ -163,6 +165,8 @@
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentHeaderView.xib; sourceTree = "<group>"; };
+		E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
+		E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E4207A2A1D93CA7F003CF073 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeHUD.swift; sourceTree = "<group>"; };
 		E4207A301D93D8C0003CF073 /* CubeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAlert.swift; sourceTree = "<group>"; };
@@ -343,6 +347,29 @@
 				E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */,
 			);
 			path = CommentHeader;
+			sourceTree = "<group>";
+		};
+		E41ECF2F1DB5D182005BEFE4 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				E41ECF301DB5D182005BEFE4 /* FeedFormulaView */,
+				E41ECF311DB5D182005BEFE4 /* LoadMoreCell */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		E41ECF301DB5D182005BEFE4 /* FeedFormulaView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FeedFormulaView;
+			sourceTree = "<group>";
+		};
+		E41ECF311DB5D182005BEFE4 /* LoadMoreCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoadMoreCell;
 			sourceTree = "<group>";
 		};
 		E4207A2C1D93D8AB003CF073 /* CubeHUD */ = {
@@ -827,6 +854,7 @@
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
 				E45DA0621DA771E60050DD4D /* Message.swift */,
+				E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -859,6 +887,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E41ECF2F1DB5D182005BEFE4 /* Feed */,
 				E40EAEB71DA9F1AC0068404B /* CommentHeader */,
 				E48BCD4B1DA90C4300C4A1B7 /* MessageToolbar */,
 				E45DA06B1DA7A4120050DD4D /* MessageLoadingView */,
@@ -903,6 +932,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4DF65F21D8D94B1005CE518 /* Feed */,
 				E48BCD461DA8A9FF00C4A1B7 /* Comment */,
 				E435C0231D9EA39E0026FA08 /* FormulaDetail */,
 				E4F9F10C1D991E040076C57C /* Login */,
@@ -913,7 +943,6 @@
 				E4DF65F51D8D94B1005CE518 /* Navigation */,
 				E4DF65F41D8D94B1005CE518 /* Formula */,
 				E4DF65F71D8D94B1005CE518 /* Result */,
-				E4DF65F21D8D94B1005CE518 /* Feed */,
 				E4DF65F81D8D94B1005CE518 /* Setting */,
 				E4DF65FB1D8D94B1005CE518 /* Timer */,
 			);
@@ -924,6 +953,7 @@
 			isa = PBXGroup;
 			children = (
 				E4DF65E91D8D9353005CE518 /* Feed.storyboard */,
+				E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1346,6 +1376,7 @@
 				E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */,
 				E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */,
 				E45DA06D1DA7A41F0050DD4D /* MessageLoadingProgressView.swift in Sources */,
+				E41ECF2E1DB5CE54005BEFE4 /* Feed.swift in Sources */,
 				E4610F551DA29F180018CB67 /* UIViewShadowExtension.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
 				E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */,
@@ -1370,6 +1401,7 @@
 				E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */,
 				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
+				E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */,
 				E4B09BA61D8E65510090671F /* TopControl.swift in Sources */,
 				E47926211D96820B004D58BF /* RotationButton.swift in Sources */,
 				E435C0211D9EA21D0026FA08 /* BorderTextField.swift in Sources */,
