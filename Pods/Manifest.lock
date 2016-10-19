@@ -16,6 +16,7 @@ PODS:
   - Realm/Headers (2.0.2)
   - RealmSwift (2.0.2):
     - Realm (= 2.0.2)
+  - Reveal-SDK (2)
 
 DEPENDENCIES:
   - AVOSCloud
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - Kingfisher (~> 3.0)
   - PKHUD (from `https://github.com/toyship/PKHUD.git`)
   - RealmSwift
+  - Reveal-SDK
 
 EXTERNAL SOURCES:
   PKHUD:
@@ -40,7 +42,8 @@ SPEC CHECKSUMS:
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
   Realm: 0f5a194af0b7e6158b83db41b4ee1a00be7ddf1a
   RealmSwift: 0eb5070d851cba7c66e841ca756d83609dc78bc8
+  Reveal-SDK: 4d36a47c7091843eee525b72219e005b90bbac0b
 
-PODFILE CHECKSUM: 81a5f7fd7b2c232b17e5f91f56e512a4f83657ca
+PODFILE CHECKSUM: 3b39956eeb926425e88a4faa21a33097c9c72bb8
 
 COCOAPODS: 1.1.0.beta.2

@@ -9,6 +9,7 @@ pod 'AVOSCloudIM'
 pod 'RealmSwift'
 pod 'Kingfisher', '~> 3.0'
 pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
+pod 'Reveal-SDK', :configurations => ['Debug']
 #pod 'TwicketSegmentedControl'
 
 

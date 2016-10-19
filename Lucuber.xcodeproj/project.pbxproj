@@ -28,6 +28,12 @@
 		E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
 		E41ECF4F1DB605CC005BEFE4 /* LoadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4D1DB605CC005BEFE4 /* LoadMoreTableViewCell.swift */; };
 		E41ECF501DB605CC005BEFE4 /* LoadMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E41ECF4E1DB605CC005BEFE4 /* LoadMoreTableViewCell.xib */; };
+		E41ECF531DB61A34005BEFE4 /* MediaControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF521DB61A34005BEFE4 /* MediaControlView.swift */; };
+		E41ECF571DB77374005BEFE4 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF541DB77374005BEFE4 /* MediaView.swift */; };
+		E41ECF581DB77374005BEFE4 /* MediaViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF551DB77374005BEFE4 /* MediaViewCell.swift */; };
+		E41ECF591DB77374005BEFE4 /* MediaViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E41ECF561DB77374005BEFE4 /* MediaViewCell.xib */; };
+		E41ECF5B1DB77959005BEFE4 /* MediaPreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E41ECF5A1DB77959005BEFE4 /* MediaPreview.storyboard */; };
+		E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF5C1DB77976005BEFE4 /* MediaPreviewViewController.swift */; };
 		E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
 		E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */; };
 		E4207A311D93D8C0003CF073 /* CubeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A301D93D8C0003CF073 /* CubeAlert.swift */; };
@@ -193,6 +199,12 @@
 		E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Cube.swift"; sourceTree = "<group>"; };
 		E41ECF4D1DB605CC005BEFE4 /* LoadMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableViewCell.swift; sourceTree = "<group>"; };
 		E41ECF4E1DB605CC005BEFE4 /* LoadMoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreTableViewCell.xib; sourceTree = "<group>"; };
+		E41ECF521DB61A34005BEFE4 /* MediaControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaControlView.swift; sourceTree = "<group>"; };
+		E41ECF541DB77374005BEFE4 /* MediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		E41ECF551DB77374005BEFE4 /* MediaViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewCell.swift; sourceTree = "<group>"; };
+		E41ECF561DB77374005BEFE4 /* MediaViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaViewCell.xib; sourceTree = "<group>"; };
+		E41ECF5A1DB77959005BEFE4 /* MediaPreview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MediaPreview.storyboard; sourceTree = "<group>"; };
+		E41ECF5C1DB77976005BEFE4 /* MediaPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewController.swift; sourceTree = "<group>"; };
 		E4207A2A1D93CA7F003CF073 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		E4207A2D1D93D8AB003CF073 /* CubeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeHUD.swift; sourceTree = "<group>"; };
 		E4207A301D93D8C0003CF073 /* CubeAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAlert.swift; sourceTree = "<group>"; };
@@ -414,6 +426,19 @@
 				E41ECF431DB5D92C005BEFE4 /* FeedMediaCell.xib */,
 			);
 			path = MediaCell;
+			sourceTree = "<group>";
+		};
+		E41ECF511DB61A27005BEFE4 /* MediaPreview */ = {
+			isa = PBXGroup;
+			children = (
+				E41ECF5A1DB77959005BEFE4 /* MediaPreview.storyboard */,
+				E41ECF541DB77374005BEFE4 /* MediaView.swift */,
+				E41ECF551DB77374005BEFE4 /* MediaViewCell.swift */,
+				E41ECF561DB77374005BEFE4 /* MediaViewCell.xib */,
+				E41ECF521DB61A34005BEFE4 /* MediaControlView.swift */,
+				E41ECF5C1DB77976005BEFE4 /* MediaPreviewViewController.swift */,
+			);
+			path = MediaPreview;
 			sourceTree = "<group>";
 		};
 		E4207A2C1D93D8AB003CF073 /* CubeHUD */ = {
@@ -977,6 +1002,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E41ECF511DB61A27005BEFE4 /* MediaPreview */,
 				E4DF65F21D8D94B1005CE518 /* Feed */,
 				E48BCD461DA8A9FF00C4A1B7 /* Comment */,
 				E435C0231D9EA39E0026FA08 /* FormulaDetail */,
@@ -1280,6 +1306,8 @@
 				E435C0441D9F4A370026FA08 /* DetailFormulasCell.xib in Resources */,
 				E479264F1D96DC5F004D58BF /* FormulaTextViewCell.xib in Resources */,
 				E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */,
+				E41ECF5B1DB77959005BEFE4 /* MediaPreview.storyboard in Resources */,
+				E41ECF591DB77374005BEFE4 /* MediaViewCell.xib in Resources */,
 				E47926521D96DC5F004D58BF /* NameTextViewCell.xib in Resources */,
 				E45DA0561DA736040050DD4D /* ChatSectionDateCell.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
@@ -1367,6 +1395,7 @@
 				E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */,
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
 				E479264E1D96DC5F004D58BF /* FormulaTextViewCell.swift in Sources */,
+				E41ECF531DB61A34005BEFE4 /* MediaControlView.swift in Sources */,
 				E435C0451D9F4A370026FA08 /* DetailHeaderView.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */,
@@ -1378,6 +1407,7 @@
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
 				E47926551D96DC5F004D58BF /* StarRatingCell.swift in Sources */,
 				E41ECF451DB5D92C005BEFE4 /* FeedMediaCell.swift in Sources */,
+				E41ECF571DB77374005BEFE4 /* MediaView.swift in Sources */,
 				E47926311D96D27A004D58BF /* CategoryIndicatorView.swift in Sources */,
 				E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */,
 				E479265D1D96DD44004D58BF /* CateogyItemView.swift in Sources */,
@@ -1405,6 +1435,7 @@
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
+				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
 				E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E4217F271D962EFF00E575AB /* CateogryMenuCell.swift in Sources */,
@@ -1415,6 +1446,7 @@
 				E435C0431D9F4A370026FA08 /* DetailFormulasCell.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */,
+				E41ECF581DB77374005BEFE4 /* MediaViewCell.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
 				E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */,
 				E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */,

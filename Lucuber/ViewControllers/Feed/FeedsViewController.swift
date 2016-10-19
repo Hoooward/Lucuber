@@ -385,29 +385,29 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     return
                 }
                 
-//                let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewControllerWithIdentifier("MediaPreviewViewController") as! MediaPreviewViewController
-//                
-//                vc.startIndex = index
-//                //                vc.transitionView = transitionView
-//                let frame = transitionView.convertRect(transitionView.bounds, toView: self?.view)
-//                vc.previewImageViewInitalFrame = frame
-//                vc.bottomPreviewImage = image
-//                
-//                delay(0) {
-//                    //                    transitionView.alpha = 0
-//                }
-//                
-//                vc.afterDismissAction = { [weak self] in
-//                    
-//                    //                    transitionView.alpha = 1
-//                    self?.view.window?.makeKeyAndVisible()
-//                }
-//                
-//                vc.previewMedias = attachments.map { PreviewMedia.AttachmentType($0) }
-//                
-//                mediaPreviewWindow.rootViewController = vc
-//                mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
-//                mediaPreviewWindow.makeKeyAndVisible()
+                let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+                
+                vc.startIndex = index
+                //                vc.transitionView = transitionView
+                let frame = transitionView.convert(transitionView.bounds, to: self?.view)
+                vc.previewImageViewInitalFrame = frame
+                vc.bottomPreviewImage = image
+                
+                delay(0) {
+                    //                    transitionView.alpha = 0
+                }
+                
+                vc.afterDismissAction = { [weak self] in
+                    
+                    //                    transitionView.alpha = 1
+                    self?.view.window?.makeKeyAndVisible()
+                }
+                
+                vc.previewMedias = attachments.map { PreviewMedia.attachmentType($0) }
+                
+                mediaPreviewWindow.rootViewController = vc
+                mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+                mediaPreviewWindow.makeKeyAndVisible()
                 
             }
             

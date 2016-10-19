@@ -41,8 +41,8 @@ class MyFormulaViewController: BaseCollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.refreshControl.beginRefreshing()
-        self.collectionView?.setContentOffset(CGPoint(x: 0, y: -(self.collectionView!.contentInset.top + self.refreshControl.frame.size.height - 44)), animated: true)
+//        self.refreshControl.beginRefreshing()
+//        self.collectionView?.setContentOffset(CGPoint(x: 0, y: -(self.collectionView!.contentInset.top + self.refreshControl.frame.size.height - 44)), animated: true)
         refresh()
     }
     

@@ -131,7 +131,7 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
             let transitionView = cell.imageView
             let image = cell.imageView.image
             let imageAttachments = self.imageAttachments
-            let index = indexPath.row
+            let index = indexPath.item
             tapMediaAction?(transitionView!, image, imageAttachments, index)
         }
         
