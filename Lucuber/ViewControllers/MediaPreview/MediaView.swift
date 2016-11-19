@@ -37,6 +37,7 @@ final class MediaView: UIView {
         let size = CGSize(width: floor(image.size.width), height: floor(image.size.height))
         
         printLog("imageSize = \(size)")
+        
 //        imageView.bounds.size = size
 //        imageView.frame = CGRect(origin: CGPoint.zero, size: size)
 //        imageView.frame.size = size

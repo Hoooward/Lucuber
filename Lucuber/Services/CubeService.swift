@@ -27,24 +27,27 @@ extension AVQuery {
         case creatTime = "createdAt"
     }
     
-    class func getFormula(mode: UploadFormulaMode) -> AVQuery? {
+    class func getFormula(mode: UploadFormulaMode) -> AVQuery {
         
         switch mode {
             
         case .my:
             
             let query = AVQuery(className: Formula.parseClassName())
-            query?.addAscendingOrder("name")
-            query?.whereKey("creatUser", equalTo: AVUser.current())
-            query?.limit = 1000
+            query.addAscendingOrder("name")
+//            printLog(AVUser.current())
+            query.whereKey("creatUser", equalTo: AVUser.current()!)
+//            query.whereKey("creatUser", equalTo: AVObject(className: "_User", objectId: AVUser.current()!.objectId!))
+            
+            query.limit = 1000
             return query
             
         case .library:
             
             let query = AVQuery(className: Formula.parseClassName())
-            query?.whereKey("isLibraryFormula", equalTo: NSNumber(booleanLiteral: true))
-            query?.addAscendingOrder("serialNumber")
-            query?.limit = 1000
+            query.whereKey("isLibraryFormula", equalTo: NSNumber(booleanLiteral: true))
+            query.addAscendingOrder("serialNumber")
+            query.limit = 1000
             return query
             
         }
@@ -66,7 +69,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
         let query = AVQuery.getFormula(mode: uploadingFormulaMode)
         
         printLog("开始获取我的公式")
-        query?.findObjectsInBackground { formulas, error in
+        query.findObjectsInBackground { formulas, error in
             
             if error != nil {
                 
@@ -119,7 +122,7 @@ public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Vo
     
     let query = AVQuery.getFormula(mode: .library)
     
-    query?.findObjectsInBackground { formulas, error in
+    query.findObjectsInBackground { formulas, error in
         
         if error != nil {
             
@@ -161,11 +164,11 @@ internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
     if let user = AVUser.current() {
         
         newFormula.creatUser = user
-        newFormula.creatUserID = user.objectId
+        newFormula.creatUserID = user.objectId!
         
         let acl = AVACL()
         acl.setPublicReadAccess(true)
-        acl.setWriteAccess(true, for: AVUser.current())
+        acl.setWriteAccess(true, for: AVUser.current()!)
         newFormula.acl = acl
         
         
@@ -203,9 +206,9 @@ func validateMobile(mobile: String,
     
     
     let query = AVQuery(className: "_User")
-    query?.whereKey("mobilePhoneNumber", equalTo: mobile)
+    query.whereKey("mobilePhoneNumber", equalTo: mobile)
     
-    query?.findObjectsInBackground {
+    query.findObjectsInBackground {
         
         users, error in
         
@@ -370,13 +373,13 @@ public func updateAvatar(withImageData imageData: Data,
                                       failureHandler: ((NSError?)->Void)?,
                                       completion: ((String) -> Void)? ) {
     
-    let uploadFile = AVFile(data: imageData)!
+    let uploadFile = AVFile(data: imageData)
     
     uploadFile.saveInBackground({ succeeded, error in
         
         if succeeded {
             
-            completion?(uploadFile.url)
+            completion?(uploadFile.url!)
             
         } else {
             
@@ -484,7 +487,7 @@ func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> V
             
             try? realm.write {
                 message.sendStateInt = MessageSendState.successed.rawValue
-                message.messageID = leanCloudMessage.objectId
+                message.messageID = leanCloudMessage.objectId!
             }
             
             completion?(successed)
@@ -506,8 +509,8 @@ internal func fetchFeedWithCategory(category: FeedCategory,
                                     failureHandler: ((NSError) -> Void)? ) {
     
     let query = AVQuery(className: Feed.parseClassName())
-    query?.addDescendingOrder(AVQuery.DefaultKey.updatedTime.rawValue)
-    query?.limit = 10
+    query.addDescendingOrder(AVQuery.DefaultKey.updatedTime.rawValue)
+    query.limit = 10
     
     switch category {
         
@@ -520,10 +523,10 @@ internal func fetchFeedWithCategory(category: FeedCategory,
         break
         
     case .Formula:
-        query?.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Formula.rawValue)
+        query.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Formula.rawValue)
         
     case .Record:
-        query?.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Record.rawValue)
+        query.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Record.rawValue)
         
     }
     
@@ -534,10 +537,10 @@ internal func fetchFeedWithCategory(category: FeedCategory,
         break
         
     case .loadMore:
-        query?.whereKey(AVQuery.DefaultKey.creatTime.rawValue, lessThan: lastFeedCreatDate)
+        query.whereKey(AVQuery.DefaultKey.creatTime.rawValue, lessThan: lastFeedCreatDate)
     }
     
-    query?.findObjectsInBackground { newFeeds, error in
+    query.findObjectsInBackground { newFeeds, error in
         
         if error != nil {
             

@@ -137,7 +137,7 @@ class Message: Object {
             // 在将本地创建的新 Message 推送到 LeanCloud的时候
             // 目前只有一种可能, 消息的创建者是本机自己.
             if isfromMe {
-                message.creatarUser = AVUser.current()
+                message.creatarUser = AVUser.current()!
                 
             } else {
                 

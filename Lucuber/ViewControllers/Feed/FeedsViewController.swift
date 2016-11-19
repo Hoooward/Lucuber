@@ -165,7 +165,10 @@ class FeedsViewController: UIViewController {
     var lastFeedCreatedDate: NSDate {
         
         if feeds.isEmpty { return NSDate() }
-        return feeds.last!.createdAt as NSDate
+        let date = feeds.last!.createdAt
+        
+        
+        return feeds.last!.createdAt as! NSDate
         
     }
     
@@ -228,11 +231,11 @@ class FeedsViewController: UIViewController {
                     
                     let oldFeedsCount = strongSelf.feeds.count
                     
-                    let oldFeedIDs = Set<String>(strongSelf.feeds.map { $0.objectId })
+                    let oldFeedIDs = Set<String>(strongSelf.feeds.map { $0.objectId! })
                     
                     var newRealFeeds = [Feed]()
                     for feed in newFeeds {
-                        if !oldFeedIDs.contains(feed.objectId) {
+                        if !oldFeedIDs.contains(feed.objectId!) {
                             newRealFeeds.append(feed)
                         }
                     }
@@ -267,6 +270,10 @@ class FeedsViewController: UIViewController {
     }
     
     @IBAction func creatNewFeed(_ sender: AnyObject) {
+        guard let window = view.window else {
+            return 
+        }
+        newFeedActionSheetView.showInView(view: window)
     }
     
     // MARK: - PrepareForSegue

@@ -1,22 +1,22 @@
 PODS:
-  - AVOSCloud (3.5.1)
-  - AVOSCloudIM (3.5.1):
-    - AVOSCloud (= 3.5.1)
-    - AVOSCloudIM/_ARC (= 3.5.1)
-    - AVOSCloudIM/_NOARC (= 3.5.1)
-  - AVOSCloudIM/_ARC (3.5.1):
-    - AVOSCloud (= 3.5.1)
-    - AVOSCloudIM/_NOARC (= 3.5.1)
-  - AVOSCloudIM/_NOARC (3.5.1):
-    - AVOSCloud (= 3.5.1)
-  - Kingfisher (3.1.3)
+  - AVOSCloud (3.6.1)
+  - AVOSCloudIM (3.6.1):
+    - AVOSCloud (= 3.6.1)
+    - AVOSCloudIM/_ARC (= 3.6.1)
+    - AVOSCloudIM/_NOARC (= 3.6.1)
+  - AVOSCloudIM/_ARC (3.6.1):
+    - AVOSCloud (= 3.6.1)
+    - AVOSCloudIM/_NOARC (= 3.6.1)
+  - AVOSCloudIM/_NOARC (3.6.1):
+    - AVOSCloud (= 3.6.1)
+  - Kingfisher (3.2.0)
   - PKHUD (3.2.1)
-  - Realm (2.0.2):
-    - Realm/Headers (= 2.0.2)
-  - Realm/Headers (2.0.2)
-  - RealmSwift (2.0.2):
-    - Realm (= 2.0.2)
-  - Reveal-SDK (2)
+  - Realm (2.0.3):
+    - Realm/Headers (= 2.0.3)
+  - Realm/Headers (2.0.3)
+  - RealmSwift (2.0.3):
+    - Realm (= 2.0.3)
+  - Reveal-SDK (3)
 
 DEPENDENCIES:
   - AVOSCloud
@@ -36,13 +36,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/toyship/PKHUD.git
 
 SPEC CHECKSUMS:
-  AVOSCloud: 3dfc202ae8c8b543e2332c0f019e08972c4092c0
-  AVOSCloudIM: a8a89cbdc9387079f6da7bd4f371c523086a7635
-  Kingfisher: 007f5851c18c81e7cc106c9cbac1bafea1cce5dc
+  AVOSCloud: cc9b567da2d30f07e3da1e4db682cad9ff56a1b6
+  AVOSCloudIM: 7c30a50d1e8f6afee000a2037ea24eb6abcbc8db
+  Kingfisher: 50407d1d5dbc34965009d425a286342ff36a84ea
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
-  Realm: 0f5a194af0b7e6158b83db41b4ee1a00be7ddf1a
-  RealmSwift: 0eb5070d851cba7c66e841ca756d83609dc78bc8
-  Reveal-SDK: 4d36a47c7091843eee525b72219e005b90bbac0b
+  Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
+  RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
+  Reveal-SDK: cad54352e23854083e3917ddf665dc0fe7781c53
 
 PODFILE CHECKSUM: 3b39956eeb926425e88a4faa21a33097c9c72bb8
 

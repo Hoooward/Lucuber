@@ -329,7 +329,7 @@ extension AVUser {
     func converRUserModel() -> RUser {
         let rUser = RUser()
         rUser.avatarImageUrl = self.getUserAvatarImageUrl()
-        rUser.userID = self.objectId
+        rUser.userID = self.objectId!
         rUser.nickName = self.getUserNickName()
         return rUser
     }
@@ -411,7 +411,7 @@ extension Formula {
         
         formula.imageName = imageName
         formula.favorate = favorate
-        formula.creatUserID = creatUser.objectId
+        formula.creatUserID = creatUser.objectId!
         formula.categoryString = categoryString
         formula.typeString = typeString
         formula.rating = rating

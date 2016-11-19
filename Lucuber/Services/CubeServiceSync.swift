@@ -38,7 +38,7 @@ public func syncUser(withUserObjectID objectID: String, failureHandler: (() -> V
     
     let query = AVQuery(className: "_User")
     
-    query?.getObjectInBackground(withId: objectID, block: { (user, error) in
+    query.getObjectInBackground(withId: objectID, block: { (user, error) in
         
         if error != nil {
             failureHandler?()
@@ -63,7 +63,7 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     }
     
     let query = AVQuery(className: "DiscoverMessage")
-    query?.whereKey("recipientID", equalTo: recipientID)
+    query.whereKey("recipientID", equalTo: recipientID)
     
     
 //    query?.countObjectsInBackground({ (count, error) in
@@ -82,13 +82,13 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
         if let lastMessage = lastMessage {
             printLog("从本地 Realm 获取最新的 Message 创建日期, 开始请求更新的 Message")
             let maxCreatedUnixTime = lastMessage.createdUnixTime
-            query?.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
+            query.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
             
         } else {
             // 如果当前 Message 为空
             printLog("本地 Realm 中没有 Message, 开始请求最新的 20 条 Message")
-            query?.whereKey("createdAt", lessThanOrEqualTo: NSDate())
-            query?.order(byDescending: "createdAt")
+            query.whereKey("createdAt", lessThanOrEqualTo: NSDate())
+            query.order(byDescending: "createdAt")
             
         }
         
@@ -97,14 +97,14 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
         if let firstMessage = firstMessage {
             printLog("从本地 Realm 获取最旧的 Message 创建日期, 开始请求更旧的 Message")
             let minCreatedUnixTime = firstMessage.createdUnixTime
-            query?.whereKey("createdAt", lessThan: NSDate(timeIntervalSince1970: minCreatedUnixTime))
+            query.whereKey("createdAt", lessThan: NSDate(timeIntervalSince1970: minCreatedUnixTime))
         }
     }
     
-    query?.limit = 20
+    query.limit = 20
     // 此次请求需要将完整的 creatorUser 信息获取到.
-    query?.includeKey("creatarUser")
-    query?.findObjectsInBackground {
+    query.includeKey("creatarUser")
+    query.findObjectsInBackground {
         result, error in
         
         if error != nil {
@@ -160,7 +160,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
         if deleted {
            if
             let discoverMessageCreatorUserID = discoverMessage.creatarUser.objectId,
-            let meUserID = AVUser.current().objectId {
+            let meUserID = AVUser.current()?.objectId {
             
             if discoverMessageCreatorUserID == meUserID {
                 
@@ -177,13 +177,13 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             
             // 如果本地没有这个 Message , 创建一个新的
             let newMessage = Message()
-            newMessage.messageID = discoverMessage.objectId
+            newMessage.messageID = discoverMessage.objectId!
             newMessage.textContent = discoverMessage.textContent
             newMessage.mediaTypeInt = discoverMessage.mediaTypeInt
             // 全部标记为已读
             newMessage.sendStateInt = MessageSendState.read.rawValue
             
-            newMessage.createdUnixTime = discoverMessage.createdAt.timeIntervalSince1970
+            newMessage.createdUnixTime = (discoverMessage.createdAt?.timeIntervalSince1970)!
             if case .new = messageAge {
                 if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
                     if newMessage.createdUnixTime < latestMessage.createdUnixTime {
@@ -261,7 +261,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         
                     } else {
                         // 如果这个消息的发送者不是我自己
-                        if let meUserID = AVUser.current().objectId, meUserID != sender.userID {
+                        if let meUserID = AVUser.current()?.objectId, meUserID != sender.userID {
                             conversation = sender.conversation
                             conversationWithUser = sender
                             

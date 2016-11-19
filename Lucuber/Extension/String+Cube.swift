@@ -167,6 +167,7 @@ extension String {
         
         return attributeText
     }
+    
 
 }
 

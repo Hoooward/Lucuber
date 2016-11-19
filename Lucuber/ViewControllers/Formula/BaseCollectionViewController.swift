@@ -585,7 +585,10 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         let dict: [String: Any] = ["formulas": formulas, "seletedFormula" : seletedFormula]
 //        printLog(dict)
         self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
+        
+    
     }
+    
     
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
