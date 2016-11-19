@@ -125,6 +125,9 @@
 		E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD471DA8AA0C00C4A1B7 /* CommentViewController.swift */; };
 		E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */; };
 		E48BCD4D1DA90C4D00C4A1B7 /* MessageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD4C1DA90C4D00C4A1B7 /* MessageToolbar.swift */; };
+		E494306E1DE01DDB00A23F02 /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */; };
+		E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */; };
+		E49430721DE02B8D00A23F02 /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */; };
 		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
@@ -297,6 +300,9 @@
 		E48BCD471DA8AA0C00C4A1B7 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comment.storyboard; sourceTree = "<group>"; };
 		E48BCD4C1DA90C4D00C4A1B7 /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
+		E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeedViewController.swift; sourceTree = "<group>"; };
+		E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFeed.storyboard; sourceTree = "<group>"; };
+		E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
 		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -892,6 +898,16 @@
 			path = MessageToolbar;
 			sourceTree = "<group>";
 		};
+		E494306C1DE01DC600A23F02 /* NewFeed */ = {
+			isa = PBXGroup;
+			children = (
+				E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */,
+				E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */,
+				E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */,
+			);
+			path = NewFeed;
+			sourceTree = "<group>";
+		};
 		E497E9FB1D9A04D300BB9A2D /* NavigationTitleLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +1018,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E494306C1DE01DC600A23F02 /* NewFeed */,
 				E41ECF511DB61A27005BEFE4 /* MediaPreview */,
 				E4DF65F21D8D94B1005CE518 /* Feed */,
 				E48BCD461DA8A9FF00C4A1B7 /* Comment */,
@@ -1300,6 +1317,7 @@
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E47926581D96DC5F004D58BF /* TypePickViewCell.xib in Resources */,
 				E435C0401D9F4A370026FA08 /* DetailCommentCell.xib in Resources */,
+				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
 				E479264D1D96DC5F004D58BF /* CategorySeletedCell.xib in Resources */,
 				E4E021FF1D90454A00DED99A /* NoResultCell.xib in Resources */,
 				E4E021F51D9019AA00DED99A /* NormalFormulaCell.xib in Resources */,
@@ -1451,6 +1469,7 @@
 				E47926531D96DC5F004D58BF /* NewFormulaTextCell.swift in Sources */,
 				E47926751D96EB85004D58BF /* NewSectionHeaderView.swift in Sources */,
 				E45DA0551DA736040050DD4D /* ChatSectionDateCell.swift in Sources */,
+				E49430721DE02B8D00A23F02 /* FeedMediaAddCell.swift in Sources */,
 				E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
@@ -1489,6 +1508,7 @@
 				E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */,
 				E48BCD4D1DA90C4D00C4A1B7 /* MessageToolbar.swift in Sources */,
 				E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */,
+				E494306E1DE01DDB00A23F02 /* NewFeedViewController.swift in Sources */,
 				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
 				E41ECF3D1DB5D3F7005BEFE4 /* FeedBiggerImageCell.swift in Sources */,

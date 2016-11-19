@@ -10,6 +10,7 @@ pod 'RealmSwift'
 pod 'Kingfisher', '~> 3.0'
 pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
 pod 'Reveal-SDK', :configurations => ['Debug']
+pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 
 
