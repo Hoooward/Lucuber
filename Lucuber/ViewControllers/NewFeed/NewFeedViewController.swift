@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 import Photos
 
 class NewFeedViewController: UIViewController {
@@ -317,4 +318,41 @@ extension NewFeedViewController: UIScrollViewDelegate {
 
 extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let mediaType = info[UIImagePickerControllerMediaType] as? String {
+            
+            switch mediaType {
+            case String(kUTTypeImage):
+                
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    if mediaImages.count <= 3 {
+                        mediaImages.append(image)
+                    }
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

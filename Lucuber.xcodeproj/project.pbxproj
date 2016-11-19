@@ -128,6 +128,7 @@
 		E494306E1DE01DDB00A23F02 /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */; };
 		E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */; };
 		E49430721DE02B8D00A23F02 /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */; };
+		E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49430761DE07F9A00A23F02 /* PickPhotosViewController.swift */; };
 		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
@@ -303,6 +304,7 @@
 		E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeedViewController.swift; sourceTree = "<group>"; };
 		E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFeed.storyboard; sourceTree = "<group>"; };
 		E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
+		E49430761DE07F9A00A23F02 /* PickPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosViewController.swift; sourceTree = "<group>"; };
 		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -908,6 +910,14 @@
 			path = NewFeed;
 			sourceTree = "<group>";
 		};
+		E49430751DE07F7900A23F02 /* PickImage */ = {
+			isa = PBXGroup;
+			children = (
+				E49430761DE07F9A00A23F02 /* PickPhotosViewController.swift */,
+			);
+			path = PickImage;
+			sourceTree = "<group>";
+		};
 		E497E9FB1D9A04D300BB9A2D /* NavigationTitleLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1018,6 +1028,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E49430751DE07F7900A23F02 /* PickImage */,
 				E494306C1DE01DC600A23F02 /* NewFeed */,
 				E41ECF511DB61A27005BEFE4 /* MediaPreview */,
 				E4DF65F21D8D94B1005CE518 /* Feed */,
@@ -1450,6 +1461,7 @@
 				E435C0221D9EA21D0026FA08 /* CameraPreviewView.swift in Sources */,
 				E4D536BC1D8DB0A1008A426A /* LayoutButton.swift in Sources */,
 				E4207A2E1D93D8AB003CF073 /* CubeHUD.swift in Sources */,
+				E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
