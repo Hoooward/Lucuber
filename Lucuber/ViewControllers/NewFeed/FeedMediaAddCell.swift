@@ -11,4 +11,13 @@ import UIKit
 
 class FeedMediaAddCell: UICollectionViewCell {
     
+    @IBOutlet weak var addImage: UIImageView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        addImage.tintColor = UIColor.cubeTintColor()
+        contentView.backgroundColor = UIColor.cubeBackgroundColor()
+    }
+    
 }

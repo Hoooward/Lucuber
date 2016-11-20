@@ -136,7 +136,152 @@ extension UIImage {
     }
 }
 
+extension UIImage {
+    
+    public func fixRotation() -> UIImage {
+        if imageOrientation == .up {
+            return self
+        }
+        
+        let width = self.size.width
+        let height = self.size.height
+        
+        var transform = CGAffineTransform.identity
+        
+        switch imageOrientation {
+            
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: width, y: height)
+            transform = transform.rotated(by: CGFloat(M_PI))
+            
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: width, y: 0)
+            transform = transform.rotated(by: CGFloat(M_PI_2))
+            
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: height)
+            transform = transform.rotated(by: CGFloat(-M_PI_2))
+            
+        default:
+            break
+        }
+        
+        switch imageOrientation {
+            
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            
+        default:
+            break
+        }
+        
+        let bitsPerComponent = self.cgImage?.bitsPerComponent
+        let colorSpace = self.cgImage?.colorSpace
+        let bitmapInfo = self.cgImage?.bitmapInfo
+        
+     
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: bitsPerComponent!, bytesPerRow: 0, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
+        
+        context?.concatenate(transform)
+        
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            
+            context?.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: height, height: width))
+            
+        default:
+            
+            context?.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: width, height: height))
+        }
+        
+        let cgImage = context?.makeImage()
+        
+        return UIImage(cgImage: cgImage!)
+    }
+    
+    func getRotationTransformWithTargetSize(size: CGSize) -> CGAffineTransform {
+        
+        var transform = CGAffineTransform.identity
+        
+        switch imageOrientation {
+        case .down, .downMirrored:
+            
+            transform = transform.translatedBy(x: size.width, y: size.height)
+            transform = transform.rotated(by: CGFloat(M_PI))
+            
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(M_PI_2))
+            
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: size.height)
+            transform = transform.rotated(by: CGFloat(-M_PI_2))
+            
+        default:
+            break
 
+        }
+        
+        switch imageOrientation {
+            
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            
+        default:
+            break
+        }
+
+        return transform
+    }
+    
+    public func resizeTo(targetSize: CGSize, quality: CGInterpolationQuality) -> UIImage? {
+        
+        let drawTransposed: Bool
+        
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            drawTransposed = true
+        default:
+            drawTransposed = false
+        }
+      
+        return resizeTo(targetSize: targetSize, transform: getRotationTransformWithTargetSize(size: targetSize), drawTransposed: drawTransposed , quality: quality)
+        
+    }
+    
+    public func resizeTo(targetSize: CGSize, transform: CGAffineTransform, drawTransposed: Bool, quality: CGInterpolationQuality) -> UIImage? {
+        
+        let newRect = CGRect(origin: CGPoint.zero, size: targetSize)
+        let transposedRect = CGRect(origin: CGPoint.zero, size: CGSize(width: targetSize.height, height: targetSize.width))
+        
+        let bitsPerComponent = self.cgImage?.bitsPerComponent
+        let colorSpace = self.cgImage?.colorSpace
+        let bitmapInfo = self.cgImage?.bitmapInfo
+        
+        let context = CGContext(data: nil, width: Int(newRect.width), height: Int(newRect.height), bitsPerComponent: bitsPerComponent!, bytesPerRow: 0, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
+        
+        context?.concatenate(transform)
+        context?.interpolationQuality = quality
+        
+        context?.draw(self.cgImage!, in: drawTransposed ? transposedRect : newRect)
+        
+        if let newCGImge = context?.makeImage() {
+            return UIImage(cgImage: newCGImge)
+        }
+        
+        return nil
+    }
+}
 
 
 

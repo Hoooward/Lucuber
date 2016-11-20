@@ -7,88 +7,244 @@
 //
 
 import UIKit
+import Photos
 
-private let reuseIdentifier = "Cell"
+private let photoCellIdentifier = "PhotoCell"
+
+protocol ReturnPickedPhotosDelegate: class {
+    
+    func returnSeletedImages(_ images: [UIImage], imageAssets: [PHAsset])
+}
 
 class PickPhotosViewController: UICollectionViewController {
 
+    // MARK: - Properties
+    /*
+     参考: http://kayosite.com/ios-development-and-detail-of-photo-framework-part-two.html
+     */
+    
+    var imagesDidFetch: Bool = false
+    var album: AlbumListController?
+    
+    var imageManager = PHCachingImageManager()
+    
+    var images: PHFetchResult<PHAsset>? {
+        didSet {
+            
+            collectionView?.reloadData()
+            guard let images = images else { return }
+            
+            let indexPath = IndexPath(item: images.count - 1, section: 0)
+            collectionView?.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
+        }
+    }
+    
+    weak var delegate: ReturnPickedPhotosDelegate?
+    
+    var pickedImages = [PHAsset]()
+    var pickedImageSet = Set<PHAsset>()
+    
+    var imageLimit = 0
+    
+    deinit {
+        printLog("\(self)正确牺牲了")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        title = "选取图片" + "(" + "\(imageLimit + pickedImages.count )" + "/4" + ")"
+        
+        collectionView?.backgroundColor = UIColor.white
+        collectionView?.alwaysBounceVertical = true
+        automaticallyAdjustsScrollViewInsets = false
+        
+        if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            
+            let width: CGFloat = (UIScreen.main.bounds.width - 5) / 4
+            layout.itemSize = CGSize(width: width, height: width)
+            layout.minimumLineSpacing = 1
+            layout.minimumInteritemSpacing = 1
+            layout.sectionInset = UIEdgeInsets(top: 64, left: 1, bottom: 1, right: 1)
+            
+        }
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_back"), style: .plain, target: self, action: #selector(PickPhotosViewController.back))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(PickPhotosViewController.done))
 
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        if !imagesDidFetch {
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            images = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        }
+        
+       
+        
+//        printLog(images)
+        
+        guard var vcStack = navigationController?.viewControllers else { return }
+        
+        if !vcStack.isEmpty {
+            if !(vcStack[1] is AlbumListController) {
+                album = AlbumListController()
+                vcStack.insert(self.album!, at: 1)
+                navigationController?.setViewControllers(vcStack, animated: false)
+            } else {
+                album = vcStack[1] as? AlbumListController
+            }
+        }
+        
+//        navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-        // Configure the cell
+    @objc private func back() {
+        album?.imageLimit = imageLimit
+        album?.pickedImages.append(contentsOf: pickedImages)
+        let _ = navigationController?.popViewController(animated: true)
+    }
     
-        return cell
+    @objc private func done() {
+        
+        var images = [UIImage]()
+        
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        options.version = .current
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .exact
+        options.isNetworkAccessAllowed = true
+        
+        for imageAsset in pickedImages {
+            
+            let maxSize: CGFloat =  Config.NewFeedFullImage.maxSize
+            
+            let pixelWidth = CGFloat(imageAsset.pixelWidth)
+            let pixelHeight = CGFloat(imageAsset.pixelHeight)
+            
+            let targetSize: CGSize
+            
+            if pixelWidth > pixelHeight {
+                let width = maxSize
+                let height = floor(maxSize * (pixelHeight / pixelWidth))
+                targetSize = CGSize(width: width, height: height)
+            } else {
+                let height = maxSize
+                let width = floor(maxSize * (pixelWidth / pixelHeight))
+                targetSize = CGSize(width: width, height: height)
+            }
+            
+            imageManager.requestImageData(for: imageAsset, options: options, resultHandler: {
+                data, string, imgeProemtatopm, _ in
+                
+                if
+                    let data = data,
+                    let image = UIImage(data: data) {
+                    
+                    if let resizeImage = image.resizeTo(targetSize: targetSize, quality: CGInterpolationQuality.medium) {
+                        images.append(resizeImage)
+                    }
+                    
+                }
+            })
+            
+        }
+        
+//        delegate?.returnSeletedImages(images, imageAssets: pickedImages)
+        
+        if let vcStack = navigationController?.viewControllers {
+            weak var destVC: NewFeedViewController?
+            for vc in vcStack {
+                if vc is NewFeedViewController {
+                    let vc = vc as! NewFeedViewController
+                    destVC = vc
+                    destVC?.returnSeletedImages(images, imageAssets: pickedImages)
+                    break
+                }
+            }
+            if let destVC = destVC {
+                let _ = navigationController?.popToViewController(destVC, animated: true)
+            }
+        }
+        
+        
     }
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }
+
+extension PickPhotosViewController {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images?.count ?? 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath)
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? PhotoCell else { return }
+        
+        cell.imageManager = self.imageManager
+        
+        if let imageAsset = images?[indexPath.item]{
+            cell.imageAsset = imageAsset
+            print(pickedImages.contains(imageAsset))
+//            printLog(pickedImageSet)
+            cell.pickedImageView.isHidden = !pickedImageSet.contains(imageAsset)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+        if let imageAsset = images?[indexPath.item]  {
+            if pickedImageSet.contains(imageAsset) {
+                pickedImageSet.remove(imageAsset)
+                if let index = pickedImages.index(of: imageAsset) {
+                    pickedImages.remove(at: index)
+                }
+            } else {
+                if pickedImageSet.count + imageLimit == 4 {
+                    return
+                }
+                if !pickedImageSet.contains(imageAsset) {
+                    pickedImageSet.insert(imageAsset)
+                    pickedImages.append(imageAsset)
+                }
+                
+            }
+            
+            title = "选取图片" + "(" + "\(pickedImageSet.count + imageLimit )" + "/4" + ")"
+            
+            guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell else {
+                return
+            }
+            
+            cell.pickedImageView.isHidden = !pickedImageSet.contains(imageAsset)
+        }
+        
+ 
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+

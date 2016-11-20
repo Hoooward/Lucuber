@@ -189,6 +189,13 @@ public class Config {
         public static let mediaCollectionViewSize = CGSize(width: UIScreen.main.bounds.width, height: width)
     }
     
+    public struct NewFeedFullImage {
+        public static let maxSize: CGFloat = 1024
+    }
+    
+    public class func avatarMaxSize() -> CGSize {
+        return CGSize(width: 414, height: 414)
+    }
 }
 
 

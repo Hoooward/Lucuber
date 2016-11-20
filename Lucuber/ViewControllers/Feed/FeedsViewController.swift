@@ -91,7 +91,7 @@ class FeedsViewController: UIViewController {
                     guard let strongSelf = self else { return }
                     
 //                    strongSelf.newFeedAttachmentType = .media
-                    strongSelf.performSegue(withIdentifier: "ShowAddFeed", sender: nil)
+                    strongSelf.performSegue(withIdentifier: "ShowNewFeed", sender: nil)
                 }
             ),
             .Option(

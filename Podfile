@@ -4,13 +4,13 @@
 target 'Lucuber' do
 
 pod 'AVOSCloud'
-pod 'AVOSCloudIM'
+#pod 'AVOSCloudIM'
 #pod 'RealmSwift' => '1.1.0'
 pod 'RealmSwift'
 pod 'Kingfisher', '~> 3.0'
 pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
 pod 'Reveal-SDK', :configurations => ['Debug']
-pod 'Ruler', '~> 1.0.0'
+#pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 
 

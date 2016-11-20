@@ -1,14 +1,5 @@
 PODS:
   - AVOSCloud (3.6.1)
-  - AVOSCloudIM (3.6.1):
-    - AVOSCloud (= 3.6.1)
-    - AVOSCloudIM/_ARC (= 3.6.1)
-    - AVOSCloudIM/_NOARC (= 3.6.1)
-  - AVOSCloudIM/_ARC (3.6.1):
-    - AVOSCloud (= 3.6.1)
-    - AVOSCloudIM/_NOARC (= 3.6.1)
-  - AVOSCloudIM/_NOARC (3.6.1):
-    - AVOSCloud (= 3.6.1)
   - Kingfisher (3.2.0)
   - PKHUD (3.2.1)
   - Realm (2.0.3):
@@ -17,16 +8,13 @@ PODS:
   - RealmSwift (2.0.3):
     - Realm (= 2.0.3)
   - Reveal-SDK (3)
-  - Ruler (1.0.0)
 
 DEPENDENCIES:
   - AVOSCloud
-  - AVOSCloudIM
   - Kingfisher (~> 3.0)
   - PKHUD (from `https://github.com/toyship/PKHUD.git`)
   - RealmSwift
   - Reveal-SDK
-  - Ruler (~> 1.0.0)
 
 EXTERNAL SOURCES:
   PKHUD:
@@ -39,14 +27,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AVOSCloud: cc9b567da2d30f07e3da1e4db682cad9ff56a1b6
-  AVOSCloudIM: 7c30a50d1e8f6afee000a2037ea24eb6abcbc8db
   Kingfisher: 50407d1d5dbc34965009d425a286342ff36a84ea
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
   Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
   RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
   Reveal-SDK: cad54352e23854083e3917ddf665dc0fe7781c53
-  Ruler: fa0067d052372fef191acea419917d4b42ebc3aa
 
-PODFILE CHECKSUM: 9099948eaaed8e3c84b289763fc7d390a7fc3e66
+PODFILE CHECKSUM: ad6826046c440e63ebd5f6a6923b9811ed8e9f82
 
 COCOAPODS: 1.1.0.beta.2

@@ -129,7 +129,11 @@
 		E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */; };
 		E49430721DE02B8D00A23F02 /* FeedMediaAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */; };
 		E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49430761DE07F9A00A23F02 /* PickPhotosViewController.swift */; };
+		E494307A1DE0847000A23F02 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49430791DE0847000A23F02 /* PhotoCell.swift */; };
 		E497E9FD1D9A04DC00BB9A2D /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */; };
+		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
+		E49FBCE61DE1955F00BA9B49 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */; };
+		E49FBCE71DE1955F00BA9B49 /* AlbumListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -305,7 +309,11 @@
 		E494306F1DE01DEC00A23F02 /* NewFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFeed.storyboard; sourceTree = "<group>"; };
 		E49430711DE02B8D00A23F02 /* FeedMediaAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaAddCell.swift; sourceTree = "<group>"; };
 		E49430761DE07F9A00A23F02 /* PickPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosViewController.swift; sourceTree = "<group>"; };
+		E49430791DE0847000A23F02 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		E497E9FC1D9A04DC00BB9A2D /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
+		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
+		E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
+		E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumListCell.xib; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -914,8 +922,19 @@
 			isa = PBXGroup;
 			children = (
 				E49430761DE07F9A00A23F02 /* PickPhotosViewController.swift */,
+				E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */,
 			);
 			path = PickImage;
+			sourceTree = "<group>";
+		};
+		E49430781DE0845900A23F02 /* PickPhotoCell */ = {
+			isa = PBXGroup;
+			children = (
+				E49430791DE0847000A23F02 /* PhotoCell.swift */,
+				E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */,
+				E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */,
+			);
+			path = PickPhotoCell;
 			sourceTree = "<group>";
 		};
 		E497E9FB1D9A04D300BB9A2D /* NavigationTitleLabel */ = {
@@ -983,6 +1002,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E49430781DE0845900A23F02 /* PickPhotoCell */,
 				E41ECF2F1DB5D182005BEFE4 /* Feed */,
 				E40EAEB71DA9F1AC0068404B /* CommentHeader */,
 				E48BCD4B1DA90C4300C4A1B7 /* MessageToolbar */,
@@ -1339,6 +1359,7 @@
 				E41ECF591DB77374005BEFE4 /* MediaViewCell.xib in Resources */,
 				E47926521D96DC5F004D58BF /* NameTextViewCell.xib in Resources */,
 				E45DA0561DA736040050DD4D /* ChatSectionDateCell.xib in Resources */,
+				E49FBCE71DE1955F00BA9B49 /* AlbumListCell.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
 				E40EAEBB1DA9F1F20068404B /* CommentHeaderView.xib in Resources */,
 				E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */,
@@ -1466,6 +1487,7 @@
 				E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
+				E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */,
 				E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E4217F271D962EFF00E575AB /* CateogryMenuCell.swift in Sources */,
@@ -1483,6 +1505,7 @@
 				E45DA0551DA736040050DD4D /* ChatSectionDateCell.swift in Sources */,
 				E49430721DE02B8D00A23F02 /* FeedMediaAddCell.swift in Sources */,
 				E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */,
+				E49FBCE61DE1955F00BA9B49 /* AlbumListCell.swift in Sources */,
 				E4E021F01D9019AA00DED99A /* CardFormulaCell.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
 				E48BCD451DA89F2100C4A1B7 /* ChatRightImageCell.swift in Sources */,
@@ -1501,6 +1524,7 @@
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
 				E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
+				E494307A1DE0847000A23F02 /* PhotoCell.swift in Sources */,
 				E479264A1D96DC5F004D58BF /* CategoryPickViewCell.swift in Sources */,
 				E479264C1D96DC5F004D58BF /* CategorySeletedCell.swift in Sources */,
 				E45DA05D1DA737910050DD4D /* ChatBaseCell.swift in Sources */,

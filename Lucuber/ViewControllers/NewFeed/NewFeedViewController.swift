@@ -23,9 +23,11 @@ class NewFeedViewController: UIViewController {
     var mediaImages = [UIImage]() {
         didSet {
             
+            let indexSet = IndexSet(integer: 0)
             mediaCollectionView.performBatchUpdates({
                 [weak self] in
-                self?.mediaCollectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
+              
+                self?.mediaCollectionView.reloadSections(indexSet)
             }, completion: nil)
         }
     }
@@ -68,7 +70,7 @@ class NewFeedViewController: UIViewController {
     
     fileprivate let placeholderOfMessage = "写点什么"
     fileprivate let feedMediaAdddCellIdentifier = "FeedMediaAddCell"
-    fileprivate let feedMediaCellIdentifier = "FeedMediaAddCell"
+    fileprivate let feedMediaCellIdentifier = "FeedMediaCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +111,34 @@ class NewFeedViewController: UIViewController {
         mediaCollectionView.delegate = self
         mediaCollectionView.dataSource = self
         mediaCollectionView.showsHorizontalScrollIndicator = false
+        
     }
+    
+    
+    // MARK: -  Action & Target
+    
+    @IBAction func post(_ sender: Any) {
+        printLog("post")
+    }
+    
+    @IBAction func dismiss(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: -  Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowPickPhotoView" {
+            
+            if let vc = segue.destination as? PickPhotosViewController {
+                vc.delegate = self
+                vc.pickedImageSet = Set(pickedImageAssets)
+//                vc.pickedImages = pickedImageAssets
+                vc.imageLimit = mediaImages.count
+            }
+        }
+    }
+    
 }
 
 extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -340,6 +369,23 @@ extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
         
     }
     
+}
+
+extension NewFeedViewController: ReturnPickedPhotosDelegate {
+    
+    func returnSeletedImages(_ images: [UIImage], imageAssets: [PHAsset]) {
+        
+        for image in images {
+            mediaImages.append(image)
+        }
+        
+//        printLog("images = \(mediaImages.count)")
+//        mediaImages = images
+//        pickedImageAssets.append(contentsOf: imageAssets)
+//        printLog("imageAssets = \(pickedImageAssets.count)")
+//        pickedImageAssets = imageAssets
+//        printLog(imageAssets)
+    }
 }
 
 
