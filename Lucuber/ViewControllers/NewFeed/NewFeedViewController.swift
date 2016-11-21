@@ -14,7 +14,7 @@ class NewFeedViewController: UIViewController {
     
     enum Attachment {
         case media
-        case formula
+        case formula(Formula)
     }
     
     // MARK: - Properties
@@ -60,6 +60,7 @@ class NewFeedViewController: UIViewController {
     }()
     
     
+    @IBOutlet weak var formulaView: FeedFormulaView!
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
     
@@ -84,11 +85,13 @@ class NewFeedViewController: UIViewController {
             
             title = "新话题"
             mediaCollectionView.isHidden = false
+            formulaView.isHidden = true
             
         case .formula:
             
             title = "创建公式(2/2)"
             mediaCollectionView.isHidden = true
+            formulaView.isHidden = false
             
         }
         
@@ -403,12 +406,6 @@ extension NewFeedViewController: ReturnPickedPhotosDelegate {
             mediaImages.append(image)
         }
         
-//        printLog("images = \(mediaImages.count)")
-//        mediaImages = images
-//        pickedImageAssets.append(contentsOf: imageAssets)
-//        printLog("imageAssets = \(pickedImageAssets.count)")
-//        pickedImageAssets = imageAssets
-//        printLog(imageAssets)
     }
 }
 

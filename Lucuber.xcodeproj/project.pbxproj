@@ -134,6 +134,7 @@
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
 		E49FBCE61DE1955F00BA9B49 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */; };
 		E49FBCE71DE1955F00BA9B49 /* AlbumListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */; };
+		E49FBCEB1DE2E28B00BA9B49 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -314,6 +315,7 @@
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
 		E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
 		E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumListCell.xib; sourceTree = "<group>"; };
+		E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaView.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -945,6 +947,22 @@
 			path = NavigationTitleLabel;
 			sourceTree = "<group>";
 		};
+		E49FBCE81DE2E27100BA9B49 /* NewFeed */ = {
+			isa = PBXGroup;
+			children = (
+				E49FBCE91DE2E27E00BA9B49 /* FormulaView */,
+			);
+			path = NewFeed;
+			sourceTree = "<group>";
+		};
+		E49FBCE91DE2E27E00BA9B49 /* FormulaView */ = {
+			isa = PBXGroup;
+			children = (
+				E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */,
+			);
+			path = FormulaView;
+			sourceTree = "<group>";
+		};
 		E4AF556C1D97BD320053B9CE /* NewFormulaButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +1020,7 @@
 		E4D536B91D8DB095008A426A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E49FBCE81DE2E27100BA9B49 /* NewFeed */,
 				E49430781DE0845900A23F02 /* PickPhotoCell */,
 				E41ECF2F1DB5D182005BEFE4 /* Feed */,
 				E40EAEB71DA9F1AC0068404B /* CommentHeader */,
@@ -1447,6 +1466,7 @@
 				E479264E1D96DC5F004D58BF /* FormulaTextViewCell.swift in Sources */,
 				E41ECF531DB61A34005BEFE4 /* MediaControlView.swift in Sources */,
 				E435C0451D9F4A370026FA08 /* DetailHeaderView.swift in Sources */,
+				E49FBCEB1DE2E28B00BA9B49 /* FeedFormulaView.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,

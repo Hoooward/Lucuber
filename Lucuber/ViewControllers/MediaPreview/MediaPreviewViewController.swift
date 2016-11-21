@@ -303,10 +303,12 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                 
             case .localImage(let image):
                 
+                mediaControlView.isHidden = true
                 cell.mediaView.image = image
                 
             case .attachmentType(let attachment):
                 
+                mediaControlView.isHidden = false
                 cell.activityIndicator.startAnimating()
                 CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: nil, completion: { (url, image, cacheType) in
                     cell.mediaView.image = image

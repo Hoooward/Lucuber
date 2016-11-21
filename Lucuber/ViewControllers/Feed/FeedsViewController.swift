@@ -81,6 +81,16 @@ class FeedsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var isUploadingFeed = false
+    var lastFeedCreatedDate: NSDate {
+        
+        if feeds.isEmpty { return NSDate() }
+        let date = feeds.last!.createdAt
+        
+        return feeds.last!.createdAt as! NSDate
+        
+    }
+    
     private lazy var newFeedActionSheetView: ActionSheetView = {
         
         let view = ActionSheetView(items: [
@@ -94,13 +104,14 @@ class FeedsViewController: UIViewController {
                     strongSelf.performSegue(withIdentifier: "ShowNewFeed", sender: nil)
                 }
             ),
+            
             .Option(
                 title: "公式",
                 titleColor: UIColor.cubeTintColor(),
                 action: { [weak self] in
                     guard let strongSelf = self else { return }
                     
-                    let navigationVC = UIStoryboard(name: "AddFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
+                    let navigationVC = UIStoryboard(name: "NewFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
                     let newVc = navigationVC.viewControllers.first as! NewFormulaViewController
                     
                     /// 由于初始化顺序,下面三行代码先后顺序不可改变
@@ -112,6 +123,7 @@ class FeedsViewController: UIViewController {
                     
                 }
             ),
+            
             .Option(
                 title: "复原成绩",
                 titleColor: UIColor.cubeTintColor(),
@@ -127,6 +139,8 @@ class FeedsViewController: UIViewController {
         return view
         
     }()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,16 +175,7 @@ class FeedsViewController: UIViewController {
         
     }
     
-    var isUploadingFeed = false
-    var lastFeedCreatedDate: NSDate {
-        
-        if feeds.isEmpty { return NSDate() }
-        let date = feeds.last!.createdAt
-        
-        
-        return feeds.last!.createdAt as! NSDate
-        
-    }
+   
     
     fileprivate func uploadFeed(mode: UploadFeedMode = .top, finish: (() -> Void)? = nil) {
         
