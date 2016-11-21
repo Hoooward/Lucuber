@@ -153,12 +153,12 @@ class FeedsViewController: UIViewController {
         
         tableView.contentOffset.y = searchBar.frame.height
         
+        uploadFeed()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        uploadFeed()
     }
     
     var isUploadingFeed = false

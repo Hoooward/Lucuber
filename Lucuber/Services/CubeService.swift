@@ -68,7 +68,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
         
         let query = AVQuery.getFormula(mode: uploadingFormulaMode)
         
-        printLog("开始获取我的公式")
+        printLog("-> 开始获取我的公式")
         query.findObjectsInBackground { formulas, error in
             
             if error != nil {
@@ -91,7 +91,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                 /// 更新数据库中的 Formula
                 saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
                 
-                printLog("成功更新我的公式")
+                printLog("-> 成功更新我的公式")
                 
             }
         }

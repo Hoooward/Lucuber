@@ -13,6 +13,7 @@ let mediaPreviewWindow = UIWindow(frame: UIScreen.main.bounds)
 public enum PreviewMedia {
     case message
     case attachmentType(ImageAttachment)
+    case localImage(UIImage)
 }
 
 class MediaPreviewViewController: UIViewController {
@@ -55,12 +56,7 @@ class MediaPreviewViewController: UIViewController {
         return imageView
     }()
     
-    @IBOutlet weak var mediasCollectionView: UICollectionView! {
-        didSet {
-            
-        }
-        
-    }
+    @IBOutlet weak var mediasCollectionView: UICollectionView!
     @IBOutlet weak var mediaControlView: MediaControlView!
     
     
@@ -70,6 +66,9 @@ class MediaPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 暂时只处理显示 image
+        mediaControlView.type = .image
         
         mediasCollectionView.showsVerticalScrollIndicator = false
         mediasCollectionView.showsHorizontalScrollIndicator = false
@@ -87,7 +86,7 @@ class MediaPreviewViewController: UIViewController {
         bottomPreviewImageView.frame = previewImageViewInitalFrame
         
         topPreviewImageView.contentMode = .scaleAspectFill
-        topPreviewImageView.contentMode = .scaleAspectFill
+        bottomPreviewImageView.contentMode = .scaleAspectFill
         
         view.addSubview(topPreviewImageView)
         view.addSubview(bottomPreviewImageView)
@@ -302,6 +301,10 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
             
             switch previewMedia {
                 
+            case .localImage(let image):
+                
+                cell.mediaView.image = image
+                
             case .attachmentType(let attachment):
                 
                 cell.activityIndicator.startAnimating()
@@ -309,6 +312,7 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                     cell.mediaView.image = image
                     cell.activityIndicator.stopAnimating()
                 })
+                
                 
             default:
                 break
@@ -369,6 +373,19 @@ extension MediaPreviewViewController: UIScrollViewDelegate {
                 
                 bottomPreviewImageView.frame = frame
                 
+                
+            case .localImage(let image):
+                
+                bottomPreviewImageView.image = image
+                let previewImageWidth = image.size.width
+                let previewImageHeight = image.size.height
+                
+                let previewImageViewWidth = UIScreen.main.bounds.width
+                let previewImageViewHeight = (previewImageHeight / previewImageWidth) * previewImageViewWidth
+                
+                let frame = CGRect(x: 0, y: (UIScreen.main.bounds.height - previewImageViewHeight) * 0.5, width: previewImageViewWidth, height: previewImageViewHeight)
+                
+                bottomPreviewImageView.frame = frame
                 
             default:
                 break

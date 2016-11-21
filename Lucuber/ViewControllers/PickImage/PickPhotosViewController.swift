@@ -83,7 +83,6 @@ class PickPhotosViewController: UICollectionViewController {
         
        
         
-//        printLog(images)
         
         guard var vcStack = navigationController?.viewControllers else { return }
         
@@ -199,8 +198,6 @@ extension PickPhotosViewController {
         
         if let imageAsset = images?[indexPath.item]{
             cell.imageAsset = imageAsset
-            print(pickedImages.contains(imageAsset))
-//            printLog(pickedImageSet)
             cell.pickedImageView.isHidden = !pickedImageSet.contains(imageAsset)
         }
     }

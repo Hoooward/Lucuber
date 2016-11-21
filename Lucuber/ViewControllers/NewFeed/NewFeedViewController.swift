@@ -103,7 +103,7 @@ class NewFeedViewController: UIViewController {
         messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messageTextView.textContainer.lineFragmentPadding = 0
         messageTextView.delegate = self
-        messageTextView.tintColor = UIColor.cubeTintColor()
+//        messageTextView.tintColor = UIColor.cubeTintColor()
         
         mediaCollectionView.backgroundColor = UIColor.clear
         
@@ -229,7 +229,31 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         switch section {
         case .image:
-            break
+            
+            let cell = collectionView.cellForItem(at: indexPath) as! FeedMediaCell
+            
+            let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+            
+            let startIndex = indexPath.item
+            let frame = cell.imageView.convert(cell.imageView.bounds, to: self.view)
+            vc.previewImageViewInitalFrame = frame
+            vc.bottomPreviewImage = mediaImages[startIndex]
+            vc.startIndex = startIndex
+            delay(0) {
+                //                    transitionView.alpha = 0
+            }
+            
+            vc.afterDismissAction = { [weak self] in
+                
+                //                    transitionView.alpha = 1
+                self?.view.window?.makeKeyAndVisible()
+            }
+            
+            vc.previewMedias = mediaImages.map { PreviewMedia.localImage($0) }
+            
+            mediaPreviewWindow.rootViewController = vc
+            mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+            mediaPreviewWindow.makeKeyAndVisible()
             
         case .add:
             

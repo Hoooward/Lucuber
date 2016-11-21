@@ -51,7 +51,6 @@ struct FeedCellLayout {
         case .Text:
             height = FeedBaseCell.heightOfFeed(feed: feed)
         case .Image(let imagesAttachments):
-            printLog(imagesAttachments)
             if imagesAttachments.count > 1 {
                 height = FeedAnyImagesCell.heightOfFeed(feed: feed)
             } else {

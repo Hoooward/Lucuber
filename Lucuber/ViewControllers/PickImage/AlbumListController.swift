@@ -41,6 +41,10 @@ final class AlbumListController: UITableViewController {
     
     // MARK: - Life Cycle
     
+    deinit {
+        printLog("AlbumList 死喽")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -173,8 +177,6 @@ final class AlbumListController: UITableViewController {
                             
                         })
                     }
-                    
-//                }
             })
         }
         
