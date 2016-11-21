@@ -14,7 +14,7 @@ class NewFeedViewController: UIViewController {
     
     enum Attachment {
         case media
-        case formula(Formula)
+        case formula
     }
     
     // MARK: - Properties
@@ -279,6 +279,7 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                             return
                     }
                     
+                
                     DispatchQueue.main.async {
                         
                         if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
@@ -297,7 +298,18 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                             }
                         } else {
                             
-                            strongSelf.alertCanNotOpenCamera()
+                            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {
+                                success in
+                                
+                                if success {
+                                    delay(0.3) {
+                                        strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                                    }
+                    
+                                }
+                
+                            })
+                            //strongSelf.alertCanNotOpenCamera()
                         }
                         
                     }

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MobileCoreServices
+import Photos
+import AVFoundation
 
 class NewFormulaViewController: UIViewController {
     
@@ -71,9 +74,6 @@ class NewFormulaViewController: UIViewController {
     }
     
    
-    
-    // MARK: - Life Cycle
-    
     fileprivate let nameTextViewCellIdentifier = "NameTextViewCell"
     fileprivate let categorySeletedCellIdentifier = "CategorySeletedCell"
     fileprivate let categoryPickViewCellIdentifier = "CategoryPickViewCell"
@@ -82,6 +82,8 @@ class NewFormulaViewController: UIViewController {
     fileprivate let newFormulaTextCellIdentifier = "NewFormulaTextCell"
     fileprivate let typePickViewCellIdentifier = "TypePickViewCell"
     fileprivate let typeSelectedCellIdentifier = "TypeSelectedCell"
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         
@@ -155,6 +157,116 @@ class NewFormulaViewController: UIViewController {
     
     // MARK: - Action & Target
     
+    
+    private lazy var imagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = false
+        return imagePicker
+    }()
+    
+    private lazy var actionSheetView: ActionSheetView = {
+        
+        let actionSheetView = ActionSheetView(items: [
+            
+            .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: {
+                [weak self] in
+                
+                guard
+                    let strongSelf = self,
+                    UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                        self?.alertCanNotAccessCameraRoll()
+                        return
+                }
+                
+                DispatchQueue.main.async {
+                    
+                    if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
+                        
+                        strongSelf.modalPresentationStyle = .currentContext
+                        strongSelf.imagePicker.sourceType = .camera
+                        
+                        /*
+                         bug :  Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.
+                         http://cocoadocs.org/docsets/DKCamera/1.2.9/index.html
+                         可以选择使用这个开源项目解决问题
+                         
+                         */
+                        delay(0.3) {
+                            strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                        }
+                        
+                    } else {
+                        
+                        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {
+                            success in
+                            
+                            if success {
+                                delay(0.3) {
+                                    strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                                }
+                            }
+                            
+                        })
+                    }
+                }
+                
+            }),
+            
+            .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: {
+                [weak self] in
+                
+                guard
+                    let strongSelf = self,
+                    UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+                        self?.alertCanNotOpenPhotoLibrary()
+                        return
+                }
+                
+                //这个方法是在其他线程执行的
+                PHPhotoLibrary.requestAuthorization { authorization in
+                    if authorization ==  PHAuthorizationStatus.authorized {
+                        
+                        DispatchQueue.main.async {
+                            
+                            //strongSelf.performSegue(withIdentifier: "ShowPickPhotoView", sender: nil)
+                            
+                            strongSelf.modalPresentationStyle = .currentContext
+                            strongSelf.imagePicker.sourceType = .photoLibrary
+                            
+                            delay(0.3) {
+                                strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                            }
+                        }
+                        
+                    } else {
+                        strongSelf.alertCanNotOpenPhotoLibrary()
+                        
+                    }
+                }
+                
+            }),
+            
+            
+            
+            
+            
+            
+            ])
+        return actionSheetView
+    }()
+    
+  
+    
+    @IBAction func pickPhoto(_ sender: Any) {
+        
+        
+        if let window = view.window {
+            actionSheetView.showInView(view: window)
+        }
+        
+    }
     @IBAction func dismiss(sender: AnyObject) {
         dismiss(animated: true, completion: nil)
     }
@@ -689,24 +801,50 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - UIScrollerDelegate
 extension NewFormulaViewController: UIScrollViewDelegate {
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
         newFormulaTextIsActive = true
         dismissCategoryPickViewCell()
         dismissTypePickViewCell()
         view.endEditing(true)
-//        printLog(formula)
+        
     }
     
     //设置Header的方法缩小
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         if scrollView.contentOffset.y > 0 { return }
         let offsetY = abs(scrollView.contentOffset.y) - tableView.contentInset.top
+        
         if offsetY > 0 {
             headerViewHeightConstraint.constant = headerViewHeight + offsetY
             headerView.layoutIfNeeded()
         }
-        
     }
+}
+
+extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let mediaType = info[UIImagePickerControllerMediaType] as? String {
+            
+            switch mediaType {
+                
+            case String(kUTTypeImage):
+                
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    
+                    //formula.imageName
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+    
 }
 
 

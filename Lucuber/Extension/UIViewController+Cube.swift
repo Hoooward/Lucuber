@@ -14,26 +14,8 @@ extension UIViewController {
     func alertCanNotAccessCameraRoll() {
         
         DispatchQueue.main.async {
-            
-            CubeAlert.confirmOrCancel(title: "抱歉", message: "Lucuber 不能访问您的摄像头，\n您可以前往设置更改访问权限。", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
-                
-                
-                let url = URL(string: UIApplicationOpenSettingsURLString)!
-                
-                
-                if #available(iOS 10, *)  {
-                    
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    
-                } else {
-                    
-                    UIApplication.shared.openURL(url)
-                }
-                
-                
-                }, cancelAction: {
-                    
-            })
+            CubeAlert.alertSorry(message: "设备没有摄像头", inViewController: self)
+           
         }
     }
     

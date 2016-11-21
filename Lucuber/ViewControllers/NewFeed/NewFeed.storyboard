@@ -125,7 +125,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="方法" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ij4-bR-Jqm">
-                                                        <rect key="frame" x="80" y="30" width="20.5" height="12"/>
+                                                        <rect key="frame" x="80" y="30" width="21" height="12"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" red="0.50391173359999997" green="0.50391173359999997" blue="0.50391173359999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -138,17 +138,17 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="复原公式" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52d-kW-gzK">
-                                                        <rect key="frame" x="80" y="55.5" width="160" height="14.5"/>
+                                                        <rect key="frame" x="80" y="55" width="160" height="15"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.50391173359999997" green="0.50391173359999997" blue="0.50391173359999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIF-hr-ear" customClass="CategoryIndicatorView" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="210" y="3.5" width="30" height="30"/>
+                                                        <rect key="frame" x="210" y="4" width="30" height="30"/>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="1Gg-qW-owx">
-                                                        <rect key="frame" x="247" y="33.5" width="8" height="13"/>
+                                                        <rect key="frame" x="247" y="34" width="8" height="13"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
