@@ -266,8 +266,7 @@ public func getFormulsFormRealmWithMode(mode: UploadFormulaMode, category: Categ
 
 extension Category {
     
-    func convertToRCategory() -> RCategory {
-        switch self {
+    func convertToRCategory() -> RCategory { switch self {
         default:
             let r = RCategory()
             r.categoryString = self.rawValue
