@@ -270,7 +270,7 @@ class Formula: Object {
     
 }
 
-class DiscoverFormula: AVObject, AVSubclassing {
+ class DiscoverFormula: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
         return "DiscoverFormula"

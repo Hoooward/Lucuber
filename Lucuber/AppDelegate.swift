@@ -48,10 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         printLog(path)
         
         
-//       logout()
-        
-        pushFormulaDataToLeanCloud()
-        
         
         return true
     }

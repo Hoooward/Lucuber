@@ -3,7 +3,6 @@
 
 target 'Lucuber' do
 
-pod 'SwiftyJSON'
 pod 'AVOSCloud'
 #pod 'AVOSCloudIM'
 #pod 'RealmSwift' => '1.1.0'
@@ -14,6 +13,11 @@ pod 'Reveal-SDK', :configurations => ['Debug']
 #pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 
+end
+
+target 'LucuberKit' do
+pod 'SwiftyJSON'
+pod 'AVOSCloud'
 
 end
 
