@@ -128,7 +128,7 @@ class DetailHeaderView: UIView {
             let list = currentUser.getMasterFormulasIDList(),
             let formula = formula {
             
-            nameLabel.textColor = list.contains(formula.objectID) ? UIColor.masterLabelText() : UIColor.black
+            nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
             
         }
     }

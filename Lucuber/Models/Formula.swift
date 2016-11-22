@@ -8,6 +8,7 @@
 
 import Foundation
 import AVOSCloud
+import RealmSwift
 
 extension Array {
    
@@ -25,10 +26,6 @@ extension Array {
     }
 }
 
-extension UISearchBar {
-    
-    
-}
 
 public enum Category: String {
     
@@ -107,7 +104,228 @@ public enum Type: String {
     //    case test3 = "333"
 }
 
-public class Formula: AVObject, AVSubclassing {
+class Formula: Object {
+    
+    override  static func primaryKey() -> String? {
+        return "localObjectID"
+    }
+    
+    dynamic var name: String = ""
+    dynamic var localObjectID: String = ""
+    dynamic var lcObjectID: String = ""
+    
+    dynamic var imageName: String = ""
+    dynamic var imageURL: String = ""
+    
+    dynamic var favorate: Bool = false
+    
+    dynamic var categoryString: String = ""
+    dynamic var creator: RUser?
+    
+    dynamic var deletedByCreator: Bool = false
+    
+    dynamic var rating: Int = 0
+    dynamic var isLibrary: Bool = false
+    
+    dynamic var contentsString: [String] = []
+    
+    dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    let contentss = LinkingObjects(fromType: Content.self, property: "atFormula")
+    
+    var category: Category {
+        
+        set {
+            categoryString = newValue.rawValue
+        }
+        
+        get {
+            return Category(rawValue: categoryString)!
+        }
+    }
+    
+    dynamic var typeString: String = ""
+    
+    var type: Type {
+        
+        set {
+            typeString = newValue.rawValue
+        }
+        
+        get {
+            return Type(rawValue: typeString)!
+        }
+    }
+
+    
+  
+    
+    var contents: [FormulaContent] {
+        
+        set {
+            
+            self.contentsString =  newValue.map {
+                
+                let text = $0.text ?? ""
+                
+                var contentString = ""
+                switch $0.rotation {
+                case let .FR(imageName, _):
+                    contentString = imageName + "--" + text
+                case let .FL(imageName, _):
+                    contentString = imageName + "--" + text
+                case let .BL(imageName, _):
+                    contentString = imageName + "--" + text
+                case let .BR(imageName, _):
+                    contentString = imageName + "--" + text
+                }
+                
+                return contentString
+                
+            }
+        }
+        
+        get {
+            
+            var contents = [FormulaContent]()
+            for string in contentsString {
+                let stringArray = string.components(separatedBy: "--")
+                if stringArray.count == 2 {
+                    let rotation = stringArray[0]
+                    let text = stringArray[1]
+                    let content = FormulaContent(text: text, rotation: rotation)
+                    contents.append(content)
+                }
+            }
+            return contents
+        }
+    }
+
+  
+    class func creatNewDefaultFormula() -> Formula {
+        
+        let newFormula = Formula()
+        newFormula.contents = [FormulaContent()]
+        newFormula.imageName = "cube_Placehold_image_1"
+        newFormula.favorate = false
+        newFormula.category = .x3x3
+        newFormula.type = .F2L
+        newFormula.rating = 5
+        return newFormula
+    }
+    
+    /// 判断信息是否都正确填写
+    func isReadyforPushToLeanCloud() -> Bool {
+        
+        var contentIsReady = false
+        
+        // 如果contents的第一个text有值, 就可以
+        if let content = self.contents.first , let text = content.text {
+            contentIsReady = !text.isDirty
+        }
+        
+        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !contentIsReady {
+            
+            return false
+        }
+        
+        return true
+    }
+    
+    func prepareForPushToLeanCloud() {
+        //准备保存前, 将空白的 content 内容删除掉
+        
+        var catchContents = self.contents
+        // 如果某一个创建的content其中的text isDirty, 是删除掉这个content
+        for (index, content) in catchContents.enumerated() {
+            if content.text?.isDirty ?? true {
+                catchContents.remove(at: index)
+            }
+        }
+        self.contents = catchContents
+    }
+    
+    var contentLabelMaxHeight: CGFloat {
+        
+        var height: CGFloat = 0
+        
+        for (_, content) in contentss.enumerated() {
+            
+            let attributesText = content.text.setAttributesFitDetailLayout(style: .center)
+            let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+            
+            if rect.height > height {
+                height = rect.height
+                
+            }
+        }
+        
+        return height
+    }
+    
+    var formulaContentCellHeight: CGFloat {
+        
+        return contentLabelMaxHeight + 25 + 35 + 25 + 40
+    }
+    
+}
+
+class DiscoverFormula: AVObject, AVSubclassing {
+    
+    public class func parseClassName() -> String {
+        return "DiscoverFormula"
+    }
+    
+    @NSManaged var localObjectID: String
+    
+    @NSManaged var isLibrary: Bool
+    
+    @NSManaged var serialNumber: Int
+    
+    @NSManaged var name: String
+    
+    @NSManaged var nickName: String
+    
+    @NSManaged var imageName: String
+    
+    @NSManaged var imageURL: String
+    
+    @NSManaged var rating: Int
+    
+    @NSManaged var favorate: Bool
+    
+    @NSManaged var creator: AVUser?
+    
+    @NSManaged var contents: [String]
+    
+    @NSManaged var category: String
+    
+    @NSManaged var type: String
+    
+    @NSManaged var deletedByCreator: Bool
+    
+    override init() {
+         super.init()
+    }
+    /// 系统公式库创建所使用的.
+    init(name: String, contents: [String], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int, serialNumber: Int) {
+        super.init()
+        self.isLibrary = true
+        self.name = name
+        self.contents = contents
+        self.imageName = imageName
+        self.favorate = favorate
+        self.category = category.rawValue
+        self.type = type.rawValue
+        self.rating = rating
+        self.serialNumber = serialNumber
+       
+    }
+    
+    
+}
+
+public class Formula1: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
         return "Formula"
@@ -252,9 +470,9 @@ public class Formula: AVObject, AVSubclassing {
         self.objectID = NSUUID().uuidString
     }
     
-    class func creatNewDefaultFormula() -> Formula {
-        return Formula(name: "", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", favorate: false, category: .x3x3, type: .F2L, rating: 3)
-    }
+//    class func creatNewDefaultFormula() -> Formula {
+//        return Formula(name: "", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", favorate: false, category: .x3x3, type: .F2L, rating: 3)
+//    }
     
     override public var description: String {
         get {
@@ -324,10 +542,10 @@ public class Formula: AVObject, AVSubclassing {
     }
     
     
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Formula(name: name, contents: contents, imageName: imageName, favorate: favorate, category: category, type: type, rating: rating)
-        return copy
-    }
+//    func copy(with zone: NSZone? = nil) -> Any {
+//        let copy = Formula(name: name, contents: contents, imageName: imageName, favorate: favorate, category: category, type: type, rating: rating)
+//        return copy
+//    }
     
 }
 
@@ -341,6 +559,24 @@ public enum Rotation {
     
     // private let FLrotation: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
 }
+
+class ContentRotation: Object {
+    dynamic var imageName: String = ""
+}
+
+class Content: Object {
+    
+    dynamic var text: String = ""
+    dynamic var rotation: String = ""
+    dynamic var indicatorImageName: String = ""
+    dynamic var cellHeight: CGFloat = 0
+    
+    dynamic var atFormula: Formula?
+    
+
+    
+}
+
 
 class FormulaContent: CustomStringConvertible {
     
@@ -361,9 +597,6 @@ class FormulaContent: CustomStringConvertible {
         
         return height
     }
-    
- 
-    
     
     
     

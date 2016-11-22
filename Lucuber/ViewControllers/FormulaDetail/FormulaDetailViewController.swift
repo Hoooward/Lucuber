@@ -148,7 +148,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 viewController.view.alpha = 1
                 if let formula = strongSelf.seletedFormula {
                     
-                    viewController.formula = formula.copy(with: nil) as! Formula
+                    viewController.formula = formula.copy as! Formula
                 }
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 

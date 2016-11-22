@@ -215,7 +215,7 @@ class Group: Object {
         return conversations.first
     }
     
-    dynamic var withFormula: RFormula?
+    dynamic var withFormula: Formula?
     
     
     //    // 级联删除关联的数据对象

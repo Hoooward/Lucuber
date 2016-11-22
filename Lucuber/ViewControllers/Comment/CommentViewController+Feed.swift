@@ -15,7 +15,7 @@ extension CommentViewController {
     func prepareConversation(withFromula formula: Formula, inRealm realm: Realm) -> Conversation? {
         
         // 用 Formula 的 objecID （自己生成的）
-        let groupID = formula.objectID
+        let groupID = formula.localObjectID
         
         // 查找是否存在 group
         var group = groupWithGroupID(groupID: groupID, inRealm: realm)
@@ -57,10 +57,10 @@ extension CommentViewController {
         if let group = group {
             
             // 去查找本地 Realm 中的 RFormula
-            if let rformula = formulaWithFormulaID(formulaID: groupID, inRealm: realm) {
-                rformula.group = group
-                group.withFormula = rformula
-            }
+//            if let formula = formulaWith(objectID: groupID, inRealm: realm) {
+//                formula.group = group
+//                group.withFormula = formula
+//            }
         }
         
         return formluaConversation

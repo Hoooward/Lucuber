@@ -146,6 +146,169 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     
 }
 
+func syncFormulaWith(uploadMode: UploadFormulaMode, categoty: Category, completion: (([DiscoverFormula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+    
+    switch uploadMode {
+        
+    case .my:
+        
+        let query = AVQuery.getFormula(mode: uploadMode)
+        
+        printLog( "开始从LeanCloud中获取我的公式")
+        
+        query.findObjectsInBackground {
+            newFormulas, error in
+            
+            if error != nil {
+                
+                failureHandler?(error)
+                
+            }
+            
+            if let newFormulas = newFormulas as? [DiscoverFormula] {
+                
+                guard let realm = try? Realm() else {
+                    return
+                }
+                
+                
+                realm.beginWrite()
+                if !newFormulas.isEmpty {
+                    printLog("共下载到\(newFormulas.count)个公式 " )
+                    printLog("开始将 DiscoverFormula 转换成 Formula 并存入本地 Realm")
+                }
+                
+                newFormulas.forEach {
+                    
+                    convertDiscoverFormulaToFormula(discoverFormula: $0, realm: realm, completion: { formulas in
+                        printLog(formulas.contentss)
+                        
+                    })
+                }
+                
+                if !newFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
+                
+                try? realm.commitWrite()
+                
+                completion?(newFormulas)
+                
+            }
+            
+        }
+        
+    case .library:
+        
+        break
+        
+    }
+}
+
+func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, realm: Realm, completion: ((Formula) -> Void)?) {
+    
+    if let lcObjectID = discoverFormula.objectId {
+        
+        // 尝试从数据库中查找是否已经有存在的 Formula
+        var formula = formulaWith(objectID: lcObjectID, inRealm: realm)
+        
+        let deleted = discoverFormula.deletedByCreator
+        
+        if deleted {
+            if
+                let discoverFormulaCreatorID = discoverFormula.creator?.objectId,
+                let myID = AVUser.current()?.objectId {
+                
+                if discoverFormulaCreatorID == myID {
+                    
+                    if let formula = formula {
+                        realm.delete(formula)
+                    }
+                }
+            }
+        }
+        
+        if formula == nil {
+            
+            let newFormula = Formula()
+            newFormula.lcObjectID = discoverFormula.objectId!
+            newFormula.localObjectID = discoverFormula.localObjectID
+            
+            newFormula.name = discoverFormula.name
+            
+            newFormula.categoryString = discoverFormula.category
+            newFormula.typeString = discoverFormula.type
+            
+            newFormula.imageName = discoverFormula.imageName
+            
+            newFormula.updateUnixTime = discoverFormula.updatedAt!.timeIntervalSince1970
+            
+            // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
+            if discoverFormula.imageURL != "" {
+                
+                newFormula.imageURL = discoverFormula.imageURL
+            }
+            
+            // content 还并未进行本地处理
+            newFormula.contentsString = discoverFormula.contents
+            
+            newFormula.contentsString.forEach {
+                
+                let stringArray = $0.components(separatedBy: "--")
+                
+                if stringArray.count == 2 {
+                    let content = Content()
+                    let rotation = stringArray[0]
+                    let text = stringArray[1]
+                    
+                    content.atFormula = newFormula
+                    content.rotation = rotation
+                    content.text = text
+                    
+                    realm.add(content)
+                }
+                
+            }
+            
+            realm.add(newFormula)
+            formula = newFormula
+            
+        }
+        
+        if let formula = formula {
+            
+            if let creatorID = discoverFormula.creator?.objectId {
+                
+                var creator = userWithUserID(userID: creatorID, inRealm: realm)
+                
+                if creator == nil {
+                    
+                    let newUser = discoverFormula.creator?.converRUserModel()
+                    
+                    
+                    realm.add(newUser!)
+                    
+                    creator = newUser
+                    
+                }
+                
+                if let creator = creator {
+                    
+                    formula.creator = creator
+                    
+                }
+            }
+            
+            completion?(formula)
+        }
+        
+        
+        
+        
+        
+    }
+    
+    
+}
+
 func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, realm: Realm, completion: ((_ newSectionMessageIDs: [String]) -> Void)?) {
     
    
@@ -229,7 +392,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                     message.recipientType = discoverMessage.recipientType
                     // 判断 message 来自 group 还是 user
                     var senderFromGroup: Group? = nil
-                    
                     
                     if discoverMessage.recipientType == "group" {
                         

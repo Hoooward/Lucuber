@@ -133,8 +133,8 @@ class CommentHeaderView: UIView {
         imageView.image = UIImage(named: formula.imageName)
         nameLabel.text = formula.name
         categoryIndicatorView.configureWithCategory(category: formula.category.rawValue)
-        creatTimeLabel.text = "更新时间: \(formula.updatedAt)"
-        creatUserLabel.text = "创建者: \(formula.creatUser.getUserNickName())"
+        creatTimeLabel.text = "更新时间: \(formula.updateUnixTime)"
+        creatUserLabel.text = "创建者: \(formula.creator?.nickName)"
     }
     
     

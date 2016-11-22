@@ -135,6 +135,15 @@
 		E49FBCE61DE1955F00BA9B49 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */; };
 		E49FBCE71DE1955F00BA9B49 /* AlbumListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */; };
 		E49FBCEB1DE2E28B00BA9B49 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */; };
+		E49FBD121DE3222400BA9B49 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBD111DE3222400BA9B49 /* JSONData.swift */; };
+		E49FBD141DE3231500BA9B49 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E49FBD131DE3231500BA9B49 /* FormulasData.json */; };
+		E49FBD161DE3236A00BA9B49 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBD151DE3236A00BA9B49 /* PrepareData.swift */; };
+		E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */; };
+		E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA591DE3F874009C0E78 /* ViewController.swift */; };
+		E4A3BA5D1DE3F874009C0E78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5B1DE3F874009C0E78 /* Main.storyboard */; };
+		E4A3BA5F1DE3F874009C0E78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5E1DE3F874009C0E78 /* Assets.xcassets */; };
+		E4A3BA621DE3F874009C0E78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */; };
+		E4A3BA6D1DE3F874009C0E78 /* LucuberKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA6C1DE3F874009C0E78 /* LucuberKitTests.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -183,6 +192,16 @@
 		E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */; };
 		E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA961D8D29DE0039BA8A /* Main.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E4A3BA691DE3F874009C0E78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4FFAA741D8D29A30039BA8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4A3BA541DE3F874009C0E78;
+			remoteInfo = LucuberKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +335,19 @@
 		E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
 		E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumListCell.xib; sourceTree = "<group>"; };
 		E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaView.swift; sourceTree = "<group>"; };
+		E49FBD111DE3222400BA9B49 /* JSONData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONData.swift; sourceTree = "<group>"; };
+		E49FBD131DE3231500BA9B49 /* FormulasData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FormulasData.json; sourceTree = "<group>"; };
+		E49FBD151DE3236A00BA9B49 /* PrepareData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareData.swift; sourceTree = "<group>"; };
+		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E4A3BA591DE3F874009C0E78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E4A3BA5C1DE3F874009C0E78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E4A3BA5E1DE3F874009C0E78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E4A3BA611DE3F874009C0E78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E4A3BA631DE3F874009C0E78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4A3BA681DE3F874009C0E78 /* LucuberKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucuberKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4A3BA6C1DE3F874009C0E78 /* LucuberKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucuberKitTests.swift; sourceTree = "<group>"; };
+		E4A3BA6E1DE3F874009C0E78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -368,6 +400,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E4A3BA521DE3F874009C0E78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4A3BA651DE3F874009C0E78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4FFAA791D8D29A30039BA8A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -963,6 +1009,38 @@
 			path = FormulaView;
 			sourceTree = "<group>";
 		};
+		E49FBD101DE3213200BA9B49 /* PerpareData */ = {
+			isa = PBXGroup;
+			children = (
+				E49FBD131DE3231500BA9B49 /* FormulasData.json */,
+				E49FBD111DE3222400BA9B49 /* JSONData.swift */,
+				E49FBD151DE3236A00BA9B49 /* PrepareData.swift */,
+			);
+			path = PerpareData;
+			sourceTree = "<group>";
+		};
+		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
+			isa = PBXGroup;
+			children = (
+				E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */,
+				E4A3BA591DE3F874009C0E78 /* ViewController.swift */,
+				E4A3BA5B1DE3F874009C0E78 /* Main.storyboard */,
+				E4A3BA5E1DE3F874009C0E78 /* Assets.xcassets */,
+				E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */,
+				E4A3BA631DE3F874009C0E78 /* Info.plist */,
+			);
+			path = LucuberKit;
+			sourceTree = "<group>";
+		};
+		E4A3BA6B1DE3F874009C0E78 /* LucuberKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E4A3BA6C1DE3F874009C0E78 /* LucuberKitTests.swift */,
+				E4A3BA6E1DE3F874009C0E78 /* Info.plist */,
+			);
+			path = LucuberKitTests;
+			sourceTree = "<group>";
+		};
 		E4AF556C1D97BD320053B9CE /* NewFormulaButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -982,6 +1060,7 @@
 		E4B09B9D1D8E38C30090671F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E49FBD101DE3213200BA9B49 /* PerpareData */,
 				E4B09B9E1D8E38D10090671F /* Formula.swift */,
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
@@ -1245,6 +1324,8 @@
 			isa = PBXGroup;
 			children = (
 				E4FFAA911D8D29DE0039BA8A /* Lucuber */,
+				E4A3BA561DE3F874009C0E78 /* LucuberKit */,
+				E4A3BA6B1DE3F874009C0E78 /* LucuberKitTests */,
 				E4FFAA7D1D8D29A30039BA8A /* Products */,
 				3F921722F0F6519457AE2EF2 /* Pods */,
 				B26AE18ECEF437035ED9FD18 /* Frameworks */,
@@ -1255,6 +1336,8 @@
 			isa = PBXGroup;
 			children = (
 				E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */,
+				E4A3BA551DE3F874009C0E78 /* LucuberKit.app */,
+				E4A3BA681DE3F874009C0E78 /* LucuberKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1281,6 +1364,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E4A3BA541DE3F874009C0E78 /* LucuberKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4A3BA731DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKit" */;
+			buildPhases = (
+				E4A3BA511DE3F874009C0E78 /* Sources */,
+				E4A3BA521DE3F874009C0E78 /* Frameworks */,
+				E4A3BA531DE3F874009C0E78 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LucuberKit;
+			productName = LucuberKit;
+			productReference = E4A3BA551DE3F874009C0E78 /* LucuberKit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E4A3BA671DE3F874009C0E78 /* LucuberKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4A3BA741DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKitTests" */;
+			buildPhases = (
+				E4A3BA641DE3F874009C0E78 /* Sources */,
+				E4A3BA651DE3F874009C0E78 /* Frameworks */,
+				E4A3BA661DE3F874009C0E78 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4A3BA6A1DE3F874009C0E78 /* PBXTargetDependency */,
+			);
+			name = LucuberKitTests;
+			productName = LucuberKitTests;
+			productReference = E4A3BA681DE3F874009C0E78 /* LucuberKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E4FFAA7B1D8D29A30039BA8A /* Lucuber */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4FFAA8E1D8D29A30039BA8A /* Build configuration list for PBXNativeTarget "Lucuber" */;
@@ -1307,10 +1425,21 @@
 		E4FFAA741D8D29A30039BA8A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Tychooo;
 				TargetAttributes = {
+					E4A3BA541DE3F874009C0E78 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = M8E7Y88Q7R;
+						ProvisioningStyle = Automatic;
+					};
+					E4A3BA671DE3F874009C0E78 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = M8E7Y88Q7R;
+						ProvisioningStyle = Automatic;
+						TestTargetID = E4A3BA541DE3F874009C0E78;
+					};
 					E4FFAA7B1D8D29A30039BA8A = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = M8E7Y88Q7R;
@@ -1332,11 +1461,30 @@
 			projectRoot = "";
 			targets = (
 				E4FFAA7B1D8D29A30039BA8A /* Lucuber */,
+				E4A3BA541DE3F874009C0E78 /* LucuberKit */,
+				E4A3BA671DE3F874009C0E78 /* LucuberKitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E4A3BA531DE3F874009C0E78 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4A3BA621DE3F874009C0E78 /* LaunchScreen.storyboard in Resources */,
+				E4A3BA5F1DE3F874009C0E78 /* Assets.xcassets in Resources */,
+				E4A3BA5D1DE3F874009C0E78 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4A3BA661DE3F874009C0E78 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4FFAA7A1D8D29A30039BA8A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1351,6 +1499,7 @@
 				E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */,
 				E479265A1D96DC5F004D58BF /* TypeSelectedCell.xib in Resources */,
 				E435C0421D9F4A370026FA08 /* DetailCollectionViewCell.xib in Resources */,
+				E49FBD141DE3231500BA9B49 /* FormulasData.json in Resources */,
 				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */,
@@ -1437,6 +1586,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E4A3BA511DE3F874009C0E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */,
+				E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4A3BA641DE3F874009C0E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4A3BA6D1DE3F874009C0E78 /* LucuberKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4FFAA781D8D29A30039BA8A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1558,6 +1724,7 @@
 				E45DA05A1DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift in Sources */,
 				E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
+				E49FBD121DE3222400BA9B49 /* JSONData.swift in Sources */,
 				E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
@@ -1569,6 +1736,7 @@
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
 				E41ECF3D1DB5D3F7005BEFE4 /* FeedBiggerImageCell.swift in Sources */,
 				E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */,
+				E49FBD161DE3236A00BA9B49 /* PrepareData.swift in Sources */,
 				E4B09BA61D8E65510090671F /* TopControl.swift in Sources */,
 				E41ECF331DB5D1BC005BEFE4 /* FeedTextView.swift in Sources */,
 				E47926211D96820B004D58BF /* RotationButton.swift in Sources */,
@@ -1578,7 +1746,31 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E4A3BA6A1DE3F874009C0E78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4A3BA541DE3F874009C0E78 /* LucuberKit */;
+			targetProxy = E4A3BA691DE3F874009C0E78 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		E4A3BA5B1DE3F874009C0E78 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4A3BA5C1DE3F874009C0E78 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4A3BA611DE3F874009C0E78 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		E4DF65E41D8D92D6005CE518 /* Formula.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1641,6 +1833,68 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E4A3BA6F1DE3F874009C0E78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				INFOPLIST_FILE = LucuberKit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		E4A3BA701DE3F874009C0E78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				INFOPLIST_FILE = LucuberKit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		E4A3BA711DE3F874009C0E78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				INFOPLIST_FILE = LucuberKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LucuberKit.app/LucuberKit";
+			};
+			name = Debug;
+		};
+		E4A3BA721DE3F874009C0E78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				INFOPLIST_FILE = LucuberKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LucuberKit.app/LucuberKit";
+			};
+			name = Release;
+		};
 		E4FFAA8C1D8D29A30039BA8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1774,6 +2028,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E4A3BA731DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4A3BA6F1DE3F874009C0E78 /* Debug */,
+				E4A3BA701DE3F874009C0E78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E4A3BA741DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4A3BA711DE3F874009C0E78 /* Debug */,
+				E4A3BA721DE3F874009C0E78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		E4FFAA771D8D29A30039BA8A /* Build configuration list for PBXProject "Lucuber" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

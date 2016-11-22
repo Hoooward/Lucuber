@@ -56,7 +56,7 @@ class CardFormulaCell: UICollectionViewCell {
             let currentUser = AVUser.current(),
             let list = currentUser.getMasterFormulasIDList() {
             
-                nameLabel.textColor = list.contains(formula.objectID) ? UIColor.masterLabelText() : UIColor.black
+                nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
             
         }
         
@@ -67,7 +67,7 @@ class CardFormulaCell: UICollectionViewCell {
         indicaterLabel.text = formula.category.rawValue
         
         if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList() {
-            masterImageView.isHidden = !list.contains(formula.objectID)
+            masterImageView.isHidden = !list.contains(formula.localObjectID)
             
         }
         

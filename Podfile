@@ -3,6 +3,7 @@
 
 target 'Lucuber' do
 
+pod 'SwiftyJSON'
 pod 'AVOSCloud'
 #pod 'AVOSCloudIM'
 #pod 'RealmSwift' => '1.1.0'

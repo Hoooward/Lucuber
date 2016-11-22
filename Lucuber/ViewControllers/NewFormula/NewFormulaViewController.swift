@@ -301,7 +301,7 @@ class NewFormulaViewController: UIViewController {
                 
             }
             
-            saveNewFormulaToRealmAndPushToLeanCloud(newFormula: self.formula, completion: completion, failureHandler: failureHandler)
+//            saveNewFormulaToRealmAndPushToLeanCloud(newFormula: self.formula, completion: completion, failureHandler: failureHandler)
             
             
         } else {

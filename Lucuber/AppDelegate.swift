@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         
-        Formula.registerSubclass()
+        DiscoverFormula.registerSubclass()
         DiscoverMessage.registerSubclass()
         Feed.registerSubclass()
 //        FormulaComment.registerSubclass()
@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //       logout()
         
+        pushFormulaDataToLeanCloud()
         
         
         return true
@@ -141,6 +142,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
          updateCurrentUserInfo()
     }
+    
+    // MARK: - Test Data
+    
+    
 }
 
 

@@ -12,9 +12,9 @@ import AVOSCloud
 
 // MARK: - Formula
 
-func formulaWithFormulaID(formulaID: String , inRealm realm: Realm) -> RFormula? {
+func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
     
-    let predicate = NSPredicate(format: "objectID = %@", formulaID)
+    let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     
     #if DEBUG
 //        let feeds = realm.objects(Feed).filter(predicate)
@@ -23,7 +23,7 @@ func formulaWithFormulaID(formulaID: String , inRealm realm: Realm) -> RFormula?
 //        }
     #endif
     
-    return realm.objects(RFormula.self).filter(predicate).first
+    return realm.objects(Formula.self).filter(predicate).first
     
 }
 
@@ -76,13 +76,13 @@ public func deleteLibraryFormalsRContentAtRealm() {
     
     try! realm.write {
         
-        let predicate = NSPredicate(format: "isLibraryFormulas == %@", true as Bool as CVarArg)
-        let formulas = realm.objects(RFormula.self).filter(predicate)
+        let predicate = NSPredicate(format: "isLibrary == %@", true as Bool as CVarArg)
+        let formulas = realm.objects(Formula.self).filter(predicate)
         
         formulas.forEach {
             
-            $0.contentsString.forEach {
-                realm.delete($0)
+            $0.contentsString.forEach {_ in 
+//                realm.delete($0)
                 
             }
         }
@@ -98,13 +98,13 @@ public func deleteMyFormulasRContentAtRealm() {
     
     try? realm.write {
         
-        let predicate = NSPredicate(format: "isLibraryFormulas == %@", false as Bool as CVarArg)
-        let formulas = realm.objects(RFormula.self).filter(predicate)
+        let predicate = NSPredicate(format: "isLibrary == %@", false as Bool as CVarArg)
+        let formulas = realm.objects(Formula.self).filter(predicate)
         
         formulas.forEach {
             
-            $0.contentsString.forEach {
-                realm.delete($0)
+            $0.contentsString.forEach {_ in 
+//                realm.delete($0)
             }
         }
     }
@@ -205,26 +205,26 @@ public func getCategoryMenusAtRealm(mode: UploadFormulaMode) -> [Category] {
  - parameter isCreatNewFormula: its user creat new formula at local or note
  */
 
-public func saveUploadFormulasAtRealm(formulas: [Formula], mode: UploadFormulaMode?, isCreatNewFormula: Bool = false) {
-    
-    let realm = try! Realm()
-    
-    try! realm.write {
-        
-        realm.add(formulas.map { $0.convertRFormulaModel()}, update: true)
-    }
-    
-    /// get new category menu list
-    var categorys = Set<Category>()
-    
-    formulas.forEach {
-        if !categorys.contains($0.category) {
-            categorys.insert($0.category)
-        }
-    }
-    
-    saveCategoryMenusAtRealm(categorys: Array(categorys), mode: mode, isNewFromula: isCreatNewFormula)
-}
+//public func saveUploadFormulasAtRealm(formulas: [Formula], mode: UploadFormulaMode?, isCreatNewFormula: Bool = false) {
+//    
+//    let realm = try! Realm()
+//    
+//    try! realm.write {
+//        
+//        realm.add(formulas.map { $0.convertRFormulaModel()}, update: true)
+//    }
+//    
+//    /// get new category menu list
+//    var categorys = Set<Category>()
+//    
+//    formulas.forEach {
+//        if !categorys.contains($0.category) {
+//            categorys.insert($0.category)
+//        }
+//    }
+//    
+//    saveCategoryMenusAtRealm(categorys: Array(categorys), mode: mode, isNewFromula: isCreatNewFormula)
+//}
 
 /**
  get formuls from Realm.
@@ -235,7 +235,7 @@ public func saveUploadFormulasAtRealm(formulas: [Formula], mode: UploadFormulaMo
  - returns: Change the RFormula to Formula's Objects
  */
 
-public func getFormulsFormRealmWithMode(mode: UploadFormulaMode, category: Category) -> [Formula] {
+ func getFormulsFormRealmWithMode(mode: UploadFormulaMode, category: Category) -> Results<Formula> {
     
     let realm = try! Realm()
     
@@ -243,22 +243,19 @@ public func getFormulsFormRealmWithMode(mode: UploadFormulaMode, category: Categ
         
     case .my:
         
-        if let currentUser = AVUser.current() {
-            
-            let id = currentUser.objectId!
-            let predicate = NSPredicate(format: "creatUserID = %@", id)
-            let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-            let result =  realm.objects(RFormula.self).filter(predicate).filter(predicate2)
-            return result.map{ $0.convertToFromula() }
-        }
         
-        return [Formula]()
+        let id = AVUser.current()!.objectId!
+        let predicate = NSPredicate(format: "creatUserID = %@", id)
+        let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
+        let result =  realm.objects(Formula.self).filter(predicate).filter(predicate2)
+        return result
+        
         
     case .library:
         
         let predicate = NSPredicate(format: "isLibraryFormulas == true")
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        return realm.objects(RFormula.self).filter(predicate).filter(predicate2).map { $0.convertToFromula() }
+        return realm.objects(Formula.self).filter(predicate).filter(predicate2)
     }
 }
 
@@ -400,73 +397,73 @@ class RUser: Object {
 }
 
 
-extension Formula {
-    
-    func convertRFormulaModel() -> RFormula {
-        
-        let formula = RFormula()
-        formula.objectID = objectID
-        formula.name = name
-        
-        formula.imageName = imageName
-        formula.favorate = favorate
-        formula.creatUserID = creatUser.objectId!
-        formula.categoryString = categoryString
-        formula.typeString = typeString
-        formula.rating = rating
-        
-        contents.map { $0.convertRContent() }.forEach {
-            formula.contentsString.append($0)
-        }
-        
-        formula.isLibraryFormulas = isLibraryFormula
-        return formula
-        
-    }
-}
-
-class RFormula: Object {
-    
-    override static func primaryKey() -> String? {
-        return "objectID"
-    }
-    
-    dynamic var objectID = ""
-    dynamic var name = ""
-    dynamic var imageName = ""
-    dynamic var favorate: Bool = false
-    dynamic var creatUserID: String = ""
-    dynamic var categoryString = ""
-    dynamic var typeString  = ""
-    dynamic var rating = 0
-    dynamic var isLibraryFormulas = false
-    
-    
-    dynamic var group: Group?
-    
-    
-    var contentsString = List<RContent>()
-    
-    func convertToFromula() -> Formula {
-        
-        let formula = Formula()
-        
-        formula.objectID = objectID
-        formula.name = name
-        formula.imageName = imageName
-        formula.favorate = favorate
-        formula.categoryString = categoryString
-        formula.typeString = typeString
-        formula.rating = rating
-        formula.contents = contentsString.map { $0.convertToFormulaContent()}
-        formula.creatUserID = creatUserID
-        
-        
-        
-        return formula
-    }
-    
-}
+//extension Formula {
+//    
+//    func convertRFormulaModel() -> RFormula {
+//        
+//        let formula = RFormula()
+//        formula.objectID = localObjectID
+//        formula.name = name
+//        
+//        formula.imageName = imageName
+//        formula.favorate = favorate
+//        formula.creatUserID = creatUser.objectId!
+//        formula.categoryString = categoryString
+//        formula.typeString = typeString
+//        formula.rating = rating
+//        
+//        contents.map { $0.convertRContent() }.forEach {
+//            formula.contentsString.append($0)
+//        }
+//        
+//        formula.isLibraryFormulas = isLibraryFormula
+//        return formula
+//        
+//    }
+//}
+//
+//class RFormula: Object {
+//    
+//    override static func primaryKey() -> String? {
+//        return "objectID"
+//    }
+//    
+//    dynamic var objectID = ""
+//    dynamic var name = ""
+//    dynamic var imageName = ""
+//    dynamic var favorate: Bool = false
+//    dynamic var creatUserID: String = ""
+//    dynamic var categoryString = ""
+//    dynamic var typeString  = ""
+//    dynamic var rating = 0
+//    dynamic var isLibraryFormulas = false
+//    
+//    
+//    dynamic var group: Group?
+//    
+//    
+//    var contentsString = List<RContent>()
+//    
+//    func convertToFromula() -> Formula {
+//        
+//        let formula = Formula()
+//        
+//        formula.objectID = objectID
+//        formula.name = name
+//        formula.imageName = imageName
+//        formula.favorate = favorate
+//        formula.categoryString = categoryString
+//        formula.typeString = typeString
+//        formula.rating = rating
+//        formula.contents = contentsString.map { $0.convertToFormulaContent()}
+//        formula.creatUserID = creatUserID
+//        
+//        
+//        
+//        return formula
+//    }
+//    
+//}
 
 
 

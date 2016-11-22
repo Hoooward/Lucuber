@@ -90,7 +90,7 @@ class LibraryFormulaViewController: BaseCollectionViewController {
             } else {
                 self.searchBar.isHidden = false
                 self.indicatorView.removeFromSuperview()
-                self.formulasData = self.parseFormulasData(with: result)
+//                self.formulasData = self.parseFormulasData(with: result)
             }
             
             finish?()
@@ -122,7 +122,7 @@ class LibraryFormulaViewController: BaseCollectionViewController {
                 
                 self.searchBar.isHidden = false
                 self.indicatorView.removeFromSuperview()
-                self.formulasData = self.parseFormulasData(with: result)
+//                self.formulasData = self.parseFormulasData(with: result)
             }
             
             finish?()

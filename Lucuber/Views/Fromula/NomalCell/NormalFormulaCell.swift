@@ -42,7 +42,7 @@ class NormalFormulaCell: UICollectionViewCell {
             let currentUser = AVUser.current(),
             let list = currentUser.getMasterFormulasIDList() {
             
-            nameLabel.textColor = list.contains(formula.objectID) ? UIColor.masterLabelText() : UIColor.black
+            nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
             
         }
         
@@ -54,7 +54,7 @@ class NormalFormulaCell: UICollectionViewCell {
         
         
         if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList() {
-            masterImageView.isHidden = !list.contains(formula.objectID)
+            masterImageView.isHidden = !list.contains(formula.localObjectID)
             
         }
         

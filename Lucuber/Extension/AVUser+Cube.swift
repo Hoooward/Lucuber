@@ -47,11 +47,11 @@ extension AVUser {
         if let oldList = getMasterFormulasIDList() {
             
             newList = oldList
-            newList.append(formula.objectID)
+            newList.append(formula.localObjectID)
         
         } else {
             
-            newList.append(formula.objectID)
+            newList.append(formula.localObjectID)
         }
         
         setMasterFormulasIDList(list: newList)
@@ -66,7 +66,7 @@ extension AVUser {
         var newList = [String]()
         newList = oldList
         
-        if let index = newList.index(of: formula.objectID) {
+        if let index = newList.index(of: formula.localObjectID) {
             
             newList.remove(at: index)
         }

@@ -54,7 +54,7 @@ class DetailMasterCell: UITableViewCell {
                 let currentUset = AVUser.current(),
                 let list = currentUset.getMasterFormulasIDList() {
                 
-                master = list.contains(formula.objectID) ? .yes : .no
+                master = list.contains(formula.localObjectID) ? .yes : .no
             }
         }
     }

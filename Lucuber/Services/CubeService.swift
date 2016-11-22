@@ -33,7 +33,7 @@ extension AVQuery {
             
         case .my:
             
-            let query = AVQuery(className: Formula.parseClassName())
+            let query = AVQuery(className: DiscoverFormula.parseClassName())
             query.addAscendingOrder("name")
 //            printLog(AVUser.current())
             query.whereKey("creatUser", equalTo: AVUser.current()!)
@@ -44,8 +44,8 @@ extension AVQuery {
             
         case .library:
             
-            let query = AVQuery(className: Formula.parseClassName())
-            query.whereKey("isLibraryFormula", equalTo: NSNumber(booleanLiteral: true))
+            let query = AVQuery(className: DiscoverFormula.parseClassName())
+            query.whereKey("isLibrary", equalTo: NSNumber(booleanLiteral: true))
             query.addAscendingOrder("serialNumber")
             query.limit = 1000
             return query
@@ -57,7 +57,7 @@ extension AVQuery {
     
 }
 
-public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
+func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                                  category: Category,
                                  completion: (([Formula]) -> Void)?,
                                  failureHandler: ((NSError?) -> Void)?) {
@@ -75,7 +75,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                 
                 failureHandler?(error as? NSError)
                 let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
-                completion?(result)
+//                completion?(result)
                 printLog("更新我的公式失败， 使用 Realm 中的我的公式")
  
             }
@@ -89,7 +89,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
                 deleteMyFormulasRContentAtRealm()
                 
                 /// 更新数据库中的 Formula
-                saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
+//                saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
                 
                 printLog("-> 成功更新我的公式")
                 
@@ -109,7 +109,7 @@ public func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
             
         } else {
             
-            completion?(result)
+//            completion?(result)
         }
         
     }
@@ -147,7 +147,7 @@ public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Vo
             
             deleteLibraryFormalsRContentAtRealm()
             
-            saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
+//            saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
             
             completion?()
             
@@ -157,44 +157,44 @@ public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Vo
 }
 
 
-internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
-                                                      completion: (() -> Void)?,
-                                                      failureHandler: ((NSError) -> Void)? ) {
-    
-    if let user = AVUser.current() {
-        
-        newFormula.creatUser = user
-        newFormula.creatUserID = user.objectId!
-        
-        let acl = AVACL()
-        acl.setPublicReadAccess(true)
-        acl.setWriteAccess(true, for: AVUser.current()!)
-        newFormula.acl = acl
-        
-        
-        newFormula.saveEventually({ (success, error) in
-            if error  == nil {
-                printLog("新公式保存到 LeanCloud 成功")
-            } else {
-                printLog("新公式保存到 LeanCloud 失败")
-            }
-        })
-        
-        saveUploadFormulasAtRealm(formulas: [newFormula], mode: nil, isCreatNewFormula: true)
-        
-        
-        completion?()
-        
-        
-    } else {
-        
-        let error = NSError(domain: "没有登录用户", code: 0, userInfo: nil)
-        failureHandler?(error)
-    }
-    
-    
-    
-}
+//internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
+//                                                      completion: (() -> Void)?,
+//                                                      failureHandler: ((NSError) -> Void)? ) {
+//    
+//    if let user = AVUser.current() {
+//        
+//        newFormula.creatUser = user
+//        newFormula.creatUserID = user.objectId!
+//        
+//        let acl = AVACL()
+//        acl.setPublicReadAccess(true)
+//        acl.setWriteAccess(true, for: AVUser.current()!)
+//        newFormula.acl = acl
+//        
+//        
+//        newFormula.saveEventually({ (success, error) in
+//            if error  == nil {
+//                printLog("新公式保存到 LeanCloud 成功")
+//            } else {
+//                printLog("新公式保存到 LeanCloud 失败")
+//            }
+//        })
+//        
+//        saveUploadFormulasAtRealm(formulas: [newFormula], mode: nil, isCreatNewFormula: true)
+//        
+//        
+//        completion?()
+//        
+//        
+//    } else {
+//        
+//        let error = NSError(domain: "没有登录用户", code: 0, userInfo: nil)
+//        failureHandler?(error)
+//    }
+//    
+//    
+//    
+//}
 
 // MARK: - Login
 
