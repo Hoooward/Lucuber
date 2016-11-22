@@ -44,21 +44,12 @@ class FormulaContentCell: UITableViewCell {
         didSet {
             if let formula = formula {
                 
-                let rotationsTitle = formula.contents.map { $0.rotation }.map { rotation -> String in
-                    
-                    switch rotation {
-                    case .FR(_, _):
-                        return "FR"
-                    case .FL(_, _):
-                        return "FL"
-                    case .BL(_, _):
-                        return "BL"
-                    case .BR(_, _):
-                        return "BR"
-                    }
-                    
+                var rotaionTitles = [String]()
+                
+                formula.contentss.map { $0.rotation }.forEach {
+                    rotaionTitles.append($0)
                 }
-                segmentedControl.setSegmentItems(rotationsTitle)
+                segmentedControl.setSegmentItems(rotaionTitles)
             }
             didSelect(0)
         }
@@ -140,21 +131,21 @@ extension FormulaContentCell: UIScrollViewDelegate, TwicketSegmentedControlDeleg
             return
         }
         
-        let content = formula.contents[segmentIndex]
-        
-        contentLabel.attributedText = content.text?.setAttributesFitDetailLayout(style: .center)
-        
-        
-        switch content.rotation {
-        case .FR(_, let text):
-            indicatorLabel.text = text
-        case .FL(_, let text):
-            indicatorLabel.text = text
-        case .BL(_, let text):
-            indicatorLabel.text = text
-        case .BR(_, let text):
-            indicatorLabel.text = text
-        }
+        let content = formula.contentss[segmentIndex]
+//        
+//        contentLabel.attributedText = content.text?.setAttributesFitDetailLayout(style: .center)
+//        
+//        
+//        switch content.rotation {
+//        case .FR(_, let text):
+//            indicatorLabel.text = text
+//        case .FL(_, let text):
+//            indicatorLabel.text = text
+//        case .BL(_, let text):
+//            indicatorLabel.text = text
+//        case .BR(_, let text):
+//            indicatorLabel.text = text
+//        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

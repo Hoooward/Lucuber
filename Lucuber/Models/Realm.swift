@@ -16,18 +16,34 @@ func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
     
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     
-    #if DEBUG
-//        let feeds = realm.objects(Feed).filter(predicate)
-//        if feeds.count > 1 {
-//            println("Warning: same feedID: \(feeds.count), \(feedID)")
-//        }
-    #endif
-    
     return realm.objects(Formula.self).filter(predicate).first
     
 }
 
-// MEssage
+func getFormulas(with uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Results<Formula> {
+    
+    switch uploadMode {
+        
+    case .my:
+        
+        guard
+            let userID = AVUser.current()?.objectId,
+            let currentUser = userWithUserID(userID: userID, inRealm: realm) else { fatalError() }
+        let predicate = NSPredicate(format: "creator = %@", currentUser)
+        let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
+        let result =  realm.objects(Formula.self).filter(predicate).filter(predicate2)
+        return result
+            
+    case .library:
+        
+        let predicate = NSPredicate(format: "isLibrary == true")
+        let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
+        return realm.objects(Formula.self).filter(predicate).filter(predicate2)
+    }
+    
+}
+
+// Message
 
 func userWithUserID(userID: String, inRealm realm: Realm) -> RUser? {
     
@@ -79,13 +95,13 @@ public func deleteLibraryFormalsRContentAtRealm() {
         let predicate = NSPredicate(format: "isLibrary == %@", true as Bool as CVarArg)
         let formulas = realm.objects(Formula.self).filter(predicate)
         
-        formulas.forEach {
-            
-            $0.contentsString.forEach {_ in 
+//        formulas.forEach {
+        
+           // $0.contentsString.forEach {_ in
 //                realm.delete($0)
                 
-            }
-        }
+            //}
+//        }
     }
     
 }
@@ -101,12 +117,12 @@ public func deleteMyFormulasRContentAtRealm() {
         let predicate = NSPredicate(format: "isLibrary == %@", false as Bool as CVarArg)
         let formulas = realm.objects(Formula.self).filter(predicate)
         
-        formulas.forEach {
+//        formulas.forEach {
             
-            $0.contentsString.forEach {_ in 
+           // $0.contentsString.forEach {_ in
 //                realm.delete($0)
-            }
-        }
+            //}
+//        }
     }
 }
 

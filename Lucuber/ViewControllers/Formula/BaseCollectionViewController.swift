@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let CardCellIdentifier = "CardFormulaCell"
 private let NormalCellIdentifier = "NormalFormulaCell"
@@ -17,14 +18,20 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // MARK: - Properties
     
-    lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
-    
     enum SegueIdentifier: String {
         case showFormulaDetail = "ShowFormulaDetail"
     }
     
+    fileprivate var realm: Realm!
+    
+    lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
+    
     var formulasData: [[Formula]] = []
     fileprivate var searchResult: [Formula] = []
+    
+    fileprivate lazy var formulas: Results<Formula> = {
+        return getFormulas(with: self.uploadMode, category: self.seletedCategory, inRealm: self.realm)
+    }()
     
     var uploadMode: UploadFormulaMode = .my
     
@@ -268,7 +275,9 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             }
         }
        
-        fetchFormulaWithMode(uploadingFormulaMode: mode, category: category, completion: completion, failureHandler: failureHandler)
+        syncFormula(with: mode, categoty: category, completion: nil, failureHandler: nil)
+        
+        //fetchFormulaWithMode(uploadingFormulaMode: mode, category: category, completion: completion, failureHandler: failureHandler)
         
      }
     

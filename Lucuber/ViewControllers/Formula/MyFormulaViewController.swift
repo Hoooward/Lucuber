@@ -62,6 +62,7 @@ class MyFormulaViewController: BaseCollectionViewController {
     }
     
 
+    /*
     override func uploadingFormulas(with mode: UploadFormulaMode, category: Category, finish: (() -> Void)?) {
         
         if isUploadingFormula {
@@ -116,5 +117,6 @@ class MyFormulaViewController: BaseCollectionViewController {
         fetchFormulaWithMode(uploadingFormulaMode: uploadMode, category: category, completion: completion, failureHandler: failureHandler)
         
     }
+ */
 }
 

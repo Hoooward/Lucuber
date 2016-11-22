@@ -9,10 +9,8 @@ import AVOSCloud
 import RealmSwift
 
 public enum UploadFormulaMode: String {
-    
     case my = "My"
     case library = "Library"
-    
 }
 
 public enum UploadFeedMode {
@@ -35,9 +33,7 @@ extension AVQuery {
             
             let query = AVQuery(className: DiscoverFormula.parseClassName())
             query.addAscendingOrder("name")
-//            printLog(AVUser.current())
-            query.whereKey("creatUser", equalTo: AVUser.current()!)
-//            query.whereKey("creatUser", equalTo: AVObject(className: "_User", objectId: AVUser.current()!.objectId!))
+            query.whereKey("creator", equalTo: AVUser.current()!)
             
             query.limit = 1000
             return query

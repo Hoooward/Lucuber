@@ -19,8 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AVOSCloud.setAllLogsEnabled(false)
         DiscoverFormula.registerSubclass()
+        DiscoverContent.registerSubclass()
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
-        //pushFormulaDataToLeanCloud()
+        // 注意会重复添加数据
+//        pushFormulaDataToLeanCloud()
+        
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+        printLog(path)
         return true
         
     }

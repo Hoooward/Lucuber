@@ -14,6 +14,8 @@
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
 		E40EAEB91DA9F1BB0068404B /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */; };
 		E40EAEBB1DA9F1F20068404B /* CommentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */; };
+		E41713881DE41B1E0030319C /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41713831DE41B1E0030319C /* Feed.swift */; };
+		E41713891DE41B1E0030319C /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41713841DE41B1E0030319C /* Formula.swift */; };
 		E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E41ECF2E1DB5CE54005BEFE4 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */; };
 		E41ECF331DB5D1BC005BEFE4 /* FeedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF321DB5D1BC005BEFE4 /* FeedTextView.swift */; };
@@ -136,9 +138,6 @@
 		E49FBCE61DE1955F00BA9B49 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */; };
 		E49FBCE71DE1955F00BA9B49 /* AlbumListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */; };
 		E49FBCEB1DE2E28B00BA9B49 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */; };
-		E49FBD121DE3222400BA9B49 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBD111DE3222400BA9B49 /* JSONData.swift */; };
-		E49FBD141DE3231500BA9B49 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E49FBD131DE3231500BA9B49 /* FormulasData.json */; };
-		E49FBD161DE3236A00BA9B49 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBD151DE3236A00BA9B49 /* PrepareData.swift */; };
 		E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */; };
 		E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA591DE3F874009C0E78 /* ViewController.swift */; };
 		E4A3BA5D1DE3F874009C0E78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5B1DE3F874009C0E78 /* Main.storyboard */; };
@@ -147,7 +146,6 @@
 		E4A3BAA51DE3FA43009C0E78 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */; };
 		E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
 		E4A3BAA71DE3FA43009C0E78 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
-		E4A3BAAB1DE3FB38009C0E78 /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAAA1DE3FB38009C0E78 /* Formula.swift */; };
 		E4AF556E1D97BD3B0053B9CE /* NewFormulaBUtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */; };
 		E4B09B9C1D8E38A00090671F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9B1D8E38A00090671F /* CategoryButton.swift */; };
 		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
@@ -219,6 +217,8 @@
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		E40EAEB81DA9F1BB0068404B /* CommentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentHeaderView.xib; sourceTree = "<group>"; };
+		E41713831DE41B1E0030319C /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		E41713841DE41B1E0030319C /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E41ECF321DB5D1BC005BEFE4 /* FeedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTextView.swift; sourceTree = "<group>"; };
@@ -342,9 +342,6 @@
 		E49FBCE41DE1955F00BA9B49 /* AlbumListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
 		E49FBCE51DE1955F00BA9B49 /* AlbumListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumListCell.xib; sourceTree = "<group>"; };
 		E49FBCEA1DE2E28B00BA9B49 /* FeedFormulaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaView.swift; sourceTree = "<group>"; };
-		E49FBD111DE3222400BA9B49 /* JSONData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONData.swift; sourceTree = "<group>"; };
-		E49FBD131DE3231500BA9B49 /* FormulasData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FormulasData.json; sourceTree = "<group>"; };
-		E49FBD151DE3236A00BA9B49 /* PrepareData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareData.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4A3BA591DE3F874009C0E78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -356,7 +353,6 @@
 		E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FormulasData.json; sourceTree = "<group>"; };
 		E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONData.swift; sourceTree = "<group>"; };
 		E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareData.swift; sourceTree = "<group>"; };
-		E4A3BAAA1DE3FB38009C0E78 /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		E4AF556D1D97BD3B0053B9CE /* NewFormulaBUtton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaBUtton.swift; sourceTree = "<group>"; };
 		E4B09B9B1D8E38A00090671F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
@@ -462,6 +458,15 @@
 				E40EAEBA1DA9F1F20068404B /* CommentHeaderView.xib */,
 			);
 			path = CommentHeader;
+			sourceTree = "<group>";
+		};
+		E41713821DE41B1E0030319C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E41713831DE41B1E0030319C /* Feed.swift */,
+				E41713841DE41B1E0030319C /* Formula.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E41ECF2F1DB5D182005BEFE4 /* Feed */ = {
@@ -1022,16 +1027,6 @@
 			path = FormulaView;
 			sourceTree = "<group>";
 		};
-		E49FBD101DE3213200BA9B49 /* PerpareData */ = {
-			isa = PBXGroup;
-			children = (
-				E49FBD131DE3231500BA9B49 /* FormulasData.json */,
-				E49FBD111DE3222400BA9B49 /* JSONData.swift */,
-				E49FBD151DE3236A00BA9B49 /* PrepareData.swift */,
-			);
-			path = PerpareData;
-			sourceTree = "<group>";
-		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1049,7 +1044,7 @@
 		E4A3BAA11DE3FA43009C0E78 /* PerpareData */ = {
 			isa = PBXGroup;
 			children = (
-				E4A3BAAA1DE3FB38009C0E78 /* Formula.swift */,
+				E41713821DE41B1E0030319C /* Models */,
 				E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */,
 				E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */,
 				E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */,
@@ -1076,7 +1071,6 @@
 		E4B09B9D1D8E38C30090671F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E49FBD101DE3213200BA9B49 /* PerpareData */,
 				E4B09B9E1D8E38D10090671F /* Formula.swift */,
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
@@ -1518,7 +1512,6 @@
 				E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */,
 				E479265A1D96DC5F004D58BF /* TypeSelectedCell.xib in Resources */,
 				E435C0421D9F4A370026FA08 /* DetailCollectionViewCell.xib in Resources */,
-				E49FBD141DE3231500BA9B49 /* FormulasData.json in Resources */,
 				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */,
@@ -1655,9 +1648,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */,
+				E41713891DE41B1E0030319C /* Formula.swift in Sources */,
+				E41713881DE41B1E0030319C /* Feed.swift in Sources */,
 				E4A3BAA71DE3FA43009C0E78 /* PrepareData.swift in Sources */,
 				E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */,
-				E4A3BAAB1DE3FB38009C0E78 /* Formula.swift in Sources */,
 				E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1790,7 +1784,6 @@
 				E45DA05A1DA736DD0050DD4D /* LoadMoreCollectionViewCell.swift in Sources */,
 				E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
-				E49FBD121DE3222400BA9B49 /* JSONData.swift in Sources */,
 				E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
@@ -1802,7 +1795,6 @@
 				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
 				E41ECF3D1DB5D3F7005BEFE4 /* FeedBiggerImageCell.swift in Sources */,
 				E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */,
-				E49FBD161DE3236A00BA9B49 /* PrepareData.swift in Sources */,
 				E4B09BA61D8E65510090671F /* TopControl.swift in Sources */,
 				E41ECF331DB5D1BC005BEFE4 /* FeedTextView.swift in Sources */,
 				E47926211D96820B004D58BF /* RotationButton.swift in Sources */,

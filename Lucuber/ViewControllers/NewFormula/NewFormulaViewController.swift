@@ -349,9 +349,9 @@ class NewFormulaViewController: UIViewController {
     
     fileprivate func addFormulaTextCellAtLast() {
         tableView.beginUpdates()
-        let newIndex = IndexPath(row: formula.contents.count, section: Section.formulas.rawValue)
+        let newIndex = IndexPath(row: formula.contentss.count, section: Section.formulas.rawValue)
         tableView.insertRows(at: [newIndex], with: .fade)
-        formula.contents.append(FormulaContent())
+//        formula.contentss.append(FormulaContent())
         tableView.endUpdates()
     }
     

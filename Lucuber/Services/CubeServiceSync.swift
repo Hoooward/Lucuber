@@ -146,7 +146,7 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     
 }
 
-func syncFormulaWith(uploadMode: UploadFormulaMode, categoty: Category, completion: (([DiscoverFormula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([DiscoverFormula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
     
     switch uploadMode {
         

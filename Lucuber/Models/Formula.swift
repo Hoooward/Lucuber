@@ -120,18 +120,20 @@ class Formula: Object {
     dynamic var favorate: Bool = false
     
     dynamic var categoryString: String = ""
+    dynamic var typeString: String = ""
     dynamic var creator: RUser?
+    
     
     dynamic var deletedByCreator: Bool = false
     
     dynamic var rating: Int = 0
     dynamic var isLibrary: Bool = false
     
-    dynamic var contentsString: [String] = []
+    //var contentsString: [String] = []
     
     dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    let contentss = LinkingObjects(fromType: Content.self, property: "atFormula")
+    let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
     var category: Category {
         
@@ -144,7 +146,6 @@ class Formula: Object {
         }
     }
     
-    dynamic var typeString: String = ""
     
     var type: Type {
         
@@ -158,54 +159,11 @@ class Formula: Object {
     }
 
     
-  
-    
-    var contents: [FormulaContent] {
-        
-        set {
-            
-            self.contentsString =  newValue.map {
-                
-                let text = $0.text ?? ""
-                
-                var contentString = ""
-                switch $0.rotation {
-                case let .FR(imageName, _):
-                    contentString = imageName + "--" + text
-                case let .FL(imageName, _):
-                    contentString = imageName + "--" + text
-                case let .BL(imageName, _):
-                    contentString = imageName + "--" + text
-                case let .BR(imageName, _):
-                    contentString = imageName + "--" + text
-                }
-                
-                return contentString
-                
-            }
-        }
-        
-        get {
-            
-            var contents = [FormulaContent]()
-            for string in contentsString {
-                let stringArray = string.components(separatedBy: "--")
-                if stringArray.count == 2 {
-                    let rotation = stringArray[0]
-                    let text = stringArray[1]
-                    let content = FormulaContent(text: text, rotation: rotation)
-                    contents.append(content)
-                }
-            }
-            return contents
-        }
-    }
 
   
     class func creatNewDefaultFormula() -> Formula {
         
         let newFormula = Formula()
-        newFormula.contents = [FormulaContent()]
         newFormula.imageName = "cube_Placehold_image_1"
         newFormula.favorate = false
         newFormula.category = .x3x3
@@ -303,24 +261,6 @@ class Formula: Object {
     @NSManaged var type: String
     
     @NSManaged var deletedByCreator: Bool
-    
-    override init() {
-         super.init()
-    }
-    /// 系统公式库创建所使用的.
-    init(name: String, contents: [String], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int, serialNumber: Int) {
-        super.init()
-        self.isLibrary = true
-        self.name = name
-        self.contents = contents
-        self.imageName = imageName
-        self.favorate = favorate
-        self.category = category.rawValue
-        self.type = type.rawValue
-        self.rating = rating
-        self.serialNumber = serialNumber
-       
-    }
     
     
 }

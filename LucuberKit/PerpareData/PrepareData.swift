@@ -57,30 +57,46 @@ class FormulaManager {
                 
                 let texts = item["formulaText"].arrayValue
                 
-                var contents = [String]()
+                var contents = [DiscoverContent]()
                 for (index, text) in texts.enumerated() {
                     
-                    var resultText = ""
+                    let content = DiscoverContent()
+//                    var localObjectID: String = UUID().uuidString
+                    
+                    content.localObjectID = UUID().uuidString
+                    content.atFormulaLocalObjectID = newFormula.localObjectID
+                    content.text = text.stringValue
                     
                     switch index {
                     case 0:
-                        resultText = "FR--\(text)"
+                        content.rotation = "FR"
+                        content.indicatorImageName = "FR"
+                        
                     case 1:
-                        resultText = "FL--\(text)"
+                        content.rotation = "FL"
+                        content.indicatorImageName = "FL"
+                        
                     case 2:
-                        resultText = "BL--\(text)"
+                        content.rotation = "BL"
+                        content.indicatorImageName = "BL"
+                        
                     case 3:
-                        resultText = "BR--\(text)"
+                        content.rotation = "BR"
+                        content.indicatorImageName = "BR"
+                        
                     default:
                         break
                     }
-                    contents.append(resultText)
+                    
+                    
+                    contents.append(content)
+                    
+                    newFormula.contents = contents
                 }
                 
-                
-                newFormula.contents = contents
                 formulas.append(newFormula)
             }
+            
             return formulas
         }
         
@@ -140,6 +156,17 @@ internal func pushFormulaDataToLeanCloud() {
         $0.creator = adminUser
         
     }
+    
+    var contents = [DiscoverContent]()
+    _ = formulaDatas.map {
+        $0.contents.map {
+            contents.append($0)
+        }
+    }
+    
+    printLog("共(\(contents.count) 个 contents)")
+    
+    AVObject.saveAll(contents)
     
     AVObject.saveAll(formulaDatas)
     

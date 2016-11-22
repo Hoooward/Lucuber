@@ -57,13 +57,16 @@ class LibraryFormulaViewController: BaseCollectionViewController {
     
     func reloadFormulasData() {
         
+        /*
         uploadingFormulas(with: uploadMode, category: seletedCategory, finish: {
             
             self.collectionView?.reloadData()
         })
+        */
         
     }
     
+    /*
     override func uploadingFormulas(with mode: UploadFormulaMode, category: Category, finish: (() -> Void)?) {
         
         if isUploadingFormula {
@@ -141,6 +144,7 @@ class LibraryFormulaViewController: BaseCollectionViewController {
         
         
     }
+ */
 
 
 }

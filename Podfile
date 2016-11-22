@@ -18,6 +18,7 @@ end
 target 'LucuberKit' do
 pod 'SwiftyJSON'
 pod 'AVOSCloud'
+pod 'RealmSwift'
 
 end
 
