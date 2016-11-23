@@ -20,8 +20,6 @@ fileprivate let needUpdateMasterListKey = "needUpdateMsterList"
 extension AVUser {
     
     
-  
-    
     func addNewMasterFormula(_ formula: Formula) {
        
         var newList = [String]()

@@ -91,7 +91,7 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
         return
     }
     
-    let newMaster = FormulaMaster(value: [localObjectID])
+    let newMaster = FormulaMaster(value: [localObjectID, currentUser.lcObjcetID])
     currentUser.masterList.append(newMaster)
     
     realm.add(newMaster)
@@ -119,3 +119,63 @@ public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode
         realm.add(newRCategory)
     }
 }
+
+public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm realm: Realm) -> RUser {
+    
+    if let creator = userWith(creatorID, inRealm: realm) {
+        
+        if let newMasterList = discoverUser.masterList() {
+            
+            if !newMasterList.isEmpty {
+                
+                let oldMasterList: [String] = creator.masterList.map {$0.localObjectID }
+               
+                if  oldMasterList == newMasterList {
+                   printLog("数据相等, 不需要更新")
+                } else {
+                    printLog("数据不相等, 需要更新")
+                }
+            }
+        }
+        
+        return creator
+        
+    } else {
+        
+        let newUser = RUser()
+        
+        newUser.localObjectID = discoverUser.localObjectID() ?? ""
+        newUser.lcObjcetID = discoverUser.objectId!
+        newUser.avatorImageURL = discoverUser.avatorImageURL()
+        newUser.username = discoverUser.username!
+        newUser.nickname = discoverUser.nickname()
+        newUser.introduction = discoverUser.introduction()
+        
+        
+        if
+            let discoverUserID = discoverUser.objectId,
+            let masterList = discoverUser.masterList() {
+            
+            if !masterList.isEmpty {
+                let newMasterList = masterList.map { FormulaMaster(value:[$0, discoverUserID]) }
+                newUser.masterList.append(objectsIn: newMasterList)
+                realm.add(newMasterList)
+            }
+            
+        }
+        
+        realm.add(newUser)
+ 
+        return newUser
+    }
+    
+}
+
+
+
+
+
+
+
+
+

@@ -45,7 +45,7 @@ class FormulaManager {
             for item in jsonDict {
                 
                 let newFormula = DiscoverFormula()
-                newFormula.localObjectID = UUID().uuidString
+                newFormula.localObjectID = Formula.randomLocalObjectID()
                 newFormula.name = item["name"].stringValue
                 newFormula.isLibrary = true
                 newFormula.imageName = item["imageName"].stringValue
@@ -61,9 +61,8 @@ class FormulaManager {
                 for (index, text) in texts.enumerated() {
                     
                     let content = DiscoverContent()
-//                    var localObjectID: String = UUID().uuidString
                     
-                    content.localObjectID = UUID().uuidString
+                    content.localObjectID = Content.randomLocalObjectID()
                     content.atFormulaLocalObjectID = newFormula.localObjectID
                     content.text = text.stringValue
                     

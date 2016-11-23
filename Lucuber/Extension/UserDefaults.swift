@@ -50,13 +50,13 @@ extension UserDefaults {
 fileprivate let dataVersionKey = "dateVersioKey"
 
 extension UserDefaults {
-  
-    class func setDataVersion(_ version: Float) {
+    
+    class func setDataVersion(_ version: String) {
         standard.set(version, forKey: dataVersionKey)
     }
     
-    class func dataVersion() -> Float {
-        return standard.float(forKey: dataVersionKey)
+    class func dataVersion() -> String {
+        return standard.string(forKey: dataVersionKey) ?? "0.9"
     }
 }
 

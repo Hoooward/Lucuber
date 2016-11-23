@@ -273,7 +273,10 @@ open class RUser: Object {
 }
 
 open class FormulaMaster: Object {
+    /// 公式的本地ID
     dynamic var localObjectID: String = ""
+    /// 所属用户的 leancloudID
+    dynamic var creatorLcObjectID: String = ""
 }
 
 public class DiscoverPreferences: AVObject, AVSubclassing {
