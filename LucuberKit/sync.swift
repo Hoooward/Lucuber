@@ -270,3 +270,168 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     }
     
 }
+
+public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
+    
+    
+    
+    guard
+         let currentAVUser = AVUser.current(),
+         let userObjectID = currentAVUser.objectId else {
+            return
+    }
+    
+    let acl = AVACL()
+    acl.setPublicReadAccess(true)
+    acl.setWriteAccess(true, for: currentAVUser)
+    
+    var newDiscoverFormula = DiscoverFormula()
+    
+    if let leancloudObjectID = newFormula.lcObjectID {
+      newDiscoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: leancloudObjectID)
+    }
+    
+    
+    pushToLeancloud(with: [newFormula.image], quality: 0.7, completion: {
+        imagesURL in
+        
+        if !imagesURL.isEmpty {
+            newDiscoverFormula.imageURL = imagesURL.first!
+        }
+        
+    }, failureHandler: { error in
+        printLog("上传图片失败 -> \(error)")
+    })
+    
+    newDiscoverFormula.localObjectID = newFormula.localObjectID
+    newDiscoverFormula.name = newFormula.name
+    newDiscoverFormula.imageName = newFormula.imageName
+    
+    
+    var discoverContents: [DiscoverContent] = []
+    newFormula.contents.forEach { content in
+        
+        let newDiscoverContent = DiscoverContent()
+        
+        newDiscoverContent.localObjectID = content.localObjectID
+        newDiscoverContent.creator = currentAVUser
+        newDiscoverContent.atFormulaLocalObjectID = content.atFomurlaLocalObjectID
+        newDiscoverContent.rotation = content.rotation
+        newDiscoverContent.text = content.text
+        newDiscoverContent.indicatorImageName = content.indicatorImageName
+        newDiscoverContent.deletedByCreator = content.deleteByCreator
+        
+        discoverContents.append(newDiscoverContent)
+    }
+    
+    newDiscoverFormula.contents = discoverContents
+    
+    newDiscoverFormula.favorate = newFormula.favorate
+    newDiscoverFormula.category = newFormula.categoryString
+    newDiscoverFormula.type = newFormula.typeString
+    newDiscoverFormula.creator = currentAVUser
+    newDiscoverFormula.deletedByCreator = newFormula.deletedByCreator
+    newDiscoverFormula.rating = newFormula.rating
+    newDiscoverFormula.isLibrary = newFormula.isLibrary
+
+    
+    AVObject.saveAll(inBackground: discoverContents, block: {
+        
+        success, error in
+        
+        
+        if error != nil {
+            
+            failureHandler?(error as? NSError)
+        }
+        
+        if success {
+            
+            
+            newDiscoverFormula.saveInBackground({ success, error in
+                
+                if error != nil {
+                    
+                    failureHandler?(error as? NSError)
+                }
+                
+                if success {
+                    
+                    printLog("newDiscoverFormula push 成功")
+                }
+                
+                
+            })
+        }
+        
+    })
+    
+    
+
+}
+
+public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
+    
+    guard !images.isEmpty else {
+        return
+    }
+    
+    var imagesURL = [String]()
+    images.forEach { image in
+       
+        if let data = UIImageJPEGRepresentation(image, quality) {
+            let uploadFile = AVFile(data: data)
+            
+            var error: NSError?
+            
+            if uploadFile.save(&error) {
+                if let url = uploadFile.url {
+                    imagesURL.append(url)
+                }
+            } else {
+                failureHandler?(error)
+            }
+        }
+    }
+    
+    completion?(imagesURL)
+}
+
+//internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
+//                                                      completion: (() -> Void)?,
+//                                                      failureHandler: ((NSError) -> Void)? ) {
+//
+//    if let user = AVUser.current() {
+//
+//        newFormula.creatUser = user
+//        newFormula.creatUserID = user.objectId!
+//
+//        let acl = AVACL()
+//        acl.setPublicReadAccess(true)
+//        acl.setWriteAccess(true, for: AVUser.current()!)
+//        newFormula.acl = acl
+//
+//
+//        newFormula.saveEventually({ (success, error) in
+//            if error  == nil {
+//                printLog("新公式保存到 LeanCloud 成功")
+//            } else {
+//                printLog("新公式保存到 LeanCloud 失败")
+//            }
+//        })
+//
+//        saveUploadFormulasAtRealm(formulas: [newFormula], mode: nil, isCreatNewFormula: true)
+//
+//
+//        completion?()
+//
+//
+//    } else {
+//
+//        let error = NSError(domain: "没有登录用户", code: 0, userInfo: nil)
+//        failureHandler?(error)
+//    }
+//
+//
+//
+//}

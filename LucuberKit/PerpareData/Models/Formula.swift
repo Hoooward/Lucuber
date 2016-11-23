@@ -113,44 +113,37 @@ open class Formula: Object {
         return "localObjectID"
     }
     
-    /// 名字
-    dynamic var name: String = ""
-    /// 本地生成 ID
     dynamic var localObjectID: String = ""
-    /// Leancloud 生成 ID
-    dynamic var lcObjectID: String = ""
     
-    /// 本地 imageName
+    dynamic var lcObjectID: String?
+    
+    dynamic var name: String = ""
+    
     dynamic var imageName: String = ""
-    /// 图片URL
-    dynamic var imageURL: String = ""
     
-    /// 喜欢
+    dynamic var imageURL: String?
+    
     dynamic var favorate: Bool = false
     
-    /// 三阶..四阶. 名字
     dynamic var categoryString: String = ""
-    /// F2L, Cross 名字
+    
     dynamic var typeString: String = ""
     
-    /// 创建者
     dynamic var creator: RUser?
     
-    
-    /// 是否被作者删除
     dynamic var deletedByCreator: Bool = false
     
-    /// 星级
     dynamic var rating: Int = 0
     
-    /// 是否是系统公式
     dynamic var isLibrary: Bool = false
     
-    /// 最后更新时间
     dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    /// 关联的 content
+    
     let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
+    
+    
+    var image = UIImage()
     
     var category: Category {
         set { categoryString = newValue.rawValue }
@@ -160,6 +153,10 @@ open class Formula: Object {
     var type: Type {
         set { typeString = newValue.rawValue }
         get { return Type(rawValue: typeString)! }
+    }
+    
+    override open static func ignoredProperties() -> [String] {
+        return ["image", "category", "type"]
     }
     
 //    dynamic var atFeed: Feed?
@@ -174,10 +171,6 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     
     @NSManaged var localObjectID: String
     
-    @NSManaged var isLibrary: Bool
-    
-    @NSManaged var serialNumber: Int
-    
     @NSManaged var name: String
     
     @NSManaged var nickName: String
@@ -185,6 +178,10 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     @NSManaged var imageName: String
     
     @NSManaged var imageURL: String
+    
+    @NSManaged var isLibrary: Bool
+    
+    @NSManaged var serialNumber: Int
     
     @NSManaged var rating: Int
     
@@ -199,7 +196,6 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     @NSManaged var type: String
     
     @NSManaged var deletedByCreator: Bool
-    
     
 }
 
