@@ -15,12 +15,12 @@ fileprivate let dataVersionKey = "dateVersioKey"
 
 extension UserDefaults {
 
-    class func setDataVersion(_ version: Float) {
+    class func setDataVersion(_ version: String) {
         standard.set(version, forKey: dataVersionKey)
     }
     
-    class func dataVersion() -> Float {
-        return standard.float(forKey: dataVersionKey)
+    class func dataVersion() -> String {
+        return standard.string(forKey: dataVersionKey) ?? "0.9"
     }
 }
 
@@ -46,11 +46,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         printLog(path)
         
         
-        let string = UserDefaults.dataVersion()
-        printLog(string)
+       
+        
         return true
         
     }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -67,7 +69,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        let currentVersion = UserDefaults.dataVersion()
+        
+        syncPreferences(completion: {
+            version in
+            
+            if currentVersion != version {
+                
+                printLog("需要更新数据")
+            }
+            
+        }, failureHandler: { error in printLog(error) })
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

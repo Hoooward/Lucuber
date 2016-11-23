@@ -15,28 +15,18 @@ public enum UploadFormulaMode: String {
     case library = "Library"
 }
 
-public func syncPreferences() {
+public func syncPreferences(completion:((String) -> Void)?, failureHandler: ((Error?) -> Void)?){
     
-    let query = AVQuery(className: "DiscoverPreferences")
-    
-    
+    let query = AVQuery(className: DiscoverPreferences.parseClassName())
     query.getFirstObjectInBackground { (references, error) in
         
-        if error != nil {
-            printLog("获取用户偏好设置失败. 无法正确判断是否需要更新公式数据")
-            return
-        }
+        if error != nil { failureHandler?(error) }
         
         if let references = references as? DiscoverPreferences {
-            
-            let version = references.version
-            
-            printLog(version)
+            completion?(references.version)
         }
     }
 }
-
-
 
 public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
     
@@ -62,7 +52,6 @@ public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, 
         query.whereKey("isLibrary", equalTo: NSNumber(booleanLiteral: true))
         query.addAscendingOrder("serialNumber")
     }
-    
     
     
     printLog( "开始从LeanCloud中获取我的公式")
@@ -93,7 +82,6 @@ public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, 
             newDiscoverFormulas.forEach {
                 
                 convertDiscoverFormulaToFormula(discoverFormula: $0, uploadMode: uploadMode, inRealm: realm, completion: { formulas in
-                    //                        printLog(formulas.contents)
                     
                     newFormulas.append(formulas)
                 })

@@ -55,7 +55,7 @@ public func formulaWith(_ objectID: String , inRealm realm: Realm) -> Formula? {
 }
 
 public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
-    let predicate = NSPredicate(format: "userID = %@", userID)
+    let predicate = NSPredicate(format: "lcObjcetID = %@", userID)
     return realm.objects(RUser.self).filter(predicate).first
 }
 

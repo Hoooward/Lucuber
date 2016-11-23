@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         
        
 //        AVUser.loginAdministrator()
-        syncPreferences()
+//        syncPreferences()
         syncFormula(with: .library, categoty: .x3x3, completion: {
             
             newFormulas in
@@ -49,7 +49,9 @@ func test(formulas: [Formula]) {
     
     for index in 0..<20 {
         let formula = formulas[index]
-        appendMaster(with: formula, inRealm: realm)
+        try? realm.write {
+            appendMaster(with: formula, inRealm: realm)
+        }
     }
     
     let user = currentUser(in: realm)
