@@ -11,23 +11,23 @@ import RealmSwift
 import AVOSCloud
 
 public enum FeedKind: String {
-    case Text = "text"
+    case text = "text"
     case URL = "web_page"
-    case Image = "image"
-    case Video = "video"
-    case Audio = "audio"
-    case Location = "location"
+    case image = "image"
+    case video = "video"
+    case audio = "audio"
+    case location = "location"
     
-    case AppleMusic = "apple_music"
-    case AppleMovie = "apple_movie"
-    case AppleEBook = "apple_ebook"
+//    case AppleMusic = "apple_music"
+//    case AppleMovie = "apple_movie"
+//    case AppleEBook = "apple_ebook"
     
     
     public var needBackgroundUpload: Bool {
         switch self {
-        case .Image:
+        case .image:
             return true
-        case .Audio:
+        case .audio:
             return true
         default:
             return false
@@ -36,7 +36,7 @@ public enum FeedKind: String {
     
     public var needParseOpenGraph: Bool {
         switch self {
-        case .Text:
+        case .text:
             return true
         default:
             return false
@@ -50,10 +50,10 @@ public enum FeedKind: String {
 //
 //}
 public enum FeedCategory: String {
-    case All = "所有"
-    case Formula = "公式"
-    case Record = "成绩"
-    case Topic = "话题"
+    case all = "所有"
+    case formula = "公式"
+    case record = "成绩"
+    case topic = "话题"
 }
 
 
@@ -103,6 +103,24 @@ public struct ImageAttachment {
     
 }
 
+public class DiscoverFeed: AVObject, AVSubclassing {
+    
+    public class func parseClassName() -> String {
+        return "DiscoverFeed"
+    }
+    
+    @NSManaged var creator: AVUser?
+    
+    @NSManaged var contentBody: String?
+    
+    @NSManaged var category: String
+    
+    @NSManaged var imagesURL: [String]?
+    
+    @NSManaged var comments: [String]?
+    
+}
+
 class Feed: AVObject, AVSubclassing  {
     
     class func parseClassName() -> String {
@@ -127,7 +145,7 @@ class Feed: AVObject, AVSubclassing  {
     @NSManaged var category: String
     
     ///图片附件URL
-    @NSManaged var imagesUrl: [String]?
+    @NSManaged var imagesURL: [String]?
     
     ///评论
     @NSManaged var comments: [String]?
@@ -135,29 +153,28 @@ class Feed: AVObject, AVSubclassing  {
     
     ///附件的种类
     enum Attachment  {
-        case Image([ImageAttachment])
-        case Text
-        case Formula
+        case image([ImageAttachment])
+        case text
+        case formula
         
     }
     
     ///通过 ImageURL 的数量来判断 附件的种类
     var attachment: Attachment {
         
-        guard let imagesUrl = imagesUrl else {
-            return .Text
+        guard let imagesURL = imagesURL else {
+            return .text
         }
         
-        if imagesUrl.isEmpty {
-            return .Text
+        if imagesURL.isEmpty {
+            return .text
         }
         
-        if imagesUrl.isEmpty && FeedCategory(rawValue: self.category) == .Formula {
-            return .Formula
-            
+        if imagesURL.isEmpty && FeedCategory(rawValue: self.category) == .formula {
+            return .formula
         }
         
-        return .Image(imagesUrl.map {ImageAttachment(metadata: nil, URLString: $0, image: nil)})
+        return .image(imagesURL.map {ImageAttachment(metadata: nil, URLString: $0, image: nil)})
     }
     
     

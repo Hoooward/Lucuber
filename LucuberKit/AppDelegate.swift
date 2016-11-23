@@ -9,6 +9,9 @@
 import UIKit
 import AVOSCloud
 
+
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -54,5 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+
+func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
+    
+    #if DEBUG
+        print("\((file as NSString).lastPathComponent)[\(line)]:\(message)")
+    #endif
 }
 
