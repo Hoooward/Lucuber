@@ -274,7 +274,7 @@ open class RUser: Object {
 
 open class FormulaMaster: Object {
     /// 公式的本地ID
-    dynamic var localObjectID: String = ""
+    dynamic var formulaLocalObjectID: String = ""
     /// 所属用户的 leancloudID
     dynamic var creatorLcObjectID: String = ""
 }

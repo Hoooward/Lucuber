@@ -20,6 +20,11 @@ public func masterWith(_ localObjectID: String, inRealm realm: Realm) -> Formula
     return realm.objects(FormulaMaster.self).filter(predicate).first
 }
 
+public func mastersWith(_ creatorLcObjectID: String, inRealm realm: Realm) -> Results<FormulaMaster> {
+    let predicate = NSPredicate(format: "creatorLcObjectID = %@", creatorLcObjectID)
+    return realm.objects(FormulaMaster.self).filter(predicate)
+}
+
 public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
     let predicate = NSPredicate(format: "categoryString = %@", category.rawValue)
     
@@ -28,7 +33,7 @@ public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMod
     case .library:
         predicate2 = NSPredicate(format: "isLibrary = %@", true as CVarArg)
     case .my:
-        predicate2 = NSPredicate(format: "isLibrary= %@", false as CVarArg)
+        predicate2 = NSPredicate(format: "isLibrary = %@", false as CVarArg)
     }
     return realm.objects(Formula.self).filter(predicate2).filter(predicate).count
 }
@@ -124,16 +129,30 @@ public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm re
     
     if let creator = userWith(creatorID, inRealm: realm) {
         
-        if let newMasterList = discoverUser.masterList() {
+        if
+            let newMasterList = discoverUser.masterList(),
+            let discoverUserID = discoverUser.objectId {
             
             if !newMasterList.isEmpty {
                 
-                let oldMasterList: [String] = creator.masterList.map {$0.localObjectID }
+                let oldFormulaMasterList = creator.masterList
+                let oldMasterList: [String] = oldFormulaMasterList.map {$0.formulaLocalObjectID }
                
                 if  oldMasterList == newMasterList {
+                    
                    printLog("数据相等, 不需要更新")
+                    
                 } else {
+                    
+                    creator.masterList.removeAll()
+                    realm.delete(oldFormulaMasterList)
+                    
+                    let newMasterList = newMasterList.map { FormulaMaster(value:[$0, discoverUserID]) }
+                    creator.masterList.append(objectsIn: newMasterList)
+                    realm.add(newMasterList)
+                    
                     printLog("数据不相等, 需要更新")
+                    
                 }
             }
         }
