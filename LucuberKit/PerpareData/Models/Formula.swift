@@ -79,7 +79,7 @@ public enum Category: String {
     
 }
 
-class RCategory: Object {
+open class RCategory: Object {
     
     dynamic var name = ""
     dynamic var uploadMode = ""
@@ -107,9 +107,9 @@ public enum Type: String {
     //    case test3 = "333"
 }
 
-class Formula: Object {
+open class Formula: Object {
     
-    override  static func primaryKey() -> String? {
+    override open static func primaryKey() -> String? {
         return "localObjectID"
     }
     
@@ -166,7 +166,7 @@ class Formula: Object {
 
 }
 
-class DiscoverFormula: AVObject, AVSubclassing {
+public class DiscoverFormula: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
         return "DiscoverFormula"
@@ -204,9 +204,9 @@ class DiscoverFormula: AVObject, AVSubclassing {
 }
 
 
-class Content: Object {
+open class Content: Object {
     
-    override  static func primaryKey() -> String? {
+    override open static func primaryKey() -> String? {
         return "localObjectID"
     }
     
@@ -228,7 +228,7 @@ class Content: Object {
     
 }
 
-class DiscoverContent: AVObject, AVSubclassing {
+open class DiscoverContent: AVObject, AVSubclassing {
     public class func parseClassName() -> String {
         return "DiscoverContent"
     }
@@ -244,31 +244,20 @@ class DiscoverContent: AVObject, AVSubclassing {
     
 }
 
-class RUser: Object {
+open class RUser: Object {
     
-    dynamic var userID: String = ""
-    dynamic var nickName: String?
-    dynamic var userName: String = ""
-    dynamic var avatarImageUrl: String?
+    dynamic var lcObjcetID: String = ""
+    dynamic var localObjectID: String = ""
+    dynamic var nickname: String?
+    dynamic var username: String = ""
+    dynamic var avatorImageURL: String?
     dynamic var introduction: String?
     
-    let _localMasterList = List<FormulaMaster>()
+    let masterList = List<FormulaMaster>()
     
 
-    var masterList: [String] {
-        set {
-            _localMasterList.removeAll()
-            _localMasterList.append(objectsIn: newValue.map { FormulaMaster(value: [$0])})
-        }
-        
-        get { return _localMasterList.map { $0.localObjectID} }
-    }
     
-    override class func ignoredProperties() -> [String] {
-        return ["masterList"]
-    }
-    
-    public override static func indexedProperties() -> [String] {
+    open override static func indexedProperties() -> [String] {
         return ["userID"]
     }
     
@@ -280,18 +269,18 @@ class RUser: Object {
             return false
         }
         
-        return userID == self.userID
+        return userID == self.lcObjcetID
         
     }
     
   
 }
 
-class FormulaMaster: Object {
+open class FormulaMaster: Object {
     dynamic var localObjectID: String = ""
 }
 
-class DiscoverPreferences: AVObject, AVSubclassing {
+public class DiscoverPreferences: AVObject, AVSubclassing {
     public class func parseClassName() -> String {
         return "DiscoverPreferences"
     }
@@ -299,7 +288,7 @@ class DiscoverPreferences: AVObject, AVSubclassing {
 }
 
 
-class Preferences: Object {
+open class Preferences: Object {
     // 未登录用户在登录成功时, 将其设置为 0.9
     dynamic var dateVersion: String = ""
 }

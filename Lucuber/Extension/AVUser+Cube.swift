@@ -20,15 +20,7 @@ fileprivate let needUpdateMasterListKey = "needUpdateMsterList"
 extension AVUser {
     
     
-    func getMasterFormulasIDList() -> [String]? {
-        let list = object(forKey: masterFormulasIDListKey) as? [String]
-        return list
-    }
-    
-    func setMasterFormulasIDList(list: [String]) {
-        setObject(list, forKey: masterFormulasIDListKey)
-    }
-    
+  
     
     func addNewMasterFormula(_ formula: Formula) {
        
@@ -72,6 +64,15 @@ extension AVUser {
     
 
 extension AVUser {
+    
+    func getMasterFormulasIDList() -> [String]? {
+        let list = object(forKey: masterFormulasIDListKey) as? [String]
+        return list
+    }
+    
+    func setMasterFormulasIDList(list: [String]) {
+        setObject(list, forKey: masterFormulasIDListKey)
+    }
     
     
     func getNeedUpdateLibrary() -> Bool {

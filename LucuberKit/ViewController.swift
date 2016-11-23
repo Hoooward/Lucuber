@@ -10,12 +10,11 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-fileprivate let userNickNameKey = "userNickName"
-fileprivate let userAvatarImageUrlKey = "userAvatarImageUrl"
-fileprivate let userID = "userID"
-fileprivate let needUpdateLibraryKey = "needUpdateLibrary"
-fileprivate let masterFormulasIDListKey = "masterFormulasIDList"
-fileprivate let needUpdateMasterListKey = "needUpdateMsterList"
+fileprivate let nicknameKey = "nickname"
+fileprivate let avatorImageURLKey = "avatorImageURL"
+fileprivate let localObjectIDKey = "localObjectID"
+fileprivate let masterListKey = "masterList"
+fileprivate let introdctionKey = "introduction"
 
 func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
     
@@ -30,33 +29,33 @@ public enum UploadFormulaMode: String {
 }
 
 class ViewController: UIViewController {
+    
+    var formulas = [Formula]() {
+        didSet {
+            
+            test(formulas: formulas)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
 //        AVUser.loginAdministrator()
         syncPreferences()
         syncFormula(with: .library, categoty: .x3x3, completion: {
             
             newFormulas in
             
-            test(formulas: newFormulas)
+            self.formulas = newFormulas
             
         }, failureHandler: nil)
         
+       
     }
 
 }
 
-func appendMasterID (localObjectID: String, inRealm realm: Realm) {
-    
-    if let _ = formulaMaskerWith(localObjectID, inRealm: realm) {
-        return
-    }
-    
-    let newMaster = FormulaMaster(value: [localObjectID])
-    realm.add(newMaster)
-}
 
 func test(formulas: [Formula]) {
     
@@ -65,26 +64,18 @@ func test(formulas: [Formula]) {
     }
     
     
-    let currentUserID = AVUser.current()?.objectId
-    
-    var masterList = [String]()
-    
-    let currentUser = userWith(currentUserID!, inRealm: realm)
-    
-    
-    realm.beginWrite()
     for index in 0..<20 {
-        let localObjectID = formulas[index].localObjectID
-        masterList.append(localObjectID)
+        let formula = formulas[index]
+        appendMaster(with: formula, inRealm: realm)
     }
-    currentUser?.masterList = masterList
-    try? realm.commitWrite()
     
-    printLog(currentUser?.masterList)
+    let user = currentUser(in: realm)
+    
+    printLog(user?.masterList)
 }
 
 
-func syncPreferences() {
+public func syncPreferences() {
 
     let query = AVQuery(className: "DiscoverPreferences")
 
@@ -105,7 +96,7 @@ func syncPreferences() {
     }
 }
 
-func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
     
  
         
@@ -178,7 +169,7 @@ func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, complet
         
 }
 
-func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, inRealm realm: Realm, completion: ((Formula) -> Void)?) {
+public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, inRealm realm: Realm, completion: ((Formula) -> Void)?) {
     
     
     // 尝试从数据库中查找是否已经有存在的 Formula
@@ -221,13 +212,22 @@ func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMod
                 
                 let newUser = RUser()
                 
-                newUser.avatarImageUrl = discoverFormulaCreator.getUserAvatarImageUrl()
-                newUser.userID = discoverFormulaCreator.objectId!
-                newUser.userName = discoverFormulaCreator.username!
-                newUser.nickName = discoverFormulaCreator.getUserNickName()
-                newUser.introduction = discoverFormulaCreator.getIntroduction()
+                newUser.localObjectID = discoverFormulaCreator.localObjectID() ?? ""
+                newUser.lcObjcetID = discoverFormulaCreator.objectId!
+                newUser.avatorImageURL = discoverFormulaCreator.avatorImageURL()
+                newUser.username = discoverFormulaCreator.username!
+                newUser.nickname = discoverFormulaCreator.nickname()
+                newUser.introduction = discoverFormulaCreator.introduction()
                 
-                // 没有保存已经掌握的 [String] 列表.
+                if let masterList = discoverFormulaCreator.masterList() {
+                    
+                    if !masterList.isEmpty {
+                        let newMasterList = masterList.map { FormulaMaster(value:[$0]) }
+                        newUser.masterList.append(objectsIn: newMasterList)
+                        realm.add(newMasterList)
+                    }
+                }
+                
                 realm.add(newUser)
                 creator = newUser
                 
@@ -339,45 +339,56 @@ func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMod
     
 }
 
-func currentUser(in realm: Realm) -> RUser? {
-    guard let avuserID = AVUser.current()?.objectId else {
-            printLog("没有登录")
-            return nil
-    }
+public func currentUser(in realm: Realm) -> RUser? {
+    guard let avuserID = AVUser.current()?.objectId else { return nil }
     return userWith(avuserID, inRealm: realm)
 }
 
-func deleteMaster(with formula: Formula, inRealm realm: Realm) {
+public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
     
-    guard let oldList = currentUser(in: realm)?.masterList else {
+    guard let currentUser = currentUser(in: realm) else {
         return
     }
    
-    let newLocalObjectID = formula.localObjectID
+    let localObjectID = formula.localObjectID
+    let oldMasterList = currentUser.masterList
     
-    if !oldList.contains(newLocalObjectID) {
-        
-        let newMaster = 
-        
-        realm.add(FormulaMaster(value: [newLocalObjectID]))
+    if let master = masterWith(localObjectID, inRealm: realm) {
+        if oldMasterList.contains(master) {
+            let index = oldMasterList.index(of: master)!
+            currentUser.masterList.remove(objectAtIndex: index)
+            
+            realm.delete(master)
+        }
+    }
+}
+
+public func appendMaster(with formula: Formula, inRealm realm: Realm) {
+    
+    guard let currentUser = currentUser(in: realm) else {
+        return
     }
     
+    let localObjectID = formula.localObjectID
+    
+    if let _ = masterWith(localObjectID, inRealm: realm) {
+        return
+    }
+    
+    let newMaster = FormulaMaster(value: [localObjectID])
+    currentUser.masterList.append(newMaster)
+    
+    realm.add(newMaster)
     
 }
 
-func appendMaster(with formula: Formula) {
-    
-    
-    
-}
 
-
-func formulaMaskerWith(_ localObjectID: String, inRealm realm: Realm) -> FormulaMaster? {
+public func masterWith(_ localObjectID: String, inRealm realm: Realm) -> FormulaMaster? {
     let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
     return realm.objects(FormulaMaster.self).filter(predicate).first
 }
 
-func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
+public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
     let predicate = NSPredicate(format: "categoryString = %@", category.rawValue)
     
     var predicate2 = NSPredicate()
@@ -390,108 +401,74 @@ func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRe
     return realm.objects(Formula.self).filter(predicate2).filter(predicate).count
 }
 
-func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory>? {
+public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory>? {
     let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
     return realm.objects(RCategory.self).filter(predicate)
     
 }
 
-func contentWith(_ objectID: String, inRealm realm: Realm) -> Content? {
+public func contentWith(_ objectID: String, inRealm realm: Realm) -> Content? {
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     return realm.objects(Content.self).filter(predicate).first
 }
 
-func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> Results<Content>? {
+public func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> Results<Content>? {
     let predicate = NSPredicate(format: "atFormulaLocalObjectID = %@", atFormulaObjectID)
     return realm.objects(Content.self).filter(predicate)
 }
 
-func formulaWith(_ objectID: String , inRealm realm: Realm) -> Formula? {
+public func formulaWith(_ objectID: String , inRealm realm: Realm) -> Formula? {
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     return realm.objects(Formula.self).filter(predicate).first
 }
 
-func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
+public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
     let predicate = NSPredicate(format: "userID = %@", userID)
     return realm.objects(RUser.self).filter(predicate).first
 }
 
 
-extension AVQuery {
-    
-    enum DefaultKey: String {
-        case updatedTime = "updatedAt"
-        case creatTime = "createdAt"
-    }
-    
-    class func getFormula(mode: UploadFormulaMode) -> AVQuery {
-        
-        switch mode {
-            
-        case .my:
-            
-            let query = AVQuery(className: DiscoverFormula.parseClassName())
-            query.addAscendingOrder("name")
-            query.whereKey("creator", equalTo: AVUser.init(objectId: "57a58cb5a633bd006043f0d7"))
-            query.includeKey("creator")
-            query.includeKey("contents")
-            query.limit = 200
-            return query
-            
-        case .library:
-            
-            let query = AVQuery(className: DiscoverFormula.parseClassName())
-            query.whereKey("isLibrary", equalTo: NSNumber(booleanLiteral: true))
-            query.addAscendingOrder("serialNumber")
-            query.limit = 1000
-            return query
-            
-        }
-    }
-    
-    
-    
-}
-
 extension AVUser {
     
-    func setIntroduction(string: String) {
-        setObject(string, forKey: "introducation")
+    func setIntroduction(_ string: String) {
+        setObject(string, forKey: introdctionKey)
     }
     
-    func getIntroduction() -> String? {
-        return object(forKey: "introducation") as? String
+    func introduction() -> String? {
+        return object(forKey: introdctionKey) as? String
     }
     
-    func setNeedUpdateLibrary(need: Bool) {
-        setObject(need, forKey: needUpdateLibraryKey)
+    func localObjectID() -> String? {
+        return object(forKey: localObjectIDKey) as? String
     }
     
-    func getNeedUpdateLibrary() -> Bool {
-        return object(forKey: needUpdateLibraryKey) as! Bool
+    func setLocalObjcetID(_ userID: String) {
+        setObject(userID, forKey: localObjectIDKey)
     }
     
-    func getUserID() -> String {
-        return object(forKey: userID) as! String
+    func nickname() -> String? {
+        return object(forKey: nicknameKey) as? String
     }
     
-    func set(userID: String) {
-        setObject(userID, forKey: userID)
+    func avatorImageURL() -> String? {
+        return object(forKey: avatorImageURLKey) as? String
     }
     
-    func getUserNickName() -> String? {
-        return object(forKey: userNickNameKey) as? String
+    func setNickname(_ nikeName: String) {
+        setObject(nikeName, forKey: nicknameKey)
     }
     
-    func getUserAvatarImageUrl() -> String? {
-        return object(forKey: userAvatarImageUrlKey) as? String
+    func setAvatorImageURL(_ imageUrl: String) {
+        setObject(imageUrl, forKey: avatorImageURLKey)
     }
     
-    func set(nikeName: String) {
-        setObject(nikeName, forKey: userNickNameKey)
+    
+    func masterList() -> [String]? {
+        return object(forKey: masterListKey) as? [String]
     }
     
-    func setUserAvatar(imageUrl: String) {
-        setObject(imageUrl, forKey: userAvatarImageUrlKey)
+    func setMasterList(_ list: [String]) {
+        setObject(list, forKey: masterListKey)
     }
+    
 }
