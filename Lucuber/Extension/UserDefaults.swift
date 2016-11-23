@@ -47,18 +47,19 @@ extension UserDefaults {
     
 }
 
-fileprivate let isFirstLaunchKey = "isFirstLaunchKey"
+fileprivate let dataVersionKey = "dateVersioKey"
 
 extension UserDefaults {
-    
-    class func setIsFirstLaunch(isFirst: Bool) {
-        standard.set(isFirst, forKey: isFirstLaunchKey)
+  
+    class func setDataVersion(_ version: Float) {
+        standard.set(version, forKey: dataVersionKey)
     }
     
-    class func isFirstLaunch() -> Bool {
-        return standard.bool(forKey: isFirstLaunchKey)
+    class func dataVersion() -> Float {
+        return standard.float(forKey: dataVersionKey)
     }
 }
+
 
 
 

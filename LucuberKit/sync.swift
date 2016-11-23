@@ -242,28 +242,8 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
             }
         }
         
-        // 目前只考虑到保存, 未考虑到删除
-        
-        let categorys = categorysWith(uploadMode, inRealm: realm)
-        
-        if let categorys = categorys {
-            
-            let categoryTexts = categorys.map { $0.name }
-            if !categoryTexts.contains(formula.category.rawValue) {
-                let newRCategory = RCategory()
-                newRCategory.uploadMode = uploadMode.rawValue
-                newRCategory.name = formula.category.rawValue
-                realm.add(newRCategory)
-            }
-            
-        } else {
-            
-            let newRCategory = RCategory()
-            newRCategory.uploadMode = uploadMode.rawValue
-            newRCategory.name = formula.category.rawValue
-            realm.add(newRCategory)
-        }
-        
+       
+        appendRCategory(with: formula, uploadMode: uploadMode, inRealm: realm)
         
         completion?(formula)
         
@@ -277,7 +257,7 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
     
     guard
          let currentAVUser = AVUser.current(),
-         let userObjectID = currentAVUser.objectId else {
+         let currentAVUserObjectID = currentAVUser.objectId else {
             return
     }
     
@@ -358,6 +338,15 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
                 if success {
                     
                     printLog("newDiscoverFormula push 成功")
+                    
+                    try? realm.write {
+                        if let currentUser = userWith(currentAVUserObjectID, inRealm: realm) {
+                            newFormula.creator = currentUser
+                        }
+                        newFormula.imageURL = newDiscoverFormula.imageURL
+                        newFormula.lcObjectID = newDiscoverFormula.objectId
+                        appendRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
+                    }
                 }
                 
                 
@@ -397,41 +386,3 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
     completion?(imagesURL)
 }
 
-//internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
-//                                                      completion: (() -> Void)?,
-//                                                      failureHandler: ((NSError) -> Void)? ) {
-//
-//    if let user = AVUser.current() {
-//
-//        newFormula.creatUser = user
-//        newFormula.creatUserID = user.objectId!
-//
-//        let acl = AVACL()
-//        acl.setPublicReadAccess(true)
-//        acl.setWriteAccess(true, for: AVUser.current()!)
-//        newFormula.acl = acl
-//
-//
-//        newFormula.saveEventually({ (success, error) in
-//            if error  == nil {
-//                printLog("新公式保存到 LeanCloud 成功")
-//            } else {
-//                printLog("新公式保存到 LeanCloud 失败")
-//            }
-//        })
-//
-//        saveUploadFormulasAtRealm(formulas: [newFormula], mode: nil, isCreatNewFormula: true)
-//
-//
-//        completion?()
-//
-//
-//    } else {
-//
-//        let error = NSError(domain: "没有登录用户", code: 0, userInfo: nil)
-//        failureHandler?(error)
-//    }
-//
-//
-//
-//}

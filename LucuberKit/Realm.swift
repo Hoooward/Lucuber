@@ -15,7 +15,6 @@ public func currentUser(in realm: Realm) -> RUser? {
     return userWith(avuserID, inRealm: realm)
 }
 
-
 public func masterWith(_ localObjectID: String, inRealm realm: Realm) -> FormulaMaster? {
     let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
     return realm.objects(FormulaMaster.self).filter(predicate).first
@@ -97,4 +96,26 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
     
     realm.add(newMaster)
     
+}
+
+public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
+    
+    let categorys = categorysWith(uploadMode, inRealm: realm)
+    
+    if let categorys = categorys {
+        let categoryTexts = categorys.map { $0.name }
+        if !categoryTexts.contains(formula.category.rawValue) {
+            let newRCategory = RCategory()
+            newRCategory.uploadMode = uploadMode.rawValue
+            newRCategory.name = formula.category.rawValue
+            realm.add(newRCategory)
+        }
+        
+    } else {
+        
+        let newRCategory = RCategory()
+        newRCategory.uploadMode = uploadMode.rawValue
+        newRCategory.name = formula.category.rawValue
+        realm.add(newRCategory)
+    }
 }

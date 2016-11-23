@@ -11,6 +11,20 @@ import AVOSCloud
 
 
 
+fileprivate let dataVersionKey = "dateVersioKey"
+
+extension UserDefaults {
+
+    class func setDataVersion(_ version: Float) {
+        standard.set(version, forKey: dataVersionKey)
+    }
+    
+    class func dataVersion() -> Float {
+        return standard.float(forKey: dataVersionKey)
+    }
+}
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)
+        
+        
+        let string = UserDefaults.dataVersion()
+        printLog(string)
         return true
         
     }
