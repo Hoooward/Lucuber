@@ -48,7 +48,6 @@ class DetailMasterCell: UITableViewCell {
     var formula: Formula? {
         
         didSet {
-            
             if
                 let formula = formula,
                 let currentUset = AVUser.current(),

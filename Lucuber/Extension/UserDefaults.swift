@@ -13,7 +13,6 @@ fileprivate let newUserNickNameKey = "newUserNickName"
 fileprivate let newUserAvatarURLKey = "newUserAvatarURL"
 
 
-/// AVUser
 extension UserDefaults {
     
     class func setNewUser(avatarURL: String) {
@@ -41,13 +40,27 @@ extension UserDefaults {
         standard.set(need, forKey: needUpdateLibraryKey)
     }
     
-    
     class func isNeedUpdateLibrary() -> Bool {
         
         return standard.bool(forKey: needUpdateLibraryKey)
     }
     
 }
+
+fileprivate let isFirstLaunchKey = "isFirstLaunchKey"
+
+extension UserDefaults {
+    
+    class func setIsFirstLaunch(isFirst: Bool) {
+        standard.set(isFirst, forKey: isFirstLaunchKey)
+    }
+    
+    class func isFirstLaunch() -> Bool {
+        return standard.bool(forKey: isFirstLaunchKey)
+    }
+}
+
+
 
 fileprivate let myFormulaSeletedCategoryKey = "mySeletedCategoryKey"
 fileprivate let libraryFormulaSeletedCategoryKey = "librarySeletedCategoryKey"
@@ -99,7 +112,6 @@ extension UserDefaults {
            return Category.x3x3
         }
     }
-    
     
     class func librarySeletedCategory() -> Category {
         

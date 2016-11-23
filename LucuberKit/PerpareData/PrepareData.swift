@@ -182,9 +182,17 @@ extension AVUser {
         user.username = "admain"
         user.password = "h1Y2775852"
         
-        AVUser.logInWithUsername(inBackground: "admin", password: "h1Y2775852") { (user, error) in
+        
+        AVUser.logInWithUsername(inBackground: "admain", password: "h1Y2775852") { (user, error) in
             
-            print("登录管理员账户成功 -> \(user?.username)")
+            if error != nil {
+                
+                printLog(error)
+                
+            } else {
+                
+                print("登录管理员账户成功 -> \(user?.username)")
+            }
         }
     }
     

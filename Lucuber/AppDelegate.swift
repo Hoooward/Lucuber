@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverFormula.registerSubclass()
         DiscoverMessage.registerSubclass()
         Feed.registerSubclass()
-//        FormulaComment.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds

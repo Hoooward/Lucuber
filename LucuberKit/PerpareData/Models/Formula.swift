@@ -11,21 +11,16 @@ import AVOSCloud
 import RealmSwift
 
 extension Array {
-   
     func pareseTwoDimensionalToOne(_ catchArray: [[Formula]]) -> [Formula] {
-        
         var resultArray: [Formula] = []
- 
         _ = catchArray.map {
             $0.map {
                 resultArray.append($0)
             }
         }
-        
         return resultArray
     }
 }
-
 
 
 public enum Category: String {
@@ -94,13 +89,10 @@ class RCategory: Object {
     }
 }
 
-/// FormulaViewController's collectionView Layout
 public enum FormulaUserMode {
-    
     case normal
     case card
 }
-
 
 public enum Type: String {
     /// 三阶
@@ -174,7 +166,7 @@ class Formula: Object {
 
 }
 
- class DiscoverFormula: AVObject, AVSubclassing {
+class DiscoverFormula: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
         return "DiscoverFormula"
@@ -231,6 +223,7 @@ class Content: Object {
     dynamic var creator: RUser?
     
     dynamic var deleteByCreator: Bool = false
+    
 
     
 }
@@ -259,12 +252,27 @@ class RUser: Object {
     dynamic var avatarImageUrl: String?
     dynamic var introduction: String?
     
+    let _localMasterList = List<FormulaMaster>()
+    
+
+    var masterList: [String] {
+        set {
+            _localMasterList.removeAll()
+            _localMasterList.append(objectsIn: newValue.map { FormulaMaster(value: [$0])})
+        }
+        
+        get { return _localMasterList.map { $0.localObjectID} }
+    }
+    
+    override class func ignoredProperties() -> [String] {
+        return ["masterList"]
+    }
+    
     public override static func indexedProperties() -> [String] {
         return ["userID"]
     }
     
     dynamic var leanCloudObjectID: String = ""
-    
     
     func isMe() -> Bool {
         
@@ -275,6 +283,25 @@ class RUser: Object {
         return userID == self.userID
         
     }
+    
+  
+}
+
+class FormulaMaster: Object {
+    dynamic var localObjectID: String = ""
+}
+
+class DiscoverPreferences: AVObject, AVSubclassing {
+    public class func parseClassName() -> String {
+        return "DiscoverPreferences"
+    }
+    @NSManaged var version: String
+}
+
+
+class Preferences: Object {
+    // 未登录用户在登录成功时, 将其设置为 0.9
+    dynamic var dateVersion: String = ""
 }
 
 

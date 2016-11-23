@@ -34,12 +34,78 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        syncFormula(with: .my, categoty: .x3x3, completion: nil, failureHandler: nil)
+//        AVUser.loginAdministrator()
+        syncPreferences()
+        syncFormula(with: .library, categoty: .x3x3, completion: {
+            
+            newFormulas in
+            
+            test(formulas: newFormulas)
+            
+        }, failureHandler: nil)
+        
     }
 
 }
 
-func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([DiscoverFormula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+func appendMasterID (localObjectID: String, inRealm realm: Realm) {
+    
+    if let _ = formulaMaskerWith(localObjectID, inRealm: realm) {
+        return
+    }
+    
+    let newMaster = FormulaMaster(value: [localObjectID])
+    realm.add(newMaster)
+}
+
+func test(formulas: [Formula]) {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    
+    
+    let currentUserID = AVUser.current()?.objectId
+    
+    var masterList = [String]()
+    
+    let currentUser = userWith(currentUserID!, inRealm: realm)
+    
+    
+    realm.beginWrite()
+    for index in 0..<20 {
+        let localObjectID = formulas[index].localObjectID
+        masterList.append(localObjectID)
+    }
+    currentUser?.masterList = masterList
+    try? realm.commitWrite()
+    
+    printLog(currentUser?.masterList)
+}
+
+
+func syncPreferences() {
+
+    let query = AVQuery(className: "DiscoverPreferences")
+
+    
+    query.getFirstObjectInBackground { (references, error) in
+        
+        if error != nil {
+            printLog("获取用户偏好设置失败. 无法正确判断是否需要更新公式数据")
+            return
+        }
+        
+        if let references = references as? DiscoverPreferences {
+            
+            let version = references.version
+            
+            printLog(version)
+        }
+    }
+}
+
+func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
     
  
         
@@ -68,7 +134,7 @@ func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, complet
     
     printLog( "开始从LeanCloud中获取我的公式")
     query.findObjectsInBackground {
-        newFormulas, error in
+        newDiscoverFormulas, error in
         
         if error != nil {
             
@@ -76,7 +142,7 @@ func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, complet
             
         }
         
-        if let newFormulas = newFormulas as? [DiscoverFormula] {
+        if let newDiscoverFormulas = newDiscoverFormulas as? [DiscoverFormula] {
             
             guard let realm = try? Realm() else {
                 return
@@ -84,20 +150,23 @@ func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, complet
             
             
             realm.beginWrite()
-            if !newFormulas.isEmpty {
-                printLog("共下载到\(newFormulas.count)个公式 " )
+            if !newDiscoverFormulas.isEmpty {
+                printLog("共下载到\(newDiscoverFormulas.count)个公式 " )
                 printLog("开始将 DiscoverFormula 转换成 Formula 并存入本地 Realm")
             }
             
-            newFormulas.forEach {
+            var newFormulas: [Formula] = []
+            
+            newDiscoverFormulas.forEach {
                 
                 convertDiscoverFormulaToFormula(discoverFormula: $0, uploadMode: uploadMode, inRealm: realm, completion: { formulas in
                     //                        printLog(formulas.contents)
                     
+                    newFormulas.append(formulas)
                 })
             }
             
-            if !newFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
+            if !newDiscoverFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
             
             try? realm.commitWrite()
             
@@ -133,7 +202,6 @@ func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMod
     
     if formula == nil {
         
-        printLog("本地没有此公式, 在 Realm 中创建新的")
         let newFormula = Formula()
         newFormula.lcObjectID = discoverFormula.objectId!
         newFormula.localObjectID = discoverFormula.localObjectID
@@ -144,7 +212,6 @@ func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMod
     
     if let formula = formula {
         
-        printLog("开始更新本地Formula")
         if  let discoverFormulaCreator = discoverFormula.creator,
             let creatorID = discoverFormula.creator?.objectId {
             
@@ -270,6 +337,44 @@ func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMod
         
     }
     
+}
+
+func currentUser(in realm: Realm) -> RUser? {
+    guard let avuserID = AVUser.current()?.objectId else {
+            printLog("没有登录")
+            return nil
+    }
+    return userWith(avuserID, inRealm: realm)
+}
+
+func deleteMaster(with formula: Formula, inRealm realm: Realm) {
+    
+    guard let oldList = currentUser(in: realm)?.masterList else {
+        return
+    }
+   
+    let newLocalObjectID = formula.localObjectID
+    
+    if !oldList.contains(newLocalObjectID) {
+        
+        let newMaster = 
+        
+        realm.add(FormulaMaster(value: [newLocalObjectID]))
+    }
+    
+    
+}
+
+func appendMaster(with formula: Formula) {
+    
+    
+    
+}
+
+
+func formulaMaskerWith(_ localObjectID: String, inRealm realm: Realm) -> FormulaMaster? {
+    let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
+    return realm.objects(FormulaMaster.self).filter(predicate).first
 }
 
 func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
