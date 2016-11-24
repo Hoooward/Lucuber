@@ -25,39 +25,15 @@ class CardFormulaCell: UICollectionViewCell {
             return
         }
         
-        updateUI(with: formula)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        contentLabel.font = UIFont.formulaNormalContent()
-        contentView.backgroundColor = UIColor.white
-        contentView.layer.cornerRadius = 6
-        contentView.layer.masksToBounds = true
-        
-        contentView.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
-        contentView.layer.borderWidth = 1.0
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        
-        masterImageView.isHidden = true
-        
-    }
-    
-    private func updateUI(with formula: Formula) {
-        
         if let text = formula.contents.first?.text {
             
             contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
         }
         
-        if
-            let currentUser = AVUser.current(),
-            let list = currentUser.getMasterFormulasIDList() {
+        if let masterList = AVUser.current()?.masterList() {
             
-                nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
-            
+            nameLabel.textColor = masterList.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
+            masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
         
         imageView.image = UIImage(named: formula.imageName)
@@ -66,10 +42,23 @@ class CardFormulaCell: UICollectionViewCell {
         starRatingView.rating = formula.rating
         indicaterLabel.text = formula.category.rawValue
         
-        if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList() {
-            masterImageView.isHidden = !list.contains(formula.localObjectID)
-            
-        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentLabel.font = UIFont.formulaNormalContent()
+        contentView.backgroundColor = UIColor.white
+        
+        contentView.layer.cornerRadius = 6
+        contentView.layer.masksToBounds = true
+        contentView.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
+        contentView.layer.borderWidth = 1.0
+        
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        masterImageView.isHidden = true
         
     }
+
 }
