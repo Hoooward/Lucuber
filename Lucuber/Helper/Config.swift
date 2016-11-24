@@ -62,12 +62,12 @@ public class Config {
         public static let buttonTagBaseValue = 100
     }
     
-    public struct BaseRotation {
-        public static let FR: Rotation = Rotation.FR("FR", "图例的状态")
-        public static let FL: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
-        public static let BL: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
-        public static let BR: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
-    }
+//    public struct BaseRotation {
+//        public static let FR: Rotation = Rotation.FR("FR", "图例的状态")
+//        public static let FL: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
+//        public static let BL: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
+//        public static let BR: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
+//    }
     
     public struct FormulaCell {
         

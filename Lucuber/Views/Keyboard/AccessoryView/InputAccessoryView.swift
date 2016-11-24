@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 
 class InputAccessoryView: UIView {
     
@@ -33,58 +33,67 @@ class InputAccessoryView: UIView {
     }()
     
     lazy var FRButton: RotationButton = {
-        let button = RotationButton(style: RotationButton.Style.square, rotation: Config.BaseRotation.FR)
+        let button = RotationButton(style: RotationButton.Style.square, rotation: Rotation.FR)
         button.addTarget(self, action: #selector(InputAccessoryView.rotationButtonClicked(button:)), for: .touchUpInside)
         return button
     }()
     
     lazy var FLButton: RotationButton = {
-        let button = RotationButton(style: RotationButton.Style.square, rotation: Config.BaseRotation.FL)
+        let button = RotationButton(style: RotationButton.Style.square, rotation: Rotation.FL)
         button.addTarget(self, action: #selector(InputAccessoryView.rotationButtonClicked(button:)), for: .touchUpInside)
         return button
         
     }()
     
     lazy var BLButton: RotationButton = {
-        let button = RotationButton(style: RotationButton.Style.square, rotation: Config.BaseRotation.BL)
+        let button = RotationButton(style: RotationButton.Style.square, rotation: Rotation.BL)
         button.addTarget(self, action: #selector(InputAccessoryView.rotationButtonClicked(button:)), for: .touchUpInside)
         return button
     }()
     
     lazy var BRButton: RotationButton = {
-        let button = RotationButton(style: RotationButton.Style.square, rotation: Config.BaseRotation.BR)
+        let button = RotationButton(style: RotationButton.Style.square, rotation: Rotation.BR)
         button.addTarget(self, action: #selector(InputAccessoryView.rotationButtonClicked(button:)), for: .touchUpInside)
         return button        
     }()
     
     private var rotationButtons : [RotationButton] = []
     
-    var contentDidChanged: ((FormulaContent) -> Void)?
+    public var contentDidChanged: ((Content) -> Void)?
     
-    var selectedContent: FormulaContent? {
+    private var content: Content?
+    
+    private var realm: Realm?
+    
+    public func configView(with content: Content?, inRealm realm: Realm) {
         
-        didSet {
-            
-            if let rotation = selectedContent?.rotation {
-                
-                updatePlaceholderLabel(rotation: rotation)
-                
-                switch rotation {
-                case .FR:
-                    FRButton.isSelected = true
-                    rotationButtons.filter {$0 != FRButton}.forEach { $0.isSelected = false }
-                case .FL:
-                    FLButton.isSelected = true
-                    rotationButtons.filter {$0 != FLButton}.forEach { $0.isSelected = false }
-                case .BL:
-                    BLButton.isSelected = true
-                    rotationButtons.filter {$0 != BLButton}.forEach { $0.isSelected = false }
-                case .BR:
-                    BRButton.isSelected = true
-                    rotationButtons.filter {$0 != BRButton}.forEach { $0.isSelected = false }
-                }
-            }
+        guard let content = content else {
+            return
         }
+        
+        self.content = content
+        self.realm = realm
+        guard let rotation = Rotation(rawValue: content.rotation) else {
+            return
+        }
+        
+        placeholderLabel.text = rotation.placeholderText
+        
+        switch rotation {
+        case .FR:
+            FRButton.isSelected = true
+            rotationButtons.filter {$0 != FRButton}.forEach { $0.isSelected = false }
+        case .FL:
+            FLButton.isSelected = true
+            rotationButtons.filter {$0 != FLButton}.forEach { $0.isSelected = false }
+        case .BL:
+            BLButton.isSelected = true
+            rotationButtons.filter {$0 != BLButton}.forEach { $0.isSelected = false }
+        case .BR:
+            BRButton.isSelected = true
+            rotationButtons.filter {$0 != BRButton}.forEach { $0.isSelected = false }
+        }
+        
     }
     
     // MARK: - Life Cycle
@@ -185,10 +194,14 @@ class InputAccessoryView: UIView {
         
         rotationButtons.filter {$0 != button}.forEach { $0.isSelected = false }
         
-        if let content = selectedContent, let rotation = button.rotation {
-            updatePlaceholderLabel(rotation: rotation)
+        if let content = content, let rotation = button.rotation {
             
-            content.rotation = rotation
+            placeholderLabel.text = rotation.placeholderText
+            
+            
+            try? realm?.write {
+                content.rotation = rotation.rawValue
+            }
             
             contentDidChanged?(content)
         }
@@ -201,19 +214,5 @@ class InputAccessoryView: UIView {
         printLog(#function)
     }
     
-    private func updatePlaceholderLabel(rotation: Rotation) {
-        
-        switch rotation {
-        case .FR(_, let text):
-            placeholderLabel.text = text
-        case .FL(_, let text):
-            placeholderLabel.text = text
-        case .BL(_, let text):
-            placeholderLabel.text = text
-        case .BR(_, let text):
-            placeholderLabel.text = text
-        }
-        
-    }
     
 }

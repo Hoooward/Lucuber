@@ -161,7 +161,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
             let category = presentingVC.seletedCategory
             
-            var categorys = getCategoryMenusAtRealm(mode: presentingVC.uploadMode)
+//            var categorys = getCategoryMenusAtRealm(mode: presentingVC.uploadMode)
             
             if categorys.isEmpty {
                 
@@ -181,21 +181,21 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             menuVC.seletedCateogry = category
             menuVC.categorys = categorys
             
-            menuVC.categoryDidChanged = {
-                
-                category in
-                
-                presentingVC.uploadingFormulas(with: presentingVC.uploadMode, category: category) {
-                    
-                    presentingVC.collectionView?.reloadData()
-                }
-                
-                presentingVC.seletedCategory = category
-                
-                UserDefaults.setSelected(category: category, mode: presentingVC.uploadMode)
-                
-                button.seletedCategory = category
-            }
+//            menuVC.categoryDidChanged = {
+//                
+//                category in
+//                
+//                presentingVC.uploadingFormulas(with: presentingVC.uploadMode, category: category) {
+//                    
+//                    presentingVC.collectionView?.reloadData()
+//                }
+//                
+//                presentingVC.seletedCategory = category
+//                
+//                UserDefaults.setSelected(category: category, mode: presentingVC.uploadMode)
+//                
+//                button.seletedCategory = category
+//            }
             
             present(menuVC, animated: true, completion: nil)
             

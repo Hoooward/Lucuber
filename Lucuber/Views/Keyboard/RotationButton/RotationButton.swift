@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class RotationButton: UIButton {
     
     enum Style {
@@ -25,7 +27,7 @@ class RotationButton: UIButton {
         
         switch rotation {
             
-        case .FR(_, _):
+        case .FR:
             
             switch rotationStyle {
             case .square:
@@ -44,7 +46,7 @@ class RotationButton: UIButton {
             setBackgroundImage(UIImage(named: selectedImage), for: .selected)
             
             
-        case .FL(_, _):
+        case .FL:
             
             switch rotationStyle {
             case .square:
@@ -65,7 +67,7 @@ class RotationButton: UIButton {
             setBackgroundImage(UIImage(named: selectedImage), for: .selected)
             
             
-        case .BL(_, _):
+        case .BL:
             
             switch rotationStyle {
                 
@@ -86,7 +88,7 @@ class RotationButton: UIButton {
             setBackgroundImage(UIImage(named: normalImage), for: .normal)
             setBackgroundImage(UIImage(named: selectedImage), for: .selected)
             
-        case .BR(_, _):
+        case .BR:
             
             switch rotationStyle {
                 

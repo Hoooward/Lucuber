@@ -16,3 +16,16 @@ extension Collection {
     }
 }
 
+extension Array {
+    
+    class func maxHeight<T>() -> T {
+        var max: T
+        self.forEach {
+            if $0 > max {
+                max = $0
+            }
+        }
+        return max
+    }
+}
+

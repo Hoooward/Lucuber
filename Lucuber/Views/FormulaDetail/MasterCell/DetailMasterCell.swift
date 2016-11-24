@@ -51,7 +51,7 @@ class DetailMasterCell: UITableViewCell {
             if
                 let formula = formula,
                 let currentUset = AVUser.current(),
-                let list = currentUset.getMasterFormulasIDList() {
+                let list = currentUset.masterList() {
                 
                 master = list.contains(formula.localObjectID) ? .yes : .no
             }
@@ -68,7 +68,7 @@ class DetailMasterCell: UITableViewCell {
            
             if let currentUser = AVUser.current(), let formula = formula {
                 
-                currentUser.deleteMasterFormula(formula)
+//                currentUser.deleteMasterFormula(formula)
                 masterLabel.text = "未掌握"
             }
             
@@ -76,7 +76,7 @@ class DetailMasterCell: UITableViewCell {
             
             if let currentUser = AVUser.current(), let formula = formula {
                 
-                currentUser.addNewMasterFormula(formula)
+//                currentUser.addNewMasterFormula(formula)
                 masterLabel.text = "已掌握"
             }
         }

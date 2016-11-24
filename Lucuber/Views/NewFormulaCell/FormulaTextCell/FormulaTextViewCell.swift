@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FormulaTextViewCell: UITableViewCell {
 
@@ -18,29 +19,55 @@ class FormulaTextViewCell: UITableViewCell {
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var indicaterImageView: UIImageView!
     
-    var updateInputAccessoryView: ((FormulaContent) -> Void)?
+    public var updateInputAccessoryView: ((Content) -> Void)?
+    public var saveFormulaContent: ((Content) -> Void)?
+    public var didEndEditing: (() -> Void)?
     
-    var saveFormulaContent: ((FormulaContent) -> Void)?
+    fileprivate var content: Content?
     
-    var didEndEditing: (() -> Void)?
+    fileprivate var realm: Realm?
     
-    var formulaContent: FormulaContent? {
-        didSet {
-            
-            if let _ = formulaContent {
-                updateUI()
-            }
+    public func configCell(with formula: Formula?, indexPath: IndexPath, inRealm realm: Realm) {
+        
+        guard let formula = formula else {
+            return
         }
+        
+        let content = formula.contents[indexPath.item]
+        self.content = content
+        self.realm = realm
+        
+        guard let rotation = Rotation(rawValue: content.rotation) else {
+            return
+        }
+        
+        rotationButton.updateButtonStyle(with: .cercle, rotation: rotation)
+        
+        let contentText = content.text
+        
+        if contentText.isEmpty {
+            
+            formulaLabel.isHidden = true
+            placeholderLabel.isHidden = false
+            
+        } else {
+            
+            formulaLabel.attributedText = contentText.setAttributesFitDetailLayout(style: .center)
+            formulaLabel.isHidden = textView.isFirstResponder
+            placeholderLabel.isHidden = !contentText.isEmpty
+        }
+        
+        placeholderLabel.text = rotation.placeholderText
+        
+        
+        
     }
-    
-    // MARK: -  Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
         textView.customDelegate = self
         makeUI()
     }
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -55,51 +82,10 @@ class FormulaTextViewCell: UITableViewCell {
         textView.delegate = self
         formulaLabel.textColor = UIColor.formulaDetailText()
         formulaLabel.font = UIFont.formulaDetailContent()
-        
         placeholderLabel.text = "输入公式, 系统会自动帮你填充空格。"
         placeholderLabel.textColor = UIColor.addFormulaPlaceholderText()
         placeholderLabel.font = UIFont.addFormulaPlaceholderText()
         
-    }
-    
-    private func updateUI() {
-        
-        if let formulaContent = formulaContent {
-            
-            rotationButton.updateButtonStyle(with: .cercle, rotation: formulaContent.rotation)
-            
-            
-            if let formulaText = formulaContent.text {
-                
-                
-                formulaLabel.attributedText = formulaText.setAttributesFitDetailLayout(style: .center)
-                formulaLabel.isHidden = textView.isFirstResponder
-                placeholderLabel.isHidden = !formulaText.isEmpty
-                
-            } else {
-                formulaLabel.isHidden = true
-                placeholderLabel.isHidden = false
-                
-            }
-            
-            var placeholderText = ""
-            
-            switch formulaContent.rotation {
-                
-            case .FR(_, let placeText):
-                placeholderText = placeText
-            case .FL(_, let placeText):
-                placeholderText = placeText
-            case .BL(_, let placeText):
-                placeholderText = placeText
-            case .BR(_, let placeText):
-                placeholderText = placeText
-            }
-            
-            placeholderLabel.text = placeholderText
-            
-        }
-    
     }
   
 }
@@ -108,9 +94,11 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
     
     func formulaContentTextDidChanged() {
         
-        formulaContent?.text = textView.text
+        try? realm?.write {
+            content?.text = textView.text
+        }
         
-        if let content = formulaContent {
+        if let content = content {
             updateInputAccessoryView?(content)
             saveFormulaContent?(content)
         }
@@ -132,7 +120,7 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
         self.rotationButton.isSelected = true
         self.rotationButton.POPAnimation()
         
-        if let content = formulaContent {
+        if let content = content {
             updateInputAccessoryView?(content)
             saveFormulaContent?(content)
         }
@@ -147,10 +135,12 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
         self.formulaLabel.isHidden = false
         
         
-        formulaContent?.text = textView.text
+        try? realm?.write {
+            content?.text = textView.text
+        }
         self.rotationButton.isSelected = false
         
-        if let content = formulaContent {
+        if let content = content {
             updateInputAccessoryView?(content)
             saveFormulaContent?(content)
             

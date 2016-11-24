@@ -14,19 +14,32 @@ class TypePickViewCell: UITableViewCell {
     
     @IBOutlet weak var pickView: UIPickerView!
     
-    var typesText = [String]()
+    private var typesText = [String]()
     
-    var typeDidChanged: ((Type) -> Void)?
+    public var typeDidChanged: ((Type) -> Void)?
     
-    var primaryType: Type? {
+//    var primaryType: Type? {
+//        
+//        didSet {
+//            loadTypeFromMainBundle()
+//            if let type = primaryType {
+//                let index = typesText.index(of: type.rawValue) ?? 0
+//                pickView.selectRow(index, inComponent: 0, animated: false)
+//            }
+//        }
+//    }
+    
+    public func configCell(with formula: Formula?) {
         
-        didSet {
-            loadTypeFromMainBundle()
-            if let type = primaryType {
-                let index = typesText.index(of: type.rawValue) ?? 0
-                pickView.selectRow(index, inComponent: 0, animated: false)
-            }
+        guard let formula = formula else {
+            return
         }
+        
+        let type = formula.type
+        
+        let index = typesText.index(of: type.rawValue) ?? 0
+        pickView.selectRow(index, inComponent: 0, animated: false)
+        
     }
     
     

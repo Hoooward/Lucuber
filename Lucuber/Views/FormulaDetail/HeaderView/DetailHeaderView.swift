@@ -124,8 +124,7 @@ class DetailHeaderView: UIView {
     func changeFormulaNameLabelStatus() {
         
         if
-            let currentUser = AVUser.current(),
-            let list = currentUser.getMasterFormulasIDList(),
+            let list = AVUser.current()?.masterList(),
             let formula = formula {
             
             nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black

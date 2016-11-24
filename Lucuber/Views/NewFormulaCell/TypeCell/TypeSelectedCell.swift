@@ -12,12 +12,18 @@ class TypeSelectedCell: UITableViewCell {
 
     @IBOutlet weak var typeLabel: UILabel!
     
-    var primaryType: Type? {
-        didSet {
-            if let type = primaryType {
-                typeLabel.text = type.rawValue
-            }
+    
+    
+    public func configCell(with formula: Formula?) {
+        
+        guard let formula = formula else {
+            return
         }
+        
+        typeLabel.text = formula.type.rawValue
+    
     }
+    
+ 
 
 }

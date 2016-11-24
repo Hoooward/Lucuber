@@ -272,7 +272,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         
         switch type {
             
-        case .CROSS:
+        case .Cross:
             titleText = type.rawValue + " - 中心块与底部十字"
         case .F2L:
             titleText = type.rawValue + " - 中间层"

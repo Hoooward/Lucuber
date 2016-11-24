@@ -26,6 +26,26 @@ extension Array {
     }
 }
 
+public enum Rotation: String {
+    case FR = "FR"
+    case FL = "FL"
+    case BL = "BL"
+    case BR = "BR"
+    
+    var placeholderText: String {
+        
+        switch self {
+        case .FR:
+            return "图例的状态"
+        case .FL:
+            return "魔方整体顺时针旋转 90° 的状态"
+        case .BL:
+            return "魔方整体顺时针旋转 180° 的状态"
+        case .BR:
+            return "魔方整体顺时针旋转 270° 的状态"
+        }
+    }
+}
 
 public enum Category: String {
     
@@ -138,6 +158,10 @@ open class Formula: Object {
         return "localObjectID"
     }
     
+    override open static func ignoredProperties() -> [String] {
+        return ["image", "category", "type"]
+    }
+    
     dynamic var localObjectID: String = ""
     
     dynamic var lcObjectID: String?
@@ -180,97 +204,54 @@ open class Formula: Object {
         get { return Type(rawValue: typeString)! }
     }
     
-    override open static func ignoredProperties() -> [String] {
-        return ["image", "category", "type"]
-    }
-    class func creatNewDefaultFormula() -> Formula {
+    
+    open func isReadyToPush() -> Bool {
         
+        var isReady = true
+        if let content = self.contents.first {
+            isReady = !content.text.isDirty
+        }
+        
+        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !isReady {
+            
+            isReady = false
+        }
+        
+        return isReady
+    }
+    
+    
+    open var contentMaxCellHeight: CGFloat {
+        
+        return contents.map({ $0.cellHeight }).maxHeight
+        
+//        return contentLabelMaxHeight + 25 + 35 + 25 + 40
+    }
+    
+    open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
+       
         let newFormula = Formula()
-        newFormula.imageName = "cube_Placehold_image_1"
-        newFormula.favorate = false
+        newFormula.localObjectID = Formula.randomLocalObjectID()
         newFormula.category = .x3x3
         newFormula.type = .F2L
-        newFormula.rating = 5
+        newFormula.rating = 3
+        newFormula.favorate = false
+        newFormula.creator = currentUser(in: realm)
+        newFormula.deletedByCreator = false
+        newFormula.isLibrary = isLibrary
+        
+        realm.add(newFormula)
+        
         return newFormula
     }
     
-    /// 判断信息是否都正确填写
-    func isReadyforPushToLeanCloud() -> Bool {
-        var contentIsReady = false
-        // 如果contents的第一个text有值, 就可以
-        if let content = self.contents.first {
-            contentIsReady = !content.text.isDirty
-        }
+    open func cleanBlankContent(inRealm realm: Realm) {
         
-        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !contentIsReady {
-            
-            return false
-        }
-        
-        return true
-    }
-    
-//    func prepareForPushToLeanCloud() {
-//        //准备保存前, 将空白的 content 内容删除掉
-//        
-//        self.contents.forEach {
-//            
-//            if $0.text.isDirty {
-//                
-//                if let content = contentWith($0.localObjectID, inRealm: realm) {
-//                    
-//                }
-//            }
-//        }
-//        
-//        var catchContents = self.contents
-//        // 如果某一个创建的content其中的text isDirty, 是删除掉这个content
-//        for (index, content) in catchContents.enumerated() {
-//            if content.text.isDirty ?? true {
-//                catchContents.remove(at: index)
-//            }
-//        }
-//        self.contents = catchContents
-//    }
-    
-    var contentLabelMaxHeight: CGFloat {
-        
-        var height: CGFloat = 0
-        
-        self.contents.forEach { content in
-            
-            let attributesText = content.text.setAttributesFitDetailLayout(style: .center)
-            
-            let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-            
-            if rect.height > height {
-                height = rect.height
-                
-            }
-        }
-        
-        return height
-    }
-    
-    var formulaContentCellHeight: CGFloat {
-        return contentLabelMaxHeight + 25 + 35 + 25 + 40
+        let predicate = NSPredicate(format: "text = %@", "")
+        realm.delete(self.contents.filter(predicate))
     }
     
 }
-
-public enum Rotation {
-    
-    /// 第一个参数是 imageName 第二个参数是 placeholder
-    case FR (String, String)
-    case FL (String, String)
-    case BL (String, String)
-    case BR (String, String)
-    
-    // private let FLrotation: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
-}
-
-
-
 
 
 public class DiscoverFormula: AVObject, AVSubclassing {
@@ -330,6 +311,31 @@ open class Content: Object {
     
     dynamic var deleteByCreator: Bool = false
     
+    open class func new(with formula: Formula, inRealm realm: Realm) -> Content {
+        
+        let newContent = Content()
+        newContent.localObjectID = Content.randomLocalObjectID()
+        newContent.creator = currentUser(in: realm)
+        newContent.rotation = Rotation.FR.rawValue
+        newContent.atFormula = formula
+        newContent.atFomurlaLocalObjectID = formula.localObjectID
+        newContent.deleteByCreator = false
+        
+        realm.add(newContent)
+        
+        return newContent
+    }
+    
+    open func saveNewCellHeight(inRealm realm: Realm) -> CGFloat {
+        
+        let attributesText = text.setAttributesFitDetailLayout(style: .center)
+        let screenWidth = UIScreen.main.bounds.width
+        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+        cellHeight = rect.height
+        
+        return rect.height
+    }
+ 
 }
 
 open class DiscoverContent: AVObject, AVSubclassing {
@@ -358,8 +364,6 @@ open class RUser: Object {
     dynamic var introduction: String?
     
     let masterList = List<FormulaMaster>()
-    
-    
     
     open override static func indexedProperties() -> [String] {
         return ["userID"]
@@ -410,6 +414,41 @@ open class RCategory: Object {
         return Category(rawValue: name)!
     }
 }
+
+
+protocol RandomID {
+    static func randomLocalObjectID() -> String
+}
+
+extension RandomID where Self: Object {
+    
+}
+
+extension Formula: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Formula_" + String.random()
+    }
+}
+
+extension Content: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Content_" + String.random()
+    }
+}
+
+extension RUser: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "RUser_" + String.random()
+    }
+}
+
+
+
+
+
 
 //class FormulaContent: CustomStringConvertible {
 //    

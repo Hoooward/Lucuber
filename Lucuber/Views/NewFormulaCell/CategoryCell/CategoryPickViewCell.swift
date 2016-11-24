@@ -14,24 +14,39 @@ class CategoryPickViewCell: UITableViewCell {
     
     @IBOutlet weak var pickView: UIPickerView!
     
-    var primaryCategory: Category? {
+    public func configCell(with formula: Formula?) {
         
-        didSet {
-            
-            if categorys.isEmpty {
-                return
-            }
-            
-            if let primaryCategory = primaryCategory {
-                
-                let index = categorys.map { $0.chineseText }.index(of: primaryCategory.rawValue) ?? 0
-                pickView.selectRow(index, inComponent: 0, animated: true)
-            }
+        guard let formula = formula else {
+            return
         }
+        
+        if categorys.isEmpty { return }
+        
+        let category = formula.category
+        
+        let index = categorys.map { $0.chineseText }.index(of: category.rawValue) ?? 0
+        pickView.selectRow(index, inComponent: 0, animated: true)
+        
     }
     
-    var categorys: [CategoryItem] = []
-    var categoryDidChanged: ((_ category: CategoryItem) -> Void)?
+//    var primaryCategory: Category? {
+//        
+//        didSet {
+//            
+//            if categorys.isEmpty {
+//                return
+//            }
+//            
+//            if let primaryCategory = primaryCategory {
+//                
+//                let index = categorys.map { $0.chineseText }.index(of: primaryCategory.rawValue) ?? 0
+//                pickView.selectRow(index, inComponent: 0, animated: true)
+//            }
+//        }
+//    }
+    
+    private var categorys: [CategoryItem] = []
+    public var categoryDidChanged: ((_ category: CategoryItem) -> Void)?
     
     // MARK: - Life Cycle
     

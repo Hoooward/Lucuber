@@ -13,23 +13,42 @@ class CategorySeletedCell: UITableViewCell {
     @IBOutlet weak var indicatorView: UIImageView!
     @IBOutlet weak var categoryLabel: UILabel!
 
-    var categorys: [CategoryItem] = []
-    
-    var primaryCategory: Category? {
-        didSet {
-            
-            if let category = primaryCategory {
-                
-                let index = categorys.map {$0.chineseText}.index(of: category.rawValue) ?? 0
-                
-                let title = categorys.map {$0.englishText}[index]
-                
-                categoryLabel.text = title
-                categoryLabel.layoutIfNeeded()
-                indicatorView.layoutIfNeeded()
-            }
+    public func configCell(with formula: Formula?) {
+        
+        guard let formula = formula else {
+            return
         }
+        
+        let category = formula.category
+        let index = categorys.map {$0.chineseText}.index(of: category.rawValue) ?? 0
+        let title = categorys.map {$0.englishText}[index]
+        
+        categoryLabel.text = title
+        categoryLabel.layoutIfNeeded()
+        indicatorView.layoutIfNeeded()
+        
+        
     }
+    
+    private var categorys: [CategoryItem] = []
+    
+//    var primaryCategory: Category? {
+//        didSet {
+//            
+//            if let category = primaryCategory {
+//                
+//                let index = categorys.map {$0.chineseText}.index(of: category.rawValue) ?? 0
+//                
+//                let title = categorys.map {$0.englishText}[index]
+//                
+//                categoryLabel.text = title
+//                categoryLabel.layoutIfNeeded()
+//                indicatorView.layoutIfNeeded()
+//            }
+//        }
+//    }
+    
+ 
     
     override func awakeFromNib() {
         super.awakeFromNib()

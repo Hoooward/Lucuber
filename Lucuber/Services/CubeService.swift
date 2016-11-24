@@ -214,10 +214,9 @@ func validateMobile(mobile: String,
                     
                     // 有找个一个存在的用户
                     if let user = findUsers.first as? AVUser,
-                       let _ = user.getUserNickName(),
-                       let _ = user.getUserAvatarImageUrl() {
+                       let _ = user.nickname() {
                         
-                        // 账户已经注册。且有头像， 有昵称
+                        // 账户已经注册。且有昵称
                         let error = NSError(domain: "", code: Config.ErrorCode.registered, userInfo: nil)
                         failureHandler?(error)
                         
@@ -242,9 +241,9 @@ func validateMobile(mobile: String,
                 
                 if let finUserss = users {
                     
-                    if let user = finUserss.first as? AVUser,
-                        let _ = user.nickname()
-                        let _ = user.avatorImageURL() {
+                    if
+                        let user = finUserss.first as? AVUser,
+                        let _ = user.nickname() {
                         
                         completion?()
                         
