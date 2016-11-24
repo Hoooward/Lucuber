@@ -137,33 +137,6 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         if  let discoverFormulaCreator = discoverFormula.creator,
             let creatorID = discoverFormula.creator?.objectId {
             
-//            var creator = userWith(creatorID, inRealm: realm)
-//            
-//            if creator == nil {
-//                
-//                let newUser = RUser()
-//                
-//                newUser.localObjectID = discoverFormulaCreator.localObjectID() ?? ""
-//                newUser.lcObjcetID = discoverFormulaCreator.objectId!
-//                newUser.avatorImageURL = discoverFormulaCreator.avatorImageURL()
-//                newUser.username = discoverFormulaCreator.username!
-//                newUser.nickname = discoverFormulaCreator.nickname()
-//                newUser.introduction = discoverFormulaCreator.introduction()
-//                
-//                if let masterList = discoverFormulaCreator.masterList() {
-//                    
-//                    if !masterList.isEmpty {
-//                        let newMasterList = masterList.map { FormulaMaster(value:[$0]) }
-//                        newUser.masterList.append(objectsIn: newMasterList)
-//                        realm.add(newMasterList)
-//                    }
-//                }
-//                
-//                realm.add(newUser)
-//                creator = newUser
-//                
-//            }
-            
             let creator = appendRUser(with: creatorID, discoverUser: discoverFormulaCreator, inRealm: realm)
             
             formula.creator = creator

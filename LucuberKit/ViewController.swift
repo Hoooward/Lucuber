@@ -27,14 +27,14 @@ class ViewController: UIViewController {
        
 //        AVUser.loginAdministrator()
 //        syncPreferences()
-        syncFormula(with: .library, categoty: .x3x3, completion: {
-            
-            newFormulas in
-            
-            self.formulas = newFormulas
-            
-        }, failureHandler: nil)
-        
+//        syncFormula(with: .library, categoty: .x3x3, completion: {
+//            
+//            newFormulas in
+//            
+//            self.formulas = newFormulas
+//            
+//        }, failureHandler: nil)
+//        
        
     }
 
@@ -65,8 +65,6 @@ func test(formulas: [Formula]) {
     
     printLog(user?.masterList)
 }
-
-
 
 
 

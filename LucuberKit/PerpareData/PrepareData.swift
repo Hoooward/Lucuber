@@ -49,6 +49,28 @@ class FormulaManager {
                 newFormula.name = item["name"].stringValue
                 newFormula.isLibrary = true
                 newFormula.imageName = item["imageName"].stringValue
+                
+                
+                if let image = UIImage(named: newFormula.imageName) {
+                    
+                    let data = UIImageJPEGRepresentation(image, 0.7)
+                    
+                    let uploadFile = AVFile(data: data!)
+                    
+                    var error: NSError?
+                    
+                    if uploadFile.save(&error) {
+                        if let url = uploadFile.url {
+                            printLog("推送 Library 图片成功")
+                            newFormula.imageURL = url
+                        }
+                    } else {
+                        
+                        printLog("推送 Library 图片失败")
+                    }
+                }
+                
+                
                 newFormula.favorate = item["favorate"].boolValue
                 newFormula.category = Category.x3x3.rawValue
                 newFormula.type = type.rawValue
@@ -162,6 +184,9 @@ internal func pushFormulaDataToLeanCloud() {
             contents.append($0)
         }
     }
+    
+    
+    
     
     printLog("共(\(contents.count) 个 contents)")
     

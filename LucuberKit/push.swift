@@ -131,7 +131,6 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
             let uploadFile = AVFile(data: data)
             
             var error: NSError?
-            
             if uploadFile.save(&error) {
                 if let url = uploadFile.url {
                     imagesURL.append(url)

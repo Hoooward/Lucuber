@@ -140,7 +140,7 @@ public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm re
                
                 if  oldMasterList == newMasterList {
                     
-                   printLog("数据相等, 不需要更新")
+                    return creator
                     
                 } else {
                     
@@ -151,7 +151,7 @@ public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm re
                     creator.masterList.append(objectsIn: newMasterList)
                     realm.add(newMasterList)
                     
-                    printLog("数据不相等, 需要更新")
+                    printLog("\(creator.username) 的 MasterList 有变化, 已完成本地数据刷新")
                     
                 }
             }
