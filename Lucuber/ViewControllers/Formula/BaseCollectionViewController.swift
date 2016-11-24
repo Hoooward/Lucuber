@@ -422,15 +422,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, for: indexPath) as! HeaderReusableView
+        let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerViewIdentifier, for: indexPath) as! HeaderReusableView
         
-        var formulaTypes = formulas.map { $0.first?.type }
-        reusableView.type = formulaTypes[indexPath.section]
+        let types = formulas.map { $0.first?.type }
+        let counts = formulas.map { $0.count }
         
-        
-        var counts = formulas.map { $0.count }
-        
-        reusableView.count = counts[indexPath.section]
+        reusableView.configerView(with: types[indexPath.section], count: counts[indexPath.section])
         
         return reusableView
         

@@ -93,7 +93,7 @@ public enum FormulaUserMode {
 
 public enum Type: String {
     /// 三阶
-    case CROSS = "Cross"
+    case Cross = "Cross"
     case F2L = "F2L"
     case PLL = "PLL"
     case OLL = "OLL"
@@ -106,7 +106,7 @@ public enum Type: String {
     var sortIndex: Int {
         
         switch self {
-        case .CROSS:
+        case .Cross:
             return 1
         case .F2L:
             return 2
@@ -114,6 +114,20 @@ public enum Type: String {
             return 3
         case .OLL:
             return 4
+        }
+    }
+    
+    var sectionText: String {
+       
+        switch self {
+        case .Cross:
+            return "\(self.rawValue) - 中心块与底部十字"
+        case .F2L:
+            return "\(self.rawValue) - 中间层"
+        case .OLL:
+            return "\(self.rawValue) - 顶层方向"
+        case .PLL:
+            return "\(self.rawValue) - 顶层排列"
         }
     }
 }

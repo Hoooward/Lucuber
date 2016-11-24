@@ -20,40 +20,14 @@ class HeaderReusableView: UICollectionReusableView {
         countLabel.textColor = color
     }
     
-    var type: Type? {
-        didSet {
-            
-            if let type = type {
-                
-                
-                var titleText = ""
-                switch type.rawValue {
-                    
-                case "Cross":
-                    titleText = type.rawValue + " - 中心块与底部十字"
-                case "F2L":
-                    titleText = type.rawValue + " - 中间层"
-                case "OLL":
-                    titleText = type.rawValue + " - 顶层定向"
-                case "PLL":
-                    titleText = type.rawValue + " - 顶层排列"
-                default:
-                    break
-                }
-                titleLabel.text = titleText
-            }
+    public func configerView(with type: Type?, count: Int) {
+       
+        guard let type = type else {
+            return
         }
-        
-    }
-    
-    var count: Int? {
-        didSet {
-            
-            if let count = count {
-                countLabel.text = "共 \(count) 个"
-            }
-            
-        }
+   
+        titleLabel.text = type.sectionText
+        countLabel.text = "共 \(count) 个"
     }
     
 }
