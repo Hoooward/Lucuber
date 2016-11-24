@@ -9,10 +9,24 @@
 import UIKit
 import RealmSwift
 import AVOSCloud
+import PKHUD
 
 public enum UploadFormulaMode: String {
     case my = "My"
     case library = "Library"
+}
+
+
+public func updateLibraryDateVersion(completion: (() -> Void)?, failureHandeler: (() -> Void)?) {
+    
+    HUD.show(.label("更新公式库..."))
+    syncFormula(with: UploadFormulaMode.library, categoty: nil, completion: { _ in
+        HUD.flash(.label("更新成功"), delay: 2)
+        completion?()
+    }, failureHandler: { _ in
+        HUD.flash(.label("更新失败，似乎已断开与互联网的连接。"), delay: 2)
+        failureHandeler?()
+    })
 }
 
 public func syncPreferences(completion:((String) -> Void)?, failureHandler: ((Error?) -> Void)?){

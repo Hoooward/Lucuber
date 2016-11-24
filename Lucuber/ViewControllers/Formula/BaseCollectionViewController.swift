@@ -24,7 +24,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     fileprivate var realm: Realm!
     
-    fileprivate lazy var formulasData: Results<Formula> = {
+    public lazy var formulasData: Results<Formula> = {
         return formulasWith(self.uploadMode, category: self.seletedCategory, inRealm: self.realm)
     }()
     
