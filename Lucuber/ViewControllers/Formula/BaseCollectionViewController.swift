@@ -9,10 +9,10 @@
 import UIKit
 import RealmSwift
 
-private let CardCellIdentifier = "CardFormulaCell"
-private let NormalCellIdentifier = "NormalFormulaCell"
-private let NoResultCellIdentifier = "NoResultCell"
-private let HeaderViewIdentifier = "HeaderReusableView"
+private let cardCellIdentifier = "CardFormulaCell"
+private let normalCellIdentifier = "NormalFormulaCell"
+private let noResultCellIdentifier = "NoResultCell"
+private let headerViewIdentifier = "HeaderReusableView"
 
 class BaseCollectionViewController: UICollectionViewController, SegueHandlerType {
     
@@ -128,10 +128,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         collectionView?.addSubview(activityIndicator)
         collectionView?.backgroundColor = UIColor.white
         
-        collectionView?.register(UINib(nibName: CardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: CardCellIdentifier)
-        collectionView?.register(UINib(nibName: NormalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NormalCellIdentifier)
-        collectionView?.register(UINib(nibName: NoResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: NoResultCellIdentifier)
-        collectionView?.register(UINib(nibName: HeaderViewIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: HeaderViewIdentifier)
+        collectionView?.register(UINib(nibName: cardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: cardCellIdentifier)
+        collectionView?.register(UINib(nibName: normalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: normalCellIdentifier)
+        collectionView?.register(UINib(nibName: noResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: noResultCellIdentifier)
+        collectionView?.register(UINib(nibName: headerViewIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: headerViewIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -300,7 +300,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
         
         if  searchBarActive && !haveSearchResult {
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoResultCellIdentifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: noResultCellIdentifier, for: indexPath)
             
             return cell
         }
@@ -309,13 +309,13 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             
         case .normal:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NormalCellIdentifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: normalCellIdentifier, for: indexPath)
             
             return cell
             
         case .card:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCellIdentifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardCellIdentifier, for: indexPath)
             
             return cell
         }
