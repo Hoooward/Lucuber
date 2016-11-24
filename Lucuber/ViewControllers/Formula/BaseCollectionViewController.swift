@@ -23,14 +23,13 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     
     fileprivate var realm: Realm!
-    
     lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
     
-    var formulasData: [[Formula]] = []
+//    var formulasData: [[Formula]] = []
     fileprivate var searchResult: [Formula] = []
     
     fileprivate lazy var formulas: Results<Formula> = {
-        return getFormulas(with: self.uploadMode, category: self.seletedCategory, inRealm: self.realm)
+        return formulasWith(self.uploadMode, category: self.seletedCategory, inRealm: self.realm)
     }()
     
     var uploadMode: UploadFormulaMode = .my

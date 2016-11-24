@@ -1,21 +1,19 @@
 //
-//  AVUser+Cube.swift
+//  AVUser+Kit.swift
 //  Lucuber
 //
-//  Created by Tychooo on 16/9/20.
+//  Created by Tychooo on 16/11/24.
 //  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import Foundation
 import AVOSCloud
 
-
 fileprivate let nicknameKey = "nickname"
 fileprivate let avatorImageURLKey = "avatorImageURL"
 fileprivate let localObjectIDKey = "localObjectID"
 fileprivate let masterListKey = "masterList"
 fileprivate let introdctionKey = "introduction"
-
 
 extension AVUser {
     
@@ -61,6 +59,3 @@ extension AVUser {
     }
     
 }
-    
-
-

@@ -79,15 +79,6 @@ public enum Category: String {
     
 }
 
-open class RCategory: Object {
-    
-    dynamic var name = ""
-    dynamic var uploadMode = ""
-    
-    func convertToCategory() -> Category {
-        return Category(rawValue: name)!
-    }
-}
 
 public enum FormulaUserMode {
     case normal
@@ -293,6 +284,15 @@ open class Preferences: Object {
 }
 
 
+open class RCategory: Object {
+    
+    dynamic var name = ""
+    dynamic var uploadMode = ""
+    
+    func convertToCategory() -> Category {
+        return Category(rawValue: name)!
+    }
+}
 
 
 

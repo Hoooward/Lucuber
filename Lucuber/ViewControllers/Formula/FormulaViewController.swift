@@ -17,9 +17,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     var containerScrollerOffsetX: CGFloat = 0
     @IBOutlet weak var newFormulaButtonTrailing: NSLayoutConstraint!
     
-    
     private lazy var containerScrollerView: UIScrollView  = {
-        
         let scrollerView = UIScrollView(frame: UIScreen.main.bounds)
         scrollerView.delegate = self
         scrollerView.isPagingEnabled = true
@@ -42,7 +40,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
     }()
     
-
     fileprivate lazy var topControl: TopControl = {
         
         let view = TopControl(childViewControllers: self.childViewControllers)
@@ -124,19 +121,10 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        printLog("\(self) is Dead")
-    }
-    
     
     // MARK: - Action & Target
     
-    
     @IBAction func newFormulaButtonClicked(_ sender: AnyObject) {
-//        let storyboard = UIStoryboard(name: "NewFormula", bundle: nil)
-//        
-//        let navigationController = storyboard.instantiateInitialViewController()
         
         performSegue(identifier: .showNewFormula, sender: nil)
     }
@@ -299,7 +287,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
 
 extension FormulaViewController: UIScrollViewDelegate {
     
-    /// 滚动结束触发
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         
         containerScrollerOffsetX = scrollView.contentOffset.x

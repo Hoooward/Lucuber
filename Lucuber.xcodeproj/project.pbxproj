@@ -65,6 +65,9 @@
 		E435C0471D9F4A370026FA08 /* DetailMasterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03B1D9F4A370026FA08 /* DetailMasterCell.xib */; };
 		E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */; };
 		E435C0491D9F4A370026FA08 /* DetailSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */; };
+		E44547B51DE6B3CC006816EF /* AVUser+Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */; };
+		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
+		E44547B91DE6B5D7006816EF /* ServicePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B81DE6B5D7006816EF /* ServicePush.swift */; };
 		E44C9E671DA16017001EEE40 /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
@@ -272,6 +275,9 @@
 		E435C03B1D9F4A370026FA08 /* DetailMasterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMasterCell.xib; sourceTree = "<group>"; };
 		E435C03D1D9F4A370026FA08 /* DetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSeparatorCell.swift; sourceTree = "<group>"; };
 		E435C03E1D9F4A370026FA08 /* DetailSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSeparatorCell.xib; sourceTree = "<group>"; };
+		E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Kit.swift"; sourceTree = "<group>"; };
+		E44547B61DE6B5BC006816EF /* ServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSync.swift; sourceTree = "<group>"; };
+		E44547B81DE6B5D7006816EF /* ServicePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicePush.swift; sourceTree = "<group>"; };
 		E44C9E661DA16017001EEE40 /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeServiceSync.swift; sourceTree = "<group>"; };
@@ -1049,6 +1055,7 @@
 				E4862F201DE5C44F00C096CC /* sync.swift */,
 				E4862F221DE5EF9500C096CC /* push.swift */,
 				E4862F241DE5F1FB00C096CC /* String+Kit.swift */,
+				E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */,
 			);
 			path = LucuberKit;
 			sourceTree = "<group>";
@@ -1114,6 +1121,8 @@
 				E4B09BB31D8FA5890090671F /* CubeService.swift */,
 				E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */,
 				E41ECF491DB5F548005BEFE4 /* ImageCache.swift */,
+				E44547B61DE6B5BC006816EF /* ServiceSync.swift */,
+				E44547B81DE6B5D7006816EF /* ServicePush.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1669,6 +1678,7 @@
 				E4862F251DE5F1FB00C096CC /* String+Kit.swift in Sources */,
 				E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */,
 				E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */,
+				E44547B51DE6B3CC006816EF /* AVUser+Kit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1782,6 +1792,7 @@
 				E4B09BB11D8FA3E20090671F /* FormulaSearchBar.swift in Sources */,
 				E45DA06D1DA7A41F0050DD4D /* MessageLoadingProgressView.swift in Sources */,
 				E41ECF2E1DB5CE54005BEFE4 /* Feed.swift in Sources */,
+				E44547B91DE6B5D7006816EF /* ServicePush.swift in Sources */,
 				E4610F551DA29F180018CB67 /* UIViewShadowExtension.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
 				E47926571D96DC5F004D58BF /* TypePickViewCell.swift in Sources */,
@@ -1803,6 +1814,7 @@
 				E47926501D96DC5F004D58BF /* FormulaNameTextField.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
+				E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */,
 				E4E021FE1D90454A00DED99A /* NoResultCell.swift in Sources */,
 				E48BCD4D1DA90C4D00C4A1B7 /* MessageToolbar.swift in Sources */,
 				E435C0481D9F4A370026FA08 /* DetailSeparatorCell.swift in Sources */,

@@ -190,7 +190,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         collectionView.backgroundColor = UIColor.white
         
         /// 进入 Detail 控制器后先拿到 masterList
-        if let currentUser = AVUser.current(), let list = currentUser.getMasterFormulasIDList()  {
+        if let currentUser = AVUser.current(), let list = currentUser.masterList()  {
             oldMasterList = list
         }
         
@@ -220,7 +220,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         super.viewWillAppear(animated)
         
         /// 用户可能在 detail 界面更改是否已经掌握某个公式。判断新的 masterlist 与旧的是否一致
-        if let currentUser = AVUser.current(), let newList = currentUser.getMasterFormulasIDList() {
+        if let currentUser = AVUser.current(), let newList = currentUser.masterList() {
             
             if oldMasterList != newList {
                 

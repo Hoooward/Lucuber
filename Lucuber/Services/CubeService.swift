@@ -8,10 +8,6 @@ import Foundation
 import AVOSCloud
 import RealmSwift
 
-public enum UploadFormulaMode: String {
-    case my = "My"
-    case library = "Library"
-}
 
 public enum UploadFeedMode {
     case top
@@ -113,44 +109,44 @@ func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
 }
 
 
-public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Void)?, failureHandler: ((NSError) -> Void)?) {
-    
-    
-    let query = AVQuery.getFormula(mode: .library)
-    
-    query.findObjectsInBackground { formulas, error in
-        
-        if error != nil {
-            
-            failureHandler?(error as! NSError)
-        }
-        
-        if let formulas = formulas as? [Formula] {
-            
-            if let user = AVUser.current() {
-                
-                user.setNeedUpdateLibrary(need: false)
-                user.saveEventually { successed, error in
-                    
-                    if successed {
-                        printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
-                        
-                    } else {
-                        printLog("更新 currentUser 的 needUploadLibrary 属性失败")
-                    }
-                }
-            }
-            
-            deleteLibraryFormalsRContentAtRealm()
-            
-//            saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
-            
-            completion?()
-            
-        }
-    }
-    
-}
+//public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Void)?, failureHandler: ((NSError) -> Void)?) {
+//    
+//    
+//    let query = AVQuery.getFormula(mode: .library)
+//    
+//    query.findObjectsInBackground { formulas, error in
+//        
+//        if error != nil {
+//            
+//            failureHandler?(error as! NSError)
+//        }
+//        
+//        if let formulas = formulas as? [Formula] {
+//            
+//            if let user = AVUser.current() {
+//                
+//                user.setNeedUpdateLibrary(need: false)
+//                user.saveEventually { successed, error in
+//                    
+//                    if successed {
+//                        printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
+//                        
+//                    } else {
+//                        printLog("更新 currentUser 的 needUploadLibrary 属性失败")
+//                    }
+//                }
+//            }
+//            
+//            deleteLibraryFormalsRContentAtRealm()
+//            
+////            saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
+//            
+//            completion?()
+//            
+//        }
+//    }
+//    
+//}
 
 
 //internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
@@ -247,8 +243,8 @@ func validateMobile(mobile: String,
                 if let finUserss = users {
                     
                     if let user = finUserss.first as? AVUser,
-                        let _ = user.getUserNickName(),
-                        let _ = user.getUserAvatarImageUrl() {
+                        let _ = user.nickname()
+                        let _ = user.avatorImageURL() {
                         
                         completion?()
                         
@@ -394,8 +390,8 @@ public func updateUserInfo(nickName: String, avatarURL: String,
     // TODO: - 如果保存失败， 如何处理
     if let currentUser = AVUser.current() {
         
-        currentUser.set(nikeName: nickName)
-        currentUser.setUserAvatar(imageUrl: avatarURL)
+        currentUser.setNickname(nickName)
+        currentUser.setAvatorImageURL(avatarURL)
         currentUser.saveInBackground({ successed, error in
             
             if error != nil {
@@ -429,21 +425,7 @@ public func logout() {
     
 }
 
-// 更新用户部分信息
 
-public func fetchCurrentUserInfo() {
-    
-    if let currentUser = AVUser.current() {
-        
-        var error: NSError?
-        
-        currentUser.fetch(&error)
-        
-        printLog(currentUser)
-        printLog(error)
-        
-    }
-}
 
 // Message
 
