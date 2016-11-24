@@ -28,7 +28,7 @@ public func syncPreferences(completion:((String) -> Void)?, failureHandler: ((Er
     }
 }
 
-public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
     
     
     

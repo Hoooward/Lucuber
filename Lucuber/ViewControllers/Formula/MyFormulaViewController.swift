@@ -43,13 +43,17 @@ class MyFormulaViewController: BaseCollectionViewController {
         
 //        self.refreshControl.beginRefreshing()
 //        self.collectionView?.setContentOffset(CGPoint(x: 0, y: -(self.collectionView!.contentInset.top + self.refreshControl.frame.size.height - 44)), animated: true)
-        refresh()
+//        refresh()
     }
     
     
     // MARK: - Target & Action
     
     @objc private func refresh() {
+        
+        if isUploadingFormula {
+            return
+        }
         
         syncFormula(with: self.uploadMode, categoty: self.seletedCategory, completion: {
             formulas in
@@ -61,7 +65,10 @@ class MyFormulaViewController: BaseCollectionViewController {
             
             
         }, failureHandler: { error in
-            
+            self.searchBar.isHidden = true
+            self.isUploadingFormula = false
+            self.view.addSubview(self.vistorView)
+            self.isUploadingFormula = false
             printLog(error)
         })
     
