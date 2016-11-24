@@ -23,24 +23,47 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     }
     
     fileprivate var realm: Realm!
-    lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
     
-//    var formulasData: [[Formula]] = []
-    fileprivate var searchResult: [Formula] = []
-    
-    fileprivate lazy var formulas: Results<Formula> = {
+    fileprivate lazy var formulasData: Results<Formula> = {
         return formulasWith(self.uploadMode, category: self.seletedCategory, inRealm: self.realm)
     }()
     
-    var uploadMode: UploadFormulaMode = .my
+    fileprivate var formulas: [[Formula]] {
+        var formulas = [[Formula]]()
+        
+        var types = Set<Type>()
+        self.formulasData.forEach {
+            if !types.contains($0.type) {
+                types.insert($0.type)
+            }
+        }
+        
+        types.sorted { $0.sortIndex < $1.sortIndex }.forEach {
+            
+            let predicate = NSPredicate(format: "typeString = %@", $0.rawValue)
+            let fromulasType = self.formulasData.filter(predicate)
+            
+            if !fromulasType.isEmpty {
+                
+                formulas.append(fromulasType.map{$0})
+            }
+        }
+        
+        return formulas
+    }
     
-    /// 当前控制器所选择显示的公式种类
-    var seletedCategory: Category = .x3x3
+    fileprivate var searchResult: [Formula] = []
+    
+    public lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
+    
+    public var uploadMode: UploadFormulaMode = .my
+    
+    public var seletedCategory: Category = .x3x3
     
     /// 缓存进入搜索模式前的UserMode
-    var cacheBeforeSearchUserMode: FormulaUserMode?
+    fileprivate var cacheBeforeSearchUserMode: FormulaUserMode?
     
-    var userMode: FormulaUserMode = .card {
+    public var userMode: FormulaUserMode = .card {
         
         didSet {
             
@@ -62,9 +85,10 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     fileprivate var haveSearchResult: Bool {
         return searchResult.count > 0
     }
+    
     private var searchBarOriginY: CGFloat = 64 + Config.TopControl.height + 5
     
-    lazy var searchBar: FormulaSearchBar = {
+    public lazy var searchBar: FormulaSearchBar = {
         let rect = CGRect(x: 0, y: self.searchBarOriginY, width: UIScreen.main.bounds.width, height: 44)
         let searchBar = FormulaSearchBar(frame: rect)
         searchBar.delegate = self
@@ -136,13 +160,12 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 
     
     fileprivate func changeLayoutButton(enable: Bool) {
-        
         if let layoutButtonItem = parent?.navigationItem.leftBarButtonItem {
             layoutButtonItem.isEnabled = enable
         }
     }
     
-    func changeLayoutButtonStatus() {
+    fileprivate func changeLayoutButtonStatus() {
         
         if let layoutButton = parent?.navigationItem.leftBarButtonItem?.customView as? LayoutButton {
             layoutButton.userMode = userMode
@@ -152,196 +175,8 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     // MARK: - Network
     
-    var isUploadingFormula: Bool = false
-    
-    func uploadingFormulas(with mode: UploadFormulaMode = .library, category: Category, finish: (() -> Void)? ) {
-        
-        if isUploadingFormula {
-            finish?()
-            return
-        }
-        
-        isUploadingFormula = true
-        
-        self.activityIndicator.startAnimating()
-        
-        let failureHandler: (_ error: NSError?) -> Void = {
-            error in
-            
-            DispatchQueue.main.async { [unowned self] in
-                
-//                CubeAlert.alertSorry(message: "加载失败，请检查您的网络连接或稍后再试。", inViewController: self)
-                
-                // TODO: 这里目前没有重试的入口
-                
-                self.searchBar.isHidden = true
-                self.isUploadingFormula = false
-                
-                self.view.addSubview(self.vistorView)
-                self.isUploadingFormula = false
-                self.activityIndicator.stopAnimating()
-                finish?()
-            }
-        }
-        
-        let completion: ([Formula]) -> Void = { formulas in
-            
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                strongSelf.isUploadingFormula = false
-                strongSelf.searchBar.isHidden = false
-                
-                var resultFormula = [[Formula]]()
-                
-                if !formulas.isEmpty {
-                    
-                    var types = Set<Type>()
-                    
-                    formulas.forEach {
-                        
-                        if types.contains($0.type) {
-                            return
-                        }
-                        
-                        types.insert($0.type)
-                    }
-                }
-                
-                if !formulas.isEmpty {
-                    
-                    var crossFormulas = [Formula]()
-                    var f2lFormulas = [Formula]()
-                    var ollFormulas = [Formula]()
-                    var pllFormulas = [Formula]()
-                    
-                    formulas.forEach {
-                        
-                        switch $0.type {
-                            
-                        case .CROSS:
-                            crossFormulas.append($0)
-                            
-                        case .F2L:
-                            f2lFormulas.append($0)
-                            
-                        case .OLL:
-                            ollFormulas.append($0)
-                            
-                        case .PLL:
-                            pllFormulas.append($0)
-                        }
-                    }
-                    
-                    if !crossFormulas.isEmpty {
-                        resultFormula.append(crossFormulas)
-                    }
-                    
-                    if !ollFormulas.isEmpty {
-                        resultFormula.append(ollFormulas)
-                    }
-                    
-                    if !pllFormulas.isEmpty {
-                        resultFormula.append(pllFormulas)
-                    }
-                    
-                    if !f2lFormulas.isEmpty {
-                        resultFormula.append(f2lFormulas)
-                    }
-                    
-                    strongSelf.formulasData = resultFormula
-                    
-                    strongSelf.vistorView.isHidden = true
-                    
-                } else {
-                    
-                    strongSelf.searchBar.isHidden = true
-                    strongSelf.isUploadingFormula = false
-                    strongSelf.formulasData = resultFormula
-                    
-                    strongSelf.view.addSubview(strongSelf.vistorView)
-                }
-                
-                strongSelf.activityIndicator.stopAnimating()
-                
-//                printLog(strongSelf.formulasData)
-                
-                finish?()
-                
-            }
-        }
-       
-        syncFormula(with: mode, categoty: category, completion: nil, failureHandler: nil)
-        
-        //fetchFormulaWithMode(uploadingFormulaMode: mode, category: category, completion: completion, failureHandler: failureHandler)
-        
-     }
-    
-    func parseFormulasData(with formulas: [Formula]) -> [[Formula]] {
-        
-        var resultFormula = [[Formula]]()
-        
-        if !formulas.isEmpty {
-            
-            var types = Set<Type>()
-            
-            formulas.forEach {
-                
-                if types.contains($0.type) {
-                    return
-                }
-                
-                types.insert($0.type)
-            }
-        }
-        
-        if !formulas.isEmpty {
-            
-            var crossFormulas = [Formula]()
-            var f2lFormulas = [Formula]()
-            var ollFormulas = [Formula]()
-            var pllFormulas = [Formula]()
-            
-            formulas.forEach {
-                
-                switch $0.type {
-                    
-                case .CROSS:
-                    crossFormulas.append($0)
-                    
-                case .F2L:
-                    f2lFormulas.append($0)
-                    
-                case .OLL:
-                    ollFormulas.append($0)
-                    
-                case .PLL:
-                    pllFormulas.append($0)
-                }
-            }
-            
-            if !crossFormulas.isEmpty {
-                resultFormula.append(crossFormulas)
-            }
-            
-            if !ollFormulas.isEmpty {
-                resultFormula.append(ollFormulas)
-            }
-            
-            if !pllFormulas.isEmpty {
-                resultFormula.append(pllFormulas)
-            }
-            
-            if !f2lFormulas.isEmpty {
-                resultFormula.append(f2lFormulas)
-            }
-            
-        }
-        return resultFormula
-    }
+    public var isUploadingFormula: Bool = false
+   
 
 }
 
@@ -349,19 +184,19 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
 
 extension BaseCollectionViewController: UISearchBarDelegate {
     
-    func pareseTwoDimensionalToOne() -> [Formula] {
-        
-        var resultArray: [Formula] = []
-        
-        _ = formulasData.map {
-            
-            $0.map {
-                
-                resultArray.append($0) }
-        }
-        return resultArray
-        
-    }
+//    func pareseTwoDimensionalToOne() -> [Formula] {
+//        
+//        var resultArray: [Formula] = []
+//        
+//        _ = formulasData.map {
+//            
+//            $0.map {
+//                
+//                resultArray.append($0) }
+//        }
+//        return resultArray
+//        
+//    }
     
     func searchFormulas(with searchText: String?) -> [Formula] {
         
@@ -369,8 +204,7 @@ extension BaseCollectionViewController: UISearchBarDelegate {
             return []
         }
         
-        return pareseTwoDimensionalToOne().filter {
-            
+        return formulasData.filter {
             $0.name.trimmingSearchtext().contains(text.trimmingSearchtext())
         }
     }
@@ -435,34 +269,28 @@ extension BaseCollectionViewController: UISearchBarDelegate {
 
 extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
    
-    
-    
      override func numberOfSections(in collectionView: UICollectionView) -> Int {
         
         if searchBarActive {
             return 1
         }
         
-        return formulasData.count
+        return categorysWith(self.uploadMode, inRealm: realm)?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
         switch section {
-            
         case 0:
-            
             if searchBarActive {
                 return haveSearchResult ? searchResult.count : 1
             }
-            
-            return formulasData[section].count
-            
+            return formulas[section].count
         
         default:
             
-            return formulasData[section].count
+            return formulas[section].count
             
         }
         
@@ -510,12 +338,12 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
                 
                 formula = searchResult[indexPath.item]
             } else {
-                formula = formulasData[indexPath.section][indexPath.item]
+                formula = formulas[indexPath.section][indexPath.item]
             }
             
         default:
             
-            formula = formulasData[indexPath.section][indexPath.item]
+            formula = formulas[indexPath.section][indexPath.item]
         }
         
         
@@ -574,40 +402,33 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        var seletedFormula: Formula!
-        var formulas: [Formula]!
+        var selectedFormula: Formula!
+        var selectedFormulas: [Formula]!
         
         if searchBarActive {
-            
-            seletedFormula = searchResult[indexPath.row]
-            formulas = searchResult
-            
+            selectedFormula = searchResult[indexPath.row]
+            selectedFormulas = searchResult
             
         } else {
-            seletedFormula = formulasData[indexPath.section][indexPath.row]
-            formulas = formulasData[indexPath.section]
-            
+            selectedFormula = formulas[indexPath.section][indexPath.item]
+            selectedFormulas = formulas[indexPath.section]
         }
         
+        let dict: [String: Any] = ["formulas": selectedFormulas, "seletedFormula" : selectedFormula]
         
-        let dict: [String: Any] = ["formulas": formulas, "seletedFormula" : seletedFormula]
-//        printLog(dict)
         self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
         
-    
     }
-    
-    
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewIdentifier, for: indexPath) as! HeaderReusableView
         
-        var formulaTypes = formulasData.map { $0.first?.type }
+        var formulaTypes = formulas.map { $0.first?.type }
         reusableView.type = formulaTypes[indexPath.section]
         
         
-        var counts = formulasData.map { $0.count }
+        var counts = formulas.map { $0.count }
         
         reusableView.count = counts[indexPath.section]
         

@@ -51,15 +51,23 @@ class MyFormulaViewController: BaseCollectionViewController {
     
     @objc private func refresh() {
         
-        uploadingFormulas(with: uploadMode, category: seletedCategory, finish: {
+        syncFormula(with: self.uploadMode, categoty: self.seletedCategory, completion: {
+            formulas in
             
             delay(1) {
                 self.collectionView?.reloadData()
                 self.refreshControl.endRefreshing()
             }
             
+            
+        }, failureHandler: { error in
+            
+            printLog(error)
         })
+    
     }
+    
+    
     
 
     /*

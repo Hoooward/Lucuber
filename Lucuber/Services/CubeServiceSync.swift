@@ -146,62 +146,62 @@ func syncMessage(withRecipientID recipientID: String?, messageAge: MessageAge, l
     
 }
 
-func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([DiscoverFormula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
-    
-    switch uploadMode {
-        
-    case .my:
-        
-        let query = AVQuery.getFormula(mode: uploadMode)
-        
-        printLog( "开始从LeanCloud中获取我的公式")
-        
-        query.findObjectsInBackground {
-            newFormulas, error in
-            
-            if error != nil {
-                
-                failureHandler?(error)
-                
-            }
-            
-            if let newFormulas = newFormulas as? [DiscoverFormula] {
-                
-                guard let realm = try? Realm() else {
-                    return
-                }
-                
-                
-                realm.beginWrite()
-                if !newFormulas.isEmpty {
-                    printLog("共下载到\(newFormulas.count)个公式 " )
-                    printLog("开始将 DiscoverFormula 转换成 Formula 并存入本地 Realm")
-                }
-                
-                newFormulas.forEach {
-                    
-                    convertDiscoverFormulaToFormula(discoverFormula: $0, realm: realm, completion: { formulas in
-                        printLog(formulas.contentss)
-                        
-                    })
-                }
-                
-                if !newFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
-                
-                try? realm.commitWrite()
-                
-                completion?(newFormulas)
-                
-            }
-            
-        }
-        
-    case .library:
-        
-        break
-        
-    }
-}
+//func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([DiscoverFormula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+//    
+//    switch uploadMode {
+//        
+//    case .my:
+//        
+//        let query = AVQuery.getFormula(mode: uploadMode)
+//        
+//        printLog( "开始从LeanCloud中获取我的公式")
+//        
+//        query.findObjectsInBackground {
+//            newFormulas, error in
+//            
+//            if error != nil {
+//                
+//                failureHandler?(error)
+//                
+//            }
+//            
+//            if let newFormulas = newFormulas as? [DiscoverFormula] {
+//                
+//                guard let realm = try? Realm() else {
+//                    return
+//                }
+//                
+//                
+//                realm.beginWrite()
+//                if !newFormulas.isEmpty {
+//                    printLog("共下载到\(newFormulas.count)个公式 " )
+//                    printLog("开始将 DiscoverFormula 转换成 Formula 并存入本地 Realm")
+//                }
+//                
+//                newFormulas.forEach {
+//                    
+//                    convertDiscoverFormulaToFormula(discoverFormula: $0, realm: realm, completion: { formulas in
+//                        printLog(formulas.contentss)
+//                        
+//                    })
+//                }
+//                
+//                if !newFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
+//                
+//                try? realm.commitWrite()
+//                
+//                completion?(newFormulas)
+//                
+//            }
+//            
+//        }
+//        
+//    case .library:
+//        
+//        break
+//        
+//    }
+//}
 
 func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, realm: Realm, completion: ((Formula) -> Void)?) {
     

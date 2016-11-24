@@ -102,6 +102,20 @@ public enum Type: String {
     //    case test1 = "111"
     //    case test2 = "222"
     //    case test3 = "333"
+    
+    var sortIndex: Int {
+        
+        switch self {
+        case .CROSS:
+            return 1
+        case .F2L:
+            return 2
+        case .PLL:
+            return 3
+        case .OLL:
+            return 4
+        }
+    }
 }
 
 open class Formula: Object {

@@ -192,16 +192,17 @@ public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm re
     
 }
 
+func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Int{
+    let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
+    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate).count
+}
+
 func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
-    
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
-    
     return realm.objects(Formula.self).filter(predicate).first
-    
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Results<Formula>{
-    
     let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
     return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
 }
