@@ -329,12 +329,11 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case .separatorTwo:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-            return formula.contentMaxCellHeight + 25 + 35 + 25 + 40
+            return formula.contentMaxCellHeight
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -346,7 +345,7 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             
         case .master:
             let cell = tableView.dequeueReusableCell(withIdentifier: masterCellIdentifier, for: indexPath) as! DetailMasterCell
-            cell.formula = formula
+            cell.configCell(with: formula)
             return cell
             
         case .separator, .separatorTwo:

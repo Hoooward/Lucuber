@@ -71,7 +71,7 @@
 		E4A3BAA51DE3FA43009C0E78 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */; };
 		E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
 		E4A3BAA71DE3FA43009C0E78 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
-		E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Formula.swift */; };
+		E4B09B9F1D8E38D10090671F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Model.swift */; };
 		E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA01D8E3C590090671F /* UIView+Cube.swift */; };
 		E4B09BA31D8E3D340090671F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA21D8E3D340090671F /* Config.swift */; };
 		E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA71D8EB52A0090671F /* BaseCollectionViewController.swift */; };
@@ -284,7 +284,7 @@
 		E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FormulasData.json; sourceTree = "<group>"; };
 		E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONData.swift; sourceTree = "<group>"; };
 		E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareData.swift; sourceTree = "<group>"; };
-		E4B09B9E1D8E38D10090671F /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
+		E4B09B9E1D8E38D10090671F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E4B09BA01D8E3C590090671F /* UIView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Cube.swift"; sourceTree = "<group>"; };
 		E4B09BA21D8E3D340090671F /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E4B09BA71D8EB52A0090671F /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
@@ -615,7 +615,7 @@
 		E4B09B9D1D8E38C30090671F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E4B09B9E1D8E38D10090671F /* Formula.swift */,
+				E4B09B9E1D8E38D10090671F /* Model.swift */,
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
 				E45DA0621DA771E60050DD4D /* Message.swift */,
@@ -639,11 +639,11 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4CED79D1DE862770036A11C /* Cell */,
 				E4CED7951DE862770036A11C /* ActionSheetView */,
 				E4CED7971DE862770036A11C /* CategoryButton */,
 				E4CED7991DE862770036A11C /* CategoryIndicatorView */,
 				E4CED79B1DE862770036A11C /* CategoryItem */,
-				E4CED79D1DE862770036A11C /* Cell */,
 				E4CED7FB1DE862770036A11C /* CommentHeader */,
 				E4CED7FE1DE862770036A11C /* ConversationTitle */,
 				E4CED8001DE862770036A11C /* CubeAlert */,
@@ -1831,7 +1831,7 @@
 				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4CED88A1DE862770036A11C /* FeedFormulaView.swift in Sources */,
 				E4CED8901DE862770036A11C /* TwicketSegmentedControl.swift in Sources */,
-				E4B09B9F1D8E38D10090671F /* Formula.swift in Sources */,
+				E4B09B9F1D8E38D10090671F /* Model.swift in Sources */,
 				E4CED8661DE862770036A11C /* FormulaTextViewCell.swift in Sources */,
 				E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */,
 			);

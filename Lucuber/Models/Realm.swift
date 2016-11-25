@@ -17,9 +17,10 @@ public func currentUser(in realm: Realm) -> RUser? {
     return userWith(avuserID, inRealm: realm)
 }
 
-public func masterWith(_ localObjectID: String, inRealm realm: Realm) -> FormulaMaster? {
+public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm realm: Realm) -> FormulaMaster? {
     let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
-    return realm.objects(FormulaMaster.self).filter(predicate).first
+    let predicate2 = NSPredicate(format: "atRuser = %@", user)
+    return realm.objects(FormulaMaster.self).filter(predicate).filter(predicate2).first
 }
 
 public func mastersWith(_ creatorLcObjectID: String, inRealm realm: Realm) -> Results<FormulaMaster> {
@@ -83,15 +84,9 @@ public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
     }
     
     let localObjectID = formula.localObjectID
-    let oldMasterList = currentUser.masterList
     
-    if let master = masterWith(localObjectID, inRealm: realm) {
-        if oldMasterList.contains(master) {
-            let index = oldMasterList.index(of: master)!
-            currentUser.masterList.remove(objectAtIndex: index)
-            
+    if let master = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) {
             realm.delete(master)
-        }
     }
 }
 
@@ -103,13 +98,10 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
     
     let localObjectID = formula.localObjectID
     
-    if let _ = masterWith(localObjectID, inRealm: realm) {
+    if let master = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) {
         return
     }
-    
     let newMaster = FormulaMaster(value: [localObjectID, currentUser.lcObjcetID])
-    currentUser.masterList.append(newMaster)
-    
     realm.add(newMaster)
     
 }

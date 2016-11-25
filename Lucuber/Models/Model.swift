@@ -229,7 +229,7 @@ open class Formula: Object {
                 maxHeight = $0
             }
         }
-        return maxHeight
+        return maxHeight + Config.RotationControl.controlMargin
     }
     
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
@@ -368,7 +368,7 @@ open class RUser: Object {
     dynamic var avatorImageURL: String?
     dynamic var introduction: String?
     
-    let masterList = List<FormulaMaster>()
+    let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
     
     open override static func indexedProperties() -> [String] {
         return ["userID"]
@@ -393,6 +393,7 @@ open class FormulaMaster: Object {
     /// 公式的本地ID
     dynamic var formulaLocalObjectID: String = ""
     /// 所属用户的 leancloudID
+    dynamic var atRUser: AVUser?
     dynamic var creatorLcObjectID: String = ""
 }
 

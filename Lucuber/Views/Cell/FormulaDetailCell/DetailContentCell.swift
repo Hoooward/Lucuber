@@ -11,9 +11,9 @@ import UIKit
 class DetailContentCell: UITableViewCell {
     
     // MARK: - Properties
-    var segmentedtitles: [String] = []
+    fileprivate var segmentedtitles: [String] = []
     
-    private lazy var segmentedControl: TwicketSegmentedControl = {
+    fileprivate lazy var segmentedControl: TwicketSegmentedControl = {
         let titles = ["FR", "FL", "BR", "BL"]
         let frame = CGRect(x: 28, y: 10, width: UIScreen.main.bounds.width - 28 - 28, height: 40)
         let segmentedControl = TwicketSegmentedControl(frame: frame)
@@ -23,7 +23,7 @@ class DetailContentCell: UITableViewCell {
         return segmentedControl
     }()
 
-    lazy var indicatorLabel: UILabel = {
+    fileprivate lazy var indicatorLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.inputAccessoryPlaceholderColor()
         label.textAlignment = .center
@@ -31,7 +31,7 @@ class DetailContentCell: UITableViewCell {
         return label
     }()
     
-    lazy var contentLabel: UILabel = {
+    fileprivate lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.inputAccessoryPlaceholderColor()
         label.textAlignment = .center
@@ -40,33 +40,33 @@ class DetailContentCell: UITableViewCell {
     }()
     
     
-    var formula: Formula? {
-        didSet {
-            if let formula = formula {
-                
-                var rotaionTitles = [String]()
-                
-                formula.contents.map { $0.rotation }.forEach {
-                    rotaionTitles.append($0)
-                }
-                segmentedControl.setSegmentItems(rotaionTitles)
-            }
-            didSelect(0)
+    fileprivate var formula: Formula?
+    
+    public func configCell(with formula: Formula?) {
+        
+        guard let formula = formula else {
+            return
         }
+        
+        self.formula = formula
+        
+        let rotations: [String] = formula.contents.map {
+            $0.rotation
+        }
+        
+        segmentedControl.setSegmentItems(rotations)
+        
+        didSelect(0)
+        
     }
     
-    // MARK: - Left Cycle
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(segmentedControl)
         addSubview(contentLabel)
-//        addSubview(indicatorLabel)
-        
         self.selectionStyle = .none
-       
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,50 +74,18 @@ class DetailContentCell: UITableViewCell {
     }
     
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard let formula = formula else {
-            return
-            
-        }
+        guard let formula = formula else { return }
         
-//        let contentLabelMaxHeight: CGFloat = formula.contentLabelMaxHeight
-        
-//        for (_, content) in formula.contents.enumerated() {
-//            
-//            if let text = content.text {
-//                
-//                let attributesText = text.setAttributesFitDetailLayout(style: .center)
-//                let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-//                
-//                
-//                if rect.height > contentLabelMaxHeight {
-//                    contentLabelMaxHeight = rect.height
-//                }
-//                
-//            }
-//        }
-//        
-        
-//        
-//        let indicatorLabelFrame = CGRect(x: 38 , y: 0, width: UIScreen.main.bounds.width - 38 - 38, height: 25)
-//        indicatorLabel.frame = indicatorLabelFrame
-        
-        
-        let rect = CGRect(x: 45, y: 25, width: UIScreen.main.bounds.width - 45 - 45, height: formula.contentLabelMaxHeight)
+        let screenWidth = UIScreen.main.bounds.width
+        let rect = CGRect(x: 45, y: 25, width: screenWidth - 45 - 45, height: formula.contentMaxCellHeight)
         contentLabel.frame = rect
         
-       
-        
-        let segmentControlFrame = CGRect(x: 28, y: contentLabel.frame.maxY + 40, width: UIScreen.main.bounds.width - 28 - 28, height: 35)
+        let segmentControlFrame = CGRect(x: 28, y: contentLabel.frame.maxY + 40, width: screenWidth - 28 - 28, height: 35)
         
         segmentedControl.frame = segmentControlFrame
-        
-       
-        
-        
     }
     
 }
@@ -132,27 +100,16 @@ extension DetailContentCell: UIScrollViewDelegate, TwicketSegmentedControlDelega
         }
         
         let content = formula.contents[segmentIndex]
-//        
-//        contentLabel.attributedText = content.text?.setAttributesFitDetailLayout(style: .center)
-//        
-//        
-//        switch content.rotation {
-//        case .FR(_, let text):
-//            indicatorLabel.text = text
-//        case .FL(_, let text):
-//            indicatorLabel.text = text
-//        case .BL(_, let text):
-//            indicatorLabel.text = text
-//        case .BR(_, let text):
-//            indicatorLabel.text = text
-//        }
+        let rotation = Rotation(rawValue: content.rotation)
+        contentLabel.attributedText = content.text.setAttributesFitDetailLayout(style: .center)
+        
+        indicatorLabel.text = rotation?.placeholderText
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         printLog("开始滚动")
     }
-    
-    
+
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         printLog("滑动动画结束")
     }

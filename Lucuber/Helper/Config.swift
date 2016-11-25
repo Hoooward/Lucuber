@@ -196,6 +196,10 @@ public class Config {
     public class func avatarMaxSize() -> CGSize {
         return CGSize(width: 414, height: 414)
     }
+    
+    public struct RotationControl {
+        public static let controlMargin: CGFloat = 25 + 35 + 25 + 40
+    }
 }
 
 

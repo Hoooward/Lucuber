@@ -8,10 +8,11 @@
 
 import UIKit
 import AVOSCloud
+import RealmSwift
 
 class DetailMasterCell: UITableViewCell {
 
-    enum Master {
+    private enum Master {
         case no
         case yes
     }
@@ -25,25 +26,21 @@ class DetailMasterCell: UITableViewCell {
        
     }
     
-    var master: Master = .no {
-        
+    private var master: Master = .no {
         didSet {
-            
             switch master {
-                
             case .no:
                 indicatorView.isHidden = true
-                 masterLabel.text = "未掌握"
+                masterLabel.text = "未掌握"
                 
             case .yes:
                 indicatorView.isHidden = false
-                 masterLabel.text = "已掌握"
+                masterLabel.text = "已掌握"
             }
         }
-        
     }
     
-    fileprivate var formula: Formula?
+    private var formula: Formula?
     
     public func configCell(with formula: Formula?) {
         
@@ -59,29 +56,22 @@ class DetailMasterCell: UITableViewCell {
     
     }
     
-    func changeMasterStatus(with formula: Formula?) {
-       
-        master = master == .no ? .yes : .no
+    public func changeMasterStatus(with formula: Formula?) {
         
-        switch master {
-            
-        case .no:
-           
-            if let currentUser = AVUser.current(), let formula = formula {
-                
-//                currentUser.deleteMasterFormula(formula)
-                masterLabel.text = "未掌握"
-            }
-            
-        case .yes:
-            
-            if let currentUser = AVUser.current(), let formula = formula {
-                
-//                currentUser.addNewMasterFormula(formula)
-                masterLabel.text = "已掌握"
-            }
+        guard let realm = try? Realm(), let formula = formula else {
+            return 
         }
         
+        master = master == .no ? .yes : .no
+        
+        realm.beginWrite()
+        switch master {
+        case .no:
+            deleteMaster(with: formula, inRealm: realm)
+        case .yes:
+            appendMaster(with: formula, inRealm: realm)
+        }
+        try? realm.commitWrite()
     }
     
 }
