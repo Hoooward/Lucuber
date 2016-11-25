@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormulaContentCell: UITableViewCell {
+class DetailContentCell: UITableViewCell {
     
     // MARK: - Properties
     var segmentedtitles: [String] = []
@@ -46,7 +46,7 @@ class FormulaContentCell: UITableViewCell {
                 
                 var rotaionTitles = [String]()
                 
-                formula.contentss.map { $0.rotation }.forEach {
+                formula.contents.map { $0.rotation }.forEach {
                     rotaionTitles.append($0)
                 }
                 segmentedControl.setSegmentItems(rotaionTitles)
@@ -123,7 +123,7 @@ class FormulaContentCell: UITableViewCell {
 }
 
 
-extension FormulaContentCell: UIScrollViewDelegate, TwicketSegmentedControlDelegate {
+extension DetailContentCell: UIScrollViewDelegate, TwicketSegmentedControlDelegate {
     
     func didSelect(_ segmentIndex: Int) {
         
@@ -131,7 +131,7 @@ extension FormulaContentCell: UIScrollViewDelegate, TwicketSegmentedControlDeleg
             return
         }
         
-        let content = formula.contentss[segmentIndex]
+        let content = formula.contents[segmentIndex]
 //        
 //        contentLabel.attributedText = content.text?.setAttributesFitDetailLayout(style: .center)
 //        

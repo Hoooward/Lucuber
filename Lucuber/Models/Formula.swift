@@ -221,13 +221,17 @@ open class Formula: Object {
     }
     
     
-//    open var contentMaxCellHeight: CGFloat {
-//        
-//        return contents.map({ $0.cellHeight })
-//        
-////        return contentLabelMaxHeight + 25 + 35 + 25 + 40
-//    }
-//    
+    open var contentMaxCellHeight: CGFloat {
+        var maxHeight: CGFloat = 0
+        let heights: [CGFloat] = contents.map{ $0.cellHeight }
+        heights.forEach {
+            if $0 > maxHeight {
+                maxHeight = $0
+            }
+        }
+        return maxHeight
+    }
+    
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
        
         let newFormula = Formula()

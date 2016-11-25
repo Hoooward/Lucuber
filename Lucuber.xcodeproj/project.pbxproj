@@ -85,7 +85,7 @@
 		E45DA06A1DA7A3080050DD4D /* ChatLeftImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0691DA7A3080050DD4D /* ChatLeftImageCell.swift */; };
 		E45DA06D1DA7A41F0050DD4D /* MessageLoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA06C1DA7A41F0050DD4D /* MessageLoadingProgressView.swift */; };
 		E4610F431DA1F2A80018CB67 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */; };
-		E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */; };
+		E4610F481DA1FC710018CB67 /* DetailContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F461DA1FC710018CB67 /* DetailContentCell.swift */; };
 		E4610F531DA29F180018CB67 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F4E1DA29F180018CB67 /* Palette.swift */; };
 		E4610F541DA29F180018CB67 /* TwicketSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F501DA29F180018CB67 /* TwicketSegmentedControl.swift */; };
 		E4610F551DA29F180018CB67 /* UIViewShadowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4610F511DA29F180018CB67 /* UIViewShadowExtension.swift */; };
@@ -295,7 +295,7 @@
 		E45DA0691DA7A3080050DD4D /* ChatLeftImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLeftImageCell.swift; sourceTree = "<group>"; };
 		E45DA06C1DA7A41F0050DD4D /* MessageLoadingProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLoadingProgressView.swift; sourceTree = "<group>"; };
 		E4610F421DA1F2A80018CB67 /* DetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
-		E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaContentCell.swift; sourceTree = "<group>"; };
+		E4610F461DA1FC710018CB67 /* DetailContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContentCell.swift; sourceTree = "<group>"; };
 		E4610F4E1DA29F180018CB67 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		E4610F4F1DA29F180018CB67 /* TwicketSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwicketSegmentedControl.h; sourceTree = "<group>"; };
 		E4610F501DA29F180018CB67 /* TwicketSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwicketSegmentedControl.swift; sourceTree = "<group>"; };
@@ -665,7 +665,7 @@
 				E435C0371D9F4A370026FA08 /* HeaderView */,
 				E435C0391D9F4A370026FA08 /* MasterCell */,
 				E435C03C1D9F4A370026FA08 /* SeparatorCell */,
-				E4610F461DA1FC710018CB67 /* FormulaContentCell.swift */,
+				E4610F461DA1FC710018CB67 /* DetailContentCell.swift */,
 			);
 			path = FormulaDetail;
 			sourceTree = "<group>";
@@ -1704,7 +1704,7 @@
 				E40EAEB91DA9F1BB0068404B /* CommentHeaderView.swift in Sources */,
 				E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */,
 				E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */,
-				E4610F481DA1FC710018CB67 /* FormulaContentCell.swift in Sources */,
+				E4610F481DA1FC710018CB67 /* DetailContentCell.swift in Sources */,
 				E41ECF351DB5D247005BEFE4 /* FeedBaseCell.swift in Sources */,
 				E41ECF371DB5D30A005BEFE4 /* FeedCellLayout.swift in Sources */,
 				E47926511D96DC5F004D58BF /* NameTextViewCell.swift in Sources */,

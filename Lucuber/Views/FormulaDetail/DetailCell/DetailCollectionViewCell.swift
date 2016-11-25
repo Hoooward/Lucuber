@@ -12,7 +12,7 @@ private let MasterCellIdentifier = "DetailMasterCell"
 private let FormulasCellIdentifier = "DetailFormulasCell"
 private let SeparatorCellIdentifier = "DetailSeparatorCell"
 private let DetailCommentCellIdentifier = "DetailCommentCell"
-private let FormulaContentCellIdentifier = "FormulaContentCell"
+private let DetailContentCellIdentifier = "DetailContentCell"
 
 class DetailCollectionViewCell: UICollectionViewCell {
 
@@ -47,8 +47,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
         tableView.register(UINib(nibName: FormulasCellIdentifier,bundle: nil), forCellReuseIdentifier: FormulasCellIdentifier)
         tableView.register(UINib(nibName: SeparatorCellIdentifier,bundle: nil), forCellReuseIdentifier: SeparatorCellIdentifier)
         tableView.register(UINib(nibName: DetailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: DetailCommentCellIdentifier)
-//        tableView.register(UINib(nibName: FormulaContentCellIdentifier,bundle: nil), forCellReuseIdentifier: FormulaContentCellIdentifier)
-        tableView.register(FormulaContentCell.self, forCellReuseIdentifier: FormulaContentCellIdentifier)
+        tableView.register(DetailContentCell.self, forCellReuseIdentifier: FormulaContentCellIdentifier)
         
     }
     
