@@ -211,18 +211,13 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
             let vc = segue.destination as! FormulaDetailViewController
             
-            if let dict = sender as? [String: AnyObject] {
+            if let formula = sender as? Formula {
                 
-                vc.seletedFormula = dict["seletedFormula"] as? Formula
-                vc.formulaDatas = dict["formulas"] as! [Formula]
-                
+                vc.formula = formula
                 
                 let index = Int(containerScrollerView.contentOffset.x / UIScreen.main.bounds.width)
                 
-                
                 vc.uploadMode = index == 0 ? .my : .library
-                
-//                vc.hidesBottomBarWhenPushed = true
                 
             }
             break

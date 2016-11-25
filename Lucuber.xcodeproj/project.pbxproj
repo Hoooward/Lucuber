@@ -107,9 +107,6 @@
 		E4CED84D1DE862770036A11C /* FeedMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CED7BB1DE862770036A11C /* FeedMediaCell.xib */; };
 		E4CED84E1DE862770036A11C /* DetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7BE1DE862770036A11C /* DetailCommentCell.swift */; };
 		E4CED84F1DE862770036A11C /* DetailCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CED7BF1DE862770036A11C /* DetailCommentCell.xib */; };
-		E4CED8501DE862770036A11C /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7C11DE862770036A11C /* DetailCollectionViewCell.swift */; };
-		E4CED8511DE862770036A11C /* DetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CED7C21DE862770036A11C /* DetailCollectionViewCell.xib */; };
-		E4CED8521DE862770036A11C /* DetailContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7C31DE862770036A11C /* DetailContentCell.swift */; };
 		E4CED8531DE862770036A11C /* DetailFormulasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7C51DE862770036A11C /* DetailFormulasCell.swift */; };
 		E4CED8541DE862770036A11C /* DetailFormulasCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CED7C61DE862770036A11C /* DetailFormulasCell.xib */; };
 		E4CED8551DE862770036A11C /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7C81DE862770036A11C /* DetailHeaderView.swift */; };
@@ -175,6 +172,7 @@
 		E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8301DE862770036A11C /* UIViewShadowExtension.swift */; };
 		E4CED8921DE862770036A11C /* MyFormulaVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8321DE862770036A11C /* MyFormulaVisitorView.swift */; };
 		E4CED8931DE862770036A11C /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8331DE862770036A11C /* UpdateLibraryErrorView.swift */; };
+		E4CED8961DE88E0D0036A11C /* DetailContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */; };
 		E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E41D8D92D6005CE518 /* Formula.storyboard */; };
 		E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E91D8D9353005CE518 /* Feed.storyboard */; };
 		E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65EE1D8D93A8005CE518 /* Setting.storyboard */; };
@@ -320,9 +318,6 @@
 		E4CED7BB1DE862770036A11C /* FeedMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedMediaCell.xib; sourceTree = "<group>"; };
 		E4CED7BE1DE862770036A11C /* DetailCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentCell.swift; sourceTree = "<group>"; };
 		E4CED7BF1DE862770036A11C /* DetailCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCommentCell.xib; sourceTree = "<group>"; };
-		E4CED7C11DE862770036A11C /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
-		E4CED7C21DE862770036A11C /* DetailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCollectionViewCell.xib; sourceTree = "<group>"; };
-		E4CED7C31DE862770036A11C /* DetailContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContentCell.swift; sourceTree = "<group>"; };
 		E4CED7C51DE862770036A11C /* DetailFormulasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailFormulasCell.swift; sourceTree = "<group>"; };
 		E4CED7C61DE862770036A11C /* DetailFormulasCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailFormulasCell.xib; sourceTree = "<group>"; };
 		E4CED7C81DE862770036A11C /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
@@ -389,6 +384,7 @@
 		E4CED8301DE862770036A11C /* UIViewShadowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewShadowExtension.swift; sourceTree = "<group>"; };
 		E4CED8321DE862770036A11C /* MyFormulaVisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaVisitorView.swift; sourceTree = "<group>"; };
 		E4CED8331DE862770036A11C /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
+		E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContentCell.swift; sourceTree = "<group>"; };
 		E4DF65E51D8D92D6005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Formula.storyboard; sourceTree = "<group>"; };
 		E4DF65EA1D8D9353005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
 		E4DF65EF1D8D93A8005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setting.storyboard; sourceTree = "<group>"; };
@@ -801,9 +797,8 @@
 		E4CED7BC1DE862770036A11C /* FormulaDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				E4CED8941DE88E0D0036A11C /* ContentCell */,
 				E4CED7BD1DE862770036A11C /* CommentCell */,
-				E4CED7C01DE862770036A11C /* DetailCell */,
-				E4CED7C31DE862770036A11C /* DetailContentCell.swift */,
 				E4CED7C41DE862770036A11C /* FormulasCell */,
 				E4CED7C71DE862770036A11C /* HeaderView */,
 				E4CED7C91DE862770036A11C /* MasterCell */,
@@ -819,15 +814,6 @@
 				E4CED7BF1DE862770036A11C /* DetailCommentCell.xib */,
 			);
 			path = CommentCell;
-			sourceTree = "<group>";
-		};
-		E4CED7C01DE862770036A11C /* DetailCell */ = {
-			isa = PBXGroup;
-			children = (
-				E4CED7C11DE862770036A11C /* DetailCollectionViewCell.swift */,
-				E4CED7C21DE862770036A11C /* DetailCollectionViewCell.xib */,
-			);
-			path = DetailCell;
 			sourceTree = "<group>";
 		};
 		E4CED7C41DE862770036A11C /* FormulasCell */ = {
@@ -1236,6 +1222,14 @@
 			path = VisitorView;
 			sourceTree = "<group>";
 		};
+		E4CED8941DE88E0D0036A11C /* ContentCell */ = {
+			isa = PBXGroup;
+			children = (
+				E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */,
+			);
+			path = ContentCell;
+			sourceTree = "<group>";
+		};
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1557,7 +1551,6 @@
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
 				E4CED8671DE862770036A11C /* FormulaTextViewCell.xib in Resources */,
-				E4CED8511DE862770036A11C /* DetailCollectionViewCell.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
@@ -1724,7 +1717,6 @@
 				E4CED85A1DE862770036A11C /* CardFormulaCell.swift in Sources */,
 				E41ECF4A1DB5F548005BEFE4 /* ImageCache.swift in Sources */,
 				E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */,
-				E4CED8521DE862770036A11C /* DetailContentCell.swift in Sources */,
 				E4CED8851DE862770036A11C /* BorderTextField.swift in Sources */,
 				E4CED8461DE862770036A11C /* FeedBiggerImageCell.swift in Sources */,
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
@@ -1747,6 +1739,7 @@
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */,
+				E4CED8961DE88E0D0036A11C /* DetailContentCell.swift in Sources */,
 				E4CED8731DE862770036A11C /* TypeSelectedCell.swift in Sources */,
 				E4CED86F1DE862770036A11C /* StarRatingCell.swift in Sources */,
 				E47926261D968CDB004D58BF /* Keyboard.swift in Sources */,
@@ -1763,7 +1756,6 @@
 				E4CED8411DE862770036A11C /* ChatTextView.swift in Sources */,
 				E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */,
 				E4CED8561DE862770036A11C /* DetailMasterCell.swift in Sources */,
-				E4CED8501DE862770036A11C /* DetailCollectionViewCell.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E4CED8601DE862770036A11C /* NoResultCell.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,

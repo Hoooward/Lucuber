@@ -399,20 +399,14 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         var selectedFormula: Formula!
-        var selectedFormulas: [Formula]!
         
         if searchBarActive {
             selectedFormula = searchResult[indexPath.row]
-            selectedFormulas = searchResult
-            
         } else {
             selectedFormula = formulas[indexPath.section][indexPath.item]
-            selectedFormulas = formulas[indexPath.section]
         }
         
-        let dict: [String: Any] = ["formulas": selectedFormulas, "seletedFormula" : selectedFormula]
-        
-        self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: dict)
+        self.parent?.performSegue(withIdentifier: SegueIdentifier.showFormulaDetail.rawValue, sender: selectedFormula)
         
     }
     

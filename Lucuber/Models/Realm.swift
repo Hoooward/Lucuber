@@ -10,7 +10,13 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-// MARK: - Formula
+// MARK: - User
+
+
+public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
+    let predicate = NSPredicate(format: "lcObjcetID = %@", userID)
+    return realm.objects(RUser.self).filter(predicate).first
+}
 
 public func currentUser(in realm: Realm) -> RUser? {
     guard let avuserID = AVUser.current()?.objectId else { return nil }
@@ -23,10 +29,68 @@ public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm rea
     return realm.objects(FormulaMaster.self).filter(predicate).filter(predicate2).first
 }
 
-public func mastersWith(_ creatorLcObjectID: String, inRealm realm: Realm) -> Results<FormulaMaster> {
-    let predicate = NSPredicate(format: "creatorLcObjectID = %@", creatorLcObjectID)
+public func mastersWith(_ rUser: RUser, inRealm realm: Realm) -> Results<FormulaMaster> {
+    let predicate = NSPredicate(format: "creatorLcObjectID = %@", rUser.lcObjcetID)
     return realm.objects(FormulaMaster.self).filter(predicate)
 }
+
+public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
+    guard let currentUser = currentUser(in: realm) else { return }
+    
+    let localObjectID = formula.localObjectID
+    if let master = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) {
+        realm.delete(master)
+    }
+}
+
+public func appendMaster(with formula: Formula, inRealm realm: Realm) {
+    guard let currentUser = currentUser(in: realm) else { return }
+    
+    let localObjectID = formula.localObjectID
+    if let _ = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) { return }
+    let newMaster = FormulaMaster(value: [localObjectID, currentUser.lcObjcetID])
+    realm.add(newMaster)
+    
+}
+
+public func updateMasterList(with rUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
+    if let lcObjectID = discoverUser.objectId, let newMasterList = discoverUser.masterList() {
+        let oldMasterList = mastersWith(rUser, inRealm: realm)
+        realm.delete(oldMasterList)
+        
+        let masterList = newMasterList.map { FormulaMaster(value:[$0, lcObjectID]) }
+        realm.add(masterList)
+    }
+}
+
+public func appendRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
+    
+    if let creator = userWith(discoverUser.localObjectID() ?? "", inRealm: realm) {
+        
+        updateMasterList(with: creator, discoverUser: discoverUser, inRealm: realm)
+        
+        return creator
+        
+    } else {
+        
+        let newUser = RUser()
+        
+        newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
+        newUser.lcObjcetID = discoverUser.objectId!
+        newUser.avatorImageURL = discoverUser.avatorImageURL()
+        newUser.username = discoverUser.username!
+        newUser.nickname = discoverUser.nickname()
+        newUser.introduction = discoverUser.introduction()
+        
+        updateMasterList(with: newUser, discoverUser: discoverUser, inRealm: realm)
+        
+        realm.add(newUser)
+        return newUser
+    }
+    
+}
+
+// MARK: - Formula
 
 public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
     let predicate = NSPredicate(format: "categoryString = %@", category.rawValue)
@@ -71,122 +135,6 @@ public func formulaWith(_ objectID: String , inRealm realm: Realm) -> Formula? {
     return realm.objects(Formula.self).filter(predicate).first
 }
 
-public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
-    let predicate = NSPredicate(format: "lcObjcetID = %@", userID)
-    return realm.objects(RUser.self).filter(predicate).first
-}
-
-
-public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
-    
-    guard let currentUser = currentUser(in: realm) else {
-        return
-    }
-    
-    let localObjectID = formula.localObjectID
-    
-    if let master = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) {
-            realm.delete(master)
-    }
-}
-
-public func appendMaster(with formula: Formula, inRealm realm: Realm) {
-    
-    guard let currentUser = currentUser(in: realm) else {
-        return
-    }
-    
-    let localObjectID = formula.localObjectID
-    
-    if let master = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) {
-        return
-    }
-    let newMaster = FormulaMaster(value: [localObjectID, currentUser.lcObjcetID])
-    realm.add(newMaster)
-    
-}
-
-public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
-    
-    let categorys = categorysWith(uploadMode, inRealm: realm)
-    
-    let categoryTexts = categorys.map { $0.name }
-    
-    if !categoryTexts.contains(formula.category.rawValue) {
-        
-        let newRCategory = RCategory()
-        newRCategory.uploadMode = uploadMode.rawValue
-        newRCategory.name = formula.category.rawValue
-        realm.add(newRCategory)
-        
-    }
-    
-}
-
-public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm realm: Realm) -> RUser {
-    
-    if let creator = userWith(creatorID, inRealm: realm) {
-        
-        if
-            let newMasterList = discoverUser.masterList(),
-            let discoverUserID = discoverUser.objectId {
-            
-            if !newMasterList.isEmpty {
-                
-                let oldFormulaMasterList = creator.masterList
-                let oldMasterList: [String] = oldFormulaMasterList.map {$0.formulaLocalObjectID }
-                
-                if  oldMasterList == newMasterList {
-                    
-                    return creator
-                    
-                } else {
-                    
-                    creator.masterList.removeAll()
-                    realm.delete(oldFormulaMasterList)
-                    
-                    let newMasterList = newMasterList.map { FormulaMaster(value:[$0, discoverUserID]) }
-                    creator.masterList.append(objectsIn: newMasterList)
-                    realm.add(newMasterList)
-                    
-                    printLog("\(creator.username) 的 MasterList 有变化, 已完成本地数据刷新")
-                    
-                }
-            }
-        }
-        
-        return creator
-        
-    } else {
-        
-        let newUser = RUser()
-        
-        newUser.localObjectID = discoverUser.localObjectID() ?? ""
-        newUser.lcObjcetID = discoverUser.objectId!
-        newUser.avatorImageURL = discoverUser.avatorImageURL()
-        newUser.username = discoverUser.username!
-        newUser.nickname = discoverUser.nickname()
-        newUser.introduction = discoverUser.introduction()
-        
-        
-        if
-            let discoverUserID = discoverUser.objectId,
-            let masterList = discoverUser.masterList() {
-            
-            if !masterList.isEmpty {
-                let newMasterList = masterList.map { FormulaMaster(value:[$0, discoverUserID]) }
-                newUser.masterList.append(objectsIn: newMasterList)
-                realm.add(newMasterList)
-            }
-            
-        }
-        
-        realm.add(newUser)
-        
-        return newUser
-    }
-    
-}
 
 func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Int{
     let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
@@ -226,7 +174,22 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
     
 }
 
-// Message
+public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
+    
+    let categorys = categorysWith(uploadMode, inRealm: realm)
+    let categoryTexts = categorys.map { $0.name }
+    if !categoryTexts.contains(formula.category.rawValue) {
+        
+        let newRCategory = RCategory()
+        newRCategory.uploadMode = uploadMode.rawValue
+        newRCategory.name = formula.category.rawValue
+        realm.add(newRCategory)
+        
+    }
+    
+}
+
+// MARK: - Message
 
 func userWithUserID(userID: String, inRealm realm: Realm) -> RUser? {
     
@@ -530,14 +493,7 @@ public func deleteMyFormulasRContentAtRealm() {
 //    }
 //}
 
-public enum UserFriendState: Int {
-    case Stranger       = 0   // 陌生人
-    case IssuedRequest  = 1   // 已对其发出好友请求
-    case Normal         = 2   // 正常状态的朋友
-    case Blocked        = 3   // 被屏蔽
-    case Me             = 4   // 自己
-    case Yep            = 5   // Yep官方账号
-}
+
 
 //class RUser: Object {
 //    

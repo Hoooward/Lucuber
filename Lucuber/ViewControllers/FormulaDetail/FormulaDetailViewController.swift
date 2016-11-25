@@ -143,7 +143,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 viewController.editType = .addToMy
                 viewController.view.alpha = 1
                 
-                viewController.formula = strongSelf.formula.copy as! Formula
+                viewController.formula = strongSelf.formula
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
             })
@@ -354,7 +354,7 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             
         case .formulas:
             let cell = tableView.dequeueReusableCell(withIdentifier: detailContentCellIdentifier, for: indexPath) as! DetailContentCell
-            cell.formula = formula
+            cell.configCell(with: formula)
             return cell
             
         case .comment:
