@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FormulaViewController: UIViewController, SegueHandlerType {
     
@@ -158,44 +159,37 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             let menuVC = storyboard.instantiateViewController(withIdentifier: "CategoryMenuController") as? CategoryMenuController,
             let presentingVC = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
             
+            guard let realm = try? Realm() else {
+                return
+            }
             
             let category = presentingVC.seletedCategory
+            let RCategorys = categorysWith(presentingVC.uploadMode, inRealm: realm)
             
-//            var categorys = getCategoryMenusAtRealm(mode: presentingVC.uploadMode)
-            
-            if categorys.isEmpty {
-                
-                categorys.append(.x3x3)
-            }
+            let categorys: [Category] = RCategorys.map({ Category(rawValue:$0.name)! })
             
             let menuHeight = Config.CategoryMenu.rowHeight * CGFloat(categorys.count) + 20 + 10
             
             menuAnimator.presentedFrame = CGRect(x: Config.CategoryMenu.menuOrignX, y: 60, width: Config.CategoryMenu.menuWidth, height: menuHeight)
             
             menuVC.transitioningDelegate = self.menuAnimator
-            
             menuVC.modalPresentationStyle = UIModalPresentationStyle.custom
-            
             
             
             menuVC.seletedCateogry = category
             menuVC.categorys = categorys
             
-//            menuVC.categoryDidChanged = {
-//                
-//                category in
-//                
-//                presentingVC.uploadingFormulas(with: presentingVC.uploadMode, category: category) {
-//                    
-//                    presentingVC.collectionView?.reloadData()
-//                }
-//                
-//                presentingVC.seletedCategory = category
-//                
-//                UserDefaults.setSelected(category: category, mode: presentingVC.uploadMode)
-//                
-//                button.seletedCategory = category
-//            }
+            menuVC.categoryDidChanged = {
+                category in
+                
+                presentingVC.seletedCategory = category
+                
+                presentingVC.collectionView?.reloadData()
+                
+                UserDefaults.setSelected(category: category, mode: presentingVC.uploadMode)
+                
+                button.seletedCategory = category
+            }
             
             present(menuVC, animated: true, completion: nil)
             
@@ -244,15 +238,22 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             
             if let presentingVC = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
                 
-                let formula = Formula.creatNewDefaultFormula()
                 
-                formula.category = presentingVC.seletedCategory
-                vc.formula = formula
-                
-                vc.savedNewFormula = {
-                    
-                    presentingVC.collectionView?.reloadData()
+                guard let realm = try? Realm() else {
+                    return
                 }
+                
+                var formula: Formula!
+                try? realm.write {
+                    
+                    formula = Formula.new(false, inRealm: realm)
+                    formula.category = presentingVC.seletedCategory
+                    
+                }
+                
+                vc.formula = formula
+                vc.realm = realm
+                
             }
         }
         

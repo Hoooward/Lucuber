@@ -218,8 +218,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBarActive = false
         
-//        printLog(self.searchBar)
-        
         if let _ = cacheBeforeSearchUserMode {
             userMode = cacheBeforeSearchUserMode!
             cacheBeforeSearchUserMode = nil
@@ -245,8 +243,6 @@ extension BaseCollectionViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
-//        printLog(searchBar)
         cancelSearch()
     }
     
@@ -275,7 +271,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
             return 1
         }
         
-        return categorysWith(self.uploadMode, inRealm: realm)?.count ?? 0
+        return formulas.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

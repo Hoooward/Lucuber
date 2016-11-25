@@ -14,12 +14,15 @@ class NewFormulaHeadView: UIView {
         return Bundle.main.loadNibNamed("NewFormulaHeadView", owner: nil, options: nil)!.last! as! NewFormulaHeadView
     }
     
+    fileprivate var formula: Formula?
     
     public func configView(with formula: Formula?) {
         
         guard let formula = formula else {
             return
         }
+        
+        self.formula = formula
         
         setFormulaImageButtonBackgroundImage(imageName: formula.imageName)
         indicatorView.configureWithCategory(category: formula.category.rawValue)

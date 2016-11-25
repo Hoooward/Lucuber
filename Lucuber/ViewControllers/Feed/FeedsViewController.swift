@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 struct LayoutCatch {
     
@@ -115,9 +116,13 @@ class FeedsViewController: UIViewController {
                     let newVc = navigationVC.viewControllers.first as! NewFormulaViewController
                     
                     /// 由于初始化顺序,下面三行代码先后顺序不可改变
+                    guard let realm = try? Realm() else {
+                        return
+                    }
                     newVc.editType = NewFormulaViewController.EditType.newAttchment
                     newVc.view.alpha = 1
-                    newVc.formula = Formula.creatNewDefaultFormula()
+                    newVc.formula = Formula.new(inRealm: realm)
+                    newVc.realm = realm
                     
                     strongSelf.present(navigationVC, animated: true, completion: nil)
                     
@@ -389,7 +394,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .Feed:
             
-            let feed = feeds[indexPath.row]
+            _ = feeds[indexPath.row]
             
             let tapMediaAction: tapMediaActionTypealias = { [weak self] transitionView, image, attachments, index in
                 

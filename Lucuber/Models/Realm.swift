@@ -40,8 +40,17 @@ public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMod
     return realm.objects(Formula.self).filter(predicate2).filter(predicate).count
 }
 
-public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory>? {
+public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory> {
+   
     let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
+    
+    let categorys = realm.objects(RCategory.self).filter(predicate)
+    
+    if categorys.isEmpty {
+        let newCategory = RCategory(value: ["x3x3", uploadMode.rawValue])
+        realm.add(newCategory)
+    }
+    
     return realm.objects(RCategory.self).filter(predicate)
     
 }
@@ -109,22 +118,17 @@ public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode
     
     let categorys = categorysWith(uploadMode, inRealm: realm)
     
-    if let categorys = categorys {
-        let categoryTexts = categorys.map { $0.name }
-        if !categoryTexts.contains(formula.category.rawValue) {
-            let newRCategory = RCategory()
-            newRCategory.uploadMode = uploadMode.rawValue
-            newRCategory.name = formula.category.rawValue
-            realm.add(newRCategory)
-        }
-        
-    } else {
+    let categoryTexts = categorys.map { $0.name }
+    
+    if !categoryTexts.contains(formula.category.rawValue) {
         
         let newRCategory = RCategory()
         newRCategory.uploadMode = uploadMode.rawValue
         newRCategory.name = formula.category.rawValue
         realm.add(newRCategory)
+        
     }
+    
 }
 
 public func appendRUser(with creatorID: String, discoverUser: AVUser, inRealm realm: Realm) -> RUser {

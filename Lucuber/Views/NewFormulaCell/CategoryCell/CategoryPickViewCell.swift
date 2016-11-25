@@ -45,7 +45,7 @@ class CategoryPickViewCell: UITableViewCell {
 //        }
 //    }
     
-    private var categorys: [CategoryItem] = []
+    fileprivate var categorys: [CategoryItem] = []
     public var categoryDidChanged: ((_ category: CategoryItem) -> Void)?
     
     // MARK: - Life Cycle

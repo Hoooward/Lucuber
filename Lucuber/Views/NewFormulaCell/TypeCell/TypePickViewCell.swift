@@ -14,7 +14,7 @@ class TypePickViewCell: UITableViewCell {
     
     @IBOutlet weak var pickView: UIPickerView!
     
-    private var typesText = [String]()
+    fileprivate var typesText = [String]()
     
     public var typeDidChanged: ((Type) -> Void)?
     
@@ -28,6 +28,7 @@ class TypePickViewCell: UITableViewCell {
 //            }
 //        }
 //    }
+    fileprivate var type: Type?
     
     public func configCell(with formula: Formula?) {
         
@@ -36,6 +37,7 @@ class TypePickViewCell: UITableViewCell {
         }
         
         let type = formula.type
+        self.type = type
         
         let index = typesText.index(of: type.rawValue) ?? 0
         pickView.selectRow(index, inComponent: 0, animated: false)
@@ -57,7 +59,7 @@ class TypePickViewCell: UITableViewCell {
         let path = Bundle.main.path(forResource: "CubeType.plist", ofType: nil)!
         let dict = NSDictionary(contentsOfFile: path)!
         
-        if let type = primaryType,
+        if let type = type,
             let types = dict[type.rawValue] as? [String] {
             
             self.typesText = types
