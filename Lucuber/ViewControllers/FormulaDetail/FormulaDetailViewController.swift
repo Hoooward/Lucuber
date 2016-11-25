@@ -329,7 +329,7 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case .separatorTwo:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-            formula.contentMaxCellHeight
+            return formula.contentMaxCellHeight + 25 + 35 + 25 + 40
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }

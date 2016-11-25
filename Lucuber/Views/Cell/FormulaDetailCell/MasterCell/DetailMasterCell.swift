@@ -43,19 +43,20 @@ class DetailMasterCell: UITableViewCell {
         
     }
     
+    fileprivate var formula: Formula?
     
-    
-    var formula: Formula? {
+    public func configCell(with formula: Formula?) {
         
-        didSet {
-            if
-                let formula = formula,
-                let currentUset = AVUser.current(),
-                let list = currentUset.masterList() {
-                
-                master = list.contains(formula.localObjectID) ? .yes : .no
-            }
+        guard let formula = formula else {
+            return
         }
+        
+        self.formula = formula
+        
+        if let masterList = AVUser.current()?.masterList() {
+           master = masterList.contains(formula.localObjectID) ? .yes : .no
+        }
+    
     }
     
     func changeMasterStatus(with formula: Formula?) {
