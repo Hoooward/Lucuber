@@ -94,14 +94,16 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
     
     func formulaContentTextDidChanged() {
         
-        try? realm?.write {
-            content?.text = textView.text
+        guard let realm = realm , let content = content else {
+            return
         }
+        realm.beginWrite()
+        content.text = textView.text
+        content.saveNewCellHeight(inRealm: realm)
+        try? realm.commitWrite()
         
-        if let content = content {
-            updateInputAccessoryView?(content)
-            saveFormulaContent?(content)
-        }
+        updateInputAccessoryView?(content)
+        saveFormulaContent?(content)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -132,20 +134,22 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
         
         placeholderLabel.isHidden = textView.text.characters.count > 0
         self.formulaLabel.attributedText = textView.text.setAttributesFitDetailLayout(style: .center)
+        
         self.formulaLabel.isHidden = false
-        
-        
-        try? realm?.write {
-            content?.text = textView.text
-        }
         self.rotationButton.isSelected = false
         
-        if let content = content {
-            updateInputAccessoryView?(content)
-            saveFormulaContent?(content)
-            
-            didEndEditing?()
+        guard let realm = realm , let content = content else {
+            return
         }
+        
+        realm.beginWrite()
+        content.text = textView.text
+        content.saveNewCellHeight(inRealm: realm)
+        try? realm.commitWrite()
+      
+        updateInputAccessoryView?(content)
+        saveFormulaContent?(content)
+        didEndEditing?()
         
     }
 }

@@ -11,8 +11,6 @@ import AVOSCloud
 
 public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
     
-    
-    
     guard
         let currentAVUser = AVUser.current(),
         let currentAVUserObjectID = currentAVUser.objectId else {
@@ -85,6 +83,7 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
         
         if success {
             
+         
             
             newDiscoverFormula.saveInBackground({ success, error in
                 
@@ -98,6 +97,16 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
                     printLog("newDiscoverFormula push 成功")
                     
                     try? realm.write {
+                        
+                        if discoverContents.count == newFormula.contents.count {
+                            
+                            for index in 0..<discoverContents.count {
+                                if let lcObjectID = discoverContents[index].objectId {
+                                    newFormula.contents[index].lcObjectID = lcObjectID
+                                }
+                            }
+                        }
+                        
                         if let currentUser = userWith(currentAVUserObjectID, inRealm: realm) {
                             newFormula.creator = currentUser
                         }
@@ -105,6 +114,9 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
                         newFormula.lcObjectID = newDiscoverFormula.objectId
                         appendRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                     }
+                    
+                    
+                    completion?()
                 }
                 
                 

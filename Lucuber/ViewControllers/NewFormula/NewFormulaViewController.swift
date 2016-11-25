@@ -11,6 +11,7 @@ import MobileCoreServices
 import Photos
 import AVFoundation
 import RealmSwift
+import PKHUD
 
 class NewFormulaViewController: UIViewController {
     
@@ -250,11 +251,6 @@ class NewFormulaViewController: UIViewController {
                 
             }),
             
-            
-            
-            
-            
-            
             ])
         return actionSheetView
     }()
@@ -263,59 +259,46 @@ class NewFormulaViewController: UIViewController {
     
     @IBAction func pickPhoto(_ sender: Any) {
         
-        
         if let window = view.window {
             actionSheetView.showInView(view: window)
         }
         
     }
+    
     @IBAction func dismiss(sender: AnyObject) {
         dismiss(animated: true, completion: nil)
     }
     
     private var isSaveing: Bool = false
+    
     func save(_ sender: UIBarButtonItem) {
         
         if isSaveing { return }
         
+        self.formula.cleanBlankContent(inRealm: realm)
         
         if self.formula.isReadyToPush() {
             
             isSaveing = true
             
-            let completion: (() -> Void) = {
-                
-                DispatchQueue.main.async {
-                    
-                    self.dismiss(animated: true, completion: nil)
-                    self.isSaveing = false
-                    self.savedNewFormula?()
-                }
-                
-            }
+            HUD.show(HUDContentType.label("公式保存中..."))
+            pushToLeancloud(with: formula, inRealm: realm, completion: {
+                HUD.flash(.label("保存成功"), delay: 1)
+                self.dismiss(animated: true, completion: nil)
+                self.isSaveing = false
+                 
+            }, failureHandler: { error in
+                self.isSaveing = false
+                HUD.flash(.label("保存失败, 请重试"), delay: 1)
+            })
             
-            let failureHandler: (NSError) -> Void = { error in
-                
-                DispatchQueue.main.async {
-                    self.isSaveing = false
-                    CubeAlert.alertSorry(message: error.domain, inViewController: self)
-                }
-                
-            }
-            
-//            saveNewFormulaToRealmAndPushToLeanCloud(newFormula: self.formula, completion: completion, failureHandler: failureHandler)
-            
-            
-        } else {
             
         }
         
     }
     
     private var isReadyForSave: Bool {
-        
         let isReady = true
-        // TODO: - 判断是否信息被正确填写
         return isReady
     }
     
@@ -341,15 +324,11 @@ class NewFormulaViewController: UIViewController {
     }
     
     func keyboardDidShow(notification: NSNotification) {
-        
         if let rect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
            keyboardFrame = rect.cgRectValue
         }
-        
     }
 
-    
-    
     fileprivate func showTypePickViewCell() {
         if !typePickViewIsShow {
             tableView.beginUpdates()
@@ -372,7 +351,7 @@ class NewFormulaViewController: UIViewController {
         if !categoryPickViewIsShow {
             tableView.beginUpdates()
             categoryPickViewIsShow = true
-            tableView.insertRows(at: [categoryPickViewIndexPath], with: UITableViewRowAnimation.fade)
+            tableView.insertRows(at: [categoryPickViewIndexPath], with: .fade)
             tableView.endUpdates()
         }
     }
@@ -599,7 +578,12 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
                 
             }
+            
+            
+        case .addFormula:
+            break
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -670,6 +654,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         
+        return UITableViewCell()
     }
  
 
@@ -738,16 +723,13 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
             newFormulaTextIsActive = false
             
-            /// update formula's content
             formulaInputAccessoryView.contentDidChanged = { [weak self] content in
-                guard let strongSelf = self else {
-                    return
-                }
-                guard let rotation = Rotation(rawValue: content.rotation) else {
+                guard
+                    let strongSelf = self,
+                    let rotation = Rotation(rawValue: content.rotation) else {
                     return
                 }
                 
-                // get cell frome tableView
                 let cell = strongSelf.tableView.cellForRow(at: indexPath) as! FormulaTextViewCell
                 
                 cell.rotationButton.updateButtonStyle(with: RotationButton.Style.square, rotation: rotation, animation: true)
@@ -756,14 +738,13 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
         case .addFormula:
     
-             _ = Content.new(with: self.formula, inRealm: realm)
+            try? realm.write {
+                _ = Content.new(with: self.formula, inRealm: realm)
+            }
            
             tableView.beginUpdates()
-            
             let newIndex = IndexPath(row: formula.contents.count, section: Section.content.rawValue)
             tableView.insertRows(at: [newIndex], with: .fade)
-            
-            
             tableView.endUpdates()
             return
         }
@@ -835,12 +816,21 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
             
         case .content:
-            if editingStyle == .delete {
+            
+            switch editType {
+            case .editFormula:
+                
                 tableView.beginUpdates()
+                try? realm.write {
+                    realm.delete(formula.contents[indexPath.row])
+                }
                 tableView.deleteRows(at: [indexPath], with: .left)
-                formula.contents.remove(at: indexPath.row)
                 tableView.endUpdates()
+                
+            default:
+                break
             }
+            
         default:
             break
         }
@@ -867,12 +857,10 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
 extension NewFormulaViewController: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
         newFormulaTextIsActive = true
         dismissCategoryPickViewCell()
         dismissTypePickViewCell()
         view.endEditing(true)
-        
     }
     
     //设置Header的方法缩小
@@ -899,8 +887,7 @@ extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigatio
             case String(kUTTypeImage):
                 
                 if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                    
-                    //formula.imageName
+                    formula.image = image
                 }
                 
             default:

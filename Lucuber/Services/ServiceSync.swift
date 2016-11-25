@@ -193,6 +193,10 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                         realm.delete(content)
                     }
                 }
+                
+                if let content = content {
+                    realm.delete(content)
+                }
             }
             
             if content == nil {
@@ -213,6 +217,8 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 content.rotation = $0.rotation
                 content.text = $0.text
                 content.indicatorImageName = $0.indicatorImageName
+                
+                content.saveNewCellHeight(inRealm: realm)
                 
             }
         }

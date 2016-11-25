@@ -221,13 +221,13 @@ open class Formula: Object {
     }
     
     
-    open var contentMaxCellHeight: CGFloat {
-        
-        return contents.map({ $0.cellHeight }).maxHeight
-        
-//        return contentLabelMaxHeight + 25 + 35 + 25 + 40
-    }
-    
+//    open var contentMaxCellHeight: CGFloat {
+//        
+//        return contents.map({ $0.cellHeight })
+//        
+////        return contentLabelMaxHeight + 25 + 35 + 25 + 40
+//    }
+//    
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
        
         let newFormula = Formula()
@@ -321,19 +321,20 @@ open class Content: Object {
         newContent.atFomurlaLocalObjectID = formula.localObjectID
         newContent.deleteByCreator = false
         
+        newContent.saveNewCellHeight(inRealm: realm)
+        
         realm.add(newContent)
         
         return newContent
     }
     
-    open func saveNewCellHeight(inRealm realm: Realm) -> CGFloat {
+    open func saveNewCellHeight(inRealm realm: Realm) {
         
         let attributesText = text.setAttributesFitDetailLayout(style: .center)
         let screenWidth = UIScreen.main.bounds.width
         let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
         cellHeight = rect.height
         
-        return rect.height
     }
  
 }
