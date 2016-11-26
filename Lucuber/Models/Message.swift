@@ -10,6 +10,10 @@ import Foundation
 import AVOSCloud
 import RealmSwift
 
+public struct Recipient {
+    let type: ConversationType
+    let ID: String
+}
 
 public enum UserFriendState: Int {
     case Stranger       = 0   // 陌生人
@@ -92,6 +96,78 @@ func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: C
     } else {
         
         completion?(nil)
+    }
+}
+
+
+
+public enum MessageMediaType: Int, CustomStringConvertible {
+    
+    case sectionDate = 0
+    case text  = 1
+    case image = 2
+    case audio = 3
+    case video = 4
+    
+    public var description: String {
+        
+        switch self {
+        case .sectionDate:
+            return "sectionDate"
+        case .text:
+            return "text"
+        case .image :
+            return "image"
+        case .audio:
+            return "audio"
+        case .video:
+            return "video"
+        }
+    }
+    
+    public var placeholder: String? {
+        switch self {
+        case .text:
+            return nil
+        case .image:
+            return "[Image]"
+        case .audio:
+            return "[Audio]"
+        case .video:
+            return "[Video]"
+        default:
+            return "All messages read."
+        }
+    }
+    
+}
+
+enum MessageDownloadState: Int {
+    case noDownload     = 0 // 未下载
+    case downloading    = 1 // 下载中
+    case downloaded     = 2 // 已下载
+}
+
+enum MessageSendState: Int, CustomStringConvertible {
+    
+    case notSend = 0
+    case failed = 1
+    case successed = 2
+    case read = 3
+    
+    
+    var description: String {
+        
+        switch self {
+        case .notSend:
+            return "notSend"
+        case .failed:
+            return "failed"
+        case .successed:
+            return "successed"
+        case .read:
+            return "read"
+        }
     }
 }
 
@@ -235,42 +311,39 @@ public class Message: Object {
     open dynamic var invalidate: Bool = false
     
     
-    
-    
     open dynamic var recipientType: String = ""
     open dynamic var recipientID: String = ""
     
     
     
-    
-    func convertToLMessage() -> DiscoverMessage {
-        
-        let message = DiscoverMessage()
-        
-        message.textContent = self.textContent
-        
-        // 在将本地创建的新 Message 推送到 LeanCloud的时候
-        // 目前只有一种可能, 消息的创建者是本机自己.
-        if isfromMe {
-            message.creatarUser = AVUser.current()!
-            
-        } else {
-            
-            // 如果创建消息的不是自己, 通过UserID 获取User
-            
-        }
-        
-        message.creatUserID = creatUser?.userID ?? ""
-        message.mediaTypeInt = self.mediaTypeInt
-        message.sendState = self.sendStateInt
-        message.invalidated = self.invalidate
-        message.deletedByCreator = deletedByCreator
-        message.recipientType = self.recipientType
-        message.recipientID = self.recipientID
-        
-        return message
-        
-    }
+//    func convertToLMessage() -> DiscoverMessage {
+//        
+//        let message = DiscoverMessage()
+//        
+//        message.textContent = self.textContent
+//        
+//        // 在将本地创建的新 Message 推送到 LeanCloud的时候
+//        // 目前只有一种可能, 消息的创建者是本机自己.
+//        if isfromMe {
+//            message.creatarUser = AVUser.current()!
+//            
+//        } else {
+//            
+//            // 如果创建消息的不是自己, 通过UserID 获取User
+//            
+//        }
+//        
+//        message.creatUserID = creatUser?.userID ?? ""
+//        message.mediaTypeInt = self.mediaTypeInt
+//        message.sendState = self.sendStateInt
+//        message.invalidated = self.invalidate
+//        message.deletedByCreator = deletedByCreator
+//        message.recipientType = self.recipientType
+//        message.recipientID = self.recipientID
+//        
+//        return message
+//        
+//    }
     
     
     /// 判断是否是当前登录用户发送的 Message
@@ -278,28 +351,13 @@ public class Message: Object {
         guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
             return false
         }
-        return userID == creatUser!.userID
+        return userID == creator!.lcObjcetID
     }
     
     
 }
 
-public enum ConversationType: Int {
-    case oneToOne = 0 // 1对1
-    case group = 1 // 群组对话
-    
-    public var nameForServer: String {
-        switch self {
-        case .oneToOne:
-            return "user"
-            
-        case .group:
-            return "group"
-        }
-        
-    }
-    
-}
+
 
 enum GroupType: Int {
     
@@ -360,24 +418,21 @@ open class Draft: Object {
     
 }
 
-public struct Recipient {
+public enum ConversationType: Int {
+    case oneToOne = 0 // onetoone
+    case group = 1 // 群组对话
     
-    let type: ConversationType
-    let ID: String
+    public var nameForServer: String {
+        switch self {
+        case .oneToOne:
+            return "user"
+            
+        case .group:
+            return "group"
+        }
+        
+    }
     
-//    func conversationInReal(realm: Realm) -> Conversation? {
-//        
-//        switch type {
-//            
-//        case .oneToOne:
-//            
-//            break
-//            
-//        case .group:
-//            
-//            break
-//        }
-//    }
 }
 
 public func ==(lhs: UsernamePrefixMatchedUser, rhs: UsernamePrefixMatchedUser) -> Bool {
@@ -385,10 +440,11 @@ public func ==(lhs: UsernamePrefixMatchedUser, rhs: UsernamePrefixMatchedUser) -
 }
 
 public struct UsernamePrefixMatchedUser {
+    
     public let localObjectID: String
     public let username: String
     public let nickname: String
-    public let avatarURLString: String?
+    public let avatorURLString: String?
     public let lastSignInUnixTime: TimeInterval
     
     public var mentionUsername: String {
@@ -405,7 +461,7 @@ extension UsernamePrefixMatchedUser: Hashable {
 
 open class Conversation: Object {
     
-    public var fakeID: String? {
+    open var fakeID: String? {
         switch type {
         case ConversationType.oneToOne.rawValue:
             if let withFriend = withFriend {
@@ -422,7 +478,7 @@ open class Conversation: Object {
         return nil
     }
   
-    public var recipiendID: String? {
+    open var recipiendID: String? {
         
         switch type {
             
@@ -443,46 +499,46 @@ open class Conversation: Object {
         return nil
     }
     
-    public var mentionInitUsers: [UsernamePrefixMatchedUser] {
+    open var mentionInitUsers: [UsernamePrefixMatchedUser] {
         
-        let users = messages.flatMap({ $0.fromFriend }).filter({ !$0.username.isEmpty && !$0.isMe })
+        let users = messages.flatMap({ $0.creator }).filter({ !$0.username.isEmpty && !$0.isMe() })
         
         let usernamePrefixMatchedUser = users.map({
             UsernamePrefixMatchedUser(
-                userID: $0.userID,
+                localObjectID: $0.localObjectID,
                 username: $0.username,
                 nickname: $0.nickname,
-                avatarURLString: $0.avatarURLString,
+                avatorURLString: $0.avatorImageURL,
                 lastSignInUnixTime: $0.lastSignInUnixTime)
         })
         
-        let uniqueSortedUsers = Array(Set(usernamePrefixMatchedUser)).sort({
+        let uniqueSortedUsers = Array(Set(usernamePrefixMatchedUser)).sorted(by: {
             $0.lastSignInUnixTime > $1.lastSignInUnixTime
         })
         
         return uniqueSortedUsers
     }
     
-    dynamic var type: Int = ConversationType.oneToOne.rawValue
-    dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var type: Int = ConversationType.oneToOne.rawValue
+    open dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    dynamic var withFriend: RUser?
-    dynamic var withGroup: Group?
+    open dynamic var withFriend: RUser?
+    open dynamic var withGroup: Group?
     
-    dynamic var draft: Draft?
+    open dynamic var draft: Draft?
     
-    let messages = LinkingObjects(fromType: Message.self, property: "conversation")
+    open let messages = LinkingObjects(fromType: Message.self, property: "conversation")
     
-    dynamic var unreadMessageCount: Int = 0
-    dynamic var hasUnreadMessages: Bool = false
-    dynamic var mentionedMe: Bool = false
-    dynamic var lastMentionedMeUnixTime: TimeInterval = Date().timeIntervalSince1970 - 60*60*12
+    open dynamic var unreadMessageCount: Int = 0
+    open dynamic var hasUnreadMessages: Bool = false
+    open dynamic var mentionedMe: Bool = false
+    open dynamic var lastMentionedMeUnixTime: TimeInterval = Date().timeIntervalSince1970 - 60*60*12
     
-    public var latestValidMessage: Message? {
-        return messages.filter({ ($0.hidden == false) && ($0.isIndicator == false && ($0.mediaType != MessageMediaType.sectionDate.rawValue)) }).sort({ $0.createdUnixTime > $1.createdUnixTime }).first
+    open var latestValidMessage: Message? {
+        return messages.filter({ ($0.hidden == false) && ($0.isIndicator == false && ($0.mediaType != MessageMediaType.sectionDate.rawValue)) }).sorted(by: { $0.createdUnixTime > $1.createdUnixTime }).first
     }
   
-    public var latestMessageTextContentOrPlaceholder: String? {
+    open var latestMessageTextContentOrPlaceholder: String? {
         
         guard let latestValidMessage = latestValidMessage else {
             return nil
@@ -495,85 +551,14 @@ open class Conversation: Object {
         }
     }
     
-    public var needDetectMention: Bool {
-        return type == ConversationType.Group.rawValue
+    open var needDetectMention: Bool {
+        return type == ConversationType.group.rawValue
     }
 }
 
 
 
 
-
-
-public enum MessageMediaType: Int, CustomStringConvertible {
-    
-    case sectionDate = 0
-    case text  = 1
-    case image = 2
-    case audio = 3
-    case video = 4
-    
-    public var description: String {
-        
-        switch self {
-        case .sectionDate:
-            return "sectionDate"
-        case .text:
-            return "text"
-        case .image :
-            return "image"
-        case .audio:
-            return "audio"
-        case .video:
-            return "video"
-        }
-    }
-    
-    public var placeholder: String? {
-        switch self {
-        case .text:
-            return nil
-        case .image:
-            return "[Image]"
-        case .audio:
-            return "[Audio]"
-        case .video:
-            return "[Video]"
-        default:
-            return "All messages read."
-        }
-    }
-    
-}
-
-enum MessageDownloadState: Int {
-    case noDownload     = 0 // 未下载
-    case downloading    = 1 // 下载中
-    case downloaded     = 2 // 已下载
-}
-
-enum MessageSendState: Int, CustomStringConvertible {
-    
-    case notSend = 0
-    case failed = 1
-    case successed = 2
-    case read = 3
-
-    
-    var description: String {
-        
-        switch self {
-        case .notSend:
-            return "notSend"
-        case .failed:
-            return "failed"
-        case .successed:
-            return "successed"
-        case .read:
-            return "read"
-        }
-    }
-}
 
 public class DiscoverMessage: AVObject, AVSubclassing {
     
