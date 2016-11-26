@@ -104,6 +104,122 @@ extension FileManager {
         return nil
     }
     
+    public class func saveMessageImageData(_ messageImageData: Data, withName name: String) -> URL? {
+        if let messageImageURL = cubeMessageImageURL(with: name) {
+            if FileManager.default.createFile(atPath: messageImageURL.path, contents: messageImageData, attributes: nil) {
+                return messageImageURL
+            }
+        }
+        return nil
+    }
+    
+    public class func removeMessageImageFile(with name: String) {
+        
+        guard !name.isEmpty else { return }
+        
+        if let messageImageURL = cubeMessageImageURL(with: name) {
+            do {
+                try FileManager.default.removeItem(at: messageImageURL)
+            } catch _ {
+                
+            }
+        }
+    }
+    
+    // MARK: - Audio
+    
+    public class func cubeMessageAudioURL(with name: String) -> URL? {
+        if let messageCachesURL = cubeMessageCachesURL() {
+            return messageCachesURL.appendingPathComponent("\(name).\(FileExtension.m4a.rawValue)")
+            return messageCachesURL
+        }
+        return nil
+    }
+    
+    public class func saveMessageAudioData(messageAudioData: Data, withName name: String) -> URL? {
+        
+        if let messageAudioURL = cubeMessageAudioURL(with: name) {
+            if FileManager.default.createFile(atPath: messageAudioURL.path, contents: messageAudioData, attributes: nil) {
+                return messageAudioURL
+            }
+        }
+    }
+    
+    public class func removeMessageAudioFile(with name: String) {
+        
+        guard !name.isEmpty else { return }
+        
+        if let messageAudioURL = cubeMessageAudioURL(with: name) {
+            do {
+                try FileManager.default.removeItem(at: messageAudioURL)
+            } catch _ {
+                
+            }
+        }
+    }
+    
+    // MARK: - Video
+    
+    public class func cubeMessageVideoURL(with name: String) -> URL? {
+        
+        if let messageCachesURL = cubeMessageCachesURL() {
+            return messageCachesURL.appendingPathComponent("\(name).\(FileExtension.mp4.rawValue)")
+        }
+        return nil
+    }
+    
+    public class func saveMessageVideoData(_ messageVideoData: Data, withName name: String) -> URL? {
+        
+        if let messageVideoURL = cubeMessageVideoURL(with: name) {
+            if FileManager.default.createFile(atPath: messageVideoURL.path, contents: messageVideoData, attributes: nil) {
+                return messageVideoURL
+            }
+        }
+        return nil
+    }
+    
+    public class func removeMessageVideoFiles(with name: String, thumbnailName: String) {
+        
+        if !name.isEmpty {
+            if let messageVideoURL = cubeMessageVideoURL(with: name) {
+                do {
+                    try FileManager.default.removeItem(at: messageVideoURL)
+                } catch _ {
+                }
+            }
+        }
+        
+        if !thumbnailName.isEmpty {
+            if let messageImageURL = cubeMessageImageURL(with: thumbnailName) {
+                do {
+                    try FileManager.default.removeItem(at: messageImageURL)
+                } catch _ {
+                }
+            }
+        }
+    }
+    
     
    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
