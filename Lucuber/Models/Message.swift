@@ -193,17 +193,42 @@ public class Message: Object {
         if let mediaMetaData = mediaMetaData {
             realm.delete(mediaMetaData)
         }
+        
         switch mediaType {
+            
         case MessageMediaType.image.rawValue:
+            FileManager.removeMessageImageFile(with: localAttachmentName)
+            
+        case MessageMediaType.audio.rawValue:
+            FileManager.removeMessageAudioFile(with: localAttachmentName)
+            
+        case MessageMediaType.video.rawValue:
+            FileManager.removeMessageVideoFiles(with: localAttachmentName, thumbnailName: localThumbnailName)
             
         default:
-            <#code#>
+            break
+            // TODO: - 删除之后可能会添加的其他附件
         }
         
-        
-        
-        
     }
+    
+    open func deletedInRealm(realm: Realm) {
+        deleteAttachment(inRealm: realm)
+        realm.delete(self)
+    }
+    
+    open func updateForDeletedFromServerInRealm(realm: Realm) {
+        deletedByCreator = true
+        
+        deleteAttachment(inRealm: realm)
+        
+        sendState = MessageSendState.read.rawValue
+        readed = true
+        textContent = ""
+        mediaType = MessageMediaType.text.rawValue
+    }
+    
+    
     
     
     
@@ -328,7 +353,10 @@ open class Group: Object {
     
 }
 
-class Draft: Object {
+open class Draft: Object {
+    
+    open dynamic var messageToolbarState: Int = MessageToolbarState.normal.rawValue
+    open dynamic var text: String = ""
     
 }
 
