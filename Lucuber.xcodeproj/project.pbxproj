@@ -34,6 +34,7 @@
 		E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */; };
 		E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */; };
 		E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */; };
+		E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
 		E44547B51DE6B3CC006816EF /* AVUser+Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */; };
 		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
 		E44547B91DE6B5D7006816EF /* ServicePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B81DE6B5D7006816EF /* ServicePush.swift */; };
@@ -242,6 +243,7 @@
 		E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FormulaDetail.storyboard; sourceTree = "<group>"; };
 		E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetailViewController.swift; sourceTree = "<group>"; };
 		E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLayout.swift; sourceTree = "<group>"; };
+		E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Cube.swift"; sourceTree = "<group>"; };
 		E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Kit.swift"; sourceTree = "<group>"; };
 		E44547B61DE6B5BC006816EF /* ServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSync.swift; sourceTree = "<group>"; };
 		E44547B81DE6B5D7006816EF /* ServicePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicePush.swift; sourceTree = "<group>"; };
@@ -1335,6 +1337,7 @@
 				E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */,
 				E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */,
 				E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */,
+				E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1815,6 +1818,7 @@
 				E4CED8451DE862770036A11C /* FeedBaseCell.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
+				E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */,
 				E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */,
 				E4CED8691DE862770036A11C /* NameTextViewCell.swift in Sources */,
 				E494306E1DE01DDB00A23F02 /* NewFeedViewController.swift in Sources */,

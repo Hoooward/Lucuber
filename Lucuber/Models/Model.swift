@@ -364,12 +364,13 @@ open class RUser: Object {
     
     dynamic var lcObjcetID: String = ""
     dynamic var localObjectID: String = ""
-    dynamic var nickname: String?
+    dynamic var nickname: String = ""
     dynamic var username: String = ""
     dynamic var avatorImageURL: String?
     dynamic var introduction: String?
     
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
+    
     open let messages = LinkingObjects(fromType: Message.self, property: "creatUser")
     open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
     
@@ -379,24 +380,61 @@ open class RUser: Object {
     
     open let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
     open let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
+//    open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     
     open override static func indexedProperties() -> [String] {
-        return ["userID"]
+        return ["localObjectID"]
     }
     
-    dynamic var leanCloudObjectID: String = ""
-    
     func isMe() -> Bool {
-        
         guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
             return false
         }
-        
         return userID == self.lcObjcetID
-        
     }
     
+    // MARK: - test
+    public dynamic var blogURLString: String = ""
+    public dynamic var blogTitle: String = ""
+    public dynamic var avatar: Avatar?
     
+    public dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    public dynamic var lastSignInUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    
+    public var mentionedUsername: String? {
+        if username.isEmpty {
+            return nil
+        } else {
+            return "@\(username)"
+        }
+    }
+    
+    public var compositedName: String {
+        if username.isEmpty {
+            return nickname
+        } else {
+            return "\(nickname) @\(username)"
+        }
+    }
+    
+    // 级联删除关联的数据对象
+    
+    public func cascadeDeleteInRealm(realm: Realm) {
+        
+        if let avatar = avatar {
+            
+            if !avatar.avatarFileName.isEmpty {
+                FileManager.deleteAvatarImageWithName(avatar.avatarFileName)
+            }
+            
+            realm.delete(avatar)
+        }
+    
+        
+        realm.delete(self)
+    }
+
 }
 
 open class FormulaMaster: Object {
@@ -462,7 +500,20 @@ extension RUser: RandomID {
 }
 
 
-
+public class Avatar: Object {
+    public dynamic var avatarURLString: String = ""
+    public dynamic var avatarFileName: String = ""
+    
+    public dynamic var roundMini: Data = Data() // 60
+    public dynamic var roundNano: Data = Data() // 40
+    
+    let users = LinkingObjects(fromType: RUser.self, property: "avatar")
+    public var user: RUser? {
+        return users.first
+    }
+    
+    
+}
 
 
 
