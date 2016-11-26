@@ -248,9 +248,15 @@ open class Formula: Object {
     }
     
     open func cleanBlankContent(inRealm realm: Realm) {
+        realm.delete(self.contents.filter({ $0.text.isEmpty }))
+    }
+    
+    open func cascadeDelete(inRealm realm: Realm) {
         
-        let predicate = NSPredicate(format: "text = %@", "")
-        realm.delete(self.contents.filter(predicate))
+        self.contents.forEach {
+            realm.delete($0)
+        }
+        realm.delete(self)
     }
     
 }

@@ -10,51 +10,13 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-public enum FeedKind: String {
-    case Text = "text"
-    case URL = "web_page"
-    case Image = "image"
-    case Video = "video"
-    case Audio = "audio"
-    case Location = "location"
-    
-    case AppleMusic = "apple_music"
-    case AppleMovie = "apple_movie"
-    case AppleEBook = "apple_ebook"
-    
-    
-    public var needBackgroundUpload: Bool {
-        switch self {
-        case .Image:
-            return true
-        case .Audio:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    public var needParseOpenGraph: Bool {
-        switch self {
-        case .Text:
-            return true
-        default:
-            return false
-        }
-    }
-}
 
 //public struct DiscoveredFeed: AVObject, AVSubclassing {
 //    
 //    
 //
 //}
-public enum FeedCategory: String {
-    case All = "所有"
-    case Formula = "公式"
-    case Record = "成绩"
-    case Topic = "话题"
-}
+
 
 
 public struct ImageAttachment {
@@ -103,7 +65,7 @@ public struct ImageAttachment {
     
 }
 
-class Feed: AVObject, AVSubclassing  {
+class Feed1: AVObject, AVSubclassing  {
     
     class func parseClassName() -> String {
         return "Feed"

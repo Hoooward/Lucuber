@@ -357,7 +357,112 @@ public class Message: Object {
     
 }
 
+// Feed
+public enum FeedKind: String {
+    
+    case text = "text"
+    case url = "web_page"
+    case image = "image"
+    case video = "video"
+    case audio = "audio"
+    case location = "location"
+    
+    case AppleMusic = "apple_music"
+    case AppleMovie = "apple_movie"
+    case AppleEBook = "apple_ebook"
+    
+    
+    public var needBackgroundUpload: Bool {
+        switch self {
+        case .image:
+            return true
+        case .audio:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var needParseOpenGraph: Bool {
+        switch self {
+        case .text:
+            return true
+        default:
+            return false
+        }
+    }
+}
 
+public enum FeedCategory: String {
+    case all = "所有"
+    case formula = "公式"
+    case record = "成绩"
+    case topic = "话题"
+}
+
+open class Attachment: Object {
+    
+    //dynamic var kind: String = ""
+    public dynamic var metadata: String = ""
+    public dynamic var URLString: String = ""
+}
+
+open class FeedAudio: Object {
+    public dynamic var feedID: String = ""
+    public dynamic var URLString: String = ""
+    public dynamic var metadata: NSData = NSData()
+    public dynamic var fileName: String = ""
+}
+
+open class FeedLocation: Object {
+    
+//    public dynamic var name: String = ""
+//    public dynamic var coordinate: Coordinate?
+}
+
+open class Feed: Object {
+    
+    open dynamic var feedID: String = ""
+    open dynamic var allowComment: Bool = true
+    
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    open dynamic var creator: RUser?
+//    dynamic var distance: Double = 0 
+    open dynamic var messagesCount: Int = 0
+    open dynamic var body: String = ""
+    open dynamic var kind: String = FeedKind.text.rawValue
+    
+    open var attachments = List<Attachment>()
+    open dynamic var audio: FeedAudio?
+    open dynamic var location: FeedLocation?
+    open dynamic var withFormula: Formula?
+    
+    open dynamic var deleted: Bool = false // 被管理员或创建者删除
+    
+    open dynamic var group: Group?
+    
+    
+    open func cascadeDelete(inRealm realm: Realm) {
+        
+        // 删除所有与 Feed 关联的 Attachment
+        
+        attachments.forEach { realm.delete($0) }
+        
+        // TODO: - 删除Formula
+        
+        if let formula = withFormula {
+            formula.cascadeDelete(inRealm: realm)
+        }
+        
+        realm.delete(self)
+        
+    }
+    
+    
+    
+}
 
 enum GroupType: Int {
     
@@ -367,46 +472,44 @@ enum GroupType: Int {
 
 open class Group: Object {
     
-    dynamic var groupID: String = ""
-    dynamic var groupName: String = ""
-    dynamic var notificationEnabled: Bool = true
-    dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var groupID: String = ""
+    open dynamic var groupName: String = ""
+    open dynamic var notificationEnabled: Bool = true
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     
-    dynamic var owner: RUser?
-    var members = List<RUser>()
+    open dynamic var owner: RUser?
+    open var members = List<RUser>()
     
-    dynamic var groupType: Int = GroupType.Privcate.rawValue
+    open dynamic var groupType: Int = GroupType.Privcate.rawValue
     
-    //    dynamic var withFeed: Feed
+    open dynamic var withFeed: Feed?
+    open dynamic var withFormula: Formula?
     
-    dynamic var incloudMe: Bool = false
+    open dynamic var incloudMe: Bool = false
     
-    let conversations = LinkingObjects(fromType: Conversation.self, property: "withGroup")
+    open let conversations = LinkingObjects(fromType: Conversation.self, property: "withGroup")
     
-    var conversation: Conversation? {
+    open var conversation: Conversation? {
         return conversations.first
     }
     
-    dynamic var withFormula: Formula?
-    
-    
-    //    // 级联删除关联的数据对象
-    //
-    //    public func cascadeDeleteInRealm(realm: Realm) {
-    //
-    //        withFeed?.cascadeDeleteInRealm(realm)
-    //
-    //        if let conversation = conversation {
-    //            realm.delete(conversation)
-    //
-    //            dispatch_async(dispatch_get_main_queue()) {
-    //                NSNotificationCenter.defaultCenter().postNotificationName(YepConfig.Notification.changedConversation, object: nil)
-    //            }
-    //        }
-    //
-    //        realm.delete(self)
-    //    }
+    public func cascadeDelete(inRealm realm: Realm) {
+        
+        withFeed?.cascadeDelete(inRealm: realm)
+        
+        if let conversation = conversation {
+            realm.delete(conversation)
+            
+            DispatchQueue.main.async {
+                
+//                NSNotificationCenter.defaultCenter().postNotificationName(YepConfig.Notification.changedConversation, object: nil)
+            }
+            
+        }
+        
+        realm.delete(self)
+    }
     
     
 }
