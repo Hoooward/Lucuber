@@ -217,10 +217,8 @@ open class Formula: Object {
             
             isReady = false
         }
-        
         return isReady
     }
-    
     
     open var contentMaxCellHeight: CGFloat {
         var maxHeight: CGFloat = 0
@@ -243,8 +241,7 @@ open class Formula: Object {
         newFormula.favorate = false
         newFormula.creator = currentUser(in: realm)
         newFormula.deletedByCreator = false
-        newFormula.isLibrary = isLibrary
-        
+        newFormula.isLibrary = isLibrary 
         realm.add(newFormula)
         
         return newFormula
@@ -425,12 +422,15 @@ open class RUser: Object {
         if let avatar = avatar {
             
             if !avatar.avatarFileName.isEmpty {
-                FileManager.deleteAvatarImageWithName(avatar.avatarFileName)
+                FileManager.deleteAvatarImage(with: avatar.avatarFileName)
             }
-            
             realm.delete(avatar)
         }
-    
+        
+        if !masterList.isEmpty {
+            
+            realm.delete(masterList)
+        }
         
         realm.delete(self)
     }

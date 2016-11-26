@@ -64,6 +64,46 @@ extension FileManager {
         }
     }
     
+    public class func saveAvatarImage(with avatarImage: UIImage, withName name: String) -> URL? {
+        
+        if let avatarURL = cubeAvatarURL(with: name) {
+            let imageData = UIImageJPEGRepresentation(avatarImage, 0.8)
+            if FileManager.default.createFile(atPath: avatarURL.path, contents: imageData, attributes: nil) {
+                return avatarURL
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Message
+    
+    public class func cubeMessageCachesURL() -> URL? {
+        
+        let fileManager = FileManager.default
+        
+        let messageCachesURL = cubeCachesURL().appendingPathComponent("message_caches", isDirectory: true)
+        
+        do {
+            try fileManager.createDirectory(at: messageCachesURL, withIntermediateDirectories: true, attributes: nil)
+            return messageCachesURL
+        } catch _ {
+            
+        }
+        return nil
+    }
+    
+    
+    // MARK: - Image
+    
+    public class func cubeMessageImageURL(with name: String) -> URL? {
+        
+        if let messageCachesURL = cubeMessageCachesURL() {
+            return messageCachesURL.appendingPathComponent("\(name).\(FileExtension.jpeg.rawValue)")
+        }
+        
+        return nil
+    }
+    
     
    
 }

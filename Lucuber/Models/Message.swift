@@ -95,72 +95,157 @@ func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: C
     }
 }
 
+public class MediaMetaData: Object {
+    public dynamic var data: Data = Data()
+    
+    public var string: String? {
+        return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
+    }
+}
 
-open class Message: Object {
+public class Message: Object {
     
-    dynamic var creator: RUser?
-    dynamic var mediaTypeInt: Int = 0
-    dynamic var invalidate: Bool = false
-    dynamic var sendStateInt: Int = 0
-    dynamic var textContent: String = ""
+//    public dynamic var openGraphDetected: Bool = false
+//    public dynamic var openGraphInfo: OpenGraphInfo?
+//    
+//    public dynamic var coordinate: Coordinate?
     
-    dynamic var localObjectID: String = ""
-    dynamic var lcObjectID: String = ""
+    open dynamic var localObjectID: String = ""
+    open dynamic var lcObjectID: String = ""
     
-    dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
-    dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
-    dynamic var arrivalUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var arrivalUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    dynamic var readed: Bool = true
-    dynamic var downloadState: Int = MessageDownloadState.noDownload.rawValue
+    open dynamic var mediaType: Int = 0
+    open dynamic var textContent: String = ""
     
-    dynamic var deletedByCreator: Bool = false
     
-    dynamic var recipientType: String = ""
-    dynamic var recipientID: String = ""
     
-    dynamic var conversation: Conversation?
+    open dynamic var attachmentURLString: String = ""
+    open dynamic var localAttachmentName: String = ""
+    open dynamic var thumbnailURLString: String = ""
+    open dynamic var localThumbnailName: String = ""
+    open dynamic var acctchmentID: String = ""
     
-    var mediaType: MessageMediaType {
-        get {
-            if let mediaType =  MessageMediaType(rawValue: mediaTypeInt) {
-                return mediaType
-            }
-            return .sectionDate
-        }
-        set {
-            mediaTypeInt = newValue.rawValue
+    open dynamic var attachmentExpiresUnixTime: TimeInterval = Date().timeIntervalSince1970 + (6 * 60 * 60 * 24) // 6天，过期时间s3为7天，客户端防止误差减去1天
+    
+    open var imageKey: String {
+        return "image-\(self.localObjectID)-\(self.localAttachmentName)-\(self.thumbnailURLString)"
+    }
+    
+    open var nicknameWithtextContent: String {
+        if let nickname = creator?.nickname {
+            return nickname + textContent
+        } else {
+            return textContent
         }
     }
     
-        func convertToLMessage() -> DiscoverMessage {
-    
-            let message = DiscoverMessage()
-    
-            message.textContent = self.textContent
-            
-            // 在将本地创建的新 Message 推送到 LeanCloud的时候
-            // 目前只有一种可能, 消息的创建者是本机自己.
-            if isfromMe {
-                message.creatarUser = AVUser.current()!
-                
-            } else {
-                
-                // 如果创建消息的不是自己, 通过UserID 获取User
-                
+    open var thumbnailImage: UIImage? {
+        
+        switch mediaType {
+        case MessageMediaType.image.rawValue:
+            if let imageFileURL = FileManager.cubeMessageImageURL(with: localAttachmentName) {
+                return UIImage(contentsOfFile: imageFileURL.path)
             }
-            
-            message.creatUserID = creatUser?.userID ?? ""
-            message.mediaTypeInt = self.mediaTypeInt
-            message.sendState = self.sendStateInt
-            message.invalidated = self.invalidate
-            message.deletedByCreator = deletedByCreator
-            message.recipientType = self.recipientType
-            message.recipientID = self.recipientID
-    
-            return message
-    
+        case MessageMediaType.video.rawValue:
+            if let imageFileURL = FileManager.cubeMessageImageURL(with: localThumbnailName) {
+                return UIImage(contentsOfFile: imageFileURL.path)
+            }
+        default:
+            return nil
         }
+        return nil
+    }
+    
+    open dynamic var mediaMetaData: MediaMetaData?
+    
+    //  public dynamic var socialWork: MessageSocialWork? github
+    
+    open dynamic var downloadState: Int = MessageDownloadState.noDownload.rawValue
+    
+    open dynamic var sendState: Int = MessageSendState.notSend.rawValue
+    open dynamic var readed: Bool = true
+    open dynamic var mediaPlayed: Bool = false
+    open dynamic var hidden: Bool = false // 隐藏对方消息, 不再显示
+    open dynamic var deletedByCreator: Bool = false
+    open dynamic var blockedByRecipient: Bool = false
+    
+    open var isIndicator: Bool {
+        return deletedByCreator || blockedByRecipient
+    }
+    
+    open dynamic var creator: RUser?
+    open dynamic var conversation: Conversation?
+    
+    open var isReal: Bool {
+        
+        if mediaType == MessageMediaType.sectionDate.rawValue {
+            return false
+        }
+        return true
+    }
+    
+    
+    open func deleteAttachment(inRealm realm: Realm) {
+        
+        if let mediaMetaData = mediaMetaData {
+            realm.delete(mediaMetaData)
+        }
+        switch mediaType {
+        case MessageMediaType.image.rawValue:
+            
+        default:
+            <#code#>
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    open dynamic var invalidate: Bool = false
+    
+    
+    
+    
+    open dynamic var recipientType: String = ""
+    open dynamic var recipientID: String = ""
+    
+    
+    
+    
+    func convertToLMessage() -> DiscoverMessage {
+        
+        let message = DiscoverMessage()
+        
+        message.textContent = self.textContent
+        
+        // 在将本地创建的新 Message 推送到 LeanCloud的时候
+        // 目前只有一种可能, 消息的创建者是本机自己.
+        if isfromMe {
+            message.creatarUser = AVUser.current()!
+            
+        } else {
+            
+            // 如果创建消息的不是自己, 通过UserID 获取User
+            
+        }
+        
+        message.creatUserID = creatUser?.userID ?? ""
+        message.mediaTypeInt = self.mediaTypeInt
+        message.sendState = self.sendStateInt
+        message.invalidated = self.invalidate
+        message.deletedByCreator = deletedByCreator
+        message.recipientType = self.recipientType
+        message.recipientID = self.recipientID
+        
+        return message
+        
+    }
     
     
     /// 判断是否是当前登录用户发送的 Message
@@ -267,14 +352,36 @@ public struct Recipient {
 //    }
 }
 
+public func ==(lhs: UsernamePrefixMatchedUser, rhs: UsernamePrefixMatchedUser) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public struct UsernamePrefixMatchedUser {
+    public let localObjectID: String
+    public let username: String
+    public let nickname: String
+    public let avatarURLString: String?
+    public let lastSignInUnixTime: TimeInterval
+    
+    public var mentionUsername: String {
+        return "@" + username
+    }
+}
+
+extension UsernamePrefixMatchedUser: Hashable {
+    
+    public var hashValue: Int {
+        return localObjectID.hashValue
+    }
+}
+
 open class Conversation: Object {
     
     public var fakeID: String? {
-        
         switch type {
         case ConversationType.oneToOne.rawValue:
             if let withFriend = withFriend {
-                return "user" + withFriend.lcObjcetID
+                return "user" + withFriend.localObjectID
             }
         case ConversationType.group.rawValue:
             if let withGroup = withGroup {
@@ -286,7 +393,6 @@ open class Conversation: Object {
         
         return nil
     }
-    
   
     public var recipiendID: String? {
         
@@ -294,7 +400,7 @@ open class Conversation: Object {
             
         case ConversationType.oneToOne.rawValue:
             if let withFriend = withFriend {
-                return withFriend.userID
+                return withFriend.localObjectID
             }
             
         case ConversationType.group.rawValue:
@@ -307,6 +413,26 @@ open class Conversation: Object {
         }
         
         return nil
+    }
+    
+    public var mentionInitUsers: [UsernamePrefixMatchedUser] {
+        
+        let users = messages.flatMap({ $0.fromFriend }).filter({ !$0.username.isEmpty && !$0.isMe })
+        
+        let usernamePrefixMatchedUser = users.map({
+            UsernamePrefixMatchedUser(
+                userID: $0.userID,
+                username: $0.username,
+                nickname: $0.nickname,
+                avatarURLString: $0.avatarURLString,
+                lastSignInUnixTime: $0.lastSignInUnixTime)
+        })
+        
+        let uniqueSortedUsers = Array(Set(usernamePrefixMatchedUser)).sort({
+            $0.lastSignInUnixTime > $1.lastSignInUnixTime
+        })
+        
+        return uniqueSortedUsers
     }
     
     dynamic var type: Int = ConversationType.oneToOne.rawValue
@@ -324,14 +450,40 @@ open class Conversation: Object {
     dynamic var mentionedMe: Bool = false
     dynamic var lastMentionedMeUnixTime: TimeInterval = Date().timeIntervalSince1970 - 60*60*12
     
+    public var latestValidMessage: Message? {
+        return messages.filter({ ($0.hidden == false) && ($0.isIndicator == false && ($0.mediaType != MessageMediaType.sectionDate.rawValue)) }).sort({ $0.createdUnixTime > $1.createdUnixTime }).first
+    }
   
+    public var latestMessageTextContentOrPlaceholder: String? {
+        
+        guard let latestValidMessage = latestValidMessage else {
+            return nil
+        }
+        
+        if let mediaType = MessageMediaType(rawValue: latestValidMessage.mediaType), let placeholder = mediaType.placeholder {
+            return placeholder
+        } else {
+            return latestValidMessage.textContent
+        }
+    }
+    
+    public var needDetectMention: Bool {
+        return type == ConversationType.Group.rawValue
+    }
 }
+
+
+
+
+
 
 public enum MessageMediaType: Int, CustomStringConvertible {
     
     case sectionDate = 0
     case text  = 1
-    case Image = 2
+    case image = 2
+    case audio = 3
+    case video = 4
     
     public var description: String {
         
@@ -340,8 +492,27 @@ public enum MessageMediaType: Int, CustomStringConvertible {
             return "sectionDate"
         case .text:
             return "text"
-        case .Image :
+        case .image :
             return "image"
+        case .audio:
+            return "audio"
+        case .video:
+            return "video"
+        }
+    }
+    
+    public var placeholder: String? {
+        switch self {
+        case .text:
+            return nil
+        case .image:
+            return "[Image]"
+        case .audio:
+            return "[Audio]"
+        case .video:
+            return "[Video]"
+        default:
+            return "All messages read."
         }
     }
     
