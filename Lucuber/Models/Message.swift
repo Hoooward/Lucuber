@@ -96,17 +96,16 @@ func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: C
 }
 
 
-class Message: Object {
+open class Message: Object {
     
-    dynamic var creatUser: RUser?
+    dynamic var creator: RUser?
     dynamic var mediaTypeInt: Int = 0
     dynamic var invalidate: Bool = false
     dynamic var sendStateInt: Int = 0
-//    dynamic var imageURLs: [String] = []
     dynamic var textContent: String = ""
     
-    dynamic var messageID: String = ""
-    dynamic var leanCloudObjectID: String = ""
+    dynamic var localObjectID: String = ""
+    dynamic var lcObjectID: String = ""
     
     dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
@@ -120,9 +119,7 @@ class Message: Object {
     dynamic var recipientType: String = ""
     dynamic var recipientID: String = ""
     
-    
     dynamic var conversation: Conversation?
-    
     
     var mediaType: MessageMediaType {
         get {
@@ -200,7 +197,7 @@ enum GroupType: Int {
     case Privcate = 1
 }
 
-class Group: Object {
+open class Group: Object {
     
     dynamic var groupID: String = ""
     dynamic var groupName: String = ""
@@ -250,7 +247,7 @@ class Draft: Object {
     
 }
 
-struct Recipient {
+public struct Recipient {
     
     let type: ConversationType
     let ID: String
@@ -270,14 +267,14 @@ struct Recipient {
 //    }
 }
 
-public class Conversation: Object {
+open class Conversation: Object {
     
     public var fakeID: String? {
         
         switch type {
         case ConversationType.oneToOne.rawValue:
             if let withFriend = withFriend {
-                return "user" + withFriend.userID
+                return "user" + withFriend.lcObjcetID
             }
         case ConversationType.group.rawValue:
             if let withGroup = withGroup {
@@ -330,13 +327,13 @@ public class Conversation: Object {
   
 }
 
-enum MessageMediaType: Int, CustomStringConvertible {
+public enum MessageMediaType: Int, CustomStringConvertible {
     
     case sectionDate = 0
     case text  = 1
     case Image = 2
     
-    var description: String {
+    public var description: String {
         
         switch self {
         case .sectionDate:
@@ -386,19 +383,18 @@ public class DiscoverMessage: AVObject, AVSubclassing {
         return "DiscoverMessage"
     }
     
+    @NSManaged var localObjectID: String
+    
     @NSManaged var textContent: String
     
-    @NSManaged var creatarUser: AVUser
-    @NSManaged var creatUserID: String
+    @NSManaged var creator: AVUser
+    @NSManaged var creatorObjectID: String
     
     @NSManaged var compositedName: String
     
     @NSManaged var invalidated: Bool
     
     @NSManaged var mediaTypeInt: Int
-    
-    //    @NSManaged var messageID: String
-    
     
     @NSManaged var imageURLs: [String]
     

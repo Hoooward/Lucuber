@@ -187,6 +187,7 @@ open class Formula: Object {
     dynamic var isLibrary: Bool = false
     
     dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
+    dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     
     let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
@@ -368,7 +369,16 @@ open class RUser: Object {
     dynamic var avatorImageURL: String?
     dynamic var introduction: String?
     
-    let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
+    open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
+    open let messages = LinkingObjects(fromType: Message.self, property: "creatUser")
+    open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
+    
+    var conversation: Conversation? {
+        return conversations.first
+    }
+    
+    open let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
+    open let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
     
     open override static func indexedProperties() -> [String] {
         return ["userID"]

@@ -199,7 +199,7 @@ func userWithUserID(userID: String, inRealm realm: Realm) -> RUser? {
 }
 
 
-func groupWithGroupID(groupID: String, inRealm realm: Realm) -> Group? {
+func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
     
     let predicate = NSPredicate(format: "groupID = %@" , groupID)
     return realm.objects(Group.self).filter(predicate).first
@@ -214,7 +214,7 @@ func messagesOfConversation(conversation: Conversation, inRealm realm: Realm) ->
     
 }
 
-func messageWithMessageID(messageID: String, inRealm realm: Realm) -> Message? {
+func messageWith(_ messageID: String, inRealm realm: Realm) -> Message? {
     
     if messageID.isEmpty {
         return nil
