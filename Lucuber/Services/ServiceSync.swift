@@ -232,8 +232,10 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     
 }
 
+
 public func convertDiscoverMessageToMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: (([String]) -> Void)?) {
     
+    // 暂时使用同一线程的 Realm, 因为 Message 的 lcObjcetID 来自远端, 所以可能需要使用一个独立的线程
     
     guard let messageID = discoverMessage.objectId else {
         return

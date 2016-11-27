@@ -187,6 +187,7 @@ open class Formula: Object {
     dynamic var isLibrary: Bool = false
     
     dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
     dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     
@@ -506,7 +507,8 @@ extension RUser: RandomID {
 }
 
 
-public class Avatar: Object {
+open class Avatar: Object {
+    
     public dynamic var avatarURLString: String = ""
     public dynamic var avatarFileName: String = ""
     
@@ -518,8 +520,8 @@ public class Avatar: Object {
         return users.first
     }
     
-    
 }
+
 
 
 

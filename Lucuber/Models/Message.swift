@@ -24,29 +24,7 @@ public enum UserFriendState: Int {
     case Yep            = 5   // Yep官方账号
 }
 
-func tryGetOrCreatMeInRealm(realm: Realm) -> RUser? {
-    
-    guard
-        let currentUser = AVUser.current(),
-        let userID = currentUser.objectId else {
-        return nil
-    }
-    
-    if let me = userWithUserID(userID: userID, inRealm: realm) {
-        return me
-        
-    } else {
-        
-        let me = currentUser.converRUserModel()
-        
-        try? realm.write {
-            realm.add(me)
-        }
-        
-        return me
-        
-    }
-}
+
 
 
 
@@ -122,6 +100,19 @@ public enum MessageMediaType: Int, CustomStringConvertible {
             return "audio"
         case .video:
             return "video"
+        }
+    }
+    
+    public var fileExtension: FileExtension? {
+        switch self {
+        case .image:
+            return .jpeg
+        case .video:
+            return .mp4
+        case .audio:
+            return .m4a
+        default:
+            return nil // TODO: more
         }
     }
     

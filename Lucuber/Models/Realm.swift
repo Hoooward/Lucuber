@@ -12,6 +12,31 @@ import AVOSCloud
 
 // MARK: - User
 
+// MARK: - Realm
+func tryGetOrCreatMeInRealm(realm: Realm) -> RUser? {
+    
+    guard
+        let currentUser = AVUser.current(),
+        let userID = currentUser.objectId else {
+            return nil
+    }
+    
+    if let me = userWith(userID, inRealm: realm) {
+        return me
+        
+    } else {
+        
+        let me = appendRUser(with: <#T##AVUser#>, inRealm: <#T##Realm#>)
+        
+        try? realm.write {
+            realm.add(me)
+        }
+        
+        return me
+        
+    }
+}
+
 
 public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
     let predicate = NSPredicate(format: "lcObjcetID = %@", userID)
@@ -63,7 +88,7 @@ public func updateMasterList(with rUser: RUser, discoverUser: AVUser, inRealm re
     }
 }
 
-public func appendRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
+public func creatRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
     
     if let creator = userWith(discoverUser.localObjectID() ?? "", inRealm: realm) {
         
@@ -79,7 +104,7 @@ public func appendRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUse
         newUser.lcObjcetID = discoverUser.objectId!
         newUser.avatorImageURL = discoverUser.avatorImageURL()
         newUser.username = discoverUser.username!
-        newUser.nickname = discoverUser.nickname()
+        newUser.nickname = discoverUser.nickname()!
         newUser.introduction = discoverUser.introduction()
         
         updateMasterList(with: newUser, discoverUser: discoverUser, inRealm: realm)
