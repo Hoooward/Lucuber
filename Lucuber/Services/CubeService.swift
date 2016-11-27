@@ -134,7 +134,7 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
         if recipientType == "user" {
             
             if let withFriend = userWith(recipientID, inRealm: realm) {
-                conversation = withFriend.conversation
+//                conversation = withFriend.conversation
             }
             
         } else {

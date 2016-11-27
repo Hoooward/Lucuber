@@ -308,7 +308,16 @@ open class RUser: Object {
     open dynamic var introduction: String?
     
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
-    //    open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
+    open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
+    open let messages = LinkingObjects(fromType: Message.self, property: "creator")
+    open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
+
+    open var conversation: Conversation? {
+        return conversations.first
+    }
+
+    open let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
+    open let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
     
     open override static func indexedProperties() -> [String] {
         return ["localObjectID"]

@@ -38,6 +38,13 @@ extension RUser: RandomID {
     }
 }
 
+extension Message: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Message_" + String.random()
+    }
+}
+
 extension String {
     
     static func random(length: Int = 15) -> String {
