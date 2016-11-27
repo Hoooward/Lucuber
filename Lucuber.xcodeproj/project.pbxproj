@@ -535,6 +535,13 @@
 			path = FormulaDetail;
 			sourceTree = "<group>";
 		};
+		E45378A61DEAD97400A65F43 /* ServerTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServerTest;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +596,7 @@
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXGroup;
 			children = (
+				E45378A61DEAD97400A65F43 /* ServerTest */,
 				E4A3BAA11DE3FA43009C0E78 /* PerpareData */,
 				E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */,
 				E4A3BA591DE3F874009C0E78 /* ViewController.swift */,

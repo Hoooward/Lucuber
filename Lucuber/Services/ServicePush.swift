@@ -129,7 +129,7 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
     
 }
 
-public func pushToDataLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
+public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
     
     guard !images.isEmpty else {
         return
@@ -166,56 +166,27 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
 }
 
 
-
-
-public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, failureHandler: (Error?) -> Void, completion: (Bool) -> Void) {
-
-    guard let mediaType = MessageMediaType(rawValue: message.mediaType) else {
-        printLog("无效的 mediaType")
-        return
+public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping (Error?) -> Void, completion: @escaping (_ URLString: String) -> Void) {
+    
+    guard let data = data else {
+        printLog("Data = nil")
+        failureHandler(nil)
+        return 
     }
     
-    // 缓存池保存待发送的 Message
-    SendingMessagePool.addMessage(with: message.localObjectID)
-    
-    let discoverMessage = parseMessageToDisvocerModel(with: message)
-    
-    
-    let messageSaveInbackground: AVBooleanResultBlock = { success, error in
-     
+    let file = AVFile(data: data)
+    file.saveInBackground { success, error in
         if success {
-            DispatchQueue.main.async {
-                let realm = message.realm
-                try? realm?.write {
-                    message.lcObjectID = discoverMessage.objectId ?? ""
-                    message.sendState = MessageSendState.successed.rawValue
-                }
-            }
-            
+            completion(file.url ?? "")
         }
-        
         if error != nil {
-            
-            DispatchQueue.main.async {
-                let realm = message.realm
-                try? realm?.write {
-                    message.lcObjectID = ""
-                    message.sendState = MessageSendState.failed.rawValue
-                }
-            }
+            failureHandler(error)
         }
-    }
-    
-    // TODO: - 暂时不处理 Location
-    switch mediaType {
-        
-    case .text:
-        discoverMessage.saveInBackground(messageSaveInbackground)
-        
-    default:
-        break
     }
 }
+
+
+
 
 public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
     
@@ -224,13 +195,18 @@ public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data
 
 public func pushMessageText(_ text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void,failureHandler: @escaping (Error?) -> Void, g completion: @escaping (Bool) -> Void) {
     
+    createAndPushMessage(with: MessageMediaType.text, atFilePath: nil, orFileData: nil, metaData: nil, text: text, toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
+}
+
+public func pushMessageAudio(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void ) {
     
+     createAndPushMessage(with: MessageMediaType.audio, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
 
-public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: ((Message) -> Void), failureHandler: ((Error) -> Void)?, completion: (Bool) -> Void) {
+public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
     
-    // 因为 message_id 必须来自远端，线程无法切换，所以这里暂时没用 realmQueue 
+    // 因为 message_id 必须来自远端，线程无法切换，所以这里暂时没用 realmQueue
     // TOOD: 也许有办法
     guard let realm = try? Realm() else {
         return
@@ -238,6 +214,7 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
     // 创建新的实例
     let message = Message()
+    message.localObjectID = Message.randomLocalObjectID()
     
     // 保证创建的新消息时间为最最最最新
     if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
@@ -345,17 +322,72 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
     
     // push 到远端
-    convertToLeanCloudMessageAndSend(message: message, failureHandler: {
+    
+    
+    pushMessageToLeancloud(with: message, atFilePath: filePath, orFileData: fileData, metaData: metaData, toRecipient: recipientID, recipientType: recipientType, failureHandler: {
+        error in
         
-        failureHandler?()
+        failureHandler(error)
         
-    }, completion: { _ in
+        let realm = message.realm
+        try? realm?.write {
+            message.lcObjectID = ""
+            message.sendState = MessageSendState.failed.rawValue
+        }
         
-        completion?(true)
-    })
+    }, completion: completion)
+    
+}
 
+public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
     
+    guard let mediaType = MessageMediaType(rawValue: message.mediaType) else {
+        printLog("无效的 mediaType")
+        return
+    }
     
+    // 缓存池保存待发送的 Message
+    SendingMessagePool.addMessage(with: message.localObjectID)
+    
+    let discoverMessage = parseMessageToDisvocerModel(with: message)
+    
+    let messageSavedCompletion: AVBooleanResultBlock = { success, error in
+        if success {
+            
+            let realm = message.realm
+            try? realm?.write {
+                message.lcObjectID = discoverMessage.objectId ?? ""
+                message.sendState = MessageSendState.successed.rawValue
+            }
+            completion(success)
+        }
+        
+        if error != nil { failureHandler(error) }
+    }
+    
+    // TODO: - 暂时不处理 Location
+    switch mediaType {
+        
+    case .text:
+        discoverMessage.saveInBackground(messageSavedCompletion)
+        
+    case .audio, .image, .video:
+        
+        pushDataToLeancloud(with: fileData, failureHandler: { error in
+            
+            failureHandler(error)
+            
+        }, completion: { URLString in
+            
+            discoverMessage.attachmentURLString = URLString
+            
+            discoverMessage.saveInBackground(messageSavedCompletion)
+            
+        })
+        
+    default:
+        break
+    }
 }
 
 
