@@ -588,7 +588,7 @@ class CommentViewController: UIViewController {
                     
                     if let withFriend = self?.conversation.withFriend {
                         
-                        sendText(text: text, toRecipient: withFriend.userID, recipientType: "User", afterCreatedMessage: { [weak self] message in
+                        sendText(text: text, toRecipient: withFriend.lcObjcetID, recipientType: "User", afterCreatedMessage: { [weak self] message in
                             
                             self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in })
                             

@@ -11,21 +11,6 @@ import AVOSCloud
 
 
 
-fileprivate let dataVersionKey = "dateVersioKey"
-
-extension UserDefaults {
-
-    class func setDataVersion(_ version: String) {
-        standard.set(version, forKey: dataVersionKey)
-    }
-    
-    class func dataVersion() -> String {
-        return standard.string(forKey: dataVersionKey) ?? "0.9"
-    }
-}
-
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -37,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         AVOSCloud.setAllLogsEnabled(false)
         
-        DiscoverFormula.registerSubclass()
-        DiscoverContent.registerSubclass()
-        DiscoverPreferences.registerSubclass()
+//        DiscoverFormula.registerSubclass()
+//        DiscoverContent.registerSubclass()
+//        DiscoverPreferences.registerSubclass()
         
         // 注意会重复添加数据
 //        pushFormulaDataToLeanCloud()
@@ -57,29 +42,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         
-        let currentVersion = UserDefaults.dataVersion()
-        
-        syncPreferences(completion: {
-            version in
-            
-            if currentVersion != version {
-                
-                printLog("需要更新数据")
-            }
-            
-        }, failureHandler: { error in printLog(error) })
-        
+//        let currentVersion = UserDefaults.dataVersion()
+//        
+//        syncPreferences(completion: {
+//            version in
+//            
+//            if currentVersion != version {
+//                
+//                printLog("需要更新数据")
+//            }
+//            
+//        }, failureHandler: { error in printLog(error) })
+//        
     }
-   
 
 
 }
 
 
-public func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
-    
-    #if DEBUG
-        print("\((file as NSString).lastPathComponent)[\(line)]:\(message)")
-    #endif
-}
 

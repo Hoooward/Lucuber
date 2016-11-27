@@ -31,7 +31,7 @@ class RegisterPickAvatarViewController: UIViewController {
         return button
     }()
     
-    private enum PickAvatarState {
+    fileprivate enum PickAvatarState {
         case Default
         case Captured
     }
@@ -94,7 +94,7 @@ class RegisterPickAvatarViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if let user = AVUser.current() {
-            nikeNameLabel.text = user.getUserNickName() ?? ""
+            nikeNameLabel.text = user.nickname() ?? ""
         }
         
         guard PHPhotoLibrary.authorizationStatus() != .authorized else {

@@ -11,37 +11,33 @@ import AVOSCloud
 import RealmSwift
 
 fileprivate let detailCellIdentifier = "DetailCollectionViewCell"
+fileprivate let masterCellIdentifier = "DetailMasterCell"
+fileprivate let formulasCellIdentifier = "DetailFormulasCell"
+fileprivate let separatorCellIdentifier = "DetailSeparatorCell"
+fileprivate let detailCommentCellIdentifier = "DetailCommentCell"
+fileprivate let detailContentCellIdentifier = "DetailContentCell"
 
 class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Properties
+    
+    @IBOutlet weak var tableView: UITableView!
     
     enum SegueIdentifier: String {
         case comment = "showCommentVC"
         case edit = "showAddFormula"
     }
     
-    fileprivate let layout = DetailLayout()
-    
-    var collectionView: UICollectionView!
-    
-    var formulaDatas: [Formula] = []
-    
-    var seletedFormula: Formula?
-    
-    var seletedFormulaIndexPatchItem: Int? {
-        
-        if let formula = seletedFormula {
-            
-            return formulaDatas.index(of: formula)
-        }
-        return nil
-    }
+    public var formula: Formula!
     
     var oldMasterList: [String] = []
     
-    var uploadMode: UploadFormulaMode = .library
+    public var uploadMode: UploadFormulaMode = .library
     
+    lazy var headerView: DetailHeaderView = {
+        let view = DetailHeaderView()
+        return view
+    }()
     
     private lazy var customNavigationItem: UINavigationItem = {
         
@@ -107,7 +103,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
                 viewController.editType = .editFormula
                 viewController.view.alpha = 1
-                viewController.formula = strongSelf.seletedFormula!
+                viewController.formula = strongSelf.formula
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
             })
@@ -146,25 +142,22 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
                 viewController.editType = .addToMy
                 viewController.view.alpha = 1
-                if let formula = strongSelf.seletedFormula {
-                    
-                    viewController.formula = formula.copy as! Formula
-                }
+                
+                viewController.formula = strongSelf.formula
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
             })
         
         
-        
         switch uploadMode {
-        case .my:
             
+        case .my:
             return [editItem, deleteItem]
+            
         case .library:
             return [copyToMy]
         }
         
-//        return [editItem, deleteItem]
     }
     
     // MARK: - Life Cycle
@@ -176,26 +169,27 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(UINib(nibName: masterCellIdentifier, bundle: nil), forCellReuseIdentifier: masterCellIdentifier)
+        tableView.register(UINib(nibName: formulasCellIdentifier,bundle: nil), forCellReuseIdentifier: formulasCellIdentifier)
+        tableView.register(UINib(nibName: separatorCellIdentifier,bundle: nil), forCellReuseIdentifier: separatorCellIdentifier)
+        tableView.register(UINib(nibName: detailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailCommentCellIdentifier)
+        tableView.register(DetailContentCell.self, forCellReuseIdentifier: detailContentCellIdentifier)
         
-        collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: layout)
-        collectionView?.register(UINib(nibName: detailCellIdentifier, bundle: nil), forCellWithReuseIdentifier: detailCellIdentifier)
-        
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
+        tableView.backgroundColor = UIColor.white
+        tableView.tableHeaderView = headerView
         self.automaticallyAdjustsScrollViewInsets = false
         
-        view.addSubview(collectionView)
         view.addSubview(customNavigationBar)
         view.backgroundColor = UIColor.white
-        collectionView.backgroundColor = UIColor.white
         
-        /// 进入 Detail 控制器后先拿到 masterList
         if let currentUser = AVUser.current(), let list = currentUser.masterList()  {
             oldMasterList = list
         }
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: nil, action: nil)
         
+        self.titleView.nameLabel.text = formula.name
+        self.titleView.stateInfoLabel.text = formula.type.sectionText
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -203,16 +197,13 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1
-        
         self.setNeedsStatusBarAppearanceUpdate()
         
-        if let index = seletedFormulaIndexPatchItem {
-            collectionView.setContentOffset(CGPoint(x: CGFloat(index) * UIScreen.main.bounds.width, y: 0), animated: false)
-        }
-        collectionView.reloadData()
-        
-        updateNavigationBarTitle()
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        headerView.frame.size = CGSize(width: UIScreen.main.bounds.width, height: headerView.headerHeight )
     }
     
     
@@ -239,51 +230,19 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
     
     deinit {
-        printLog("\(self) is dead")
+        printLog("\(self) 死掉喽")
     }
     
     // MARK: - Action & Target
     
     func popViewController() {
-        
         _ = navigationController?.popViewController(animated: true)
     }
     
-    
     func editFormula() {
-        
         if let window = view.window {
             editFormulaSheetView.showInView(view: window)
         }
-    }
-    
-    func updateNavigationBarTitle() {
-        
-        let offSetX = collectionView.contentOffset.x
-        let index = Int(offSetX / UIScreen.main.bounds.width)
-        
-        let formula = formulaDatas[index]
-        self.titleView.nameLabel.text = formula.name
-        
-        let type = formula.type
-        
-        
-        var titleText = ""
-        
-        switch type {
-            
-        case .CROSS:
-            titleText = type.rawValue + " - 中心块与底部十字"
-        case .F2L:
-            titleText = type.rawValue + " - 中间层"
-        case .OLL:
-            titleText = type.rawValue + " - 顶层定向"
-        case .PLL:
-            titleText = type.rawValue + " - 顶层排列"
-  
-        }
-        
-        self.titleView.stateInfoLabel.text = titleText
     }
     
     // MARK: - Segue
@@ -320,38 +279,131 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
 }
 
-extension FormulaDetailViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
+
+extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    enum Section: Int {
+        case separator = 0
+        case formulas = 1
+        case separatorTwo = 2
+        case master = 3
+        case comment = 4
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        printLog(formulaDatas.count)
-        return formulaDatas.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 5
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCellIdentifier, for: indexPath) as! DetailCollectionViewCell
-        
-        cell.pushCommentViewController = {
-            [unowned self] formula in
-            self.performSegue(withIdentifier: SegueIdentifier.comment.rawValue, sender: formula)
+        guard let section = Section(rawValue: section) else {
+            fatalError()
         }
         
-        let formula = formulaDatas[indexPath.item]
-        cell.formula = formula
-        self.seletedFormula = formula
-        
-        return cell
+        switch section {
+        case .master:
+            return 1
+        case .separator:
+            return 1
+        case .separatorTwo:
+            return 0
+        case .formulas:
+            return 1
+        case .comment:
+            return 1
+            
+        }
     }
     
- 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        updateNavigationBarTitle()
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
         
+        switch section {
+        case .master:
+            return Config.FormulaDetail.masterRowHeight
+        case .separator:
+            return Config.FormulaDetail.separatorRowHeight
+        case .separatorTwo:
+            return Config.FormulaDetail.separatorRowHeight
+        case .formulas:
+            return formula.contentMaxCellHeight
+        case .comment:
+            return Config.FormulaDetail.commentRowHeight
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+            
+        case .master:
+            let cell = tableView.dequeueReusableCell(withIdentifier: masterCellIdentifier, for: indexPath) as! DetailMasterCell
+            cell.configCell(with: formula)
+            return cell
+            
+        case .separator, .separatorTwo:
+            let cell = tableView.dequeueReusableCell(withIdentifier: separatorCellIdentifier, for: indexPath)
+            return cell
+            
+        case .formulas:
+            let cell = tableView.dequeueReusableCell(withIdentifier: detailContentCellIdentifier, for: indexPath) as! DetailContentCell
+            cell.configCell(with: formula)
+            return cell
+            
+        case .comment:
+            let cell = tableView.dequeueReusableCell(withIdentifier: detailCommentCellIdentifier, for: indexPath)
+            return cell
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+            
+        case .master:
+            
+            guard let cell = tableView.cellForRow(at: indexPath) as? DetailMasterCell else {
+                return
+            }
+            
+            cell.changeMasterStatus(with: formula)
+            
+        case .comment:
+            
+            self.performSegue(identifier: .comment, sender: formula)
+            
+            break
+        default:
+            return
+        }
         
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

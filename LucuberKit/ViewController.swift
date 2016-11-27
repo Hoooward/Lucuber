@@ -13,59 +13,41 @@ import AVOSCloud
 
 class ViewController: UIViewController {
     
-    var formulas = [Formula]() {
-        didSet {
-            
-            test(formulas: formulas)
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-       
-//        AVUser.loginAdministrator()
-//        syncPreferences()
-//        syncFormula(with: .library, categoty: .x3x3, completion: {
-//            
-//            newFormulas in
-//            
-//            self.formulas = newFormulas
-//            
-//        }, failureHandler: nil)
-//        
-       
-    }
-
-}
-
-
-func test(formulas: [Formula]) {
-    
-    guard let realm = try? Realm() else {
-        return
-    }
-    
-//    if let currentUser =  currentUser(in: realm) {
-//        
-//        pushToLeancloud(with: currentUser.masterList.map {
-//            $0.localObjectID
-//        }, completion: nil, failureHandler: nil)
-//    }
-    
-    for index in 0..<20 {
-        let formula = formulas[index]
-        try? realm.write {
-//            appendMaster(with: formula, inRealm: realm)
+        guard let realm = try? Realm() else {
+            return 
         }
+        printLog(realm)
+        printLog(realm)
+        printLog(realm)
+        printLog(realm)
+        printLog(realm)
     }
     
-    let user = currentUser(in: realm)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        sendImageMessage()
+    }
     
-    printLog(user?.masterList)
-}
+    
+    func sendImageMessage() {
+        
+        let image = UIImage(named: "Rubik's_cube")!
+        let imageData = UIImageJPEGRepresentation(image, 0.95)
+//        
+//        pushMessageImage(atPath: nil, orFileData: imageData, metaData: nil, toRecipient: "test", recipientType: "group", afterCreatedMessage: { message in
+//            printLog(message)
+//        }, failureHandler: { error in
+//            printLog(error)
+//        }, completion: { success in
+//            printLog(success)
+//        })
+    }
 
+}
 
 
 

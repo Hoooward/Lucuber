@@ -14,28 +14,26 @@ class NewFormulaHeadView: UIView {
         return Bundle.main.loadNibNamed("NewFormulaHeadView", owner: nil, options: nil)!.last! as! NewFormulaHeadView
     }
     
-    // MARK: - Properties
+    fileprivate var formula: Formula?
     
-    var formula: Formula? {
+    public func configView(with formula: Formula?) {
         
-        didSet {
-            
-            guard let formula = formula else {
-                return
-            }
-//            printLog(formula)
-            setFormulaImageButtonBackgroundImage(imageName: formula.imageName)
-            indicatorView.configureWithCategory(category: formula.category.rawValue)
-            
-            
-            var newName = formula.name.trimming(trimmingType: .whitespaceAndNewLine)
-            newName = newName.isDirty ? "名称" : newName
-            
-            self.nameLabel.text = newName
-            
+        guard let formula = formula else {
+            return
         }
+        
+        self.formula = formula
+        
+        setFormulaImageButtonBackgroundImage(imageName: formula.imageName)
+        indicatorView.configureWithCategory(category: formula.category.rawValue)
+        
+        var newName = formula.name.trimming(trimmingType: .whitespaceAndNewLine)
+        newName = newName.isDirty ? "名称" : newName
+        
+        self.nameLabel.text = newName
+        
     }
-    
+
     var isReadyforSave: Bool {
         
         guard let newName = nameLabel.text, newName.characters.count > 0 else  {

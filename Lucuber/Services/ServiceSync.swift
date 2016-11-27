@@ -9,10 +9,24 @@
 import UIKit
 import RealmSwift
 import AVOSCloud
+import PKHUD
 
 public enum UploadFormulaMode: String {
     case my = "My"
     case library = "Library"
+}
+
+
+public func updateLibraryDateVersion(completion: (() -> Void)?, failureHandeler: (() -> Void)?) {
+    
+    HUD.show(.label("更新公式库..."))
+    syncFormula(with: UploadFormulaMode.library, categoty: nil, completion: { _ in
+        HUD.flash(.label("更新成功"), delay: 2)
+        completion?()
+    }, failureHandler: { _ in
+        HUD.flash(.label("更新失败，似乎已断开与互联网的连接。"), delay: 2)
+        failureHandeler?()
+    })
 }
 
 public func syncPreferences(completion:((String) -> Void)?, failureHandler: ((Error?) -> Void)?){
@@ -28,7 +42,7 @@ public func syncPreferences(completion:((String) -> Void)?, failureHandler: ((Er
     }
 }
 
-public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
+public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
     
     
     
@@ -134,12 +148,11 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     
     if let formula = formula {
         
-        if  let discoverFormulaCreator = discoverFormula.creator,
-            let creatorID = discoverFormula.creator?.objectId {
+        if  let discoverFormulaCreator = discoverFormula.creator {
             
-            let creator = appendRUser(with: creatorID, discoverUser: discoverFormulaCreator, inRealm: realm)
+//            let creator = appendRUser(with: discoverFormulaCreator, inRealm: realm)
             
-            formula.creator = creator
+//            formula.creator = creator
         }
         
         formula.isLibrary = discoverFormula.isLibrary
@@ -149,6 +162,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         formula.categoryString = discoverFormula.category
         formula.typeString = discoverFormula.type
         formula.updateUnixTime = discoverFormula.updatedAt!.timeIntervalSince1970
+//        formula.creat
         
         // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
         if discoverFormula.imageURL != "" {
@@ -179,6 +193,10 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                         realm.delete(content)
                     }
                 }
+                
+                if let content = content {
+                    realm.delete(content)
+                }
             }
             
             if content == nil {
@@ -200,6 +218,8 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 content.text = $0.text
                 content.indicatorImageName = $0.indicatorImageName
                 
+//                content.saveNewCellHeight(inRealm: realm)
+                
             }
         }
         
@@ -211,3 +231,129 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     }
     
 }
+
+
+//public func convertDiscoverMessageToMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: (([String]) -> Void)?) {
+//    
+//    // 暂时使用同一线程的 Realm, 因为 Message 的 lcObjcetID 来自远端, 所以可能需要使用一个独立的线程
+//    
+//    guard let messageID = discoverMessage.objectId else {
+//        return
+//    }
+//    
+//    var message = messageWith(messageID, inRealm: realm)
+//    
+//    let deleted = discoverMessage.deletedByCreator
+//    
+//    if deleted {
+//        if
+//            let discoverMessageCreatorID = discoverMessage.creator.objectId,
+//            let currentUserID = AVUser.current()?.objectId {
+//            
+//            if discoverMessageCreatorID == currentUserID {
+//                
+//                if let message = message {
+//                    realm.delete(message)
+//                }
+//            }
+//            
+//        }
+//    }
+//    
+//    if message == nil {
+//        
+//        let newMessage = Message()
+//        newMessage.lcObjectID = discoverMessage.objectId!
+//        newMessage.localObjectID = discoverMessage.localObjectID
+//        
+//        newMessage.textContent = discoverMessage.textContent
+//        newMessage.mediaTypeInt = discoverMessage.mediaTypeInt
+//        
+//        newMessage.sendStateInt = MessageSendState.read.rawValue
+//        
+//        newMessage.createdUnixTime = (discoverMessage.createdAt?.timeIntervalSince1970)!
+//        
+//        if case .new = messageAge {
+//           
+//            if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
+//                if newMessage.createdUnixTime < latestMessage.createdUnixTime {
+//                    // 只考虑最近的消息，过了可能混乱的时机就不再考虑
+//                    if abs(newMessage.createdUnixTime - latestMessage.createdUnixTime) < 60 {
+//                        printLog("xbefore newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+//                        newMessage.createdUnixTime = latestMessage.createdUnixTime + 0.00005
+//                        printLog("xadjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+//                    }
+//                }
+//            }
+//        }
+//        
+//        realm.add(newMessage)
+//        message = newMessage
+//    }
+//    
+//    if let message = message {
+//        
+//        let sender = appendRUser(with: discoverMessage.creator, inRealm: realm)
+//        
+//        
+//        message.creator = sender
+//        message.recipientID = discoverMessage.recipientID
+//        message.recipientType = discoverMessage.recipientType
+//        
+//        var senderFormGroup: Group? = nil
+//        
+//        if discoverMessage.recipientType == "group" {
+//            
+//            senderFormGroup = groupWith(discoverMessage.recipientID, inRealm: realm)
+//            
+//            if senderFormGroup == nil {
+//                
+//                let newGroup = Group()
+//                newGroup.groupID = discoverMessage.recipientID
+//                newGroup.incloudMe = true
+//                
+//                realm.add(newGroup)
+//                
+//                senderFormGroup = newGroup
+//            }
+//        }
+//        
+//        var conversation: Conversation?
+//        
+//        var conversationWithUser: RUser?
+//        
+//        if let senderFormGroup = senderFormGroup {
+//            
+//            conversation = senderFormGroup.conversation
+//            
+//        } else {
+//           
+//            
+//        }
+//        
+//        
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,51 +10,13 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-public enum FeedKind: String {
-    case Text = "text"
-    case URL = "web_page"
-    case Image = "image"
-    case Video = "video"
-    case Audio = "audio"
-    case Location = "location"
-    
-    case AppleMusic = "apple_music"
-    case AppleMovie = "apple_movie"
-    case AppleEBook = "apple_ebook"
-    
-    
-    public var needBackgroundUpload: Bool {
-        switch self {
-        case .Image:
-            return true
-        case .Audio:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    public var needParseOpenGraph: Bool {
-        switch self {
-        case .Text:
-            return true
-        default:
-            return false
-        }
-    }
-}
 
 //public struct DiscoveredFeed: AVObject, AVSubclassing {
 //    
 //    
 //
 //}
-public enum FeedCategory: String {
-    case All = "所有"
-    case Formula = "公式"
-    case Record = "成绩"
-    case Topic = "话题"
-}
+
 
 
 public struct ImageAttachment {
@@ -103,65 +65,65 @@ public struct ImageAttachment {
     
 }
 
-class Feed: AVObject, AVSubclassing  {
-    
-    class func parseClassName() -> String {
-        return "Feed"
-    }
-    
-    static let Feedkey_creator = "creator"
-    static let Feedkey_body = "contentBody"
-    static let Feedkey_kind = "kindString"
-    static let Feedkey_category = "category"
-    static let FeedKey_imagesURL = "imagesUrl"
-    static let FeedKey_comments = "comments"
-    
-    
-    ///作者
-    @NSManaged var creator: AVUser?
-    
-    ///内容
-    @NSManaged var contentBody: String?
-    
-    ///种类, FeedCategory -> 公式, 成绩, 话题
-    @NSManaged var category: String
-    
-    ///图片附件URL
-    @NSManaged var imagesUrl: [String]?
-    
-    ///评论
-    @NSManaged var comments: [String]?
-    
-    
-    ///附件的种类
-    enum Attachment  {
-        case Image([ImageAttachment])
-        case Text
-        case Formula
-        
-    }
-    
-    ///通过 ImageURL 的数量来判断 附件的种类
-    var attachment: Attachment {
-        
-        guard let imagesUrl = imagesUrl else {
-            return .Text
-        }
-        
-        if imagesUrl.isEmpty {
-            return .Text
-        }
-        
-        if imagesUrl.isEmpty && FeedCategory(rawValue: self.category) == .Formula {
-            return .Formula
-            
-        }
-        
-        return .Image(imagesUrl.map {ImageAttachment(metadata: nil, URLString: $0, image: nil)})
-    }
-    
-    
-}
+//class Feed1: AVObject, AVSubclassing  {
+//    
+//    class func parseClassName() -> String {
+//        return "Feed"
+//    }
+//    
+//    static let Feedkey_creator = "creator"
+//    static let Feedkey_body = "contentBody"
+//    static let Feedkey_kind = "kindString"
+//    static let Feedkey_category = "category"
+//    static let FeedKey_imagesURL = "imagesUrl"
+//    static let FeedKey_comments = "comments"
+//    
+//    
+//    ///作者
+//    @NSManaged var creator: AVUser?
+//    
+//    ///内容
+//    @NSManaged var contentBody: String?
+//    
+//    ///种类, FeedCategory -> 公式, 成绩, 话题
+//    @NSManaged var category: String
+//    
+//    ///图片附件URL
+//    @NSManaged var imagesUrl: [String]?
+//    
+//    ///评论
+//    @NSManaged var comments: [String]?
+//    
+//    
+//    ///附件的种类
+//    enum Attachment  {
+//        case Image([ImageAttachment])
+//        case Text
+//        case Formula
+//        
+//    }
+//    
+//    ///通过 ImageURL 的数量来判断 附件的种类
+//    var attachment: Attachment {
+//        
+//        guard let imagesUrl = imagesUrl else {
+//            return .Text
+//        }
+//        
+//        if imagesUrl.isEmpty {
+//            return .Text
+//        }
+//        
+//        if imagesUrl.isEmpty && FeedCategory(rawValue: self.category) == .Formula {
+//            return .Formula
+//            
+//        }
+//        
+//        return .Image(imagesUrl.map {ImageAttachment(metadata: nil, URLString: $0, image: nil)})
+//    }
+//    
+//    
+//}
 
 
 

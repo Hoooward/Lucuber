@@ -19,6 +19,12 @@ target 'LucuberKit' do
 pod 'SwiftyJSON'
 pod 'AVOSCloud'
 pod 'RealmSwift'
+pod 'Kingfisher', '~> 3.0'
+pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
+#pod 'Ruler', '~> 1.0.0'
+#pod 'TwicketSegmentedControl'
+
+
 
 end
 
