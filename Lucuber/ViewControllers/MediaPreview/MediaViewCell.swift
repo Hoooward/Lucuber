@@ -16,14 +16,15 @@ class MediaViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        mediaView.backgroundColor = UIColor.clearColor()
-        contentView.backgroundColor = UIColor.clearColor()
+        mediaView.backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        mediaView.imageView.image = nil
+        printLog(mediaView.scrollView)
+//        mediaView.imageView.image = nil
     }
 
 }

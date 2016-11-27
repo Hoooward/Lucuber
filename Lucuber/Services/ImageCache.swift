@@ -2,31 +2,33 @@
 //  ImageCache.swift
 //  Lucuber
 //
-//  Created by Howard on 7/27/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/10/18.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
 import Kingfisher
 
-
-final class ImageCache {
+final class CubeImageCache {
+   
+    static let shard = CubeImageCache()
     
-    static let shardInstance = ImageCache()
+    var cache = NSCache<AnyObject, AnyObject>()
+    let cacheQueue = DispatchQueue.init(label: "ImageChacheQueue")
+    let cacheAttachmentQueue = DispatchQueue(label: "ImageChacheAttachmentQueue")
     
-    let cache = NSCache()
-    let cacheQueue = dispatch_queue_create("ImageChacheQueue", DISPATCH_QUEUE_SERIAL)
-    let cacheAttachmentQueue = dispatch_queue_create("ImageChacheAttachmentQueue", DISPATCH_QUEUE_SERIAL)
+    
     
     class func attachmentOriginKeyWithURLString(URLString: String) -> String {
         return "attachment-cube-\(URLString)"
     }
     
     class func attachmentSideLengthKeyWithURLString(URLString: String, sideLenght: CGFloat) -> String {
-       return "attachment-\(sideLenght)-\(URLString)"
+        return "attachment-\(sideLenght)-\(URLString)"
     }
     
-    func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?, completion:(url: NSURL, image: UIImage?, cacheType: CacheType) -> Void)  {
+    
+    func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?, completion:@escaping (_ url: NSURL, _ image: UIImage?, _ cacheType: CacheType) -> Void)  {
         
         guard let attachmentURL = NSURL(string: attachment.URLString) else {
             return
@@ -34,89 +36,101 @@ final class ImageCache {
         
         var sideLenght: CGFloat = 0
         if let withSideLenght = withSideLenght {
-           sideLenght = withSideLenght
+            sideLenght = withSideLenght
         }
         
-        let originKey = ImageCache.attachmentOriginKeyWithURLString(attachmentURL.absoluteString)
-        let sideLengtKey = ImageCache.attachmentSideLengthKeyWithURLString(attachmentURL.absoluteString, sideLenght: sideLenght)
+        let originKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: attachmentURL.absoluteString!)
+        let sideLengtKey = CubeImageCache.attachmentSideLengthKeyWithURLString(URLString: attachmentURL.absoluteString!, sideLenght: sideLenght)
         
         let options: KingfisherOptionsInfo = [
-            .CallbackDispatchQueue(cacheAttachmentQueue),
-            .ScaleFactor(UIScreen.mainScreen().scale)
+            .callbackDispatchQueue(cacheAttachmentQueue),
+            .scaleFactor(UIScreen.main.scale)
         ]
         
-        Kingfisher.ImageCache.defaultCache.retrieveImageForKey(sideLengtKey, options: options) { (image, cacheType) in
+        
+  
+       
+        ImageCache.default.retrieveImage(forKey: sideLengtKey, options: options, completionHandler: {
+            (image, cacheType) in
             
+            // 本地查找对应边长的 Image
             if let image = image {
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion(url: attachmentURL, image: image, cacheType: cacheType)
+                DispatchQueue.main.async {
+                    completion(attachmentURL, image, cacheType)
                 }
                 
-            } else {
+            } else { // 如果没有在本地找到
                 
-                Kingfisher.ImageCache.defaultCache.retrieveImageForKey(originKey, options: options, completionHandler: { (image, cacheType) in
+                // 尝试在本地寻找原始图片
+                ImageCache.default.retrieveImage(forKey: originKey, options: options, completionHandler: {
+                    (image, cacheType) in
+                    
                     if let image = image {
-                        
                         var resultImage = image
                         
+                        // 如果找到,进行切割,并保存
                         if sideLenght != 0 {
                             
-                            resultImage = image.scaleToSideLenght(sideLenght)
+                            resultImage = image.scaleToSideLenght(sidLenght: sideLenght)
                             
                             let originalData = UIImageJPEGRepresentation(resultImage, 1.0)
                             
-                            Kingfisher.ImageCache.defaultCache.storeImage(resultImage, originalData: originalData, forKey: sideLengtKey, toDisk: true, completionHandler: { 
+                            ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
+                                
                             })
                             
                         }
                         
-                        dispatch_async(dispatch_get_main_queue()) {
-                               completion(url: attachmentURL, image: resultImage, cacheType: cacheType)
+                        DispatchQueue.main.async {
+                            completion(attachmentURL, resultImage, cacheType)
                         }
                         
                     } else {
                         
-                        ImageDownloader.defaultDownloader.downloadImageWithURL(attachmentURL, options: options, progressBlock: { (receivedSize, totalSize) in
+                   
+                        // 如果没有找到, 下载
+                       ImageDownloader.default.downloadImage(with: attachmentURL as URL, options: options, progressBlock: { (receivedSize, totalSize) in
                             
                             }, completionHandler: { (image, error, imageURL, originalData) in
                                 
                                 if let image = image {
                                     
-                                    Kingfisher.ImageCache.defaultCache.storeImage(image, originalData: originalData, forKey: originKey, toDisk: true, completionHandler: nil)
+                                    ImageCache.default.store(image, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
+                                        
+                                    })
                                     
                                     var resultImage = image
                                     
                                     if sideLenght != 0 {
                                         
-                                        resultImage = image.scaleToSideLenght(sideLenght)
+                                        resultImage = image.scaleToSideLenght(sidLenght: sideLenght)
                                         
                                         let originalData = UIImageJPEGRepresentation(resultImage, 1.0)
                                         
-                                        Kingfisher.ImageCache.defaultCache.storeImage(resultImage, originalData: originalData, forKey: sideLengtKey, toDisk: true, completionHandler: nil)
+                                        ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
+                                            
+                                        })
                                         
-                                        
-                                        
-                                    }
-                                    dispatch_async(dispatch_get_main_queue()) {
-                                          completion(url: attachmentURL, image: resultImage, cacheType: cacheType)
                                     }
                                     
+                                    DispatchQueue.main.async {
+                                        completion(attachmentURL, resultImage, cacheType)
+                                    }
+
                                 } else {
                                     
-                                    dispatch_async(dispatch_get_main_queue()) {
-                                       completion(url: attachmentURL, image: nil, cacheType: cacheType)
+                                    DispatchQueue.main.async {
+                                        completion(attachmentURL, nil, cacheType)
                                     }
+
                                 }
                         })
                         
                     }
                 })
                 
-                
             }
-        }
-        
-        
-    }
     
+        })
+    }
 }

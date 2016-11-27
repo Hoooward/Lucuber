@@ -2,46 +2,46 @@
 //  UITableView+Cube.swift
 //  Lucuber
 //
-//  Created by Howard on 7/27/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/10/18.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UITableView {
     
     enum WayToUpdata {
         
-        case None
-        case ReloadData
-        case Insert([NSIndexPath])
-        case ReloadAtIndexPath([NSIndexPath])
+        case none
+        case reloadData
+        case insert([IndexPath])
+        case reloadAtIndexPath([IndexPath])
         
         
         func performWithTableView(tableView: UITableView) {
             
             switch self {
-            case .None:
+            case .none:
                 printLog("tableView WayToUpdata: None")
                 
-            case .ReloadData:
+            case .reloadData:
                 printLog("tableView WayToUpdata: ReloadData")
                 tableView.reloadData()
                 
-            case .ReloadAtIndexPath(let indexPaths):
+            case .reloadAtIndexPath(let indexPaths):
                 printLog("tableView WayToUpdata: ReloadAtIndexPath")
-                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
+                tableView.reloadRows(at: indexPaths, with: .none)
                 
-            case .Insert(let indexPaths):
+            case .insert(let indexPaths):
                 printLog("tableView WayToUpdata: Insert")
-                tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
+                tableView.insertRows(at: indexPaths, with: .none)
                 
             }
         }
     }
     
     
-
+    
     
     
 }

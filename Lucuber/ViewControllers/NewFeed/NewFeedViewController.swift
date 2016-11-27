@@ -2,127 +2,113 @@
 //  NewFeedViewController.swift
 //  Lucuber
 //
-//  Created by Howard on 7/23/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/11/19.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
 import MobileCoreServices
-import AVFoundation
-import AssetsLibrary
 import Photos
-import Ruler
 
 class NewFeedViewController: UIViewController {
     
     enum Attachment {
-        /// 文字陪图片
-        case Media
-        /// 公式固件
-        case Formula
+        case media
+        case formula
     }
     
     // MARK: - Properties
-
-    var attachment: Attachment = .Media
+    
+    var attachment: Attachment = .media
     var mediaImages = [UIImage]() {
         didSet {
             
-            mediaCollectionView.performBatchUpdates({ [weak self] in
-                self?.mediaCollectionView.reloadSections(NSIndexSet(index: 0))
-                }, completion: nil)
+            let indexSet = IndexSet(integer: 0)
+            mediaCollectionView.performBatchUpdates({
+                [weak self] in
+              
+                self?.mediaCollectionView.reloadSections(indexSet)
+            }, completion: nil)
         }
     }
     
-    private var pickedImageAssets = [PHAsset]()
+    fileprivate var pickedImageAssets = [PHAsset]()
     
     var newFeed = Feed()
-    var attachmentFormula: Formula? 
-   
-   
+    var attachmentFormula: Formula?
     
-    private var isNeverInputMessage = true
-    
-    private var isReadyForPost = false {
+    fileprivate var isNeverInputMessage = true
+    fileprivate var isReadyForPost = false {
         willSet {
-            postFeedBarButton.enabled = newValue
+            
+            postFeedBarButton.isEnabled = newValue
             
             if !newValue && isNeverInputMessage {
                 messageTextView.text = placeholderOfMessage
             }
             
-            messageTextView.textColor = newValue ? UIColor.blackColor() : UIColor.lightGrayColor()
+            messageTextView.textColor = newValue ? UIColor.black : UIColor.lightGray
         }
     }
     
-    private lazy var imagePicker: UIImagePickerController = {
+    fileprivate lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         return imagePicker
     }()
     
+    
     @IBOutlet weak var formulaView: FeedFormulaView!
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
-    
     
     @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var messageTextViewHeightContraint: NSLayoutConstraint!
+    
     @IBOutlet weak var postFeedBarButton: UIBarButtonItem!
     
-    private let placeholderOfMessage = "写点什么..."
-    private let FeedMediaAddCellIdentifier = "FeedMediaAddCell"
-    private let FeedMediaCellIdentifier = "FeedMediaCell"
-    
-    
+    fileprivate let placeholderOfMessage = "写点什么"
+    fileprivate let feedMediaAdddCellIdentifier = "FeedMediaAddCell"
+    fileprivate let feedMediaCellIdentifier = "FeedMediaCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         makeUI()
-  
     }
     
-    deinit {
-         printLog("正确牺牲了. ~oye, bye")
-    }
+    private func makeUI() {
     
-    func makeUI() {
-        
         switch attachment {
-        case .Media:
+        case .media:
+            
             title = "新话题"
-            mediaCollectionView.hidden = false
-            formulaView.hidden = true
+            mediaCollectionView.isHidden = false
+            formulaView.isHidden = true
             
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: #selector(NewFeedViewController.cancel(_:)))
+        case .formula:
             
-        case .Formula:
             title = "创建公式(2/2)"
-            mediaCollectionView.hidden = true
-            formulaView.formula = attachmentFormula
-            formulaView.hidden = false
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "上一步", style: .Plain, target: self, action: #selector(NewFeedViewController.cancel(_:)))
+            mediaCollectionView.isHidden = true
+            formulaView.isHidden = false
+            
         }
         
         view.backgroundColor = UIColor.cubeBackgroundColor()
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         
-        let messageTextViewHeight = Ruler.iPhoneVertical(100, 120, 170, 200).value
-        messageTextViewHeightConstraint.constant = CGFloat(messageTextViewHeight)
+        let messageTextViewHeight = CubeRuler.iPhoneVertical(100, 120, 170, 200).value
+        messageTextViewHeightContraint.constant = CGFloat(messageTextViewHeight)
         messageTextView.layoutIfNeeded()
-        
         
         isReadyForPost = false
         messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messageTextView.textContainer.lineFragmentPadding = 0
         messageTextView.delegate = self
-        messageTextView.tintColor = UIColor.cubeTintColor()
+//        messageTextView.tintColor = UIColor.cubeTintColor()
         
-      
-        mediaCollectionView.backgroundColor = UIColor.clearColor()
+        mediaCollectionView.backgroundColor = UIColor.clear
         
         mediaCollectionView.contentInset.left = 15
         mediaCollectionView.delegate = self
@@ -131,159 +117,148 @@ class NewFeedViewController: UIViewController {
         
     }
     
-    // MARK: - PrepareForSegue
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    // MARK: -  Action & Target
+    
+    @IBAction func post(_ sender: Any) {
+        printLog("post")
+    }
+    
+    @IBAction func dismiss(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: -  Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPickPhotoView" {
-            if let vc = segue.destinationViewController as? PickPhotosViewController {
-              vc.delegate = self
-              vc.pickedImageSet = Set(pickedImageAssets)
-              vc.imageLimit = mediaImages.count
+            
+            if let vc = segue.destination as? PickPhotosViewController {
+                vc.delegate = self
+                vc.pickedImageSet = Set(pickedImageAssets)
+//                vc.pickedImages = pickedImageAssets
+                vc.imageLimit = mediaImages.count
             }
         }
     }
     
- 
-    // MARK: - Targer & Notification
-    @IBAction func postFeed(sender: AnyObject) {
-        
-        messageTextView.resignFirstResponder()
-        
-        if let user = AVUser.currentUser() {
-            // 已经登录
-            
-            var photoUrls = [String]()
-            if mediaImages.count > 0 {
-                for image in mediaImages {
-                    let uploadFile = AVFile(data: UIImageJPEGRepresentation(image, 0.7))
-                 
-                    var error: NSError?
-                    if uploadFile.save(&error) {
-                        if let url = uploadFile.url {
-                            photoUrls.append(url)
-                        }
-                    } else {
-                        printLog("图片上传失败 \((error?.localizedFailureReason)!)")
-                    }
-                }
-            }
-            
-            let newFeed = Feed()
-            newFeed.contentBody = messageTextView.text
-            newFeed.creator = user
-            newFeed.imagesUrl = photoUrls
-            newFeed.category = FeedCategory.Topic.rawValue
-            
-            var error: NSError?
-            
-            if newFeed.save(&error) {
-                printLog("发表成功")
-            } else {
-                printLog("发表失败 \(error?.localizedFailureReason)" )
-            }
-            
-            
-            
-            dismissViewControllerAnimated(true, completion: nil)
-            
-            
-        }
-    }
-    
-    @IBAction func cancel(sender: AnyObject) {
-        
-        switch attachment {
-        case .Formula:
-            navigationController?.popViewControllerAnimated(true)
-        case .Media:
-            dismissViewControllerAnimated(true, completion: nil)
-            
-        }
-        
-    }
 }
 
-// MARK: - CollectionViewDelegate & DataSource -> MediaCell
 extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     enum Section: Int {
-        case Image = 0
-        case Add
+        case image = 0
+        case add
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         guard let section = Section(rawValue: section) else {
             fatalError()
         }
         
         switch section {
-        case .Image:
-            return mediaImages.count
-        case .Add:
+        case .add:
             return 1
+        case .image:
+            return mediaImages.count
         }
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
         
         switch section {
-        case .Image:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaCellIdentifier, forIndexPath: indexPath) as! FeedMediaCell
+        case .image:
             
-            cell.configureWithImage(mediaImages[indexPath.row])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: feedMediaCellIdentifier, for: indexPath) as! FeedMediaCell
+            
+            cell.configureWithImage(image: mediaImages[indexPath.row])
             
             cell.delete = {
                 [unowned self] in
-                self.mediaImages.removeAtIndex(indexPath.row)
+                self.mediaImages.remove(at: indexPath.row)
             }
             
             return cell
-        case .Add:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(FeedMediaAddCellIdentifier, forIndexPath: indexPath) as! FeedMediaAddCell
+            
+            
+        case .add:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: feedMediaAdddCellIdentifier, for: indexPath) as! FeedMediaAddCell
+            
             return cell
         }
+        
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
         
         switch section {
-        case .Image:
+        case .image:
             return CGSize(width: 80, height: 80)
-        case .Add:
+        case .add:
             guard mediaImages.count != 4 else {
-                return CGSizeZero
+                return CGSize.zero
             }
             return CGSize(width: 80, height: 80)
         }
     }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
     
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
-
+        
+        guard let window = view.window else {
+            return
+        }
         
         switch section {
-        case .Image:
-            break
-        case .Add:
+        case .image:
+            
+            let cell = collectionView.cellForItem(at: indexPath) as! FeedMediaCell
+            
+            let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+            
+            let startIndex = indexPath.item
+            let frame = cell.imageView.convert(cell.imageView.bounds, to: self.view)
+            vc.previewImageViewInitalFrame = frame
+            vc.bottomPreviewImage = mediaImages[startIndex]
+            vc.startIndex = startIndex
+            delay(0) {
+                //                    transitionView.alpha = 0
+            }
+            
+            vc.afterDismissAction = { [weak self] in
+                
+                //                    transitionView.alpha = 1
+                self?.view.window?.makeKeyAndVisible()
+            }
+            
+            vc.previewMedias = mediaImages.map { PreviewMedia.localImage($0) }
+            
+            mediaPreviewWindow.rootViewController = vc
+            mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+            mediaPreviewWindow.makeKeyAndVisible()
+            
+        case .add:
             
             messageTextView.resignFirstResponder()
             
@@ -294,19 +269,23 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             let sheetView = ActionSheetView(items: [
                 
-                .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
+                .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: {
+                    [weak self] in
                     
-                    guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.Camera) else {
-                        self?.alertCanNotOpenCamera()
-                        return
+                    guard
+                        let strongSelf = self,
+                        UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                            self?.alertCanNotOpenCamera()
+                            return
                     }
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                
+                    DispatchQueue.main.async {
                         
-                        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+                        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
                             
-                            strongSelf.modalPresentationStyle = .CurrentContext
-                            strongSelf.imagePicker.sourceType = .Camera
+                            strongSelf.modalPresentationStyle = .currentContext
+                            strongSelf.imagePicker.sourceType = .camera
                             
                             /*
                              bug :  Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.
@@ -315,30 +294,46 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                              
                              */
                             delay(0.3) {
-                                strongSelf.presentViewController(strongSelf.imagePicker, animated: true, completion: nil)
+                                strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
                             }
-                            
                         } else {
-                            strongSelf.alertCanNotOpenCamera()
-                        }
-                    }
+                            
+                            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {
+                                success in
+                                
+                                if success {
+                                    delay(0.3) {
+                                        strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                                    }
                     
-                    }
-                ),
+                                }
                 
-                .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: { [weak self] in
+                            })
+                            //strongSelf.alertCanNotOpenCamera()
+                        }
+                        
+                    }
                     
-                    guard let strongSelf = self where UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else {
+                    
+                }),
+                
+                .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: {
+                    [weak self] in
+                    
+                    guard
+                        let strongSelf = self,
+                        UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
                         self?.alertCanNotOpenPhotoLibrary()
                         return
                     }
                     
                     //这个方法是在其他线程执行的
                     PHPhotoLibrary.requestAuthorization { authorization in
-                        if authorization ==  PHAuthorizationStatus.Authorized {
+                        if authorization ==  PHAuthorizationStatus.authorized {
                             
-                            dispatch_async(dispatch_get_main_queue()) {
-                                strongSelf.performSegueWithIdentifier("ShowPickPhotoView", sender: nil)
+                            DispatchQueue.main.async {
+                                
+                                strongSelf.performSegue(withIdentifier: "ShowPickPhotoView", sender: nil)
                             }
                             
                         } else {
@@ -346,28 +341,26 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                             
                         }
                     }
-                    }
-                ),
+                    
+                    }),
                 
                 .Cancel
                 
-                ]
-            )
+                ])
             
-            if let window = view.window {
-                sheetView.showInView(window)
-            }
+            
+            sheetView.showInView(view: window)
+            
+            
         }
+        
     }
-    
 }
-
-// MARK: - TextViewDelegate
 
 extension NewFeedViewController: UITextViewDelegate {
     
-    
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
         if !isReadyForPost {
             textView.text = ""
         }
@@ -375,36 +368,29 @@ extension NewFeedViewController: UITextViewDelegate {
         isNeverInputMessage = false
     }
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         isReadyForPost = textView.text.characters.count > 0
     }
 }
 
-// MARK: - ScrollerViewDelegate
-
 extension NewFeedViewController: UIScrollViewDelegate {
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         messageTextView.resignFirstResponder()
     }
     
-
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         messageTextView.resignFirstResponder()
-        
     }
 }
 
-// MARK: - ImagePickerDelegate
 extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-   
         if let mediaType = info[UIImagePickerControllerMediaType] as? String {
             
             switch mediaType {
-                
             case String(kUTTypeImage):
                 
                 if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -418,19 +404,30 @@ extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
             }
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        
     }
-   
+    
 }
 
 extension NewFeedViewController: ReturnPickedPhotosDelegate {
-    func returnSeletedImages(images: [UIImage], imageAssets: [PHAsset]) {
+    
+    func returnSeletedImages(_ images: [UIImage], imageAssets: [PHAsset]) {
         
         for image in images {
             mediaImages.append(image)
         }
+        
     }
 }
+
+
+
+
+
+
+
+
 
 
 

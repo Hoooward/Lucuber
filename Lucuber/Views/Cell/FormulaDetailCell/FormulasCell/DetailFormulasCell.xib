@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailFormulasCell" rowHeight="54" id="KGk-i7-Jjw" customClass="DetailFormulasCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="320" height="53"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBR-Ep-fbd">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hS9-So-zK7">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="23" id="0wW-yO-XYc"/>
+                            <constraint firstAttribute="height" constant="23" id="Oyi-RJ-VVn"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="gBR-Ep-fbd" firstAttribute="leading" secondItem="hS9-So-zK7" secondAttribute="trailing" constant="20" id="51G-2n-FeB"/>
+                    <constraint firstItem="hS9-So-zK7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="7Lm-9v-2ah"/>
+                    <constraint firstItem="gBR-Ep-fbd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IJz-lQ-NAV"/>
+                    <constraint firstAttribute="trailing" secondItem="gBR-Ep-fbd" secondAttribute="trailing" constant="28" id="dPk-ra-RdN"/>
+                    <constraint firstItem="hS9-So-zK7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-2" id="lTq-X7-61b"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentLabel" destination="gBR-Ep-fbd" id="ypi-Wg-a32"/>
+                <outlet property="rotationIndicator" destination="hS9-So-zK7" id="bVb-z5-pdx"/>
+            </connections>
+            <point key="canvasLocation" x="-37" y="19"/>
+        </tableViewCell>
+    </objects>
+</document>

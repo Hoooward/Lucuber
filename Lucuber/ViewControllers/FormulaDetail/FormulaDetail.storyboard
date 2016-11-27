@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Nc2-BK-DNv">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Formula Detail View Controller-->
+        <scene sceneID="dUP-Ml-dDP">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="Nc2-BK-DNv" customClass="FormulaDetailViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="to8-7L-17K"/>
+                        <viewControllerLayoutGuide type="bottom" id="e43-8T-pBD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="APZ-sO-1ou">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yGe-mb-WbW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Nc2-BK-DNv" id="a2m-DW-uPX"/>
+                                    <outlet property="delegate" destination="Nc2-BK-DNv" id="Jpk-8R-Gng"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yGe-mb-WbW" firstAttribute="top" secondItem="APZ-sO-1ou" secondAttribute="top" id="B0d-RI-naq"/>
+                            <constraint firstItem="e43-8T-pBD" firstAttribute="top" secondItem="yGe-mb-WbW" secondAttribute="bottom" id="PEQ-9M-qdi"/>
+                            <constraint firstItem="yGe-mb-WbW" firstAttribute="leading" secondItem="APZ-sO-1ou" secondAttribute="leading" id="jvW-5x-VjB"/>
+                            <constraint firstAttribute="trailing" secondItem="yGe-mb-WbW" secondAttribute="trailing" id="sci-sA-W52"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="uzE-JB-UEH" kind="show" identifier="showCommentVC" id="Qdb-fx-bc6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vFt-9b-7vX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="16.800000000000001" y="161.46926536731635"/>
+        </scene>
+        <!--Comment-->
+        <scene sceneID="xvJ-8M-pUV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" id="uzE-JB-UEH" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JDJ-hl-aRx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="639" y="161"/>
+        </scene>
+    </scenes>
+</document>

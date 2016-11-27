@@ -1,38 +1,42 @@
-//
 //  LayoutButton.swift
-//  Lucuber
+//  Formula 界面左上角的切换布局按钮
 //
-//  Created by Howard on 16/7/2.
-//  Copyright © 2016年 Howard. All rights reserved.
+//  Created by Tychooo on 16/9/18.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
 
 class LayoutButton: UIButton {
-
+    
     var userMode: FormulaUserMode? {
+        
         didSet {
-            if let userMode = userMode {
-                switch userMode {
-                case .Normal:
-                    selected = false
-                case .Card:
-                    selected = true
-                }
+        if let mode = userMode {
+            
+            switch mode {
+                
+            case .normal:
+                isSelected = false
+                
+            case .card:
+                isSelected = true
+                
             }
+        }
+            
         }
     }
     
-    init() {
-        super.init(frame: CGRectZero)
-        setImage(UIImage(named: "icon_list"), forState: .Normal)
-        setImage(UIImage(named: "icon_minicard"), forState: .Selected)
+     init() {
+        super.init(frame: CGRect.zero)
+        setImage(UIImage(named: "icon_list"), for: .normal)
+        setImage(UIImage(named: "icon_minicard"), for: .selected)
         sizeToFit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
 }

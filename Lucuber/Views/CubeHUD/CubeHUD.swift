@@ -2,123 +2,252 @@
 //  CubeHUD.swift
 //  Lucuber
 //
-//  Created by Howard on 7/15/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/9/22.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
 
-
-final class CubeHUD: NSObject {
+public class CubeHUD: NSObject {
     
-    static let sharedInstance = CubeHUD()
+    // MARK: Properties
+    
+    static let shardInstance = CubeHUD()
     
     var isShowing = false
-    var dismissTimer: NSTimer?
+    var dismissTimer: Timer?
     
-    lazy var containerView: UIView = {
+    private lazy var containerView: UIView = {
+        
         let view = UIView()
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         return view
+        
     }()
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-        return view
+    private lazy var indicatorLabel: UILabel = {
+        
+        let label = UILabel()
+        
+        label.text = "正在加载..."
+        return label
+        
     }()
     
-    class func showActivityIndicator() {
-        showActivityIndicatorWhileBlockingUI(false)
+    
+    var indicatorText: String = " " {
+        willSet {
+            indicatorLabel.text = newValue
+        }
     }
     
-    class func showActivityIndicatorWhileBlockingUI(blockingUI: Bool) {
+    private lazy var activitIndicator: UIActivityIndicatorView = {
         
-        if self.sharedInstance.isShowing {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        
+        return view
+        
+    }()
+    
+    // MARK: Action & Target
+    
+    class func showActivityIndicator() {
+        
+        showActivityIndicatorWhile(blockingUI: true)
+    }
+    
+    class func showActivityIndicatorWhile(blockingUI: Bool = false) {
+        
+        if self.shardInstance.isShowing {
             return
         }
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
+            
             if
-                let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
-                let windows = appDelegate.window {
-                    self.sharedInstance.isShowing = true
-                    self.sharedInstance.containerView.userInteractionEnabled = blockingUI
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                let window = appDelegate.window {
                 
-                self.sharedInstance.containerView.alpha = 0
-                windows.addSubview(self.sharedInstance.containerView)
-                self.sharedInstance.containerView.frame = windows.bounds
-//                self.sharedInstance.containerView.frame = CGRect(x: (screenWidth - 200) * 0.5, y: (screenHeight - 150) * 0.5, width: 200, height: 150)
+                self.shardInstance.isShowing = true
+                self.shardInstance.containerView.isUserInteractionEnabled = blockingUI
                 
-                springWithCompletion(0.1, animations: {
-                        self.sharedInstance.containerView.alpha = 1
-                    }, completions: {
-                        finished in
-                        self.sharedInstance.containerView.addSubview(self.sharedInstance.activityIndicator)
-                        self.sharedInstance.activityIndicator.center = self.sharedInstance.containerView.center
-                        self.sharedInstance.activityIndicator.startAnimating()
+                self.shardInstance.containerView.alpha = 0
+                window.addSubview(self.shardInstance.containerView)
+                self.shardInstance.containerView.frame = window.bounds
+                
+                springWithCompletion(duration: 0.1, animations: {
+                    
+                    self.shardInstance.containerView.alpha = 1
+                    
+                    }, completions: { finished in
                         
-                        self.sharedInstance.activityIndicator.alpha = 0
-                        self.sharedInstance.activityIndicator.transform = CGAffineTransformMakeScale(0.00001, 0.00001)
-                        springWithCompletion(0.2, animations: {
-                            self.sharedInstance.activityIndicator.transform = CGAffineTransformMakeScale(1.0, 1.0)
-                            self.sharedInstance.activityIndicator.alpha = 1
-                            }, completions: {
-                            finished in
-                                self.sharedInstance.activityIndicator.transform = CGAffineTransformIdentity
+                        self.shardInstance.containerView.addSubview(self.shardInstance.activitIndicator)
+                        self.shardInstance.activitIndicator.center = self.shardInstance.containerView.center
+//                        self.shardInstance.containerView.addSubview(self.shardInstance.indicatorLabel)
+                        self.shardInstance.indicatorLabel.center = CGPoint(x: self.shardInstance.containerView.center.x, y: self.shardInstance.containerView.center.y + 25)
+                        self.shardInstance.activitIndicator.startAnimating()
+                        
+                        self.shardInstance.activitIndicator.alpha = 0
+                        self.shardInstance.indicatorLabel.alpha = 0
+                        self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                        
+                        self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                        
+                        springWithCompletion(duration: 0.2, animations: {
+                            
+                            self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
+                            self.shardInstance.activitIndicator.alpha = 1
+                            
+                            self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
+                            self.shardInstance.indicatorLabel.alpha = 1
+                            
+                            }, completions: { finished in
                                 
-                                if let dismissTimer = self.sharedInstance.dismissTimer {
+                                self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
+                                
+                                self.shardInstance.indicatorLabel.transform = CGAffineTransform.identity
+                                
+                                if let dismissTimer = self.shardInstance.dismissTimer {
+                                    
                                     dismissTimer.invalidate()
                                 }
-                            
-                                self.sharedInstance.dismissTimer = NSTimer(timeInterval: CubeConfig.forcedHideActivityIndicatorTimeInterval, target: self, selector: #selector(CubeHUD.forcedHideActivityIndicator), userInfo: nil, repeats: false)
-                            
+                                
+                                self.shardInstance.dismissTimer = Timer(timeInterval: Config.forcedHideActivityIndicatorTimeInterval, target: self, selector: #selector(CubeHUD.forcedHideActivityIndicator), userInfo: nil, repeats: false)
                         })
+                        
                 })
                 
             }
         }
+        
     }
     
     class func forcedHideActivityIndicator() {
-        hideActivityIndicator() {
+        
+        hideActivityIndicator {
+            
             if
-                let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                 let _ = appDelegate.window?.rootViewController {
-                //TODO: Alert 超时提醒
+                
+                // TODO: Alert 超时提醒
             }
         }
+        
     }
     
     class func hideActivityIndicator() {
-        hideActivityIndicator(){}
+        
+        hideActivityIndicator {
+            
+        }
     }
     
-    
-    class func hideActivityIndicator(completion: ()->Void) {
+    class func hideActivityIndicator(completion: @escaping () -> Void ){
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             
-            if self.sharedInstance.isShowing {
-                    self.sharedInstance.activityIndicator.transform = CGAffineTransformIdentity
-                springWithCompletion(0.5, animations: {
+            if self.shardInstance.isShowing {
+                
+                self.shardInstance.isShowing = false
+                
+                self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
+                self.shardInstance.indicatorLabel.transform = CGAffineTransform.identity
+                
+                springWithCompletion(duration: 0.5, animations: {
                     
-                    self.sharedInstance.activityIndicator.transform = CGAffineTransformMakeScale(0.00001, 0.0001)
-                    self.sharedInstance.activityIndicator.alpha = 0
-                    }, completions: {
-                        finished in
-                        self.sharedInstance.activityIndicator.removeFromSuperview()
+                    self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                    self.shardInstance.activitIndicator.alpha = 0
+                    
+                    
+                    self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                    self.shardInstance.indicatorLabel.alpha = 0
+                    
+                    }, completions: { finished in
                         
-                        springWithCompletion(0.1, animations: {
-                            self.sharedInstance.containerView.alpha = 0
-                            }, completions: {
-                                finished in
-                                self.sharedInstance.containerView.removeFromSuperview()
+                        self.shardInstance.activitIndicator.removeFromSuperview()
+                        self.shardInstance.indicatorLabel.removeFromSuperview()
+                        
+                        springWithCompletion(duration: 0.1, animations: {
+                            
+                            self.shardInstance.containerView.alpha = 0
+                            
+                            }, completions: { finished in
+                                
+                                self.shardInstance.containerView.removeFromSuperview()
+                                
                                 completion()
+                                
                         })
-                        
                 })
             }
         }
     }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

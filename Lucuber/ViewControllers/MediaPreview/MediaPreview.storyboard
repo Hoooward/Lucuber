@@ -1,77 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DBY-Jz-kV6">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Media Preview View Controller-->
-        <scene sceneID="oMB-lE-kXT">
+        <scene sceneID="Z2i-qO-fbi">
             <objects>
-                <viewController storyboardIdentifier="MediaPreviewViewController" id="2Kf-7o-Oer" customClass="MediaPreviewViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MediaPreviewViewController" id="DBY-Jz-kV6" customClass="MediaPreviewViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="czY-Ak-VyD"/>
-                        <viewControllerLayoutGuide type="bottom" id="qta-Zh-I61"/>
+                        <viewControllerLayoutGuide type="top" id="50A-9q-QOv"/>
+                        <viewControllerLayoutGuide type="bottom" id="PfR-tP-RYX"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="d1Y-v8-fLj">
+                    <view key="view" contentMode="scaleToFill" id="6he-6Y-BF9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0az-CR-xdI">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="cUq-xq-Xja">
-                                    <size key="itemSize" width="0.0" height="0.0"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ci6-Br-00z">
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Pes-rJ-v19">
+                                    <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ccH-tS-2ps">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="2Kf-7o-Oer" id="ohU-Kw-iW7"/>
-                                    <outlet property="delegate" destination="2Kf-7o-Oer" id="vmQ-FS-0k5"/>
+                                    <outlet property="dataSource" destination="DBY-Jz-kV6" id="iK0-5j-dhv"/>
+                                    <outlet property="delegate" destination="DBY-Jz-kV6" id="cCe-p1-rvW"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ca6-na-67o" customClass="MediaControlView" customModule="Lucuber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="587" width="375" height="80"/>
-                                <color key="backgroundColor" red="0.66902792453765869" green="0.73128575086593628" blue="0.94889926910400391" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" restorationIdentifier="MediaPreviewViewController" translatesAutoresizingMaskIntoConstraints="NO" id="8bb-xm-dCQ" customClass="MediaControlView" customModule="Lucuber" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="R0j-YB-yh4"/>
+                                    <constraint firstAttribute="height" constant="80" id="eBx-fh-vaW"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ca6-na-67o" firstAttribute="top" secondItem="0az-CR-xdI" secondAttribute="bottom" id="Icu-mO-Z3L"/>
-                            <constraint firstAttribute="trailing" secondItem="ca6-na-67o" secondAttribute="trailing" id="IdV-Sf-wJW"/>
-                            <constraint firstItem="0az-CR-xdI" firstAttribute="top" secondItem="d1Y-v8-fLj" secondAttribute="topMargin" id="JGo-vS-Tq7"/>
-                            <constraint firstItem="ca6-na-67o" firstAttribute="top" secondItem="0az-CR-xdI" secondAttribute="bottom" id="KGz-9F-Qfj"/>
-                            <constraint firstItem="0az-CR-xdI" firstAttribute="top" secondItem="czY-Ak-VyD" secondAttribute="bottom" id="KO3-oT-Zsh"/>
-                            <constraint firstItem="ca6-na-67o" firstAttribute="leading" secondItem="d1Y-v8-fLj" secondAttribute="leading" id="PMJ-tL-FdU"/>
-                            <constraint firstAttribute="trailing" secondItem="0az-CR-xdI" secondAttribute="trailing" id="W3g-d2-HEF"/>
-                            <constraint firstItem="0az-CR-xdI" firstAttribute="leading" secondItem="d1Y-v8-fLj" secondAttribute="leading" id="Yr1-SH-rq0"/>
-                            <constraint firstItem="qta-Zh-I61" firstAttribute="top" secondItem="0az-CR-xdI" secondAttribute="bottom" id="gPm-GK-hdj"/>
-                            <constraint firstItem="qta-Zh-I61" firstAttribute="top" secondItem="ca6-na-67o" secondAttribute="bottom" id="pg0-Xe-bfR"/>
-                            <constraint firstAttribute="bottom" secondItem="0az-CR-xdI" secondAttribute="bottom" id="tjr-lU-Yfg"/>
+                            <constraint firstAttribute="trailing" secondItem="8bb-xm-dCQ" secondAttribute="trailing" id="BwN-Zx-uUe"/>
+                            <constraint firstItem="ci6-Br-00z" firstAttribute="top" secondItem="6he-6Y-BF9" secondAttribute="top" id="PFf-f6-wSb"/>
+                            <constraint firstAttribute="bottom" secondItem="8bb-xm-dCQ" secondAttribute="bottom" id="bPF-6Q-1bH"/>
+                            <constraint firstAttribute="trailing" secondItem="ci6-Br-00z" secondAttribute="trailing" id="cI0-pP-J0L"/>
+                            <constraint firstItem="8bb-xm-dCQ" firstAttribute="leading" secondItem="6he-6Y-BF9" secondAttribute="leading" id="pUb-hp-qiH"/>
+                            <constraint firstItem="PfR-tP-RYX" firstAttribute="top" secondItem="ci6-Br-00z" secondAttribute="bottom" id="q7a-7G-dyZ"/>
+                            <constraint firstItem="ci6-Br-00z" firstAttribute="leading" secondItem="6he-6Y-BF9" secondAttribute="leading" id="tKR-oZ-rIq"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="KO3-oT-Zsh"/>
-                                <exclude reference="Icu-mO-Z3L"/>
-                                <exclude reference="KGz-9F-Qfj"/>
-                                <exclude reference="gPm-GK-hdj"/>
-                            </mask>
-                        </variation>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="mediaControlView" destination="ca6-na-67o" id="95q-MQ-FZy"/>
-                        <outlet property="mediasCollectionView" destination="0az-CR-xdI" id="m5g-t1-rt8"/>
+                        <outlet property="mediaControlView" destination="8bb-xm-dCQ" id="2SN-Nu-gzP"/>
+                        <outlet property="mediasCollectionView" destination="ci6-Br-00z" id="d8x-p0-OaO"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ure-hh-P7z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GrV-Ry-0s3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101.5" y="197.5"/>
+            <point key="canvasLocation" x="-490.39999999999998" y="-129.08545727136433"/>
         </scene>
     </scenes>
 </document>
