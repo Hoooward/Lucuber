@@ -22,7 +22,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        sendImageMessage()
+    }
+    
+    
+    func sendImageMessage() {
+        
+        let image = UIImage(named: "Rubik's_cube")!
+        let imageData = UIImageJPEGRepresentation(image, 0.95)
+        
+        pushMessageImage(atPath: nil, orFileData: imageData, metaData: nil, toRecipient: "test", recipientType: "group", afterCreatedMessage: { message in
+            printLog(message)
+        }, failureHandler: { error in
+            printLog(error)
+        }, completion: { success in
+            printLog(success)
+        })
     }
 
 }
