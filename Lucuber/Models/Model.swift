@@ -2,6 +2,7 @@
 //
 
 import Foundation
+import AVOSCloud
 import RealmSwift
 
 
@@ -125,64 +126,67 @@ public enum Type: String {
     }
 }
 
+open class RCategory: Object {
+    dynamic var name = ""
+    dynamic var uploadMode = ""
+    
+    func convertToCategory() -> Category {
+        return Category(rawValue: name)!
+    }
+}
+
+// MARK: - Formula
+
 open class Formula: Object {
     
     override open static func primaryKey() -> String? {
         return "localObjectID"
     }
     
-    dynamic var localObjectID: String = ""
-    dynamic var lcObjectID: String?
+    open dynamic var localObjectID: String = ""
+    open dynamic var lcObjectID: String?
     
-    dynamic var name: String = ""
-    dynamic var imageName: String = ""
-    dynamic var imageURL: String?
+    open dynamic var name: String = ""
+    open dynamic var imageName: String = ""
+    open dynamic var imageURL: String?
     
-    dynamic var favorate: Bool = false
+    open dynamic var favorate: Bool = false
     
-    dynamic var categoryString: String = ""
-    dynamic var typeString: String = ""
+    open dynamic var categoryString: String = ""
+    open dynamic var typeString: String = ""
+    open dynamic var creator: RUser?
+    open dynamic var deletedByCreator: Bool = false
+    open dynamic var rating: Int = 0
+    open dynamic var isLibrary: Bool = false
+    open dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    dynamic var creator: RUser?
-    dynamic var deletedByCreator: Bool = false
+    open let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
-    dynamic var rating: Int = 0
-    dynamic var isLibrary: Bool = false
+    open var image = UIImage()
     
-    dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
-    dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
-    
-    let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
-    
-    var image = UIImage()
-    
-    var category: Category {
+    open var category: Category {
         set { categoryString = newValue.rawValue }
         get { return Category(rawValue: categoryString)! }
     }
     
-    var type: Type {
+    open var type: Type {
         set { typeString = newValue.rawValue }
         get { return Type(rawValue: typeString)! }
     }
     
-    
     open func isReadyToPush() -> Bool {
-
-        
+        // TODO: - 代码太烂, isEmpty 不足以确定
         var isReady = true
         if let content = self.contents.first {
             isReady = !content.text.isEmpty
         }
         
         if name.isEmpty || imageName.isEmpty || typeString.isEmpty || categoryString.isEmpty  || !isReady {
-            
             isReady = false
         }
         return isReady
     }
-    
-
     
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
         
@@ -211,14 +215,10 @@ open class Formula: Object {
         realm.delete(self)
     }
     
-    
     override open static func ignoredProperties() -> [String] {
         return ["image", "category", "type"]
     }
 }
-
-
-
 
 
 open class Content: Object {
@@ -227,19 +227,18 @@ open class Content: Object {
         return "localObjectID"
     }
     
-    dynamic var localObjectID: String = ""
-    dynamic var lcObjectID: String = ""
+    open dynamic var localObjectID: String = ""
+    open dynamic var lcObjectID: String = ""
     
-    dynamic var text: String = ""
-    dynamic var rotation: String = ""
-    dynamic var indicatorImageName: String = ""
-    dynamic var cellHeight: Float = 0
-    dynamic var atFormula: Formula?
-    dynamic var atFomurlaLocalObjectID: String = ""
+    open dynamic var text: String = ""
+    open dynamic var rotation: String = ""
+    open dynamic var indicatorImageName: String = ""
+    open dynamic var cellHeight: Float = 0
+    open dynamic var atFormula: Formula?
+    open dynamic var atFomurlaLocalObjectID: String = ""
     
-    dynamic var creator: RUser?
-    
-    dynamic var deleteByCreator: Bool = false
+    open dynamic var creator: RUser?
+    open dynamic var deleteByCreator: Bool = false
     
     open class func new(with formula: Formula, inRealm realm: Realm) -> Content {
         
@@ -257,6 +256,7 @@ open class Content: Object {
         return newContent
     }
     
+    // TODO: - 计算Cell高度
 //    open func saveNewCellHeight(inRealm realm: Realm) {
 //        
 //        let attributesText = text.setAttributesFitDetailLayout(style: .center)
@@ -264,11 +264,39 @@ open class Content: Object {
 //        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
 //        cellHeight = Float(rect.height)
 //        
+//
 //    }
     
 }
 
 
+open class Preferences: Object {
+    // 未登录用户在登录成功时, 将其设置为 0.9
+    dynamic var dateVersion: String = ""
+}
+
+open class Avatar: Object {
+    
+    open dynamic var avatarURLString: String = ""
+    open dynamic var avatarFileName: String = ""
+    open dynamic var roundMini: Data = Data() // 60
+    open dynamic var roundNano: Data = Data() // 40
+    
+    open let users = LinkingObjects(fromType: RUser.self, property: "avatar")
+    open var user: RUser? {
+        return users.first
+    }
+    
+}
+
+open class FormulaMaster: Object {
+    /// localobjectID
+    open dynamic var formulaID: String = ""
+    open dynamic var atRUser: RUser?
+    open dynamic var creatorLcObjectID: String = ""
+}
+
+// MARK: - User
 
 open class RUser: Object {
     
@@ -280,29 +308,25 @@ open class RUser: Object {
     open dynamic var introduction: String?
     
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
-    
-    
-    
     //    open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     
     open override static func indexedProperties() -> [String] {
         return ["localObjectID"]
     }
-//    
-//    func isMe() -> Bool {
-//        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
-//            return false
-//        }
-//        return userID == self.lcObjcetID
-//    }
     
-    // MARK: - test
+    open var isMe: Bool {
+        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
+            return false
+        }
+        return userID == self.lcObjcetID
+    }
+    
+    // TODO: - 之后需要使用的属性
     open dynamic var blogURLString: String = ""
     open dynamic var blogTitle: String = ""
     open dynamic var avatar: Avatar?
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     open dynamic var lastSignInUnixTime: TimeInterval = Date().timeIntervalSince1970
-    
     
     open var mentionedUsername: String? {
         if username.isEmpty {
@@ -320,135 +344,30 @@ open class RUser: Object {
         }
     }
     
-    // 级联删除关联的数据对象
-//    
-//    open func cascadeDeleteInRealm(realm: Realm) {
-//        
-//        if let avatar = avatar {
-//            
-//            if !avatar.avatarFileName.isEmpty {
-//                FileManager.deleteAvatarImage(with: avatar.avatarFileName)
-//            }
-//            realm.delete(avatar)
-//        }
-//        
-//        if !masterList.isEmpty {
-//            
-//            realm.delete(masterList)
-//        }
-//        
-//        realm.delete(self)
-//    }
-    
-}
-
-open class FormulaMaster: Object {
-    /// 本地ID - Local
-    dynamic var formulaID: String = ""
-    /// 所属用户的 leancloudID
-    dynamic var atRUser: RUser?
-    dynamic var creatorLcObjectID: String = ""
-}
-
-
-
-
-open class Preferences: Object {
-    // 未登录用户在登录成功时, 将其设置为 0.9
-    dynamic var dateVersion: String = ""
-}
-
-
-open class RCategory: Object {
-    
-    dynamic var name = ""
-    dynamic var uploadMode = ""
-    
-    func convertToCategory() -> Category {
-        return Category(rawValue: name)!
-    }
-}
-
-
-protocol RandomID {
-    static func randomLocalObjectID() -> String
-}
-
-extension RandomID where Self: Object {
-    
-}
-
-extension Formula: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "Formula_" + String.random()
-    }
-}
-
-extension Content: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "Content_" + String.random()
-    }
-}
-
-extension RUser: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "RUser_" + String.random()
-    }
-}
-
-
-extension String {
-    
-    static func random(length: Int = 15) -> String {
+    open func cascadeDeleteInRealm(realm: Realm) {
         
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let len = UInt32(letters.length)
-        
-        var randomString = ""
-        
-        for _ in 0 ..< length {
-            let rand = arc4random_uniform(len)
-            var nextChar = letters.character(at: Int(rand))
-            randomString += NSString(characters: &nextChar, length: 1) as String
+        if let avatar = avatar {
+            if !avatar.avatarFileName.isEmpty {
+                FileManager.deleteAvatarImage(with: avatar.avatarFileName)
+            }
+            realm.delete(avatar)
         }
         
-        return randomString
+        if !masterList.isEmpty {
+            realm.delete(masterList)
+        }
+        realm.delete(self)
     }
-}
-
-
-open class Avatar: Object {
-    
-    public dynamic var avatarURLString: String = ""
-    public dynamic var avatarFileName: String = ""
-    
-    public dynamic var roundMini: Data = Data() // 60
-    public dynamic var roundNano: Data = Data() // 40
-    
-    let users = LinkingObjects(fromType: RUser.self, property: "avatar")
-    public var user: RUser? {
-        return users.first
-    }
-    
-}
-
-public struct Recipient {
-    let type: ConversationType
-    let ID: String
 }
 
 public enum UserFriendState: Int {
-    case Stranger       = 0   // 陌生人
-    case IssuedRequest  = 1   // 已对其发出好友请求
-    case Normal         = 2   // 正常状态的朋友
-    case Blocked        = 3   // 被屏蔽
-    case Me             = 4   // 自己
-    case Yep            = 5   // Yep官方账号
+    case stranger       = 0   // 陌生人
+    case issuedRequest  = 1   // 已对其发出好友请求
+    case normal         = 2   // 正常状态的朋友
+    case blocked        = 3   // 被屏蔽
+    case me             = 4   // 自己
+    case Lucuber        = 5   // Lucuber官方账号
 }
-
 
 public enum MessageMediaType: Int, CustomStringConvertible {
     
@@ -473,8 +392,6 @@ public enum MessageMediaType: Int, CustomStringConvertible {
             return "video"
         }
     }
-    
-    
 }
 
 enum MessageDownloadState: Int {
@@ -505,6 +422,8 @@ enum MessageSendState: Int, CustomStringConvertible {
         }
     }
 }
+
+// MARK: - Message
 
 public class Message: Object {
     
@@ -548,16 +467,21 @@ public class Message: Object {
         
         switch mediaType {
         case MessageMediaType.image.rawValue:
-            return nil
+            if let imageURL = FileManager.cubeMessageImageURL(with: localAttachmentName) {
+                return UIImage(contentsOfFile: imageURL.path)
+            }
         case MessageMediaType.video.rawValue:
-            return nil
+            if let imageURL = FileManager.cubeMessageImageURL(with: localThumbnailName) {
+                return UIImage(contentsOfFile: imageURL.path)
+            }
+            
         default:
             return nil
         }
         return nil
     }
     
-//    open dynamic var mediaMetaData: MediaMetaData?
+    open dynamic var mediaMetaData: MediaMetaData?
     
     //  public dynamic var socialWork: MessageSocialWork? github
     
@@ -585,23 +509,22 @@ public class Message: Object {
         return true
     }
     
-    
     open func deleteAttachment(inRealm realm: Realm) {
-//        
-//        if let mediaMetaData = mediaMetaData {
-//            realm.delete(mediaMetaData)
-//        }
+        
+        if let mediaMetaData = mediaMetaData {
+            realm.delete(mediaMetaData)
+        }
         
         switch mediaType {
             
-        case MessageMediaType.image.rawValue: break
-//            FileManager.removeMessageImageFile(with: localAttachmentName)
+        case MessageMediaType.image.rawValue:
+            FileManager.removeMessageImageFile(with: localAttachmentName)
             
-        case MessageMediaType.audio.rawValue: break
-//            FileManager.removeMessageAudioFile(with: localAttachmentName)
+        case MessageMediaType.audio.rawValue:
+            FileManager.removeMessageAudioFile(with: localAttachmentName)
             
-        case MessageMediaType.video.rawValue: break
-//            FileManager.removeMessageVideoFiles(with: localAttachmentName, thumbnailName: localThumbnailName)
+        case MessageMediaType.video.rawValue:
+            FileManager.removeMessageVideoFiles(with: localAttachmentName, thumbnailName: localThumbnailName)
             
         default:
             break
@@ -631,49 +554,25 @@ public class Message: Object {
     open dynamic var recipientID: String = ""
     
     
-    
-    //    func convertToLMessage() -> DiscoverMessage {
-    //
-    //        let message = DiscoverMessage()
-    //
-    //        message.textContent = self.textContent
-    //
-    //        // 在将本地创建的新 Message 推送到 LeanCloud的时候
-    //        // 目前只有一种可能, 消息的创建者是本机自己.
-    //        if isfromMe {
-    //            message.creatarUser = AVUser.current()!
-    //
-    //        } else {
-    //
-    //            // 如果创建消息的不是自己, 通过UserID 获取User
-    //
-    //        }
-    //
-    //        message.creatUserID = creatUser?.userID ?? ""
-    //        message.mediaTypeInt = self.mediaTypeInt
-    //        message.sendState = self.sendStateInt
-    //        message.invalidated = self.invalidate
-    //        message.deletedByCreator = deletedByCreator
-    //        message.recipientType = self.recipientType
-    //        message.recipientID = self.recipientID
-    //
-    //        return message
-    //
-    //    }
-    
-    
     /// 判断是否是当前登录用户发送的 Message
-//    var isfromMe: Bool {
-//        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
-//            return false
-//        }
-//        return userID == creator!.lcObjcetID
-//    }
-    
+    var isfromMe: Bool {
+        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
+            return false
+        }
+        return userID == creator!.lcObjcetID
+    }
     
 }
 
-// Feed
+open class MediaMetaData: Object {
+    open dynamic var data: Data = Data()
+    
+    open var dataString: String? {
+        return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
+    }
+}
+
+// MARK: - Feed
 public enum FeedKind: String {
     
     case text = "text"
@@ -719,15 +618,15 @@ public enum FeedCategory: String {
 open class Attachment: Object {
     
     //dynamic var kind: String = ""
-    public dynamic var metadata: String = ""
-    public dynamic var URLString: String = ""
+    open dynamic var metadata: String = ""
+    open dynamic var URLString: String = ""
 }
 
 open class FeedAudio: Object {
-    public dynamic var feedID: String = ""
-    public dynamic var URLString: String = ""
-    public dynamic var metadata: NSData = NSData()
-    public dynamic var fileName: String = ""
+    open dynamic var feedID: String = ""
+    open dynamic var URLString: String = ""
+    open dynamic var metadata: NSData = NSData()
+    open dynamic var fileName: String = ""
 }
 
 open class FeedLocation: Object {
@@ -759,7 +658,6 @@ open class Feed: Object {
     
     open dynamic var group: Group?
     
-    
     open func cascadeDelete(inRealm realm: Realm) {
         
         // 删除所有与 Feed 关联的 Attachment
@@ -776,11 +674,9 @@ open class Feed: Object {
         
     }
     
-    
-    
 }
 
-enum GroupType: Int {
+public enum GroupType: Int {
     
     case Public = 0
     case Privcate = 1
@@ -810,7 +706,7 @@ open class Group: Object {
         return conversations.first
     }
     
-    public func cascadeDelete(inRealm realm: Realm) {
+    open func cascadeDelete(inRealm realm: Realm) {
         
         withFeed?.cascadeDelete(inRealm: realm)
         
@@ -831,13 +727,13 @@ open class Group: Object {
 }
 
 open class Draft: Object {
-    
     //    open dynamic var messageToolbarState: Int = MessageToolbarState.normal.rawValue
     open dynamic var text: String = ""
     
 }
 
 public enum ConversationType: Int {
+    
     case oneToOne = 0 // onetoone
     case group = 1 // 群组对话
     
@@ -849,7 +745,6 @@ public enum ConversationType: Int {
         case .group:
             return "group"
         }
-        
     }
     
 }
@@ -920,22 +815,22 @@ open class Conversation: Object {
     
     open var mentionInitUsers: [UsernamePrefixMatchedUser] {
         
-//        let users = messages.flatMap({ $0.creator }).filter({ !$0.username.isEmpty && !$0.isMe() })
-//        
-//        let usernamePrefixMatchedUser = users.map({
-//            UsernamePrefixMatchedUser(
-//                localObjectID: $0.localObjectID,
-//                username: $0.username,
-//                nickname: $0.nickname,
-//                avatorURLString: $0.avatorImageURL,
-//                lastSignInUnixTime: $0.lastSignInUnixTime)
-//        })
-//        
-//        let uniqueSortedUsers = Array(Set(usernamePrefixMatchedUser)).sorted(by: {
-//            $0.lastSignInUnixTime > $1.lastSignInUnixTime
-//        })
-//        
-        return [UsernamePrefixMatchedUser]()
+        let users = messages.flatMap({ $0.creator }).filter({ !$0.username.isEmpty && !$0.isMe })
+        
+        let usernamePrefixMatchedUser = users.map({
+            UsernamePrefixMatchedUser(
+                localObjectID: $0.localObjectID,
+                username: $0.username,
+                nickname: $0.nickname,
+                avatorURLString: $0.avatorImageURL,
+                lastSignInUnixTime: $0.lastSignInUnixTime)
+        })
+        
+        let uniqueSortedUsers = Array(Set(usernamePrefixMatchedUser)).sorted(by: {
+            $0.lastSignInUnixTime > $1.lastSignInUnixTime
+        })
+        
+        return uniqueSortedUsers
     }
     
     open dynamic var type: Int = ConversationType.oneToOne.rawValue
