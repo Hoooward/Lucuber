@@ -90,6 +90,10 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     guard let realm = try? Realm() else {
         return
     }
+    print(realm)
+    print(realm)
+    print(realm)
+    print(realm)
     
     // 创建新的实例
     let message = Message()
@@ -289,7 +293,7 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
     }
     
     
-    pushToLeancloud(with: [newFormula.image], quality: 0.7, completion: {
+    pushToLeancloud(with: [UIImage()], quality: 0.7, completion: {
         imagesURL in
         
         if !imagesURL.isEmpty {

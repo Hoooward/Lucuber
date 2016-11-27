@@ -83,3 +83,27 @@ public class DiscoverMessage: AVObject, AVSubclassing {
    
     
 }
+
+
+open class DiscoverContent: AVObject, AVSubclassing {
+    public class func parseClassName() -> String {
+        return "DiscoverContent"
+    }
+    
+    @NSManaged var localObjectID: String
+    @NSManaged var text: String
+    @NSManaged var rotation: String
+    @NSManaged var indicatorImageName: String
+    @NSManaged var atFormulaLocalObjectID: String
+    @NSManaged var deletedByCreator: Bool
+    
+    @NSManaged var creator: AVUser
+    
+}
+
+public class DiscoverPreferences: AVObject, AVSubclassing {
+    public class func parseClassName() -> String {
+        return "DiscoverPreferences"
+    }
+    @NSManaged var version: String
+}

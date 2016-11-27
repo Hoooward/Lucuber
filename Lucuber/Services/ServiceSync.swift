@@ -218,7 +218,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 content.text = $0.text
                 content.indicatorImageName = $0.indicatorImageName
                 
-                content.saveNewCellHeight(inRealm: realm)
+//                content.saveNewCellHeight(inRealm: realm)
                 
             }
         }

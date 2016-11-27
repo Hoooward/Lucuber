@@ -25,12 +25,6 @@ public enum UserFriendState: Int {
 }
 
 
-
-
-
-
-
-
 public enum MessageMediaType: Int, CustomStringConvertible {
     
     case sectionDate = 0
@@ -55,18 +49,18 @@ public enum MessageMediaType: Int, CustomStringConvertible {
         }
     }
     
-    public var fileExtension: FileExtension? {
-        switch self {
-        case .image:
-            return .jpeg
-        case .video:
-            return .mp4
-        case .audio:
-            return .m4a
-        default:
-            return nil // TODO: more
-        }
-    }
+//    public var fileExtension: FileExtension? {
+//        switch self {
+//        case .image:
+//            return .jpeg
+//        case .video:
+//            return .mp4
+//        case .audio:
+//            return .m4a
+//        default:
+//            return nil // TODO: more
+//        }
+//    }
     
     public var placeholder: String? {
         switch self {
@@ -164,13 +158,15 @@ public class Message: Object {
         
         switch mediaType {
         case MessageMediaType.image.rawValue:
-            if let imageFileURL = FileManager.cubeMessageImageURL(with: localAttachmentName) {
-                return UIImage(contentsOfFile: imageFileURL.path)
-            }
+//            if let imageFileURL = FileManager.cubeMessageImageURL(with: localAttachmentName) {
+//                return UIImage(contentsOfFile: imageFileURL.path)
+//            }
+            return nil
         case MessageMediaType.video.rawValue:
-            if let imageFileURL = FileManager.cubeMessageImageURL(with: localThumbnailName) {
-                return UIImage(contentsOfFile: imageFileURL.path)
-            }
+//            if let imageFileURL = FileManager.cubeMessageImageURL(with: localThumbnailName) {
+//                return UIImage(contentsOfFile: imageFileURL.path)
+//            }
+            return nil
         default:
             return nil
         }
@@ -214,14 +210,14 @@ public class Message: Object {
         
         switch mediaType {
             
-        case MessageMediaType.image.rawValue:
-            FileManager.removeMessageImageFile(with: localAttachmentName)
+        case MessageMediaType.image.rawValue: break
+//            FileManager.removeMessageImageFile(with: localAttachmentName)
             
-        case MessageMediaType.audio.rawValue:
-            FileManager.removeMessageAudioFile(with: localAttachmentName)
+        case MessageMediaType.audio.rawValue: break
+//            FileManager.removeMessageAudioFile(with: localAttachmentName)
             
-        case MessageMediaType.video.rawValue:
-            FileManager.removeMessageVideoFiles(with: localAttachmentName, thumbnailName: localThumbnailName)
+        case MessageMediaType.video.rawValue: break
+//            FileManager.removeMessageVideoFiles(with: localAttachmentName, thumbnailName: localThumbnailName)
             
         default:
             break
@@ -283,12 +279,12 @@ public class Message: Object {
     
     
     /// 判断是否是当前登录用户发送的 Message
-    var isfromMe: Bool {
-        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
-            return false
-        }
-        return userID == creator!.lcObjcetID
-    }
+//    var isfromMe: Bool {
+//        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
+//            return false
+//        }
+//        return userID == creator!.lcObjcetID
+//    }
     
     
 }
@@ -346,7 +342,7 @@ open class Attachment: Object {
 open class FeedAudio: Object {
     public dynamic var feedID: String = ""
     public dynamic var URLString: String = ""
-    public dynamic var metadata: NSData = NSData()
+    public dynamic var metadata: Data = Data()
     public dynamic var fileName: String = ""
 }
 
@@ -430,7 +426,7 @@ open class Group: Object {
         return conversations.first
     }
     
-    public func cascadeDelete(inRealm realm: Realm) {
+    open func cascadeDelete(inRealm realm: Realm) {
         
         withFeed?.cascadeDelete(inRealm: realm)
         

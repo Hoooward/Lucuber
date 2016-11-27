@@ -37,39 +37,9 @@
 		E43B6F421DEA9CB000CE1FB5 /* DiscoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */; };
 		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
 		E45378A51DEAAF9400A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
-		E45378A91DEADA5200A65F43 /* CubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BB31D8FA5890090671F /* CubeService.swift */; };
-		E45378AA1DEADA5200A65F43 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
-		E45378AB1DEADA5200A65F43 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF491DB5F548005BEFE4 /* ImageCache.swift */; };
-		E45378AC1DEADA5200A65F43 /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
-		E45378AE1DEADA5200A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
 		E45378AF1DEADA5200A65F43 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Model.swift */; };
-		E45378B01DEADA5200A65F43 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41C81D91605000B64C46 /* Realm.swift */; };
-		E45378B11DEADA5200A65F43 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
 		E45378B21DEADA5200A65F43 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
-		E45378B31DEADA5200A65F43 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */; };
-		E45378B41DEADA5200A65F43 /* ParseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */; };
-		E45378B51DEADA5200A65F43 /* DiscoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
-		E45378B71DEAE06E00A65F43 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA21D8E3D340090671F /* Config.swift */; };
-		E45378B81DEAE06E00A65F43 /* CubeRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */; };
-		E45378B91DEAE06E00A65F43 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
-		E45378BA1DEAE06E00A65F43 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */; };
-		E45378BB1DEAE06E00A65F43 /* UIFont+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */; };
-		E45378BC1DEAE06E00A65F43 /* UINavigationController+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660C1D8D9D1B005CE518 /* UINavigationController+Cube.swift */; };
-		E45378BD1DEAE06E00A65F43 /* UIStoryboard+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660E1D8DA04E005CE518 /* UIStoryboard+Cube.swift */; };
-		E45378BE1DEAE06E00A65F43 /* UIView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA01D8E3C590090671F /* UIView+Cube.swift */; };
-		E45378BF1DEAE06E00A65F43 /* String+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E021F91D9023C700DED99A /* String+Cube.swift */; };
-		E45378C01DEAE06E00A65F43 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
-		E45378C11DEAE06E00A65F43 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */; };
-		E45378C21DEAE06E00A65F43 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
-		E45378C41DEAE06E00A65F43 /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
-		E45378C51DEAE06E00A65F43 /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
-		E45378C61DEAE06E00A65F43 /* CGSize+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */; };
-		E45378C71DEAE06E00A65F43 /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
-		E45378C81DEAE06F00A65F43 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
-		E45378C91DEAE06F00A65F43 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
-		E45378CA1DEAE06F00A65F43 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
-		E45378CB1DEAE06F00A65F43 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
 		E45DA0631DA771E60050DD4D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
@@ -98,8 +68,6 @@
 		E4A3BA5F1DE3F874009C0E78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5E1DE3F874009C0E78 /* Assets.xcassets */; };
 		E4A3BA621DE3F874009C0E78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */; };
 		E4A3BAA51DE3FA43009C0E78 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */; };
-		E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
-		E4A3BAA71DE3FA43009C0E78 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
 		E4B09B9F1D8E38D10090671F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Model.swift */; };
 		E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA01D8E3C590090671F /* UIView+Cube.swift */; };
 		E4B09BA31D8E3D340090671F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA21D8E3D340090671F /* Config.swift */; };
@@ -630,9 +598,9 @@
 			isa = PBXGroup;
 			children = (
 				E4B09B9E1D8E38D10090671F /* Model.swift */,
+				E45DA0621DA771E60050DD4D /* Message.swift */,
 				E4FF41C81D91605000B64C46 /* Realm.swift */,
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
-				E45DA0621DA771E60050DD4D /* Message.swift */,
 				E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */,
 				E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */,
 				E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */,
@@ -1690,42 +1658,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */,
-				E45378B71DEAE06E00A65F43 /* Config.swift in Sources */,
-				E45378B81DEAE06E00A65F43 /* CubeRuler.swift in Sources */,
-				E45378B91DEAE06E00A65F43 /* KeyboardMan.swift in Sources */,
-				E45378BA1DEAE06E00A65F43 /* UIColor+Cube.swift in Sources */,
-				E45378BB1DEAE06E00A65F43 /* UIFont+Cube.swift in Sources */,
-				E45378BC1DEAE06E00A65F43 /* UINavigationController+Cube.swift in Sources */,
-				E45378BD1DEAE06E00A65F43 /* UIStoryboard+Cube.swift in Sources */,
-				E45378BE1DEAE06E00A65F43 /* UIView+Cube.swift in Sources */,
-				E45378BF1DEAE06E00A65F43 /* String+Cube.swift in Sources */,
-				E45378C01DEAE06E00A65F43 /* UserDefaults.swift in Sources */,
-				E45378C11DEAE06E00A65F43 /* AVUser+Cube.swift in Sources */,
-				E45378C21DEAE06E00A65F43 /* Animation.swift in Sources */,
-				E45378C41DEAE06E00A65F43 /* UIImage+Cube.swift in Sources */,
-				E45378C51DEAE06E00A65F43 /* Array+Cube.swift in Sources */,
-				E45378C61DEAE06E00A65F43 /* CGSize+Cube.swift in Sources */,
-				E45378C71DEAE06E00A65F43 /* Date+Cube.swift in Sources */,
-				E45378C81DEAE06F00A65F43 /* UIScrollView+Cube.swift in Sources */,
-				E45378C91DEAE06F00A65F43 /* UIImageView+Cube.swift in Sources */,
-				E45378CA1DEAE06F00A65F43 /* UITableView+Cube.swift in Sources */,
-				E45378CB1DEAE06F00A65F43 /* FileManager+Cube.swift in Sources */,
-				E45378A91DEADA5200A65F43 /* CubeService.swift in Sources */,
-				E45378AA1DEADA5200A65F43 /* CubeServiceSync.swift in Sources */,
-				E45378AB1DEADA5200A65F43 /* ImageCache.swift in Sources */,
-				E45378AC1DEADA5200A65F43 /* ServiceSync.swift in Sources */,
-				E45378AE1DEADA5200A65F43 /* SendingMessagePool.swift in Sources */,
 				E45378AF1DEADA5200A65F43 /* Model.swift in Sources */,
-				E45378B01DEADA5200A65F43 /* Realm.swift in Sources */,
-				E45378B11DEADA5200A65F43 /* Keyboard.swift in Sources */,
 				E45378B21DEADA5200A65F43 /* Message.swift in Sources */,
-				E45378B31DEADA5200A65F43 /* Feed.swift in Sources */,
-				E45378B41DEADA5200A65F43 /* ParseModel.swift in Sources */,
-				E45378B51DEADA5200A65F43 /* DiscoverModel.swift in Sources */,
 				E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */,
-				E4A3BAA71DE3FA43009C0E78 /* PrepareData.swift in Sources */,
 				E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */,
-				E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,22 +10,6 @@ import Foundation
 import AVOSCloud
 import RealmSwift
 
-extension Array {
-   
-    func pareseTwoDimensionalToOne(_ catchArray: [[Formula]]) -> [Formula] {
-        
-        var resultArray: [Formula] = []
- 
-        _ = catchArray.map {
-            $0.map {
-                resultArray.append($0)
-            }
-        }
-        
-        return resultArray
-    }
-}
-
 public enum Rotation: String {
     case FR = "FR"
     case FL = "FL"
@@ -158,10 +142,6 @@ open class Formula: Object {
         return "localObjectID"
     }
     
-    override open static func ignoredProperties() -> [String] {
-        return ["image", "category", "type"]
-    }
-    
     dynamic var localObjectID: String = ""
     
     dynamic var lcObjectID: String?
@@ -194,53 +174,53 @@ open class Formula: Object {
     let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
     
-    var image = UIImage()
+//    var image = UIImage()
+//    
+//    var category: Category {
+//        set { categoryString = newValue.rawValue }
+//        get { return Category(rawValue: categoryString)! }
+//    }
+//    
+//    var type: Type {
+//        set { typeString = newValue.rawValue }
+//        get { return Type(rawValue: typeString)! }
+//    }
     
-    var category: Category {
-        set { categoryString = newValue.rawValue }
-        get { return Category(rawValue: categoryString)! }
-    }
     
-    var type: Type {
-        set { typeString = newValue.rawValue }
-        get { return Type(rawValue: typeString)! }
-    }
+//    open func isReadyToPush() -> Bool {
+//        
+//        var isReady = true
+//        if let content = self.contents.first {
+//            isReady = !content.text.isDirty
+//        }
+//        
+//        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !isReady {
+//    
+//            isReady = false
+//        }
+//        return isReady
+//    }
     
-    
-    open func isReadyToPush() -> Bool {
-        
-        var isReady = true
-        if let content = self.contents.first {
-            isReady = !content.text.isDirty
-        }
-        
-        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !isReady {
-            
-            isReady = false
-        }
-        return isReady
-    }
-    
-    open var contentMaxCellHeight: CGFloat {
-        var maxHeight: CGFloat = 0
-        let heights: [CGFloat] = contents.map{ $0.cellHeight }
-        heights.forEach {
-            if $0 > maxHeight {
-                maxHeight = $0
-            }
-        }
-        return maxHeight + Config.RotationControl.controlMargin
-    }
+//    open var contentMaxCellHeight: CGFloat {
+//        var maxHeight: CGFloat = 0
+//        let heights: [CGFloat] = contents.map{ CGFloat($0.cellHeight) }
+//        heights.forEach {
+//            if $0 > maxHeight {
+//                maxHeight = $0
+//            }
+//        }
+//        return maxHeight + Config.RotationControl.controlMargin
+//    }
     
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
        
         let newFormula = Formula()
-        newFormula.localObjectID = Formula.randomLocalObjectID()
-        newFormula.category = .x3x3
-        newFormula.type = .F2L
+//        newFormula.localObjectID = Formula.randomLocalObjectID()
+//        newFormula.category = .x3x3
+//        newFormula.type = .F2L
         newFormula.rating = 3
         newFormula.favorate = false
-        newFormula.creator = currentUser(in: realm)
+//        newFormula.creator = currentUser(in: realm)
         newFormula.deletedByCreator = false
         newFormula.isLibrary = isLibrary 
         realm.add(newFormula)
@@ -260,6 +240,10 @@ open class Formula: Object {
         realm.delete(self)
     }
     
+    
+    override open static func ignoredProperties() -> [String] {
+        return ["image", "category", "type" ]
+    }
 }
 
 
@@ -278,7 +262,7 @@ open class Content: Object {
     dynamic var text: String = ""
     dynamic var rotation: String = ""
     dynamic var indicatorImageName: String = ""
-    dynamic var cellHeight: CGFloat = 0
+    dynamic var cellHeight: Float = 0
     dynamic var atFormula: Formula?
     dynamic var atFomurlaLocalObjectID: String = ""
     
@@ -289,62 +273,48 @@ open class Content: Object {
     open class func new(with formula: Formula, inRealm realm: Realm) -> Content {
         
         let newContent = Content()
-        newContent.localObjectID = Content.randomLocalObjectID()
-        newContent.creator = currentUser(in: realm)
+//        newContent.localObjectID = Content.randomLocalObjectID()
+//        newContent.creator = currentUser(in: realm)
         newContent.rotation = Rotation.FR.rawValue
         newContent.atFormula = formula
         newContent.atFomurlaLocalObjectID = formula.localObjectID
         newContent.deleteByCreator = false
         
-        newContent.saveNewCellHeight(inRealm: realm)
+//        newContent.saveNewCellHeight(inRealm: realm)
         
         realm.add(newContent)
         
         return newContent
     }
     
-    open func saveNewCellHeight(inRealm realm: Realm) {
-        
-        let attributesText = text.setAttributesFitDetailLayout(style: .center)
-        let screenWidth = UIScreen.main.bounds.width
-        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-        cellHeight = rect.height
-        
-    }
+//    open func saveNewCellHeight(inRealm realm: Realm) {
+//        
+//        let attributesText = text.setAttributesFitDetailLayout(style: .center)
+//        let screenWidth = UIScreen.main.bounds.width
+//        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+////        cellHeight = Float(rect.height)
+//        
+//    }
  
 }
 
-open class DiscoverContent: AVObject, AVSubclassing {
-    public class func parseClassName() -> String {
-        return "DiscoverContent"
-    }
-    
-    @NSManaged var localObjectID: String
-    @NSManaged var text: String
-    @NSManaged var rotation: String
-    @NSManaged var indicatorImageName: String
-    @NSManaged var atFormulaLocalObjectID: String
-    @NSManaged var deletedByCreator: Bool
-    
-    @NSManaged var creator: AVUser
-    
-}
+
 
 open class RUser: Object {
     
-    dynamic var lcObjcetID: String = ""
-    dynamic var localObjectID: String = ""
-    dynamic var nickname: String = ""
-    dynamic var username: String = ""
-    dynamic var avatorImageURL: String?
-    dynamic var introduction: String?
+    open dynamic var lcObjcetID: String = ""
+    open dynamic var localObjectID: String = ""
+    open dynamic var nickname: String = ""
+    open dynamic var username: String = ""
+    open dynamic var avatorImageURL: String?
+    open dynamic var introduction: String?
     
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
     
     open let messages = LinkingObjects(fromType: Message.self, property: "creatUser")
     open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
     
-    var conversation: Conversation? {
+    open var conversation: Conversation? {
         return conversations.first
     }
     
@@ -356,7 +326,7 @@ open class RUser: Object {
         return ["localObjectID"]
     }
     
-    func isMe() -> Bool {
+    open func isMe() -> Bool {
         guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
             return false
         }
@@ -364,15 +334,14 @@ open class RUser: Object {
     }
     
     // MARK: - test
-    public dynamic var blogURLString: String = ""
-    public dynamic var blogTitle: String = ""
-    public dynamic var avatar: Avatar?
+    open dynamic var blogURLString: String = ""
+    open dynamic var blogTitle: String = ""
+    open dynamic var avatar: Avatar?
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var lastSignInUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    public dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
-    public dynamic var lastSignInUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    
-    public var mentionedUsername: String? {
+    open var mentionedUsername: String? {
         if username.isEmpty {
             return nil
         } else {
@@ -380,7 +349,7 @@ open class RUser: Object {
         }
     }
     
-    public var compositedName: String {
+    open var compositedName: String {
         if username.isEmpty {
             return nickname
         } else {
@@ -390,23 +359,23 @@ open class RUser: Object {
     
     // 级联删除关联的数据对象
     
-    public func cascadeDeleteInRealm(realm: Realm) {
-        
-        if let avatar = avatar {
-            
-            if !avatar.avatarFileName.isEmpty {
-                FileManager.deleteAvatarImage(with: avatar.avatarFileName)
-            }
-            realm.delete(avatar)
-        }
-        
-        if !masterList.isEmpty {
-            
-            realm.delete(masterList)
-        }
-        
-        realm.delete(self)
-    }
+//    open func cascadeDeleteInRealm(realm: Realm) {
+//        
+//        if let avatar = avatar {
+//            
+//            if !avatar.avatarFileName.isEmpty {
+//                FileManager.deleteAvatarImage(with: avatar.avatarFileName)
+//            }
+//            realm.delete(avatar)
+//        }
+//        
+//        if !masterList.isEmpty {
+//            
+//            realm.delete(masterList)
+//        }
+//        
+//        realm.delete(self)
+//    }
 
 }
 
@@ -418,12 +387,7 @@ open class FormulaMaster: Object {
     dynamic var creatorLcObjectID: String = ""
 }
 
-public class DiscoverPreferences: AVObject, AVSubclassing {
-    public class func parseClassName() -> String {
-        return "DiscoverPreferences"
-    }
-    @NSManaged var version: String
-}
+
 
 
 open class Preferences: Object {
@@ -443,41 +407,41 @@ open class RCategory: Object {
 }
 
 
-protocol RandomID {
-    static func randomLocalObjectID() -> String
-}
-
-extension RandomID where Self: Object {
-    
-}
-
-extension Formula: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "Formula_" + String.random()
-    }
-}
-
-extension Content: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "Content_" + String.random()
-    }
-}
-
-extension RUser: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "RUser_" + String.random()
-    }
-}
-
-extension Message: RandomID {
-    
-    class func randomLocalObjectID() -> String {
-        return "Message" + String.random()
-    }
-}
+//protocol RandomID {
+//    static func randomLocalObjectID() -> String
+//}
+//
+//extension RandomID where Self: Object {
+//    
+//}
+//
+//extension Formula: RandomID {
+//    
+//    class func randomLocalObjectID() -> String {
+//        return "Formula_" + String.random()
+//    }
+//}
+//
+//extension Content: RandomID {
+//    
+//    class func randomLocalObjectID() -> String {
+//        return "Content_" + String.random()
+//    }
+//}
+//
+//extension RUser: RandomID {
+//    
+//    class func randomLocalObjectID() -> String {
+//        return "RUser_" + String.random()
+//    }
+//}
+//
+//extension Message: RandomID {
+//    
+//    class func randomLocalObjectID() -> String {
+//        return "Message" + String.random()
+//    }
+//}
 
 
 open class Avatar: Object {
