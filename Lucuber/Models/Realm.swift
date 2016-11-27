@@ -13,29 +13,6 @@ import AVOSCloud
 // MARK: - User
 
 // MARK: - Realm
-func tryGetOrCreatMeInRealm(realm: Realm) -> RUser? {
-    
-    guard
-        let currentUser = AVUser.current(),
-        let userID = currentUser.objectId else {
-            return nil
-    }
-    
-    if let me = userWith(userID, inRealm: realm) {
-        return me
-        
-    } else {
-        
-        let me = appendRUser(with: <#T##AVUser#>, inRealm: <#T##Realm#>)
-        
-        try? realm.write {
-            realm.add(me)
-        }
-        
-        return me
-        
-    }
-}
 
 
 public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
@@ -49,13 +26,13 @@ public func currentUser(in realm: Realm) -> RUser? {
 }
 
 public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm realm: Realm) -> FormulaMaster? {
-    let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
+    let predicate = NSPredicate(format: "formulaID = %@", localObjectID)
     let predicate2 = NSPredicate(format: "atRuser = %@", user)
     return realm.objects(FormulaMaster.self).filter(predicate).filter(predicate2).first
 }
 
 public func mastersWith(_ rUser: RUser, inRealm realm: Realm) -> Results<FormulaMaster> {
-    let predicate = NSPredicate(format: "creatorLcObjectID = %@", rUser.lcObjcetID)
+    let predicate = NSPredicate(format: "atRuser = %@", rUser)
     return realm.objects(FormulaMaster.self).filter(predicate)
 }
 
@@ -73,24 +50,24 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
     
     let localObjectID = formula.localObjectID
     if let _ = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) { return }
-    let newMaster = FormulaMaster(value: [localObjectID, currentUser.lcObjcetID])
+    let newMaster = FormulaMaster(value: [localObjectID, currentUser])
     realm.add(newMaster)
     
 }
 
-public func updateMasterList(with rUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
-    if let lcObjectID = discoverUser.objectId, let newMasterList = discoverUser.masterList() {
-        let oldMasterList = mastersWith(rUser, inRealm: realm)
+public func updateMasterList(with currentUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
+    if let newMasterList = discoverUser.masterList() {
+        let oldMasterList = mastersWith(currentUser, inRealm: realm)
         realm.delete(oldMasterList)
         
-        let masterList = newMasterList.map { FormulaMaster(value:[$0, lcObjectID]) }
+        let masterList = newMasterList.map { FormulaMaster(value:[$0, currentUser]) }
         realm.add(masterList)
     }
 }
 
 public func creatRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
     
-    if let creator = userWith(discoverUser.localObjectID() ?? "", inRealm: realm) {
+    if let creator = userWith(discoverUser.objectId ?? "", inRealm: realm) {
         
         updateMasterList(with: creator, discoverUser: discoverUser, inRealm: realm)
         
@@ -184,7 +161,7 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         
         guard
             let userID = AVUser.current()?.objectId,
-            let currentUser = userWithUserID(userID: userID, inRealm: realm) else { fatalError() }
+            let currentUser = userWith(userID, inRealm: realm) else { fatalError() }
         let predicate = NSPredicate(format: "creator = %@", currentUser)
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
         let result =  realm.objects(Formula.self).filter(predicate).filter(predicate2)
@@ -216,22 +193,14 @@ public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode
 
 // MARK: - Message
 
-func userWithUserID(userID: String, inRealm realm: Realm) -> RUser? {
-    
-    let predicate = NSPredicate(format: "userID = %@", userID)
-    
-    return realm.objects(RUser.self).filter(predicate).first
-}
 
-
-func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
+public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
     
     let predicate = NSPredicate(format: "groupID = %@" , groupID)
     return realm.objects(Group.self).filter(predicate).first
 }
 
-
-func messagesOfConversation(conversation: Conversation, inRealm realm: Realm) -> Results<Message> {
+public func messagesWith(_ conversation: Conversation, inRealm realm: Realm) -> Results<Message> {
     
     let predicate = NSPredicate(format: "conversation = %@", conversation)
     let messages = realm.objects(Message.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true)
@@ -239,7 +208,7 @@ func messagesOfConversation(conversation: Conversation, inRealm realm: Realm) ->
     
 }
 
-func messageWith(_ messageID: String, inRealm realm: Realm) -> Message? {
+public func messageWith(_ messageID: String, inRealm realm: Realm) -> Message? {
     
     if messageID.isEmpty {
         return nil
@@ -248,6 +217,46 @@ func messageWith(_ messageID: String, inRealm realm: Realm) -> Message? {
     let predicate = NSPredicate(format: "messageID = %@", messageID)
     let message = realm.objects(Message.self).filter(predicate)
     return message.first
+}
+
+/// 在传入的 message 后面创建 DataSectionMessage
+public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMessage message: Message,  inRealm realm: Realm, completion: ((Message) -> Void)? ) {
+    
+    let messages = messagesWith(conversation, inRealm: realm)
+    
+    if messages.count > 1 {
+        
+        guard let index = messages.index(of: message) else {
+            return
+        }
+        
+        if let prevMessage = messages[safe: (index - 1)] {
+            
+            // TODO: - 两个消息时间相差多少秒, 创建 DataSection, 10 为测试值, 正常 180 秒
+            if message.createdUnixTime - prevMessage.createdUnixTime > 10 {
+                
+                let sectionDateMessageCreatedUnixTime = message.createdUnixTime - 0.00005
+                let sectionDateMessageID = "sectionDate-\(sectionDateMessageCreatedUnixTime)"
+                
+                if let _ = messageWith(sectionDateMessageID, inRealm: realm) {
+                    
+                } else {
+                    
+                    let newSectionDateMessage = Message()
+                    newSectionDateMessage.localObjectID = sectionDateMessageID
+                    
+                    newSectionDateMessage.conversation = conversation
+                    newSectionDateMessage.mediaType = MessageMediaType.sectionDate.rawValue
+                    
+                    newSectionDateMessage.createdUnixTime = sectionDateMessageCreatedUnixTime
+                    newSectionDateMessage.arrivalUnixTime = sectionDateMessageCreatedUnixTime
+                    
+                    completion?(newSectionDateMessage)
+                }
+                
+            }
+        }
+    }
 }
 
 

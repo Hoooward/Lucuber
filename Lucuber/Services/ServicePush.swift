@@ -129,7 +129,7 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
     
 }
 
-public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
+public func pushToDataLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
     
     guard !images.isEmpty else {
         return
@@ -155,7 +155,7 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
     completion?(imagesURL)
 }
 
-public func pushToLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
+public func pushToMasterListLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
     
     guard let currenUser = AVUser.current() else {
         return
@@ -167,10 +167,71 @@ public func pushToLeancloud(with masterList: [String], completion: (() -> Void)?
 
 
 
-func createAndPushMessage(with mediaType: MessageMediaType, text: String, toRecipient: String, recipientType: String, afterCreatedMessage: ((Message) -> Void)?, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)?) {
+
+public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, failureHandler: (Error?) -> Void, completion: (Bool) -> Void) {
+
+    guard let mediaType = MessageMediaType(rawValue: message.mediaType) else {
+        printLog("无效的 mediaType")
+        return
+    }
+    
+    // 缓存池保存待发送的 Message
+    SendingMessagePool.addMessage(with: message.localObjectID)
+    
+    let discoverMessage = parseMessageToDisvocerModel(with: message)
+    
+    
+    let messageSaveInbackground: AVBooleanResultBlock = { success, error in
+     
+        if success {
+            DispatchQueue.main.async {
+                let realm = message.realm
+                try? realm?.write {
+                    message.lcObjectID = discoverMessage.objectId ?? ""
+                    message.sendState = MessageSendState.successed.rawValue
+                }
+            }
+            
+        }
+        
+        if error != nil {
+            
+            DispatchQueue.main.async {
+                let realm = message.realm
+                try? realm?.write {
+                    message.lcObjectID = ""
+                    message.sendState = MessageSendState.failed.rawValue
+                }
+            }
+        }
+    }
+    
+    // TODO: - 暂时不处理 Location
+    switch mediaType {
+        
+    case .text:
+        discoverMessage.saveInBackground(messageSaveInbackground)
+        
+    default:
+        break
+    }
+}
+
+public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
+    
+    createAndPushMessage(with: MessageMediaType.image, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
+}
+
+public func pushMessageText(_ text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void,failureHandler: @escaping (Error?) -> Void, g completion: @escaping (Bool) -> Void) {
+    
+    
+}
+
+
+public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: ((Message) -> Void), failureHandler: ((Error) -> Void)?, completion: (Bool) -> Void) {
+    
     // 因为 message_id 必须来自远端，线程无法切换，所以这里暂时没用 realmQueue 
     // TOOD: 也许有办法
-    
     guard let realm = try? Realm() else {
         return
     }
@@ -197,11 +258,10 @@ func createAndPushMessage(with mediaType: MessageMediaType, text: String, toReci
         realm.add(message)
     }
     
-    // message 的 creatUser = me
-    if let me = tryGetOrCreatMeInRealm(realm: realm) {
-        
+    
+    if let me = currentUser(in: realm) {
         try? realm.write {
-            message.creatUser = me
+            message.creator = me
         }
     }
     
@@ -211,15 +271,15 @@ func createAndPushMessage(with mediaType: MessageMediaType, text: String, toReci
     
     try? realm.write {
         
-        if recipientType == "User" {
+        if recipientType == "user" {
             
-            if let withFriend = userWithUserID(userID: toRecipient, inRealm: realm) {
+            if let withFriend = userWith(recipientID, inRealm: realm) {
                 conversation = withFriend.conversation
             }
             
         } else {
             
-            if let withGroup = groupWithGroupID(groupID: toRecipient, inRealm: realm) {
+            if let withGroup = groupWith(recipientID, inRealm: realm) {
                 conversation = withGroup.conversation
             }
         }
@@ -228,11 +288,11 @@ func createAndPushMessage(with mediaType: MessageMediaType, text: String, toReci
             
             let newConversation = Conversation()
             
-            if recipientType == "User" {
+            if recipientType == "user" {
                 
                 newConversation.type = ConversationType.oneToOne.rawValue
                 
-                if let withFriend = userWithUserID(userID: toRecipient, inRealm: realm) {
+                if let withFriend = userWith(recipientID, inRealm: realm) {
                     newConversation.withFriend = withFriend
                 }
                 
@@ -240,50 +300,51 @@ func createAndPushMessage(with mediaType: MessageMediaType, text: String, toReci
                 
                 newConversation.type = ConversationType.group.rawValue
                 
-                if let withGroup = groupWithGroupID(groupID: toRecipient, inRealm: realm){
+                if let withGroup = groupWith(recipientID, inRealm: realm) {
                     newConversation.withGroup = withGroup
                 }
-                
             }
             
             conversation = newConversation
-            
         }
         
         if let conversation = conversation {
             
             message.conversation = conversation
-            message.recipientID = conversation.recipiendID ?? ""
-            message.recipientType = recipientType
             
-            // 创建日期 section
-            tryCreatDateSectionMessage(withNewMessage: message, conversation: conversation, realm: realm, completion: {
+            tryCreatDateSectionMessage(with: conversation, beforeMessage: message, inRealm: realm) {
                 sectionDateMessage in
-                
-                if let sectionDateMessage = sectionDateMessage {
-                    
-                    realm.add(sectionDateMessage)
-                }
-            })
+                realm.add(sectionDateMessage)
+            }
             
             conversation.updateUnixTime = Date().timeIntervalSince1970
             
+            DispatchQueue.main.async {
+                
+            }
+            
+            message.recipientID = recipientID
+            message.recipientType = recipientType
+            
+           
             // 发送通知, Convertaion 有新的
         }
         
     }
     
+    // TODO: - 处理 Location
+    
     try? realm.write {
         message.textContent = text
     }
     
-    afterCreatedMessage?(message)
+    afterCreatedMessage(message)
     
     
-    // 音效
+    // TODO: - 音效处理
     
-    //  执行网络发送网络发送
     
+    // push 到远端
     convertToLeanCloudMessageAndSend(message: message, failureHandler: {
         
         failureHandler?()
@@ -292,6 +353,8 @@ func createAndPushMessage(with mediaType: MessageMediaType, text: String, toReci
         
         completion?(true)
     })
+
+    
     
 }
 

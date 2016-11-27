@@ -263,41 +263,7 @@ open class Formula: Object {
 }
 
 
-public class DiscoverFormula: AVObject, AVSubclassing {
-    
-    public class func parseClassName() -> String {
-        return "DiscoverFormula"
-    }
-    
-    @NSManaged var localObjectID: String
-    
-    @NSManaged var name: String
-    
-    @NSManaged var nickName: String
-    
-    @NSManaged var imageName: String
-    
-    @NSManaged var imageURL: String
-    
-    @NSManaged var isLibrary: Bool
-    
-    @NSManaged var serialNumber: Int
-    
-    @NSManaged var rating: Int
-    
-    @NSManaged var favorate: Bool
-    
-    @NSManaged var creator: AVUser?
-    
-    @NSManaged var contents: [DiscoverContent]
-    
-    @NSManaged var category: String
-    
-    @NSManaged var type: String
-    
-    @NSManaged var deletedByCreator: Bool
-    
-}
+
 
 
 open class Content: Object {
@@ -445,10 +411,10 @@ open class RUser: Object {
 }
 
 open class FormulaMaster: Object {
-    /// 公式的本地ID
-    dynamic var formulaLocalObjectID: String = ""
+    /// 本地ID - Local
+    dynamic var formulaID: String = ""
     /// 所属用户的 leancloudID
-    dynamic var atRUser: AVUser?
+    dynamic var atRUser: RUser?
     dynamic var creatorLcObjectID: String = ""
 }
 
@@ -503,6 +469,13 @@ extension RUser: RandomID {
     
     class func randomLocalObjectID() -> String {
         return "RUser_" + String.random()
+    }
+}
+
+extension Message: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Message" + String.random()
     }
 }
 

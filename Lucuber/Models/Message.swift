@@ -28,54 +28,6 @@ public enum UserFriendState: Int {
 
 
 
-func tryCreatDateSectionMessage(withNewMessage message: Message, conversation: Conversation, realm: Realm, completion: ((Message?) -> Void)? ) {
-    
-    let messages = messagesOfConversation(conversation: conversation, inRealm: realm)
-    
-    if messages.count > 1 {
-        
-        guard let index = messages.index(of: message) else {
-            return
-        }
-        
-        if let prevMessage = messages[safe: (index - 1)] {
-            
-            if message.createdUnixTime - prevMessage.createdUnixTime > 10 {
-                
-                let sectionDateMessageCreatedUnixTime = message.createdUnixTime - 0.00005
-                let sectionDateMessageID = "sectionDate-\(sectionDateMessageCreatedUnixTime)"
-                
-                if let _ = messageWithMessageID(messageID: sectionDateMessageID, inRealm: realm) {
-                    
-                } else {
-                    
-                    let newSectionDateMessage = Message()
-                    newSectionDateMessage.messageID = sectionDateMessageID
-                    
-                    newSectionDateMessage.conversation = conversation
-                    newSectionDateMessage.mediaTypeInt = MessageMediaType.sectionDate.rawValue
-                    
-                    newSectionDateMessage.createdUnixTime = sectionDateMessageCreatedUnixTime
-                    newSectionDateMessage.arrivalUnixTime = sectionDateMessageCreatedUnixTime
-                    
-//                    realm.add(newSectionDateMessage)
-                    
-                    completion?(newSectionDateMessage)
-                }
-                
-            } else {
-                
-                completion?(nil)
-            }
-        } else {
-            
-            completion?(nil)
-        }
-    } else {
-        
-        completion?(nil)
-    }
-}
 
 
 
@@ -176,7 +128,7 @@ public class Message: Object {
 //    public dynamic var openGraphInfo: OpenGraphInfo?
 //    
 //    public dynamic var coordinate: Coordinate?
-    
+   
     open dynamic var localObjectID: String = ""
     open dynamic var lcObjectID: String = ""
     
@@ -193,8 +145,7 @@ public class Message: Object {
     open dynamic var localAttachmentName: String = ""
     open dynamic var thumbnailURLString: String = ""
     open dynamic var localThumbnailName: String = ""
-    open dynamic var acctchmentID: String = ""
-    
+    open dynamic var attachmentID: String = ""
     open dynamic var attachmentExpiresUnixTime: TimeInterval = Date().timeIntervalSince1970 + (6 * 60 * 60 * 24) // 6天，过期时间s3为7天，客户端防止误差减去1天
     
     open var imageKey: String {
@@ -294,12 +245,6 @@ public class Message: Object {
         textContent = ""
         mediaType = MessageMediaType.text.rawValue
     }
-    
-    
-    
-    
-    
-    open dynamic var invalidate: Bool = false
     
     
     open dynamic var recipientType: String = ""
@@ -654,77 +599,6 @@ open class Conversation: Object {
 
 
 
-public class DiscoverMessage: AVObject, AVSubclassing {
-    
-    
-    public class func parseClassName() -> String {
-        return "DiscoverMessage"
-    }
-    
-    @NSManaged var localObjectID: String
-    
-    @NSManaged var textContent: String
-    
-    @NSManaged var creator: AVUser
-    @NSManaged var creatorObjectID: String
-    
-    @NSManaged var compositedName: String
-    
-    @NSManaged var invalidated: Bool
-    
-    @NSManaged var mediaTypeInt: Int
-    
-    @NSManaged var imageURLs: [String]
-    
-    @NSManaged var sendState: Int
-    
-    @NSManaged var deletedByCreator: Bool
-    
-    @NSManaged var recipientType: String
-    
-    @NSManaged var recipientID: String
-    
-    
-    override init() {
-        super.init()
-        
-    }
-    
-    init(contentText: String) {
-        super.init()
-        
-        self.textContent = contentText
-        
-        self.mediaTypeInt = 1
-        
-    }
-
-//    func convertToMessage() -> Message {
-//        
-//        let message = Message()
-//        
-//        message.readed = true
-//        message.mediaTypeInt = mediaTypeInt
-//        message.invalidate = invalidated
-//        message.sendStateInt = sendState
-////        message.imageURLs = imageURLs
-//        message.textContent = textContent
-//        message.messageID = objectId
-//        message.leanCloudObjectID = objectId
-//        message.createdUnixTime = createdAt.timeIntervalSince1970
-//        message.updatedUnixTime = updatedAt.timeIntervalSince1970
-//        
-//        message.deletedByCreator = deletedByCreator
-//        message.recipientID = recipientID
-//        message.recipientType = recipientType
-//        
-//        
-//        
-//        return message
-//    }
-
-    
-}
 
 
 func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGFloat)? {

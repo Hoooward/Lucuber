@@ -432,10 +432,9 @@ public func logout() {
 
 func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)? ) {
     
-    let leanCloudMessage = message.convertToLMessage()
+    let discoverMessage = parseMessageToDisvocerModel(with: message)
     
-    
-    leanCloudMessage.saveInBackground {
+    discoverMessage.saveInBackground {
         successed, error in
         
         if error != nil {

@@ -35,9 +35,12 @@
 		E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */; };
 		E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */; };
 		E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
+		E43B6F401DEA9B4000CE1FB5 /* ParseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */; };
+		E43B6F421DEA9CB000CE1FB5 /* DiscoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */; };
 		E44547B51DE6B3CC006816EF /* AVUser+Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */; };
 		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
 		E44547B91DE6B5D7006816EF /* ServicePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B81DE6B5D7006816EF /* ServicePush.swift */; };
+		E45378A51DEAAF9400A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
 		E45DA0631DA771E60050DD4D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
@@ -244,9 +247,12 @@
 		E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetailViewController.swift; sourceTree = "<group>"; };
 		E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLayout.swift; sourceTree = "<group>"; };
 		E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Cube.swift"; sourceTree = "<group>"; };
+		E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseModel.swift; sourceTree = "<group>"; };
+		E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverModel.swift; sourceTree = "<group>"; };
 		E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Kit.swift"; sourceTree = "<group>"; };
 		E44547B61DE6B5BC006816EF /* ServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSync.swift; sourceTree = "<group>"; };
 		E44547B81DE6B5D7006816EF /* ServicePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicePush.swift; sourceTree = "<group>"; };
+		E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingMessagePool.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeServiceSync.swift; sourceTree = "<group>"; };
 		E45DA0621DA771E60050DD4D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -618,6 +624,8 @@
 				E47926251D968CDB004D58BF /* Keyboard.swift */,
 				E45DA0621DA771E60050DD4D /* Message.swift */,
 				E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */,
+				E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */,
+				E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -630,6 +638,7 @@
 				E41ECF491DB5F548005BEFE4 /* ImageCache.swift */,
 				E44547B61DE6B5BC006816EF /* ServiceSync.swift */,
 				E44547B81DE6B5D7006816EF /* ServicePush.swift */,
+				E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1718,6 +1727,7 @@
 				E4CED8441DE862770036A11C /* FeedAnyImagesCell.swift in Sources */,
 				E4011F321DB1F90E00EEBBCF /* CommentViewController+Feed.swift in Sources */,
 				E4CED85A1DE862770036A11C /* CardFormulaCell.swift in Sources */,
+				E43B6F401DEA9B4000CE1FB5 /* ParseModel.swift in Sources */,
 				E41ECF4A1DB5F548005BEFE4 /* ImageCache.swift in Sources */,
 				E48BCD481DA8AA0C00C4A1B7 /* CommentViewController.swift in Sources */,
 				E4CED8851DE862770036A11C /* BorderTextField.swift in Sources */,
@@ -1731,6 +1741,7 @@
 				E4CED86B1DE862770036A11C /* NewFormulaTextCell.swift in Sources */,
 				E4CED83E1DE862770036A11C /* ChatRightTextCell.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
+				E45378A51DEAAF9400A65F43 /* SendingMessagePool.swift in Sources */,
 				E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
@@ -1773,6 +1784,7 @@
 				E4CED8921DE862770036A11C /* MyFormulaVisitorView.swift in Sources */,
 				E4CED8481DE862770036A11C /* FeedTextView.swift in Sources */,
 				E4CED8751DE862770036A11C /* AlbumListCell.swift in Sources */,
+				E43B6F421DEA9CB000CE1FB5 /* DiscoverModel.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E4CED83C1DE862770036A11C /* ChatRightBaseCell.swift in Sources */,
 				E41ECF581DB77374005BEFE4 /* MediaViewCell.swift in Sources */,
