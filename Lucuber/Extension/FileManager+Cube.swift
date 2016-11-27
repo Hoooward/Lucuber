@@ -131,7 +131,6 @@ extension FileManager {
     public class func cubeMessageAudioURL(with name: String) -> URL? {
         if let messageCachesURL = cubeMessageCachesURL() {
             return messageCachesURL.appendingPathComponent("\(name).\(FileExtension.m4a.rawValue)")
-            return messageCachesURL
         }
         return nil
     }
@@ -142,7 +141,9 @@ extension FileManager {
             if FileManager.default.createFile(atPath: messageAudioURL.path, contents: messageAudioData, attributes: nil) {
                 return messageAudioURL
             }
+            return nil
         }
+        return nil
     }
     
     public class func removeMessageAudioFile(with name: String) {

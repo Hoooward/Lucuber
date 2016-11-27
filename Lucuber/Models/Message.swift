@@ -452,7 +452,7 @@ open class Group: Object {
 
 open class Draft: Object {
     
-    open dynamic var messageToolbarState: Int = MessageToolbarState.normal.rawValue
+//    open dynamic var messageToolbarState: Int = MessageToolbarState.normal.rawValue
     open dynamic var text: String = ""
     
 }
@@ -603,9 +603,9 @@ open class Conversation: Object {
 
 func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGFloat)? {
     
-    guard !message.invalidate else {
-        return nil
-    }
+//    guard !message.invalidate else {
+//        return nil
+//    }
     
 //    if let mediaMetaData = message.mediaMetaData {
 //        if let metaDataInfo = decodeJSON(mediaMetaData.data) {

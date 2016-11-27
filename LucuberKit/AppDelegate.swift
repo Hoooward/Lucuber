@@ -11,21 +11,6 @@ import AVOSCloud
 
 
 
-fileprivate let dataVersionKey = "dateVersioKey"
-
-extension UserDefaults {
-
-    class func setDataVersion(_ version: String) {
-        standard.set(version, forKey: dataVersionKey)
-    }
-    
-    class func dataVersion() -> String {
-        return standard.string(forKey: dataVersionKey) ?? "0.9"
-    }
-}
-
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -70,16 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }, failureHandler: { error in printLog(error) })
         
     }
-   
 
 
 }
 
 
-public func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
-    
-    #if DEBUG
-        print("\((file as NSString).lastPathComponent)[\(line)]:\(message)")
-    #endif
-}
 

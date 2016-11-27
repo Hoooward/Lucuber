@@ -18,6 +18,7 @@ final class CubeImageCache {
     let cacheAttachmentQueue = DispatchQueue(label: "ImageChacheAttachmentQueue")
     
     
+    
     class func attachmentOriginKeyWithURLString(URLString: String) -> String {
         return "attachment-cube-\(URLString)"
     }

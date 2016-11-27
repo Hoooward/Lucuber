@@ -12,8 +12,6 @@
 		E4011F321DB1F90E00EEBBCF /* CommentViewController+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F311DB1F90E00EEBBCF /* CommentViewController+Feed.swift */; };
 		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
-		E41713881DE41B1E0030319C /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41713831DE41B1E0030319C /* Feed.swift */; };
-		E41713891DE41B1E0030319C /* Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41713841DE41B1E0030319C /* Formula.swift */; };
 		E41ECF2C1DB5C903005BEFE4 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E41ECF2E1DB5CE54005BEFE4 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */; };
 		E41ECF481DB5DAC5005BEFE4 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
@@ -37,10 +35,41 @@
 		E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
 		E43B6F401DEA9B4000CE1FB5 /* ParseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */; };
 		E43B6F421DEA9CB000CE1FB5 /* DiscoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */; };
-		E44547B51DE6B3CC006816EF /* AVUser+Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */; };
 		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
-		E44547B91DE6B5D7006816EF /* ServicePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B81DE6B5D7006816EF /* ServicePush.swift */; };
 		E45378A51DEAAF9400A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
+		E45378A91DEADA5200A65F43 /* CubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BB31D8FA5890090671F /* CubeService.swift */; };
+		E45378AA1DEADA5200A65F43 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
+		E45378AB1DEADA5200A65F43 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF491DB5F548005BEFE4 /* ImageCache.swift */; };
+		E45378AC1DEADA5200A65F43 /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
+		E45378AE1DEADA5200A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
+		E45378AF1DEADA5200A65F43 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09B9E1D8E38D10090671F /* Model.swift */; };
+		E45378B01DEADA5200A65F43 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41C81D91605000B64C46 /* Realm.swift */; };
+		E45378B11DEADA5200A65F43 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
+		E45378B21DEADA5200A65F43 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
+		E45378B31DEADA5200A65F43 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */; };
+		E45378B41DEADA5200A65F43 /* ParseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */; };
+		E45378B51DEADA5200A65F43 /* DiscoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */; };
+		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
+		E45378B71DEAE06E00A65F43 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA21D8E3D340090671F /* Config.swift */; };
+		E45378B81DEAE06E00A65F43 /* CubeRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */; };
+		E45378B91DEAE06E00A65F43 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
+		E45378BA1DEAE06E00A65F43 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */; };
+		E45378BB1DEAE06E00A65F43 /* UIFont+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */; };
+		E45378BC1DEAE06E00A65F43 /* UINavigationController+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660C1D8D9D1B005CE518 /* UINavigationController+Cube.swift */; };
+		E45378BD1DEAE06E00A65F43 /* UIStoryboard+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660E1D8DA04E005CE518 /* UIStoryboard+Cube.swift */; };
+		E45378BE1DEAE06E00A65F43 /* UIView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA01D8E3C590090671F /* UIView+Cube.swift */; };
+		E45378BF1DEAE06E00A65F43 /* String+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E021F91D9023C700DED99A /* String+Cube.swift */; };
+		E45378C01DEAE06E00A65F43 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
+		E45378C11DEAE06E00A65F43 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */; };
+		E45378C21DEAE06E00A65F43 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4207A2A1D93CA7F003CF073 /* Animation.swift */; };
+		E45378C41DEAE06E00A65F43 /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
+		E45378C51DEAE06E00A65F43 /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
+		E45378C61DEAE06E00A65F43 /* CGSize+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */; };
+		E45378C71DEAE06E00A65F43 /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
+		E45378C81DEAE06F00A65F43 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
+		E45378C91DEAE06F00A65F43 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
+		E45378CA1DEAE06F00A65F43 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
+		E45378CB1DEAE06F00A65F43 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E459DF3D1DB491E200A0E1E0 /* CubeServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */; };
 		E45DA0631DA771E60050DD4D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA0621DA771E60050DD4D /* Message.swift */; };
@@ -53,10 +82,6 @@
 		E47926621D96E005004D58BF /* CubeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = E479265F1D96E005004D58BF /* CubeType.plist */; };
 		E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = E47926601D96E005004D58BF /* FormulaKeyboard.plist */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
-		E4862F1F1DE5C40000C096CC /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4862F1E1DE5C40000C096CC /* Realm.swift */; };
-		E4862F211DE5C44F00C096CC /* sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4862F201DE5C44F00C096CC /* sync.swift */; };
-		E4862F231DE5EF9500C096CC /* push.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4862F221DE5EF9500C096CC /* push.swift */; };
-		E4862F251DE5F1FB00C096CC /* String+Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4862F241DE5F1FB00C096CC /* String+Kit.swift */; };
 		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
 		E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */; };
 		E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */; };
@@ -224,8 +249,6 @@
 		E4011F311DB1F90E00EEBBCF /* CommentViewController+Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Feed.swift"; sourceTree = "<group>"; };
 		E4011F331DB277BE00EEBBCF /* Date+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Cube.swift"; sourceTree = "<group>"; };
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
-		E41713831DE41B1E0030319C /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
-		E41713841DE41B1E0030319C /* Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formula.swift; sourceTree = "<group>"; };
 		E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cube.swift"; sourceTree = "<group>"; };
@@ -249,9 +272,7 @@
 		E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Cube.swift"; sourceTree = "<group>"; };
 		E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseModel.swift; sourceTree = "<group>"; };
 		E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverModel.swift; sourceTree = "<group>"; };
-		E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Kit.swift"; sourceTree = "<group>"; };
 		E44547B61DE6B5BC006816EF /* ServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSync.swift; sourceTree = "<group>"; };
-		E44547B81DE6B5D7006816EF /* ServicePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicePush.swift; sourceTree = "<group>"; };
 		E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingMessagePool.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeServiceSync.swift; sourceTree = "<group>"; };
@@ -265,10 +286,6 @@
 		E479265F1D96E005004D58BF /* CubeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeType.plist; sourceTree = "<group>"; };
 		E47926601D96E005004D58BF /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
-		E4862F1E1DE5C40000C096CC /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
-		E4862F201DE5C44F00C096CC /* sync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sync.swift; sourceTree = "<group>"; };
-		E4862F221DE5EF9500C096CC /* push.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = push.swift; sourceTree = "<group>"; };
-		E4862F241DE5F1FB00C096CC /* String+Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Kit.swift"; sourceTree = "<group>"; };
 		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeRuler.swift; sourceTree = "<group>"; };
 		E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Cube.swift"; sourceTree = "<group>"; };
@@ -469,15 +486,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E41713821DE41B1E0030319C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				E41713831DE41B1E0030319C /* Feed.swift */,
-				E41713841DE41B1E0030319C /* Formula.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		E41ECF511DB61A27005BEFE4 /* MediaPreview */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,11 +612,6 @@
 				E4A3BA5E1DE3F874009C0E78 /* Assets.xcassets */,
 				E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */,
 				E4A3BA631DE3F874009C0E78 /* Info.plist */,
-				E4862F1E1DE5C40000C096CC /* Realm.swift */,
-				E4862F201DE5C44F00C096CC /* sync.swift */,
-				E4862F221DE5EF9500C096CC /* push.swift */,
-				E4862F241DE5F1FB00C096CC /* String+Kit.swift */,
-				E44547B41DE6B3CC006816EF /* AVUser+Kit.swift */,
 			);
 			path = LucuberKit;
 			sourceTree = "<group>";
@@ -616,7 +619,6 @@
 		E4A3BAA11DE3FA43009C0E78 /* PerpareData */ = {
 			isa = PBXGroup;
 			children = (
-				E41713821DE41B1E0030319C /* Models */,
 				E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */,
 				E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */,
 				E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */,
@@ -645,7 +647,6 @@
 				E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */,
 				E41ECF491DB5F548005BEFE4 /* ImageCache.swift */,
 				E44547B61DE6B5BC006816EF /* ServiceSync.swift */,
-				E44547B81DE6B5D7006816EF /* ServicePush.swift */,
 				E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */,
 			);
 			path = Services;
@@ -1688,17 +1689,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */,
+				E45378B71DEAE06E00A65F43 /* Config.swift in Sources */,
+				E45378B81DEAE06E00A65F43 /* CubeRuler.swift in Sources */,
+				E45378B91DEAE06E00A65F43 /* KeyboardMan.swift in Sources */,
+				E45378BA1DEAE06E00A65F43 /* UIColor+Cube.swift in Sources */,
+				E45378BB1DEAE06E00A65F43 /* UIFont+Cube.swift in Sources */,
+				E45378BC1DEAE06E00A65F43 /* UINavigationController+Cube.swift in Sources */,
+				E45378BD1DEAE06E00A65F43 /* UIStoryboard+Cube.swift in Sources */,
+				E45378BE1DEAE06E00A65F43 /* UIView+Cube.swift in Sources */,
+				E45378BF1DEAE06E00A65F43 /* String+Cube.swift in Sources */,
+				E45378C01DEAE06E00A65F43 /* UserDefaults.swift in Sources */,
+				E45378C11DEAE06E00A65F43 /* AVUser+Cube.swift in Sources */,
+				E45378C21DEAE06E00A65F43 /* Animation.swift in Sources */,
+				E45378C41DEAE06E00A65F43 /* UIImage+Cube.swift in Sources */,
+				E45378C51DEAE06E00A65F43 /* Array+Cube.swift in Sources */,
+				E45378C61DEAE06E00A65F43 /* CGSize+Cube.swift in Sources */,
+				E45378C71DEAE06E00A65F43 /* Date+Cube.swift in Sources */,
+				E45378C81DEAE06F00A65F43 /* UIScrollView+Cube.swift in Sources */,
+				E45378C91DEAE06F00A65F43 /* UIImageView+Cube.swift in Sources */,
+				E45378CA1DEAE06F00A65F43 /* UITableView+Cube.swift in Sources */,
+				E45378CB1DEAE06F00A65F43 /* FileManager+Cube.swift in Sources */,
+				E45378A91DEADA5200A65F43 /* CubeService.swift in Sources */,
+				E45378AA1DEADA5200A65F43 /* CubeServiceSync.swift in Sources */,
+				E45378AB1DEADA5200A65F43 /* ImageCache.swift in Sources */,
+				E45378AC1DEADA5200A65F43 /* ServiceSync.swift in Sources */,
+				E45378AE1DEADA5200A65F43 /* SendingMessagePool.swift in Sources */,
+				E45378AF1DEADA5200A65F43 /* Model.swift in Sources */,
+				E45378B01DEADA5200A65F43 /* Realm.swift in Sources */,
+				E45378B11DEADA5200A65F43 /* Keyboard.swift in Sources */,
+				E45378B21DEADA5200A65F43 /* Message.swift in Sources */,
+				E45378B31DEADA5200A65F43 /* Feed.swift in Sources */,
+				E45378B41DEADA5200A65F43 /* ParseModel.swift in Sources */,
+				E45378B51DEADA5200A65F43 /* DiscoverModel.swift in Sources */,
 				E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */,
-				E41713891DE41B1E0030319C /* Formula.swift in Sources */,
-				E4862F211DE5C44F00C096CC /* sync.swift in Sources */,
-				E41713881DE41B1E0030319C /* Feed.swift in Sources */,
-				E4862F1F1DE5C40000C096CC /* Realm.swift in Sources */,
 				E4A3BAA71DE3FA43009C0E78 /* PrepareData.swift in Sources */,
-				E4862F231DE5EF9500C096CC /* push.swift in Sources */,
-				E4862F251DE5F1FB00C096CC /* String+Kit.swift in Sources */,
 				E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */,
 				E4A3BAA61DE3FA43009C0E78 /* JSONData.swift in Sources */,
-				E44547B51DE6B3CC006816EF /* AVUser+Kit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1815,7 +1842,6 @@
 				E4CED8831DE862770036A11C /* LayoutButton.swift in Sources */,
 				E41ECF2E1DB5CE54005BEFE4 /* Feed.swift in Sources */,
 				E4CED88F1DE862770036A11C /* Palette.swift in Sources */,
-				E44547B91DE6B5D7006816EF /* ServicePush.swift in Sources */,
 				E4CED8681DE862770036A11C /* FormulaNameTextField.swift in Sources */,
 				E4CED88B1DE862770036A11C /* NewFormulaBUtton.swift in Sources */,
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
