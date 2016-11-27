@@ -1,16 +1,12 @@
-//
-//  Formula.swift
-//  Lucuber
-//
-//  Created by Tychooo on 16/9/18.
-//  Copyright © 2016年 Tychooo. All rights reserved.
+
 //
 
 import Foundation
-import AVOSCloud
 import RealmSwift
 
+
 public enum Rotation: String {
+    
     case FR = "FR"
     case FL = "FL"
     case BL = "BL"
@@ -87,42 +83,35 @@ public enum Category: String {
     
 }
 
-/// FormulaViewController's collectionView Layout
 public enum FormulaUserMode {
-    
     case normal
     case card
 }
 
-
+/*
+ 之后要添加Type, 不仅仅要在 plist 文件中添加, 还要来这里添加
+ case test1 = "111"
+ case test2 = "222"
+ case test3 = "333"
+ */
 public enum Type: String {
-    /// 三阶
     case Cross = "Cross"
-    case F2L = "F2L"
-    case PLL = "PLL"
-    case OLL = "OLL"
-    
-    //之后要添加Type, 不仅仅要在 plist 文件中添加, 还要来这里添加
-    //    case test1 = "111"
-    //    case test2 = "222"
-    //    case test3 = "333"
+    case F2L   = "F2L"
+    case PLL   = "PLL"
+    case OLL   = "OLL"
     
     var sortIndex: Int {
         
         switch self {
-        case .Cross:
-            return 1
-        case .F2L:
-            return 2
-        case .PLL:
-            return 3
-        case .OLL:
-            return 4
+        case .Cross: return 1
+        case .F2L:   return 2
+        case .PLL:   return 3
+        case .OLL:   return 4
         }
     }
     
     var sectionText: String {
-       
+        
         switch self {
         case .Cross:
             return "\(self.rawValue) - 中心块与底部十字"
@@ -143,86 +132,68 @@ open class Formula: Object {
     }
     
     dynamic var localObjectID: String = ""
-    
     dynamic var lcObjectID: String?
     
     dynamic var name: String = ""
-    
     dynamic var imageName: String = ""
-    
     dynamic var imageURL: String?
     
     dynamic var favorate: Bool = false
     
     dynamic var categoryString: String = ""
-    
     dynamic var typeString: String = ""
     
     dynamic var creator: RUser?
-    
     dynamic var deletedByCreator: Bool = false
     
     dynamic var rating: Int = 0
-    
     dynamic var isLibrary: Bool = false
     
     dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
-    
     dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
-    
     
     let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
+    var image = UIImage()
     
-//    var image = UIImage()
-//    
-//    var category: Category {
-//        set { categoryString = newValue.rawValue }
-//        get { return Category(rawValue: categoryString)! }
-//    }
-//    
-//    var type: Type {
-//        set { typeString = newValue.rawValue }
-//        get { return Type(rawValue: typeString)! }
-//    }
+    var category: Category {
+        set { categoryString = newValue.rawValue }
+        get { return Category(rawValue: categoryString)! }
+    }
+    
+    var type: Type {
+        set { typeString = newValue.rawValue }
+        get { return Type(rawValue: typeString)! }
+    }
     
     
-//    open func isReadyToPush() -> Bool {
-//        
-//        var isReady = true
-//        if let content = self.contents.first {
-//            isReady = !content.text.isDirty
-//        }
-//        
-//        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !isReady {
-//    
-//            isReady = false
-//        }
-//        return isReady
-//    }
+    open func isReadyToPush() -> Bool {
+
+        
+        var isReady = true
+        if let content = self.contents.first {
+            isReady = !content.text.isEmpty
+        }
+        
+        if name.isEmpty || imageName.isEmpty || typeString.isEmpty || categoryString.isEmpty  || !isReady {
+            
+            isReady = false
+        }
+        return isReady
+    }
     
-//    open var contentMaxCellHeight: CGFloat {
-//        var maxHeight: CGFloat = 0
-//        let heights: [CGFloat] = contents.map{ CGFloat($0.cellHeight) }
-//        heights.forEach {
-//            if $0 > maxHeight {
-//                maxHeight = $0
-//            }
-//        }
-//        return maxHeight + Config.RotationControl.controlMargin
-//    }
+
     
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
-       
+        
         let newFormula = Formula()
-//        newFormula.localObjectID = Formula.randomLocalObjectID()
-//        newFormula.category = .x3x3
-//        newFormula.type = .F2L
+        newFormula.localObjectID = Formula.randomLocalObjectID()
+        newFormula.category = .x3x3
+        newFormula.type = .F2L
         newFormula.rating = 3
         newFormula.favorate = false
-//        newFormula.creator = currentUser(in: realm)
         newFormula.deletedByCreator = false
-        newFormula.isLibrary = isLibrary 
+        newFormula.isLibrary = isLibrary
         realm.add(newFormula)
         
         return newFormula
@@ -242,7 +213,7 @@ open class Formula: Object {
     
     
     override open static func ignoredProperties() -> [String] {
-        return ["image", "category", "type" ]
+        return ["image", "category", "type"]
     }
 }
 
@@ -273,8 +244,7 @@ open class Content: Object {
     open class func new(with formula: Formula, inRealm realm: Realm) -> Content {
         
         let newContent = Content()
-//        newContent.localObjectID = Content.randomLocalObjectID()
-//        newContent.creator = currentUser(in: realm)
+        newContent.localObjectID = Content.randomLocalObjectID()
         newContent.rotation = Rotation.FR.rawValue
         newContent.atFormula = formula
         newContent.atFomurlaLocalObjectID = formula.localObjectID
@@ -292,10 +262,10 @@ open class Content: Object {
 //        let attributesText = text.setAttributesFitDetailLayout(style: .center)
 //        let screenWidth = UIScreen.main.bounds.width
 //        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-////        cellHeight = Float(rect.height)
+//        cellHeight = Float(rect.height)
 //        
 //    }
- 
+    
 }
 
 
@@ -311,27 +281,20 @@ open class RUser: Object {
     
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
     
-    open let messages = LinkingObjects(fromType: Message.self, property: "creatUser")
-    open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
     
-    open var conversation: Conversation? {
-        return conversations.first
-    }
     
-    open let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
-    open let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
-//    open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
+    //    open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     
     open override static func indexedProperties() -> [String] {
         return ["localObjectID"]
     }
-    
-    open func isMe() -> Bool {
-        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
-            return false
-        }
-        return userID == self.lcObjcetID
-    }
+//    
+//    func isMe() -> Bool {
+//        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
+//            return false
+//        }
+//        return userID == self.lcObjcetID
+//    }
     
     // MARK: - test
     open dynamic var blogURLString: String = ""
@@ -358,7 +321,7 @@ open class RUser: Object {
     }
     
     // 级联删除关联的数据对象
-    
+//    
 //    open func cascadeDeleteInRealm(realm: Realm) {
 //        
 //        if let avatar = avatar {
@@ -376,7 +339,7 @@ open class RUser: Object {
 //        
 //        realm.delete(self)
 //    }
-
+    
 }
 
 open class FormulaMaster: Object {
@@ -407,41 +370,54 @@ open class RCategory: Object {
 }
 
 
-//protocol RandomID {
-//    static func randomLocalObjectID() -> String
-//}
-//
-//extension RandomID where Self: Object {
-//    
-//}
-//
-//extension Formula: RandomID {
-//    
-//    class func randomLocalObjectID() -> String {
-//        return "Formula_" + String.random()
-//    }
-//}
-//
-//extension Content: RandomID {
-//    
-//    class func randomLocalObjectID() -> String {
-//        return "Content_" + String.random()
-//    }
-//}
-//
-//extension RUser: RandomID {
-//    
-//    class func randomLocalObjectID() -> String {
-//        return "RUser_" + String.random()
-//    }
-//}
-//
-//extension Message: RandomID {
-//    
-//    class func randomLocalObjectID() -> String {
-//        return "Message" + String.random()
-//    }
-//}
+protocol RandomID {
+    static func randomLocalObjectID() -> String
+}
+
+extension RandomID where Self: Object {
+    
+}
+
+extension Formula: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Formula_" + String.random()
+    }
+}
+
+extension Content: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Content_" + String.random()
+    }
+}
+
+extension RUser: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "RUser_" + String.random()
+    }
+}
+
+
+extension String {
+    
+    static func random(length: Int = 15) -> String {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var randomString = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        
+        return randomString
+    }
+}
 
 
 open class Avatar: Object {
@@ -459,287 +435,550 @@ open class Avatar: Object {
     
 }
 
+public struct Recipient {
+    let type: ConversationType
+    let ID: String
+}
+
+public enum UserFriendState: Int {
+    case Stranger       = 0   // 陌生人
+    case IssuedRequest  = 1   // 已对其发出好友请求
+    case Normal         = 2   // 正常状态的朋友
+    case Blocked        = 3   // 被屏蔽
+    case Me             = 4   // 自己
+    case Yep            = 5   // Yep官方账号
+}
 
 
+public enum MessageMediaType: Int, CustomStringConvertible {
+    
+    case sectionDate = 0
+    case text  = 1
+    case image = 2
+    case audio = 3
+    case video = 4
+    
+    public var description: String {
+        
+        switch self {
+        case .sectionDate:
+            return "sectionDate"
+        case .text:
+            return "text"
+        case .image :
+            return "image"
+        case .audio:
+            return "audio"
+        case .video:
+            return "video"
+        }
+    }
+    
+    
+}
 
-//class FormulaContent: CustomStringConvertible {
-//    
-//    var text: String?
-//    var rotation: Rotation = Config.BaseRotation.FR
-//    
-//    var cellHeight: CGFloat {
+enum MessageDownloadState: Int {
+    case noDownload     = 0 // 未下载
+    case downloading    = 1 // 下载中
+    case downloaded     = 2 // 已下载
+}
+
+enum MessageSendState: Int, CustomStringConvertible {
+    
+    case notSend = 0
+    case failed = 1
+    case successed = 2
+    case read = 3
+    
+    
+    var description: String {
+        
+        switch self {
+        case .notSend:
+            return "notSend"
+        case .failed:
+            return "failed"
+        case .successed:
+            return "successed"
+        case .read:
+            return "read"
+        }
+    }
+}
+
+public class Message: Object {
+    
+    //    public dynamic var openGraphDetected: Bool = false
+    //    public dynamic var openGraphInfo: OpenGraphInfo?
+    //
+    //    public dynamic var coordinate: Coordinate?
+    
+    open dynamic var localObjectID: String = ""
+    open dynamic var lcObjectID: String = ""
+    
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var arrivalUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    open dynamic var mediaType: Int = 0
+    open dynamic var textContent: String = ""
+    
+    
+    
+    open dynamic var attachmentURLString: String = ""
+    open dynamic var localAttachmentName: String = ""
+    open dynamic var thumbnailURLString: String = ""
+    open dynamic var localThumbnailName: String = ""
+    open dynamic var attachmentID: String = ""
+    open dynamic var attachmentExpiresUnixTime: TimeInterval = Date().timeIntervalSince1970 + (6 * 60 * 60 * 24) // 6天，过期时间s3为7天，客户端防止误差减去1天
+    
+    open var imageKey: String {
+        return "image-\(self.localObjectID)-\(self.localAttachmentName)-\(self.thumbnailURLString)"
+    }
+    
+    open var nicknameWithtextContent: String {
+        if let nickname = creator?.nickname {
+            return nickname + textContent
+        } else {
+            return textContent
+        }
+    }
+    
+    open var thumbnailImage: UIImage? {
+        
+        switch mediaType {
+        case MessageMediaType.image.rawValue:
+            return nil
+        case MessageMediaType.video.rawValue:
+            return nil
+        default:
+            return nil
+        }
+        return nil
+    }
+    
+//    open dynamic var mediaMetaData: MediaMetaData?
+    
+    //  public dynamic var socialWork: MessageSocialWork? github
+    
+    open dynamic var downloadState: Int = MessageDownloadState.noDownload.rawValue
+    
+    open dynamic var sendState: Int = MessageSendState.notSend.rawValue
+    open dynamic var readed: Bool = true
+    open dynamic var mediaPlayed: Bool = false
+    open dynamic var hidden: Bool = false // 隐藏对方消息, 不再显示
+    open dynamic var deletedByCreator: Bool = false
+    open dynamic var blockedByRecipient: Bool = false
+    
+    open var isIndicator: Bool {
+        return deletedByCreator || blockedByRecipient
+    }
+    
+    open dynamic var creator: RUser?
+    open dynamic var conversation: Conversation?
+    
+    open var isReal: Bool {
+        
+        if mediaType == MessageMediaType.sectionDate.rawValue {
+            return false
+        }
+        return true
+    }
+    
+    
+    open func deleteAttachment(inRealm realm: Realm) {
 //        
-//        let height: CGFloat = 50
-//        
-//        if let text = text, text.characters.count > 0 {
-//            
-//            let attributesText = text.setAttributesFitDetailLayout(style: .center)
-//            let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 60 - 20 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-//            
-//            return rect.size.height + 30
+//        if let mediaMetaData = mediaMetaData {
+//            realm.delete(mediaMetaData)
 //        }
-//        
-//        return height
-//    }
-//    
-//    
-//    
-//    init() { }
-//    
-//    init(text: String, rotation: String) {
-//        self.text = text
-//        
-//        switch rotation {
-//            
-//        case "FR":
-//            self.rotation = Config.BaseRotation.FR
-//            
-//        case "FL":
-//            self.rotation = Config.BaseRotation.FL
-//            
-//        case "BL":
-//            self.rotation = Config.BaseRotation.BL
-//            
-//        case "BR":
-//            self.rotation = Config.BaseRotation.BR
-//            
-//        default:
-//            break
-//            
-//        }
-//    }
-//    
-//    var description: String {
-//        return "\(text) + \(rotation)"
-//    }
-//    
-//    
-//}
-
-
-//public class Formula1: AVObject, AVSubclassing {
-//
-//    public class func parseClassName() -> String {
-//        return "Formula"
-//    }
-//
-//    @NSManaged var objectID: String
-//
-//    /// 判断是否是系统公式库中的公式
-//    @NSManaged var isLibraryFormula: Bool
-//
-//    /// 公式库公式ID, 1..2..3..4..5..6,排序用. 用户创建的公式不需要此属性
-//    @NSManaged var serialNumber: Int
-//
-//    ///名字
-//    @NSManaged var name: String
-//
-//    var nickName: String {
-//        return type.rawValue + "name"
-//    }
-//
-//    var creatUserID: String = ""
-//
-//
-//    ///图片名字
-//    @NSManaged var imageName: String
-//
-//    ///评级
-//    @NSManaged var rating: Int
-//
-//    ///是否收藏
-//    @NSManaged var favorate: Bool
-//
-//    ///创建者
-//    @NSManaged var creatUser: AVUser
-//
-//    /// 公式内容的文本信息
-//    @NSManaged var contentsString: [String]
-//
-//
-//    var contents: [FormulaContent] {
-//
-//        set {
-//
-//            self.contentsString =  newValue.map {
-//
-//                let text = $0.text ?? ""
-//
-//                var contentString = ""
-//                switch $0.rotation {
-//                case let .FR(imageName, _):
-//                    contentString = imageName + "--" + text
-//                case let .FL(imageName, _):
-//                    contentString = imageName + "--" + text
-//                case let .BL(imageName, _):
-//                    contentString = imageName + "--" + text
-//                case let .BR(imageName, _):
-//                    contentString = imageName + "--" + text
-//                }
-//
-//                return contentString
-//
-//            }
-//        }
-//
-//        get {
-//
-//            var contents = [FormulaContent]()
-//            for string in contentsString {
-//                let stringArray = string.components(separatedBy: "--")
-//                if stringArray.count == 2 {
-//                    let rotation = stringArray[0]
-//                    let text = stringArray[1]
-//                    let content = FormulaContent(text: text, rotation: rotation)
-//                    contents.append(content)
-//                }
-//            }
-//            return contents
-//        }
-//    }
-//
-//
-//    @NSManaged var categoryString: String
-//
-//    var category: Category {
-//
-//        set {
-//            categoryString = newValue.rawValue
-//        }
-//
-//        get {
-//            return Category(rawValue: categoryString)!
-//        }
-//    }
-//
-//    @NSManaged var typeString: String
-//
-//    var type: Type {
-//
-//        set {
-//            typeString = newValue.rawValue
-//        }
-//
-//        get {
-//            return Type(rawValue: typeString)!
-//        }
-//    }
-//
-//    override init() {
-//
-//        super.init()
-//    }
-//
-//    /// 用户创建公式使用的
-//    init(name: String, contents: [FormulaContent], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int)
-//    {
-//        super.init()
-//        self.isLibraryFormula = false
-//        self.name = name
-//        self.contents = contents
-//        self.imageName = imageName
-//        self.favorate = favorate
-//        self.category = category
-//        self.type = type
-//        self.rating = rating
-//        self.objectID = NSUUID().uuidString
-//    }
-//
-//
-//
-//    /// 系统公式库创建所使用的.
-//    init(name: String, contents: [FormulaContent], imageName: String, favorate: Bool, category: Category, type: Type, rating: Int, serialNumber: Int) {
-//        super.init()
-//        self.isLibraryFormula = false
-//        self.name = name
-//        self.contents = contents
-//        self.imageName = imageName
-//        self.favorate = favorate
-//        self.category = category
-//        self.type = type
-//        self.rating = rating
-//        self.serialNumber = serialNumber
-//        self.objectID = NSUUID().uuidString
-//    }
-//
-////    class func creatNewDefaultFormula() -> Formula {
-////        return Formula(name: "", contents: [FormulaContent()], imageName: "cube_Placehold_image_1", favorate: false, category: .x3x3, type: .F2L, rating: 3)
-////    }
-//
-//    override public var description: String {
-//        get {
-//            return "*********** \(self.name) ***********\n" + "catetory = \(category.rawValue)\n" + "content = \(contents) \n" + "imageName = \(imageName)\n" + "rating = \(rating)\n"  + "type = \(type)" + "-------------------------------"
-//        }
-//    }
-//
-//    /// 判断信息是否都正确填写
-//    func isReadyforPushToLeanCloud() -> Bool {
-//
-//        var contentIsReady = false
-//
-//
-//        // 如果contents的第一个text有值, 就可以
-//        if let content = self.contents.first , let text = content.text {
-//            contentIsReady = !text.isDirty
-//        }
-//
-//        if name.isDirty || imageName.isDirty || typeString.isDirty || categoryString.isDirty  || !contentIsReady {
-//
+        
+        switch mediaType {
+            
+        case MessageMediaType.image.rawValue: break
+//            FileManager.removeMessageImageFile(with: localAttachmentName)
+            
+        case MessageMediaType.audio.rawValue: break
+//            FileManager.removeMessageAudioFile(with: localAttachmentName)
+            
+        case MessageMediaType.video.rawValue: break
+//            FileManager.removeMessageVideoFiles(with: localAttachmentName, thumbnailName: localThumbnailName)
+            
+        default:
+            break
+            // TODO: - 删除之后可能会添加的其他附件
+        }
+        
+    }
+    
+    open func deletedInRealm(realm: Realm) {
+        deleteAttachment(inRealm: realm)
+        realm.delete(self)
+    }
+    
+    open func updateForDeletedFromServerInRealm(realm: Realm) {
+        deletedByCreator = true
+        
+        deleteAttachment(inRealm: realm)
+        
+        sendState = MessageSendState.read.rawValue
+        readed = true
+        textContent = ""
+        mediaType = MessageMediaType.text.rawValue
+    }
+    
+    
+    open dynamic var recipientType: String = ""
+    open dynamic var recipientID: String = ""
+    
+    
+    
+    //    func convertToLMessage() -> DiscoverMessage {
+    //
+    //        let message = DiscoverMessage()
+    //
+    //        message.textContent = self.textContent
+    //
+    //        // 在将本地创建的新 Message 推送到 LeanCloud的时候
+    //        // 目前只有一种可能, 消息的创建者是本机自己.
+    //        if isfromMe {
+    //            message.creatarUser = AVUser.current()!
+    //
+    //        } else {
+    //
+    //            // 如果创建消息的不是自己, 通过UserID 获取User
+    //
+    //        }
+    //
+    //        message.creatUserID = creatUser?.userID ?? ""
+    //        message.mediaTypeInt = self.mediaTypeInt
+    //        message.sendState = self.sendStateInt
+    //        message.invalidated = self.invalidate
+    //        message.deletedByCreator = deletedByCreator
+    //        message.recipientType = self.recipientType
+    //        message.recipientID = self.recipientID
+    //
+    //        return message
+    //
+    //    }
+    
+    
+    /// 判断是否是当前登录用户发送的 Message
+//    var isfromMe: Bool {
+//        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
 //            return false
 //        }
-//
-//        return true
+//        return userID == creator!.lcObjcetID
 //    }
-//
-//    func prepareForPushToLeanCloud() {
-//        //准备保存前, 将空白的 content 内容删除掉
-//
-//        var catchContents = self.contents
-//
-//        // 如果某一个创建的content其中的text isDirty, 是删除掉这个content
-//        for (index, content) in catchContents.enumerated() {
-//            if content.text?.isDirty ?? true {
-//                catchContents.remove(at: index)
-//            }
+    
+    
+}
+
+// Feed
+public enum FeedKind: String {
+    
+    case text = "text"
+    case url = "web_page"
+    case image = "image"
+    case video = "video"
+    case audio = "audio"
+    case location = "location"
+    
+    case AppleMusic = "apple_music"
+    case AppleMovie = "apple_movie"
+    case AppleEBook = "apple_ebook"
+    
+    
+    public var needBackgroundUpload: Bool {
+        switch self {
+        case .image:
+            return true
+        case .audio:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var needParseOpenGraph: Bool {
+        switch self {
+        case .text:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+public enum FeedCategory: String {
+    case all = "所有"
+    case formula = "公式"
+    case record = "成绩"
+    case topic = "话题"
+}
+
+open class Attachment: Object {
+    
+    //dynamic var kind: String = ""
+    public dynamic var metadata: String = ""
+    public dynamic var URLString: String = ""
+}
+
+open class FeedAudio: Object {
+    public dynamic var feedID: String = ""
+    public dynamic var URLString: String = ""
+    public dynamic var metadata: NSData = NSData()
+    public dynamic var fileName: String = ""
+}
+
+open class FeedLocation: Object {
+    
+    //    public dynamic var name: String = ""
+    //    public dynamic var coordinate: Coordinate?
+}
+
+open class Feed: Object {
+    
+    open dynamic var feedID: String = ""
+    open dynamic var allowComment: Bool = true
+    
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var updatedUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    open dynamic var creator: RUser?
+    //    dynamic var distance: Double = 0
+    open dynamic var messagesCount: Int = 0
+    open dynamic var body: String = ""
+    open dynamic var kind: String = FeedKind.text.rawValue
+    
+    open var attachments = List<Attachment>()
+    open dynamic var audio: FeedAudio?
+    open dynamic var location: FeedLocation?
+    open dynamic var withFormula: Formula?
+    
+    open dynamic var deleted: Bool = false // 被管理员或创建者删除
+    
+    open dynamic var group: Group?
+    
+    
+    open func cascadeDelete(inRealm realm: Realm) {
+        
+        // 删除所有与 Feed 关联的 Attachment
+        
+        attachments.forEach { realm.delete($0) }
+        
+        // TODO: - 删除Formula
+        
+        if let formula = withFormula {
+            formula.cascadeDelete(inRealm: realm)
+        }
+        
+        realm.delete(self)
+        
+    }
+    
+    
+    
+}
+
+enum GroupType: Int {
+    
+    case Public = 0
+    case Privcate = 1
+}
+
+open class Group: Object {
+    
+    open dynamic var groupID: String = ""
+    open dynamic var groupName: String = ""
+    open dynamic var notificationEnabled: Bool = true
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    
+    open dynamic var owner: RUser?
+    open var members = List<RUser>()
+    
+    open dynamic var groupType: Int = GroupType.Privcate.rawValue
+    
+    open dynamic var withFeed: Feed?
+    open dynamic var withFormula: Formula?
+    
+    open dynamic var incloudMe: Bool = false
+    
+    open let conversations = LinkingObjects(fromType: Conversation.self, property: "withGroup")
+    
+    open var conversation: Conversation? {
+        return conversations.first
+    }
+    
+    public func cascadeDelete(inRealm realm: Realm) {
+        
+        withFeed?.cascadeDelete(inRealm: realm)
+        
+        if let conversation = conversation {
+            realm.delete(conversation)
+            
+            DispatchQueue.main.async {
+                
+                //                NSNotificationCenter.defaultCenter().postNotificationName(YepConfig.Notification.changedConversation, object: nil)
+            }
+            
+        }
+        
+        realm.delete(self)
+    }
+    
+    
+}
+
+open class Draft: Object {
+    
+    //    open dynamic var messageToolbarState: Int = MessageToolbarState.normal.rawValue
+    open dynamic var text: String = ""
+    
+}
+
+public enum ConversationType: Int {
+    case oneToOne = 0 // onetoone
+    case group = 1 // 群组对话
+    
+    public var nameForServer: String {
+        switch self {
+        case .oneToOne:
+            return "user"
+            
+        case .group:
+            return "group"
+        }
+        
+    }
+    
+}
+
+public func ==(lhs: UsernamePrefixMatchedUser, rhs: UsernamePrefixMatchedUser) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public struct UsernamePrefixMatchedUser {
+    
+    public let localObjectID: String
+    public let username: String
+    public let nickname: String
+    public let avatorURLString: String?
+    public let lastSignInUnixTime: TimeInterval
+    
+    public var mentionUsername: String {
+        return "@" + username
+    }
+}
+
+extension UsernamePrefixMatchedUser: Hashable {
+    
+    public var hashValue: Int {
+        return localObjectID.hashValue
+    }
+}
+
+open class Conversation: Object {
+    
+    open var fakeID: String? {
+        switch type {
+        case ConversationType.oneToOne.rawValue:
+            if let withFriend = withFriend {
+                return "user" + withFriend.localObjectID
+            }
+        case ConversationType.group.rawValue:
+            if let withGroup = withGroup {
+                return "group" + withGroup.groupID
+            }
+        default:
+            return nil
+        }
+        
+        return nil
+    }
+    
+    open var recipiendID: String? {
+        
+        switch type {
+            
+        case ConversationType.oneToOne.rawValue:
+            if let withFriend = withFriend {
+                return withFriend.localObjectID
+            }
+            
+        case ConversationType.group.rawValue:
+            if let withGroup = withGroup {
+                return withGroup.groupID
+            }
+            
+        default:
+            return nil
+        }
+        
+        return nil
+    }
+    
+    open var mentionInitUsers: [UsernamePrefixMatchedUser] {
+        
+//        let users = messages.flatMap({ $0.creator }).filter({ !$0.username.isEmpty && !$0.isMe() })
+//        
+//        let usernamePrefixMatchedUser = users.map({
+//            UsernamePrefixMatchedUser(
+//                localObjectID: $0.localObjectID,
+//                username: $0.username,
+//                nickname: $0.nickname,
+//                avatorURLString: $0.avatorImageURL,
+//                lastSignInUnixTime: $0.lastSignInUnixTime)
+//        })
+//        
+//        let uniqueSortedUsers = Array(Set(usernamePrefixMatchedUser)).sorted(by: {
+//            $0.lastSignInUnixTime > $1.lastSignInUnixTime
+//        })
+//        
+        return [UsernamePrefixMatchedUser]()
+    }
+    
+    open dynamic var type: Int = ConversationType.oneToOne.rawValue
+    open dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    open dynamic var withFriend: RUser?
+    open dynamic var withGroup: Group?
+    
+    open dynamic var draft: Draft?
+    
+    open let messages = LinkingObjects(fromType: Message.self, property: "conversation")
+    
+    open dynamic var unreadMessageCount: Int = 0
+    open dynamic var hasUnreadMessages: Bool = false
+    open dynamic var mentionedMe: Bool = false
+    open dynamic var lastMentionedMeUnixTime: TimeInterval = Date().timeIntervalSince1970 - 60*60*12
+    
+    open var latestValidMessage: Message? {
+        return messages.filter({ ($0.hidden == false) && ($0.isIndicator == false && ($0.mediaType != MessageMediaType.sectionDate.rawValue)) }).sorted(by: { $0.createdUnixTime > $1.createdUnixTime }).first
+    }
+    
+    open var latestMessageTextContentOrPlaceholder: String? {
+        
+        guard let latestValidMessage = latestValidMessage else {
+            return nil
+        }
+        return latestValidMessage.className
+        
+//        if let mediaType = MessageMediaType(rawValue: latestValidMessage.mediaType), let placeholder = mediaType.placeholder {
+//            return placeholder
+//        } else {
+//            return latestValidMessage.textContent
 //        }
-//
-//        self.contents = catchContents
-//    }
-//
-//
-//    var contentLabelMaxHeight: CGFloat {
-//
-//        var height: CGFloat = 0
-//
-//        for (_, content) in contents.enumerated() {
-//
-//            if let text = content.text {
-//
-//                let attributesText = text.setAttributesFitDetailLayout(style: .center)
-//                let rect = attributesText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-//
-//                if rect.height > height {
-//                    height = rect.height
-//                }
-//
-//            }
-//        }
-//
-//        return height
-//    }
-//
-//    var formulaContentCellHeight: CGFloat {
-//
-//        return contentLabelMaxHeight + 25 + 35 + 25 + 40
-//    }
-//
-//
-////    func copy(with zone: NSZone? = nil) -> Any {
-////        let copy = Formula(name: name, contents: contents, imageName: imageName, favorate: favorate, category: category, type: type, rating: rating)
-////        return copy
-////    }
-//
-//}
-//
+    }
+    
+    open var needDetectMention: Bool {
+        return type == ConversationType.group.rawValue
+    }
+}
+
+
+
+
+
 
 
