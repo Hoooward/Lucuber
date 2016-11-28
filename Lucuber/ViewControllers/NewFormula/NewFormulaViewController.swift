@@ -31,7 +31,6 @@ class NewFormulaViewController: UIViewController {
     var editType: EditType = .newFormula
     
     var savedNewFormula: (() -> Void)?
-    
    
     var formula = Formula() {
         didSet {
@@ -307,11 +306,11 @@ class NewFormulaViewController: UIViewController {
         view.endEditing(true)
         
         if isReadyForSave {
-        
-            let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
-            vc.attachment = NewFeedViewController.Attachment.formula
-            vc.attachmentFormula = formula
-            self.navigationController?.pushViewController(vc, animated: true)
+//        
+//            let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
+//            vc.attachment = NewFeedViewController.Attachment.formula
+//            vc.attachmentFormula = formula
+//            self.navigationController?.pushViewController(vc, animated: true)
             
         } else {
             
@@ -781,7 +780,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
         case .content:
-             return  formula.contents[indexPath.row].cellHeight
+             return  CGFloat(formula.contents[indexPath.row].cellHeight)
           
         default:
             return 40

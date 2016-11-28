@@ -299,6 +299,8 @@ open class FormulaMaster: Object {
 
 open class RUser: Object {
     
+//    open dynamic var friendState: String = ""
+    
     open dynamic var lcObjcetID: String = ""
     open dynamic var localObjectID: String = ""
     open dynamic var nickname: String = ""
@@ -581,6 +583,45 @@ open class MediaMetaData: Object {
 }
 
 // MARK: - Feed
+
+public enum FeedSortStyle: String {
+    
+    case distance = "distance"
+    case time = "time"
+    case match = "default"
+    case recommended = "recommended"
+    
+    public var name: String {
+        switch self {
+        case .distance:
+            return NSLocalizedString("Nearby", comment: "")
+        case .time:
+            return NSLocalizedString("Time", comment: "")
+        case .match:
+            return NSLocalizedString("Match", comment: "")
+        case .recommended:
+            return NSLocalizedString("Recommended", comment: "")
+        }
+    }
+    
+    public var nameWithArrow: String {
+        return name + " ▾"
+    }
+    
+    public var needPageFeedID: Bool {
+        switch self {
+        case .distance:
+            return true
+        case .time:
+            return true
+        case .match:
+            return false
+        case .recommended:
+            return true
+        }
+    }
+}
+
 public enum FeedKind: String {
     
     case text = "text"

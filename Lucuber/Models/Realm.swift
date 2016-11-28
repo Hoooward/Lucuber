@@ -25,7 +25,16 @@ public func currentUser(in realm: Realm) -> RUser? {
     if let rUser = userWith(avUserObjectID, inRealm: realm) {
         return rUser
     } else {
-        return creatRUser(with: avUser, inRealm: realm)
+        return createOrUpdateRUser(with: avUser, inRealm: realm)
+    }
+}
+
+public func tryGetOrCreatMe(inRealm realm: Realm) -> RUser {
+    guard let avUser = AVUser.current(), let avUserObjectID = avUser.objectId else { fatalError() }
+    if let rUser = userWith(avUserObjectID, inRealm: realm) {
+        return rUser
+    } else {
+        return createOrUpdateRUser(with: avUser, inRealm: realm)
     }
 }
 
@@ -71,33 +80,37 @@ public func updateMasterList(with currentUser: RUser, discoverUser: AVUser, inRe
     }
 }
 
-public func creatRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
+public func createOrUpdateRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
     
-    if let creator = userWith(discoverUser.objectId ?? "", inRealm: realm) {
+    var creator = userWith(discoverUser.objectId ?? "", inRealm: realm)
+    
+    realm.beginWrite()
+    if creator == nil {
+        
+        let newUser = RUser()
+        newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
+        newUser.lcObjcetID = discoverUser.objectId!
+        
+        realm.add(newUser)
+        
+        creator = newUser
+    }
+    
+    if let creator = creator {
+        
+        creator.avatorImageURL = discoverUser.avatorImageURL()
+        creator.username = discoverUser.username ?? ""
+        creator.nickname = discoverUser.nickname() ?? ""
+        creator.introduction = discoverUser.introduction()
         
         updateMasterList(with: creator, discoverUser: discoverUser, inRealm: realm)
         
-        return creator
-        
-    } else {
-        
-        let newUser = RUser()
-        
-        newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
-        newUser.lcObjcetID = discoverUser.objectId!
-        newUser.avatorImageURL = discoverUser.avatorImageURL()
-        newUser.username = discoverUser.username ?? ""
-        newUser.nickname = discoverUser.nickname() ?? ""
-        newUser.introduction = discoverUser.introduction()
-        
-        updateMasterList(with: newUser, discoverUser: discoverUser, inRealm: realm)
-        
-        try? realm.write {
-            realm.add(newUser)
-        }
-        return newUser
+        try? realm.commitWrite()
     }
     
+    return creator!
+    
+   
 }
 
 // MARK: - Formula
@@ -167,9 +180,7 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         
     case .my:
         
-        guard
-            let userID = AVUser.current()?.objectId,
-            let currentUser = userWith(userID, inRealm: realm) else { fatalError() }
+        guard let currentUser = currentUser(in: realm) else { fatalError() }
         let predicate = NSPredicate(format: "creator = %@", currentUser)
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
         let result =  realm.objects(Formula.self).filter(predicate).filter(predicate2)

@@ -25,7 +25,7 @@ class FeedAnyImagesCell: FeedBaseCell  {
         super.configureWithFeed(feed: feed, layout: layout, needshowCategory: needshowCategory)
         
         
-        switch feed.attachment {
+        switch feed.attachments {
             
         case .Image(let imageAttachments):
             self.imageAttachments = imageAttachments

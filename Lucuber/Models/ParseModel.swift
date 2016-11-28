@@ -58,6 +58,13 @@ public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessag
     
     let discoverMessage = DiscoverMessage()
    
+    
+    if let userID = message.creator?.lcObjcetID {
+        
+        let avUser = AVUser(objectId: userID)
+        discoverMessage.creator = avUser
+    }
+    
     discoverMessage.localObjectID = message.localObjectID
     
     discoverMessage.mediaType = message.mediaType

@@ -85,17 +85,13 @@ class RegisterPickAvatarViewController: UIViewController {
         openCameraButton.setTitleColor(UIColor.white, for: .normal)
         openCameraButton.backgroundColor = UIColor.cubeTintColor()
         openCameraButton.addTarget(self, action: #selector(RegisterPickAvatarViewController.openPhotoLibraryPicker), for: .touchUpInside)
-        
-        nikeNameLabel.textColor = UIColor.inputText()
       
+        nikeNameLabel.text = self.nickName
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let user = AVUser.current() {
-            nikeNameLabel.text = user.nickname() ?? ""
-        }
         
         guard PHPhotoLibrary.authorizationStatus() != .authorized else {
             return
@@ -106,102 +102,41 @@ class RegisterPickAvatarViewController: UIViewController {
             if status == PHAuthorizationStatus.authorized {
                 printLog("授权成功")
             } else {
-                
                 printLog("授权失败")
-                
             }
             
         }
     }
     
-//    private lazy var sessionQueue: dispattchq = dispatch_queue_create("session_queue", DISPATCH_QUEUE_SERIAL)
-    
-//    private lazy var session: AVCaptureSession = {
-//        let session = AVCaptureSession()
-//        session.sessionPreset = AVCaptureSessionPreset640x480
-//        return session
-//    }()
-//    
-//    private let mediaType = AVMediaTypeVideo
-//    
-//    private lazy var videoDeviceInPut: AVCaptureDeviceInput? = {
-//        
-//        let devices = AVCaptureDevice.devicesWithMediaType(self.mediaType)
-//        
-//        var captureDevice = devices.first as? AVCaptureDevice
-//        
-//        for device in devices as! [AVCaptureDevice] {
-//            
-//            if device.position == AVCaptureDevicePosition.init(rawValue: 0){
-//                
-//                captureDevice = device
-//                
-//                break
-//            }
-//        }
-//        
-//        
-//        return try? AVCaptureDeviceInput(device: captureDevice)
-//       
-//        
-//    }()
     
     // MARK: - Target & Action
     func next(_ barButton: UIBarButtonItem) {
-        
         CubeHUD.showActivityIndicator()
         
         let image = avatar.largestCenteredSquareImage().resizeTo(targetSize: Config.Avatar.maxSize)
         
-        let imageData = UIImageJPEGRepresentation(image, 0.7)
+        let imageData = UIImageJPEGRepresentation(image, 0.9)
         
-        if let imageData = imageData {
+        pushDataToLeancloud(with: imageData, failureHandler: {
+            reason, errorMessage in
             
-            updateAvatar(withImageData: imageData, failureHandler: { error in
-                
-                CubeHUD.hideActivityIndicator()
-                
-                CubeAlert.alertSorry(message: "上传头像失败，请检查网络连接或稍后再试。", inViewController: self)
-                
-                }, completion: { URLString in
-                    
-                    CubeHUD.hideActivityIndicator()
-                    
-                    // 本地保存 avatarURL
-                    UserDefaults.setNewUser(avatarURL: URLString)
-                    
-                    let nickName = UserDefaults.getNewUserNickName()!
-                    let avatarURL = UserDefaults.getNewUserAvatarURL()!
-                    
-                    updateUserInfo(nickName: nickName, avatarURL: avatarURL, failureHandler: { error in
-                        
-                        CubeHUD.hideActivityIndicator()
-                        if let error = error {
-                            
-                            switch error.code {
-                                
-                            case 9999:
-                                
-                                CubeAlert.alertSorry(message: "注册异常， 请尝试退出应用重启进入。", inViewController: self)
-                                
-                            default:
-                                
-                                CubeAlert.alertSorry(message: "用户信息上传失败， 请检查网络连接或稍后再试。", inViewController: self)
-                            }
-                        }
-                        
-                        }, completion: {
-                            
-                            CubeHUD.hideActivityIndicator()
-                           // 用户信息更新完成。进入Main
-                            
-                            NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
-                            
-                    })
-                    
-            })
+            defaultFailureHandler(reason, errorMessage)
+            CubeHUD.hideActivityIndicator()
+            CubeAlert.alertSorry(message: "上传头像失败, 请检查网络连接或稍后再试", inViewController: self)
             
-        }
+        }, completion: { URLString in
+            
+            UserDefaults.setNewUser(avatarURL: URLString)
+            if let currentUser = AVUser.current() {
+                currentUser.setAvatorImageURL(URLString)
+                currentUser.setNickname(self.nickName!)
+                currentUser.saveInBackground()
+            }
+            
+            CubeHUD.hideActivityIndicator()
+            NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+            
+        })
     }
     
     func openPhotoLibraryPicker() {
@@ -224,7 +159,6 @@ class RegisterPickAvatarViewController: UIViewController {
         self.present(imagePicker, animated: true, completion: nil)
         
     }
-  
 
 }
 

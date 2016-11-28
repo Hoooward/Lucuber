@@ -60,6 +60,13 @@ extension AVUser {
         setObject(list, forKey: masterListKey)
     }
     
+    public static var isLogin: Bool {
+        if let _ = self.current() {
+            return true
+        }
+        return false
+    }
+    
 }
     
 

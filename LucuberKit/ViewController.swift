@@ -13,11 +13,13 @@ import AVOSCloud
 
 class ViewController: UIViewController {
 
+//    @IBAction func logout(_ sender: Any) {
+//        AVUser.logOut()
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Login
-        loginAdmin()
      
         // 测试 Realm 初始化
         guard let realm = try? Realm() else {
@@ -26,19 +28,18 @@ class ViewController: UIViewController {
         
         printLog("\(realm) 已经初始化成功")
         
+//        sendeTextMessage()
 //        sendImageMessage()
-        sendeTextMessage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        sendImageMessage()
     }
     
     
     func sendImageMessage() {
         
-        let image = UIImage(named: "Rubik's_cube")!
+        let image = UIImage(named: "Howard")!
         let imageData = UIImageJPEGRepresentation(image, 0.95)
         
         pushMessageImage(atPath: nil, orFileData: imageData, metaData: nil, toRecipient: "test", recipientType: "group", afterCreatedMessage: { message in

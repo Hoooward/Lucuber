@@ -22,7 +22,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         case showFormulaDetail = "ShowFormulaDetail"
     }
     
-    fileprivate var realm: Realm!
+    fileprivate var realm: Realm! = try! Realm()
     
     public lazy var formulasData: Results<Formula> = {
         return formulasWith(self.uploadMode, category: self.seletedCategory, inRealm: self.realm)

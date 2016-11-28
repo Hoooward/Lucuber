@@ -14,28 +14,28 @@ class DetailFormulasCell: UITableViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     
 
-    var formulaContent: FormulaContent? {
-        didSet {
-            if let content = formulaContent {
-                var indicaterImagename = ""
-                switch content.rotation {
-                case .FR(let imageName, _):
-                    indicaterImagename = imageName
-                case .FL(let imageName, _):
-                    indicaterImagename = imageName
-                case .BL(let imageName, _):
-                    indicaterImagename = imageName
-                case .BR(let imageName, _):
-                    indicaterImagename = imageName
-                }
-                rotationIndicator.image = UIImage(named: indicaterImagename + "_gray")
-                
-                contentLabel.attributedText = content.text?.setAttributesFitDetailLayout(style: .detail)
-          
-        }
-    }
-    }
-    
+//    var formulaContent: FormulaContent? {
+//        didSet {
+//            if let content = formulaContent {
+//                var indicaterImagename = ""
+//                switch content.rotation {
+//                case .FR(let imageName, _):
+//                    indicaterImagename = imageName
+//                case .FL(let imageName, _):
+//                    indicaterImagename = imageName
+//                case .BL(let imageName, _):
+//                    indicaterImagename = imageName
+//                case .BR(let imageName, _):
+//                    indicaterImagename = imageName
+//                }
+//                rotationIndicator.image = UIImage(named: indicaterImagename + "_gray")
+//                
+//                contentLabel.attributedText = content.text?.setAttributesFitDetailLayout(style: .detail)
+//          
+//        }
+//    }
+//    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

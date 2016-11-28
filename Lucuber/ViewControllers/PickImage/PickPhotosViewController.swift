@@ -155,18 +155,18 @@ class PickPhotosViewController: UICollectionViewController {
 //        delegate?.returnSeletedImages(images, imageAssets: pickedImages)
         
         if let vcStack = navigationController?.viewControllers {
-            weak var destVC: NewFeedViewController?
-            for vc in vcStack {
-                if vc is NewFeedViewController {
-                    let vc = vc as! NewFeedViewController
-                    destVC = vc
-                    destVC?.returnSeletedImages(images, imageAssets: pickedImages)
-                    break
-                }
-            }
-            if let destVC = destVC {
-                let _ = navigationController?.popToViewController(destVC, animated: true)
-            }
+//            weak var destVC: NewFeedViewController?
+//            for vc in vcStack {
+//                if vc is NewFeedViewController {
+//                    let vc = vc as! NewFeedViewController
+//                    destVC = vc
+//                    destVC?.returnSeletedImages(images, imageAssets: pickedImages)
+//                    break
+//                }
+//            }
+//            if let destVC = destVC {
+//                let _ = navigationController?.popToViewController(destVC, animated: true)
+//            }
         }
         
         

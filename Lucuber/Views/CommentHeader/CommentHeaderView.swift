@@ -134,7 +134,7 @@ class CommentHeaderView: UIView {
         nameLabel.text = formula.name
         categoryIndicatorView.configureWithCategory(category: formula.category.rawValue)
         creatTimeLabel.text = "更新时间: \(formula.updateUnixTime)"
-        creatUserLabel.text = "创建者: \(formula.creator?.nickName)"
+        creatUserLabel.text = "创建者: \(formula.creator?.nickname)"
     }
     
     

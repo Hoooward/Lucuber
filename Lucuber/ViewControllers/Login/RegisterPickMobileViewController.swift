@@ -98,9 +98,7 @@ class RegisterPickMobileViewController: UIViewController {
             break
         }
         
-        
     }
-    
 
     // MARK: - Target & Action
     
@@ -143,22 +141,22 @@ class RegisterPickMobileViewController: UIViewController {
             
             if let type = self.loginType {
                 
-                validateMobile(mobile: phoneNumber, checkType: type, failureHandler: { reason, errorMessage in
+                fetchValidateMobile(mobile: phoneNumber, checkType: type, failureHandler: { reason, errorMessage in
                     
                     CubeHUD.hideActivityIndicator()
+                    
+                    defaultFailureHandler(reason, errorMessage)
                     
                     switch type {
                         
                     case .register:
                         
-                        
                         switch reason {
                             
                         case .noSuccess:
-                            CubeAlert.alertSorry(message: "您输入的手机号已经注册, 可返回直接登录。", inViewController: self)
+                            CubeAlert.alertSorry(message: "您输入的手机号已经注册, 可返回直接登录", inViewController: self)
                             
-                        case .network(let error):
-                            printLog(error)
+                        case .network(_):
                             CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
                             
                         default: break
@@ -170,16 +168,14 @@ class RegisterPickMobileViewController: UIViewController {
                         switch reason {
                             
                         case .noSuccess:
-                            CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
+                            CubeAlert.alertSorry(message: "您输入的手机号码尚未注册，请返回注册", inViewController: self)
                             
-                        case .network(let error):
+                        case .network(_):
                             
-                            printLog(error)
-                            CubeAlert.alertSorry(message: "您输入的手机号码尚未注册，请返回注册。", inViewController: self)
+                            CubeAlert.alertSorry(message: "请检查网络连接或稍后再试", inViewController: self)
                             
                         default: break
                         }
-                        
                     }
                     
                     }, completion: {

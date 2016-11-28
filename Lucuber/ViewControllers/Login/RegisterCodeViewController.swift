@@ -8,6 +8,7 @@
 
 import UIKit
 import AVOSCloud
+import RealmSwift
 
 class RegisterCodeViewController: UIViewController {
     
@@ -152,6 +153,7 @@ class RegisterCodeViewController: UIViewController {
         
         fetchMobileVerificationCode(phoneNumber: phoneNumber!, failureHandler: { reason, errorMessage in
             
+            defaultFailureHandler(reason, errorMessage)
             switch reason {
                 
             case .other(let error):
@@ -195,14 +197,19 @@ class RegisterCodeViewController: UIViewController {
             return
         }
         
+        CubeHUD.showActivityIndicator()
         
         signUpOrLogin(with: phoneNumber!, smsCode: code, failureHandler: { reason, errorMessage in
             
+            CubeHUD.hideActivityIndicator()
+            
+            defaultFailureHandler(reason, errorMessage)
             switch reason {
                 
             case .other(let error):
                 
                 if error?.code == 603 {
+                    printLog(errorMessage)
                     CubeAlert.alertSorry(message: "无效的验证码， 请核对后重新输入。", inViewController: self)
                     
                 } else {
@@ -214,6 +221,9 @@ class RegisterCodeViewController: UIViewController {
             }
             
         }, completion: { user in
+            
+            CubeHUD.hideActivityIndicator()
+            
             
             switch self.loginType! {
                 

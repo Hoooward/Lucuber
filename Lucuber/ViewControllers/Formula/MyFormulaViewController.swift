@@ -55,7 +55,13 @@ class MyFormulaViewController: BaseCollectionViewController {
             return
         }
         
-        syncFormula(with: self.uploadMode, categoty: self.seletedCategory, completion: {
+        syncFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: { error in
+            self.searchBar.isHidden = true
+            self.isUploadingFormula = false
+            self.view.addSubview(self.vistorView)
+            self.isUploadingFormula = false
+            printLog(error)
+        }, completion: {
             formulas in
             
             delay(1) {
@@ -64,12 +70,6 @@ class MyFormulaViewController: BaseCollectionViewController {
             }
             
             
-        }, failureHandler: { error in
-            self.searchBar.isHidden = true
-            self.isUploadingFormula = false
-            self.view.addSubview(self.vistorView)
-            self.isUploadingFormula = false
-            printLog(error)
         })
     
     }

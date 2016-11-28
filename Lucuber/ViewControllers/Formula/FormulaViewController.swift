@@ -75,6 +75,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     
     private func addChileViewControllers() {
         
+        
         let myFormulaLayout = BaseFormulaLayout()
         let myFormula = MyFormulaViewController(collectionViewLayout: myFormulaLayout)
         myFormula.title = "我的公式"

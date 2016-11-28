@@ -80,7 +80,8 @@ class DetailContentCell: UITableViewCell {
         guard let formula = formula else { return }
         
         let screenWidth = UIScreen.main.bounds.width
-        let rect = CGRect(x: 45, y: 25, width: screenWidth - 45 - 45, height: formula.contentMaxCellHeight)
+//        let rect = CGRect(x: 45, y: 25, width: screenWidth - 45 - 45, height: formula.contentMaxCellHeight)
+        let rect = CGRect(x: 45, y: 25, width: screenWidth - 45 - 45, height: 100)
         contentLabel.frame = rect
         
         let segmentControlFrame = CGRect(x: 28, y: contentLabel.frame.maxY + 40, width: screenWidth - 28 - 28, height: 35)

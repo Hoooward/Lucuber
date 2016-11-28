@@ -19,7 +19,6 @@ class LibraryFormulaViewController: BaseCollectionViewController {
     private lazy var indicatorView = UpdateLibraryErrorView(frame: UIScreen.main.bounds)
     
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,12 +29,17 @@ class LibraryFormulaViewController: BaseCollectionViewController {
         
         indicatorView.retryUpdateLibrary = { [unowned self] in
             
-            updateLibraryDateVersion(completion: { [unowned self] in
+            updateLibraryDate(failureHandeler: {
+                reason, errorMessage in
+                defaultFailureHandler(reason, errorMessage)
+                
+            }, completion: { [unowned self] in
                 
                 self.indicatorView.removeFromSuperview()
                 self.searchBar.isHidden = false
+                self.collectionView?.reloadData()
                 
-            }, failureHandeler: nil)
+            })
         }
     }
     
@@ -49,43 +53,52 @@ class LibraryFormulaViewController: BaseCollectionViewController {
         // Realm is no data
         if formulasData.isEmpty {
            
-            updateLibraryDateVersion(completion: {
+            updateLibraryDate(failureHandeler: {
+                reason, errorMessage in
+                defaultFailureHandler(reason, errorMessage)
+                
+                self.view.addSubview(self.indicatorView)
+                self.searchBar.isHidden = true
+                
+            }, completion: {
                 
                 self.collectionView?.reloadData()
                 self.indicatorView.removeFromSuperview()
                 self.searchBar.isHidden = false
                 
-            }, failureHandeler: {
-                
-                self.view.addSubview(self.indicatorView)
-                self.searchBar.isHidden = true
- 
             })
             
         } else {
             
             let currentVersion = UserDefaults.dataVersion()
             
-            syncPreferences(completion: {
-                version in
+            syncPreferences(failureHandler: {
+                reason, errorMessage in
+                defaultFailureHandler(reason, errorMessage)
                 
-                if currentVersion != version {
-                    
-                    CubeAlert.confirmOrCancel(title: "更新", message: "检测到公式库有可用更新, 是否需要现在更新? 不会消耗太多流量哦哦~", confirmTitle: "恩, 就是现在", cancelTitles: "起开", inViewController: self, confirmAction: {
-                        
-                        updateLibraryDateVersion(completion: {
-                            
-                            UserDefaults.setDataVersion(version)
-                            self.collectionView?.reloadData()
-                            
-                        }, failureHandeler: nil)
-                        
-                        }, cancelAction: {
-                    })
+            }, completion: { newVersion in
+               
+                if currentVersion == newVersion {
+                    return
                 }
                 
-            }, failureHandler: { error in printLog(error) })
-            
+                CubeAlert.confirmOrCancel(title: "更新", message: "检测到公式库有可用更新, 是否需要现在更新? 不会消耗太多流量哦哦~", confirmTitle: "恩, 就是现在", cancelTitles: "暂不更新", inViewController: self, confirmAction: {
+                    
+                    updateLibraryDate(failureHandeler: {
+                        reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        
+                    }, completion: {
+                        
+                        UserDefaults.setDataVersion(newVersion)
+                        self.collectionView?.reloadData()
+                        
+                    })
+                    
+                }, cancelAction: {
+                    
+                })
+            })
         }
         
     }

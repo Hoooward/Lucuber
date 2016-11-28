@@ -56,7 +56,7 @@ extension UserDefaults {
     }
     
     class func dataVersion() -> String {
-        return standard.string(forKey: dataVersionKey) ?? "0.9"
+        return standard.string(forKey: dataVersionKey) ?? "1.0"
     }
 }
 

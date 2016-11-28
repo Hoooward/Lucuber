@@ -8,6 +8,46 @@ import Foundation
 import AVOSCloud
 import RealmSwift
 
+
+public enum ErrorCode: String {
+    case blockedByRecipient = "rejected_your_message"
+    case notYetRegistered = "not_yet_registered"
+    case userWasBlocked = "user_was_blocked"
+    case userIsRegister = "手机号码已经注册"
+}
+
+public enum Reason: CustomStringConvertible {
+    case network(Error?)
+    case noData
+    case noSuccessStatusCode(statusCode: Int, errorCode: ErrorCode?)
+    case noSuccess
+    case other(NSError?)
+    
+    public var description: String {
+        switch self {
+        case .network(let error):
+            return "Network, Error: \(error)"
+        case .noData:
+            return "NoData"
+        case .noSuccessStatusCode(let statusCode):
+            return "NoSuccessStatusCode: \(statusCode)"
+        case .noSuccess:
+            return "NoSuccess"
+        case .other(let error):
+            return "Other, Error: \(error)"
+        }
+    }
+}
+
+
+public typealias FailureHandler = (_ reason: Reason, _ errorMessage: String?) -> Void
+
+public let defaultFailureHandler: FailureHandler = { (reason, errorMessage) in
+    print("\n***************************** Lucuber Failure *****************************")
+    print("Reason: \(reason)")
+    if let errorMessage = errorMessage { print("errorMessage: >>>\(errorMessage)<<<\n") }
+}
+
 public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
     
     guard !images.isEmpty else {
@@ -45,11 +85,10 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
 }
 
 
-public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping (Error?) -> Void, completion: @escaping (_ URLString: String) -> Void) {
+public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLString: String) -> Void) {
     
     guard let data = data else {
-        printLog("Data = nil")
-        failureHandler(nil)
+        failureHandler(Reason.noData, "传入的 Data 为空")
         return
     }
     
@@ -59,31 +98,30 @@ public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping (Err
             completion(file.url ?? "")
         }
         if error != nil {
-            failureHandler(error)
+            failureHandler(Reason.network(error), "网络请求失败")
         }
     }
 }
 
 
 
-
-public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
+public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     createAndPushMessage(with: MessageMediaType.image, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
-public func pushMessageText(_ text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void,failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
+public func pushMessageText(_ text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void,failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     createAndPushMessage(with: MessageMediaType.text, atFilePath: nil, orFileData: nil, metaData: nil, text: text, toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
-public func pushMessageAudio(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void ) {
+public func pushMessageAudio(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void ) {
     
     createAndPushMessage(with: MessageMediaType.audio, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
 
-public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: (Message) -> Void, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
+public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     // 因为 message_id 必须来自远端，线程无法切换，所以这里暂时没用 realmQueue
     // TOOD: 也许有办法
@@ -203,9 +241,9 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
     
     pushMessageToLeancloud(with: message, atFilePath: filePath, orFileData: fileData, metaData: metaData, toRecipient: recipientID, recipientType: recipientType, failureHandler: {
-        error in
+        reason, errorMessage in
         
-        failureHandler(error)
+        failureHandler(reason, errorMessage)
         
         let realm = message.realm
         try? realm?.write {
@@ -217,7 +255,7 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
 }
 
-public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
+public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     guard let mediaType = MessageMediaType(rawValue: message.mediaType) else {
         printLog("无效的 mediaType")
@@ -240,7 +278,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
             completion(success)
         }
         
-        if error != nil { failureHandler(error) }
+        if error != nil { failureHandler(Reason.network(error), "网络请求失败") }
     }
     
     // TODO: - 暂时不处理 Location
@@ -251,9 +289,9 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
         
     case .audio, .image, .video:
         
-        pushDataToLeancloud(with: fileData, failureHandler: { error in
+        pushDataToLeancloud(with: fileData, failureHandler: { reason, errorMessage in
             
-            failureHandler(error)
+            failureHandler(reason, errorMessage)
             
         }, completion: { URLString in
             
@@ -265,7 +303,6 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
             }
             
             discoverMessage.saveInBackground(messageSavedCompletion)
-            
             
         })
         
@@ -348,8 +385,6 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
         }
         
         if success {
-            
-            
             
             newDiscoverFormula.saveInBackground({ success, error in
                 
@@ -578,59 +613,9 @@ public enum UploadFeedMode {
 //    
 //}
 
-// MARK: - Login
+// MARK: - Register
 
-
-public enum ErrorCode: String {
-    case blockedByRecipient = "rejected_your_message"
-    case notYetRegistered = "not_yet_registered"
-    case userWasBlocked = "user_was_blocked"
-    case userIsRegister = "手机号码已经注册"
-}
-
-public enum Reason: CustomStringConvertible {
-    case network(Error?)
-    case noData
-    case noSuccessStatusCode(statusCode: Int, errorCode: ErrorCode?)
-    case noSuccess
-    case other(NSError?)
-    
-    public var description: String {
-        switch self {
-        case .network(let error):
-            return "Network, Error: \(error)"
-        case .noData:
-            return "NoData"
-        case .noSuccessStatusCode(let statusCode):
-            return "NoSuccessStatusCode: \(statusCode)"
-        case .noSuccess:
-            return "NoSuccess"
-        case .other(let error):
-            return "Other, Error: \(error)"
-        }
-    }
-}
-
-
-public typealias FailureHandler = (_ reason: Reason, _ errorMessage: String?) -> Void
-
-public let defaultFailureHandler: FailureHandler = { (reason, errorMessage) in
-    print("\n***************************** Lucuber Failure *****************************")
-    print("Reason: \(reason)")
-    if let errorMessage = errorMessage { print("errorMessage: >>>\(errorMessage)<<<\n") }
-}
-
-public func printError(error: Error?, reason: Reason?, errorMessage: String?) {
-    print("\n***************************** Lucuber Failure *****************************")
-    if let reason = reason {
-        print(reason)
-    }
-    if let errorMessage = errorMessage {
-        print(errorMessage)
-    }
-}
-
-public func validateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
+public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
     
     let query = AVQuery(className: "_User")
     query.whereKey("mobilePhoneNumber", equalTo: mobile)
@@ -668,16 +653,14 @@ public func validateMobile(mobile: String, checkType: LoginType, failureHandler:
                    
                     failureHandler(Reason.noSuccess, "您输入的手机号码尚未注册, 请返回注册")
                 }
+            }
+            if error != nil {
                 
-                if error != nil {
-                    
-                    failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
-                }
+                failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
             }
         }
     }
 }
-
 
 
 /// 获取短信验证码
@@ -691,82 +674,20 @@ public func fetchMobileVerificationCode(phoneNumber: String, failureHandler: @es
 
 
 /// 注册登录
-public func signUpOrLogin(with phoneNumber: String, smsCode: String, failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
+public func signUpOrLogin(with phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
     
     AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
         
         if let user = user { completion?(user) }
         if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-        
     }
 }
 
 
-/// 上传头像
-public func updateAvatar(withImageData imageData: Data,
-                                      failureHandler: ((NSError?)->Void)?,
-                                      completion: ((String) -> Void)? ) {
-    
-    let uploadFile = AVFile(data: imageData)
-    
-    uploadFile.saveInBackground({ succeeded, error in
-        
-        if succeeded {
-            
-            completion?(uploadFile.url!)
-            
-        } else {
-            
-            failureHandler?(error as NSError?)
-        }
-        
-    })
-    
-}
-
-/// 上传用户信息
-public func updateUserInfo(nickName: String, avatarURL: String,
-                                 failureHandler: ((NSError?)->Void)?,
-                                 completion: (() -> Void)? ) {
-    
-    // TODO: - 如果保存失败， 如何处理
-    if let currentUser = AVUser.current() {
-        
-        currentUser.setNickname(nickName)
-        currentUser.setAvatorImageURL(avatarURL)
-        currentUser.saveInBackground({ successed, error in
-            
-            if error != nil {
-                
-                failureHandler?(error as? NSError)
-                
-            } else {
-                completion?()
-            }
-            
-        })
-        
-    } else {
-       
-        let error = NSError(domain: "", code: 9999, userInfo: nil)
-        
-        failureHandler?(error)
-        
-    }
-    
-}
-
-
-// Logout
-
+/// Logout
 public func logout() {
-    
     AVUser.logOut()
-    
-//    NotificationCenter.default.post(Notification.Name.changeRootViewControllerNotification)
-    
 }
-
 
 
 // Message

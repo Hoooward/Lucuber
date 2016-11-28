@@ -68,18 +68,18 @@ final class AlbumListController: UITableViewController {
     
     @objc private func cancel(sender: UIBarButtonItem) {
         
-        if let vcStack = navigationController?.viewControllers {
-            var destVC: UIViewController?
-            for vc in vcStack {
-                if vc.isKind(of: NewFeedViewController.self) {
-                    destVC = vc
-                    break
-                }
-            }
-            if let destVC = destVC {
-                let _ = navigationController?.popToViewController(destVC, animated: true)
-            }
-        }
+//        if let vcStack = navigationController?.viewControllers {
+//            var destVC: UIViewController?
+//            for vc in vcStack {
+//                if vc.isKind(of: NewFeedViewController.self) {
+//                    destVC = vc
+//                    break
+//                }
+//            }
+//            if let destVC = destVC {
+//                let _ = navigationController?.popToViewController(destVC, animated: true)
+//            }
+//        }
     }
     
     func  fetchAlbumIdentifier() -> String? {

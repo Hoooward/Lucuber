@@ -251,20 +251,20 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         
         switch segueIdentifier(for: segue) {
             
-        case .comment:
-            let vc = segue.destination as! CommentViewController
-            
-            if let formula = sender as? Formula, let realm = try? Realm() {
-                
-                vc.formula = formula
-                
-                realm.beginWrite()
-                let formulaConversation = vc.prepareConversation(withFromula: formula, inRealm: realm)
-                try? realm.commitWrite()
-                
-                vc.conversation = formulaConversation
-            
-            }
+        case .comment: break
+//            let vc = segue.destination as! CommentViewController
+//            
+//            if let formula = sender as? Formula, let realm = try? Realm() {
+//                
+//                vc.formula = formula
+//                
+//                realm.beginWrite()
+//                let formulaConversation = vc.prepareConversation(withFromula: formula, inRealm: realm)
+//                try? realm.commitWrite()
+//                
+//                vc.conversation = formulaConversation
+//            
+//            }
             
             
         case .edit:
@@ -329,7 +329,8 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case .separatorTwo:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-            return formula.contentMaxCellHeight
+//            return formula.contentMaxCellHeight
+            return 100
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }

@@ -17,39 +17,43 @@ public enum UploadFormulaMode: String {
 }
 
 
-public func updateLibraryDateVersion(completion: (() -> Void)?, failureHandeler: (() -> Void)?) {
+public func updateLibraryDate(failureHandeler: @escaping FailureHandler, completion: (() -> Void)?) {
     
     HUD.show(.label("更新公式库..."))
-    syncFormula(with: UploadFormulaMode.library, categoty: nil, completion: { _ in
-        HUD.flash(.label("更新成功"), delay: 2)
+    
+    syncFormula(with: UploadFormulaMode.library, categoty: nil, failureHandler: { reason, errorMessage in
+        
+        HUD.flash(.label("更新失败，似乎已断开与互联网的连接。"), delay: 1.5)
+        failureHandeler(reason, errorMessage)
+        
+    }, completion: { _ in
+        
+        HUD.flash(.label("更新成功"), delay: 1.5)
         completion?()
-    }, failureHandler: { _ in
-        HUD.flash(.label("更新失败，似乎已断开与互联网的连接。"), delay: 2)
-        failureHandeler?()
+        
     })
 }
 
-public func syncPreferences(completion:((String) -> Void)?, failureHandler: ((Error?) -> Void)?){
+public func syncPreferences(failureHandler: @escaping FailureHandler, completion:@escaping ((String) -> Void)){
     
     let query = AVQuery(className: DiscoverPreferences.parseClassName())
     query.getFirstObjectInBackground { (references, error) in
         
-        if error != nil { failureHandler?(error) }
+        if error != nil { failureHandler(Reason.network(error), "同步数据库版本号失败") }
         
         if let references = references as? DiscoverPreferences {
-            completion?(references.version)
+            completion(references.version)
         }
     }
 }
 
-public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?, completion: (([Formula]) -> Void)?, failureHandler:((Error?) -> Void)?) {
-    
+public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
     
     
     let query = AVQuery(className: DiscoverFormula.parseClassName())
     query.includeKey("creator")
     query.includeKey("contents")
-    query.limit = 20
+    query.limit = 1000
     
     switch uploadMode {
         
@@ -74,7 +78,7 @@ public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?,
         
         if error != nil {
             
-            failureHandler?(error)
+            failureHandler(Reason.network(error), "syncFormula 请求失败")
             
         }
         
@@ -83,7 +87,6 @@ public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?,
             guard let realm = try? Realm() else {
                 return
             }
-            
             
             realm.beginWrite()
             if !newDiscoverFormulas.isEmpty {
@@ -150,9 +153,9 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         
         if  let discoverFormulaCreator = discoverFormula.creator {
             
-//            let creator = appendRUser(with: discoverFormulaCreator, inRealm: realm)
+            let creator = createOrUpdateRUser(with: discoverFormulaCreator, inRealm: realm)
             
-//            formula.creator = creator
+            formula.creator = creator
         }
         
         formula.isLibrary = discoverFormula.isLibrary

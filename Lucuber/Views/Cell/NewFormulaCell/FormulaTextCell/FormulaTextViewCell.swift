@@ -99,7 +99,7 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
         }
         realm.beginWrite()
         content.text = textView.text
-        content.saveNewCellHeight(inRealm: realm)
+//        content.saveNewCellHeight(inRealm: realm)
         try? realm.commitWrite()
         
         updateInputAccessoryView?(content)
@@ -144,7 +144,7 @@ extension FormulaTextViewCell: UITextViewDelegate , FormulaTextViewDelegate {
         
         realm.beginWrite()
         content.text = textView.text
-        content.saveNewCellHeight(inRealm: realm)
+//        content.saveNewCellHeight(inRealm: realm)
         try? realm.commitWrite()
       
         updateInputAccessoryView?(content)
