@@ -111,7 +111,6 @@ class RegisterPickMobileViewController: UIViewController {
         }
         
         do {
-            
             /// 判断是否是正确的手机号码. 正则表达式
             //"^[1][3578][0-9]{9}$"
             let regex = try NSRegularExpression(pattern: "^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\\d{8}$", options: NSRegularExpression.Options.caseInsensitive)
@@ -119,13 +118,7 @@ class RegisterPickMobileViewController: UIViewController {
             
             isDirty = matches.count > 0
             
-        } catch {
-            
-            printLog("输入的不是手机号码")
-            
-        }
-        
-        
+        } catch { printLog("输入的不是手机号码") }
         
     }
     
@@ -150,45 +143,44 @@ class RegisterPickMobileViewController: UIViewController {
             
             if let type = self.loginType {
                 
-                validateMobile(mobile: phoneNumber, checkType: type, failureHandler: { error in
+                validateMobile(mobile: phoneNumber, checkType: type, failureHandler: { reason, errorMessage in
                     
                     CubeHUD.hideActivityIndicator()
-                    
                     
                     switch type {
                         
                     case .register:
                         
-                        if let error = error {
+                        
+                        switch reason {
                             
-                            switch error.code {
-                                
-                            case Config.ErrorCode.registered:
-                                CubeAlert.alertSorry(message: "此手机号已经注册, 可返回直接登录。", inViewController: self)
-                                
-                            default :
-                                CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
-                                
-                            }
+                        case .noSuccess:
+                            CubeAlert.alertSorry(message: "您输入的手机号已经注册, 可返回直接登录。", inViewController: self)
                             
-                        } else {
-                            
+                        case .network(let error):
+                            printLog(error)
                             CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
+                            
+                        default: break
+                            
                         }
 
                     case .login:
                         
-                        if let _ = error {
+                        switch reason {
                             
+                        case .noSuccess:
                             CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
                             
-                        } else {
+                        case .network(let error):
                             
-                            CubeAlert.alertSorry(message: "此手机号码尚未注册，请返回注册。", inViewController: self)
+                            printLog(error)
+                            CubeAlert.alertSorry(message: "您输入的手机号码尚未注册，请返回注册。", inViewController: self)
+                            
+                        default: break
                         }
                         
                     }
-
                     
                     }, completion: {
                         

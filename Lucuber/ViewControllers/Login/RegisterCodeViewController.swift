@@ -150,93 +150,87 @@ class RegisterCodeViewController: UIViewController {
     
     private func getSmsCodeWithPhoneNumber() {
         
-        fetchMobileVerificationCode(phoneNumber: phoneNumber!, failureHandler: { error in
+        fetchMobileVerificationCode(phoneNumber: phoneNumber!, failureHandler: { reason, errorMessage in
             
-            switch error.code {
+            switch reason {
                 
-            case 601: /// 频繁获取
+            case .other(let error):
                 
-                 CubeAlert.alert(title: "抱歉", message: "获取太过频繁，请稍后再试。", dismissTitle: "关闭", inViewController: self, dismissAction: {
-                    self.getCodeInSeconds = Config.mobilePhoneCodeInSeconds
-                })
-                
-            case 602: /// 运营商错误
-                
-                CubeAlert.alert(title: "抱歉", message: "获取验证码失败，请检查网络连接或稍后再试。", dismissTitle: "关闭", inViewController: self, dismissAction: {
+                if let error = error {
                     
-                    self.getCodeInSeconds = 1
-                })
-                
-            default:
-                
-                CubeAlert.alert(title: "抱歉", message: "获取验证码失败，请检查网络连接或稍后再试。", dismissTitle: "关闭", inViewController: self, dismissAction: {
-                    
-                    self.getCodeInSeconds = 1
-                })
-                
-            }
+                    switch error.code {
+                        
+                    case 601: /// 频繁获取
+                        
+                        CubeAlert.alert(title: "抱歉", message: "获取太过频繁，请稍后再试。", dismissTitle: "关闭", inViewController: self, dismissAction: {
+                            self.getCodeInSeconds = Config.mobilePhoneCodeInSeconds
+                        })
+                        
+                    case 602: /// 运营商错误
 
-            }, completion: {
+                        CubeAlert.alert(title: "抱歉", message: "获取验证码失败，请检查网络连接或稍后再试。", dismissTitle: "关闭", inViewController: self, dismissAction: {
+                            
+                            self.getCodeInSeconds = 1
+                        })
+                        
+                    default:
+                        
+                        CubeAlert.alert(title: "抱歉", message: "获取验证码失败，请检查网络连接或稍后再试。", dismissTitle: "关闭", inViewController: self, dismissAction: {
+                            
+                            self.getCodeInSeconds = 1
+                        })
+                    }
+                }
                 
-                
-        })
-   
+            default: break
+            }
+            
+        }, completion: nil )
+        
     }
-    
+
     func login(_ item: UIBarButtonItem) {
         
         guard let code = codeTextField.text else {
             return
         }
-       
-        signUpOrLogin(withPhonerNumber: phoneNumber!, smsCode: code, failureHandler: {
-            error in
+        
+        
+        signUpOrLogin(with: phoneNumber!, smsCode: code, failureHandler: { reason, errorMessage in
             
-            switch error.code {
-               // code = 603 无效的验证码
-            case 603:
+            switch reason {
                 
-                CubeAlert.alertSorry(message: "无效的验证码， 请核对后重新输入。", inViewController: self)
+            case .other(let error):
                 
-            default:
+                if error?.code == 603 {
+                    CubeAlert.alertSorry(message: "无效的验证码， 请核对后重新输入。", inViewController: self)
+                    
+                } else {
+                    CubeAlert.alertSorry(message: "验证失败， 请检查网络连接或稍后再试。", inViewController: self)
+                }
                 
-                CubeAlert.alertSorry(message: "验证失败， 请检查网络连接或稍后再试。", inViewController: self)
+            default: break
                 
             }
             
-            }, completion: { user in
+        }, completion: { user in
+            
+            switch self.loginType! {
                 
-                printLog("注册成功")
+            case .login:
                 
-                switch self.loginType! {
-                    
-                case .login:
-                    
-                    // 进入 Main
-                    NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
-                  break
-//                    if let _ = AVUser.current().getUserAvatarImageUrl() {
-//                        
-//                        
-//                    } else {
-//                        
-//                        // 如果没有设置头像， 先进入选择头像的界面。
-//                        self.performSegue(withIdentifier: "ShowPickAvatar", sender: user)
-//                        
-//                    }
-                    
-                case .register:
-                    
-                    self.performSegue(withIdentifier: "ShowPickAvatar", sender: user)
-                    
-                }
+                // 进入 Main Storyboard
+                NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+                break
                 
-                printLog("currentUser = \(AVUser.current())")
-                printLog("clourseUser = \(user)")
-              
+            case .register:
                 
+                // 进入头像选择
+                self.performSegue(withIdentifier: "ShowPickAvatar", sender: user)
+            }
+            
         })
-        
+       
     }
     
     // MARK: - Segue

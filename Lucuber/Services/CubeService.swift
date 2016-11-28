@@ -589,19 +589,22 @@ public enum ErrorCode: String {
 }
 
 public enum Reason: CustomStringConvertible {
-    case couldNotParseJSON
+    case network(Error?)
     case noData
-    case noSuccess(statusCode: Int, errorCode: ErrorCode?)
-    case other(Error?)
+    case noSuccessStatusCode(statusCode: Int, errorCode: ErrorCode?)
+    case noSuccess
+    case other(NSError?)
     
     public var description: String {
         switch self {
-        case .couldNotParseJSON:
-            return "CouldNotParseJSON"
+        case .network(let error):
+            return "Network, Error: \(error)"
         case .noData:
             return "NoData"
-        case .noSuccess(let statusCode):
+        case .noSuccessStatusCode(let statusCode):
             return "NoSuccessStatusCode: \(statusCode)"
+        case .noSuccess:
+            return "NoSuccess"
         case .other(let error):
             return "Other, Error: \(error)"
         }
@@ -617,7 +620,17 @@ public let defaultFailureHandler: FailureHandler = { (reason, errorMessage) in
     if let errorMessage = errorMessage { print("errorMessage: >>>\(errorMessage)<<<\n") }
 }
 
-public func validateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: (() -> Void)?) {
+public func printError(error: Error?, reason: Reason?, errorMessage: String?) {
+    print("\n***************************** Lucuber Failure *****************************")
+    if let reason = reason {
+        print(reason)
+    }
+    if let errorMessage = errorMessage {
+        print(errorMessage)
+    }
+}
+
+public func validateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
     
     let query = AVQuery(className: "_User")
     query.whereKey("mobilePhoneNumber", equalTo: mobile)
@@ -628,20 +641,19 @@ public func validateMobile(mobile: String, checkType: LoginType, failureHandler:
             
         case .register:
             
-            let reason = Reason.noSuccess(statusCode: Config.ErrorCode.registered, errorCode: .userIsRegister)
             if let resultUsers = users {
                 
                 if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
                     
-                    failureHandler(reason, nil)
+                    failureHandler(Reason.noSuccess, "您输入的手机号码已经注册, 请返回登录")
                     
-                } else { completion?() }
+                } else { completion() }
                 
-            } else { completion?() }
+            } else { completion() }
             
             if error != nil {
                 
-                failureHandler(reason, nil)
+                failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
             }
             
             
@@ -650,16 +662,16 @@ public func validateMobile(mobile: String, checkType: LoginType, failureHandler:
             if let resultUsers = users {
                
                 if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
-                    completion?()
+                    completion()
                     
                 } else {
                    
-                    failureHandler(Reason.noData, "您输入的手机号码尚未注册, 请返回登录")
+                    failureHandler(Reason.noSuccess, "您输入的手机号码尚未注册, 请返回注册")
                 }
                 
                 if error != nil {
                     
-                    failureHandler(Reason.other(error), "网络错误")
+                    failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
                 }
             }
         }
@@ -669,70 +681,25 @@ public func validateMobile(mobile: String, checkType: LoginType, failureHandler:
 
 
 /// 获取短信验证码
-public func fetchMobileVerificationCode(phoneNumber: String,
-                                        failureHandler: ((NSError) -> Void)?,
-                                        completion: (() -> Void)? ) {
+public func fetchMobileVerificationCode(phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
     
-    AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { succeeded, error in
-        
-        if succeeded {
-            
-            completion?()
-            
-        } else {
-            
-            if let error = error as? NSError {
-                
-                failureHandler?(error)
-                
-            } else {
-                
-                let error = NSError(domain: "请求失败", code: 1100, userInfo: nil)
-                
-                failureHandler?(error)
-            }
-            
-        }
+    AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
+        if success { completion?() }
+        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
     }
-    
 }
 
 
 /// 注册登录
-public func signUpOrLogin(withPhonerNumber phoneNumber: String,
-                          smsCode: String,
-                          failureHandler: ((NSError) -> Void)?,
-                          completion: ((AVUser) -> Void)? ) {
+public func signUpOrLogin(with phoneNumber: String, smsCode: String, failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
     
     AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
         
-        
-        if error == nil {
-            
-            printLog("登录成功")
-            
-            if let user = user {
-                
-                completion?(user)
-                
-            }
-            
-        } else {
-            
-            if let error = error as? NSError {
-                
-                failureHandler?(error)
-                
-            } else {
-                
-                let error = NSError(domain: "请求失败", code: 1111, userInfo: nil)
-                failureHandler?(error)
-            }
-        }
+        if let user = user { completion?(user) }
+        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
         
     }
 }
-
 
 
 /// 上传头像
