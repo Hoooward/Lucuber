@@ -581,31 +581,89 @@ public enum UploadFeedMode {
 // MARK: - Login
 
 
+public enum ErrorCode: String {
+    case blockedByRecipient = "rejected_your_message"
+    case notYetRegistered = "not_yet_registered"
+    case userWasBlocked = "user_was_blocked"
+    case userIsRegister = "手机号码已经注册"
+}
 
-/// 如果已经登录,就去获取是否需要更新公式的bool值
-/// 因为 getObjectInBackgroundWithId 是并发的, 应用程序一启动如果第一个视图是 Formula
-/// 的话会第一时间使用 NeedUpdateLibrary 属性进行 Formula 数据加载. 即使在 LeanCloud 中 将
-/// 值设为 ture 后的第一次启动, NeedUpdateLibrary 的值还是 false. 第二次启动才会更新 Libray.
-
-public func updateCurrentUserInfo() {
+public enum Reason: CustomStringConvertible {
+    case couldNotParseJSON
+    case noData
+    case noSuccess(statusCode: Int, errorCode: ErrorCode?)
+    case other(Error?)
     
-    
-    if let user = AVUser.current() {
-        
-        user.fetchInBackground { user, error in
-            
-            if let user = user as? AVUser {
-                
-                if user.object(forKey: "needUpdateLibrary") as! Bool {
-                    
-                    NotificationCenter.default.post(name: Notification.Name.updateFormulasLibraryNotification, object: nil)
-                }
-            }
-            
-                
+    public var description: String {
+        switch self {
+        case .couldNotParseJSON:
+            return "CouldNotParseJSON"
+        case .noData:
+            return "NoData"
+        case .noSuccess(let statusCode):
+            return "NoSuccessStatusCode: \(statusCode)"
+        case .other(let error):
+            return "Other, Error: \(error)"
         }
     }
+}
+
+
+public typealias FailureHandler = (_ reason: Reason, _ errorMessage: String?) -> Void
+
+public let defaultFailureHandler: FailureHandler = { (reason, errorMessage) in
+    print("\n***************************** Lucuber Failure *****************************")
+    print("Reason: \(reason)")
+    if let errorMessage = errorMessage { print("errorMessage: >>>\(errorMessage)<<<\n") }
+}
+
+public func validateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: (() -> Void)?) {
     
+    let query = AVQuery(className: "_User")
+    query.whereKey("mobilePhoneNumber", equalTo: mobile)
+    
+    query.findObjectsInBackground { users, error in
+        
+        switch checkType {
+            
+        case .register:
+            
+            let reason = Reason.noSuccess(statusCode: Config.ErrorCode.registered, errorCode: .userIsRegister)
+            if let resultUsers = users {
+                
+                if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
+                    
+                    failureHandler(reason, nil)
+                    
+                } else { completion?() }
+                
+            } else { completion?() }
+            
+            if error != nil {
+                
+                failureHandler(reason, nil)
+            }
+            
+            
+        case .login:
+            
+            if let resultUsers = users {
+               
+                if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
+                    completion?()
+                    
+                } else {
+                   
+                    failureHandler(Reason.noData, "您输入的手机号码尚未注册, 请返回登录")
+                }
+                
+                if error != nil {
+                    
+                    failureHandler(Reason.other(error), "网络错误")
+                }
+            }
+        }
+    }
 }
 
 
