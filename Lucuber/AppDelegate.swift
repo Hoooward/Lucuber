@@ -67,22 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return storyboard.instantiateInitialViewController()!
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        
-        let currentVersion = UserDefaults.dataVersion()
-        
-        syncPreferences(failureHandler: { reason, errorMessage in
-            defaultFailureHandler(reason, errorMessage)
-            
-        }, completion: { version in
-            if currentVersion != version {
-                printLog("需要更新数据")
-            }
-        })
-        
-        
-    }
-    
+  
 
     
 }

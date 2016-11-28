@@ -195,7 +195,7 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
     
 }
 
-public func appendRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
+public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
     
     let categorys = categorysWith(uploadMode, inRealm: realm)
     let categoryTexts = categorys.map { $0.name }

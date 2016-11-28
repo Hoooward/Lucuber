@@ -413,7 +413,7 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
                         }
                         newFormula.imageURL = newDiscoverFormula.imageURL
                         newFormula.lcObjectID = newDiscoverFormula.objectId
-                        appendRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
+                        createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                     }
                     
                     

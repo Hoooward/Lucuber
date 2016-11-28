@@ -21,7 +21,7 @@ public func updateLibraryDate(failureHandeler: @escaping FailureHandler, complet
     
     HUD.show(.label("更新公式库..."))
     
-    syncFormula(with: UploadFormulaMode.library, categoty: nil, failureHandler: { reason, errorMessage in
+    fetchDiscoverFormula(with: UploadFormulaMode.library, categoty: nil, failureHandler: { reason, errorMessage in
         
         HUD.flash(.label("更新失败，似乎已断开与互联网的连接。"), delay: 1.5)
         failureHandeler(reason, errorMessage)
@@ -34,7 +34,7 @@ public func updateLibraryDate(failureHandeler: @escaping FailureHandler, complet
     })
 }
 
-public func syncPreferences(failureHandler: @escaping FailureHandler, completion:@escaping ((String) -> Void)){
+public func fetchPreferences(failureHandler: @escaping FailureHandler, completion:@escaping ((String) -> Void)){
     
     let query = AVQuery(className: DiscoverPreferences.parseClassName())
     query.getFirstObjectInBackground { (references, error) in
@@ -47,7 +47,7 @@ public func syncPreferences(failureHandler: @escaping FailureHandler, completion
     }
 }
 
-public func syncFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
+public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
     
     
     let query = AVQuery(className: DiscoverFormula.parseClassName())
@@ -144,6 +144,8 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         let newFormula = Formula()
         newFormula.lcObjectID = discoverFormula.objectId!
         newFormula.localObjectID = discoverFormula.localObjectID
+        newFormula.updateUnixTime = discoverFormula.updatedAt!.timeIntervalSince1970
+        newFormula.isNewVersion = true
         realm.add(newFormula)
         formula = newFormula
         
@@ -164,14 +166,16 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         formula.imageURL = discoverFormula.imageURL
         formula.categoryString = discoverFormula.category
         formula.typeString = discoverFormula.type
+        
+        if formula.updateUnixTime != discoverFormula.updatedAt!.timeIntervalSince1970 {
+            formula.isNewVersion = true
+        }
+        
         formula.updateUnixTime = discoverFormula.updatedAt!.timeIntervalSince1970
-//        formula.creat
         
         // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
-        if discoverFormula.imageURL != "" {
-            
-            formula.imageURL = discoverFormula.imageURL
-        }
+        
+        formula.imageURL = discoverFormula.imageURL
         
         discoverFormula.contents.forEach {
             
@@ -221,13 +225,11 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 content.text = $0.text
                 content.indicatorImageName = $0.indicatorImageName
                 
-//                content.saveNewCellHeight(inRealm: realm)
-                
             }
         }
         
         
-        appendRCategory(with: formula, uploadMode: uploadMode, inRealm: realm)
+        createOrUpdateRCategory(with: formula, uploadMode: uploadMode, inRealm: realm)
         
         completion?(formula)
         

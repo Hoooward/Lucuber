@@ -72,7 +72,7 @@ class LibraryFormulaViewController: BaseCollectionViewController {
             
             let currentVersion = UserDefaults.dataVersion()
             
-            syncPreferences(failureHandler: {
+            fetchPreferences(failureHandler: {
                 reason, errorMessage in
                 defaultFailureHandler(reason, errorMessage)
                 

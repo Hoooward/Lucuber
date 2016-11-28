@@ -161,6 +161,8 @@ open class Formula: Object {
     open dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
+    open dynamic var isNewVersion: Bool = false
+    
     open let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
     open var image = UIImage()
@@ -233,7 +235,6 @@ open class Content: Object {
     open dynamic var text: String = ""
     open dynamic var rotation: String = ""
     open dynamic var indicatorImageName: String = ""
-    open dynamic var cellHeight: Float = 0
     open dynamic var atFormula: Formula?
     open dynamic var atFomurlaLocalObjectID: String = ""
     
@@ -249,23 +250,20 @@ open class Content: Object {
         newContent.atFomurlaLocalObjectID = formula.localObjectID
         newContent.deleteByCreator = false
         
-//        newContent.saveNewCellHeight(inRealm: realm)
-        
         realm.add(newContent)
         
         return newContent
     }
     
-    // TODO: - 计算Cell高度
-//    open func saveNewCellHeight(inRealm realm: Realm) {
-//        
-//        let attributesText = text.setAttributesFitDetailLayout(style: .center)
-//        let screenWidth = UIScreen.main.bounds.width
-//        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-//        cellHeight = Float(rect.height)
-//        
-//
-//    }
+    open var cellHeight: CGFloat {
+        
+        let attributesText = text.setAttributesFitDetailLayout(style: .center)
+        let screenWidth = UIScreen.main.bounds.width
+        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+        return rect.height
+        
+    }
+
     
 }
 

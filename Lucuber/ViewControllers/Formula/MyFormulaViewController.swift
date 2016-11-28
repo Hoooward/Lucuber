@@ -55,7 +55,7 @@ class MyFormulaViewController: BaseCollectionViewController {
             return
         }
         
-        syncFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: { error in
+        fetchDiscoverFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: { error in
             self.searchBar.isHidden = true
             self.isUploadingFormula = false
             self.view.addSubview(self.vistorView)
