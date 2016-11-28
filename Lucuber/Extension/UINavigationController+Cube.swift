@@ -2,15 +2,34 @@
 //  UINavigationController+Cube.swift
 //  Lucuber
 //
-//  Created by Howard on 7/27/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/9/17.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UINavigationController {
     
-    var rootViewController: UIViewController {
-        return viewControllers[0]
+    /// Find navigationBar's bottom line
+    public var navigationBarLine: UIImageView {
+
+        return navigationBarLine(view: self.navigationBar) as! UIImageView
     }
+    
+    public func navigationBarLine(view: UIView) -> UIView? {
+        
+        if view.isKind(of: UIImageView.classForCoder()) && view.bounds.size.height <= 1.0 {
+            return view
+        }
+        
+        for view in view.subviews {
+            
+            if let imageView = navigationBarLine(view: view) {
+                return imageView
+            }
+        }
+        
+        return nil
+    }
+ 
 }

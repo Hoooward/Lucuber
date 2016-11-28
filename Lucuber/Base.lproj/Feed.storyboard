@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QaM-kA-mpr">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Feeds View Controller-->
+        <scene sceneID="7LT-Wh-mrP">
+            <objects>
+                <viewController id="Cq1-wD-nSm" customClass="FeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kpV-K9-eTe"/>
+                        <viewControllerLayoutGuide type="bottom" id="gi0-eJ-qWW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="doc-Hx-WLM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OFL-Bc-Ig8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Cq1-wD-nSm" id="FY8-nt-YI5"/>
+                                    <outlet property="delegate" destination="Cq1-wD-nSm" id="e2q-b7-3ck"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dpy-Fs-5VI">
+                                <rect key="frame" x="177.5" y="184" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dpy-Fs-5VI" firstAttribute="top" secondItem="kpV-K9-eTe" secondAttribute="bottom" constant="120" id="4ce-R3-KZd"/>
+                            <constraint firstItem="dpy-Fs-5VI" firstAttribute="centerX" secondItem="doc-Hx-WLM" secondAttribute="centerX" id="JFg-MK-Dld"/>
+                            <constraint firstAttribute="bottom" secondItem="OFL-Bc-Ig8" secondAttribute="bottom" id="SL4-4X-UPu"/>
+                            <constraint firstItem="OFL-Bc-Ig8" firstAttribute="top" secondItem="doc-Hx-WLM" secondAttribute="top" id="ejE-N9-Pfg"/>
+                            <constraint firstItem="OFL-Bc-Ig8" firstAttribute="leading" secondItem="doc-Hx-WLM" secondAttribute="leading" id="oB5-qM-6mN"/>
+                            <constraint firstAttribute="trailing" secondItem="OFL-Bc-Ig8" secondAttribute="trailing" id="qcg-aO-4a8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nX7-gh-aaQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wcZ-Z1-Dr4">
+                            <connections>
+                                <action selector="creatNewFeed:" destination="Cq1-wD-nSm" id="2MD-hk-Sg1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="loadingFeedsIndicator" destination="dpy-Fs-5VI" id="HOE-6v-MWC"/>
+                        <outlet property="tableView" destination="OFL-Bc-Ig8" id="gpS-ln-rWL"/>
+                        <segue destination="3ev-RH-Kkl" kind="presentation" identifier="ShowNewFeed" id="wke-SS-UkO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Epp-Ol-UN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="500" y="654.42278860569718"/>
+        </scene>
+        <!--NewFeed-->
+        <scene sceneID="qUM-Kf-JSe">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewFeed" id="3ev-RH-Kkl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X4N-XD-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1116" y="674"/>
+        </scene>
+        <!--话题-->
+        <scene sceneID="a90-5j-wwF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QaM-kA-mpr" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="话题" image="icon_feeds_active" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="if5-gT-npF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Cq1-wD-nSm" kind="relationship" relationship="rootViewController" id="AtU-Dw-E1e"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Yy-tx-ffk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-439.19999999999999" y="653.52323838080963"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon_feeds_active" width="30" height="30"/>
+    </resources>
+</document>

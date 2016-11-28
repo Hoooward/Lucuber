@@ -2,158 +2,315 @@
 //  NewFormulaViewController.swift
 //  Lucuber
 //
-//  Created by Howard on 7/10/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/9/24.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
-
+import MobileCoreServices
+import Photos
+import AVFoundation
+import RealmSwift
+import PKHUD
 
 class NewFormulaViewController: UIViewController {
     
-    let formulaInputAccessoryView = FormulaInputAccessoryView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 40))
-    
-    enum EditType {
-        /// 新公式
-        case NewFormula
-        /// 新话题的公式附件
-        case NewAttchment
-        /// 编辑公式
-        case EditFormula
-    }
-
-// MARK: - Properties
-    
-    var editType: EditType = .NewFormula
-    
-    var afterSaveNewFormula:(() -> Void)?
-    
-
-   
-    private let headerViewHeight: CGFloat = 170
-    private var keyboardFrame = CGRectZero
-    private var categoryPickViewIsShow = false
-    private var typePickViewIsShow = false
-    private var activeFormulaTextCellIndexPath = NSIndexPath(forItem: 0, inSection: 2)
-    
-    private var addFormulaTextIsActive = true {
+    // MARK: - Properties
         
-        didSet {
-            if let Addcell = tableView.cellForRowAtIndexPath(addFormulaTextIndexPath) as? AddFormulaTextCell {
-                Addcell.changeIndicaterLabelStatus(addFormulaTextIsActive)
-            }
-        }
-    }
-   
-    @IBOutlet weak var headerView: HeaderFormulaView!
+    @IBOutlet weak var headerView: NewFormulaHeadView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
-    private let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
     
+    enum EditType {
+        case newFormula
+        case newAttchment
+        case editFormula
+        case addToMy
+    }
+    
+    var editType: EditType = .newFormula
+    
+    var savedNewFormula: (() -> Void)?
+   
     var formula = Formula() {
-        
         didSet {
-            
-            headerView.formula = formula
+            headerView.configView(with: formula)
         }
     }
     
+    var realm: Realm!
     
-    var categoryPickViewIndexPath = NSIndexPath(forRow: 1, inSection: 1)
-    var typePickViewIndexPath = NSIndexPath(forRow: 2, inSection: 1)
-    var addFormulaTextIndexPath = NSIndexPath(forRow: 0, inSection: 3)
+    fileprivate let headerViewHeight: CGFloat = 170
+    fileprivate var keyboardFrame = CGRect.zero
+    fileprivate var categoryPickViewIsShow = false
+    fileprivate var typePickViewIsShow = false
     
-    private lazy var formulaInputViewController: FormulaInputViewController = {
+    fileprivate var activeFormulaTextCellIndexPath = IndexPath(item: 0, section: 2)
+    fileprivate var categoryPickViewIndexPath = IndexPath(row: 1, section: 1)
+    fileprivate var typePickViewIndexPath = IndexPath(row: 2, section: 1)
+    fileprivate var newFormulaTextIndexPath = IndexPath(row: 0, section: 3)
+    
+    fileprivate let sectionHeaderTitles = ["名称", "详细", "复原公式", ""]
+    
+    fileprivate lazy var formulaInputAccessoryView: InputAccessoryView = InputAccessoryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+
+    
+    fileprivate lazy var formulaInputViewController: FormulaInputViewController = {
         
         let viewController = FormulaInputViewController { [unowned self]  button in
             
-            if let cell = self.tableView.cellForRowAtIndexPath(self.activeFormulaTextCellIndexPath) as? FormulaTextViewCell {
-                cell.textView.insertKeyButtonTitle(button)
+            if let cell = self.tableView.cellForRow(at: self.activeFormulaTextCellIndexPath) as? FormulaTextViewCell {
+                cell.textView.insertKeyButtonTitle(keyButtn: button)
             }
             
         }
         return viewController
     }()
     
+    fileprivate var newFormulaTextIsActive = true {
+        
+        didSet {
+            if let cell = tableView.cellForRow(at: newFormulaTextIndexPath) as? NewFormulaTextCell {
+                cell.changeIndicaterLabelStatus(active: newFormulaTextIsActive)
+            }
+        }
+    }
     
-
    
-// MARK: - LifeCycle
+    fileprivate let nameTextViewCellIdentifier = "NameTextViewCell"
+    fileprivate let categorySeletedCellIdentifier = "CategorySeletedCell"
+    fileprivate let categoryPickViewCellIdentifier = "CategoryPickViewCell"
+    fileprivate let starRatingCellIdentifier = "StarRatingCell"
+    fileprivate let formulaTextViewCellIdentifier = "FormulaTextViewCell"
+    fileprivate let newFormulaTextCellIdentifier = "NewFormulaTextCell"
+    fileprivate let typePickViewCellIdentifier = "TypePickViewCell"
+    fileprivate let typeSelectedCellIdentifier = "TypeSelectedCell"
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-      
         
-        makeUI()
-        
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFormulaViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFormulaViewController.addFormulaDetailDidChanged(_:)), name: CategotyPickViewDidSeletedRowNotification, object: nil)
-    }
-    
-    deinit {
-        printLog("NewFormula死了")
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    
-// MARK: - Observer&Target Funcation
-    
-    var isSaveing: Bool = false
-    
-    func save(sender: UIBarButtonItem) {
-        
-        if isSaveing { return }
-        
-        
-        if self.formula.isReadyforPushToLeanCloud() {
+        switch editType {
             
-            isSaveing = true
+        case .newFormula:
             
-            let completion: (() -> Void) = {
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                    self.isSaveing = false
-                    self.afterSaveNewFormula?()
-                    
-                }
-                
-            }
+            navigationItem.title = "新公式"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
             
-            let failureHandler: (NSError) -> Void = { error in
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.isSaveing = false
-                    CubeAlert.alertSorry(message: error.domain, inViewController: self)
-                }
-                
-            }
+        case .newAttchment:
             
+            navigationItem.title = "创建公式(1/2)"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "下一步", style: .plain, target: self, action: #selector(NewFormulaViewController.next(_:)))
             
-            saveNewFormulaToRealmAndPushToLeanCloud(self.formula, completion: completion, failureHandler: failureHandler)
-          
-           
+        case .editFormula:
             
-        } else {
+            navigationItem.title = "编辑公式"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
+            
+        case .addToMy:
+            
+            navigationItem.title = "添加至我的公式"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "添加", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
             
         }
         
+        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush()
         
+        tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: UIScreen.main.bounds.height - headerViewHeight - 64 - 44 - 25, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
+        tableView.setContentOffset(CGPoint(x: 0, y: -(64 + headerViewHeightConstraint.constant)), animated: false)
+        
+        tableView.register(UINib(nibName: nameTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: nameTextViewCellIdentifier)
+        tableView.register(UINib(nibName: categorySeletedCellIdentifier, bundle: nil), forCellReuseIdentifier: categorySeletedCellIdentifier)
+        tableView.register(UINib(nibName: categoryPickViewCellIdentifier, bundle: nil), forCellReuseIdentifier: categoryPickViewCellIdentifier)
+        tableView.register(UINib(nibName: typeSelectedCellIdentifier, bundle: nil), forCellReuseIdentifier: typeSelectedCellIdentifier)
+        tableView.register(UINib(nibName: typePickViewCellIdentifier, bundle: nil), forCellReuseIdentifier: typePickViewCellIdentifier)
+        tableView.register(UINib(nibName: formulaTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: formulaTextViewCellIdentifier)
+        tableView.register(UINib(nibName: starRatingCellIdentifier, bundle: nil), forCellReuseIdentifier: starRatingCellIdentifier)
+        tableView.register(UINib(nibName: newFormulaTextCellIdentifier, bundle: nil), forCellReuseIdentifier: newFormulaTextCellIdentifier)
+        
+        addChildViewController(formulaInputViewController)
+
+        //TODO: 键盘布局有问题
+        childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width
+            
+            , height: 226)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewFormulaViewController.keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
     }
     
-    func next(sender: UIBarButtonItem) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush()
+    }
+    
+
+    deinit {
+        printLog("NewFormula死了")
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Action & Target
+    
+    
+    private lazy var imagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = false
+        return imagePicker
+    }()
+    
+    private lazy var actionSheetView: ActionSheetView = {
+        
+        let actionSheetView = ActionSheetView(items: [
+            
+            .Option(title: "拍摄", titleColor: UIColor.cubeTintColor(), action: {
+                [weak self] in
+                
+                guard
+                    let strongSelf = self,
+                    UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                        self?.alertCanNotAccessCameraRoll()
+                        return
+                }
+                
+                DispatchQueue.main.async {
+                    
+                    if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
+                        
+                        strongSelf.modalPresentationStyle = .currentContext
+                        strongSelf.imagePicker.sourceType = .camera
+                        
+                        /*
+                         bug :  Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.
+                         http://cocoadocs.org/docsets/DKCamera/1.2.9/index.html
+                         可以选择使用这个开源项目解决问题
+                         
+                         */
+                        delay(0.3) {
+                            strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                        }
+                        
+                    } else {
+                        
+                        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {
+                            success in
+                            
+                            if success {
+                                delay(0.3) {
+                                    strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                                }
+                            }
+                            
+                        })
+                    }
+                }
+                
+            }),
+            
+            .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: {
+                [weak self] in
+                
+                guard
+                    let strongSelf = self,
+                    UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+                        self?.alertCanNotOpenPhotoLibrary()
+                        return
+                }
+                
+                //这个方法是在其他线程执行的
+                PHPhotoLibrary.requestAuthorization { authorization in
+                    if authorization ==  PHAuthorizationStatus.authorized {
+                        
+                        DispatchQueue.main.async {
+                            
+                            //strongSelf.performSegue(withIdentifier: "ShowPickPhotoView", sender: nil)
+                            
+                            strongSelf.modalPresentationStyle = .currentContext
+                            strongSelf.imagePicker.sourceType = .photoLibrary
+                            
+                            delay(0.3) {
+                                strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                            }
+                        }
+                        
+                    } else {
+                        strongSelf.alertCanNotOpenPhotoLibrary()
+                        
+                    }
+                }
+                
+            }),
+            
+            ])
+        return actionSheetView
+    }()
+    
+  
+    
+    @IBAction func pickPhoto(_ sender: Any) {
+        
+        if let window = view.window {
+            actionSheetView.showInView(view: window)
+        }
+        
+    }
+    
+    @IBAction func dismiss(sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private var isSaveing: Bool = false
+    
+    func save(_ sender: UIBarButtonItem) {
+        
+        if isSaveing { return }
+        
+        self.formula.cleanBlankContent(inRealm: realm)
+        
+        if self.formula.isReadyToPush() {
+            
+            isSaveing = true
+            
+            HUD.show(HUDContentType.label("公式保存中..."))
+            pushToLeancloud(with: formula, inRealm: realm, completion: {
+                HUD.flash(.label("保存成功"), delay: 1)
+                self.dismiss(animated: true, completion: nil)
+                self.isSaveing = false
+                 
+            }, failureHandler: { error in
+                self.isSaveing = false
+                HUD.flash(.label("保存失败, 请重试"), delay: 1)
+            })
+            
+            
+        }
+        
+    }
+    
+    private var isReadyForSave: Bool {
+        let isReady = true
+        return isReady
+    }
+    
+    func next(_ sender: UIBarButtonItem) {
         
         view.endEditing(true)
+        
         if isReadyForSave {
-            
-            let vc = UIStoryboard(name: "AddFeed", bundle: nil).instantiateViewControllerWithIdentifier("NewFeedViewController") as! NewFeedViewController
-            vc.attachment = NewFeedViewController.Attachment.Formula
-            vc.attachmentFormula = formula
-            self.navigationController?.pushViewController(vc, animated: true)
+//        
+//            let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
+//            vc.attachment = NewFeedViewController.Attachment.formula
+//            vc.attachmentFormula = formula
+//            self.navigationController?.pushViewController(vc, animated: true)
             
         } else {
             
@@ -161,335 +318,372 @@ class NewFormulaViewController: UIViewController {
             
         }
         
-    }
-    
-    private var isReadyForSave: Bool {
-       
-        let isReady = true
-      
-        // TODO: - 判断是否信息被正确填写
+    // TODO: 分别处理多个Edit的方法。
         
-        return isReady
     }
     
     func keyboardDidShow(notification: NSNotification) {
-        
-        if let rect = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue() {
-            keyboardFrame = rect
+        if let rect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
+           keyboardFrame = rect.cgRectValue
         }
-        
-    }
-    
-    func addFormulaDetailDidChanged(notification: NSNotification) {
-        
-        guard let dict = notification.userInfo as? [String: AnyObject] else {
-            return
-        }
-        if  let item = dict[AddFormulaNotification.CategoryChanged.rawValue] as? CategoryItem {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
-//            cell.categoryLabel.text = item.englishText
-        }
-        
-    }
-    
-    @IBAction func dismiss(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-
-// MARK: - MakeUI
-    
-    private let NameTextViewCellIdentifier = "NameTextViewCell"
-    private let CategorySeletedCellIdentifier = "CategorySeletedCell"
-    private let CategotryPickViewCellIdentifier = "CategoryPickViewCell"
-    private let StarRatingCellIdentifier = "StarRatingCell"
-    private let FormulaTextViewCellIdentifier = "FormulaTextViewCell"
-    private let AddFormulaTextCellIdentifier = "AddFormulaTextCell"
-    private let TypePickViewCellIdentifier = "TypePickViewCell"
-    private let TypeSelectedCellIdentifier = "TypeSelectedCell"
-    
-    private func makeUI() {
-        
-        switch editType {
-            
-        case .NewFormula:
-            
-            navigationItem.title = "新公式"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
-            
-        case .NewAttchment:
-            
-            navigationItem.title = "创建公式(1/2)"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "下一步", style: .Plain, target: self, action: #selector(NewFormulaViewController.next(_:)))
-            
-        case .EditFormula:
-            
-            navigationItem.title = "编辑公式"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
-            
-        }
-        
-        self.navigationItem.rightBarButtonItem?.enabled = self.formula.isReadyforPushToLeanCloud()
-        
-        tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: screenHeight - headerViewHeight - 64 - 44 - 25, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
-        tableView.setContentOffset(CGPoint(x: 0, y: -(64 + headerViewHeightConstraint.constant)), animated: false)
-        
-        tableView.registerNib(UINib(nibName: NameTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: NameTextViewCellIdentifier)
-        tableView.registerNib(UINib(nibName: CategorySeletedCellIdentifier, bundle: nil), forCellReuseIdentifier: CategorySeletedCellIdentifier)
-        tableView.registerNib(UINib(nibName: CategotryPickViewCellIdentifier, bundle: nil), forCellReuseIdentifier: CategotryPickViewCellIdentifier)
-        tableView.registerNib(UINib(nibName: TypeSelectedCellIdentifier, bundle: nil), forCellReuseIdentifier: TypeSelectedCellIdentifier)
-        tableView.registerNib(UINib(nibName: TypePickViewCellIdentifier, bundle: nil), forCellReuseIdentifier: TypePickViewCellIdentifier)
-        tableView.registerNib(UINib(nibName: FormulaTextViewCellIdentifier, bundle: nil), forCellReuseIdentifier: FormulaTextViewCellIdentifier)
-        tableView.registerNib(UINib(nibName: StarRatingCellIdentifier, bundle: nil), forCellReuseIdentifier: StarRatingCellIdentifier)
-        tableView.registerNib(UINib(nibName: AddFormulaTextCellIdentifier, bundle: nil), forCellReuseIdentifier: AddFormulaTextCellIdentifier)
-        
-        
-        addChildViewController(formulaInputViewController)
-        //TODO: 键盘布局有问题
-        childViewControllers.first!.view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 226)
-        
     }
 
-   
+    fileprivate func showTypePickViewCell() {
+        if !typePickViewIsShow {
+            tableView.beginUpdates()
+            typePickViewIsShow = true
+            tableView.insertRows(at: [typePickViewIndexPath], with: UITableViewRowAnimation.fade)
+            tableView.endUpdates()
+        }
+    }
+    
+    fileprivate func dismissTypePickViewCell() {
+        if typePickViewIsShow {
+            tableView.beginUpdates()
+            typePickViewIsShow = false
+            tableView.deleteRows(at: [typePickViewIndexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
+    fileprivate func showCategoryPickViewCell() {
+        if !categoryPickViewIsShow {
+            tableView.beginUpdates()
+            categoryPickViewIsShow = true
+            tableView.insertRows(at: [categoryPickViewIndexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
+    fileprivate func dismissCategoryPickViewCell() {
+        if categoryPickViewIsShow {
+            tableView.beginUpdates()
+            categoryPickViewIsShow = false
+            tableView.deleteRows(at: [categoryPickViewIndexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
 }
+
 
 // MARK: - UITableViewDelegate&dataSource
 extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
     
     /// Section Name
     enum Section: Int {
-        case Name = 0
-        case Category
-        case Formulas
-        case AddFormula
+        case name = 0
+        case detail
+        case content
+        case addFormula
     }
     
-    ///类型Section 第一行、第二行、第三行
+    ///详情Section 第一行、第二行、第三行
     enum DetailRow: Int {
-        case CategoryDetailRow = 0
-        case CategoryPickViewRow = 1
-        case TypeDetailRow = 2
-        case TypePickViewRow = 3
-        case StarRatingRow = 4
+        case category = 0
+        case categoryPickView = 1
+        case typeDetail = 2
+//        case typePickView = 3
+        case starRating = 3
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 4
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let section = Section(rawValue: section) else {
             fatalError()
         }
         
         switch section {
-        case .Name:
+        case .name:
             return 1
-        case .Category:
-            
+        case .detail:
             return categoryPickViewIsShow || typePickViewIsShow ? 4 : 3
-        case .Formulas:
+        case .content:
             return formula.contents.count
-        case .AddFormula:
+        case .addFormula:
             return 1
         }
+        
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+            
+        case .name:
+            
+            guard let cell = cell as? NameTextViewCell else {
+               return
+            }
+            
+            if !formula.name.isEmpty {
+                cell.textField.text = formula.name
+                cell.textField.placeholdTextLabel.isHidden = true
+            }
+            
+            cell.nameDidChanged = { [weak self] name in
+                
+                guard let strongSelf = self else { return }
+                
+                strongSelf.formula.name = name
+                strongSelf.navigationItem.rightBarButtonItem?.isEnabled = self?.formula.isReadyToPush() ?? false
+                
+                strongSelf.headerView.configView(with: strongSelf.formula)
+            }
+            
+            
+        case .detail:
+            
+            guard let row = DetailRow(rawValue: indexPath.row) else {
+                return
+            }
+            
+            switch row {
+                
+            case .category:
+                
+                guard let cell = cell as? CategorySeletedCell else {
+                    return
+                }
+
+                cell.configCell(with: self.formula)
+                
+                
+            case .categoryPickView:
+                
+                if categoryPickViewIsShow {
+                    guard let cell = cell as? CategoryPickViewCell else {
+                        return
+                    }
+                    
+                    cell.configCell(with: self.formula)
+                    
+                    cell.categoryDidChanged = { [weak self] categoryItem in
+                        
+                        guard let strongSelf = self else { return }
+                        
+                        let newCategory = Category(rawValue: categoryItem.chineseText)!
+                        
+                        strongSelf.formula.category = newCategory
+                        
+                        let cell = strongSelf.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! CategorySeletedCell
+                        
+                        cell.configCell(with: strongSelf.formula)
+                        
+                        strongSelf.headerView.configView(with: strongSelf.formula)
+                        
+                    }
+                
+                } else {
+                    
+                    guard let cell = cell as? TypeSelectedCell else {
+                        return
+                    }
+                    
+                    cell.configCell(with: self.formula)
+                    
+                }
+
+
+            case .typeDetail:
+                
+                if typePickViewIsShow {
+                    
+                    guard let cell = cell as? TypePickViewCell else {
+                        return
+                    }
+                    
+                    cell.configCell(with: self.formula)
+                    
+                    cell.typeDidChanged = { [weak self] type in
+                        
+                        guard let strongSelf = self else {
+                            return
+                        }
+                        strongSelf.formula.type = type
+                        
+                        if let cell = strongSelf.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as?  TypeSelectedCell {
+                            
+                            cell.configCell(with: strongSelf.formula)
+                        }
+                        
+                        strongSelf.headerView.configView(with: strongSelf.formula)
+                    }
+                    
+                }
+                
+                if categoryPickViewIsShow {
+                    
+                    guard let cell = cell as? TypeSelectedCell else {
+                        return
+                    }
+                    
+                    cell.configCell(with: self.formula)
+                }
+                
+            case .starRating:
+                
+                guard let cell = cell as? StarRatingCell else {
+                    return
+                }
+                
+                cell.ratingDidChanged = { [weak self] rating in
+                    
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    strongSelf.formula.rating = rating
+                    strongSelf.headerView.configView(with: strongSelf.formula)
+                }
+         
+            }
+            
+        case .content:
+            
+            guard let cell = cell as? FormulaTextViewCell else {
+                return
+            }
+            
+            formulaInputViewController.view.frame.size = keyboardFrame.size
+            
+            cell.configCell(with: self.formula, indexPath: indexPath, inRealm: realm)
+            
+            cell.textView.inputView = formulaInputViewController.view
+            cell.textView.inputAccessoryView = formulaInputAccessoryView
+            
+            cell.updateInputAccessoryView = { [weak self] content in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.formulaInputAccessoryView.configView(with: content, inRealm: strongSelf.realm)
+            }
+            
+            cell.didEndEditing = { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.navigationItem.rightBarButtonItem?.isEnabled = strongSelf.formula.isReadyToPush()
+                strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
+                
+            }
+            
+            
+        case .addFormula:
+            break
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
       
         switch section {
             
-        case .Name:
+        case .name:
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(NameTextViewCellIdentifier, forIndexPath: indexPath) as! NameTextViewCell
-            
-            /// update formula's name
-            cell.nameDidChanged = { [weak self] newText in
-                
-                self?.formula.name = newText
-                self?.navigationItem.rightBarButtonItem?.enabled = self?.formula.isReadyforPushToLeanCloud() ?? false
-                
-                /// update headerView
-                self?.headerView.formula = self?.formula
-            }
-          
+            let cell = tableView.dequeueReusableCell(withIdentifier: nameTextViewCellIdentifier, for: indexPath) as! NameTextViewCell
+    
             return cell
             
-        case .Category:
+        case .detail:
             
-            
-            // row 0 caategory
-            if indexPath.row == 0 {
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier(CategorySeletedCellIdentifier, forIndexPath: indexPath) as! CategorySeletedCell
-                
-                printLog(formula.categoryString)
-                cell.primaryCategory = formula.category
-                
-                return cell
-
+            guard let row = DetailRow(rawValue: indexPath.row) else {
+                fatalError()
             }
             
-            // row 1 categoryPickViewCell || TypeSeletedCell
-            if indexPath.row == 1 {
+            switch row {
+                
+            case .category:
+                
+                return tableView.dequeueReusableCell(withIdentifier: categorySeletedCellIdentifier, for: indexPath) as! CategorySeletedCell
+                
+            case .categoryPickView:
                 
                 if categoryPickViewIsShow {
-                    let cell = tableView.dequeueReusableCellWithIdentifier(CategotryPickViewCellIdentifier, forIndexPath: indexPath) as! CategoryPickViewCell
                     
+                    return tableView.dequeueReusableCell(withIdentifier: categoryPickViewCellIdentifier, for: indexPath) as! CategoryPickViewCell
                     
-                    cell.primaryCategory = formula.category
-                    
-                    // update formula's category
-                    cell.categoryDidChanged = { [weak self] categoryString in
-                        
-                        let newCategory = Category(rawValue: categoryString.chineseText)!
-                        
-                        self?.formula.category = newCategory
-                        
-                        let cell = self?.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CategorySeletedCell
-                        cell.categoryLabel.text = categoryString.englishText
-                        
-                        
-                        /// update the headerView
-                        self?.headerView.formula = self?.formula
-                        
-                    }
-                    
-                    return cell
- 
                 } else {
                     
-                    let cell = tableView.dequeueReusableCellWithIdentifier(TypeSelectedCellIdentifier, forIndexPath: indexPath) as! TypeSelectedCell
-                    cell.primaryType = formula.type
-                    return cell
+                    return tableView.dequeueReusableCell(withIdentifier: typeSelectedCellIdentifier, for: indexPath) as! TypeSelectedCell
+                    
                 }
-            }
-            
-            // row 2 TypePickViewCell || TypeSeletedCell || StarRatingCell
-            if indexPath.row == 2 {
+                
+            case .typeDetail:
                 
                 if typePickViewIsShow {
                     
-                    let cell = tableView.dequeueReusableCellWithIdentifier(TypePickViewCellIdentifier, forIndexPath: indexPath) as! TypePickViewCell
-                    
-                    cell.primaryType = formula.type
-                    
-                    
-                    /// update formula's type
-                    cell.typeDidChanged = { [weak self] type in
-                        
-                        self?.formula.type = type
-                        if let cell = self?.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as?  TypeSelectedCell {
-                            cell.primaryType = type
-                        }
-                        
-                    }
-                    
-                    return cell
+                    return tableView.dequeueReusableCell(withIdentifier: typePickViewCellIdentifier, for: indexPath) as! TypePickViewCell
                     
                 }
                 
                 if categoryPickViewIsShow {
                     
-                    let cell = tableView.dequeueReusableCellWithIdentifier(TypeSelectedCellIdentifier, forIndexPath: indexPath) as! TypeSelectedCell
-                    cell.primaryType = formula.type
+                    return tableView.dequeueReusableCell(withIdentifier: typeSelectedCellIdentifier, for: indexPath) as! TypeSelectedCell
                     
-                    return cell
                 }
-            
+
+            case .starRating:
+                
+                return tableView.dequeueReusableCell(withIdentifier: starRatingCellIdentifier, for: indexPath) as! StarRatingCell
+ 
             }
+      
+        case .content:
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(StarRatingCellIdentifier, forIndexPath: indexPath) as! StarRatingCell
+            return tableView.dequeueReusableCell(withIdentifier: formulaTextViewCellIdentifier, for: indexPath) as! FormulaTextViewCell
             
-            /// update formula's rating
-            cell.ratingDidChanged = { [weak self] ratring in
-                self?.formula.rating = ratring
-            }
+        case .addFormula:
             
-            return cell
+            return tableView.dequeueReusableCell(withIdentifier: newFormulaTextCellIdentifier, for: indexPath)
             
-        case .Formulas:
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(FormulaTextViewCellIdentifier, forIndexPath: indexPath) as! FormulaTextViewCell
-            formulaInputViewController.view.frame.size = keyboardFrame.size
-            cell.formulaContent = formula.contents[indexPath.row]
-            
-            cell.textView.inputView = formulaInputViewController.view
-            cell.textView.inputAccessoryView = formulaInputAccessoryView
-            
-            
-            cell.updateInputAccessoryView = { [weak self] content in
-                self?.formulaInputAccessoryView.seletedContent = content
-                
-            }
-            
-            cell.saveFormulaContent = { [weak self] content in
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                let index = indexPath.row
-                var catchContents = strongSelf.formula.contents
-                
-                catchContents.removeAtIndex(index)
-                catchContents.insert(content, atIndex: index)
-                
-                strongSelf.formula.contents = catchContents
-                
-                
-                strongSelf.navigationItem.rightBarButtonItem?.enabled = strongSelf.formula.isReadyforPushToLeanCloud()
-                
-            }
-            
-            
-            cell.didEndEditing = { [weak self] in
-                
-//                let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
-                self?.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                
-            }
-            
-            return cell
-            
-        case .AddFormula:
-            
-           let cell = tableView.dequeueReusableCellWithIdentifier(AddFormulaTextCellIdentifier, forIndexPath: indexPath)
-            
-            return cell
         }
         
+        return UITableViewCell()
     }
  
 
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = AddSectionHeaderView.creatHeaderView()
+        let headerView = NewSectionHeaderView.creatHeaderView()
         headerView.titleLabel.text = sectionHeaderTitles[section]
         return headerView
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         view.endEditing(true)
         
         switch section {
-        case .Name:
             
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! NameTextViewCell
-            cell.textField.userInteractionEnabled = true
-            cell.textField.becomeFirstResponder()
+        case .name:
             
-        case .Category:
+            let cell = tableView.cellForRow(at: indexPath) as! NameTextViewCell
+            cell.textField.isUserInteractionEnabled = true
+            
+             _ = cell.textField.becomeFirstResponder()
+            
+        case .detail:
             
 
             if indexPath.row == 0 {
@@ -515,69 +709,67 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 
             }
-
             
-        case .Formulas:
+        case .content:
             
             dismissCategoryPickViewCell()
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
+            let cell = tableView.cellForRow(at: indexPath) as! FormulaTextViewCell
             
-            cell.formulaContent = formula.contents[indexPath.row]
+            cell.configCell(with: self.formula, indexPath: indexPath, inRealm: realm)
             activeFormulaTextCellIndexPath = indexPath
-            cell.textView.becomeFirstResponder()
-            addFormulaTextIsActive = false
             
-            /// update formula's content
+            let _ = cell.textView.becomeFirstResponder()
+            
+            newFormulaTextIsActive = false
+            
             formulaInputAccessoryView.contentDidChanged = { [weak self] content in
-                
-                guard let strongSelf = self else {
+                guard
+                    let strongSelf = self,
+                    let rotation = Rotation(rawValue: content.rotation) else {
                     return
                 }
-                // get cell frome tableView
-                let cell = strongSelf.tableView.cellForRowAtIndexPath(indexPath) as! FormulaTextViewCell
-                cell.rotationButton.upDateButtonStyleWithRotation(RotationButton.Style.Square, rotation: content.rotation, animation: true)
                 
-                // Because the formula's content is a 计算 property, so I must found some way
-                let index = indexPath.row
-                var catchContents = strongSelf.formula.contents
+                let cell = strongSelf.tableView.cellForRow(at: indexPath) as! FormulaTextViewCell
                 
-                catchContents.removeAtIndex(index)
-                catchContents.insert(content, atIndex: index)
-
-                strongSelf.formula.contents = catchContents
-                
-                // update cell placeholder.
-                cell.formulaContent = strongSelf.formula.contents[indexPath.row]
+                cell.rotationButton.updateButtonStyle(with: RotationButton.Style.square, rotation: rotation, animation: true)
                 
             }
             
-        case .AddFormula:
+        case .addFormula:
     
-            addFormulaTextCellAtLast()
+            try? realm.write {
+                _ = Content.new(with: self.formula, inRealm: realm)
+            }
+           
+            tableView.beginUpdates()
+            let newIndex = IndexPath(row: formula.contents.count, section: Section.content.rawValue)
+            tableView.insertRows(at: [newIndex], with: .fade)
+            tableView.endUpdates()
             return
         }
         
         
         if indexPath.row == 2 && typePickViewIsShow {
             
-            let indexPath = NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section)
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            let indexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             
         } else {
             
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
         
 
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
+        
         switch section {
-        case .Category:
-
+        case .detail:
             
             if indexPath.row == 1 {
                 return categoryPickViewIsShow ? 130 : 40
@@ -587,10 +779,8 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 return typePickViewIsShow ? 130 : 40
             }
             
-
-            
-        case .Formulas:
-             return  formula.contents[indexPath.row].cellHeight
+        case .content:
+             return  CGFloat(formula.contents[indexPath.row].cellHeight)
           
         default:
             return 40
@@ -600,119 +790,138 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
     
 
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
         guard let section = Section(rawValue: section) else {
             fatalError()
         }
+        
         switch section {
-        case .AddFormula:
-            return 80
+            
+        case .addFormula:
+            return 50
         default:
             return 30
         }
         
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
         
         switch section {
-        case .Formulas:
-            if editingStyle == .Delete {
+            
+        case .content:
+            
+            switch editType {
+            case .editFormula:
+                
                 tableView.beginUpdates()
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
-                formula.contents.removeAtIndex(indexPath.row)
+                try? realm.write {
+                    realm.delete(formula.contents[indexPath.row])
+                }
+                tableView.deleteRows(at: [indexPath], with: .left)
                 tableView.endUpdates()
+                
+            default:
+                break
             }
+            
         default:
             break
         }
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
-        switch section {
-        case .Formulas:
-            return formula.contents.count > 1 ? .Delete : .None
-        default:
-            return .None
-        }
-    }
-    
-    
-    
-    private func  addFormulaTextCellAtLast() {
-        tableView.beginUpdates()
-        let newIndex = NSIndexPath(forRow: formula.contents.count, inSection: Section.Formulas.rawValue)
-        tableView.insertRowsAtIndexPaths([newIndex], withRowAnimation: .Fade)
-        formula.contents.append(FormulaContent())
-        tableView.endUpdates()
         
-       
-    }
-    
-    private func showTypePickViewCell() {
-        if !typePickViewIsShow {
-            tableView.beginUpdates()
-            typePickViewIsShow = true
-            tableView.insertRowsAtIndexPaths([typePickViewIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            tableView.endUpdates()
+        switch section {
+            
+        case .content:
+            return formula.contents.count > 1 ? .delete : .none
+        default:
+            return .none
         }
     }
-    
-    private func dismissTypePickViewCell() {
-        if typePickViewIsShow {
-            tableView.beginUpdates()
-            typePickViewIsShow = false
-            tableView.deleteRowsAtIndexPaths([typePickViewIndexPath], withRowAnimation: .Fade)
-            tableView.endUpdates()
-        }
-    }
-    
-    private func showCategoryPickViewCell() {
-        if !categoryPickViewIsShow {
-            tableView.beginUpdates()
-            categoryPickViewIsShow = true
-            tableView.insertRowsAtIndexPaths([categoryPickViewIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            tableView.endUpdates()
-        }
-    }
-    
-    private func dismissCategoryPickViewCell() {
-        if categoryPickViewIsShow {
-            tableView.beginUpdates()
-            categoryPickViewIsShow = false
-            tableView.deleteRowsAtIndexPaths([categoryPickViewIndexPath], withRowAnimation: .Fade)
-            tableView.endUpdates()
-        }
-    }
- 
     
 }
 
 // MARK: - UIScrollerDelegate
 extension NewFormulaViewController: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        addFormulaTextIsActive = true
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        newFormulaTextIsActive = true
         dismissCategoryPickViewCell()
         dismissTypePickViewCell()
         view.endEditing(true)
-//        printLog(formula)
     }
     
     //设置Header的方法缩小
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         if scrollView.contentOffset.y > 0 { return }
         let offsetY = abs(scrollView.contentOffset.y) - tableView.contentInset.top
+        
         if offsetY > 0 {
             headerViewHeightConstraint.constant = headerViewHeight + offsetY
             headerView.layoutIfNeeded()
         }
-        
     }
 }
+
+extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let mediaType = info[UIImagePickerControllerMediaType] as? String {
+            
+            switch mediaType {
+                
+            case String(kUTTypeImage):
+                
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    formula.image = image
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

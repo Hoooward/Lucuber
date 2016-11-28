@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jiM-FX-gkC">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Comment View Controller-->
+        <scene sceneID="jqh-GL-BGv">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="jiM-FX-gkC" customClass="CommentViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vsu-8G-C4j"/>
+                        <viewControllerLayoutGuide type="bottom" id="i65-1I-lQw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dXt-Xo-ibe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tb1-iS-vQ8">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NlL-KS-Ovb">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Hbw-UA-XUl">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="jiM-FX-gkC" id="ing-W1-0L6"/>
+                                    <outlet property="delegate" destination="jiM-FX-gkC" id="O8U-kN-PnL"/>
+                                </connections>
+                            </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ted-2d-pyQ" customClass="MessageToolbar" customModule="Lucuber" customModuleProvider="target">
+                                <items/>
+                            </toolbar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EJP-Cy-LJ4"/>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="i65-1I-lQw" firstAttribute="top" secondItem="Tb1-iS-vQ8" secondAttribute="bottom" id="3HS-7N-gja"/>
+                            <constraint firstItem="Tb1-iS-vQ8" firstAttribute="top" secondItem="dXt-Xo-ibe" secondAttribute="top" id="3Pb-DX-bpX"/>
+                            <constraint firstItem="EJP-Cy-LJ4" firstAttribute="centerX" secondItem="dXt-Xo-ibe" secondAttribute="centerX" id="7aP-XT-ecU"/>
+                            <constraint firstItem="EJP-Cy-LJ4" firstAttribute="top" secondItem="dXt-Xo-ibe" secondAttribute="top" constant="140" id="B7h-el-xRV"/>
+                            <constraint firstItem="Tb1-iS-vQ8" firstAttribute="leading" secondItem="dXt-Xo-ibe" secondAttribute="leading" id="KPY-li-6qb"/>
+                            <constraint firstAttribute="trailing" secondItem="Tb1-iS-vQ8" secondAttribute="trailing" id="Q79-3p-oeb"/>
+                            <constraint firstAttribute="trailing" secondItem="ted-2d-pyQ" secondAttribute="trailing" id="VB3-ix-iV0"/>
+                            <constraint firstItem="i65-1I-lQw" firstAttribute="top" secondItem="ted-2d-pyQ" secondAttribute="bottom" constant="100" id="sGf-cH-PBl"/>
+                            <constraint firstItem="ted-2d-pyQ" firstAttribute="leading" secondItem="dXt-Xo-ibe" secondAttribute="leading" id="ySN-KF-QML"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="commentCollectionView" destination="Tb1-iS-vQ8" id="mRX-01-LW1"/>
+                        <outlet property="messageToolbar" destination="ted-2d-pyQ" id="Pic-Fn-eUW"/>
+                        <outlet property="messageToolbarBottomConstraints" destination="sGf-cH-PBl" id="wWT-Sm-X5r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WUd-oc-epC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-263.19999999999999" y="193.85307346326837"/>
+        </scene>
+    </scenes>
+</document>

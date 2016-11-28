@@ -2,20 +2,20 @@
 //  MediaControlView.swift
 //  Lucuber
 //
-//  Created by Howard on 8/3/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/10/18.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
 
 class MediaControlView: UIView {
     
-    enum Type {
-        case Image
-        case Video
+    public enum MediaType {
+        case image
+        case video
     }
     
-    var type: Type = .Video {
+    var type: MediaType = .video {
         didSet {
             if type == oldValue {
                 return
@@ -23,13 +23,13 @@ class MediaControlView: UIView {
             
             switch type {
                 
-            case .Image:
-                timeLabel.hidden = true
-                playButton.hidden = true
+            case .image:
+                timeLabel.isHidden = true
+                playButton.isHidden = true
                 
-            case .Video:
-                timeLabel.hidden = false
-                playButton.hidden = false
+            case .video:
+                timeLabel.isHidden = false
+                playButton.isHidden = false
                 
             }
             
@@ -37,35 +37,35 @@ class MediaControlView: UIView {
     }
     
     enum PlayState {
-        case Playing
-        case Pause
+        case playing
+        case pause
     }
     
-    var playState: PlayState = .Pause {
+    var playState: PlayState = .pause {
         didSet {
             
             switch playState {
                 
-            case .Pause:
-                playButton.setImage(UIImage(named: "icon_play"), forState: .Normal)
+            case .pause:
+                playButton.setImage(UIImage(named: "icon_play"), for: .normal)
                 
-            case .Playing:
-                playButton.setImage(UIImage(named: "icon_pause"), forState: .Normal)
+            case .playing:
+                playButton.setImage(UIImage(named: "icon_pause"), for: .normal)
                 
             }
         }
     }
     
-    var playAction: (MediaControlView -> Void)?
-    var pauseAction: (MediaControlView -> Void)?
+    var playAction: ((MediaControlView) -> Void)?
+    var pauseAction: ((MediaControlView) -> Void)?
     
     var shareAction: (() -> Void)?
     
     lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .Center
-        label.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-        label.textColor = UIColor.whiteColor()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.textColor = UIColor.white
         label.text = "00:42"
         return label
     }()
@@ -73,10 +73,10 @@ class MediaControlView: UIView {
     lazy var playButton: UIButton = {
         
         let button = UIButton()
-        button.setImage(UIImage(named: "icon_play"), forState: .Normal)
-        button.tintColor = UIColor.whiteColor()
+        button.setImage(UIImage(named: "icon_play"), for: .normal)
+        button.tintColor = UIColor.white
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        button.addTarget(self, action: #selector(MediaControlView.playOrPasue), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(MediaControlView.playOrPasue), for: .touchUpInside)
         return button
         
     }()
@@ -84,10 +84,10 @@ class MediaControlView: UIView {
     lazy var shareButton: UIButton = {
         
         let button = UIButton()
-        button.setImage(UIImage(named: "icon_more"), forState: .Normal)
-        button.tintColor = UIColor.whiteColor()
+        button.setImage(UIImage(named: "icon_more"), for: .normal)
+        button.tintColor = UIColor.white
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        button.addTarget(self, action: #selector(MediaControlView.share), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(MediaControlView.share), for: .touchUpInside)
         return button
         
     }()
@@ -96,7 +96,7 @@ class MediaControlView: UIView {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         
         makeUI()
     }
@@ -117,15 +117,15 @@ class MediaControlView: UIView {
             "shareButton": shareButton
         ]
         
-        let constraintsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[timeLable]|", options: [], metrics: nil, views: viewsDictionary)
-        let constraintsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-30-[timeLable]-(>=0)-[playButton]-(>=0)-[shareButton]-30-|", options: [.AlignAllCenterY, .AlignAllTop, .AlignAllBottom], metrics: nil, views: viewsDictionary)
+        let constraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[timeLable]|", options: [], metrics: nil, views: viewsDictionary)
+        let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|-30-[timeLable]-(>=0)-[playButton]-(>=0)-[shareButton]-30-|", options: [.alignAllCenterY, .alignAllTop, .alignAllBottom], metrics: nil, views: viewsDictionary)
         
-        NSLayoutConstraint.activateConstraints(constraintsV)
-        NSLayoutConstraint.activateConstraints(constraintsH)
+        NSLayoutConstraint.activate(constraintsV)
+        NSLayoutConstraint.activate(constraintsH)
         
-        let playButtonConstraintCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+        let playButtonConstraintCenterX = NSLayoutConstraint(item: playButton, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         
-        NSLayoutConstraint.activateConstraints([playButtonConstraintCenterX])
+        NSLayoutConstraint.activate([playButtonConstraintCenterX])
     }
     
     
@@ -133,11 +133,11 @@ class MediaControlView: UIView {
     func playOrPasue() {
         
         switch playState {
-        case .Playing:
+        case .playing:
             if let action = pauseAction {
                 action(self)
             }
-        case .Pause:
+        case .pause:
             if let action = playAction {
                 action(self)
             }
@@ -151,44 +151,27 @@ class MediaControlView: UIView {
         }
     }
     
-//    override func drawRect(rect: CGRect) {
-//        
-//        let startColor = UIColor.clearColor()
-//        let endColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
-//        
-//        let context = UIGraphicsGetCurrentContext()
-//        let colors = [startColor.CGColor, endColor.CGColor]
-//        
-//        let colorSpace = CGColorSpaceCreateDeviceRGB()
-//        
-//        let colorLocations: [CGFloat] = [0.0, 1.0]
-//        
-//        let gradient = CGGradientCreateWithColors(colorSpace, colors, colorLocations)
-//        
-//        let startPoint = CGPointZero
-//        let endPoint = CGPoint(x: 0, y: rect.height)
-//        
-//        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, CGGradientDrawingOptions.init(rawValue: 0))
-//    }
+    //    override func drawRect(rect: CGRect) {
+    //
+    //        let startColor = UIColor.clearColor()
+    //        let endColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+    //
+    //        let context = UIGraphicsGetCurrentContext()
+    //        let colors = [startColor.CGColor, endColor.CGColor]
+    //
+    //        let colorSpace = CGColorSpaceCreateDeviceRGB()
+    //
+    //        let colorLocations: [CGFloat] = [0.0, 1.0]
+    //
+    //        let gradient = CGGradientCreateWithColors(colorSpace, colors, colorLocations)
+    //
+    //        let startPoint = CGPointZero
+    //        let endPoint = CGPoint(x: 0, y: rect.height)
+    //
+    //        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, CGGradientDrawingOptions.init(rawValue: 0))
+    //    }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -2,11 +2,11 @@
 //  UIImageView+Cube.swift
 //  Lucuber
 //
-//  Created by Howard on 7/26/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/10/18.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Kingfisher
 
 
@@ -15,11 +15,11 @@ private var showActivityIndicatorWhenLoadingKey: Void?
 
 extension UIImageView {
     
-    private var activityIndicator: UIActivityIndicatorView? {
+     var activityIndicator: UIActivityIndicatorView? {
         return objc_getAssociatedObject(self, &activityIndicatorKey) as? UIActivityIndicatorView
     }
     
-    private func setActivityIndicator(activityIndicator: UIActivityIndicatorView?) {
+     func setActivityIndicator(activityIndicator: UIActivityIndicatorView?) {
         objc_setAssociatedObject(self, &activityIndicatorKey, activityIndicator, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
@@ -38,36 +38,39 @@ extension UIImageView {
             }
             
             if newValue {
-                let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-                indicator.center = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
+                let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+                indicator.center = CGPoint(x: bounds.midX, y: bounds.midY)
                 
-                indicator.hidden = true
+                
+                indicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
+//                indicator.isHidden = true
                 indicator.hidesWhenStopped = true
                 addSubview(indicator)
                 
-                setActivityIndicator(indicator)
+                setActivityIndicator(activityIndicator: indicator)
                 
             } else {
                 activityIndicator?.removeFromSuperview()
-                setActivityIndicator(nil)
+                setActivityIndicator(activityIndicator: nil)
             }
             
-            objc_setAssociatedObject(self, &showActivityIndicatorWhenLoadingKey, NSNumber(bool: newValue), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &showActivityIndicatorWhenLoadingKey, NSNumber(value: newValue), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }
-
 
 private var imageAttachmentURLKey: Void?
 
 extension UIImageView {
     
     public func setImageWithURL(URL: NSURL) {
-        kf_setImageWithURL(URL, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(1))], progressBlock: { (receivedSize, totalSize) in
+        
+        self.kf.setImage(with: ImageResource(downloadURL: URL as URL), placeholder: nil, options: [.transition(ImageTransition.fade(1))], progressBlock: { (receivedSize, totalSize) in
             
-            }) { (image, error, cacheType, imageURL) in
-                
-        }
+            
+            }, completionHandler: { (image, error, cacheType, imageURL) in
+        })
+     
     }
     
     private var imageAttachmentURL: NSURL? {
@@ -84,32 +87,40 @@ extension UIImageView {
             return
         }
         
-        showActivityIndicatorWhenLoading = true
+        let showActivityIndicatorWhenLoading = self.showActivityIndicatorWhenLoading
         
+        var activityIndicator: UIActivityIndicatorView? = nil
         
         if showActivityIndicatorWhenLoading {
-           activityIndicator?.hidden = false
-           activityIndicator?.startAnimating()
+           
+            activityIndicator = self.activityIndicator
+            activityIndicator?.isHidden = false
+            activityIndicator?.startAnimating()
         }
         
-        setImageAttachmentURL(attachmentURL)
+        setImageAttachmentURL(URL: attachmentURL)
         
-        ImageCache.shardInstance.imageOfAttachment(attachment, withSideLenght: size?.width) { [weak self] (url, image, cacheType) in
-        
-            guard let strongSelf = self, let attachmentURL = strongSelf.imageAttachmentURL where attachmentURL == url else {
-                return
+        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width, completion: {
+            [weak self] url, image, cacheType in
+            guard
+                let strongSelf = self,
+                let attachmentURL = strongSelf.imageAttachmentURL,
+                attachmentURL == url else {
+                    return
             }
             
-            if cacheType != .Memory {
-                UIView.transitionWithView(strongSelf, duration: 0.2, options: .TransitionCrossDissolve, animations: { 
+            if cacheType != .memory {
+                UIView.transition(with: strongSelf, duration: 0.2, options: .transitionCrossDissolve, animations: {
                     strongSelf.image = image
                     }, completion: nil)
             }
             
             strongSelf.image = image
             
-            self?.activityIndicator?.stopAnimating()
-        }
-     
+           activityIndicator?.stopAnimating()
+ 
+            
+        })
+
     }
 }

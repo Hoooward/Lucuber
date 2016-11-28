@@ -1,9 +1,10 @@
 //
 //  MainNavigationController.swift
+
 //  Lucuber
 //
-//  Created by Howard on 6/3/16.
-//  Copyright © 2016 Howard. All rights reserved.
+//  Created by Tychooo on 16/9/17.
+//  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
 import UIKit
@@ -12,18 +13,17 @@ class MainNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.barStyle = .Default
-        navigationBar.barTintColor = UIColor.cubeTintColor()
+
+        navigationBar.barStyle = .default
         navigationBar.tintColor = UIColor.cubeTintColor()
-        for view in navigationBar.subviews {
-            if view.isKindOfClass(UIImageView.classForCoder()) {
-                view.hidden = true
-            }
-        }
-        let imageView = UIImageView(image: UIImage(named: navigationBarImage))
         
-        imageView.frame = CGRectMake(0, -20, screenWidth, 64)
-        navigationBar.insertSubview(imageView, atIndex: 0)
+        navigationBarLine.isHidden = true
+        
+        navigationBar.setBackgroundImage(UIImage(named: "navigationbarBackgroundWhite"), for: .any, barMetrics: .default)
+//        let imageView = UIImageView(image: UIImage(named: "navigationbarBackgroundWhite"))
+//        imageView.frame = CGRect(x: 0 , y: -20, width: UIScreen.main.bounds.width, height: 64)
+//        navigationBar.insertSubview(imageView, at: 0)
+        
     }
-    
+
 }
