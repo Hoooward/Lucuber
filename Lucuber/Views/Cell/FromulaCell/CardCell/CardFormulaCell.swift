@@ -18,7 +18,6 @@ class CardFormulaCell: UICollectionViewCell {
     @IBOutlet weak var indicaterLabel: UILabel!
     @IBOutlet weak var masterImageView: UIImageView!
     
-    
     public func configerCell(with formula: Formula?) {
         
         guard let formula = formula else {
@@ -36,11 +35,18 @@ class CardFormulaCell: UICollectionViewCell {
             masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
         
+        
         imageView.image = UIImage(named: formula.imageName)
         nameLabel.text = formula.name
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
         indicaterLabel.text = formula.category.rawValue
+        
+        if formula.isNewVersion {
+            nameLabel.textColor = UIColor.cubeTintColor()
+        } else {
+            nameLabel.textColor = UIColor.black
+        }
         
     }
     

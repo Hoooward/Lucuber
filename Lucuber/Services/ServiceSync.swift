@@ -166,6 +166,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         formula.imageURL = discoverFormula.imageURL
         formula.categoryString = discoverFormula.category
         formula.typeString = discoverFormula.type
+        formula.rating = discoverFormula.rating
         
         if formula.updateUnixTime != discoverFormula.updatedAt!.timeIntervalSince1970 {
             formula.isNewVersion = true

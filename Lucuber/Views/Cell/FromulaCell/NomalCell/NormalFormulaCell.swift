@@ -39,6 +39,11 @@ class NormalFormulaCell: UICollectionViewCell {
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
         
+        if formula.isNewVersion {
+            nameLabel.textColor = UIColor.cubeTintColor()
+        } else {
+            nameLabel.textColor = UIColor.black
+        }
     }
   
     
