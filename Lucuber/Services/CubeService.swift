@@ -72,7 +72,7 @@ public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data
     createAndPushMessage(with: MessageMediaType.image, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
-public func pushMessageText(_ text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void,failureHandler: @escaping (Error?) -> Void, g completion: @escaping (Bool) -> Void) {
+public func pushMessageText(_ text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void,failureHandler: @escaping (Error?) -> Void, completion: @escaping (Bool) -> Void) {
     
     createAndPushMessage(with: MessageMediaType.text, atFilePath: nil, orFileData: nil, metaData: nil, text: text, toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
@@ -90,11 +90,6 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     guard let realm = try? Realm() else {
         return
     }
-    print(realm)
-    print(realm)
-    print(realm)
-    print(realm)
-    
     // 创建新的实例
     let message = Message()
     message.localObjectID = Message.randomLocalObjectID()
@@ -134,7 +129,7 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
         if recipientType == "user" {
             
             if let withFriend = userWith(recipientID, inRealm: realm) {
-//                conversation = withFriend.conversation
+                conversation = withFriend.conversation
             }
             
         } else {
@@ -264,7 +259,13 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
             
             discoverMessage.attachmentURLString = URLString
             
+            let realm = message.realm
+            try? realm? .write {
+                message.attachmentURLString = URLString
+            }
+            
             discoverMessage.saveInBackground(messageSavedCompletion)
+            
             
         })
         
@@ -579,79 +580,7 @@ public enum UploadFeedMode {
 
 // MARK: - Login
 
-//func validateMobile(mobile: String,
-//                    checkType: LoginType,
-//                    failureHandler: ((NSError?) -> Void)?,
-//                    completion: (() -> Void)?) {
-//    
-//    
-//    
-//    let query = AVQuery(className: "_User")
-//    query.whereKey("mobilePhoneNumber", equalTo: mobile)
-//    
-//    query.findObjectsInBackground {
-//        
-//        users, error in
-//        
-//        switch checkType {
-//            
-//        case .register:
-//            
-//            if error == nil {
-//                
-//                if let findUsers = users {
-//                    
-//                    // 有找个一个存在的用户
-//                    if let user = findUsers.first as? AVUser,
-//                       let _ = user.nickname() {
-//                        
-//                        // 账户已经注册。且有昵称
-//                        let error = NSError(domain: "", code: Config.ErrorCode.registered, userInfo: nil)
-//                        failureHandler?(error)
-//                        
-//                    } else {
-//                        completion?()
-//                        
-//                    }
-//                    
-//                } else {
-//                    completion?()
-//                }
-//                
-//            } else {
-//               
-//                failureHandler?(error as? NSError)
-//            }
-//            
-//            
-//        case .login:
-//            
-//            if error == nil {
-//                
-//                if let finUserss = users {
-//                    
-//                    if
-//                        let user = finUserss.first as? AVUser,
-//                        let _ = user.nickname() {
-//                        
-//                        completion?()
-//                        
-//                    } else {
-//                       
-//                        failureHandler?(error as? NSError)
-//                    }
-//                }
-//                
-//            } else {
-//                
-//                 failureHandler?(error as? NSError)
-//                
-//            }
-//        }
-//
-//    }
-//    
-//}
+
 
 /// 如果已经登录,就去获取是否需要更新公式的bool值
 /// 因为 getObjectInBackgroundWithId 是并发的, 应用程序一启动如果第一个视图是 Formula

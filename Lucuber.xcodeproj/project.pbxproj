@@ -74,6 +74,13 @@
 		E47926611D96E005004D58BF /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = E479265E1D96E005004D58BF /* CubeCategory.plist */; };
 		E47926621D96E005004D58BF /* CubeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = E479265F1D96E005004D58BF /* CubeType.plist */; };
 		E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = E47926601D96E005004D58BF /* FormulaKeyboard.plist */; };
+		E47BB2C11DEBE4F800CD17FF /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47BB2C01DEBE4F800CD17FF /* Server.swift */; };
+		E47BB2C21DEBF61400CD17FF /* Resgin.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
+		E47BB2C31DEBF61400CD17FF /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
+		E47BB2C41DEBF61400CD17FF /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
+		E47BB2C51DEBF61400CD17FF /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
+		E47BB2C61DEBF61400CD17FF /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */; };
+		E47BB2C71DEBF61400CD17FF /* RegisterMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1161D991E040076C57C /* RegisterMainViewController.swift */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
 		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
 		E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */; };
@@ -279,6 +286,7 @@
 		E479265E1D96E005004D58BF /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
 		E479265F1D96E005004D58BF /* CubeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeType.plist; sourceTree = "<group>"; };
 		E47926601D96E005004D58BF /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
+		E47BB2C01DEBE4F800CD17FF /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeRuler.swift; sourceTree = "<group>"; };
@@ -602,6 +610,7 @@
 				E45378A61DEAD97400A65F43 /* ServerTest */,
 				E4A3BAA11DE3FA43009C0E78 /* PerpareData */,
 				E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */,
+				E47BB2C01DEBE4F800CD17FF /* Server.swift */,
 				E4A3BA591DE3F874009C0E78 /* ViewController.swift */,
 				E4A3BA5B1DE3F874009C0E78 /* Main.storyboard */,
 				E4A3BA5E1DE3F874009C0E78 /* Assets.xcassets */,
@@ -1684,6 +1693,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47BB2C21DEBF61400CD17FF /* Resgin.storyboard in Sources */,
+				E47BB2C31DEBF61400CD17FF /* RegisterCodeViewController.swift in Sources */,
+				E47BB2C41DEBF61400CD17FF /* RegisterPickAvatarViewController.swift in Sources */,
+				E47BB2C51DEBF61400CD17FF /* RegisterPickMobileViewController.swift in Sources */,
+				E47BB2C61DEBF61400CD17FF /* RegisterPickNameViewController.swift in Sources */,
+				E47BB2C71DEBF61400CD17FF /* RegisterMainViewController.swift in Sources */,
 				E4443DDA1DEB414300BC9632 /* UIColor+Cube.swift in Sources */,
 				E4443DDB1DEB414300BC9632 /* UIFont+Cube.swift in Sources */,
 				E4443DDC1DEB414300BC9632 /* UINavigationController+Cube.swift in Sources */,
@@ -1712,6 +1727,7 @@
 				E4443DCF1DEB406900BC9632 /* Config.swift in Sources */,
 				E4DAFE0D1DEB32B9008A8702 /* ModelExtesion.swift in Sources */,
 				E4DAFE0A1DEB3221008A8702 /* FileManager+Cube.swift in Sources */,
+				E47BB2C11DEBE4F800CD17FF /* Server.swift in Sources */,
 				E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */,
 				E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */,
 				E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */,

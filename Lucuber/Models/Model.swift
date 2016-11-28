@@ -293,7 +293,6 @@ open class FormulaMaster: Object {
     /// localobjectID
     open dynamic var formulaID: String = ""
     open dynamic var atRUser: RUser?
-    open dynamic var creatorLcObjectID: String = ""
 }
 
 // MARK: - User

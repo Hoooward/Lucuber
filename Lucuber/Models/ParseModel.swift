@@ -58,7 +58,7 @@ public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessag
     
     let discoverMessage = DiscoverMessage()
    
-    discoverMessage.localObjectID = Message.randomLocalObjectID()
+    discoverMessage.localObjectID = message.localObjectID
     
     discoverMessage.mediaType = message.mediaType
     discoverMessage.textContent = message.textContent

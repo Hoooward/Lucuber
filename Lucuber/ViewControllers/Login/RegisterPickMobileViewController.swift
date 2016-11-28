@@ -188,24 +188,7 @@ class RegisterPickMobileViewController: UIViewController {
                         }
                         
                     }
-                    
-//                    if error == nil {
-//                        
-//                        switch type {
-//                            
-//                        case .register:
-//                            
-//                            CubeAlert.alertSorry(message: "此手机号已经注册, 可返回直接登录。", inViewController: self)
-//                            
-//                        case .login :
-//                            
-//                            CubeAlert.alertSorry(message: "此手机号码尚未注册，请返回注册。", inViewController: self)
-//                        }
-//                        
-//                    } else {
-//                        
-//                        CubeAlert.alertSorry(message: "请求失败，请检查网络连接或稍后再试", inViewController: self)
-//                    }
+
                     
                     }, completion: {
                         

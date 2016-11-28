@@ -22,9 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         AVOSCloud.setAllLogsEnabled(false)
         
-//        DiscoverFormula.registerSubclass()
-//        DiscoverContent.registerSubclass()
-//        DiscoverPreferences.registerSubclass()
+        DiscoverFormula.registerSubclass()
+        DiscoverContent.registerSubclass()
+        DiscoverPreferences.registerSubclass()
+        DiscoverMessage.registerSubclass()
         
         // 注意会重复添加数据
 //        pushFormulaDataToLeanCloud()

@@ -21,9 +21,14 @@ public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
 }
 
 public func currentUser(in realm: Realm) -> RUser? {
-    guard let avuserID = AVUser.current()?.objectId else { return nil }
-    return userWith(avuserID, inRealm: realm)
+    guard let avUser = AVUser.current(), let avUserObjectID = avUser.objectId else { return nil }
+    if let rUser = userWith(avUserObjectID, inRealm: realm) {
+        return rUser
+    } else {
+        return creatRUser(with: avUser, inRealm: realm)
+    }
 }
+
 
 public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm realm: Realm) -> FormulaMaster? {
     let predicate = NSPredicate(format: "formulaID = %@", localObjectID)
@@ -32,7 +37,7 @@ public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm rea
 }
 
 public func mastersWith(_ rUser: RUser, inRealm realm: Realm) -> Results<FormulaMaster> {
-    let predicate = NSPredicate(format: "atRuser = %@", rUser)
+    let predicate = NSPredicate(format: "atRUser = %@", rUser)
     return realm.objects(FormulaMaster.self).filter(predicate)
 }
 
@@ -58,10 +63,11 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
 public func updateMasterList(with currentUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
     if let newMasterList = discoverUser.masterList() {
         let oldMasterList = mastersWith(currentUser, inRealm: realm)
-        realm.delete(oldMasterList)
+        
+        try? realm.write { realm.delete(oldMasterList) }
         
         let masterList = newMasterList.map { FormulaMaster(value:[$0, currentUser]) }
-        realm.add(masterList)
+        try? realm.write { realm.add(masterList) }
     }
 }
 
@@ -80,13 +86,15 @@ public func creatRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser
         newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
         newUser.lcObjcetID = discoverUser.objectId!
         newUser.avatorImageURL = discoverUser.avatorImageURL()
-        newUser.username = discoverUser.username!
-        newUser.nickname = discoverUser.nickname()!
+        newUser.username = discoverUser.username ?? ""
+        newUser.nickname = discoverUser.nickname() ?? ""
         newUser.introduction = discoverUser.introduction()
         
         updateMasterList(with: newUser, discoverUser: discoverUser, inRealm: realm)
         
-        realm.add(newUser)
+        try? realm.write {
+            realm.add(newUser)
+        }
         return newUser
     }
     
