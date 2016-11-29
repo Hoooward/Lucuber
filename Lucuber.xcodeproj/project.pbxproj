@@ -12,6 +12,7 @@
 		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
 		E41AC7F61DEDC95900CE3123 /* DeatilHeaderCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41AC7F51DEDC95800CE3123 /* DeatilHeaderCollectionViewLayout.swift */; };
+		E41AC7F91DEDEA7100CE3123 /* HeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41AC7F81DEDEA7000CE3123 /* HeaderViewCell.swift */; };
 		E41ECF481DB5DAC5005BEFE4 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
 		E41ECF4A1DB5F548005BEFE4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF491DB5F548005BEFE4 /* ImageCache.swift */; };
 		E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
@@ -233,6 +234,7 @@
 		E4011F331DB277BE00EEBBCF /* Date+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Cube.swift"; sourceTree = "<group>"; };
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
 		E41AC7F51DEDC95800CE3123 /* DeatilHeaderCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeatilHeaderCollectionViewLayout.swift; sourceTree = "<group>"; };
+		E41AC7F81DEDEA7000CE3123 /* HeaderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewCell.swift; sourceTree = "<group>"; };
 		E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cube.swift"; sourceTree = "<group>"; };
@@ -468,6 +470,14 @@
 				334ED53D389A550452728B65 /* Pods_LucuberKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E41AC7F71DEDEA6100CE3123 /* HeaderViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E41AC7F81DEDEA7000CE3123 /* HeaderViewCell.swift */,
+			);
+			path = HeaderViewCell;
 			sourceTree = "<group>";
 		};
 		E41ECF511DB61A27005BEFE4 /* MediaPreview */ = {
@@ -801,6 +811,7 @@
 		E4CED7BC1DE862770036A11C /* FormulaDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				E41AC7F71DEDEA6100CE3123 /* HeaderViewCell */,
 				E4CED8941DE88E0D0036A11C /* ContentCell */,
 				E4CED7BD1DE862770036A11C /* CommentCell */,
 				E4CED7C41DE862770036A11C /* FormulasCell */,
@@ -1809,6 +1820,7 @@
 				E4CED8861DE862770036A11C /* CameraPreviewView.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,
 				E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */,
+				E41AC7F91DEDEA7100CE3123 /* HeaderViewCell.swift in Sources */,
 				E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */,
 				E4DAFE0C1DEB326F008A8702 /* ModelExtesion.swift in Sources */,
 				E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */,

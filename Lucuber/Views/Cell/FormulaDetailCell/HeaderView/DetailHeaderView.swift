@@ -13,6 +13,18 @@ class DetailHeaderView: UIView {
 
     // MARK: - Properties
     
+    var formulas: [UIImage] {
+        
+        var formulas = [UIImage]()
+        for index in 1...10 {
+            
+            let image = UIImage(named: "PLL\(index)")!
+            
+            formulas.append(image)
+        }
+        return formulas
+    }
+    
     ///外界读取方便设置自己的frame
     var headerHeight: CGFloat {
         return creatTimeLabel.frame.maxY + 20
@@ -23,12 +35,10 @@ class DetailHeaderView: UIView {
             if let formula = formula {
                 
                 nameLabel.text = formula.name
-//                printLog("imageName = \(formula.imageName)")
                 imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: imageView.size)
                 ratingView.rating = formula.rating
                 ratingView.maxRating = 5
                 
-//                changeFormulaNameLabelStatus()
                 
             }
         }
@@ -38,7 +48,6 @@ class DetailHeaderView: UIView {
         let label = UILabel()
         label.text = "F2L 1"
         label.font = UIFont.systemFont(ofSize: 20)
-//        label.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
         label.sizeToFit()
         return label
         
@@ -62,7 +71,6 @@ class DetailHeaderView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        //        imageView.image = UIImage(named: "placeholder")
         return imageView
     }()
     
@@ -70,16 +78,16 @@ class DetailHeaderView: UIView {
         let layout = DeatilHeaderCollectionViewLayout()
         return layout
     }()
+    fileprivate let headerViewCellIdentifier = "HeaderViewCell"
     
     fileprivate lazy var collectionView: UICollectionView = {
+        
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.layout)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView.backgroundColor = UIColor.gray
+        collectionView.register(HeaderViewCell.self, forCellWithReuseIdentifier: self.headerViewCellIdentifier)
+        collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
-//        collectionView.isPagingEnabled = true
         return collectionView
-        
     }()
     
     private lazy var ratingView: StarRatingView = {
@@ -161,14 +169,15 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return formulas.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerViewCellIdentifier, for: indexPath) as! HeaderViewCell
         
-        cell.backgroundColor = UIColor.red
+        cell.image = formulas[indexPath.row]
+        
         return cell
     }
     
@@ -206,13 +215,13 @@ extension DetailHeaderView: UIScrollViewDelegate {
                 let totalScrollDistance = self.scrollDistance - self.collectionView.contentInset.left
                 scrollView.setContentOffset(CGPoint(x: CGFloat(currentCount) * totalScrollDistance, y: 0), animated: true)
                 
-            } else if currentCount < 10 && currentCount > 1 {
+            } else if currentCount < formulas.count && currentCount > 1 {
                 
                 let totalScrollDistance = CGFloat(currentCount) * self.scrollDistance - self.collectionView.contentInset.left
                 scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
             } else {
                 
-                let totalScrollDistance = CGFloat(10 - 1) * self.scrollDistance - self.collectionView.contentInset.left
+                let totalScrollDistance = CGFloat(formulas.count - 1) * self.scrollDistance - self.collectionView.contentInset.left
                 scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
             }
         } else {
