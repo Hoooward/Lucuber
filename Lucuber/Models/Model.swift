@@ -200,6 +200,7 @@ open class Formula: Object {
         newFormula.favorate = false
         newFormula.deletedByCreator = false
         newFormula.isLibrary = isLibrary
+        let _ = Content.new(with: newFormula, inRealm: realm)
         realm.add(newFormula)
         
         return newFormula
@@ -257,10 +258,17 @@ open class Content: Object {
     
     open var cellHeight: CGFloat {
         
-        let attributesText = text.setAttributesFitDetailLayout(style: .center)
-        let screenWidth = UIScreen.main.bounds.width
-        let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-        return rect.height
+        var height: CGFloat = 50
+        
+        if text.characters.count > 0 {
+            
+            let attributesText = text.setAttributesFitDetailLayout(style: .center)
+            let screenWidth = UIScreen.main.bounds.width
+            let rect = attributesText.boundingRect(with: CGSize(width: screenWidth - 38 - 38 , height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+            height = rect.size.height + 30
+        }
+        return height
+        
         
     }
 

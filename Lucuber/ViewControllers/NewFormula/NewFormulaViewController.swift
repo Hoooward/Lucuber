@@ -740,9 +740,10 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             try? realm.write {
                 _ = Content.new(with: self.formula, inRealm: realm)
             }
+            printLog(self.formula)
            
             tableView.beginUpdates()
-            let newIndex = IndexPath(row: formula.contents.count, section: Section.content.rawValue)
+            let newIndex = IndexPath(row: formula.contents.count - 1, section: Section.content.rawValue)
             tableView.insertRows(at: [newIndex], with: .fade)
             tableView.endUpdates()
             return
