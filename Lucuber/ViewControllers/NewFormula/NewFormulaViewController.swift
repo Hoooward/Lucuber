@@ -21,24 +21,25 @@ class NewFormulaViewController: UIViewController {
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     
-    enum EditType {
+    public enum EditType {
         case newFormula
         case newAttchment
         case editFormula
         case addToMy
     }
     
-    var editType: EditType = .newFormula
+    public var editType: EditType = .newFormula
     
-    var savedNewFormula: (() -> Void)?
+    public var savedNewFormulaDraft: (() -> Void)?
+    public var updateSeletedCategory: ((Category?) -> Void)?
    
-    var formula = Formula() {
+    public var formula = Formula() {
         didSet {
             headerView.configView(with: formula)
         }
     }
     
-    var realm: Realm = try! Realm()
+    public var realm: Realm!
     
     fileprivate let headerViewHeight: CGFloat = 170
     fileprivate var keyboardFrame = CGRect.zero
@@ -266,9 +267,8 @@ class NewFormulaViewController: UIViewController {
     
     @IBAction func dismiss(sender: AnyObject) {
         
-        try? realm.write {
-            self.formula.cascadeDelete(inRealm: realm)
-        }
+      
+        savedNewFormulaDraft?()
         
         dismiss(animated: true, completion: nil)
     }
@@ -295,12 +295,16 @@ class NewFormulaViewController: UIViewController {
                 HUD.flash(.label("公式失败, 请检查网络连接"))
                 self.tableView.reloadData()
                 
-            }, completion: {
+            }, completion: { [weak self] in
                 
+                guard let strongSelf = self else {
+                    return
+                }
                 HUD.flash(.success)
-                self.isSaveing = false
+                strongSelf.isSaveing = false
                 
-                self.dismiss(animated: true, completion: nil)
+                strongSelf.updateSeletedCategory?(strongSelf.formula.category)
+                strongSelf.dismiss(animated: true, completion: nil)
             })
             
             

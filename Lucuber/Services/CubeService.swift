@@ -367,6 +367,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                                 }
                             }
                             
+                            newFormula.isPushed = true
                             newFormula.lcObjectID = newDiscoverFormula.objectId
                             createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                         }

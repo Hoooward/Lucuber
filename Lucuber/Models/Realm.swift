@@ -189,15 +189,25 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         guard let currentUser = currentUser(in: realm) else { fatalError() }
         let predicate = NSPredicate(format: "creator = %@", currentUser)
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        let result = realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
         
-        return result
+        if case .all = category {
+            return realm.objects(Formula.self).filter(predicate)
+            
+        } else {
+            return realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
+        }
             
     case .library:
         
         let predicate = NSPredicate(format: "isLibrary == true")
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        return realm.objects(Formula.self).filter(predicate).filter(predicate2)
+        
+        if case .all = category {
+            return realm.objects(Formula.self).filter(predicate)
+            
+        } else {
+            return realm.objects(Formula.self).filter(predicate).filter(predicate2)
+        }
     }
     
 }

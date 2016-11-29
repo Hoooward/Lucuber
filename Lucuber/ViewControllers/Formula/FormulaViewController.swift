@@ -232,26 +232,48 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             let vc = nvc.viewControllers[0] as! NewFormulaViewController
             
             vc.editType = .newFormula
-            
             vc.view.alpha = 1
             
             if let presentingVC = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
-                
                 
                 guard let realm = try? Realm() else {
                     return
                 }
                 
                 var formula: Formula!
+                
                 try? realm.write {
                     
                     formula = Formula.new(false, inRealm: realm)
                     formula.categoryString = presentingVC.seletedCategory.rawValue
                     
+                    if Category.all == presentingVC.seletedCategory {
+                        formula.categoryString = Category.x3x3.rawValue
+                    }
+                    
                 }
                 
                 vc.formula = formula
                 vc.realm = realm
+                
+                
+                vc.updateSeletedCategory = { seletedCategory in
+                    if let seletedCategory = seletedCategory {
+                        presentingVC.seletedCategory = seletedCategory
+                    }
+                }
+                
+             
+                
+                vc.savedNewFormulaDraft = {
+                    formula.isPushed = false
+                    // 暂时不处理草稿, 直接将取消的 Formula 删除
+                    try? realm.write {
+                        formula.cascadeDelete(inRealm: realm)
+                    }
+                    
+                }
+                
                 
             }
         }

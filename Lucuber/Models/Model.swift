@@ -47,7 +47,7 @@ public enum Category: String {
     case RubiksClock = "魔表"
     // !! 这两个不可以用作公式类型.
     case unKnow = "未知种类"
-    case all = "全部公式"
+    case all = "所有公式"
     
     var sortIndex: Int {
         
@@ -157,6 +157,7 @@ open class Formula: Object {
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     open dynamic var isNewVersion: Bool = false
+    open dynamic var isPushed: Bool = false
     
     open let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     

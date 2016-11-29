@@ -191,6 +191,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
             }
         }
         
+        formula.isPushed = true
         formula.isLibrary = discoverFormula.isLibrary
         formula.name = discoverFormula.name
         formula.imageName = discoverFormula.imageName
@@ -260,7 +261,6 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 
             }
         }
-        
         
         createOrUpdateRCategory(with: formula, uploadMode: uploadMode, inRealm: realm)
         
