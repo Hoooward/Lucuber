@@ -24,9 +24,17 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
     
     fileprivate var realm: Realm! = try! Realm()
     
-    public lazy var formulasData: Results<Formula> = {
+    fileprivate var searchResult: [Formula] = []
+    
+    public lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
+    
+    public var uploadMode: UploadFormulaMode = .my
+    
+    public var seletedCategory: Category = .x3x3
+    
+    public var formulasData: Results<Formula> {
         return formulasWith(self.uploadMode, category: self.seletedCategory, inRealm: self.realm)
-    }()
+    }
     
     fileprivate var formulas: [[Formula]] {
         var formulas = [[Formula]]()
@@ -38,13 +46,12 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
             }
         }
         
-        types.sorted { $0.sortIndex < $1.sortIndex }.forEach {
+        types.sorted { $0.sortIndex > $1.sortIndex }.forEach {
             
             let predicate = NSPredicate(format: "typeString = %@", $0.rawValue)
             let fromulasType = self.formulasData.filter(predicate)
             
             if !fromulasType.isEmpty {
-                
                 formulas.append(fromulasType.map{$0})
             }
         }
@@ -52,13 +59,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         return formulas
     }
     
-    fileprivate var searchResult: [Formula] = []
     
-    public lazy var vistorView = MyFormulaVisitorView(frame: UIScreen.main.bounds)
-    
-    public var uploadMode: UploadFormulaMode = .my
-    
-    public var seletedCategory: Category = .x3x3
     
     /// 缓存进入搜索模式前的UserMode
     fileprivate var cacheBeforeSearchUserMode: FormulaUserMode?

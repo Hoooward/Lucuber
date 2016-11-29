@@ -12,6 +12,29 @@ import AVOSCloud
 
 // MARK: - User
 
+public func creatMeInRealm() -> RUser? {
+    guard
+        let realm = try? Realm() ,
+        let currentUser = AVUser.current(),
+        let currentUserlcObjectID = currentUser.objectId else {
+        return nil
+    }
+    
+    let newUser = RUser()
+    newUser.localObjectID = currentUser.localObjectID() ?? ""
+    newUser.lcObjcetID = currentUserlcObjectID
+    newUser.avatorImageURL = currentUser.avatorImageURL() ?? ""
+    newUser.nickname = currentUser.nickname() ?? ""
+    newUser.username = currentUser.username ?? ""
+    newUser.introduction = currentUser.introduction() ?? ""
+    
+    
+    try? realm.write {
+       realm.add(newUser)
+    }
+    return newUser
+}
+
 // MARK: - Realm
 
 
@@ -22,20 +45,7 @@ public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
 
 public func currentUser(in realm: Realm) -> RUser? {
     guard let avUser = AVUser.current(), let avUserObjectID = avUser.objectId else { return nil }
-    if let rUser = userWith(avUserObjectID, inRealm: realm) {
-        return rUser
-    } else {
-        return createOrUpdateRUser(with: avUser, inRealm: realm)
-    }
-}
-
-public func tryGetOrCreatMe(inRealm realm: Realm) -> RUser {
-    guard let avUser = AVUser.current(), let avUserObjectID = avUser.objectId else { fatalError() }
-    if let rUser = userWith(avUserObjectID, inRealm: realm) {
-        return rUser
-    } else {
-        return createOrUpdateRUser(with: avUser, inRealm: realm)
-    }
+    return userWith(avUserObjectID, inRealm: realm)
 }
 
 
@@ -69,49 +79,45 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
     
 }
 
-public func updateMasterList(with currentUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
-    if let newMasterList = discoverUser.masterList() {
-        let oldMasterList = mastersWith(currentUser, inRealm: realm)
-        
-        try? realm.write { realm.delete(oldMasterList) }
-        
-        let masterList = newMasterList.map { FormulaMaster(value:[$0, currentUser]) }
-        try? realm.write { realm.add(masterList) }
-    }
-}
-
-public func createOrUpdateRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
-    
-    var creator = userWith(discoverUser.objectId ?? "", inRealm: realm)
-    
-    realm.beginWrite()
-    if creator == nil {
-        
-        let newUser = RUser()
-        newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
-        newUser.lcObjcetID = discoverUser.objectId!
-        
-        realm.add(newUser)
-        
-        creator = newUser
-    }
-    
-    if let creator = creator {
-        
-        creator.avatorImageURL = discoverUser.avatorImageURL()
-        creator.username = discoverUser.username ?? ""
-        creator.nickname = discoverUser.nickname() ?? ""
-        creator.introduction = discoverUser.introduction()
-        
-        updateMasterList(with: creator, discoverUser: discoverUser, inRealm: realm)
-        
-        try? realm.commitWrite()
-    }
-    
-    return creator!
-    
-   
-}
+//public func updateMasterList(with currentUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
+//    if let newMasterList = discoverUser.masterList() {
+//        let oldMasterList = mastersWith(currentUser, inRealm: realm)
+//        
+//        try? realm.write { realm.delete(oldMasterList) }
+//        
+//        let masterList = newMasterList.map { FormulaMaster(value:[$0, currentUser]) }
+//        try? realm.write { realm.add(masterList) }
+//    }
+//}
+//
+//public func createOrUpdateRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
+//    
+//    var creator = userWith(discoverUser.objectId ?? "", inRealm: realm)
+//    if creator == nil {
+//        
+//        let newUser = RUser()
+//        newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
+//        newUser.lcObjcetID = discoverUser.objectId!
+//        
+//        realm.add(newUser)
+//        
+//        creator = newUser
+//    }
+//    
+//    if let creator = creator {
+//        
+//        creator.avatorImageURL = discoverUser.avatorImageURL()
+//        creator.username = discoverUser.username ?? ""
+//        creator.nickname = discoverUser.nickname() ?? ""
+//        creator.introduction = discoverUser.introduction()
+//        
+//        updateMasterList(with: creator, discoverUser: discoverUser, inRealm: realm)
+//    }
+//    
+//    return creator!
+//    
+//   
+//}
 
 // MARK: - Formula
 
@@ -135,7 +141,7 @@ public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm)
     let categorys = realm.objects(RCategory.self).filter(predicate)
     
     if categorys.isEmpty {
-        let newCategory = RCategory(value: ["x3x3", uploadMode.rawValue])
+        let newCategory = RCategory(value: [Category.x3x3.rawValue, uploadMode.rawValue])
         realm.add(newCategory)
     }
     
@@ -197,14 +203,11 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
 }
 
 public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
-    
     let categorys = categorysWith(uploadMode, inRealm: realm)
     let categoryTexts = categorys.map { $0.name }
     if !categoryTexts.contains(formula.categoryString) {
         
-        let newRCategory = RCategory()
-        newRCategory.uploadMode = uploadMode.rawValue
-        newRCategory.name = formula.categoryString
+        let newRCategory = RCategory(value: [formula.categoryString, uploadMode.rawValue])
         realm.add(newRCategory)
         
     }

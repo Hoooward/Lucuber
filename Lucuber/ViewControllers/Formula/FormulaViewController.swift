@@ -167,7 +167,9 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             let category = presentingVC.seletedCategory
             let RCategorys = categorysWith(presentingVC.uploadMode, inRealm: realm)
             
-            let categorys: [Category] = RCategorys.map({ Category(rawValue:$0.name)! })
+            var categorys: [Category] = RCategorys.map({ Category(rawValue:$0.name)! })
+            
+            categorys.append(Category.all)
             
             let menuHeight = Config.CategoryMenu.rowHeight * CGFloat(categorys.count) + 20 + 10
             
@@ -183,6 +185,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             menuVC.categoryDidChanged = {
                 category in
                 
+                printLog("已选择的\(category)")
                 presentingVC.seletedCategory = category
                 
                 presentingVC.collectionView?.reloadData()

@@ -37,10 +37,6 @@ class CategoryMenuController: UIViewController, UITableViewDelegate, UITableView
         tableView.rowHeight = Config.CategoryMenu.rowHeight
     }
     
-    deinit {
-        printLog("\(self) is dead")
-    }
-    
     // MARK: - TableView Delegate & DataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -127,14 +127,25 @@ class RegisterPickAvatarViewController: UIViewController {
         }, completion: { URLString in
             
             UserDefaults.setNewUser(avatarURL: URLString)
+            
+            
             if let currentUser = AVUser.current() {
                 currentUser.setAvatorImageURL(URLString)
                 currentUser.setNickname(self.nickName!)
+                currentUser.setLocalObjcetID(RUser.randomLocalObjectID())
                 currentUser.saveInBackground()
             }
             
             CubeHUD.hideActivityIndicator()
-            NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+            
+            if let me = creatMeInRealm() {
+                printLog(me)
+                NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+            } else {
+                fatalError("崩了, 新建用户失败喽")
+            }
+            
+            
             
         })
     }

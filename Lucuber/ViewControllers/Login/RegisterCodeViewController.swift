@@ -229,9 +229,12 @@ class RegisterCodeViewController: UIViewController {
                 
             case .login:
                 
-                // 进入 Main Storyboard
-                NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
-                break
+                if let me = creatMeInRealm() {
+                    printLog(me)
+                    NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+                } else {
+                    fatalError("崩了, 创建用户失败")
+                }
                 
             case .register:
                 

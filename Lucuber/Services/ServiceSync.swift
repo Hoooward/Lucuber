@@ -153,11 +153,42 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     
     if let formula = formula {
         
-        if  let discoverFormulaCreator = discoverFormula.creator {
+        if let discoverFormulaCreator = discoverFormula.creator {
             
-            let creator = createOrUpdateRUser(with: discoverFormulaCreator, inRealm: realm)
+            var user = userWith(discoverFormulaCreator.objectId!, inRealm: realm)
             
-            formula.creator = creator
+            if user == nil {
+                let newUser = RUser()
+                newUser.lcObjcetID = discoverFormulaCreator.objectId!
+                
+                realm.add(newUser)
+                user = newUser
+            }
+            
+            if let user = user {
+                
+                user.localObjectID = discoverFormulaCreator.localObjectID() ?? ""
+                user.avatorImageURL = discoverFormulaCreator.avatorImageURL()
+                user.nickname = discoverFormulaCreator.nickname() ?? ""
+                user.username = discoverFormulaCreator.username ?? ""
+                
+                let oldMasterList: [String] = user.masterList.map({ $0.formulaID })
+                
+                if let newMasterList = discoverFormulaCreator.masterList() {
+                    
+                    if oldMasterList != newMasterList {
+                       
+                        realm.delete(user.masterList)
+                        
+                        let newRMasterList = newMasterList.map({ FormulaMaster(value: [$0, user]) })
+                        
+                        realm.add(newRMasterList)
+                        
+                    }
+                }
+                
+                formula.creator = user
+            }
         }
         
         formula.isLibrary = discoverFormula.isLibrary
@@ -173,6 +204,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         }
         
         formula.updateUnixTime = discoverFormula.updatedAt!.timeIntervalSince1970
+        formula.createdUnixTime = discoverFormula.createdAt!.timeIntervalSince1970
         
         // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
         

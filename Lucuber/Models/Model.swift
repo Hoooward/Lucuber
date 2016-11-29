@@ -45,43 +45,30 @@ public enum Category: String {
     case Megaminx = "Megaminx"
     case Pyraminx = "Pyraminx"
     case RubiksClock = "魔表"
+    // !! 这两个不可以用作公式类型.
     case unKnow = "未知种类"
+    case all = "全部公式"
     
     var sortIndex: Int {
         
         switch self {
-        case .x2x2:
-            return 1
-        case .x3x3:
-            return 2
-        case .x4x4:
-            return 3
-        case .x5x5:
-            return 4
-        case .x6x6:
-            return 5
-        case .x7x7:
-            return 6
-        case .x8x8:
-            return 7
-        case .x9x9:
-            return 8
-        case .x10x10:
-            return 9
-        case .x11x11:
-            return 10
-        case .SquareOne:
-            return 11
-        case .Megaminx:
-            return 12
-        case .Pyraminx:
-            return 13
-        case .RubiksClock:
-            return 14
-        case .Other:
-            return 15
-        case .unKnow:
-            return 16
+        case .x2x2: return 1
+        case .x3x3: return 2
+        case .x4x4: return 3
+        case .x5x5: return 4
+        case .x6x6: return 5
+        case .x7x7: return 6
+        case .x8x8: return 7
+        case .x9x9: return 8
+        case .x10x10: return 9
+        case .x11x11: return 10
+        case .SquareOne: return 11
+        case .Megaminx: return 12
+        case .Pyraminx: return 13
+        case .RubiksClock: return 14
+        case .Other: return 15
+        case .unKnow: return 16
+        case .all: return 17
         }
     }
     
