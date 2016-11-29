@@ -211,6 +211,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
         switch segueIdentifier(for: segue) {
             
+        // TODO: - 重要
         case .showFormulaDetail:
             
             let vc = segue.destination as! FormulaDetailViewController
@@ -257,18 +258,27 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 vc.realm = realm
                 
                 
-                vc.updateSeletedCategory = { seletedCategory in
-                    if let seletedCategory = seletedCategory {
+                vc.updateSeletedCategory = { [weak self] seletedCategory in
+                    
+                        guard
+                            let strongSelf = self,
+                            let seletedCategory = seletedCategory,
+                            let button = strongSelf.navigationItem.rightBarButtonItem as? CategoryButton else {
+                           return
+                        }
+                        
+                        UserDefaults.setSelected(category: seletedCategory, mode: presentingVC.uploadMode)
+                        
+                        button.seletedCategory = seletedCategory
                         presentingVC.seletedCategory = seletedCategory
-                    }
                 }
                 
              
                 
                 vc.savedNewFormulaDraft = {
-                    formula.isPushed = false
                     // 暂时不处理草稿, 直接将取消的 Formula 删除
                     try? realm.write {
+                        formula.isPushed = false
                         formula.cascadeDelete(inRealm: realm)
                     }
                     

@@ -22,10 +22,9 @@ class DetailHeaderView: UIView {
         didSet {
             if let formula = formula {
                 
-                
                 nameLabel.text = formula.name
 //                printLog("imageName = \(formula.imageName)")
-                imageView.image = UIImage(named: formula.imageName)
+                imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: imageView.size)
                 ratingView.rating = formula.rating
                 ratingView.maxRating = 5
                 
@@ -67,6 +66,22 @@ class DetailHeaderView: UIView {
         return imageView
     }()
     
+    private lazy var layout: DeatilHeaderCollectionViewLayout = {
+        let layout = DeatilHeaderCollectionViewLayout()
+        return layout
+    }()
+    
+    fileprivate lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.layout)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.backgroundColor = UIColor.gray
+        collectionView.delegate = self
+        collectionView.dataSource = self
+//        collectionView.isPagingEnabled = true
+        return collectionView
+        
+    }()
+    
     private lazy var ratingView: StarRatingView = {
         let view = StarRatingView()
         view.rating = 5
@@ -96,11 +111,12 @@ class DetailHeaderView: UIView {
     
     func makeUI() {
         
-        addSubview(imageView)
+//        addSubview(imageView)
         addSubview(nameLabel)
         addSubview(creatUserLabel)
         addSubview(creatTimeLabel)
         addSubview(ratingView)
+        addSubview(collectionView)
         
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
@@ -110,6 +126,7 @@ class DetailHeaderView: UIView {
         let imageWidth = UIScreen.main.bounds.width - margin - margin
         
         imageView.frame = CGRect(x: margin, y: 5, width: imageWidth, height: imageWidth)
+        collectionView.frame = CGRect(x: 0, y: 5, width: UIScreen.main.bounds.width, height: imageWidth)
         
         nameLabel.frame = CGRect(x: margin, y: imageView.frame.maxY + 15, width: imageWidth - ratingWidth, height: 24)
         
@@ -132,8 +149,96 @@ class DetailHeaderView: UIView {
         }
     }
     
+    var scrollDistance: CGFloat = UIScreen.main.bounds.width - Config.FormulaDetail.screenMargin - Config.FormulaDetail.screenMargin + 6
+    var scrollToRight = true
+    var lastContentOffsetX: CGFloat = 0
 }
 
+extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        
+        cell.backgroundColor = UIColor.red
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let margin = Config.FormulaDetail.screenMargin
+        let imageWidth = UIScreen.main.bounds.width - margin - margin
+
+        return CGSize(width: imageWidth, height: collectionView.bounds.height)
+    }
+    
+    
+}
+
+
+extension DetailHeaderView: UIScrollViewDelegate {
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if self.lastContentOffsetX < scrollView.contentOffset.x {
+            self.scrollToRight = true
+        } else {
+            self.scrollToRight = false
+        }
+        self.lastContentOffsetX = scrollView.contentOffset.x
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        //http://www.jianshu.com/p/bb921a1cbf32 参考
+        
+        if self.scrollToRight {
+            
+            let currentCount = Int(scrollView.contentOffset.x / self.scrollDistance) + 1
+            if currentCount == 1 {
+                let totalScrollDistance = self.scrollDistance - self.collectionView.contentInset.left
+                scrollView.setContentOffset(CGPoint(x: CGFloat(currentCount) * totalScrollDistance, y: 0), animated: true)
+                
+            } else if currentCount < 10 && currentCount > 1 {
+                
+                let totalScrollDistance = CGFloat(currentCount) * self.scrollDistance - self.collectionView.contentInset.left
+                scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
+            } else {
+                
+                let totalScrollDistance = CGFloat(10 - 1) * self.scrollDistance - self.collectionView.contentInset.left
+                scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
+            }
+        } else {
+            
+            let currentCount = Int(scrollView.contentOffset.x/self.scrollDistance)
+            let totalScrollDistance = CGFloat(currentCount) * self.scrollDistance - self.collectionView.contentInset.left
+            scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
+        }
+    }
+    
+    
+//    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+//        let cell = self.collection.cellForItemAtIndexPath(NSIndexPath.init(forItem: self.currentRow, inSection: 0)) as? XXCell
+//        cell?.timer?.invalidate()
+//        
+//        // compute currentRow
+//        let distanceWithoutFirstRow = scrollView.contentOffset.x - (self.scrollDistance - self.collection.contentInset.left)
+//        if distanceWithoutFirstRow < 0 {
+//            self.currentRow = 0
+//        }
+//        else{
+//            self.currentRow = Int(distanceWithoutFirstRow/self.scrollDistance) + 1
+//        }
+//        self.loadBottomView(self.currentRow)
+//    }
+}
 
 
 

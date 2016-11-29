@@ -11,6 +11,7 @@
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
+		E41AC7F61DEDC95900CE3123 /* DeatilHeaderCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41AC7F51DEDC95800CE3123 /* DeatilHeaderCollectionViewLayout.swift */; };
 		E41ECF481DB5DAC5005BEFE4 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
 		E41ECF4A1DB5F548005BEFE4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF491DB5F548005BEFE4 /* ImageCache.swift */; };
 		E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
@@ -231,6 +232,7 @@
 		E4011F311DB1F90E00EEBBCF /* CommentViewController+Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Feed.swift"; sourceTree = "<group>"; };
 		E4011F331DB277BE00EEBBCF /* Date+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Cube.swift"; sourceTree = "<group>"; };
 		E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cube.swift"; sourceTree = "<group>"; };
+		E41AC7F51DEDC95800CE3123 /* DeatilHeaderCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeatilHeaderCollectionViewLayout.swift; sourceTree = "<group>"; };
 		E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		E41ECF2D1DB5CE54005BEFE4 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cube.swift"; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 			isa = PBXGroup;
 			children = (
 				E4CED7C81DE862770036A11C /* DetailHeaderView.swift */,
+				E41AC7F51DEDC95800CE3123 /* DeatilHeaderCollectionViewLayout.swift */,
 			);
 			path = HeaderView;
 			sourceTree = "<group>";
@@ -1751,6 +1754,7 @@
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,
 				E4CED85A1DE862770036A11C /* CardFormulaCell.swift in Sources */,
 				E43B6F401DEA9B4000CE1FB5 /* ParseModel.swift in Sources */,
+				E41AC7F61DEDC95900CE3123 /* DeatilHeaderCollectionViewLayout.swift in Sources */,
 				E41ECF4A1DB5F548005BEFE4 /* ImageCache.swift in Sources */,
 				E4CED8851DE862770036A11C /* BorderTextField.swift in Sources */,
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,

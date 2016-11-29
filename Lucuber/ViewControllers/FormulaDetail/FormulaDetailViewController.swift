@@ -28,7 +28,11 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         case edit = "showAddFormula"
     }
     
-    public var formula: Formula!
+    public var formula: Formula! {
+        didSet {
+            headerView.formula = formula
+        }
+    }
     
     var oldMasterList: [String] = []
     
@@ -169,6 +173,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
         tableView.register(UINib(nibName: masterCellIdentifier, bundle: nil), forCellReuseIdentifier: masterCellIdentifier)
         tableView.register(UINib(nibName: formulasCellIdentifier,bundle: nil), forCellReuseIdentifier: formulasCellIdentifier)
         tableView.register(UINib(nibName: separatorCellIdentifier,bundle: nil), forCellReuseIdentifier: separatorCellIdentifier)
@@ -186,6 +192,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             oldMasterList = list
         }
         
+        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: nil, action: nil)
         
         self.titleView.nameLabel.text = formula.name
@@ -198,6 +205,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1
         self.setNeedsStatusBarAppearanceUpdate()
+        printLog(#function)
         
     }
     
@@ -209,24 +217,11 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        printLog(#function)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        customNavigationBar.alpha = 1
+        self.setNeedsStatusBarAppearanceUpdate()
         
-        /// 用户可能在 detail 界面更改是否已经掌握某个公式。判断新的 masterlist 与旧的是否一致
-        if let currentUser = AVUser.current(), let newList = currentUser.masterList() {
-            
-            if oldMasterList != newList {
-                
-                currentUser.saveEventually({ (successed, error) in
-                    if successed {
-                        printLog("用户的 master 更新成功。")
-                    }
-                })
-                
-            } else {
-                
-                printLog("不需要更新")
-            }
-
-        }
     }
     
     deinit {

@@ -269,7 +269,6 @@ class NewFormulaViewController: UIViewController {
         
       
         savedNewFormulaDraft?()
-        
         dismiss(animated: true, completion: nil)
     }
     
@@ -697,7 +696,6 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         
-        return UITableViewCell()
     }
  
 
@@ -775,7 +773,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 let cell = strongSelf.tableView.cellForRow(at: indexPath) as! FormulaTextViewCell
                 
-                cell.rotationButton.updateButtonStyle(with: RotationButton.Style.square, rotation: rotation, animation: true)
+                cell.rotationButton.updateButtonStyle(with: RotationButton.Style.cercle, rotation: rotation, animation: true)
                 
             }
             

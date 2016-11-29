@@ -29,7 +29,6 @@ class NewFormulaHeadView: UIView {
         }
         
         self.formula = formula
-        printLog(formula.pickedLocalImage)
         
         imageButton.setBackgroundImage(formula.pickedLocalImage, for: .normal)
         indicatorView.configureWithCategory(category: formula.category.rawValue)

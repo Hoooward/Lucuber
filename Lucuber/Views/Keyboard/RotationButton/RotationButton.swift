@@ -52,7 +52,7 @@ class RotationButton: UIButton {
             case .square:
                 
                 normalImage = "FL_square_groy"
-                selectedImage = "FR_square"
+                selectedImage = "FL_square"
                 
             case .cercle:
                 normalImage = "FL_gray"
