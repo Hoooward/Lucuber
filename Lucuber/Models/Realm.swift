@@ -183,7 +183,8 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         guard let currentUser = currentUser(in: realm) else { fatalError() }
         let predicate = NSPredicate(format: "creator = %@", currentUser)
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        let result =  realm.objects(Formula.self).filter(predicate).filter(predicate2)
+        let result = realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
+        
         return result
             
     case .library:

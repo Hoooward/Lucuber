@@ -26,7 +26,22 @@ final class CubeImageCache {
     class func attachmentSideLengthKeyWithURLString(URLString: String, sideLenght: CGFloat) -> String {
         return "attachment-\(sideLenght)-\(URLString)"
     }
+   
     
+    func storeAlreadyUploadImageToCache(with image: UIImage, imageURLString: String) {
+        guard let attachmentURL = URL(string: imageURLString) else {
+            return
+        }
+        
+        let originKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: attachmentURL.absoluteString)
+        
+        let originData = UIImageJPEGRepresentation(image, 1.0)
+        
+        ImageCache.default.store(image, original: originData, forKey: originKey,  toDisk: true, completionHandler: {
+            
+        })
+        
+    }
     
     func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?, completion:@escaping (_ url: NSURL, _ image: UIImage?, _ cacheType: CacheType) -> Void)  {
         

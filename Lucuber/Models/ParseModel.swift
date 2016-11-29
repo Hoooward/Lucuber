@@ -96,6 +96,56 @@ public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessag
     return discoverMessage
 }
 
+public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFormula? {
+    
+    guard let currentUser = AVUser.current() else {
+        return nil
+    }
+    
+    var newDiscoverFormula = DiscoverFormula()
+    
+    if let leancloudObjectID = newFormula.lcObjectID {
+        newDiscoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: leancloudObjectID)
+    }
+    
+    let acl = AVACL()
+    acl.setPublicReadAccess(true)
+    acl.setWriteAccess(true, for: currentUser)
+    
+    newDiscoverFormula.acl = acl
+    
+    newDiscoverFormula.localObjectID = newFormula.localObjectID
+    newDiscoverFormula.name = newFormula.name
+    newDiscoverFormula.imageName = newFormula.imageName
+    
+    var discoverContents: [DiscoverContent] = []
+    
+    for content in newFormula.contents {
+        
+        let newDiscoverContent = DiscoverContent()
+        newDiscoverContent.localObjectID = content.localObjectID
+        newDiscoverContent.creator = currentUser
+        newDiscoverContent.atFormulaLocalObjectID = content.atFomurlaLocalObjectID
+        newDiscoverContent.rotation = content.rotation
+        newDiscoverContent.text = content.text
+        newDiscoverContent.indicatorImageName = content.indicatorImageName
+        newDiscoverContent.deletedByCreator = content.deleteByCreator
+        
+        discoverContents.append(newDiscoverContent)
+    }
+    
+    newDiscoverFormula.contents = discoverContents
+    
+    newDiscoverFormula.favorate = newFormula.favorate
+    newDiscoverFormula.category = newFormula.categoryString
+    newDiscoverFormula.type = newFormula.typeString
+    newDiscoverFormula.creator = currentUser
+    newDiscoverFormula.deletedByCreator = newFormula.deletedByCreator
+    newDiscoverFormula.rating = newFormula.rating
+    newDiscoverFormula.isLibrary = newFormula.isLibrary
+    
+    return newDiscoverFormula
+}
 
 
 

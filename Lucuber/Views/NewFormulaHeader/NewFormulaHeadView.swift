@@ -29,9 +29,9 @@ class NewFormulaHeadView: UIView {
         }
         
         self.formula = formula
+        printLog(formula.pickedLocalImage)
         
-        imageButton.setBackgroundImage(UIImage(named:formula.imageName), for: .normal)
-        setFormulaImageButtonBackgroundImage(imageName: formula.imageName)
+        imageButton.setBackgroundImage(formula.pickedLocalImage, for: .normal)
         indicatorView.configureWithCategory(category: formula.category.rawValue)
         
         var newName = formula.name.trimming(trimmingType: .whitespaceAndNewLine)

@@ -116,7 +116,7 @@ class NewFormulaViewController: UIViewController {
             
         }
         
-        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush()
+        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush
         
         tableView.contentInset = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: UIScreen.main.bounds.height - headerViewHeight - 64 - 44 - 25, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 64 + headerViewHeightConstraint.constant, left: 0, bottom: 0, right: 0)
@@ -148,7 +148,7 @@ class NewFormulaViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush()
+        self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush
     }
     
 
@@ -279,21 +279,28 @@ class NewFormulaViewController: UIViewController {
         
         if isSaveing { return }
         
-        self.formula.cleanBlankContent(inRealm: realm)
         
-        if self.formula.isReadyToPush() {
+        if self.formula.isReadyToPush {
             
             isSaveing = true
             
-            HUD.show(HUDContentType.label("公式保存中..."))
-            pushToLeancloud(with: formula, inRealm: realm, completion: {
-                HUD.flash(.label("保存成功"), delay: 1)
+            formula.cleanBlankContent(inRealm: realm)
+            
+            HUD.show(.progress)
+            
+            pushFormulaToLeancloud(with: formula, failureHandler: {
+                reason, errorMessage in
+                self.isSaveing = false
+                defaultFailureHandler(reason, errorMessage)
+                HUD.flash(.label("公式失败, 请检查网络连接"))
+                self.tableView.reloadData()
+                
+            }, completion: {
+                
+                HUD.flash(.success)
+                self.isSaveing = false
+                
                 self.dismiss(animated: true, completion: nil)
-                self.isSaveing = false
-                 
-            }, failureHandler: { error in
-                self.isSaveing = false
-                HUD.flash(.label("保存失败, 请重试"), delay: 1)
             })
             
             
@@ -442,7 +449,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 try? strongSelf.realm.write {
                     strongSelf.formula.name = name
                 }
-                strongSelf.navigationItem.rightBarButtonItem?.isEnabled = self?.formula.isReadyToPush() ?? false
+                strongSelf.navigationItem.rightBarButtonItem?.isEnabled = self?.formula.isReadyToPush ?? false
                 
                 strongSelf.headerView.configView(with: strongSelf.formula)
             }
@@ -604,7 +611,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 guard let strongSelf = self else {
                     return
                 }
-                strongSelf.navigationItem.rightBarButtonItem?.isEnabled = strongSelf.formula.isReadyToPush()
+                strongSelf.navigationItem.rightBarButtonItem?.isEnabled = strongSelf.formula.isReadyToPush
                 strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
                 
             }
@@ -920,7 +927,7 @@ extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigatio
             case String(kUTTypeImage):
                 
                 if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                    formula.image = image
+                    formula.pickedLocalImage = image
                 }
                 
                 

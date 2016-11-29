@@ -181,7 +181,7 @@ open class Formula: Object {
     }
     
     
-    open var image = UIImage()
+    open var pickedLocalImage = UIImage()
     
     open var type: Type {
         if let type = Type(rawValue: typeString) {
@@ -190,14 +190,14 @@ open class Formula: Object {
         return Type.unKnow
     }
     
-    open func isReadyToPush() -> Bool {
-        // TODO: - 代码太烂, isEmpty 不足以确定
-        var isReady = true
+    open var isReadyToPush: Bool {
+        
+        var isReady = false
         if let content = self.contents.first {
-            isReady = !content.text.isEmpty
+            isReady = !content.text.isDirty
         }
         
-        if name.isEmpty || imageName.isEmpty || typeString.isEmpty || categoryString.isEmpty  || !isReady {
+        if name.isDirty || typeString.isDirty || categoryString.isDirty {
             isReady = false
         }
         return isReady
@@ -215,7 +215,7 @@ open class Formula: Object {
         newFormula.isLibrary = isLibrary
         newFormula.creator = currentUser(in: realm)
         let randomInt = arc4random_uniform(11)
-        newFormula.imageName = "cube_Placehold_image_\(randomInt + 1)"
+        newFormula.pickedLocalImage = UIImage(named: "cube_Placehold_image_\(randomInt + 1)")!
         let _ = Content.new(with: newFormula, inRealm: realm)
         realm.add(newFormula)
         
@@ -223,7 +223,9 @@ open class Formula: Object {
     }
     
     open func cleanBlankContent(inRealm realm: Realm) {
-        realm.delete(self.contents.filter({ $0.text.isEmpty }))
+        try? realm.write {
+            realm.delete(self.contents.filter({ $0.text.isEmpty }))
+        }
     }
     
     open func cascadeDelete(inRealm realm: Realm) {
@@ -235,7 +237,7 @@ open class Formula: Object {
     }
     
     override open static func ignoredProperties() -> [String] {
-        return ["image", "category", "type"]
+        return ["pickedLocalImage", "category", "type"]
     }
 }
 

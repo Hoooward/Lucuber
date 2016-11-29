@@ -311,30 +311,14 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
     }
 }
 
-
 public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: (() -> Void)?) {
     
-    guard
-        let currentAVUser = AVUser.current(),
-        let currentAVUserObjectID = currentAVUser.objectId else {
-            return
+    guard let newDiscoverFormula = parseFormulaToDisvocerModel(with: newFormula) else  {
+        failureHandler(Reason.other(nil), "模型转换失败")
+        return
     }
     
-    let acl = AVACL()
-    acl.setPublicReadAccess(true)
-    acl.setWriteAccess(true, for: currentAVUser)
-    
-    var newDiscoverFormula = DiscoverFormula()
-    
-    if let leancloudObjectID = newFormula.lcObjectID {
-        newDiscoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: leancloudObjectID)
-    }
-    
-    newDiscoverFormula.localObjectID = newFormula.localObjectID
-    newDiscoverFormula.name = newFormula.name
-    newDiscoverFormula.imageName = newFormula.imageName
-    
-    let imageData = UIImageJPEGRepresentation(newFormula.image, 0.9)
+    let imageData = UIImageJPEGRepresentation(newFormula.pickedLocalImage, 0.9)
     
     pushDataToLeancloud(with: imageData, failureHandler: {
         reason, errorMessage in
@@ -350,92 +334,55 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
             newFormula.imageURL = imageURLString
         }
         
-    })
-    
-    
-    var discoverContents: [DiscoverContent] = []
-    newFormula.contents.forEach { content in
+        CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newFormula.pickedLocalImage, imageURLString: imageURLString)
         
-        let newDiscoverContent = DiscoverContent()
-        
-        newDiscoverContent.localObjectID = content.localObjectID
-        newDiscoverContent.creator = currentAVUser
-        newDiscoverContent.atFormulaLocalObjectID = content.atFomurlaLocalObjectID
-        newDiscoverContent.rotation = content.rotation
-        newDiscoverContent.text = content.text
-        newDiscoverContent.indicatorImageName = content.indicatorImageName
-        newDiscoverContent.deletedByCreator = content.deleteByCreator
-        
-        discoverContents.append(newDiscoverContent)
-    }
-    
-    newDiscoverFormula.contents = discoverContents
-    
-    newDiscoverFormula.favorate = newFormula.favorate
-    newDiscoverFormula.category = newFormula.categoryString
-    newDiscoverFormula.type = newFormula.typeString
-    newDiscoverFormula.creator = currentAVUser
-    newDiscoverFormula.deletedByCreator = newFormula.deletedByCreator
-    newDiscoverFormula.rating = newFormula.rating
-    newDiscoverFormula.isLibrary = newFormula.isLibrary
-    
-    
-    AVObject.saveAll(inBackground: discoverContents, block: {
-        
-        success, error in
-        
-        
-        if error != nil {
+        AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: { success, error in
             
-            failureHandler?(error as? NSError)
-        }
-        
-        if success {
+            if error != nil {
+                failureHandler(Reason.network(error), "推送 Formula 的 contents 失败.")
+            }
             
-            newDiscoverFormula.saveInBackground({ success, error in
+            if success {
                 
-                if error != nil {
+                newDiscoverFormula.saveInBackground({ success, error in
                     
-                    failureHandler?(error as? NSError)
-                }
-                
-                if success {
-                    
-                    printLog("newDiscoverFormula push 成功")
-                    
-                    try? realm.write {
-                        
-                        if discoverContents.count == newFormula.contents.count {
-                            
-                            for index in 0..<discoverContents.count {
-                                if let lcObjectID = discoverContents[index].objectId {
-                                    newFormula.contents[index].lcObjectID = lcObjectID
-                                }
-                            }
-                        }
-                        
-                        if let currentUser = userWith(currentAVUserObjectID, inRealm: realm) {
-                            newFormula.creator = currentUser
-                        }
-                        newFormula.imageURL = newDiscoverFormula.imageURL
-                        newFormula.lcObjectID = newDiscoverFormula.objectId
-                        createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
+                    if error != nil {
+                        failureHandler(Reason.network(error), "推送 Formula 失败")
                     }
                     
-                    completion?()
-                }
-                
-            })
-        }
+                    if success {
+                        
+                        guard let realm = newFormula.realm else {
+                            failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
+                            return }
+                        
+                        try? realm.write {
+                            
+                            if newDiscoverFormula.contents.count == newFormula.contents.count {
+                                
+                                for index in 0..<newDiscoverFormula.contents.count {
+                                    if let lcObjectID = newDiscoverFormula.contents[index].objectId {
+                                        newFormula.contents[index].lcObjectID = lcObjectID
+                                    }
+                                }
+                            }
+                            
+                            newFormula.lcObjectID = newDiscoverFormula.objectId
+                            createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
+                        }
+                        
+                        completion?()
+                    }
+                    
+                })
+            }
+            
+        })
         
     })
     
-    
-    
+ 
 }
-
-
-
 
 
 public enum UploadFeedMode {
