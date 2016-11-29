@@ -18,11 +18,15 @@ class CardFormulaCell: UICollectionViewCell {
     @IBOutlet weak var indicaterLabel: UILabel!
     @IBOutlet weak var masterImageView: UIImageView!
     
+    private var formula: Formula?
+    
     public func configerCell(with formula: Formula?) {
         
         guard let formula = formula else {
             return
         }
+        
+        self.formula = formula
         
         if let text = formula.contents.first?.text {
             
@@ -35,19 +39,24 @@ class CardFormulaCell: UICollectionViewCell {
             masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
         
+      
+        imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: Config.FormulaCell.cardCellSize)
         
-        imageView.image = UIImage(named: formula.imageName)
         nameLabel.text = formula.name
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
-        indicaterLabel.text = formula.category.rawValue
+        indicaterLabel.text = formula.categoryString
         
         if formula.isNewVersion {
             nameLabel.textColor = UIColor.cubeTintColor()
         } else {
             nameLabel.textColor = UIColor.black
         }
-        
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
     }
     
     override func awakeFromNib() {

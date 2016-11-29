@@ -312,7 +312,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 }
 
 
-public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
+public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: (() -> Void)?) {
     
     guard
         let currentAVUser = AVUser.current(),
@@ -330,21 +330,27 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
         newDiscoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: leancloudObjectID)
     }
     
-    
-    pushToLeancloud(with: [UIImage()], quality: 0.7, completion: {
-        imagesURL in
-        
-        if !imagesURL.isEmpty {
-            newDiscoverFormula.imageURL = imagesURL.first!
-        }
-        
-    }, failureHandler: { error in
-        printLog("上传图片失败 -> \(error)")
-    })
-    
     newDiscoverFormula.localObjectID = newFormula.localObjectID
     newDiscoverFormula.name = newFormula.name
     newDiscoverFormula.imageName = newFormula.imageName
+    
+    let imageData = UIImageJPEGRepresentation(newFormula.image, 0.9)
+    
+    pushDataToLeancloud(with: imageData, failureHandler: {
+        reason, errorMessage in
+        
+        failureHandler(reason, errorMessage)
+        
+    }, completion: { imageURLString in
+        
+        newDiscoverFormula.imageURL = imageURLString
+        
+        let realm = newFormula.realm
+        try? realm?.write {
+            newFormula.imageURL = imageURLString
+        }
+        
+    })
     
     
     var discoverContents: [DiscoverContent] = []
@@ -416,10 +422,8 @@ public func pushToLeancloud(with newFormula: Formula, inRealm realm: Realm, comp
                         createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                     }
                     
-                    
                     completion?()
                 }
-                
                 
             })
         }

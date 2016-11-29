@@ -54,6 +54,7 @@ public struct ImageAttachment {
     
 }
 
+
 public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessage {
     
     let discoverMessage = DiscoverMessage()

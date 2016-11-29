@@ -36,8 +36,11 @@ class TypePickViewCell: UITableViewCell {
             return
         }
         
-        let type = formula.type
+        guard let type = Type(rawValue: formula.typeString) else {
+            return
+        }
         self.type = type
+        loadTypeFromMainBundle()
         
         let index = typesText.index(of: type.rawValue) ?? 0
         pickView.selectRow(index, inComponent: 0, animated: false)

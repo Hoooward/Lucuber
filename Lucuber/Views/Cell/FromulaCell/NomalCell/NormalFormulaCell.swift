@@ -33,9 +33,9 @@ class NormalFormulaCell: UICollectionViewCell {
             masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
         
-        imageView.image = UIImage(named: formula.imageName)
+         imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: self.imageView.size)
         nameLabel.text = formula.name
-        indicaterLabel.text = formula.category.rawValue
+        indicaterLabel.text = formula.categoryString
         starRatingView.maxRating = formula.rating
         starRatingView.rating = formula.rating
         

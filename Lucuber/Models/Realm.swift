@@ -199,11 +199,11 @@ public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFor
     
     let categorys = categorysWith(uploadMode, inRealm: realm)
     let categoryTexts = categorys.map { $0.name }
-    if !categoryTexts.contains(formula.category.rawValue) {
+    if !categoryTexts.contains(formula.categoryString) {
         
         let newRCategory = RCategory()
         newRCategory.uploadMode = uploadMode.rawValue
-        newRCategory.name = formula.category.rawValue
+        newRCategory.name = formula.categoryString
         realm.add(newRCategory)
         
     }

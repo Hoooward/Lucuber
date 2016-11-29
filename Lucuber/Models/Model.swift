@@ -45,6 +45,7 @@ public enum Category: String {
     case Megaminx = "Megaminx"
     case Pyraminx = "Pyraminx"
     case RubiksClock = "魔表"
+    case unKnow = "未知种类"
     
     var sortIndex: Int {
         
@@ -79,6 +80,8 @@ public enum Category: String {
             return 14
         case .Other:
             return 15
+        case .unKnow:
+            return 16
         }
     }
     
@@ -100,6 +103,7 @@ public enum Type: String {
     case F2L   = "F2L"
     case PLL   = "PLL"
     case OLL   = "OLL"
+    case unKnow = "unKnow"
     
     var sortIndex: Int {
         
@@ -108,6 +112,7 @@ public enum Type: String {
         case .F2L:   return 2
         case .PLL:   return 3
         case .OLL:   return 4
+        case .unKnow: return 5
         }
     }
     
@@ -122,6 +127,9 @@ public enum Type: String {
             return "\(self.rawValue) - 顶层方向"
         case .PLL:
             return "\(self.rawValue) - 顶层排列"
+            
+        case .unKnow:
+            return "\(self.rawValue) - 未知类型"
         }
     }
 }
@@ -165,16 +173,21 @@ open class Formula: Object {
     
     open let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
-    open var image = UIImage()
-    
     open var category: Category {
-        set { categoryString = newValue.rawValue }
-        get { return Category(rawValue: categoryString)! }
+        if let category = Category(rawValue: categoryString) {
+            return category
+        }
+        return Category.unKnow
     }
     
+    
+    open var image = UIImage()
+    
     open var type: Type {
-        set { typeString = newValue.rawValue }
-        get { return Type(rawValue: typeString)! }
+        if let type = Type(rawValue: typeString) {
+            return type
+        }
+        return Type.unKnow
     }
     
     open func isReadyToPush() -> Bool {
@@ -194,12 +207,15 @@ open class Formula: Object {
         
         let newFormula = Formula()
         newFormula.localObjectID = Formula.randomLocalObjectID()
-        newFormula.category = .x3x3
-        newFormula.type = .F2L
+        newFormula.categoryString = Category.x3x3.rawValue
+        newFormula.typeString = Type.F2L.rawValue
         newFormula.rating = 3
         newFormula.favorate = false
         newFormula.deletedByCreator = false
         newFormula.isLibrary = isLibrary
+        newFormula.creator = currentUser(in: realm)
+        let randomInt = arc4random_uniform(11)
+        newFormula.imageName = "cube_Placehold_image_\(randomInt + 1)"
         let _ = Content.new(with: newFormula, inRealm: realm)
         realm.add(newFormula)
         
@@ -250,6 +266,7 @@ open class Content: Object {
         newContent.atFormula = formula
         newContent.atFomurlaLocalObjectID = formula.localObjectID
         newContent.deleteByCreator = false
+        newContent.creator = currentUser(in: realm)
         
         realm.add(newContent)
         
@@ -292,7 +309,6 @@ open class Avatar: Object {
     open var user: RUser? {
         return users.first
     }
-    
 }
 
 open class FormulaMaster: Object {

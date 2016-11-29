@@ -38,7 +38,7 @@ class NewFormulaViewController: UIViewController {
         }
     }
     
-    var realm: Realm!
+    var realm: Realm = try! Realm()
     
     fileprivate let headerViewHeight: CGFloat = 170
     fileprivate var keyboardFrame = CGRect.zero
@@ -160,7 +160,7 @@ class NewFormulaViewController: UIViewController {
     // MARK: - Action & Target
     
     
-    private lazy var imagePicker: UIImagePickerController = {
+    fileprivate lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -265,6 +265,11 @@ class NewFormulaViewController: UIViewController {
     }
     
     @IBAction func dismiss(sender: AnyObject) {
+        
+        try? realm.write {
+            self.formula.cascadeDelete(inRealm: realm)
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -434,7 +439,9 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 guard let strongSelf = self else { return }
                 
-                strongSelf.formula.name = name
+                try? strongSelf.realm.write {
+                    strongSelf.formula.name = name
+                }
                 strongSelf.navigationItem.rightBarButtonItem?.isEnabled = self?.formula.isReadyToPush() ?? false
                 
                 strongSelf.headerView.configView(with: strongSelf.formula)
@@ -471,9 +478,9 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         
                         guard let strongSelf = self else { return }
                         
-                        let newCategory = Category(rawValue: categoryItem.chineseText)!
-                        
-                        strongSelf.formula.category = newCategory
+                        try? strongSelf.realm.write {
+                            strongSelf.formula.categoryString = categoryItem.chineseText
+                        }
                         
                         let cell = strongSelf.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! CategorySeletedCell
                         
@@ -509,7 +516,10 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         guard let strongSelf = self else {
                             return
                         }
-                        strongSelf.formula.type = type
+                        
+                        try? strongSelf.realm.write {
+                            strongSelf.formula.typeString = type.rawValue
+                        }
                         
                         if let cell = strongSelf.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as?  TypeSelectedCell {
                             
@@ -530,7 +540,6 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.configCell(with: self.formula)
                 }
                 
-            case .starRating:
                 
                 guard let cell = cell as? StarRatingCell else {
                     return
@@ -542,7 +551,29 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         return
                     }
                     
-                    strongSelf.formula.rating = rating
+                    try? strongSelf.realm.write {
+                        strongSelf.formula.rating = rating
+                    }
+                    strongSelf.headerView.configView(with: strongSelf.formula)
+                }
+                
+                
+            case .starRating:
+                
+                guard let cell = cell as? StarRatingCell else {
+                    return
+                }
+                
+                
+                cell.ratingDidChanged = { [weak self] rating in
+                    
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    try? strongSelf.realm.write {
+                        strongSelf.formula.rating = rating
+                    }
                     strongSelf.headerView.configView(with: strongSelf.formula)
                 }
          
@@ -636,6 +667,8 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     return tableView.dequeueReusableCell(withIdentifier: typeSelectedCellIdentifier, for: indexPath) as! TypeSelectedCell
                     
                 }
+                
+                return tableView.dequeueReusableCell(withIdentifier: starRatingCellIdentifier, for: indexPath) as! StarRatingCell
 
             case .starRating:
                 
@@ -890,9 +923,13 @@ extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigatio
                     formula.image = image
                 }
                 
+                
+                
             default:
                 break
             }
+            self.headerView.configView(with: self.formula)
+            self.imagePicker.dismiss(animated: true, completion: nil)
         }
     }
     

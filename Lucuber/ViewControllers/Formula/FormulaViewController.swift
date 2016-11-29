@@ -243,7 +243,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 try? realm.write {
                     
                     formula = Formula.new(false, inRealm: realm)
-                    formula.category = presentingVC.seletedCategory
+                    formula.categoryString = presentingVC.seletedCategory.rawValue
                     
                 }
                 

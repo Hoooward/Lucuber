@@ -123,4 +123,48 @@ extension UIImageView {
         })
 
     }
+    
+    public func cube_setImageAtFormulaCell(with URLString: String, size: CGSize?) {
+        guard let URL = NSURL(string: URLString) else {
+            return
+        }
+        let attachment = ImageAttachment(metadata: nil, URLString: URLString, image: nil)
+        
+        let showActivityIndicatorWhenLoading = self.showActivityIndicatorWhenLoading
+        
+        var activityIndicator: UIActivityIndicatorView? = nil
+        
+        if showActivityIndicatorWhenLoading {
+            
+            activityIndicator = self.activityIndicator
+            activityIndicator?.isHidden = false
+            activityIndicator?.startAnimating()
+        }
+        
+         setImageAttachmentURL(URL: URL)
+        
+        
+        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width, completion: {
+            [weak self] url, image, cacheType in
+            
+            guard
+                let strongSelf = self,
+                let attachmentURL = strongSelf.imageAttachmentURL,
+                attachmentURL == url else {
+                    return
+            }
+            
+            if cacheType != .memory {
+                UIView.transition(with: strongSelf, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                    strongSelf.image = image
+                }, completion: nil)
+            }
+            
+            strongSelf.image = image
+            
+            activityIndicator?.stopAnimating()
+            
+            
+        })
+    }
 }

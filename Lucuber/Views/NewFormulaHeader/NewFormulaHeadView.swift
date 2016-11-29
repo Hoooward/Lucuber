@@ -16,6 +16,12 @@ class NewFormulaHeadView: UIView {
     
     fileprivate var formula: Formula?
     
+    private var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        return dateFormatter
+    }()
+    
     public func configView(with formula: Formula?) {
         
         guard let formula = formula else {
@@ -24,6 +30,7 @@ class NewFormulaHeadView: UIView {
         
         self.formula = formula
         
+        imageButton.setBackgroundImage(UIImage(named:formula.imageName), for: .normal)
         setFormulaImageButtonBackgroundImage(imageName: formula.imageName)
         indicatorView.configureWithCategory(category: formula.category.rawValue)
         
@@ -31,6 +38,20 @@ class NewFormulaHeadView: UIView {
         newName = newName.isDirty ? "名称" : newName
         
         self.nameLabel.text = newName
+        
+        self.starRatingView.rating = formula.rating
+        self.starRatingView.maxRating = formula.rating
+        
+        if let realm = formula.realm {
+            self.creatUserLabel.text =  "创建者: " + (currentUser(in: realm)?.nickname)!
+        }
+        
+        
+        let date = Date(timeIntervalSince1970: formula.createdUnixTime)
+        self.creatTimeLabel.text = "创建时间: " + dateFormatter.string(from: date)
+        
+        
+        
         
     }
 
@@ -140,7 +161,7 @@ class NewFormulaHeadView: UIView {
             let formula = formula {
             
             indicatorView.configureWithCategory(category: category.chineseText)
-            formula.category = Category(rawValue: category.chineseText)!
+            formula.categoryString = category.chineseText
             
         }
         

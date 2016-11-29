@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="170" height="254"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="x83-3g-vda">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x83-3g-vda">
                         <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="x83-3g-vda" secondAttribute="height" multiplier="1:1" id="4pa-we-iO2"/>
@@ -112,6 +112,5 @@
     </objects>
     <resources>
         <image name="ios-checkmark-empty" width="20" height="16"/>
-        <image name="placeholder" width="575" height="600"/>
     </resources>
 </document>

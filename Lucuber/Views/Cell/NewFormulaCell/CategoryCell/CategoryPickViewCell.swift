@@ -20,9 +20,10 @@ class CategoryPickViewCell: UITableViewCell {
             return
         }
         
+        guard let category = Category(rawValue: formula.categoryString) else {
+            return
+        }
         if categorys.isEmpty { return }
-        
-        let category = formula.category
         
         let index = categorys.map { $0.chineseText }.index(of: category.rawValue) ?? 0
         pickView.selectRow(index, inComponent: 0, animated: true)

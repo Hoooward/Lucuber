@@ -19,7 +19,10 @@ class CategorySeletedCell: UITableViewCell {
             return
         }
         
-        let category = formula.category
+        guard let category = Category(rawValue: formula.categoryString) else {
+            return
+        }
+        
         let index = categorys.map {$0.chineseText}.index(of: category.rawValue) ?? 0
         let title = categorys.map {$0.englishText}[index]
         

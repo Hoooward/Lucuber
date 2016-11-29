@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="389" height="78"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="NmZ-Xq-u6j">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NmZ-Xq-u6j">
                         <rect key="frame" x="10" y="10" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="1gj-PQ-nG3"/>
@@ -105,6 +105,5 @@
     </objects>
     <resources>
         <image name="ios-checkmark-empty" width="20" height="16"/>
-        <image name="placeholder" width="575" height="600"/>
     </resources>
 </document>
