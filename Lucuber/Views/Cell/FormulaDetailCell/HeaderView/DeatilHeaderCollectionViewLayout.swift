@@ -39,9 +39,11 @@ class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
             return nil
         }
         
+        let cacheAttributes = NSArray(array: attributes, copyItems: true) as! [UICollectionViewLayoutAttributes]
+        
         let visiableRect = CGRect(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
         
-        for attribute in attributes {
+        for attribute in cacheAttributes {
             
             if !visiableRect.intersects(attribute.frame) {continue}
             let frame = attribute.frame
@@ -51,7 +53,7 @@ class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
             
         }
         
-        return attributes
+        return cacheAttributes
         
     }
     
