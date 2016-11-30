@@ -21,7 +21,8 @@ class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
         collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
         
         let imageWidth =  Config.DetailHeaderView.imageViewWidth
-         collectionView?.contentInset = UIEdgeInsets.init(top: 0, left: collectionView!.frame.width / 2 - imageWidth / 2, bottom: 0, right: collectionView!.frame.width / 2 - imageWidth / 2)
+//         collectionView?.contentInset = UIEdgeInsets.init(top: 0, left: collectionView!.frame.width / 2 - imageWidth / 2, bottom: 0, right: collectionView!.frame.width / 2 - imageWidth / 2)
+        collectionView?.contentInset = UIEdgeInsets(top: 0, left: Config.DetailHeaderView.screenMargin, bottom: 0, right: Config.DetailHeaderView.screenMargin)
     }
     
   

@@ -58,7 +58,7 @@ class DetailHeaderView: UIView {
         
         if let index = formulasData.index(of: formula) {
             
-            let point = CGPoint(x: CGFloat(index) * scrollDistance - 38, y: 0)
+            let point = CGPoint(x: CGFloat(index) * scrollDistance - Config.DetailHeaderView.screenMargin , y: 0)
             
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
@@ -190,8 +190,7 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let margin = Config.FormulaDetail.screenMargin
-        let imageWidth = UIScreen.main.bounds.width - margin - margin
+        let imageWidth = Config.DetailHeaderView.imageViewWidth
 
         return CGSize(width: imageWidth, height: collectionView.bounds.height)
     }

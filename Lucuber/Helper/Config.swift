@@ -124,8 +124,8 @@ public class Config {
         public static let commentRowHeight: CGFloat = 80
     }
     public struct DetailHeaderView {
-        public static let screenMargin: CGFloat = 38
-        public static let imageViewWidth: CGFloat = UIScreen.main.bounds.width - 38 * 2
+        public static let screenMargin: CGFloat = 46
+        public static let imageViewWidth: CGFloat = UIScreen.main.bounds.width - 46 - 46
         public static let starRatingViewWidth: CGFloat = 100
         public static let collectionViewMinimumLineSpacing: CGFloat = 6
         
