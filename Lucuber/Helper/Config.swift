@@ -119,7 +119,7 @@ public class Config {
     public struct FormulaDetail {
         public static let screenMargin: CGFloat = 38
         public static let masterRowHeight: CGFloat = 50
-        public static let separatorRowHeight: CGFloat = 40
+        public static let separatorRowHeight: CGFloat = 20
        
         public static let commentRowHeight: CGFloat = 80
     }

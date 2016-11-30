@@ -12,6 +12,14 @@ class CategoryIndicatorView: UIButton {
     
     // MARK: - Properties
     
+    enum Style {
+        case kongxin
+        case shixin
+    }
+    
+    
+    public var style: Style = .shixin
+    
     private lazy var bubbleImageView: UIImageView = {
         return UIImageView(image: UIImage(named: "skill_bubble_small"))
     }()

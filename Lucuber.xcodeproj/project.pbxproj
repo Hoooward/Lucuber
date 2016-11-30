@@ -813,11 +813,11 @@
 		E4CED7BC1DE862770036A11C /* FormulaDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				E4CED7C71DE862770036A11C /* HeaderView */,
 				E41AC7F71DEDEA6100CE3123 /* HeaderViewCell */,
 				E4CED8941DE88E0D0036A11C /* ContentCell */,
 				E4CED7BD1DE862770036A11C /* CommentCell */,
 				E4CED7C41DE862770036A11C /* FormulasCell */,
-				E4CED7C71DE862770036A11C /* HeaderView */,
 				E4CED7C91DE862770036A11C /* MasterCell */,
 				E4CED7CC1DE862770036A11C /* SeparatorCell */,
 			);

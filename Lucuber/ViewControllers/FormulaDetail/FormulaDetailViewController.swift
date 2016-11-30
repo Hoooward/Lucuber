@@ -183,6 +183,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         tableView.register(UINib(nibName: detailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailCommentCellIdentifier)
         tableView.register(DetailContentCell.self, forCellReuseIdentifier: detailContentCellIdentifier)
         
+        tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.white
         tableView.tableHeaderView = headerView
         self.automaticallyAdjustsScrollViewInsets = false
@@ -283,12 +284,12 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case separator = 0
         case formulas = 1
         case separatorTwo = 2
-        case master = 3
-        case comment = 4
+        case comment = 3
+//        case master = 3
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -298,14 +299,13 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-        case .master:
-            return 1
+  
         case .separator:
+            return 1
+        case .formulas:
             return 1
         case .separatorTwo:
             return 0
-        case .formulas:
-            return 1
         case .comment:
             return 1
             
@@ -319,15 +319,14 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-        case .master:
-            return Config.FormulaDetail.masterRowHeight
+
         case .separator:
             return Config.FormulaDetail.separatorRowHeight
         case .separatorTwo:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
 //            return formula.contentMaxCellHeight
-            return 100
+            return 200
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }
@@ -340,11 +339,6 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-            
-        case .master:
-            let cell = tableView.dequeueReusableCell(withIdentifier: masterCellIdentifier, for: indexPath) as! DetailMasterCell
-            cell.configCell(with: formula)
-            return cell
             
         case .separator, .separatorTwo:
             let cell = tableView.dequeueReusableCell(withIdentifier: separatorCellIdentifier, for: indexPath)
@@ -369,14 +363,6 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-            
-        case .master:
-            
-            guard let cell = tableView.cellForRow(at: indexPath) as? DetailMasterCell else {
-                return
-            }
-            
-            cell.changeMasterStatus(with: formula)
             
         case .comment:
             

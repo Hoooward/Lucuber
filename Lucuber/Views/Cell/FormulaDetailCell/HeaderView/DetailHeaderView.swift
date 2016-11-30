@@ -27,7 +27,7 @@ class DetailHeaderView: UIView {
     
     //外界读取方便设置自己的frame
     public var headerHeight: CGFloat {
-        return creatTimeLabel.frame.maxY + 20
+        return creatTimeLabel.frame.maxY
     }
 
     
@@ -51,9 +51,9 @@ class DetailHeaderView: UIView {
         self.selectedCategory = formula.category
         self.uploadMode = uploadMode
         
-        nameLabel.text = formula.name
         starRatingView.rating = formula.rating
-        starRatingView.maxRating = 5
+        starRatingView.maxRating = formula.rating
+//        cateogryLabel.text = formula.category.rawValue
         
         
         if let index = formulasData.index(of: formula) {
@@ -88,27 +88,29 @@ class DetailHeaderView: UIView {
         return collectionView
     }()
     
-    private lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "F2L 1"
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.sizeToFit()
-        return label
-        
-    }()
     
     private lazy var creatUserLabel: UILabel = {
         let label = UILabel()
-        label.text = "来自: 魔方小站"
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.text = "创建者: 魔方小站"
+        label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = UIColor.lightGray
+        return label
+    }()
+    
+    private lazy var locationIndicatorLable: UILabel = {
+        let label = UILabel()
+        label.text = "当前第2个, 共100个"
+        label.font = UIFont.systemFont(ofSize: 8)
+        label.textAlignment = .center
+        label.textColor = UIColor.lightGray.withAlphaComponent(0.5)
         return label
     }()
     
     private lazy var creatTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "最后更新时间： 06-05"
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.text = "更新: 16-06-05"
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textAlignment = .right
         label.textColor = UIColor.lightGray
         return label
     }()
@@ -119,6 +121,11 @@ class DetailHeaderView: UIView {
         view.maxRating = 5
         view.editable = false
         return view
+    }()
+    
+    private lazy var categoryIndicator: CategoryIndicatorView = {
+        let indicator = CategoryIndicatorView()
+        return indicator
     }()
 
     
@@ -135,24 +142,46 @@ class DetailHeaderView: UIView {
     
     func makeUI() {
         
-        addSubview(nameLabel)
+        addSubview(categoryIndicator)
+        
+        addSubview(locationIndicatorLable)
         addSubview(creatUserLabel)
         addSubview(creatTimeLabel)
         addSubview(starRatingView)
         addSubview(collectionView)
         
-        let starRatingWidth = Config.DetailHeaderView.starRatingViewWidth
         let margin = Config.DetailHeaderView.screenMargin
         let imageWidth = Config.DetailHeaderView.imageViewWidth
         
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        categoryIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
         collectionView.frame = CGRect(x: 0, y: 5, width: UIScreen.main.bounds.width, height: imageWidth)
         
-        nameLabel.frame = CGRect(x: margin, y: collectionView.frame.maxY + 15, width: imageWidth - starRatingWidth, height: 24)
+        locationIndicatorLable.frame = CGRect(x: margin, y: collectionView.frame.maxY + 5, width: collectionView.frame.width - margin * 2, height: 10)
         
-        starRatingView.frame = CGRect(x: collectionView.frame.maxX - starRatingWidth, y: nameLabel.frame.origin.y, width: starRatingWidth, height: 35)
+//        let collectionViewTop = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5)
+//        
+//        let collectionViewLeading = NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 5)
+//        let collectionViewHeight = NSLayoutConstraint(item: collectionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: imageWidth)
+//        let collectionViewTrailing = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5)
         
-        creatUserLabel.frame = CGRect(x: margin, y: nameLabel.frame.maxY + 8, width: imageWidth, height: 16)
-        creatTimeLabel.frame = CGRect(x: margin, y: creatUserLabel.frame.maxY + 5, width: imageWidth, height: 16)
+        let categoryIndicatorTrailing = NSLayoutConstraint.init(item: categoryIndicator, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -margin)
+        
+        let cateogyrIndicatorTop = NSLayoutConstraint(item: categoryIndicator, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: imageWidth + 10)
+        
+//        NSLayoutConstraint.activate([collectionViewTop, collectionViewLeading, collectionViewTrailing, collectionViewHeight])
+        
+        NSLayoutConstraint.activate([categoryIndicatorTrailing, cateogyrIndicatorTop])
+        
+        
+//        cateogryLabel.frame = CGRect(x: collectionView.frame.width - margin - 100, y: collectionView.frame.maxY + 10, width: 100, height: 24)
+//        
+//        starRatingView.frame = CGRect(x: nameLabel.frame.maxX + 15, y: nameLabel.frame.origin.y, width: 80, height: 15)
+        starRatingView.frame = CGRect(x: margin, y: collectionView.frame.maxY + 15, width: 80, height: 15)
+        
+        creatUserLabel.frame = CGRect(x: margin, y: starRatingView.frame.maxY + 20, width: 200, height: 16)
+        creatTimeLabel.frame = CGRect(x: collectionView.frame.width - margin - 100, y: starRatingView.frame.maxY + 20, width: 100, height: 16)
     }
     
     
