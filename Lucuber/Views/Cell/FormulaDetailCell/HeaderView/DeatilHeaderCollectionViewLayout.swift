@@ -10,8 +10,6 @@ import UIKit
 
 class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
     
-//    var previousOffsetx: CGFloat = 0
-    
     override func prepare() {
         super.prepare()
         
@@ -19,13 +17,9 @@ class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
         
         self.minimumLineSpacing = Config.DetailHeaderView.collectionViewMinimumLineSpacing
         collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
-        
-        let imageWidth =  Config.DetailHeaderView.imageViewWidth
-//         collectionView?.contentInset = UIEdgeInsets.init(top: 0, left: collectionView!.frame.width / 2 - imageWidth / 2, bottom: 0, right: collectionView!.frame.width / 2 - imageWidth / 2)
         collectionView?.contentInset = UIEdgeInsets(top: 0, left: Config.DetailHeaderView.screenMargin, bottom: 0, right: Config.DetailHeaderView.screenMargin)
     }
     
-  
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }

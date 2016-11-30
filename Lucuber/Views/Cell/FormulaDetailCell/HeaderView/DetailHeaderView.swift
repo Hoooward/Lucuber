@@ -76,7 +76,7 @@ class DetailHeaderView: UIView {
     fileprivate var scrollDistance: CGFloat = Config.DetailHeaderView.imageViewWidth + Config.DetailHeaderView.collectionViewMinimumLineSpacing
     fileprivate var scrollToRight = true
     fileprivate var lastContentOffsetX: CGFloat = 0
-    
+    fileprivate var currentIndex = 0
     fileprivate let headerViewCellIdentifier = "HeaderViewCell"
     
     fileprivate lazy var collectionView: UICollectionView = {
@@ -195,7 +195,7 @@ class DetailHeaderView: UIView {
 //            
 //        }
 //    }
-    
+
   
 }
 
@@ -268,6 +268,17 @@ extension DetailHeaderView: UIScrollViewDelegate {
     }
     
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+        let firstItemDistance = scrollView.contentOffset.x - self.collectionView.contentInset.left
+        
+        if firstItemDistance < 0 {
+            currentIndex = 0
+        } else {
+           currentIndex = Int(firstItemDistance / self.scrollDistance) + 1
+        }
+        printLog(currentIndex)
+    }
 //    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
 //        let cell = self.collection.cellForItemAtIndexPath(NSIndexPath.init(forItem: self.currentRow, inSection: 0)) as? XXCell
 //        cell?.timer?.invalidate()
