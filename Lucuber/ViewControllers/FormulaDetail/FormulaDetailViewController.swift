@@ -19,7 +19,6 @@ fileprivate let detailContentCellIdentifier = "DetailContentCell"
 
 class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
-    // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -28,22 +27,13 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         case edit = "showAddFormula"
     }
     
-    public var formula: Formula! {
-        didSet {
-            
-            headerView.configView(with: formula, withUploadMode: self.uploadMode)
-            
-        }
-    }
+    public var formula: Formula!
     
-    var oldMasterList: [String] = []
+    fileprivate var realm = try! Realm()
     
     public var uploadMode: UploadFormulaMode = .library
     
-    lazy var headerView: DetailHeaderView = {
-        let view = DetailHeaderView()
-        return view
-    }()
+    fileprivate lazy var headerView: DetailHeaderView = DetailHeaderView()
     
     private lazy var customNavigationItem: UINavigationItem = {
         
@@ -93,7 +83,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         return sheetView
     }()
     
-    let titles = ["编辑此公式", "删除此公式", "取消"]
+    private let titles = ["编辑此公式", "删除此公式", "取消"]
     private func creatActionSheetViewItems() -> [ActionSheetView.Item] {
         
         let editItem = ActionSheetView.Item.Option(
@@ -175,6 +165,24 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        headerView.configView(with: formula, withUploadMode: self.uploadMode)
+        
+        headerView.updateNavigationBar = { [weak self] formula in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.titleView.nameLabel.text = formula.name
+            strongSelf.titleView.stateInfoLabel.text = formula.type.sectionText
+        }
+        
+        headerView.updateCurrentShowFormula  = { [weak self] formula in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.formula = formula
+            
+        }
+        
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         tableView.register(UINib(nibName: masterCellIdentifier, bundle: nil), forCellReuseIdentifier: masterCellIdentifier)
@@ -191,10 +199,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         view.addSubview(customNavigationBar)
         view.backgroundColor = UIColor.white
         
-        if let currentUser = AVUser.current(), let list = currentUser.masterList()  {
-            oldMasterList = list
-        }
-        
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: nil, action: nil)
         
@@ -208,7 +212,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1
         self.setNeedsStatusBarAppearanceUpdate()
-        printLog(#function)
         
     }
     
@@ -220,7 +223,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        printLog(#function)
+        
+        // 保证滑动返回取消后 navigationbar 的正确
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1
         self.setNeedsStatusBarAppearanceUpdate()
@@ -228,7 +232,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
     
     deinit {
-        printLog("\(self) 死掉喽")
+        printLog("\(self) 正确释放了")
     }
     
     // MARK: - Action & Target
@@ -284,12 +288,12 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case separator = 0
         case formulas = 1
         case separatorTwo = 2
-        case comment = 3
-//        case master = 3
+        case master = 3
+        case comment = 4
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -299,16 +303,12 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-  
-        case .separator:
-            return 1
-        case .formulas:
-            return 1
-        case .separatorTwo:
-            return 0
-        case .comment:
-            return 1
             
+        case .separator: return 1
+        case .formulas: return 1
+        case .separatorTwo: return 1
+        case .master: return 1
+        case .comment: return 1
         }
     }
     
@@ -322,11 +322,13 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
 
         case .separator:
             return Config.FormulaDetail.separatorRowHeight
-        case .separatorTwo:
-            return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-//            return formula.contentMaxCellHeight
+            //            return formula.contentMaxCellHeight
             return 200
+        case .separatorTwo:
+            return 40
+        case .master :
+            return Config.FormulaDetail.masterRowHeight
         case .comment:
             return Config.FormulaDetail.commentRowHeight
         }
@@ -349,9 +351,51 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             cell.configCell(with: formula)
             return cell
             
+        case .master:
+            let cell = tableView.dequeueReusableCell(withIdentifier: masterCellIdentifier, for: indexPath) as! DetailMasterCell
+            
+            cell.configCell(with: formula, withRealm: realm)
+            return cell
+            
         case .comment:
             let cell = tableView.dequeueReusableCell(withIdentifier: detailCommentCellIdentifier, for: indexPath)
             return cell
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        
+        switch section {
+        case .formulas:
+            guard let cell = cell as? DetailContentCell else {
+               return
+            }
+            
+            headerView.updateFormulaContentCell = { formula in
+                cell.configCell(with: formula)
+            }
+            
+            
+        case .master:
+            
+            guard let cell = cell as? DetailMasterCell else {
+               return
+            }
+            
+            headerView.updateMasterCell = { [weak self] formula in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                cell.configCell(with: formula, withRealm: strongSelf.realm)
+            }
+        default: break
         }
         
     }
@@ -363,6 +407,13 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
+        case .master:
+            
+            guard let cell = tableView.cellForRow(at: indexPath) as? DetailMasterCell else {
+                return
+            }
+            
+            cell.changeMasterStatus(with: self.formula)
             
         case .comment:
             

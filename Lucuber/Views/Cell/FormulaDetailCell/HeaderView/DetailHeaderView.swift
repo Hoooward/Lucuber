@@ -13,23 +13,20 @@ import RealmSwift
 class DetailHeaderView: UIView {
 
     // MARK: - Properties
-    var formulas: [UIImage] {
-        
-        var formulas = [UIImage]()
-        for index in 1...10 {
-            
-            let image = UIImage(named: "PLL\(index)")!
-            
-            formulas.append(image)
-        }
-        return formulas
-    }
-    
+    private var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        return dateFormatter
+    }()
     //外界读取方便设置自己的frame
     public var headerHeight: CGFloat {
         return creatTimeLabel.frame.maxY
     }
 
+    public var updateFormulaContentCell: ((Formula) -> Void)?
+    public var updateCurrentShowFormula: ((Formula) -> Void)?
+    public var updateNavigationBar: ((Formula) -> Void)?
+    public var updateMasterCell: ((Formula) -> Void)?
     
     fileprivate let realm = try! Realm()
     
@@ -51,10 +48,11 @@ class DetailHeaderView: UIView {
         self.selectedCategory = formula.category
         self.uploadMode = uploadMode
         
-        starRatingView.rating = formula.rating
-        starRatingView.maxRating = formula.rating
-//        cateogryLabel.text = formula.category.rawValue
-        
+//        starRatingView.rating = formula.rating
+//        starRatingView.maxRating = formula.rating
+//        
+//        
+//        categoryIndicator.configureWithCategory(category: formula.category.rawValue)
         
         if let index = formulasData.index(of: formula) {
             
@@ -63,9 +61,40 @@ class DetailHeaderView: UIView {
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
             collectionView.setContentOffset(point, animated: true)
+            
+//            locationIndicatorLable.text = " - 当前第 \(self.currentIndex + 1) 个, 共 \(self.formulasData.count) 个 -"
+            updateUI(with: formula)
         }
         
+    }
+    
+    fileprivate func updateUI(with formula: Formula) {
         
+        updateCurrentShowFormula?(formula)
+        updateNavigationBar?(formula)
+        updateFormulaContentCell?(formula)
+        updateMasterCell?(formula)
+        
+        starRatingView.rating = formula.rating
+        starRatingView.maxRating = formula.rating
+        
+        categoryIndicator.configureWithCategory(category: formula.category.rawValue)
+          locationIndicatorLable.text = " - 当前第 \(self.currentIndex + 1) 个, 共 \(self.formulasData.count) 个 -"
+        
+        currentFormula = formula
+       
+        if formula.isLibrary {
+            creatUserLabel.text = "创建者: Lucuber"
+        } else {
+            creatUserLabel.text = "创建者: \(formula.creator?.nickname ?? "未知")"
+        }
+        
+        let date = Date(timeIntervalSince1970: formula.createdUnixTime)
+        creatTimeLabel.text = "更新: " + dateFormatter.string(from: date)
+        
+        
+       
+
     }
     
     private lazy var layout: DeatilHeaderCollectionViewLayout = {
@@ -74,17 +103,21 @@ class DetailHeaderView: UIView {
     }()
     
     fileprivate var scrollDistance: CGFloat = Config.DetailHeaderView.imageViewWidth + Config.DetailHeaderView.collectionViewMinimumLineSpacing
+    
     fileprivate var scrollToRight = true
     fileprivate var lastContentOffsetX: CGFloat = 0
     fileprivate var currentIndex = 0
+    fileprivate var currentFormula: Formula?
     fileprivate let headerViewCellIdentifier = "HeaderViewCell"
     
     fileprivate lazy var collectionView: UICollectionView = {
+        
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.layout)
         collectionView.register(HeaderViewCell.self, forCellWithReuseIdentifier: self.headerViewCellIdentifier)
         collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
@@ -275,9 +308,10 @@ extension DetailHeaderView: UIScrollViewDelegate {
         if firstItemDistance < 0 {
             currentIndex = 0
         } else {
-           currentIndex = Int(firstItemDistance / self.scrollDistance) + 1
+            currentIndex = Int(firstItemDistance / self.scrollDistance) + 1
         }
         printLog(currentIndex)
+        self.updateUI(with: formulasData[currentIndex])
     }
 //    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
 //        let cell = self.collection.cellForItemAtIndexPath(NSIndexPath.init(forItem: self.currentRow, inSection: 0)) as? XXCell

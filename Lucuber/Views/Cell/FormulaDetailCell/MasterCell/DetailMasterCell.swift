@@ -41,37 +41,45 @@ class DetailMasterCell: UITableViewCell {
     }
     
     private var formula: Formula?
+    private var realm: Realm?
     
-    public func configCell(with formula: Formula?) {
+    public func configCell(with formula: Formula?, withRealm realm: Realm) {
         
         guard let formula = formula else {
             return
         }
         
         self.formula = formula
+        self.realm = realm
         
-        if let masterList = AVUser.current()?.masterList() {
-           master = masterList.contains(formula.localObjectID) ? .yes : .no
+        if let currentUser = currentUser(in: realm) {
+            
+            let masterList: [String] = mastersWith(currentUser, inRealm: realm).map {
+                $0.formulaID
+            }
+            
+            master = masterList.contains(formula.localObjectID) ? .yes : .no
         }
     
     }
     
     public func changeMasterStatus(with formula: Formula?) {
         
-        guard let realm = try? Realm(), let formula = formula else {
-            return 
+        guard  let formula = formula, let realm = realm else {
+            return
         }
         
         master = master == .no ? .yes : .no
         
-        realm.beginWrite()
-        switch master {
-        case .no:
-            deleteMaster(with: formula, inRealm: realm)
-        case .yes:
-            appendMaster(with: formula, inRealm: realm)
+        try? realm.write {
+            
+            switch master {
+            case .no:
+                deleteMaster(with: formula, inRealm: realm)
+            case .yes:
+                appendMaster(with: formula, inRealm: realm)
+            }
         }
-        try? realm.commitWrite()
     }
     
 }

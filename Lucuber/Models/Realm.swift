@@ -51,7 +51,7 @@ public func currentUser(in realm: Realm) -> RUser? {
 
 public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm realm: Realm) -> FormulaMaster? {
     let predicate = NSPredicate(format: "formulaID = %@", localObjectID)
-    let predicate2 = NSPredicate(format: "atRuser = %@", user)
+    let predicate2 = NSPredicate(format: "atRUser = %@", user)
     return realm.objects(FormulaMaster.self).filter(predicate).filter(predicate2).first
 }
 
@@ -59,6 +59,7 @@ public func mastersWith(_ rUser: RUser, inRealm realm: Realm) -> Results<Formula
     let predicate = NSPredicate(format: "atRUser = %@", rUser)
     return realm.objects(FormulaMaster.self).filter(predicate)
 }
+
 
 public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
     guard let currentUser = currentUser(in: realm) else { return }
