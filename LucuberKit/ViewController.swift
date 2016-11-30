@@ -22,11 +22,11 @@ class ViewController: UIViewController {
         // Login
      
         // 测试 Realm 初始化
-        guard let realm = try? Realm() else {
-            return 
-        }
+//        guard let realm = try? Realm() else {
+//            return 
+//        }
         
-        printLog("\(realm) 已经初始化成功")
+//        printLog("\(realm) 已经初始化成功")
         
 //        sendeTextMessage()
 //        sendImageMessage()

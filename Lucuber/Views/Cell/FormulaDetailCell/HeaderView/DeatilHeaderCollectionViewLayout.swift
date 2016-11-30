@@ -10,19 +10,18 @@ import UIKit
 
 class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
     
-    var previousOffsetx: CGFloat = 0
+//    var previousOffsetx: CGFloat = 0
     
     override func prepare() {
         super.prepare()
-        self.scrollDirection = .horizontal
-        self.minimumLineSpacing = 6
         
+        self.scrollDirection = .horizontal
+        
+        self.minimumLineSpacing = Config.DetailHeaderView.collectionViewMinimumLineSpacing
         collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
-        let margin = Config.FormulaDetail.screenMargin
-        let imageWidth = UIScreen.main.bounds.width - margin - margin
-//        let screenWidth = UIScreen.main.bounds.width
+        
+        let imageWidth =  Config.DetailHeaderView.imageViewWidth
          collectionView?.contentInset = UIEdgeInsets.init(top: 0, left: collectionView!.frame.width / 2 - imageWidth / 2, bottom: 0, right: collectionView!.frame.width / 2 - imageWidth / 2)
-//        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
   
@@ -32,22 +31,26 @@ class DeatilHeaderCollectionViewLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
-        let array = super.layoutAttributesForElements(in: rect)
+        guard let attributes = super.layoutAttributesForElements(in: rect) else {
+            return nil
+        }
+        guard let collectionView = collectionView else {
+            return nil
+        }
         
-        let visiableRect = CGRect(x: self.collectionView!.contentOffset.x, y: self.collectionView!.contentOffset.y, width: self.collectionView!.frame.width, height: self.collectionView!.frame.height)
+        let visiableRect = CGRect(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
         
-        
-        for attribute in array! {
+        for attribute in attributes {
             
             if !visiableRect.intersects(attribute.frame) {continue}
             let frame = attribute.frame
-            let distance = abs(collectionView!.contentOffset.x + collectionView!.contentInset.left - frame.origin.x)
-            let scale = min(max(1 - distance/(collectionView!.bounds.width), 0.85), 1)
+            let distance = abs(collectionView.contentOffset.x + collectionView.contentInset.left - frame.origin.x)
+            let scale = min( max( 1 - distance / (collectionView.bounds.width), 0.85), 1)
             attribute.transform = CGAffineTransform(scaleX: scale, y: scale)
             
         }
         
-        return array
+        return attributes
         
     }
     

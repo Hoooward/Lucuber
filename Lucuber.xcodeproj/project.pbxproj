@@ -28,6 +28,8 @@
 		E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4217F201D962C1B00E575AB /* CatogoryMenuPresentationController.swift */; };
 		E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4217F231D962C4B00E575AB /* CategoryMenuController.swift */; };
 		E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4217F291D96655100E575AB /* NewFormula.storyboard */; };
+		E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
+		E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
 		E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */; };
 		E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */; };
 		E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */; };
@@ -1686,6 +1688,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */,
+				E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */,
 				E4E03BFE1DEC6C540023B3B0 /* KeyboardMan.swift in Sources */,
 				E47BB2CD1DEBF72100CD17FF /* UIViewController+Cube.swift in Sources */,
 				E47BB2CC1DEBF6E800CD17FF /* CameraPreviewView.swift in Sources */,

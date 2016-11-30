@@ -214,18 +214,19 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         // TODO: - 重要
         case .showFormulaDetail:
             
-            let vc = segue.destination as! FormulaDetailViewController
+            guard
+                let vc = segue.destination as? FormulaDetailViewController,
+                let presentingVC = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController  else {
+                    return
+            }
             
             if let formula = sender as? Formula {
                 
                 vc.formula = formula
-                
-                let index = Int(containerScrollerView.contentOffset.x / UIScreen.main.bounds.width)
-                
-                vc.uploadMode = index == 0 ? .my : .library
+                vc.uploadMode = presentingVC.uploadMode
                 
             }
-            break
+    
             
         case .showNewFormula:
             

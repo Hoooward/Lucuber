@@ -53,8 +53,7 @@ class FormulaManager {
                 
                 if let image = UIImage(named: newFormula.imageName) {
                     
-                    let data = UIImageJPEGRepresentation(image, 0.7)
-                    
+                    let data = UIImagePNGRepresentation(image)
                     let uploadFile = AVFile(data: data!)
                     
                     var error: NSError?
@@ -151,7 +150,7 @@ class FormulaManager {
 }
 
 
-internal func pushFormulaDataToLeanCloud() {
+internal func pushBaseFormulaDataToLeanCloud() {
     
     FormulaManager.shardManager().loadNewFormulasFormJSON()
     let formulaDatas = FormulaManager.shardManager().parseAllFormulas()
@@ -162,9 +161,9 @@ internal func pushFormulaDataToLeanCloud() {
     let query = AVQuery(className: "_User")
     
     
-    if let user = query.getObjectWithId("57a58cb5a633bd006043f0d7") as? AVUser {
-        adminUser = user
-    }
+//    if let user = query.getObjectWithId("583d4df4128fe1006ac638d6") as? AVUser {
+//        adminUser = user
+//    }
     
     
     formulaDatas.forEach {
@@ -174,7 +173,7 @@ internal func pushFormulaDataToLeanCloud() {
         acl.setWriteAccess(true, for: AVRole(name: "Administrator"))
         
         $0.acl = acl
-        $0.creator = adminUser
+//        $0.creator = adminUser
         
     }
     

@@ -28,7 +28,7 @@ class HeaderViewCell: UICollectionViewCell {
             return
         }
         
-        imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: contentView.size)
+        imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: nil)
     }
     
     override init(frame: CGRect) {
@@ -48,7 +48,7 @@ class HeaderViewCell: UICollectionViewCell {
         
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = UIColor.lightGray.cgColor
-//        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 1
         imageView.clipsToBounds = true
         
     }

@@ -26,12 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverPreferences.registerSubclass()
         DiscoverMessage.registerSubclass()
         
-        window = UIWindow()
-        window?.frame = UIScreen.main.bounds
-        window?.rootViewController = determineRootViewController()
-        window?.makeKeyAndVisible()
+//        window = UIWindow()
+//        window?.frame = UIScreen.main.bounds
+//        window?.rootViewController = determineRootViewController()
+//        window?.makeKeyAndVisible()
         // 注意会重复添加数据
-//        pushFormulaDataToLeanCloud()
+//        pushBaseFormulaDataToLeanCloud()
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)
@@ -56,21 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        
-        let currentVersion = UserDefaults.dataVersion()
-        
-        syncPreferences(failureHandler: { reason, errorMessage in
-            defaultFailureHandler(reason, errorMessage)
-            
-        }, completion: { version in
-            if currentVersion != version {
-                printLog("需要更新数据")
-            }
-        })
-        
-     
-    }
+
 
 
 }

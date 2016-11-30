@@ -18,6 +18,10 @@ final class CubeImageCache {
     let cacheAttachmentQueue = DispatchQueue(label: "ImageChacheAttachmentQueue")
     
     
+    public enum imageExtension {
+        case jpeg
+        case png
+    }
     
     class func attachmentOriginKeyWithURLString(URLString: String) -> String {
         return "attachment-cube-\(URLString)"
@@ -28,22 +32,29 @@ final class CubeImageCache {
     }
    
     
-    func storeAlreadyUploadImageToCache(with image: UIImage, imageURLString: String) {
+    func storeAlreadyUploadImageToCache(with image: UIImage, imageExtension: imageExtension, imageURLString: String) {
         guard let attachmentURL = URL(string: imageURLString) else {
             return
         }
         
         let originKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: attachmentURL.absoluteString)
         
-        let originData = UIImageJPEGRepresentation(image, 1.0)
+        var originalData: Data?
+        
+        switch imageExtesion {
+        case .jpeg:
+            originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+        case .png:
+            originalData = UIImagePNGRepresentation(image)
+            
+        }
         
         ImageCache.default.store(image, original: originData, forKey: originKey,  toDisk: true, completionHandler: {
             
         })
-        
     }
     
-    func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?, completion:@escaping (_ url: NSURL, _ image: UIImage?, _ cacheType: CacheType) -> Void)  {
+    func imageOfAttachment(attachment: ImageAttachment, withSideLenght: CGFloat?, imageExtesion: imageExtension, completion:@escaping (_ url: NSURL, _ image: UIImage?, _ cacheType: CacheType) -> Void)  {
         
         guard let attachmentURL = NSURL(string: attachment.URLString) else {
             return
@@ -62,9 +73,6 @@ final class CubeImageCache {
             .scaleFactor(UIScreen.main.scale)
         ]
         
-        
-  
-       
         ImageCache.default.retrieveImage(forKey: sideLengtKey, options: options, completionHandler: {
             (image, cacheType) in
             
@@ -88,7 +96,15 @@ final class CubeImageCache {
                             
                             resultImage = image.scaleToSideLenght(sidLenght: sideLenght)
                             
-                            let originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                            var originalData: Data?
+                            
+                            switch imageExtesion {
+                            case .jpeg:
+                                originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                            case .png:
+                                originalData = UIImagePNGRepresentation(image)
+                                
+                            }
                             
                             ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
                                 
@@ -120,7 +136,15 @@ final class CubeImageCache {
                                         
                                         resultImage = image.scaleToSideLenght(sidLenght: sideLenght)
                                         
-                                        let originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                                        var originalData: Data?
+                                        
+                                        switch imageExtesion {
+                                        case .jpeg:
+                                            originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                                        case .png:
+                                            originalData = UIImagePNGRepresentation(image)
+                                            
+                                        }
                                         
                                         ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
                                             

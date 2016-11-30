@@ -30,7 +30,9 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     public var formula: Formula! {
         didSet {
-            headerView.formula = formula
+            
+            headerView.configView(with: formula, withUploadMode: self.uploadMode)
+            
         }
     }
     

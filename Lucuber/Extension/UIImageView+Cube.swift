@@ -81,6 +81,8 @@ extension UIImageView {
         objc_setAssociatedObject(self, &imageAttachmentURLKey, URL, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
+   
+    
     public func cube_setImageAtFeedCellWithAttachment(attachment: ImageAttachment, withSize size: CGSize?) {
         
         guard let attachmentURL = NSURL(string: attachment.URLString) else {
@@ -100,7 +102,7 @@ extension UIImageView {
         
         setImageAttachmentURL(URL: attachmentURL)
         
-        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width, completion: {
+        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width, imageExtesion: CubeImageCache.imageExtension.jpeg, completion: {
             [weak self] url, image, cacheType in
             guard
                 let strongSelf = self,
@@ -118,7 +120,6 @@ extension UIImageView {
             strongSelf.image = image
             
            activityIndicator?.stopAnimating()
- 
             
         })
 
@@ -167,4 +168,5 @@ extension UIImageView {
             
         })
     }
+    
 }

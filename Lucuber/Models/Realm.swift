@@ -176,11 +176,37 @@ func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Results<Formula>{
-    let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
-    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
+    
+    var predicate = NSPredicate(format: "categoryString = %@ AND typeString = %@", category.rawValue, type.rawValue)
+    
+    if case .all = category {
+         predicate = NSPredicate(format: "typeString = %@", type.rawValue)
+    }
+    
+    if case .unKnow = type {
+//        return realm.objects(Formula.self).filter("")
+    }
+    
+    switch uploadMode {
+    case .my:
+        
+        guard let currentUser = currentUser(in: realm) else { fatalError() }
+        
+        let myPredicate = NSPredicate(format: "creator = %@", currentUser)
+        return realm.objects(Formula.self).filter(myPredicate).filter(predicate)
+        
+    case .library:
+        
+        let libraryPredicate = NSPredicate(format: "isLibrary == true")
+        return realm.objects(Formula.self).filter(libraryPredicate).filter(predicate)
+        
+    }
+    
+//    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Results<Formula> {
+    
     
     switch uploadMode {
         

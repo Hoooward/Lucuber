@@ -8,11 +8,11 @@
 
 import UIKit
 import AVOSCloud
+import RealmSwift
 
 class DetailHeaderView: UIView {
 
     // MARK: - Properties
-    
     var formulas: [UIImage] {
         
         var formulas = [UIImage]()
@@ -25,24 +25,68 @@ class DetailHeaderView: UIView {
         return formulas
     }
     
-    ///外界读取方便设置自己的frame
-    var headerHeight: CGFloat {
+    //外界读取方便设置自己的frame
+    public var headerHeight: CGFloat {
         return creatTimeLabel.frame.maxY + 20
     }
+
     
-    var formula: Formula? {
-        didSet {
-            if let formula = formula {
-                
-                nameLabel.text = formula.name
-                imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: imageView.size)
-                ratingView.rating = formula.rating
-                ratingView.maxRating = 5
-                
-                
-            }
-        }
+    fileprivate let realm = try! Realm()
+    
+    fileprivate var selectedType: Type = .Cross
+    fileprivate var selectedCategory: Category = .x3x3
+    fileprivate var uploadMode: UploadFormulaMode = .library
+    
+    fileprivate var formulasData: Results<Formula> {
+        return formulasWith(self.uploadMode, category: self.selectedCategory, type: self.selectedType, inRealm: self.realm)
     }
+    
+    public func configView(with formula: Formula?, withUploadMode uploadMode: UploadFormulaMode) {
+        
+        guard let formula = formula else {
+            return
+        }
+        
+        self.selectedType = formula.type
+        self.selectedCategory = formula.category
+        self.uploadMode = uploadMode
+        
+        nameLabel.text = formula.name
+        starRatingView.rating = formula.rating
+        starRatingView.maxRating = 5
+        
+        
+        if let index = formulasData.index(of: formula) {
+            
+            let point = CGPoint(x: CGFloat(index) * scrollDistance - 38, y: 0)
+            
+            collectionView.reloadData()
+            collectionView.layoutIfNeeded()
+            collectionView.setContentOffset(point, animated: true)
+        }
+        
+        
+    }
+    
+    private lazy var layout: DeatilHeaderCollectionViewLayout = {
+        let layout = DeatilHeaderCollectionViewLayout()
+        return layout
+    }()
+    
+    fileprivate var scrollDistance: CGFloat = Config.DetailHeaderView.imageViewWidth + Config.DetailHeaderView.collectionViewMinimumLineSpacing
+    fileprivate var scrollToRight = true
+    fileprivate var lastContentOffsetX: CGFloat = 0
+    
+    fileprivate let headerViewCellIdentifier = "HeaderViewCell"
+    
+    fileprivate lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.layout)
+        collectionView.register(HeaderViewCell.self, forCellWithReuseIdentifier: self.headerViewCellIdentifier)
+        collectionView.backgroundColor = UIColor.white
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -69,28 +113,7 @@ class DetailHeaderView: UIView {
         return label
     }()
     
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    private lazy var layout: DeatilHeaderCollectionViewLayout = {
-        let layout = DeatilHeaderCollectionViewLayout()
-        return layout
-    }()
-    fileprivate let headerViewCellIdentifier = "HeaderViewCell"
-    
-    fileprivate lazy var collectionView: UICollectionView = {
-        
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.layout)
-        collectionView.register(HeaderViewCell.self, forCellWithReuseIdentifier: self.headerViewCellIdentifier)
-        collectionView.backgroundColor = UIColor.white
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        return collectionView
-    }()
-    
-    private lazy var ratingView: StarRatingView = {
+    private lazy var starRatingView: StarRatingView = {
         let view = StarRatingView()
         view.rating = 5
         view.maxRating = 5
@@ -98,13 +121,6 @@ class DetailHeaderView: UIView {
         return view
     }()
 
-    
-    // MARK: - Life Cycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        makeUI()
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,47 +135,39 @@ class DetailHeaderView: UIView {
     
     func makeUI() {
         
-//        addSubview(imageView)
         addSubview(nameLabel)
         addSubview(creatUserLabel)
         addSubview(creatTimeLabel)
-        addSubview(ratingView)
+        addSubview(starRatingView)
         addSubview(collectionView)
         
-        imageView.layer.cornerRadius = 8
-        imageView.layer.masksToBounds = true
+        let starRatingWidth = Config.DetailHeaderView.starRatingViewWidth
+        let margin = Config.DetailHeaderView.screenMargin
+        let imageWidth = Config.DetailHeaderView.imageViewWidth
         
-        let ratingWidth = Config.FormulaDetail.ratingViewWidth
-        let margin = Config.FormulaDetail.screenMargin
-        let imageWidth = UIScreen.main.bounds.width - margin - margin
-        
-        imageView.frame = CGRect(x: margin, y: 5, width: imageWidth, height: imageWidth)
         collectionView.frame = CGRect(x: 0, y: 5, width: UIScreen.main.bounds.width, height: imageWidth)
         
-        nameLabel.frame = CGRect(x: margin, y: imageView.frame.maxY + 15, width: imageWidth - ratingWidth, height: 24)
+        nameLabel.frame = CGRect(x: margin, y: collectionView.frame.maxY + 15, width: imageWidth - starRatingWidth, height: 24)
         
-        ratingView.frame = CGRect(x: imageView.frame.maxX - ratingWidth, y: nameLabel.frame.origin.y, width: ratingWidth, height: 35)
+        starRatingView.frame = CGRect(x: collectionView.frame.maxX - starRatingWidth, y: nameLabel.frame.origin.y, width: starRatingWidth, height: 35)
         
         creatUserLabel.frame = CGRect(x: margin, y: nameLabel.frame.maxY + 8, width: imageWidth, height: 16)
-        
         creatTimeLabel.frame = CGRect(x: margin, y: creatUserLabel.frame.maxY + 5, width: imageWidth, height: 16)
     }
     
     
-    func changeFormulaNameLabelStatus() {
-        
-        if
-            let list = AVUser.current()?.masterList(),
-            let formula = formula {
-            
-            nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
-            
-        }
-    }
+//    func changeFormulaNameLabelStatus() {
+//        
+//        if
+//            let list = AVUser.current()?.masterList(),
+//            let formula = formula {
+//            
+//            nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
+//            
+//        }
+//    }
     
-    var scrollDistance: CGFloat = UIScreen.main.bounds.width - Config.FormulaDetail.screenMargin - Config.FormulaDetail.screenMargin + 6
-    var scrollToRight = true
-    var lastContentOffsetX: CGFloat = 0
+  
 }
 
 extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -169,14 +177,14 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return formulas.count
+        return formulasData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerViewCellIdentifier, for: indexPath) as! HeaderViewCell
         
-        cell.image = formulas[indexPath.row]
+        cell.configCell(with: formulasData[indexPath.row])
         
         return cell
     }
@@ -187,7 +195,6 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
 
         return CGSize(width: imageWidth, height: collectionView.bounds.height)
     }
-    
     
 }
 
@@ -215,13 +222,13 @@ extension DetailHeaderView: UIScrollViewDelegate {
                 let totalScrollDistance = self.scrollDistance - self.collectionView.contentInset.left
                 scrollView.setContentOffset(CGPoint(x: CGFloat(currentCount) * totalScrollDistance, y: 0), animated: true)
                 
-            } else if currentCount < formulas.count && currentCount > 1 {
+            } else if currentCount < formulasData.count && currentCount > 1 {
                 
                 let totalScrollDistance = CGFloat(currentCount) * self.scrollDistance - self.collectionView.contentInset.left
                 scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
             } else {
                 
-                let totalScrollDistance = CGFloat(formulas.count - 1) * self.scrollDistance - self.collectionView.contentInset.left
+                let totalScrollDistance = CGFloat(formulasData.count - 1) * self.scrollDistance - self.collectionView.contentInset.left
                 scrollView.setContentOffset(CGPoint(x: totalScrollDistance, y: 0), animated: true)
             }
         } else {
