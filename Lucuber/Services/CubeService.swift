@@ -318,7 +318,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
         return
     }
     
-    let imageData = UIImageJPEGRepresentation(newFormula.pickedLocalImage, 0.9)
+    let imageData = UIImagePNGRepresentation(newFormula.pickedLocalImage)
     
     pushDataToLeancloud(with: imageData, failureHandler: {
         reason, errorMessage in
@@ -334,7 +334,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
             newFormula.imageURL = imageURLString
         }
         
-        CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newFormula.pickedLocalImage, imageURLString: imageURLString)
+        CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newFormula.pickedLocalImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
         
         AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: { success, error in
             

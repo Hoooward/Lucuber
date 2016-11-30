@@ -41,15 +41,15 @@ final class CubeImageCache {
         
         var originalData: Data?
         
-        switch imageExtesion {
+        switch imageExtension {
         case .jpeg:
-            originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+            originalData = UIImageJPEGRepresentation(image, 1.0)
         case .png:
             originalData = UIImagePNGRepresentation(image)
             
         }
         
-        ImageCache.default.store(image, original: originData, forKey: originKey,  toDisk: true, completionHandler: {
+        ImageCache.default.store(image, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
             
         })
     }

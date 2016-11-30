@@ -145,7 +145,7 @@ extension UIImageView {
          setImageAttachmentURL(URL: URL)
         
         
-        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width, completion: {
+        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width,imageExtesion: CubeImageCache.imageExtension.png, completion: {
             [weak self] url, image, cacheType in
             
             guard
