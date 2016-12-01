@@ -140,11 +140,7 @@ public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm)
     let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
     
     let categorys = realm.objects(RCategory.self).filter(predicate)
-    
-    if categorys.isEmpty {
-        let newCategory = RCategory(value: [Category.x3x3.rawValue, uploadMode.rawValue])
-        realm.add(newCategory)
-    }
+   
     
     return realm.objects(RCategory.self).filter(predicate)
     
@@ -241,6 +237,15 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
 
 public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
     let categorys = categorysWith(uploadMode, inRealm: realm)
+    
+    
+    if categorys.isEmpty {
+        let newCategory = RCategory(value: [Category.x3x3.rawValue, uploadMode.rawValue])
+        try? realm.write {
+            realm.add(newCategory)
+        }
+    }
+    
     let categoryTexts = categorys.map { $0.name }
     if !categoryTexts.contains(formula.categoryString) {
         

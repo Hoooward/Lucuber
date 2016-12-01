@@ -35,6 +35,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     fileprivate lazy var headerView: DetailHeaderView = DetailHeaderView()
     
+    fileprivate var lastSeletedFormulaContentCellHeight: CGFloat = 0
+    
     private lazy var customNavigationItem: UINavigationItem = {
         
         let item = UINavigationItem(title: "Detail")
@@ -181,6 +183,12 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             }
             strongSelf.formula = formula
             
+            // 重新计算 contentCell 高度
+            let indexPath = IndexPath(row: 0, section: FormulaDetailViewController.Section.formulas.rawValue)
+            
+            strongSelf.tableView.beginUpdates()
+            strongSelf.tableView.reloadSections(IndexSet(indexPath), with: .none)
+            strongSelf.tableView.endUpdates()
         }
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
@@ -189,7 +197,10 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         tableView.register(UINib(nibName: formulasCellIdentifier,bundle: nil), forCellReuseIdentifier: formulasCellIdentifier)
         tableView.register(UINib(nibName: separatorCellIdentifier,bundle: nil), forCellReuseIdentifier: separatorCellIdentifier)
         tableView.register(UINib(nibName: detailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailCommentCellIdentifier)
-        tableView.register(DetailContentCell.self, forCellReuseIdentifier: detailContentCellIdentifier)
+        tableView.register(UINib(nibName: detailContentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailContentCellIdentifier)
+        
+        
+//        tableView.register(DetailContentCell.self, forCellReuseIdentifier: detailContentCellIdentifier)
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.white
@@ -323,8 +334,11 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case .separator:
             return Config.FormulaDetail.separatorRowHeight
         case .formulas:
-            //            return formula.contentMaxCellHeight
-            return 200
+            let newHeight = formula.maxContentCellHeight + Config.FormulaDetail.totalContentLayoutMargin
+            if newHeight > lastSeletedFormulaContentCellHeight {
+                lastSeletedFormulaContentCellHeight = newHeight
+            }
+            return lastSeletedFormulaContentCellHeight
         case .separatorTwo:
             return 40
         case .master :

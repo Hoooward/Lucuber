@@ -10,35 +10,27 @@ import UIKit
 
 class DetailContentCell: UITableViewCell {
     
-    // MARK: - Properties
-    fileprivate var segmentedtitles: [String] = []
+    @IBOutlet weak var contentLabel: UILabel!
     
-    fileprivate lazy var segmentedControl: TwicketSegmentedControl = {
-        let titles = ["FR", "FL", "BR", "BL"]
-        let frame = CGRect(x: 28, y: 10, width: UIScreen.main.bounds.width - 28 - 28, height: 40)
-        let segmentedControl = TwicketSegmentedControl(frame: frame)
-        segmentedControl.setSegmentItems(titles)
+    @IBOutlet weak var indicatorLabel: UILabel!
+    
+//    fileprivate var segmentedtitles: [String] = []
+    
+    @IBOutlet weak var segmentedControl: TwicketSegmentedControl!
+    
+
+    private let titles = ["FR", "FL", "BR", "BL"]
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+
+        self.selectionStyle = .none
         segmentedControl.delegate = self
         segmentedControl.sliderBackgroundColor = UIColor.cubeTintColor()
-        return segmentedControl
-    }()
-
-    fileprivate lazy var indicatorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.inputAccessoryPlaceholderColor()
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 10)
-        return label
-    }()
-    
-    fileprivate lazy var contentLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.inputAccessoryPlaceholderColor()
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
-    
+        segmentedControl.setSegmentItems(titles)
+        
+        
+    }
     
     fileprivate var formula: Formula?
     
@@ -59,38 +51,8 @@ class DetailContentCell: UITableViewCell {
         didSelect(0)
         
     }
-    
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        addSubview(segmentedControl)
-        addSubview(contentLabel)
-        self.selectionStyle = .none
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        guard let formula = formula else { return }
-        
-        let screenWidth = UIScreen.main.bounds.width
-//        let rect = CGRect(x: 45, y: 25, width: screenWidth - 45 - 45, height: formula.contentMaxCellHeight)
-        let rect = CGRect(x: 45, y: 25, width: screenWidth - 45 - 45, height: 100)
-        contentLabel.frame = rect
-        
-        let segmentControlFrame = CGRect(x: 28, y: contentLabel.frame.maxY + 40, width: screenWidth - 28 - 28, height: 35)
-        
-        segmentedControl.frame = segmentControlFrame
-    }
-    
-}
 
+}
 
 extension DetailContentCell: UIScrollViewDelegate, TwicketSegmentedControlDelegate {
     
@@ -102,9 +64,12 @@ extension DetailContentCell: UIScrollViewDelegate, TwicketSegmentedControlDelega
         
         let content = formula.contents[segmentIndex]
         let rotation = Rotation(rawValue: content.rotation)
-        contentLabel.attributedText = content.text.setAttributesFitDetailLayout(style: .center)
         
-        indicatorLabel.text = rotation?.placeholderText
+        UIView.animate(withDuration: 0.5, animations: {
+            self.contentLabel.attributedText = content.text.setAttributesFitDetailLayout(style: .center)
+            self.indicatorLabel.text = rotation?.placeholderText
+        })
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailContentCell" rowHeight="123" id="KWE-Yh-Y0f" customClass="DetailContentCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KWE-Yh-Y0f" id="AKG-MU-UVF">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1S0-5U-ZbS">
+                        <rect key="frame" x="45" y="20" width="285" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04K-Er-tk2">
+                        <rect key="frame" x="172" y="55" width="31" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRE-KC-yD4" customClass="TwicketSegmentedControl" customModule="Lucuber" customModuleProvider="target">
+                        <rect key="frame" x="25" y="77.5" width="325" height="35"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="RiQ-LB-5Vr"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="1S0-5U-ZbS" secondAttribute="trailing" constant="45" id="AxG-IE-Yef"/>
+                    <constraint firstAttribute="bottom" secondItem="rRE-KC-yD4" secondAttribute="bottom" constant="10" id="BD1-d0-qof"/>
+                    <constraint firstItem="1S0-5U-ZbS" firstAttribute="top" secondItem="AKG-MU-UVF" secondAttribute="top" constant="20" id="FR1-oa-9w0"/>
+                    <constraint firstItem="rRE-KC-yD4" firstAttribute="top" secondItem="04K-Er-tk2" secondAttribute="bottom" constant="8" id="MAL-mo-f9W"/>
+                    <constraint firstItem="1S0-5U-ZbS" firstAttribute="leading" secondItem="AKG-MU-UVF" secondAttribute="leading" constant="45" id="POS-VX-dou"/>
+                    <constraint firstAttribute="trailing" secondItem="rRE-KC-yD4" secondAttribute="trailing" constant="25" id="e68-1X-huF"/>
+                    <constraint firstItem="04K-Er-tk2" firstAttribute="centerX" secondItem="AKG-MU-UVF" secondAttribute="centerX" id="jR7-Xp-E8a"/>
+                    <constraint firstItem="rRE-KC-yD4" firstAttribute="leading" secondItem="AKG-MU-UVF" secondAttribute="leading" constant="25" id="oue-Dr-bNh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentLabel" destination="1S0-5U-ZbS" id="lbH-Rp-wGO"/>
+                <outlet property="indicatorLabel" destination="04K-Er-tk2" id="dXb-Kt-F65"/>
+                <outlet property="segmentedControl" destination="rRE-KC-yD4" id="Awi-R5-l3a"/>
+            </connections>
+            <point key="canvasLocation" x="-33.5" y="-11.5"/>
+        </tableViewCell>
+    </objects>
+</document>

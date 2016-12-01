@@ -30,6 +30,7 @@
 		E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4217F291D96655100E575AB /* NewFormula.storyboard */; };
 		E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
 		E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
+		E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */; };
 		E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */; };
 		E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */; };
 		E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */; };
@@ -254,6 +255,7 @@
 		E4217F201D962C1B00E575AB /* CatogoryMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatogoryMenuPresentationController.swift; sourceTree = "<group>"; };
 		E4217F231D962C4B00E575AB /* CategoryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMenuController.swift; sourceTree = "<group>"; };
 		E4217F291D96655100E575AB /* NewFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFormula.storyboard; sourceTree = "<group>"; };
+		E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailContentCell.xib; sourceTree = "<group>"; };
 		E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FormulaDetail.storyboard; sourceTree = "<group>"; };
 		E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetailViewController.swift; sourceTree = "<group>"; };
 		E435C0281D9EA4FC0026FA08 /* DetailLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLayout.swift; sourceTree = "<group>"; };
@@ -1244,6 +1246,7 @@
 			isa = PBXGroup;
 			children = (
 				E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */,
+				E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */,
 			);
 			path = ContentCell;
 			sourceTree = "<group>";
@@ -1572,6 +1575,7 @@
 				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 				E4CED8671DE862770036A11C /* FormulaTextViewCell.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
+				E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
 				E4CED8571DE862770036A11C /* DetailMasterCell.xib in Resources */,

@@ -120,8 +120,11 @@ public class Config {
         public static let screenMargin: CGFloat = 38
         public static let masterRowHeight: CGFloat = 50
         public static let separatorRowHeight: CGFloat = 20
-       
         public static let commentRowHeight: CGFloat = 80
+        
+        public static let contentsegmentedControlHeight = 38
+        public static let totalContentLayoutMargin: CGFloat = 20 +  14.5 + 35 + 10 + 20
+
     }
     public struct DetailHeaderView {
         public static let screenMargin: CGFloat = 46

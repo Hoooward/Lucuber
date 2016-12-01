@@ -168,15 +168,14 @@ open class Formula: Object {
         return Category.unKnow
     }
     
-    
-    open var pickedLocalImage = UIImage()
-    
     open var type: Type {
         if let type = Type(rawValue: typeString) {
             return type
         }
         return Type.unKnow
     }
+    
+    open var pickedLocalImage = UIImage()
     
     open var isReadyToPush: Bool {
         
@@ -189,6 +188,20 @@ open class Formula: Object {
             isReady = false
         }
         return isReady
+    }
+    
+    open var maxContentCellHeight: CGFloat {
+        
+        var maxHeight: CGFloat = 0
+        
+        let cellHeigts: [CGFloat] =  self.contents.map{ $0.cellHeight}
+        
+        cellHeigts.forEach {
+            if $0 > maxHeight {
+                maxHeight = $0
+            }
+        }
+        return maxHeight
     }
     
     open class func new(_ isLibrary: Bool = false, inRealm realm: Realm) -> Formula {
