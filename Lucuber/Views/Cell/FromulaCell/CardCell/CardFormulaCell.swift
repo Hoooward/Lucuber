@@ -8,6 +8,7 @@
 
 import UIKit
 import AVOSCloud
+import RealmSwift
 
 class CardFormulaCell: UICollectionViewCell {
 
@@ -20,7 +21,7 @@ class CardFormulaCell: UICollectionViewCell {
     
     private var formula: Formula?
     
-    public func configerCell(with formula: Formula?) {
+    public func configerCell(with formula: Formula?, inRealm realm: Realm) {
         
         guard let formula = formula else {
             return
@@ -33,9 +34,12 @@ class CardFormulaCell: UICollectionViewCell {
             contentLabel.attributedText = text.setAttributesFitDetailLayout(style: .normal)
         }
         
-        if let masterList = AVUser.current()?.masterList() {
+        if let currentUser = currentUser(in: realm) {
             
-            nameLabel.textColor = masterList.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
+            let masterList: [String] = mastersWith(currentUser, inRealm: realm).map {
+                $0.formulaID
+            }
+            
             masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
         
@@ -73,6 +77,9 @@ class CardFormulaCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         masterImageView.isHidden = true
+        
+        
+        imageView.backgroundColor = UIColor(red: 250/255.0, green: 248/255.0, blue: 244/255.0, alpha: 1)
         
     }
 

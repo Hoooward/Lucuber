@@ -357,7 +357,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
                 return
             }
             
-            cell.configerCell(with: formula)
+            cell.configerCell(with: formula, inRealm: realm)
             
         case .card:
             
@@ -366,7 +366,7 @@ extension BaseCollectionViewController: UICollectionViewDelegateFlowLayout {
                 return
             }
             
-            cell.configerCell(with: formula)
+            cell.configerCell(with: formula, inRealm: realm)
         }
         
     }
