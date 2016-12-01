@@ -190,7 +190,7 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Typ
         guard let currentUser = currentUser(in: realm) else { fatalError() }
         
         let myPredicate = NSPredicate(format: "creator = %@", currentUser)
-        return realm.objects(Formula.self).filter(myPredicate).filter(predicate)
+        return realm.objects(Formula.self).filter(myPredicate).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
         
     case .library:
         
@@ -238,13 +238,9 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
 public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
     let categorys = categorysWith(uploadMode, inRealm: realm)
     
+    // TODO: /
     
-    if categorys.isEmpty {
-        let newCategory = RCategory(value: [Category.x3x3.rawValue, uploadMode.rawValue])
-        try? realm.write {
-            realm.add(newCategory)
-        }
-    }
+  
     
     let categoryTexts = categorys.map { $0.name }
     if !categoryTexts.contains(formula.categoryString) {

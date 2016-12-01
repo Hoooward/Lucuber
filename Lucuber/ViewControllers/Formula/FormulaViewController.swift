@@ -167,6 +167,13 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             let category = presentingVC.seletedCategory
             let RCategorys = categorysWith(presentingVC.uploadMode, inRealm: realm)
             
+            if RCategorys.isEmpty {
+                let newCategory = RCategory(value: [Category.x3x3.rawValue, presentingVC.uploadMode.rawValue])
+                try? realm.write {
+                    realm.add(newCategory)
+                }
+            }
+            
             var categorys: [Category] = RCategorys.map({ Category(rawValue:$0.name)! })
             
             categorys.append(Category.all)
