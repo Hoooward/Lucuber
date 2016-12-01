@@ -27,7 +27,14 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         case edit = "showAddFormula"
     }
     
-    public var formula: Formula!
+    public var formula: Formula! {
+        didSet {
+            
+            try? realm.write {
+                formula.isNewVersion = false
+            }
+        }
+    }
     
     fileprivate var realm = try! Realm()
     
@@ -182,6 +189,9 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 return
             }
             strongSelf.formula = formula
+            
+            
+         
             
             // 重新计算 contentCell 高度
             let indexPath = IndexPath(row: 0, section: FormulaDetailViewController.Section.formulas.rawValue)
