@@ -46,10 +46,23 @@ class DetailHeaderView: UIView {
             afterDeleteFormulaDataIsEmpty?()
         } else {
             
-            let index = Int(collectionView.contentOffset.x / scrollDistance)
-            
             collectionView.reloadData()
-            updateUI(with: formulasData[index])
+            collectionView.layoutIfNeeded()
+            print(collectionView.contentOffset)
+            
+            scrollViewDidEndScrollingAnimation(collectionView)
+            
+            updateUI(with: formulasData[currentIndex])
+
+            let point = CGPoint(x: CGFloat(currentIndex) * scrollDistance - Config.DetailHeaderView.screenMargin , y: 0)
+            
+            
+            // 滚两次是为了触发中心卡片放大.
+            collectionView.setContentOffset(CGPoint.zero, animated: false)
+            collectionView.setContentOffset(point, animated: false)
+            
+            
+            
         }
         
         
@@ -65,12 +78,6 @@ class DetailHeaderView: UIView {
         self.selectedCategory = formula.category
         self.uploadMode = uploadMode
         
-//        starRatingView.rating = formula.rating
-//        starRatingView.maxRating = formula.rating
-//        
-//        
-//        categoryIndicator.configureWithCategory(category: formula.category.rawValue)
-        
         if let index = formulasData.index(of: formula) {
             
             let point = CGPoint(x: CGFloat(index) * scrollDistance - Config.DetailHeaderView.screenMargin , y: 0)
@@ -79,7 +86,6 @@ class DetailHeaderView: UIView {
             collectionView.layoutIfNeeded()
             collectionView.setContentOffset(point, animated: true)
             
-//            locationIndicatorLable.text = " - 当前第 \(self.currentIndex + 1) 个, 共 \(self.formulasData.count) 个 -"
             updateUI(with: formula)
         }
         
@@ -109,9 +115,6 @@ class DetailHeaderView: UIView {
         let date = Date(timeIntervalSince1970: formula.createdUnixTime)
         creatTimeLabel.text = "更新: " + dateFormatter.string(from: date)
         
-        
-       
-
     }
     
     private lazy var layout: DeatilHeaderCollectionViewLayout = {
@@ -193,7 +196,6 @@ class DetailHeaderView: UIView {
     func makeUI() {
         
         addSubview(categoryIndicator)
-        
         addSubview(locationIndicatorLable)
         addSubview(creatUserLabel)
         addSubview(creatTimeLabel)
@@ -203,50 +205,24 @@ class DetailHeaderView: UIView {
         let margin = Config.DetailHeaderView.screenMargin
         let imageWidth = Config.DetailHeaderView.imageViewWidth
         
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
         categoryIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.frame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width, height: imageWidth)
         
         locationIndicatorLable.frame = CGRect(x: margin, y: collectionView.frame.maxY + 5, width: collectionView.frame.width - margin * 2, height: 10)
         
-//        let collectionViewTop = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5)
-//        
-//        let collectionViewLeading = NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 5)
-//        let collectionViewHeight = NSLayoutConstraint(item: collectionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: imageWidth)
-//        let collectionViewTrailing = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5)
-        
         let categoryIndicatorTrailing = NSLayoutConstraint.init(item: categoryIndicator, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -margin)
         
         let cateogyrIndicatorTop = NSLayoutConstraint(item: categoryIndicator, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: imageWidth + 25)
         
-//        NSLayoutConstraint.activate([collectionViewTop, collectionViewLeading, collectionViewTrailing, collectionViewHeight])
-        
         NSLayoutConstraint.activate([categoryIndicatorTrailing, cateogyrIndicatorTop])
         
-        
-//        cateogryLabel.frame = CGRect(x: collectionView.frame.width - margin - 100, y: collectionView.frame.maxY + 10, width: 100, height: 24)
-//        
-//        starRatingView.frame = CGRect(x: nameLabel.frame.maxX + 15, y: nameLabel.frame.origin.y, width: 80, height: 15)
         starRatingView.frame = CGRect(x: margin, y: collectionView.frame.maxY + 25, width: 80, height: 15)
         
         creatUserLabel.frame = CGRect(x: margin, y: starRatingView.frame.maxY + 20, width: 200, height: 16)
         creatTimeLabel.frame = CGRect(x: collectionView.frame.width - margin - 100, y: starRatingView.frame.maxY + 20, width: 100, height: 16)
     }
     
-    
-//    func changeFormulaNameLabelStatus() {
-//        
-//        if
-//            let list = AVUser.current()?.masterList(),
-//            let formula = formula {
-//            
-//            nameLabel.textColor = list.contains(formula.localObjectID) ? UIColor.masterLabelText() : UIColor.black
-//            
-//        }
-//    }
-
-  
 }
 
 extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -269,8 +245,8 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let imageWidth = Config.DetailHeaderView.imageViewWidth
-
         return CGSize(width: imageWidth, height: collectionView.bounds.height)
     }
     
@@ -279,14 +255,15 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
 
 extension DetailHeaderView: UIScrollViewDelegate {
     
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if self.lastContentOffsetX < scrollView.contentOffset.x {
             self.scrollToRight = true
+            
         } else {
             self.scrollToRight = false
         }
+        
         self.lastContentOffsetX = scrollView.contentOffset.x
     }
     
@@ -324,26 +301,19 @@ extension DetailHeaderView: UIScrollViewDelegate {
         
         if firstItemDistance < 0 {
             currentIndex = 0
+            
         } else {
+            
             currentIndex = Int(firstItemDistance / self.scrollDistance) + 1
+            
+            if currentIndex > formulasData.count - 1 {
+                currentIndex = formulasData.count - 1
+            }
         }
-        printLog(currentIndex)
+        
         self.updateUI(with: formulasData[currentIndex])
     }
-//    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-//        let cell = self.collection.cellForItemAtIndexPath(NSIndexPath.init(forItem: self.currentRow, inSection: 0)) as? XXCell
-//        cell?.timer?.invalidate()
-//        
-//        // compute currentRow
-//        let distanceWithoutFirstRow = scrollView.contentOffset.x - (self.scrollDistance - self.collection.contentInset.left)
-//        if distanceWithoutFirstRow < 0 {
-//            self.currentRow = 0
-//        }
-//        else{
-//            self.currentRow = Int(distanceWithoutFirstRow/self.scrollDistance) + 1
-//        }
-//        self.loadBottomView(self.currentRow)
-//    }
+    
 }
 
 

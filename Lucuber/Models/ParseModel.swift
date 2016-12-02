@@ -104,8 +104,8 @@ public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFor
     
     var newDiscoverFormula = DiscoverFormula()
     
-    if let leancloudObjectID = newFormula.lcObjectID {
-        newDiscoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: leancloudObjectID)
+    if  newFormula.lcObjectID != "" {
+        newDiscoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: newFormula.lcObjectID)
     }
     
     let acl = AVACL()

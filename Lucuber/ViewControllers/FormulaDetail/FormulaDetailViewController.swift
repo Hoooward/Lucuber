@@ -223,8 +223,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
-          
-                
                 
         })
         

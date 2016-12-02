@@ -139,7 +139,7 @@ open class Formula: Object {
     }
     
     open dynamic var localObjectID: String = ""
-    open dynamic var lcObjectID: String?
+    open dynamic var lcObjectID: String = ""
     
     open dynamic var name: String = ""
     // 暂时没啥用的属性
