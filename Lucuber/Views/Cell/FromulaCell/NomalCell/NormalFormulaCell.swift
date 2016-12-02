@@ -39,8 +39,18 @@ class NormalFormulaCell: UICollectionViewCell {
             masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
      
+        if let localImageURL = FileManager.cubeFormulaLocalImageURL(with: formula.localObjectID) {
+           
+            if let image = UIImage(contentsOfFile: localImageURL.path) {
+                
+                imageView.image = image
+            }
+        }
         
-         imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: self.imageView.size)
+        if imageView.image == nil {
+            imageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: self.imageView.size)
+        }
+        
         nameLabel.text = formula.name
         indicaterLabel.text = formula.categoryString
         starRatingView.maxRating = formula.rating

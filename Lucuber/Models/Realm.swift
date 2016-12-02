@@ -153,9 +153,6 @@ public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm)
    
     let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
     
-    let categorys = realm.objects(RCategory.self).filter(predicate)
-   
-    
     return realm.objects(RCategory.self).filter(predicate)
     
 }

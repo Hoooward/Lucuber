@@ -362,14 +362,29 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
         
     }
     
-    // 有新图片, 先上传图片
+    var newImageData: Data?
+    var newResizeImage: UIImage?
+    
     if let newImage = newFormula.pickedLocalImage {
         
-        let resizeImage = newImage.resizeTo(targetSize: CGSize(width: 600, height: 600), quality: CGInterpolationQuality.medium)!
+        newResizeImage = newImage.resizeTo(targetSize: CGSize(width: 600, height: 600), quality: CGInterpolationQuality.medium)!
+        newImageData = UIImagePNGRepresentation(newResizeImage!)
+    }
+    
+    if let localImageURL = FileManager.cubeFormulaLocalImageURL(with: newFormula.localObjectID) {
         
-        let imageData = UIImagePNGRepresentation(resizeImage)
+        if let image = UIImage(contentsOfFile: localImageURL.path) {
+            
+            newResizeImage = image
+            newImageData = UIImagePNGRepresentation(newResizeImage!)
+        }
         
-        pushDataToLeancloud(with: imageData, failureHandler: {
+    }
+    
+    // 有新图片, 先上传图片
+    if let newImageData = newImageData {
+        
+        pushDataToLeancloud(with: newImageData, failureHandler: {
             reason, errorMessage in
             
             failureHandler(reason, errorMessage)
@@ -383,8 +398,12 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                 newFormula.imageURL = imageURLString
             }
             
-            CubeImageCache.shard.storeAlreadyUploadImageToCache(with: resizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
-            
+            if let newResizeImage = newResizeImage {
+                
+                CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newResizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
+                
+                FileManager.removeFormulaLocalImageData(with: newFormula.localObjectID)
+            }
             
             AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: saveAllObject)
             
@@ -398,8 +417,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
         
     }
     
-   
-//    
+//
 //    pushDataToLeancloud(with: imageData, failureHandler: {
 //        reason, errorMessage in
 //        

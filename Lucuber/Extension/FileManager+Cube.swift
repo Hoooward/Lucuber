@@ -12,6 +12,7 @@ public enum FileExtension: String {
     case jpeg = "jpg"
     case mp4 = "mp4"
     case m4a = "m4a"
+    case png = "png"
     
     public var mimeType: String {
         switch self {
@@ -21,6 +22,8 @@ public enum FileExtension: String {
             return "video/mp4"
         case .m4a:
             return "audio/m4a"
+        case .png:
+            return "image/png"
         }
     }
 }
@@ -202,7 +205,50 @@ extension FileManager {
     
     // MARK: - Formula
     
+    public class func cubeFormulaLocailImageCachesURL() -> URL? {
+        
+        let fileManager = FileManager.default
+        
+        let formulaCachesURL = cubeCachesURL().appendingPathComponent("Formula_caches", isDirectory: true)
+        
+        do {
+            try fileManager.createDirectory(at: formulaCachesURL, withIntermediateDirectories: true, attributes: nil)
+            return formulaCachesURL
+        } catch _ {
+            
+        }
+        return nil
+    }
     
+    public class func cubeFormulaLocalImageURL(with localObjectID: String) -> URL? {
+        
+        if let formulaCachesURL = cubeFormulaLocailImageCachesURL() {
+            return formulaCachesURL.appendingPathComponent("\(localObjectID).\(FileExtension.png.rawValue)")
+        }
+        return nil
+    }
+    
+    public class func saveFormulaLocalImageData(_ formulaLocalImageData: Data, withLocalObjectID ID: String) -> URL? {
+        
+        if let formulaImageURL = cubeFormulaLocalImageURL(with: ID) {
+            if FileManager.default.createFile(atPath: formulaImageURL.path, contents: formulaLocalImageData, attributes: nil) {
+                return formulaImageURL
+            }
+        }
+        return nil
+    }
+    
+    public class func removeFormulaLocalImageData(with localObjectID: String) {
+        
+        if !localObjectID.isEmpty {
+            if let formulaImageURL = cubeFormulaLocalImageURL(with: localObjectID) {
+                do {
+                    try FileManager.default.removeItem(at: formulaImageURL)
+                } catch _ {
+                }
+            }
+        }
+    }
     
    
 }

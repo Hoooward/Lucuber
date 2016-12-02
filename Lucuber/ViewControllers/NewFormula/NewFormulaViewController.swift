@@ -251,17 +251,16 @@ class NewFormulaViewController: UIViewController {
             }),
             
             ])
+        
         return actionSheetView
+        
     }()
-    
-  
     
     @IBAction func pickPhoto(_ sender: Any) {
         
         if let window = view.window {
             actionSheetView.showInView(view: window)
         }
-        
     }
     
     @IBAction func dismiss(sender: AnyObject) {
@@ -270,44 +269,29 @@ class NewFormulaViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private var isSaveing: Bool = false
-    
     func save(_ sender: UIBarButtonItem) {
-        
-        if isSaveing { return }
-        
         
         if self.formula.isReadyToPush {
             
-            isSaveing = true
-            
-            
+            // 清除空的 content
             formula.cleanBlankContent(inRealm: realm)
             
+            
+            // 暂时存储本地图片, 待应用进入后台后再统一 push
+            if let image = formula.pickedLocalImage {
+                
+                let resizeImage = image.resizeTo(targetSize: CGSize(width: 600, height: 600), quality: CGInterpolationQuality.medium)!
+                
+                if let imageData = UIImagePNGRepresentation(resizeImage) {
+                    
+                    _ = FileManager.saveFormulaLocalImageData(imageData, withLocalObjectID: formula.localObjectID)
+                }
+            }
+            
+            updateSeletedCategory?(formula.category)
+            
             self.dismiss(animated: true, completion: nil)
-            
-//            HUD.show(.progress)
-//            
-//            pushFormulaToLeancloud(with: formula, failureHandler: {
-//                reason, errorMessage in
-//                self.isSaveing = false
-//                defaultFailureHandler(reason, errorMessage)
-//                HUD.flash(.label("公式失败, 请检查网络连接"))
-//                HUD.flash(.label("保存公式失败, 请检查网络连接"), delay: 2)
-//                self.tableView.reloadData()
-//                
-//            }, completion: { [weak self] in
-//                
-//                guard let strongSelf = self else {
-//                    return
-//                }
-//                HUD.flash(.success)
-//                strongSelf.isSaveing = false
-//                
-//                strongSelf.updateSeletedCategory?(strongSelf.formula.category)
-//                strongSelf.dismiss(animated: true, completion: nil)
-//            })
-            
+
         }
         
     }

@@ -43,8 +43,18 @@ class CardFormulaCell: UICollectionViewCell {
             masterImageView.isHidden = !masterList.contains(formula.localObjectID)
         }
         
-      
-        imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: Config.FormulaCell.cardCellSize)
+        
+        if let localImageURL = FileManager.cubeFormulaLocalImageURL(with: formula.localObjectID) {
+            
+            if let image = UIImage(contentsOfFile: localImageURL.path) {
+                
+                imageView.image = image
+            }
+        }
+        
+        if imageView.image == nil {
+            imageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: Config.FormulaCell.cardCellSize)
+        }
         
         nameLabel.text = formula.name
         starRatingView.maxRating = formula.rating

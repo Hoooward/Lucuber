@@ -28,7 +28,17 @@ class HeaderViewCell: UICollectionViewCell {
             return
         }
         
-        imageView.cube_setImageAtFormulaCell(with: formula.imageURL ?? "", size: nil)
+        if let localImageURL = FileManager.cubeFormulaLocalImageURL(with: formula.localObjectID) {
+            
+            if let image = UIImage(contentsOfFile: localImageURL.path) {
+                
+                imageView.image = image
+            }
+        }
+        
+        if imageView.image == nil {
+            imageView.cube_setImageAtFormulaCell(with: formula.imageURL, size:nil)
+        }
     }
     
     override init(frame: CGRect) {

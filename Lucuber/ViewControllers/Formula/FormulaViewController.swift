@@ -168,7 +168,9 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             let RCategorys = categorysWith(presentingVC.uploadMode, inRealm: realm)
             
             if RCategorys.isEmpty {
+                
                 let newCategory = RCategory(value: [Category.x3x3.rawValue, presentingVC.uploadMode.rawValue])
+                
                 try? realm.write {
                     realm.add(newCategory)
                 }
@@ -185,25 +187,19 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             menuVC.transitioningDelegate = self.menuAnimator
             menuVC.modalPresentationStyle = UIModalPresentationStyle.custom
             
-            
             menuVC.seletedCateogry = category
             menuVC.categorys = categorys
             
-            menuVC.categoryDidChanged = {
-                category in
+            menuVC.categoryDidChanged = { category in
                 
-                printLog("已选择的\(category)")
                 presentingVC.seletedCategory = category
-                
                 presentingVC.collectionView?.reloadData()
                 
                 UserDefaults.setSelected(category: category, mode: presentingVC.uploadMode)
-                
                 button.seletedCategory = category
             }
             
             present(menuVC, animated: true, completion: nil)
-            
         }
     }
     
@@ -268,17 +264,22 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 
                 vc.updateSeletedCategory = { [weak self] seletedCategory in
                     
-                        guard
-                            let strongSelf = self,
-                            let seletedCategory = seletedCategory,
-                            let button = strongSelf.navigationItem.rightBarButtonItem as? CategoryButton else {
-                           return
-                        }
+                    guard
+                        let strongSelf = self,
+                        let seletedCategory = seletedCategory,
+                        let button = strongSelf.navigationItem.rightBarButtonItem as? CategoryButton else {
+                            return
+                    }
+                    
+                    try? realm.write {
                         
-                        UserDefaults.setSelected(category: seletedCategory, mode: presentingVC.uploadMode)
-                        
-                        button.seletedCategory = seletedCategory
-                        presentingVC.seletedCategory = seletedCategory
+                        createOrUpdateRCategory(with: formula, uploadMode: presentingVC.uploadMode, inRealm: realm)
+                    }
+                    
+                    UserDefaults.setSelected(category: seletedCategory, mode: presentingVC.uploadMode)
+                    
+                    button.seletedCategory = seletedCategory
+                    presentingVC.seletedCategory = seletedCategory
                 }
                 
              
