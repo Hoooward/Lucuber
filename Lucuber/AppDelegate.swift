@@ -11,6 +11,7 @@ import AVOSCloud
 import Photos
 import CoreTelephony
 import PKHUD
+import RealmSwift
 
 @UIApplicationMain
 
@@ -31,8 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverPreferences.registerSubclass()
         DiscoverMessage.registerSubclass()
         
-        
-//        AVUser.logOut()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds
@@ -70,6 +69,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
   
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        
+        guard let realm = try? Realm() else {
+            return
+        }
+        
+        if let currentUser = currentUser(in: realm) {
+            
+            let unPushedFormula = unPushedFormulaWith(currentUser: currentUser, inRealm: realm)
+            
+            
+            if !unPushedFormula.isEmpty {
+                
+                for formula in unPushedFormula {
+                    
+                    pushFormulaToLeancloud(with: formula, failureHandler: {
+                        reason, errorMessage in
+                       
+                        defaultFailureHandler(reason, errorMessage)
+                        
+                    }, completion: nil)
+                    
+                    
+                }
+            }
+            
+        }
+    }
 
     
 }

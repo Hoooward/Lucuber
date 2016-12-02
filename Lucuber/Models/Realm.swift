@@ -128,6 +128,14 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
 
 // MARK: - Formula
 
+public func unPushedFormulaWith(currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
+    
+    let predicate = NSPredicate(format: "creator = %@", currentUser)
+    let predicate2 = NSPredicate(format: "isPushed = %@", false as CVarArg)
+    
+    return realm.objects(Formula.self).filter(predicate).filter(predicate2)
+}
+
 public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
     let predicate = NSPredicate(format: "categoryString = %@", category.rawValue)
     

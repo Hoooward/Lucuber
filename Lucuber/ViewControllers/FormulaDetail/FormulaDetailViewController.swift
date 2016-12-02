@@ -137,6 +137,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                             strongSelf.formula.cascadeDelete(inRealm: strongSelf.realm)
                         }
                         
+                        
                         strongSelf.headerView.reloadDataAfterDelete()
                     },
                     cancelAction: {

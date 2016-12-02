@@ -61,10 +61,7 @@ class DetailHeaderView: UIView {
             collectionView.setContentOffset(CGPoint.zero, animated: false)
             collectionView.setContentOffset(point, animated: false)
             
-            
-            
         }
-        
         
     }
     

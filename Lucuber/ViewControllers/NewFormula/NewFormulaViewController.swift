@@ -266,7 +266,6 @@ class NewFormulaViewController: UIViewController {
     
     @IBAction func dismiss(sender: AnyObject) {
         
-      
         savedNewFormulaDraft?()
         dismiss(animated: true, completion: nil)
     }
@@ -282,29 +281,32 @@ class NewFormulaViewController: UIViewController {
             
             isSaveing = true
             
+            
             formula.cleanBlankContent(inRealm: realm)
             
-            HUD.show(.progress)
+            self.dismiss(animated: true, completion: nil)
             
-            pushFormulaToLeancloud(with: formula, failureHandler: {
-                reason, errorMessage in
-                self.isSaveing = false
-                defaultFailureHandler(reason, errorMessage)
-                HUD.flash(.label("公式失败, 请检查网络连接"))
-                self.tableView.reloadData()
-                
-            }, completion: { [weak self] in
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                HUD.flash(.success)
-                strongSelf.isSaveing = false
-                
-                strongSelf.updateSeletedCategory?(strongSelf.formula.category)
-                strongSelf.dismiss(animated: true, completion: nil)
-            })
-            
+//            HUD.show(.progress)
+//            
+//            pushFormulaToLeancloud(with: formula, failureHandler: {
+//                reason, errorMessage in
+//                self.isSaveing = false
+//                defaultFailureHandler(reason, errorMessage)
+//                HUD.flash(.label("公式失败, 请检查网络连接"))
+//                HUD.flash(.label("保存公式失败, 请检查网络连接"), delay: 2)
+//                self.tableView.reloadData()
+//                
+//            }, completion: { [weak self] in
+//                
+//                guard let strongSelf = self else {
+//                    return
+//                }
+//                HUD.flash(.success)
+//                strongSelf.isSaveing = false
+//                
+//                strongSelf.updateSeletedCategory?(strongSelf.formula.category)
+//                strongSelf.dismiss(animated: true, completion: nil)
+//            })
             
         }
         

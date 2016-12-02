@@ -30,34 +30,70 @@ class MyFormulaViewController: BaseCollectionViewController {
         collectionView?.alwaysBounceVertical = true
         
         refreshControl.bounds.origin.y = -44
-        self.collectionView?.addSubview(refreshControl)
+        // self.collectionView?.addSubview(refreshControl)
         
+         updateMyFormula()
       
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func updateMyFormula() {
         
-//        self.refreshControl.beginRefreshing()
-//        self.collectionView?.setContentOffset(CGPoint(x: 0, y: -(self.collectionView!.contentInset.top + self.refreshControl.frame.size.height - 44)), animated: true)
-//        refresh()
+        if isUploadingFormula {
+            return
+        }
+        
+        isUploadingFormula = true
+        
+        if formulasData.isEmpty {
+            
+            self.view.addSubview(self.vistorView)
+            self.searchBar.isHidden = true
+            
+            fetchDiscoverFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: {
+                reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                
+                self.isUploadingFormula = false
+                
+                
+            }, completion: { formulas in
+                
+                if self.formulasData.isEmpty {
+                    
+                } else {
+                    
+                    self.vistorView.removeFromSuperview()
+                    self.searchBar.isHidden = false
+                    self.isUploadingFormula = false
+                    
+                    self.collectionView?.reloadData()
+                }
+                
+                
+            })
+            
+        }
+ 
+        
     }
-    
     
     // MARK: - Target & Action
     
     @objc private func refresh() {
+        
         
         if isUploadingFormula {
             return
         }
         
         fetchDiscoverFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: { error in
+            
             self.searchBar.isHidden = true
             self.isUploadingFormula = false
             self.view.addSubview(self.vistorView)
             self.isUploadingFormula = false
+            
             printLog(error)
         }, completion: {
             formulas in
