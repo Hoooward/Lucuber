@@ -41,11 +41,11 @@ class LibraryFormulaViewController: BaseCollectionViewController {
                 
             })
         }
+        updateDataVersion()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateDataVersion()
     }
     
     private func updateDataVersion() {

@@ -48,7 +48,6 @@ class DetailHeaderView: UIView {
             
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
-            print(collectionView.contentOffset)
             
             scrollViewDidEndScrollingAnimation(collectionView)
             
@@ -58,7 +57,7 @@ class DetailHeaderView: UIView {
             
             // 滚两次是为了触发中心卡片放大.
             collectionView.setContentOffset(CGPoint.zero, animated: false)
-            collectionView.setContentOffset(point, animated: false)
+            collectionView.setContentOffset(point, animated: true)
             
         }
         

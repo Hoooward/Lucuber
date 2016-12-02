@@ -224,7 +224,7 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
         
         if case .all = category {
-            return realm.objects(Formula.self).filter(predicate)
+            return realm.objects(Formula.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
             
         } else {
             return realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
@@ -236,10 +236,10 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
         
         if case .all = category {
-            return realm.objects(Formula.self).filter(predicate)
+            return realm.objects(Formula.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true)
             
         } else {
-            return realm.objects(Formula.self).filter(predicate).filter(predicate2)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: true)
         }
     }
     

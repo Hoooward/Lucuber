@@ -45,35 +45,33 @@ class MyFormulaViewController: BaseCollectionViewController {
         isUploadingFormula = true
         
         if formulasData.isEmpty {
-            
             self.view.addSubview(self.vistorView)
             self.searchBar.isHidden = true
+        }
+        
+        fetchDiscoverFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: {
+            reason, errorMessage in
             
-            fetchDiscoverFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: {
-                reason, errorMessage in
+            defaultFailureHandler(reason, errorMessage)
+            
+            self.isUploadingFormula = false
+            
+            
+        }, completion: { formulas in
+            
+            if self.formulasData.isEmpty {
                 
-                defaultFailureHandler(reason, errorMessage)
+            } else {
                 
+                self.vistorView.removeFromSuperview()
+                self.searchBar.isHidden = false
                 self.isUploadingFormula = false
                 
-                
-            }, completion: { formulas in
-                
-                if self.formulasData.isEmpty {
-                    
-                } else {
-                    
-                    self.vistorView.removeFromSuperview()
-                    self.searchBar.isHidden = false
-                    self.isUploadingFormula = false
-                    
-                    self.collectionView?.reloadData()
-                }
-                
-                
-            })
+                self.collectionView?.reloadData()
+            }
             
-        }
+            
+        })
  
         
     }
