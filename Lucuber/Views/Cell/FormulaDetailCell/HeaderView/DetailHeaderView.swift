@@ -18,7 +18,7 @@ class DetailHeaderView: UIView {
         dateFormatter.dateFormat = "yy-MM-dd"
         return dateFormatter
     }()
-    //外界读取方便设置自己的frame
+    
     public var headerHeight: CGFloat {
         return creatTimeLabel.frame.maxY
     }
@@ -56,7 +56,6 @@ class DetailHeaderView: UIView {
 
             let point = CGPoint(x: CGFloat(currentIndex) * scrollDistance - Config.DetailHeaderView.screenMargin , y: 0)
             
-            
             // 滚两次是为了触发中心卡片放大.
             collectionView.setContentOffset(CGPoint.zero, animated: false)
             collectionView.setContentOffset(point, animated: false)
@@ -85,7 +84,6 @@ class DetailHeaderView: UIView {
             
             updateUI(with: formula)
         }
-        
     }
     
     fileprivate func updateUI(with formula: Formula) {

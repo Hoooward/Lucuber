@@ -75,7 +75,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     
     private func addChileViewControllers() {
         
-        
         let myFormulaLayout = BaseFormulaLayout()
         let myFormula = MyFormulaViewController(collectionViewLayout: myFormulaLayout)
         myFormula.title = "我的公式"
@@ -87,7 +86,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         addChildViewController(myFormula)
         addChildViewController(LibraryFormula)
     }
-    
     
     private func makeUI() {
         
@@ -131,7 +129,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         performSegue(identifier: .showNewFormula, sender: nil)
     }
     
-    
     @objc private func layoutButtonClicked(button: UIView) {
         
         if let button = button as? LayoutButton {
@@ -141,9 +138,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
             if let vc = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
                 vc.userMode = vc.userMode == .card ? .normal : .card
             }
-            
         }
-        
     }
     
     private lazy var menuAnimator: CategoryMenuAnimator = CategoryMenuAnimator()
@@ -213,7 +208,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segueIdentifier(for: segue) {
-            
         // TODO: - 重要
         case .showFormulaDetail:
             
@@ -230,7 +224,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 
             }
     
-            
         case .showNewFormula:
             
             let nvc = segue.destination as! UINavigationController
@@ -261,7 +254,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 vc.formula = formula
                 vc.realm = realm
                 
-                
                 vc.updateSeletedCategory = { [weak self] seletedCategory in
                     
                     guard
@@ -282,21 +274,15 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                     presentingVC.seletedCategory = seletedCategory
                 }
                 
-             
-                
                 vc.savedNewFormulaDraft = {
                     // 暂时不处理草稿, 直接将取消的 Formula 删除
                     try? realm.write {
                         formula.isPushed = false
                         formula.cascadeDelete(inRealm: realm)
                     }
-                    
                 }
-                
-                
             }
         }
-        
     }
     
     fileprivate func updateNavigationBarButtonItemStatus() {
@@ -321,9 +307,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 vc.cancelSearch()
             }
         }
-        
     }
-    
 }
 
 extension FormulaViewController: UIScrollViewDelegate {
@@ -337,20 +321,15 @@ extension FormulaViewController: UIScrollViewDelegate {
         
         vc.view.frame = CGRect(x: CGFloat(index) * UIScreen.main.bounds.width, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
-        
         let topEdge = 64 + Config.TopControl.height + 44
         let bottomEdge: CGFloat = 49
-        
         
         vc.collectionView?.contentInset = UIEdgeInsets(top: topEdge, left: 0, bottom: bottomEdge, right: 0)
         vc.collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topEdge - 44, left: 0, bottom: bottomEdge, right: 0)
         
-
         scrollView.addSubview(vc.view)
         
-        
         if index > 0 {
-            
             NotificationCenter.default.post(name: Notification.Name.needReloadFormulaFromRealmNotification, object: nil)
         }
         
@@ -363,7 +342,6 @@ extension FormulaViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         topControl.updateIndicaterPozition(scrollerViewOffsetX: scrollView.contentOffset.x)
-        
         
         newFormulaButton.isEnabled = false
     }

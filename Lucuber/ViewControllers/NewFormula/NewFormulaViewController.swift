@@ -45,7 +45,6 @@ class NewFormulaViewController: UIViewController {
     fileprivate var keyboardFrame = CGRect.zero
     fileprivate var categoryPickViewIsShow = false
     fileprivate var typePickViewIsShow = false
-    
     fileprivate var activeFormulaTextCellIndexPath = IndexPath(item: 0, section: 2)
     fileprivate var categoryPickViewIndexPath = IndexPath(row: 1, section: 1)
     fileprivate var typePickViewIndexPath = IndexPath(row: 2, section: 1)
@@ -76,7 +75,6 @@ class NewFormulaViewController: UIViewController {
             }
         }
     }
-    
    
     fileprivate let nameTextViewCellIdentifier = "NameTextViewCell"
     fileprivate let categorySeletedCellIdentifier = "CategorySeletedCell"
@@ -151,7 +149,6 @@ class NewFormulaViewController: UIViewController {
         super.viewDidAppear(animated)
         self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush
     }
-    
 
     deinit {
         printLog("NewFormula死了")
@@ -159,7 +156,6 @@ class NewFormulaViewController: UIViewController {
     }
     
     // MARK: - Action & Target
-    
     
     fileprivate lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -244,7 +240,6 @@ class NewFormulaViewController: UIViewController {
                         
                     } else {
                         strongSelf.alertCanNotOpenPhotoLibrary()
-                        
                     }
                 }
                 
@@ -276,7 +271,6 @@ class NewFormulaViewController: UIViewController {
             // 清除空的 content
             formula.cleanBlankContent(inRealm: realm)
             
-            
             // 暂时存储本地图片, 待应用进入后台后再统一 push
             if let image = formula.pickedLocalImage {
                 
@@ -296,27 +290,23 @@ class NewFormulaViewController: UIViewController {
         
     }
     
-    private var isReadyForSave: Bool {
-        let isReady = true
-        return isReady
-    }
     
     func next(_ sender: UIBarButtonItem) {
         
         view.endEditing(true)
         
-        if isReadyForSave {
-//        
+//        if isReadyForSave {
+//
 //            let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
 //            vc.attachment = NewFeedViewController.Attachment.formula
 //            vc.attachmentFormula = formula
 //            self.navigationController?.pushViewController(vc, animated: true)
-            
-        } else {
-            
-            CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
-            
-        }
+//            
+//        } else {
+//            
+//            CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
+//            
+//        }
         
     // TODO: 分别处理多个Edit的方法。
         
@@ -363,9 +353,7 @@ class NewFormulaViewController: UIViewController {
             tableView.endUpdates()
         }
     }
-    
 }
-
 
 // MARK: - UITableViewDelegate&dataSource
 extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
@@ -776,7 +764,6 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        
         if indexPath.row == 2 && typePickViewIsShow {
             
             let indexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
@@ -786,7 +773,6 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
-        
 
     }
     
@@ -816,8 +802,6 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         return 40
     }
     
-
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         guard let section = Section(rawValue: section) else {
@@ -831,7 +815,6 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return 30
         }
-        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -921,8 +904,6 @@ extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigatio
                 if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
                     formula.pickedLocalImage = image
                 }
-                
-                
                 
             default:
                 break
