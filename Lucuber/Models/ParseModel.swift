@@ -122,7 +122,12 @@ public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFor
     
     for content in newFormula.contents {
         
-        let newDiscoverContent = DiscoverContent()
+        var newDiscoverContent = DiscoverContent()
+        
+        if content.lcObjectID != "" {
+           newDiscoverContent = DiscoverContent(className: "DiscoverContent", objectId: content.lcObjectID)
+        }
+        
         newDiscoverContent.localObjectID = content.localObjectID
         newDiscoverContent.creator = currentUser
         newDiscoverContent.atFormulaLocalObjectID = content.atFomurlaLocalObjectID

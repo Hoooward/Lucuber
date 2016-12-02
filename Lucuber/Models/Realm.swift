@@ -167,10 +167,7 @@ public func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> R
     return realm.objects(Content.self).filter(predicate)
 }
 
-public func formulaWith(_ objectID: String , inRealm realm: Realm) -> Formula? {
-    let predicate = NSPredicate(format: "localObjectID = %@", objectID)
-    return realm.objects(Formula.self).filter(predicate).first
-}
+
 
 
 func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Int{
@@ -181,6 +178,11 @@ func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, type
 func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     return realm.objects(Formula.self).filter(predicate).first
+}
+
+func formulaCollectionWith(objectID: String, inRealm realm: Realm) -> Results<Formula> {
+    let predicate = NSPredicate(format: "localObjectID = %@", objectID)
+    return realm.objects(Formula.self).filter(predicate)
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Results<Formula>{

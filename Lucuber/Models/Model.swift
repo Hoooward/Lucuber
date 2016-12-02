@@ -226,9 +226,7 @@ open class Formula: Object {
     }
     
     open func cleanBlankContent(inRealm realm: Realm) {
-        try? realm.write {
-            realm.delete(self.contents.filter({ $0.text.isEmpty }))
-        }
+        realm.delete(self.contents.filter({ $0.text.isEmpty }))
     }
     
     open func cascadeDelete(inRealm realm: Realm) {

@@ -16,6 +16,8 @@ import PKHUD
 class NewFormulaViewController: UIViewController {
     
     // MARK: - Properties
+    
+    var isNeedRepushNotificationToken: NotificationToken? = nil
         
     @IBOutlet weak var headerView: NewFormulaHeadView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
@@ -40,6 +42,8 @@ class NewFormulaViewController: UIViewController {
     }
     
     public var realm: Realm!
+    
+    fileprivate var isNeedRepush: Bool = false
     
     fileprivate let headerViewHeight: CGFloat = 170
     fileprivate var keyboardFrame = CGRect.zero
@@ -90,6 +94,31 @@ class NewFormulaViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let collectionFormula = formulaCollectionWith(objectID: formula.localObjectID, inRealm: realm)
+        
+        isNeedRepushNotificationToken = collectionFormula.addNotificationBlock {
+            [weak self] changes in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            switch changes {
+            case .initial(_):
+                strongSelf.isNeedRepush = true
+                
+            case .update(_, deletions: _, insertions: _, modifications: _):
+                strongSelf.isNeedRepush = true
+                
+            case .error(let error):
+                
+                defaultFailureHandler(Reason.network(error), "realm 通知报错")
+            }
+            
+            printLog("Formula 有更新\(strongSelf.isNeedRepush)")
+        }
+        
         
         switch editType {
             
@@ -153,6 +182,7 @@ class NewFormulaViewController: UIViewController {
     deinit {
         printLog("NewFormula死了")
         NotificationCenter.default.removeObserver(self)
+        isNeedRepushNotificationToken?.stop()
     }
     
     // MARK: - Action & Target
@@ -269,7 +299,10 @@ class NewFormulaViewController: UIViewController {
         if self.formula.isReadyToPush {
             
             // 清除空的 content
-            formula.cleanBlankContent(inRealm: realm)
+            try? realm.write {
+                formula.cleanBlankContent(inRealm: realm)
+                formula.isPushed = false
+            }
             
             // 暂时存储本地图片, 待应用进入后台后再统一 push
             if let image = formula.pickedLocalImage {
@@ -428,6 +461,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 strongSelf.navigationItem.rightBarButtonItem?.isEnabled = self?.formula.isReadyToPush ?? false
                 
                 strongSelf.headerView.configView(with: strongSelf.formula)
+//                strongSelf.isNeedRepush = true
             }
             
             
@@ -470,7 +504,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         cell.configCell(with: strongSelf.formula)
                         
                         strongSelf.headerView.configView(with: strongSelf.formula)
-                        
+//                        strongSelf.isNeedRepush = true
                     }
                 
                 } else {
@@ -510,6 +544,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         }
                         
                         strongSelf.headerView.configView(with: strongSelf.formula)
+//                        strongSelf.isNeedRepush = true
                     }
                     
                 }
@@ -538,6 +573,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         strongSelf.formula.rating = rating
                     }
                     strongSelf.headerView.configView(with: strongSelf.formula)
+//                    strongSelf.isNeedRepush = true
                 }
                 
                 
@@ -558,6 +594,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         strongSelf.formula.rating = rating
                     }
                     strongSelf.headerView.configView(with: strongSelf.formula)
+//                    strongSelf.isNeedRepush = true
                 }
          
             }
@@ -581,6 +618,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     return
                 }
                 strongSelf.formulaInputAccessoryView.configView(with: content, inRealm: strongSelf.realm)
+//                strongSelf.isNeedRepush = true
             }
             
             cell.didEndEditing = { [weak self] in
@@ -589,6 +627,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 strongSelf.navigationItem.rightBarButtonItem?.isEnabled = strongSelf.formula.isReadyToPush
                 strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
+//                strongSelf.isNeedRepush = true
                 
             }
             
@@ -747,6 +786,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = strongSelf.tableView.cellForRow(at: indexPath) as! FormulaTextViewCell
                 
                 cell.rotationButton.updateButtonStyle(with: RotationButton.Style.cercle, rotation: rotation, animation: true)
+//                strongSelf.isNeedRepush = true
                 
             }
             

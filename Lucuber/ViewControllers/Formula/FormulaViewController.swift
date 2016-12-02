@@ -277,7 +277,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
                 vc.savedNewFormulaDraft = {
                     // 暂时不处理草稿, 直接将取消的 Formula 删除
                     try? realm.write {
-                        formula.isPushed = false
                         formula.cascadeDelete(inRealm: realm)
                     }
                 }

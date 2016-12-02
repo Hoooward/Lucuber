@@ -107,9 +107,24 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 let sb = UIStoryboard(name: "NewFormula", bundle: nil)
                 let navigationVC = sb.instantiateInitialViewController() as! MainNavigationController
                 let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
+                
+                guard let realm = try? Realm() else {
+                    return
+                }
+                
+                viewController.realm = realm
                 viewController.editType = .editFormula
                 viewController.view.alpha = 1
                 viewController.formula = strongSelf.formula
+                
+                
+//                viewController.savedNewFormulaDraft = {
+//                    // 暂时不处理草稿, 直接将取消的 Formula 删除
+//                    try? realm.write {
+//                        strongSelf.formula.cascadeDelete(inRealm: realm)
+//                    }
+//                }
+                
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
             })
@@ -217,7 +232,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 viewController.savedNewFormulaDraft = {
                     // 暂时不处理草稿, 直接将取消的 Formula 删除
                     try? realm.write {
-                        newFormula.isPushed = false
                         newFormula.cascadeDelete(inRealm: realm)
                     }
                 }

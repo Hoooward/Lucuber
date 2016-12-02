@@ -120,7 +120,7 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
 public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, inRealm realm: Realm, completion: ((Formula) -> Void)?) {
     
     // 尝试从数据库中查找是否已经有存在的 Formula
-    var formula = formulaWith(discoverFormula.localObjectID, inRealm: realm)
+    var formula = formulaWith(objectID: discoverFormula.localObjectID, inRealm: realm)
     
     let deleted = discoverFormula.deletedByCreator
     
