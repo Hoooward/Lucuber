@@ -129,12 +129,12 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                     confirmAction: { [weak self] in
                         
                         // TODO: - 删除公式
-                        guard let strongSelf = self, let realm = try? Realm() else {
+                        guard let strongSelf = self else {
                             return
                         }
                         
-                        try? realm.write {
-                            strongSelf.formula.cascadeDelete(inRealm: realm)
+                        try? strongSelf.realm.write {
+                            strongSelf.formula.cascadeDelete(inRealm: strongSelf.realm)
                         }
                         
                         strongSelf.headerView.reloadDataAfterDelete()

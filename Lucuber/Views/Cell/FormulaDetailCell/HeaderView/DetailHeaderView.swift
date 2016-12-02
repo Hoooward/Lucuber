@@ -44,9 +44,15 @@ class DetailHeaderView: UIView {
         if formulasData.count == 0 {
            
             afterDeleteFormulaDataIsEmpty?()
+        } else {
+            
+            let index = Int(collectionView.contentOffset.x / scrollDistance)
+            
+            collectionView.reloadData()
+            updateUI(with: formulasData[index])
         }
         
-        collectionView.reloadData()
+        
     }
     
     public func configView(with formula: Formula?, withUploadMode uploadMode: UploadFormulaMode) {
