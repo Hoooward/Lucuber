@@ -30,7 +30,15 @@ class NewFormulaHeadView: UIView {
         
         self.formula = formula
         
-        imageButton.setBackgroundImage(formula.pickedLocalImage, for: .normal)
+        // 有本地选择的图片
+        if let image = formula.pickedLocalImage {
+            imageView.image = image
+            
+        } else if !formula.imageURL.isEmpty {
+            imageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: nil)
+            
+        }
+        
         indicatorView.configureWithCategory(category: formula.category.rawValue)
         
         var newName = formula.name.trimming(trimmingType: .whitespaceAndNewLine)
@@ -62,7 +70,7 @@ class NewFormulaHeadView: UIView {
         return true
         
     }
-
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var creatTimeLabel: UILabel!

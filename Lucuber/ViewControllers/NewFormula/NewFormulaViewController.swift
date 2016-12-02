@@ -112,7 +112,7 @@ class NewFormulaViewController: UIViewController {
             
         case .addToMy:
             
-            navigationItem.title = "添加至我的公式"
+            navigationItem.title = "复制至我的公式"
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "添加", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
             
         }
@@ -165,7 +165,7 @@ class NewFormulaViewController: UIViewController {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         return imagePicker
     }()
     
@@ -189,7 +189,6 @@ class NewFormulaViewController: UIViewController {
                         
                         strongSelf.modalPresentationStyle = .currentContext
                         strongSelf.imagePicker.sourceType = .camera
-                        
                         /*
                          bug :  Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.
                          http://cocoadocs.org/docsets/DKCamera/1.2.9/index.html
@@ -860,7 +859,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         case .content:
             
             switch editType {
-            case .editFormula:
+            case .editFormula, .addToMy:
                 
                 tableView.beginUpdates()
                 try? realm.write {
@@ -869,6 +868,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 tableView.deleteRows(at: [indexPath], with: .left)
                 tableView.endUpdates()
                 
+                self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush
             default:
                 break
             }
@@ -887,10 +887,14 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
             
         case .content:
-            return formula.contents.count > 1 ? .delete : .none
+            return  .delete
         default:
             return .none
         }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "删除"
     }
     
 }
@@ -928,7 +932,7 @@ extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigatio
                 
             case String(kUTTypeImage):
                 
-                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
                     formula.pickedLocalImage = image
                 }
                 

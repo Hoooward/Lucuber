@@ -318,70 +318,150 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
         return
     }
     
-    let imageData = UIImagePNGRepresentation(newFormula.pickedLocalImage)
-    
-    pushDataToLeancloud(with: imageData, failureHandler: {
-        reason, errorMessage in
+    let saveAllObject: AVBooleanResultBlock = { success, error in
         
-        failureHandler(reason, errorMessage)
-        
-    }, completion: { imageURLString in
-        
-        newDiscoverFormula.imageURL = imageURLString
-        
-        let realm = newFormula.realm
-        try? realm?.write {
-            newFormula.imageURL = imageURLString
+        if error != nil {
+            failureHandler(Reason.network(error), "推送 Formula 的 contents 失败.")
         }
         
-        CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newFormula.pickedLocalImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
-        
-        AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: { success, error in
+        if success {
             
-            if error != nil {
-                failureHandler(Reason.network(error), "推送 Formula 的 contents 失败.")
-            }
-            
-            if success {
+            newDiscoverFormula.saveInBackground({ success, error in
                 
-                newDiscoverFormula.saveInBackground({ success, error in
+                if error != nil {
+                    failureHandler(Reason.network(error), "推送 Formula 失败")
+                }
+                
+                if success {
                     
-                    if error != nil {
-                        failureHandler(Reason.network(error), "推送 Formula 失败")
-                    }
+                    guard let realm = newFormula.realm else {
+                        failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
+                        return }
                     
-                    if success {
+                    try? realm.write {
                         
-                        guard let realm = newFormula.realm else {
-                            failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
-                            return }
-                        
-                        try? realm.write {
+                        if newDiscoverFormula.contents.count == newFormula.contents.count {
                             
-                            if newDiscoverFormula.contents.count == newFormula.contents.count {
-                                
-                                for index in 0..<newDiscoverFormula.contents.count {
-                                    if let lcObjectID = newDiscoverFormula.contents[index].objectId {
-                                        newFormula.contents[index].lcObjectID = lcObjectID
-                                    }
+                            for index in 0..<newDiscoverFormula.contents.count {
+                                if let lcObjectID = newDiscoverFormula.contents[index].objectId {
+                                    newFormula.contents[index].lcObjectID = lcObjectID
                                 }
                             }
-                            
-                            newFormula.isPushed = true
-                            newFormula.lcObjectID = newDiscoverFormula.objectId
-                            createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                         }
                         
-                        completion?()
+                        newFormula.isPushed = true
+                        newFormula.lcObjectID = newDiscoverFormula.objectId
+                        createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                     }
                     
-                })
+                    completion?()
+                }
+                
+            })
+        }
+        
+    }
+    
+    // 有新图片, 先上传图片
+    if let newImage = newFormula.pickedLocalImage {
+        
+        let resizeImage = newImage.resizeTo(targetSize: CGSize(width: 600, height: 600), quality: CGInterpolationQuality.medium)!
+        
+        let imageData = UIImagePNGRepresentation(resizeImage)
+        
+        pushDataToLeancloud(with: imageData, failureHandler: {
+            reason, errorMessage in
+            
+            failureHandler(reason, errorMessage)
+            
+        }, completion: { imageURLString in
+            
+            newDiscoverFormula.imageURL = imageURLString
+            
+            let realm = newFormula.realm
+            try? realm?.write {
+                newFormula.imageURL = imageURLString
             }
+            
+            CubeImageCache.shard.storeAlreadyUploadImageToCache(with: resizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
+            
+            
+            AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: saveAllObject)
             
         })
         
-    })
+    // 没有新图片, 一定有老图片
+    } else {
+        
+        newDiscoverFormula.imageURL = newFormula.imageURL
+        AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: saveAllObject)
+        
+    }
     
+   
+//    
+//    pushDataToLeancloud(with: imageData, failureHandler: {
+//        reason, errorMessage in
+//        
+//        failureHandler(reason, errorMessage)
+//        
+//    }, completion: { imageURLString in
+//        
+//        newDiscoverFormula.imageURL = imageURLString
+//        
+//        let realm = newFormula.realm
+//        try? realm?.write {
+//            newFormula.imageURL = imageURLString
+//        }
+//        
+//        CubeImageCache.shard.storeAlreadyUploadImageToCache(with: resizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
+//        
+//        AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: { success, error in
+//            
+//            if error != nil {
+//                failureHandler(Reason.network(error), "推送 Formula 的 contents 失败.")
+//            }
+//            
+//            if success {
+//                
+//                newDiscoverFormula.saveInBackground({ success, error in
+//                    
+//                    if error != nil {
+//                        failureHandler(Reason.network(error), "推送 Formula 失败")
+//                    }
+//                    
+//                    if success {
+//                        
+//                        guard let realm = newFormula.realm else {
+//                            failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
+//                            return }
+//                        
+//                        try? realm.write {
+//                            
+//                            if newDiscoverFormula.contents.count == newFormula.contents.count {
+//                                
+//                                for index in 0..<newDiscoverFormula.contents.count {
+//                                    if let lcObjectID = newDiscoverFormula.contents[index].objectId {
+//                                        newFormula.contents[index].lcObjectID = lcObjectID
+//                                    }
+//                                }
+//                            }
+//                            
+//                            newFormula.isPushed = true
+//                            newFormula.lcObjectID = newDiscoverFormula.objectId
+//                            createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
+//                        }
+//                        
+//                        completion?()
+//                    }
+//                    
+//                })
+//            }
+//            
+//        })
+//        
+//    })
+//    
  
 }
 

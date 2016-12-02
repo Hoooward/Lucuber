@@ -71,7 +71,6 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
         query.addAscendingOrder("serialNumber")
     }
     
-    
     printLog( "开始从LeanCloud中获取我的公式")
     query.findObjectsInBackground {
         newDiscoverFormulas, error in
@@ -96,13 +95,14 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
             
             var newFormulas: [Formula] = []
             
-            newDiscoverFormulas.forEach {
+            for discoverFormula in newDiscoverFormulas {
                 
-                convertDiscoverFormulaToFormula(discoverFormula: $0, uploadMode: uploadMode, inRealm: realm, completion: { formulas in
+                convertDiscoverFormulaToFormula(discoverFormula: discoverFormula, uploadMode: uploadMode, inRealm: realm, completion: { formulas in
                     
                     newFormulas.append(formulas)
                 })
             }
+            
             
             if !newDiscoverFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
             
@@ -119,7 +119,6 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
 
 public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, inRealm realm: Realm, completion: ((Formula) -> Void)?) {
     
-    
     // 尝试从数据库中查找是否已经有存在的 Formula
     var formula = formulaWith(discoverFormula.localObjectID, inRealm: realm)
     
@@ -135,7 +134,9 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 if let formula = formula {
                     realm.delete(formula)
                 }
+                return
             }
+            
         }
     }
     
@@ -211,15 +212,16 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         
         formula.imageURL = discoverFormula.imageURL
         
-        discoverFormula.contents.forEach {
+        
+        for discoverContent in discoverFormula.contents {
             
-            var content = contentWith($0.localObjectID, inRealm: realm)
+            var content = contentWith(discoverContent.localObjectID, inRealm: realm)
             
-            if $0.deletedByCreator {
+            if discoverContent.deletedByCreator {
                 
                 if
                     let currentUserID = AVUser.current()?.objectId ,
-                    let discoverContentCreaterID = $0.creator.objectId {
+                    let discoverContentCreaterID = discoverContent.creator.objectId {
                     
                     if currentUserID == discoverContentCreaterID {
                         
@@ -238,13 +240,15 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 if let content = content {
                     realm.delete(content)
                 }
+                
+                return
             }
             
             if content == nil {
                 
                 let newContent = Content()
-                newContent.localObjectID = $0.localObjectID
-                newContent.lcObjectID = $0.objectId!
+                newContent.localObjectID = discoverContent.localObjectID
+                newContent.lcObjectID = discoverContent.objectId!
                 realm.add(newContent)
                 content = newContent
             }
@@ -253,19 +257,19 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 
                 content.creator = formula.creator
                 content.atFormula = formula
-                content.atFomurlaLocalObjectID = $0.atFormulaLocalObjectID
+                content.atFomurlaLocalObjectID = discoverContent.atFormulaLocalObjectID
                 
-                content.rotation = $0.rotation
-                content.text = $0.text
-                content.indicatorImageName = $0.indicatorImageName
+                content.rotation = discoverContent.rotation
+                content.text = discoverContent.text
+                content.indicatorImageName = discoverContent.indicatorImageName
                 
             }
+            
         }
         
         createOrUpdateRCategory(with: formula, uploadMode: uploadMode, inRealm: realm)
         
         completion?(formula)
-        
     }
     
 }

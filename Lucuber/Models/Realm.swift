@@ -13,6 +13,7 @@ import AVOSCloud
 // MARK: - User
 
 public func creatMeInRealm() -> RUser? {
+    
     guard
         let realm = try? Realm() ,
         let currentUser = AVUser.current(),
@@ -20,19 +21,24 @@ public func creatMeInRealm() -> RUser? {
         return nil
     }
     
-    let newUser = RUser()
-    newUser.localObjectID = currentUser.localObjectID() ?? ""
-    newUser.lcObjcetID = currentUserlcObjectID
-    newUser.avatorImageURL = currentUser.avatorImageURL() ?? ""
-    newUser.nickname = currentUser.nickname() ?? ""
-    newUser.username = currentUser.username ?? ""
-    newUser.introduction = currentUser.introduction() ?? ""
-    
-    
-    try? realm.write {
-       realm.add(newUser)
+    if let user = userWith(currentUserlcObjectID, inRealm: realm) {
+        return user
+        
+    } else {
+        let newUser = RUser()
+        newUser.localObjectID = currentUser.localObjectID() ?? ""
+        newUser.lcObjcetID = currentUserlcObjectID
+        newUser.avatorImageURL = currentUser.avatorImageURL() ?? ""
+        newUser.nickname = currentUser.nickname() ?? ""
+        newUser.username = currentUser.username ?? ""
+        newUser.introduction = currentUser.introduction() ?? ""
+        
+        try? realm.write {
+            realm.add(newUser)
+        }
+        return newUser
     }
-    return newUser
+    
 }
 
 // MARK: - Realm
@@ -204,7 +210,6 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Typ
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Results<Formula> {
     
-    
     switch uploadMode {
         
     case .my:
@@ -240,7 +245,6 @@ public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFor
     
     // TODO: /
     
-  
     
     let categoryTexts = categorys.map { $0.name }
     if !categoryTexts.contains(formula.categoryString) {

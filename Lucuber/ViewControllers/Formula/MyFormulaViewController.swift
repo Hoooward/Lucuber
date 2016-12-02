@@ -23,9 +23,7 @@ class MyFormulaViewController: BaseCollectionViewController {
         userMode = .card
         uploadMode = .my
         
-        
         seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
-        
         
         refreshControl.addTarget(self, action: #selector(MyFormulaViewController.refresh), for: .valueChanged)
         refreshControl.layer.zPosition = -1
@@ -68,7 +66,6 @@ class MyFormulaViewController: BaseCollectionViewController {
                 self.collectionView?.reloadData()
                 self.refreshControl.endRefreshing()
             }
-            
             
         })
     

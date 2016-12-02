@@ -9,6 +9,7 @@
 import UIKit
 import AVOSCloud
 import RealmSwift
+import PKHUD
 
 fileprivate let detailCellIdentifier = "DetailCollectionViewCell"
 fileprivate let masterCellIdentifier = "DetailMasterCell"
@@ -125,8 +126,18 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                     confirmTitle: "删除",
                     cancelTitles: "取消",
                     inViewController: strongSelf,
-                    confirmAction: {
+                    confirmAction: { [weak self] in
+                        
                         // TODO: - 删除公式
+                        guard let strongSelf = self, let realm = try? Realm() else {
+                            return
+                        }
+                        
+                        try? realm.write {
+                            strongSelf.formula.cascadeDelete(inRealm: realm)
+                        }
+                        
+                        strongSelf.headerView.reloadDataAfterDelete()
                     },
                     cancelAction: {
                         strongSelf.dismiss(animated: true, completion: nil)
@@ -136,7 +147,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         
         let copyToMy = ActionSheetView.Item.Option(
             
-            title: "编辑并添加到公式",
+            title: "编辑并复制到我的公式",
             titleColor: UIColor.cubeTintColor(),
             
             action: { [weak self] in
@@ -145,13 +156,77 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 let sb = UIStoryboard(name: "NewFormula", bundle: nil)
                 let navigationVC = sb.instantiateInitialViewController() as! MainNavigationController
                 let viewController = navigationVC.viewControllers.first as! NewFormulaViewController
+                
+                guard let realm = try? Realm() else {
+                    return
+                }
+                
                 viewController.editType = .addToMy
                 viewController.view.alpha = 1
                 
-                viewController.formula = strongSelf.formula
+                viewController.realm = realm
+                
+                realm.beginWrite()
+                let newFormula = Formula()
+                
+                if let currentUser = currentUser(in: realm) {
+                    
+                    newFormula.localObjectID = Formula.randomLocalObjectID()
+                    newFormula.lcObjectID = ""
+                    
+                    for content in strongSelf.formula.contents {
+                        
+                        let newContent = Content()
+                        newContent.localObjectID = Content.randomLocalObjectID()
+                        newContent.lcObjectID = ""
+                        newContent.atFomurlaLocalObjectID = newFormula.localObjectID
+                        newContent.rotation = content.rotation
+                        newContent.text = content.text
+                        newContent.creator = currentUser
+                        newContent.atFormula = newFormula
+                        newContent.deleteByCreator = false
+                        newContent.indicatorImageName = content.indicatorImageName
+                        newContent.isPushed = false
+                        
+                        realm.add(newContent)
+                        
+                    }
+                    
+                    newFormula.name = strongSelf.formula.name
+                    newFormula.imageName = strongSelf.formula.imageName
+                    newFormula.imageURL = strongSelf.formula.imageURL
+                    newFormula.favorate = false
+                    newFormula.categoryString = strongSelf.formula.categoryString
+                    newFormula.typeString = strongSelf.formula.typeString
+                    newFormula.deletedByCreator = false
+                    newFormula.rating = strongSelf.formula.rating
+                    newFormula.isNewVersion = true
+                    newFormula.creator = currentUser
+                    newFormula.isLibrary = false
+                    newFormula.isPushed = false
+                    
+                    realm.add(newFormula)
+                    
+                }
+                try? realm.commitWrite()
+                
+                
+                viewController.formula = newFormula
+                
+                viewController.savedNewFormulaDraft = {
+                    // 暂时不处理草稿, 直接将取消的 Formula 删除
+                    try? realm.write {
+                        newFormula.isPushed = false
+                        newFormula.cascadeDelete(inRealm: realm)
+                    }
+                }
+                
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
-            })
+          
+                
+                
+        })
         
         
         switch uploadMode {
@@ -189,16 +264,25 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 return
             }
             strongSelf.formula = formula
-            
-            
-         
-            
+       
             // 重新计算 contentCell 高度
             let indexPath = IndexPath(row: 0, section: FormulaDetailViewController.Section.formulas.rawValue)
             
             strongSelf.tableView.beginUpdates()
             strongSelf.tableView.reloadSections(IndexSet(indexPath), with: .none)
             strongSelf.tableView.endUpdates()
+        }
+        
+        
+        
+        
+        headerView.afterDeleteFormulaDataIsEmpty = { [weak self] in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.popViewController()
         }
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
@@ -366,7 +450,7 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         
         switch section {
             
-        case .separator, .separatorTwo:
+        case  .separator, .separatorTwo:
             let cell = tableView.dequeueReusableCell(withIdentifier: separatorCellIdentifier, for: indexPath)
             return cell
             

@@ -47,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         printLog(path)
         
         
+        _ = creatMeInRealm()
+        
         return true
     }
 

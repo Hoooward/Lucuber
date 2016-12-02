@@ -142,8 +142,9 @@ open class Formula: Object {
     open dynamic var lcObjectID: String?
     
     open dynamic var name: String = ""
+    // 暂时没啥用的属性
     open dynamic var imageName: String = ""
-    open dynamic var imageURL: String?
+    open dynamic var imageURL: String = ""
     
     open dynamic var favorate: Bool = false
     
@@ -175,7 +176,8 @@ open class Formula: Object {
         return Type.unKnow
     }
     
-    open var pickedLocalImage = UIImage()
+    /// 上传图片时, 如果没有值, 使用之前的 URL -> 从公式到我的公式
+    open var pickedLocalImage: UIImage?
     
     open var isReadyToPush: Bool {
         
@@ -260,6 +262,8 @@ open class Content: Object {
     
     open dynamic var creator: RUser?
     open dynamic var deleteByCreator: Bool = false
+    
+    open dynamic var isPushed: Bool = false
     
     open class func new(with formula: Formula, inRealm realm: Realm) -> Content {
         

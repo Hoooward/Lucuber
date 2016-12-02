@@ -58,13 +58,15 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQl-ss-yia" userLabel="FormulaView">
                                         <rect key="frame" x="20" y="20" width="335" height="130"/>
                                         <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cube_Placehold_image_1" translatesAutoresizingMaskIntoConstraints="NO" id="gnT-ws-wxg">
+                                                <rect key="frame" x="15" y="15" width="100" height="100"/>
+                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmF-M1-qy5">
                                                 <rect key="frame" x="15" y="15" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="TbH-s3-XhR"/>
                                                     <constraint firstAttribute="width" constant="100" id="zx2-MH-gLm"/>
                                                 </constraints>
-                                                <state key="normal" backgroundImage="cube_Placehold_image_1"/>
                                                 <connections>
                                                     <action selector="pickPhoto:" destination="yeF-N7-h19" eventType="touchUpInside" id="a1o-sK-Wj9"/>
                                                 </connections>
@@ -142,14 +144,17 @@
                                             <constraint firstItem="bmF-M1-qy5" firstAttribute="leading" secondItem="CQl-ss-yia" secondAttribute="leading" constant="15" id="1K3-Tl-EFD"/>
                                             <constraint firstItem="pyc-a1-mTl" firstAttribute="leading" secondItem="bmF-M1-qy5" secondAttribute="trailing" constant="-10" id="1oo-7p-cZg"/>
                                             <constraint firstItem="bmF-M1-qy5" firstAttribute="leading" secondItem="f0c-xW-t0T" secondAttribute="trailing" constant="-10" id="465-x4-nh5"/>
+                                            <constraint firstItem="gnT-ws-wxg" firstAttribute="width" secondItem="bmF-M1-qy5" secondAttribute="width" id="5mI-7z-70E"/>
                                             <constraint firstItem="6UW-W8-Vvi" firstAttribute="leading" secondItem="nhj-5W-hpw" secondAttribute="leading" id="74z-Sd-3wi"/>
                                             <constraint firstItem="L2F-mu-6Jx" firstAttribute="top" secondItem="MFa-wb-cT1" secondAttribute="bottom" constant="8" id="832-KF-8ln"/>
                                             <constraint firstItem="bmF-M1-qy5" firstAttribute="centerY" secondItem="CQl-ss-yia" secondAttribute="centerY" id="8dt-AK-zbL"/>
                                             <constraint firstItem="f0c-xW-t0T" firstAttribute="width" secondItem="cRl-DZ-wrG" secondAttribute="width" id="AHQ-6y-rJS"/>
                                             <constraint firstItem="6UW-W8-Vvi" firstAttribute="top" secondItem="L2F-mu-6Jx" secondAttribute="bottom" constant="8" id="Dlc-In-tIa"/>
+                                            <constraint firstItem="gnT-ws-wxg" firstAttribute="leading" secondItem="CQl-ss-yia" secondAttribute="leading" constant="15" id="JAp-dU-RKf"/>
                                             <constraint firstItem="feT-En-DqS" firstAttribute="width" secondItem="cRl-DZ-wrG" secondAttribute="width" id="Ksa-HI-9jB"/>
                                             <constraint firstItem="bmF-M1-qy5" firstAttribute="top" secondItem="feT-En-DqS" secondAttribute="bottom" constant="-10" id="LuV-Kx-rGU"/>
                                             <constraint firstAttribute="height" constant="130" id="QOH-H2-4Dp"/>
+                                            <constraint firstItem="gnT-ws-wxg" firstAttribute="centerY" secondItem="CQl-ss-yia" secondAttribute="centerY" id="Xpj-1T-n5j"/>
                                             <constraint firstItem="L6R-8d-P7p" firstAttribute="centerY" secondItem="bmF-M1-qy5" secondAttribute="top" constant="5" id="YQJ-ab-Eeh"/>
                                             <constraint firstItem="L2F-mu-6Jx" firstAttribute="leading" secondItem="6UW-W8-Vvi" secondAttribute="leading" constant="-2" id="YW7-vy-Rl5"/>
                                             <constraint firstItem="f0c-xW-t0T" firstAttribute="top" secondItem="bmF-M1-qy5" secondAttribute="bottom" constant="-10" id="YzX-eB-5lX"/>
@@ -166,6 +171,7 @@
                                             <constraint firstItem="bmF-M1-qy5" firstAttribute="top" secondItem="cRl-DZ-wrG" secondAttribute="bottom" constant="-10" id="m1U-Qp-QtB"/>
                                             <constraint firstAttribute="trailing" secondItem="8WR-Db-gJj" secondAttribute="trailing" constant="15" id="nPS-gI-U9P"/>
                                             <constraint firstItem="feT-En-DqS" firstAttribute="leading" secondItem="bmF-M1-qy5" secondAttribute="trailing" constant="-10" id="naa-XP-6iZ"/>
+                                            <constraint firstItem="gnT-ws-wxg" firstAttribute="height" secondItem="bmF-M1-qy5" secondAttribute="height" id="nrd-ky-Jna"/>
                                             <constraint firstItem="feT-En-DqS" firstAttribute="height" secondItem="cRl-DZ-wrG" secondAttribute="height" id="p2G-nz-sg1"/>
                                             <constraint firstAttribute="trailing" secondItem="L6R-8d-P7p" secondAttribute="trailing" constant="15" id="tuy-bq-5fu"/>
                                             <constraint firstItem="pyc-a1-mTl" firstAttribute="height" secondItem="cRl-DZ-wrG" secondAttribute="height" id="uVr-RB-oG5"/>
@@ -173,8 +179,8 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="i8j-k0-diI"/>
                                                 <exclude reference="g4d-9m-LlZ"/>
+                                                <exclude reference="i8j-k0-diI"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -196,6 +202,7 @@
                                     <outlet property="creatUserLabel" destination="nhj-5W-hpw" id="z7v-PH-95a"/>
                                     <outlet property="helpButton" destination="8WR-Db-gJj" id="AZ0-GR-WUS"/>
                                     <outlet property="imageButton" destination="bmF-M1-qy5" id="Nxo-9r-d33"/>
+                                    <outlet property="imageView" destination="gnT-ws-wxg" id="EIF-9g-Pqa"/>
                                     <outlet property="indicatorView" destination="L6R-8d-P7p" id="7eP-Sr-qvi"/>
                                     <outlet property="nameLabel" destination="MFa-wb-cT1" id="BpX-AG-hjQ"/>
                                     <outlet property="starRatingView" destination="L2F-mu-6Jx" id="Jnp-z6-AcR"/>
@@ -233,7 +240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8P-fK-cT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="625" y="1898"/>
+            <point key="canvasLocation" x="624.79999999999995" y="1897.6011994002999"/>
         </scene>
         <!--Pick Photos View Controller-->
         <scene sceneID="bk0-L5-Pty">

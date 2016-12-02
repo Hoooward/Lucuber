@@ -27,6 +27,7 @@ class DetailHeaderView: UIView {
     public var updateCurrentShowFormula: ((Formula) -> Void)?
     public var updateNavigationBar: ((Formula) -> Void)?
     public var updateMasterCell: ((Formula) -> Void)?
+    public var afterDeleteFormulaDataIsEmpty: (() -> Void)?
     
     fileprivate let realm = try! Realm()
     
@@ -36,6 +37,16 @@ class DetailHeaderView: UIView {
     
     fileprivate var formulasData: Results<Formula> {
         return formulasWith(self.uploadMode, category: self.selectedCategory, type: self.selectedType, inRealm: self.realm)
+    }
+    
+    public func reloadDataAfterDelete() {
+        
+        if formulasData.count == 0 {
+           
+            afterDeleteFormulaDataIsEmpty?()
+        }
+        
+        collectionView.reloadData()
     }
     
     public func configView(with formula: Formula?, withUploadMode uploadMode: UploadFormulaMode) {
@@ -135,7 +146,7 @@ class DetailHeaderView: UIView {
         label.text = "当前第2个, 共100个"
         label.font = UIFont.systemFont(ofSize: 8)
         label.textAlignment = .center
-        label.textColor = UIColor.lightGray.withAlphaComponent(0.5)
+        label.textColor = UIColor.lightGray
         return label
     }()
     
@@ -189,7 +200,7 @@ class DetailHeaderView: UIView {
 //        collectionView.translatesAutoresizingMaskIntoConstraints = false
         categoryIndicator.translatesAutoresizingMaskIntoConstraints = false
         
-        collectionView.frame = CGRect(x: 0, y: 5, width: UIScreen.main.bounds.width, height: imageWidth)
+        collectionView.frame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width, height: imageWidth)
         
         locationIndicatorLable.frame = CGRect(x: margin, y: collectionView.frame.maxY + 5, width: collectionView.frame.width - margin * 2, height: 10)
         
@@ -201,7 +212,7 @@ class DetailHeaderView: UIView {
         
         let categoryIndicatorTrailing = NSLayoutConstraint.init(item: categoryIndicator, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -margin)
         
-        let cateogyrIndicatorTop = NSLayoutConstraint(item: categoryIndicator, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: imageWidth + 10)
+        let cateogyrIndicatorTop = NSLayoutConstraint(item: categoryIndicator, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: imageWidth + 25)
         
 //        NSLayoutConstraint.activate([collectionViewTop, collectionViewLeading, collectionViewTrailing, collectionViewHeight])
         
@@ -211,7 +222,7 @@ class DetailHeaderView: UIView {
 //        cateogryLabel.frame = CGRect(x: collectionView.frame.width - margin - 100, y: collectionView.frame.maxY + 10, width: 100, height: 24)
 //        
 //        starRatingView.frame = CGRect(x: nameLabel.frame.maxX + 15, y: nameLabel.frame.origin.y, width: 80, height: 15)
-        starRatingView.frame = CGRect(x: margin, y: collectionView.frame.maxY + 15, width: 80, height: 15)
+        starRatingView.frame = CGRect(x: margin, y: collectionView.frame.maxY + 25, width: 80, height: 15)
         
         creatUserLabel.frame = CGRect(x: margin, y: starRatingView.frame.maxY + 20, width: 200, height: 16)
         creatTimeLabel.frame = CGRect(x: collectionView.frame.width - margin - 100, y: starRatingView.frame.maxY + 20, width: 100, height: 16)
