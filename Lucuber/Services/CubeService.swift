@@ -417,70 +417,106 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
         
     }
     
-//
-//    pushDataToLeancloud(with: imageData, failureHandler: {
-//        reason, errorMessage in
-//        
-//        failureHandler(reason, errorMessage)
-//        
-//    }, completion: { imageURLString in
-//        
-//        newDiscoverFormula.imageURL = imageURLString
-//        
-//        let realm = newFormula.realm
-//        try? realm?.write {
-//            newFormula.imageURL = imageURLString
-//        }
-//        
-//        CubeImageCache.shard.storeAlreadyUploadImageToCache(with: resizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
-//        
-//        AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: { success, error in
-//            
-//            if error != nil {
-//                failureHandler(Reason.network(error), "推送 Formula 的 contents 失败.")
-//            }
-//            
-//            if success {
-//                
-//                newDiscoverFormula.saveInBackground({ success, error in
-//                    
-//                    if error != nil {
-//                        failureHandler(Reason.network(error), "推送 Formula 失败")
-//                    }
-//                    
-//                    if success {
-//                        
-//                        guard let realm = newFormula.realm else {
-//                            failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
-//                            return }
-//                        
-//                        try? realm.write {
-//                            
-//                            if newDiscoverFormula.contents.count == newFormula.contents.count {
-//                                
-//                                for index in 0..<newDiscoverFormula.contents.count {
-//                                    if let lcObjectID = newDiscoverFormula.contents[index].objectId {
-//                                        newFormula.contents[index].lcObjectID = lcObjectID
-//                                    }
-//                                }
-//                            }
-//                            
-//                            newFormula.isPushed = true
-//                            newFormula.lcObjectID = newDiscoverFormula.objectId
-//                            createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
-//                        }
-//                        
-//                        completion?()
-//                    }
-//                    
-//                })
-//            }
-//            
-//        })
-//        
-//    })
-//    
- 
+}
+
+public func pushCurrentUserUpdateInformation() {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    
+    if let currentUser = currentUser(in: realm) {
+        
+        // 更新用户修改的公式
+        let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
+        
+        if !unPusheFormula.isEmpty {
+            
+            for formula in unPusheFormula {
+                
+                pushFormulaToLeancloud(with: formula, failureHandler: {
+                    reason, errorMessage in
+                    
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                }, completion: nil)
+            }
+        }
+        // Leanclooud 断标记删除的内容
+        
+        let deletedFormula = deleteByCreatorFormula(with: currentUser, inRealm: realm)
+        
+        if !deletedFormula.isEmpty {
+            
+            for formula in deletedFormula {
+                
+                if formula.lcObjectID == "" {
+                    
+                    try? realm.write {
+                        realm.delete(formula)
+                        
+                    }
+                    continue
+                }
+                
+                let discoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: formula.lcObjectID)
+                
+                discoverFormula.setValue(true, forKey: "deletedByCreator")
+                
+                discoverFormula.saveInBackground {
+                    success, error in
+                    
+                    if error != nil {
+                        printLog(error)
+                    }
+                    
+                    if success {
+                        printLog("公式删除信息推送成功")
+                        try? realm.write {
+                            realm.delete(formula)
+                        }
+                    }
+                    
+                }
+                
+                let contents: [Content] = formula.totalContents.filter {
+                    $0.deleteByCreator == true
+                }
+                
+                for content in contents {
+                    
+                    if content.lcObjectID == "" {
+                        
+                        try? realm.write {
+                            realm.delete(content)
+                        }
+                        continue
+                    }
+                    
+                    let discoverContent = DiscoverContent(className: "DiscoverContent", objectId: content.lcObjectID)
+                    
+                    discoverContent.setValue(true, forKey: "deletedByCreator")
+                    
+                    discoverContent.saveInBackground {
+                        success, error in
+                        
+                        if error != nil {
+                            printLog(error)
+                        }
+                        
+                        if success {
+                            
+                        try? realm.write {
+                            realm.delete(content)
+                        }
+                            printLog("公式Content删除信息推送成功")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 
@@ -490,12 +526,12 @@ public enum UploadFeedMode {
 }
 
 //extension AVQuery {
-//    
+//
 //     enum DefaultKey: String {
 //        case updatedTime = "updatedAt"
 //        case creatTime = "createdAt"
 //    }
-//    
+//
 //    class func getFormula(mode: UploadFormulaMode) -> AVQuery {
 //        
 //        switch mode {

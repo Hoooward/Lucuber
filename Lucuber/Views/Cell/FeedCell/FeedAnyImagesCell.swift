@@ -37,7 +37,6 @@ class FeedAnyImagesCell: FeedBaseCell  {
         if let anyImagesLayout = layout.anyImagesLayout {
             mediaCollectionView.frame = anyImagesLayout.mediaCollectionViewFrame
         }
-    
     }
     
     var imageAttachments: [ImageAttachment] = [] {

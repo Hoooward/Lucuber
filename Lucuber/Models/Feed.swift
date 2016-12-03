@@ -20,7 +20,6 @@ import AVOSCloud
 
 
 
-
 //class Feed1: AVObject, AVSubclassing  {
 //    
 //    class func parseClassName() -> String {

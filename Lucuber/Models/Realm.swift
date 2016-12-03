@@ -96,68 +96,36 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
 //        try? realm.write { realm.add(masterList) }
 //    }
 //}
-//
-//public func createOrUpdateRUser(with discoverUser: AVUser, inRealm realm: Realm) -> RUser {
-//    
-//    var creator = userWith(discoverUser.objectId ?? "", inRealm: realm)
-//    if creator == nil {
-//        
-//        let newUser = RUser()
-//        newUser.localObjectID = discoverUser.localObjectID() ?? RUser.randomLocalObjectID()
-//        newUser.lcObjcetID = discoverUser.objectId!
-//        
-//        realm.add(newUser)
-//        
-//        creator = newUser
-//    }
-//    
-//    if let creator = creator {
-//        
-//        creator.avatorImageURL = discoverUser.avatorImageURL()
-//        creator.username = discoverUser.username ?? ""
-//        creator.nickname = discoverUser.nickname() ?? ""
-//        creator.introduction = discoverUser.introduction()
-//        
-//        updateMasterList(with: creator, discoverUser: discoverUser, inRealm: realm)
-//    }
-//    
-//    return creator!
-//    
-//   
-//}
+
 
 // MARK: - Formula
 
-public func unPushedFormulaWith(currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
+public func deleteByCreatorFormula(with currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
     
     let predicate = NSPredicate(format: "creator = %@", currentUser)
-    let predicate2 = NSPredicate(format: "isPushed = %@", false as CVarArg)
+    let predicate2 = NSPredicate(format: "deletedByCreator = %@", true as CVarArg)
     
     return realm.objects(Formula.self).filter(predicate).filter(predicate2)
 }
 
-public func formulasCountWith(_ category: Category, uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Int {
-    let predicate = NSPredicate(format: "categoryString = %@", category.rawValue)
+public func unPushedFormula(with currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
     
-    var predicate2 = NSPredicate()
-    switch uploadMode {
-    case .library:
-        predicate2 = NSPredicate(format: "isLibrary = %@", true as CVarArg)
-    case .my:
-        predicate2 = NSPredicate(format: "isLibrary = %@", false as CVarArg)
-    }
-    return realm.objects(Formula.self).filter(predicate2).filter(predicate).count
+    let predicate = NSPredicate(format: "creator = %@", currentUser)
+    let predicate2 = NSPredicate(format: "isPushed = %@", false as CVarArg)
+    let predicate3 = NSPredicate(format: "deletedByCreator = %@", false as CVarArg)
+    
+    return realm.objects(Formula.self).filter(predicate).filter(predicate2).filter(predicate3)
 }
 
 public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory> {
-   
-    let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
     
+    let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
     return realm.objects(RCategory.self).filter(predicate)
     
 }
 
 public func contentWith(_ objectID: String, inRealm realm: Realm) -> Content? {
+    
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     return realm.objects(Content.self).filter(predicate).first
 }
@@ -168,11 +136,8 @@ public func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> R
 }
 
 
-
-
-func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Int{
-    let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
-    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate).count
+func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Int {
+    return formulasWith(uploadMode, category: category, inRealm: realm).count
 }
 
 func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
@@ -187,30 +152,35 @@ func formulaCollectionWith(objectID: String, inRealm realm: Realm) -> Results<Fo
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Results<Formula>{
     
-    var predicate = NSPredicate(format: "categoryString = %@ AND typeString = %@", category.rawValue, type.rawValue)
+//    var predicate = NSPredicate(format: "categoryString = %@ AND typeString = %@", category.rawValue, type.rawValue)
+//    
+//    if case .all = category {
+//         predicate = NSPredicate(format: "typeString = %@", type.rawValue)
+//    }
+//    
+//    if case .unKnow = type {
+////        return realm.objects(Formula.self).filter("")
+//    }
+//
+//
+//    switch uploadMode {
+//    case .my:
+//        
+//        guard let currentUser = currentUser(in: realm) else { fatalError() }
+//        
+//        let myPredicate = NSPredicate(format: "creator = %@", currentUser)
+//        let myPredicate2 = NSPredicate(format: "deletedByCreator == %@", false as CVarArg)
+//        return realm.objects(Formula.self).filter(myPredicate).filter(predicate).filter(myPredicate2).sorted(byProperty: "createdUnixTime", ascending: false)
+//        
+//    case .library:
+//        
+//        let libraryPredicate = NSPredicate(format: "isLibrary == true")
+//        return realm.objects(Formula.self).filter(libraryPredicate).filter(predicate)
+//        
+//    }
+    let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
     
-    if case .all = category {
-         predicate = NSPredicate(format: "typeString = %@", type.rawValue)
-    }
-    
-    if case .unKnow = type {
-//        return realm.objects(Formula.self).filter("")
-    }
-    
-    switch uploadMode {
-    case .my:
-        
-        guard let currentUser = currentUser(in: realm) else { fatalError() }
-        
-        let myPredicate = NSPredicate(format: "creator = %@", currentUser)
-        return realm.objects(Formula.self).filter(myPredicate).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
-        
-    case .library:
-        
-        let libraryPredicate = NSPredicate(format: "isLibrary == true")
-        return realm.objects(Formula.self).filter(libraryPredicate).filter(predicate)
-        
-    }
+    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
     
 //    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
 }
@@ -224,12 +194,13 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         guard let currentUser = currentUser(in: realm) else { fatalError() }
         let predicate = NSPredicate(format: "creator = %@", currentUser)
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
+        let predicate3 = NSPredicate(format: "deletedByCreator == %@", false as CVarArg)
         
         if case .all = category {
-            return realm.objects(Formula.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate3).sorted(byProperty: "createdUnixTime", ascending: false)
             
         } else {
-            return realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate2).filter(predicate3).sorted(byProperty: "createdUnixTime", ascending: false)
         }
             
     case .library:
@@ -251,16 +222,34 @@ public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFor
     let categorys = categorysWith(uploadMode, inRealm: realm)
     
     // TODO: /
-    
-    
     let categoryTexts = categorys.map { $0.name }
     if !categoryTexts.contains(formula.categoryString) {
         
         let newRCategory = RCategory(value: [formula.categoryString, uploadMode.rawValue])
         realm.add(newRCategory)
         
-    }
+    } 
     
+}
+
+public func deleteEmptyRCategory(with uploadMode: UploadFormulaMode, inRealm realm: Realm) {
+    
+    let rCategorys = categorysWith(uploadMode, inRealm: realm)
+    
+    for rCategory in rCategorys {
+        
+        if let category = Category(rawValue: rCategory.name) {
+            
+            let formulasCount = formulasCountWith(uploadMode, category: category, inRealm: realm)
+            
+            if formulasCount <= 0 {
+                
+                try? realm.write {
+                    realm.delete(rCategory)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Message

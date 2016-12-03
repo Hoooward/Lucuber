@@ -20,7 +20,6 @@ fileprivate let detailContentCellIdentifier = "DetailContentCell"
 
 class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
-    
     @IBOutlet weak var tableView: UITableView!
     
     enum SegueIdentifier: String {
@@ -118,12 +117,35 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 viewController.formula = strongSelf.formula
                 
                 
+                viewController.updateCurrentSelectedFormulaUI = {
+                    [weak self] in
+                    
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    strongSelf.headerView.reloadDataAfterDelete()
+                }
+                
+                viewController.updateSeletedCategory = { [weak self] _ in
+                    
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    try? realm.write {
+                        
+                        createOrUpdateRCategory(with: strongSelf.formula, uploadMode: UploadFormulaMode.my, inRealm: realm)
+                    }
+                    
+                }
 //                viewController.savedNewFormulaDraft = {
 //                    // 暂时不处理草稿, 直接将取消的 Formula 删除
 //                    try? realm.write {
 //                        strongSelf.formula.cascadeDelete(inRealm: realm)
 //                    }
 //                }
+                
                 
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
@@ -148,10 +170,17 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                             return
                         }
                         
+                        // 删除公式时, 将其标记为已被删除, 同时将 content 也标记为已删除. 
+                        // 等进入后台时, 将删除信息推送到服务器
+                        
                         try? strongSelf.realm.write {
-                            strongSelf.formula.cascadeDelete(inRealm: strongSelf.realm)
+                            strongSelf.formula.deletedByCreator = true
+                            strongSelf.formula.contents.forEach {
+                                $0.deleteByCreator = true
+                            }
                         }
                         
+                        deleteEmptyRCategory(with: UploadFormulaMode.my, inRealm: strongSelf.realm)
                         
                         strongSelf.headerView.reloadDataAfterDelete()
                     },
@@ -228,6 +257,15 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 
                 
                 viewController.formula = newFormula
+                
+                viewController.updateSeletedCategory = { _ in
+                 
+                    try? realm.write {
+                        
+                        createOrUpdateRCategory(with: newFormula, uploadMode: UploadFormulaMode.my, inRealm: realm)
+                    }
+                    
+                }
                 
                 viewController.savedNewFormulaDraft = {
                     // 暂时不处理草稿, 直接将取消的 Formula 删除
@@ -307,7 +345,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         tableView.register(UINib(nibName: detailContentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailContentCellIdentifier)
         
         
-//        tableView.register(DetailContentCell.self, forCellReuseIdentifier: detailContentCellIdentifier)
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.white

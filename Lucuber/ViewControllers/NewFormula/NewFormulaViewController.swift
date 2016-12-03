@@ -17,8 +17,8 @@ class NewFormulaViewController: UIViewController {
     
     // MARK: - Properties
     
-    var isNeedRepushNotificationToken: NotificationToken? = nil
-        
+//    var isNeedRepushNotificationToken: NotificationToken? = nil
+    
     @IBOutlet weak var headerView: NewFormulaHeadView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
@@ -34,6 +34,8 @@ class NewFormulaViewController: UIViewController {
     
     public var savedNewFormulaDraft: (() -> Void)?
     public var updateSeletedCategory: ((Category?) -> Void)?
+    public var updateCurrentSelectedFormulaUI: (() -> Void)?
+    
    
     public var formula = Formula() {
         didSet {
@@ -94,31 +96,7 @@ class NewFormulaViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        let collectionFormula = formulaCollectionWith(objectID: formula.localObjectID, inRealm: realm)
-        
-        isNeedRepushNotificationToken = collectionFormula.addNotificationBlock {
-            [weak self] changes in
-            
-            guard let strongSelf = self else {
-                return
-            }
-            
-            switch changes {
-            case .initial(_):
-                strongSelf.isNeedRepush = true
-                
-            case .update(_, deletions: _, insertions: _, modifications: _):
-                strongSelf.isNeedRepush = true
-                
-            case .error(let error):
-                
-                defaultFailureHandler(Reason.network(error), "realm 通知报错")
-            }
-            
-            printLog("Formula 有更新\(strongSelf.isNeedRepush)")
-        }
-        
+
         
         switch editType {
             
@@ -135,7 +113,8 @@ class NewFormulaViewController: UIViewController {
         case .editFormula:
             
             navigationItem.title = "编辑公式"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
+            navigationItem.leftBarButtonItem = nil
             
         case .addToMy:
             
@@ -143,6 +122,7 @@ class NewFormulaViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "添加", style: .plain, target: self, action: #selector(NewFormulaViewController.save(_:)))
             
         }
+        
         
         self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush
         
@@ -182,7 +162,7 @@ class NewFormulaViewController: UIViewController {
     deinit {
         printLog("NewFormula死了")
         NotificationCenter.default.removeObserver(self)
-        isNeedRepushNotificationToken?.stop()
+//        isNeedRepushNotificationToken?.stop()
     }
     
     // MARK: - Action & Target
@@ -301,7 +281,11 @@ class NewFormulaViewController: UIViewController {
             // 清除空的 content
             try? realm.write {
                 formula.cleanBlankContent(inRealm: realm)
-                formula.isPushed = false
+                
+                if self.isNeedRepush {
+                    formula.isPushed = false
+                }
+                
             }
             
             // 暂时存储本地图片, 待应用进入后台后再统一 push
@@ -316,6 +300,7 @@ class NewFormulaViewController: UIViewController {
             }
             
             updateSeletedCategory?(formula.category)
+            updateCurrentSelectedFormulaUI?()
             
             self.dismiss(animated: true, completion: nil)
 
@@ -461,7 +446,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 strongSelf.navigationItem.rightBarButtonItem?.isEnabled = self?.formula.isReadyToPush ?? false
                 
                 strongSelf.headerView.configView(with: strongSelf.formula)
-//                strongSelf.isNeedRepush = true
+                strongSelf.isNeedRepush = true
             }
             
             
@@ -504,7 +489,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         cell.configCell(with: strongSelf.formula)
                         
                         strongSelf.headerView.configView(with: strongSelf.formula)
-//                        strongSelf.isNeedRepush = true
+                        strongSelf.isNeedRepush = true
                     }
                 
                 } else {
@@ -544,7 +529,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         }
                         
                         strongSelf.headerView.configView(with: strongSelf.formula)
-//                        strongSelf.isNeedRepush = true
+                        strongSelf.isNeedRepush = true
                     }
                     
                 }
@@ -573,7 +558,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         strongSelf.formula.rating = rating
                     }
                     strongSelf.headerView.configView(with: strongSelf.formula)
-//                    strongSelf.isNeedRepush = true
+                    strongSelf.isNeedRepush = true
                 }
                 
                 
@@ -594,7 +579,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                         strongSelf.formula.rating = rating
                     }
                     strongSelf.headerView.configView(with: strongSelf.formula)
-//                    strongSelf.isNeedRepush = true
+                    strongSelf.isNeedRepush = true
                 }
          
             }
@@ -618,7 +603,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                     return
                 }
                 strongSelf.formulaInputAccessoryView.configView(with: content, inRealm: strongSelf.realm)
-//                strongSelf.isNeedRepush = true
+                strongSelf.isNeedRepush = true
             }
             
             cell.didEndEditing = { [weak self] in
@@ -627,7 +612,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 strongSelf.navigationItem.rightBarButtonItem?.isEnabled = strongSelf.formula.isReadyToPush
                 strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
-//                strongSelf.isNeedRepush = true
+                strongSelf.isNeedRepush = true
                 
             }
             
@@ -786,7 +771,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = strongSelf.tableView.cellForRow(at: indexPath) as! FormulaTextViewCell
                 
                 cell.rotationButton.updateButtonStyle(with: RotationButton.Style.cercle, rotation: rotation, animation: true)
-//                strongSelf.isNeedRepush = true
+                strongSelf.isNeedRepush = true
                 
             }
             
@@ -795,7 +780,7 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
             try? realm.write {
                 _ = Content.new(with: self.formula, inRealm: realm)
             }
-            printLog(self.formula)
+//            printLog(self.formula)
            
             tableView.beginUpdates()
             let newIndex = IndexPath(row: formula.contents.count - 1, section: Section.content.rawValue)
@@ -872,10 +857,13 @@ extension NewFormulaViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 tableView.beginUpdates()
                 try? realm.write {
-                    realm.delete(formula.contents[indexPath.row])
+//                    realm.delete(formula.contents[indexPath.row])
+                    let content = formula.contents[indexPath.row]
+                    content.deleteByCreator = true
                 }
                 tableView.deleteRows(at: [indexPath], with: .left)
                 tableView.endUpdates()
+                isNeedRepush = true
                 
                 self.navigationItem.rightBarButtonItem?.isEnabled = self.formula.isReadyToPush
             default:
@@ -943,6 +931,7 @@ extension NewFormulaViewController: UIImagePickerControllerDelegate, UINavigatio
                 
                 if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
                     formula.pickedLocalImage = image
+                    self.isNeedRepush = true
                 }
                 
             default:

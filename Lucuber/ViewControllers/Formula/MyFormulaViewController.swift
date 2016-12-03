@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 
 class MyFormulaViewController: BaseCollectionViewController {
@@ -25,25 +26,46 @@ class MyFormulaViewController: BaseCollectionViewController {
         
         seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
         
-        refreshControl.addTarget(self, action: #selector(MyFormulaViewController.refresh), for: .valueChanged)
-        refreshControl.layer.zPosition = -1
-        collectionView?.alwaysBounceVertical = true
-        
-        refreshControl.bounds.origin.y = -44
-        // self.collectionView?.addSubview(refreshControl)
-        
-         updateMyFormula()
+//        updateMyFormula()
       
     }
     
-    func updateMyFormula() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        if isUploadingFormula {
+        guard let realm = try? Realm() else {
             return
         }
         
-        isUploadingFormula = true
+        // 如果用户删除公式后, 此 category 为空, 重设 seletedCategory 为 x3x3
+        if formulasCountWith(uploadMode, category: seletedCategory, inRealm: realm) <= 0 {
+            
+            seletedCategory = .x3x3
+            
+            UserDefaults.setSelected(category: .x3x3, mode: uploadMode)
+            
+            if let button = parent?.navigationItem.rightBarButtonItem as? CategoryButton {
+                button.seletedCategory = .x3x3
+            }
+            
+        }
         
+        
+        if formulasData.isEmpty {
+            
+            self.searchBar.isHidden = true
+            self.view.addSubview(vistorView)
+            
+        } else {
+            
+            self.searchBar.isHidden = false
+            vistorView.removeFromSuperview()
+            
+        }
+    }
+    
+    func updateMyFormula() {
+      
         if formulasData.isEmpty {
             self.view.addSubview(self.vistorView)
             self.searchBar.isHidden = true
@@ -76,93 +98,6 @@ class MyFormulaViewController: BaseCollectionViewController {
         
     }
     
-    // MARK: - Target & Action
-    
-    @objc private func refresh() {
-        
-        
-        if isUploadingFormula {
-            return
-        }
-        
-        fetchDiscoverFormula(with: self.uploadMode, categoty: self.seletedCategory, failureHandler: { error in
-            
-            self.searchBar.isHidden = true
-            self.isUploadingFormula = false
-            self.view.addSubview(self.vistorView)
-            self.isUploadingFormula = false
-            
-            printLog(error)
-        }, completion: {
-            formulas in
-            
-            delay(1) {
-                self.collectionView?.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-            
-        })
-    
-    }
-    
-    
-    
 
-    /*
-    override func uploadingFormulas(with mode: UploadFormulaMode, category: Category, finish: (() -> Void)?) {
-        
-        if isUploadingFormula {
-            finish?()
-            return
-        }
-        
-        isUploadingFormula = true
-        
-        let failureHandler: (_ error: NSError?) -> Void = {
-            error in
-            
-            DispatchQueue.main.async { [unowned self] in
-                
-                self.searchBar.isHidden = true
-                self.isUploadingFormula = false
-                self.view.addSubview(self.vistorView)
-                self.isUploadingFormula = false
-                finish?()
-                
-                // 提示失败
-                
-            }
-        }
-        
-        let completion: ([Formula]) -> Void = { formulas in
-            
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                if formulas.isEmpty {
-                    
-                    strongSelf.searchBar.isHidden = true
-                    strongSelf.view.addSubview(strongSelf.vistorView)
-                    
-                } else {
-                    
-                    strongSelf.searchBar.isHidden = false
-                    strongSelf.formulasData = strongSelf.parseFormulasData(with: formulas)
-                    strongSelf.vistorView.removeFromSuperview()
-                }
-                
-                strongSelf.isUploadingFormula = false
-                
-                finish?()
-            }
-        }
-        
-        fetchFormulaWithMode(uploadingFormulaMode: uploadMode, category: category, completion: completion, failureHandler: failureHandler)
-        
-    }
- */
 }
 

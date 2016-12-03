@@ -111,6 +111,8 @@
 		E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */; };
 		E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */; };
 		E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BB31D8FA5890090671F /* CubeService.swift */; };
+		E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */; };
+		E4CE8B261DF2E35100944099 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4CE8B241DF2E35100944099 /* Setting.storyboard */; };
 		E4CED8341DE862770036A11C /* ActionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7961DE862770036A11C /* ActionSheetView.swift */; };
 		E4CED8351DE862770036A11C /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7981DE862770036A11C /* CategoryButton.swift */; };
 		E4CED8361DE862770036A11C /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED79A1DE862770036A11C /* CategoryIndicatorView.swift */; };
@@ -190,7 +192,6 @@
 		E4DAFE0D1DEB32B9008A8702 /* ModelExtesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DAFE0B1DEB326F008A8702 /* ModelExtesion.swift */; };
 		E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E41D8D92D6005CE518 /* Formula.storyboard */; };
 		E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E91D8D9353005CE518 /* Feed.storyboard */; };
-		E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65EE1D8D93A8005CE518 /* Setting.storyboard */; };
 		E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF65F61D8D94B1005CE518 /* MainNavigationController.swift */; };
 		E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */; };
 		E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65FF1D8D961F005CE518 /* Result.storyboard */; };
@@ -304,6 +305,8 @@
 		E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFormulaLayout.swift; sourceTree = "<group>"; };
 		E4B09BB31D8FA5890090671F /* CubeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeService.swift; sourceTree = "<group>"; };
+		E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = Lucuber/ViewControllers/Formula/SettingTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		E4CE8B251DF2E35100944099 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Setting.storyboard; sourceTree = SOURCE_ROOT; };
 		E4CED7961DE862770036A11C /* ActionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
 		E4CED7981DE862770036A11C /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4CED79A1DE862770036A11C /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
@@ -403,7 +406,6 @@
 		E4DAFE0B1DEB326F008A8702 /* ModelExtesion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelExtesion.swift; sourceTree = "<group>"; };
 		E4DF65E51D8D92D6005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Formula.storyboard; sourceTree = "<group>"; };
 		E4DF65EA1D8D9353005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
-		E4DF65EF1D8D93A8005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setting.storyboard; sourceTree = "<group>"; };
 		E4DF65F61D8D94B1005CE518 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		E4DF66001D8D961F005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Result.storyboard; sourceTree = SOURCE_ROOT; };
@@ -1315,7 +1317,8 @@
 		E4DF65F81D8D94B1005CE518 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				E4DF65EE1D8D93A8005CE518 /* Setting.storyboard */,
+				E4CE8B241DF2E35100944099 /* Setting.storyboard */,
+				E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1570,6 +1573,7 @@
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E4CED86E1DE862770036A11C /* NewSectionHeaderView.xib in Resources */,
 				E4CED8611DE862770036A11C /* NoResultCell.xib in Resources */,
+				E4CE8B261DF2E35100944099 /* Setting.storyboard in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
 				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
@@ -1588,7 +1592,6 @@
 				E41ECF591DB77374005BEFE4 /* MediaViewCell.xib in Resources */,
 				E4CED8791DE862770036A11C /* CommentHeaderView.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
-				E4DF65F01D8D93A8005CE518 /* Setting.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1753,6 +1756,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */,
 				E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */,
 				E4E03BFF1DEC6EA10023B3B0 /* DetailMasterCell.swift in Sources */,
 				E4DAFE081DEB2AF4008A8702 /* Model.swift in Sources */,
@@ -1894,6 +1898,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		E4CE8B241DF2E35100944099 /* Setting.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4CE8B251DF2E35100944099 /* Base */,
+			);
+			name = Setting.storyboard;
+			sourceTree = "<group>";
+		};
 		E4DF65E41D8D92D6005CE518 /* Formula.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1909,15 +1921,6 @@
 				E4DF65EA1D8D9353005CE518 /* Base */,
 			);
 			name = Feed.storyboard;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		E4DF65EE1D8D93A8005CE518 /* Setting.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4DF65EF1D8D93A8005CE518 /* Base */,
-			);
-			name = Setting.storyboard;
 			path = ../..;
 			sourceTree = "<group>";
 		};

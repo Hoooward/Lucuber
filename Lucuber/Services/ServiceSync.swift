@@ -219,29 +219,30 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
             
             if discoverContent.deletedByCreator {
                 
-                if
-                    let currentUserID = AVUser.current()?.objectId ,
-                    let discoverContentCreaterID = discoverContent.creator.objectId {
-                    
-                    if currentUserID == discoverContentCreaterID {
-                        
-                        if let content = content {
-                            realm.delete(content)
-                        }
-                    }
-                }
-                
-                if discoverFormula.isLibrary {
-                    if let content = content {
-                        realm.delete(content)
-                    }
-                }
+//                if
+//                    let currentUserID = AVUser.current()?.objectId ,
+//                    let discoverContentCreaterID = discoverContent.creator.objectId {
+//                    
+//                    if currentUserID == discoverContentCreaterID {
+//                        
+//                        if let content = content {
+//                            realm.delete(content)
+//                        }
+//                    }
+//                }
+//                
+//                if discoverFormula.isLibrary {
+//                    if let content = content {
+//                        realm.delete(content)
+//                        content = nil
+//                    }
+//                }
                 
                 if let content = content {
                     realm.delete(content)
                 }
                 
-                return
+                continue
             }
             
             if content == nil {

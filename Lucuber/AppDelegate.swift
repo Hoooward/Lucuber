@@ -48,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = creatMeInRealm()
         
+       
+        
         return true
     }
 
@@ -71,35 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        
-        guard let realm = try? Realm() else {
-            return
-        }
-        
-        if let currentUser = currentUser(in: realm) {
-            
-            let unPushedFormula = unPushedFormulaWith(currentUser: currentUser, inRealm: realm)
-            
-            
-            if !unPushedFormula.isEmpty {
-                
-                for formula in unPushedFormula {
-                    
-                    pushFormulaToLeancloud(with: formula, failureHandler: {
-                        reason, errorMessage in
-                       
-                        defaultFailureHandler(reason, errorMessage)
-                        
-                    }, completion: nil)
-                    
-                    
-                }
-            }
-            
-        }
+       
     }
-
-    
 }
 
 

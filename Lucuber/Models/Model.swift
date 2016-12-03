@@ -160,7 +160,12 @@ open class Formula: Object {
     open dynamic var isNewVersion: Bool = false
     open dynamic var isPushed: Bool = false
     
-    open let contents = LinkingObjects(fromType: Content.self, property: "atFormula")
+    open let totalContents = LinkingObjects(fromType: Content.self, property: "atFormula")
+    
+    open var contents: Results<Content> {
+        let predicate = NSPredicate(format: "deleteByCreator = %@", false as CVarArg)
+        return totalContents.filter(predicate)
+    }
     
     open var category: Category {
         if let category = Category(rawValue: categoryString) {
@@ -259,8 +264,11 @@ open class Content: Object {
     open dynamic var atFomurlaLocalObjectID: String = ""
     
     open dynamic var creator: RUser?
+    
+    // 当被用户删除时, 推送
     open dynamic var deleteByCreator: Bool = false
     
+    // 用户标记是否有本地数据更新, 判断是否需要推送
     open dynamic var isPushed: Bool = false
     
     open class func new(with formula: Formula, inRealm realm: Realm) -> Content {

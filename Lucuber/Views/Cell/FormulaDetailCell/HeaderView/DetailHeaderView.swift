@@ -42,7 +42,6 @@ class DetailHeaderView: UIView {
     public func reloadDataAfterDelete() {
         
         if formulasData.count == 0 {
-           
             afterDeleteFormulaDataIsEmpty?()
         } else {
             
@@ -55,8 +54,10 @@ class DetailHeaderView: UIView {
 
             let point = CGPoint(x: CGFloat(currentIndex) * scrollDistance - Config.DetailHeaderView.screenMargin , y: 0)
             
+            let cachePont = CGPoint(x: CGFloat(currentIndex - 1) * scrollDistance - Config.DetailHeaderView.screenMargin , y: 0)
+
             // 滚两次是为了触发中心卡片放大.
-            collectionView.setContentOffset(CGPoint.zero, animated: false)
+            collectionView.setContentOffset(cachePont, animated: false)
             collectionView.setContentOffset(point, animated: true)
             
         }
@@ -87,6 +88,7 @@ class DetailHeaderView: UIView {
     
     fileprivate func updateUI(with formula: Formula) {
         
+        printLog("需要更新的 - \(formula)")
         updateCurrentShowFormula?(formula)
         updateNavigationBar?(formula)
         updateFormulaContentCell?(formula)

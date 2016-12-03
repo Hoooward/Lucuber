@@ -120,7 +120,7 @@ public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFor
     
     var discoverContents: [DiscoverContent] = []
     
-    for content in newFormula.contents {
+    for content in newFormula.totalContents {
         
         var newDiscoverContent = DiscoverContent()
         
