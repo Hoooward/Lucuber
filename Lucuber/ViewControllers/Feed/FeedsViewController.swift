@@ -13,7 +13,7 @@ struct LayoutCatch {
     
     var FeedCellLayoutHash = [String: FeedCellLayout]()
     
-    mutating func FeedCellLayoutOfFeed(feed: Feed) -> FeedCellLayout {
+    mutating func FeedCellLayoutOfFeed(feed: DiscoverFormula) -> FeedCellLayout {
         let key = feed.objectId ?? ""
         
         if let layout = FeedCellLayoutHash[key] {
@@ -27,7 +27,7 @@ struct LayoutCatch {
         }
     }
     
-    mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: Feed) {
+    mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: DiscoverFormula) {
         let key = feed.objectId ?? ""
         
         if !key.isEmpty {
@@ -35,7 +35,7 @@ struct LayoutCatch {
         }
     }
     
-    mutating func heightOfFeed(feed: Feed) -> CGFloat {
+    mutating func heightOfFeed(feed: DiscoverFormula) -> CGFloat {
         let layout = FeedCellLayoutOfFeed(feed: feed)
         return layout.height
     }
@@ -47,11 +47,31 @@ class FeedsViewController: UIViewController {
     // MARK: - Properties
     
 //    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
-    
 
     
-    var feeds = [Feed]()
-    var uploadingFeeds = [Feed]()
+    var feeds = [DiscoverFeed]()
+    var uploadingFeeds = [DiscoverFeed]()
+    
+    // 显示某人所有的Feed
+    public var profileUser: RUser?
+    var perparedFeedsCount = 0
+    
+    var hideRightbarItem: Bool = false
+    
+    fileprivate lazy var filterStyles: [FeedSortStyle] = [
+        .distance,
+        .time,
+        .match
+    ]
+    
+    fileprivate var feedSortStyle: FeedSortStyle = .match {
+        didSet {
+            // needShowDistance
+            feeds = []
+            tableView.reloadData()
+            
+        }
+    }
     
     fileprivate static var layoutCatch = LayoutCatch()
     
@@ -83,13 +103,17 @@ class FeedsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var isUploadingFeed = false
-    var lastFeedCreatedDate: NSDate {
+    
+    var lastFeedCreatedDate: Date {
         
-        if feeds.isEmpty { return NSDate() }
-        let date = feeds.last!.createdAt
+        if feeds.isEmpty { return Date() }
         
-        return feeds.last!.createdAt as! NSDate
+        var date: Date? = Date()
         
+        if let lastFeed = feeds.last {
+            date = lastFeed.createdAt
+        }
+        return date ?? Date()
     }
     
     private lazy var newFeedActionSheetView: ActionSheetView = {
@@ -175,12 +199,6 @@ class FeedsViewController: UIViewController {
         uploadFeed()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
-   
     
     fileprivate func uploadFeed(mode: UploadFeedMode = .top, finish: (() -> Void)? = nil) {
         
@@ -209,7 +227,7 @@ class FeedsViewController: UIViewController {
                 }
         }
         
-        let completion: ([Feed]) -> Void = { feeds in
+        let completion: ([DiscoverFeed]) -> Void = { feeds in
             
             DispatchQueue.main.async { [weak self] in
                 
@@ -243,7 +261,7 @@ class FeedsViewController: UIViewController {
                     
                     let oldFeedIDs = Set<String>(strongSelf.feeds.map { $0.objectId! })
                     
-                    var newRealFeeds = [Feed]()
+                    var newRealFeeds = [DiscoverFeed]()
                     for feed in newFeeds {
                         if !oldFeedIDs.contains(feed.objectId!) {
                             newRealFeeds.append(feed)
@@ -266,6 +284,16 @@ class FeedsViewController: UIViewController {
                 
                 finish?()
             }
+            
+        }
+        
+        if let  _ = profileUser {
+            // 获取当前用户的Feed
+            
+        }  else {
+            
+            var feedStoryStyle = self.feedSortStyle
+            
             
         }
         

@@ -44,7 +44,7 @@ struct FeedCellLayout {
     var height: CGFloat = 0
     
     
-    init(feed: Feed) {
+    init(feed: DiscoverFormula) {
         
         
         switch feed.attachment {

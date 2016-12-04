@@ -113,6 +113,16 @@
 		E4B09BB41D8FA5890090671F /* CubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BB31D8FA5890090671F /* CubeService.swift */; };
 		E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */; };
 		E4CE8B261DF2E35100944099 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4CE8B241DF2E35100944099 /* Setting.storyboard */; };
+		E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
+		E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7AF1DE862770036A11C /* FeedAnyImagesCell.swift */; };
+		E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B01DE862770036A11C /* FeedBaseCell.swift */; };
+		E4CE8B2A1DF42A0A00944099 /* FeedBiggerImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B11DE862770036A11C /* FeedBiggerImageCell.swift */; };
+		E4CE8B2B1DF42A0A00944099 /* FeedCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B21DE862770036A11C /* FeedCellLayout.swift */; };
+		E4CE8B2C1DF42A0A00944099 /* FeedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B41DE862770036A11C /* FeedTextView.swift */; };
+		E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B51DE862770036A11C /* FeedUploadingErrorContainerView.swift */; };
+		E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7BA1DE862770036A11C /* FeedMediaCell.swift */; };
+		E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7BB1DE862770036A11C /* FeedMediaCell.xib */; };
+		E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8231DE862770036A11C /* FeedFormulaView.swift */; };
 		E4CED8341DE862770036A11C /* ActionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7961DE862770036A11C /* ActionSheetView.swift */; };
 		E4CED8351DE862770036A11C /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7981DE862770036A11C /* CategoryButton.swift */; };
 		E4CED8361DE862770036A11C /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED79A1DE862770036A11C /* CategoryIndicatorView.swift */; };
@@ -1756,6 +1766,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */,
+				E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */,
+				E4CE8B2A1DF42A0A00944099 /* FeedBiggerImageCell.swift in Sources */,
+				E4CE8B2B1DF42A0A00944099 /* FeedCellLayout.swift in Sources */,
+				E4CE8B2C1DF42A0A00944099 /* FeedTextView.swift in Sources */,
+				E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */,
+				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
+				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
+				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
+				E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */,
 				E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */,
 				E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */,
 				E4E03BFF1DEC6EA10023B3B0 /* DetailMasterCell.swift in Sources */,
