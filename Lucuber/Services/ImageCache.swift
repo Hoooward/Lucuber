@@ -48,7 +48,6 @@ final class CubeImageCache {
         ImageCache.default.retrieveImage(forKey: originKey, options: options, completionHandler: {
             (findImage, cacheType) in
             
-            
             if let _ = findImage {
                 return
             }

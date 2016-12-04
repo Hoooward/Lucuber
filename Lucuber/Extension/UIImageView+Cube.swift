@@ -43,7 +43,6 @@ extension UIImageView {
                 
                 
                 indicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
-//                indicator.isHidden = true
                 indicator.hidesWhenStopped = true
                 addSubview(indicator)
                 
@@ -142,8 +141,7 @@ extension UIImageView {
             activityIndicator?.startAnimating()
         }
         
-         setImageAttachmentURL(URL: URL)
-        
+        setImageAttachmentURL(URL: URL)
         
         CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width,imageExtesion: CubeImageCache.imageExtension.png, completion: {
             [weak self] url, image, cacheType in
