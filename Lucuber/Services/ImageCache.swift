@@ -37,19 +37,37 @@ final class CubeImageCache {
             return
         }
         
+        let options: KingfisherOptionsInfo = [
+            .callbackDispatchQueue(cacheAttachmentQueue),
+            .scaleFactor(UIScreen.main.scale)
+        ]
+        
         let originKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: attachmentURL.absoluteString!)
         
-        var originalData: Data?
-        
-        switch imageExtension {
-        case .jpeg:
-            originalData = UIImageJPEGRepresentation(image, 1.0)
-        case .png:
-            originalData = UIImagePNGRepresentation(image)
+        // 尝试在本地寻找原始图片
+        ImageCache.default.retrieveImage(forKey: originKey, options: options, completionHandler: {
+            (findImage, cacheType) in
             
-        }
-        
-        ImageCache.default.store(image, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
+            
+            if let _ = findImage {
+                return
+            }
+            
+            let resultImage = image
+            
+            var originalData: Data?
+            
+            switch imageExtension {
+            case .jpeg:
+                originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+            case .png:
+                originalData = UIImagePNGRepresentation(resultImage)
+                
+            }
+            
+            ImageCache.default.store(resultImage, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
+                        
+            })
             
         })
     }

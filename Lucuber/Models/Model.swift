@@ -222,6 +222,7 @@ open class Formula: Object {
         newFormula.deletedByCreator = false
         newFormula.isLibrary = isLibrary
         newFormula.creator = currentUser(in: realm)
+        newFormula.isPushed = false
         let randomInt = arc4random_uniform(11)
         newFormula.pickedLocalImage = UIImage(named: "cube_Placehold_image_\(randomInt + 1)")!
         let _ = Content.new(with: newFormula, inRealm: realm)
@@ -280,6 +281,7 @@ open class Content: Object {
         newContent.atFomurlaLocalObjectID = formula.localObjectID
         newContent.deleteByCreator = false
         newContent.creator = currentUser(in: realm)
+        newContent.isPushed = false
         
         realm.add(newContent)
         

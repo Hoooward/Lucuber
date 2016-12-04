@@ -23,6 +23,7 @@ class SettingTableViewController: UITableViewController {
   
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
         
         // 恢复备份
         if indexPath.row == 0 {

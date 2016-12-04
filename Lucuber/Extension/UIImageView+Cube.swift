@@ -148,6 +148,7 @@ extension UIImageView {
         CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width,imageExtesion: CubeImageCache.imageExtension.png, completion: {
             [weak self] url, image, cacheType in
             
+            printLog(image)
             guard
                 let strongSelf = self,
                 let attachmentURL = strongSelf.imageAttachmentURL,

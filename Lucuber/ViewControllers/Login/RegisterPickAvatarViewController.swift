@@ -126,11 +126,12 @@ class RegisterPickAvatarViewController: UIViewController {
             
         }, completion: { URLString in
             
-            UserDefaults.setNewUser(avatarURL: URLString)
+            
+            UserDefaults.setNewUser(avatarURL: URLString ?? "")
             
             
             if let currentUser = AVUser.current() {
-                currentUser.setAvatorImageURL(URLString)
+                currentUser.setAvatorImageURL(URLString ?? "")
                 currentUser.setNickname(self.nickName!)
                 currentUser.setLocalObjcetID(RUser.randomLocalObjectID())
                 currentUser.saveInBackground()

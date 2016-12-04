@@ -24,28 +24,30 @@ class MyFormulaViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        afterUploadFormulaInformationNotificationToken = formulasData.addNotificationBlock { [weak self] changes in
-            
-            guard let strongSelf = self else {
-                return
-            }
-            
-            switch changes {
-                
-            case .initial(_):
-                strongSelf.collectionView?.reloadData()
-                printLog("初始化数据刷新了")
-                
-            case .update(_, deletions: _, insertions: _, modifications: _):
-                
-                strongSelf.collectionView?.reloadData()
-                printLog("更新数据刷新了")
-                
-            default:break
-            }
-        }
+//        afterUploadFormulaInformationNotificationToken = formulasData.addNotificationBlock { [weak self] changes in
+//            
+//            guard let strongSelf = self else {
+//                return
+//            }
+//            
+//            switch changes {
+//                
+//            case .initial(_):
+//                strongSelf.collectionView?.reloadData()
+//                printLog("初始化数据刷新了")
+//                
+//            case .update(_, deletions: _, insertions: _, modifications: _):
+//                
+//                strongSelf.collectionView?.reloadData()
+//                printLog("更新数据刷新了")
+//                
+//            default:break
+//            }
+//        }
         
-        userMode = .card
+        NotificationCenter.default.addObserver(self, selector: #selector(MyFormulaViewController.afterUploadInformation), name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
+        
+        userMode = .normal
         uploadMode = .my
         
         seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
@@ -54,12 +56,23 @@ class MyFormulaViewController: BaseCollectionViewController {
       
     }
     
+    deinit {
+        afterUploadFormulaInformationNotificationToken?.stop()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func afterUploadInformation() {
+        printLog("数据更新了")
+        collectionView?.reloadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         guard let realm = try? Realm() else {
             return
         }
+        
         // 如果用户删除公式后, 此 category 为空, 重设 seletedCategory 为 x3x3
         if formulasCountWith(uploadMode, category: seletedCategory, inRealm: realm) <= 0 {
             

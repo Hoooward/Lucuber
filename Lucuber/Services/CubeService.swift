@@ -7,6 +7,7 @@
 import Foundation
 import AVOSCloud
 import RealmSwift
+import PKHUD
 
 
 public enum ErrorCode: String {
@@ -85,7 +86,7 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
 }
 
 
-public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLString: String) -> Void) {
+public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLString: String?) -> Void) {
     
     guard let data = data else {
         failureHandler(Reason.noData, "传入的 Data 为空")
@@ -95,7 +96,7 @@ public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping Fail
     let file = AVFile(data: data)
     file.saveInBackground { success, error in
         if success {
-            completion(file.url ?? "")
+            completion(file.url)
         }
         if error != nil {
             failureHandler(Reason.network(error), "网络请求失败")
@@ -295,14 +296,16 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
             
         }, completion: { URLString in
             
-            discoverMessage.attachmentURLString = URLString
-            
-            let realm = message.realm
-            try? realm? .write {
-                message.attachmentURLString = URLString
+            if let URLString = URLString {
+                
+                discoverMessage.attachmentURLString = URLString
+                let realm = message.realm
+                try? realm? .write {
+                    message.attachmentURLString = URLString
+                }
+                discoverMessage.saveInBackground(messageSavedCompletion)
             }
             
-            discoverMessage.saveInBackground(messageSavedCompletion)
             
         })
         
@@ -391,19 +394,28 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
             
         }, completion: { imageURLString in
             
-            newDiscoverFormula.imageURL = imageURLString
-            
-            let realm = newFormula.realm
-            try? realm?.write {
-                newFormula.imageURL = imageURLString
+            if let imageURLString = imageURLString {
+                
+                printLog(imageURLString)
+                newDiscoverFormula.imageURL = imageURLString
+                
+                let realm = newFormula.realm
+                try? realm?.write {
+                    newFormula.imageURL = imageURLString
+                }
+                
+                if let newResizeImage = newResizeImage {
+                    CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newResizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
+                    
+                    FileManager.removeFormulaLocalImageData(with: newFormula.localObjectID)
+                }
+                
+            } else {
+               
+                printLog("URLString 为空")
             }
             
-            if let newResizeImage = newResizeImage {
-                
-                CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newResizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
-                
-                FileManager.removeFormulaLocalImageData(with: newFormula.localObjectID)
-            }
+            
             
             AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: saveAllObject)
             
@@ -425,8 +437,119 @@ public func pushCurrentUserUpdateInformation() {
         return
     }
     
+    func pushDeletedByCreatorFormulaInfomation(nextMission: @escaping () -> Void) {
+        // Leanclooud 断标记删除的内容
+        if let currentUser = currentUser(in: realm) {
+            
+            let deletedFormula = deleteByCreatorFormula(with: currentUser, inRealm: realm)
+            var discoverFormulas = [DiscoverFormula]()
+            
+            // 如果不为空, 转换模型
+            if !deletedFormula.isEmpty {
+                
+                for formula in deletedFormula {
+                    
+                    if formula.lcObjectID == "" {
+                        
+                        try? realm.write {
+                            realm.delete(formula)
+                        }
+                        
+                    } else {
+                        
+                        let discoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: formula.lcObjectID)
+                        
+                        discoverFormula.setValue(true, forKey: "deletedByCreator")
+                        
+                        discoverFormulas.append(discoverFormula)
+                    }
+                }
+                
+            // 如果为空执行下一个任务
+            } else {
+                nextMission()
+            }
+            
+            if !discoverFormulas.isEmpty {
+                
+                AVObject.saveAll(inBackground: discoverFormulas, block: { success, error in
+                    
+                    
+                    if error != nil {
+                        defaultFailureHandler(Reason.network(error), "删除公式推送失败")
+                        nextMission()
+                    }
+                    
+                    if success {
+                        printLog("删除公式推送成功, 共删除 \(discoverFormulas.count) 个公式")
+                        try? realm.write {
+                            realm.delete(deletedFormula)
+                        }
+                        nextMission()
+                    }
+                    
+                })
+            }
+        }
+    }
+    
+    
+    func pushDeletedByCreatorContentInformation() {
+        
+        if let currentUser = currentUser(in: realm) {
+            let deletedContents = deleteByCreatorRContent(with: currentUser, inRealm: realm)
+            
+            var discoverContents = [DiscoverContent]()
+            if !deletedContents.isEmpty {
+                
+                for content in deletedContents {
+                    
+                    if content.lcObjectID == "" {
+                        try? realm.write {
+                            realm.delete(content)
+                        }
+                        
+                    } else {
+                        
+                        let discoverContent = DiscoverContent(className: "DiscoverContent", objectId: content.lcObjectID)
+                        discoverContent.setValue(true, forKey: "deletedByCreator")
+                        discoverContents.append(discoverContent)
+                    }
+                }
+            } else {
+                
+                HUD.flash(.label("上传新公式成功"), delay: 2.0)
+                NotificationCenter.default.post(name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
+            }
+            
+            if !discoverContents.isEmpty {
+                
+                AVObject.saveAll(inBackground: discoverContents, block: { success, error in
+                    
+                    if error != nil {
+                        defaultFailureHandler(Reason.network(error), "删除公式Content推送失败")
+                        HUD.flash(.label("上传新公式失败"), delay: 2.0)
+                    }
+                    
+                    if success {
+                        
+                        printLog("删除公式Content信息推送成功, 共删除 \(discoverContents.count) 个Content")
+                        try? realm.write {
+                            realm.delete(deletedContents)
+                        }
+                        HUD.flash(.label("上传新公式成功"), delay: 2.0)
+                        NotificationCenter.default.post(name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
+                    }
+                })
+            }
+        }
+        
+    }
+    HUD.show(.label("正在上传新公式数据"))
+    
     if let currentUser = currentUser(in: realm) {
         // 更新用户修改的公式
+        
         let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
         
         if !unPusheFormula.isEmpty {
@@ -437,96 +560,27 @@ public func pushCurrentUserUpdateInformation() {
                     reason, errorMessage in
                     
                     defaultFailureHandler(reason, errorMessage)
+                    HUD.flash(.label("上传新公式失败"), delay: 2.0)
                     
                 }, completion: {
                     _ in
-                    printLog("更新公式信息到Leancloud成功")
+                    
+                    pushDeletedByCreatorFormulaInfomation {
+                        pushDeletedByCreatorContentInformation()
+                    }
+                    
+//                    NotificationCenter.default.post(name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
+//                    printLog("更新公式信息到Leancloud成功")
                 })
             }
-        }
-        // Leanclooud 断标记删除的内容
-        let deletedFormula = deleteByCreatorFormula(with: currentUser, inRealm: realm)
-        var discoverFormulas = [DiscoverFormula]()
-        
-        if !deletedFormula.isEmpty {
+        } else {
             
-            for formula in deletedFormula {
-                
-                if formula.lcObjectID == "" {
-                    
-                    try? realm.write {
-                        realm.delete(formula)
-                    }
-                    
-                } else {
-                    
-                    let discoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: formula.lcObjectID)
-                    
-                    discoverFormula.setValue(true, forKey: "deletedByCreator")
-                    
-                    discoverFormulas.append(discoverFormula)
-                }
+            pushDeletedByCreatorFormulaInfomation {
+                pushDeletedByCreatorContentInformation()
             }
         }
-        
-        if !discoverFormulas.isEmpty {
-            
-            AVObject.saveAll(inBackground: discoverFormulas, block: { success, error in
-                
-                
-                if error != nil {
-                    defaultFailureHandler(Reason.network(error), "删除公式推送失败")
-                }
-                
-                if success {
-                    printLog("删除公式推送成功, 共删除 \(discoverFormulas.count) 个公式")
-                    try? realm.write {
-                        realm.delete(deletedFormula)
-                    }
-                }
-                
-            })
-        }
-        
-        let deletedContents = deleteByCreatorRContent(with: currentUser, inRealm: realm)
-        
-        var discoverContents = [DiscoverContent]()
-        if !deletedContents.isEmpty {
-            
-            for content in deletedContents {
-                
-                if content.lcObjectID == "" {
-                    try? realm.write {
-                        realm.delete(content)
-                    }
-                    
-                } else {
-                    
-                    let discoverContent = DiscoverContent(className: "DiscoverContent", objectId: content.lcObjectID)
-                    discoverContent.setValue(true, forKey: "deletedByCreator")
-                    discoverContents.append(discoverContent)
-                }
-            }
-        }
-        
-        if !discoverContents.isEmpty {
-            
-            AVObject.saveAll(inBackground: discoverContents, block: { success, error in
-                
-                if error != nil {
-                    defaultFailureHandler(Reason.network(error), "删除公式Content推送失败")
-                }
-                
-                if success {
-                    printLog("删除公式Content信息推送成功, 共删除 \(discoverContents.count) 个Content")
-                    try? realm.write {
-                        realm.delete(deletedContents)
-                    }
-                }
-            })
-        }
-        
     }
+
 }
 
 

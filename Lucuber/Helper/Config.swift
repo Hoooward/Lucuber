@@ -26,6 +26,8 @@ extension Notification.Name {
     static let updateDraftOfConversationNotification = Notification.Name("updateDraftOfconversation")
     
     static let newMessageIDsReceivedNotification = Notification.Name("newMessageIDsReceivedn")
+    
+    static let afterUploadUserInformationNotification = Notification.Name("afterUploadUserInformation")
 }
 
 public class Config {
