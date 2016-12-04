@@ -10,6 +10,20 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
+//public let realmQueue = dispatch_queue_create("com.Lucuber.realmQueue", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0))
+
+let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS.utility, attributes: DispatchQueue.Attributes.concurrent)
+
+public func realmConfig() -> Realm.Configuration {
+    
+    var config = Realm.Configuration()
+    config.schemaVersion = 1
+    config.migrationBlock = { migration, oldSchemaVersion in
+    }
+    
+    return config
+}
+
 // MARK: - User
 
 public func creatMeInRealm() -> RUser? {
@@ -106,6 +120,13 @@ public func deleteByCreatorFormula(with currentUser: RUser, inRealm realm: Realm
     let predicate2 = NSPredicate(format: "deletedByCreator = %@", true as CVarArg)
     
     return realm.objects(Formula.self).filter(predicate).filter(predicate2)
+}
+
+public func deleteByCreatorRContent(with currentUser: RUser, inRealm realm: Realm) -> Results<Content> {
+    let predicate = NSPredicate(format: "creator = %@", currentUser)
+    let predicate2 = NSPredicate(format: "deleteByCreator = %@", true as CVarArg)
+    
+    return realm.objects(Content.self).filter(predicate).filter(predicate2)
 }
 
 public func unPushedFormula(with currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {

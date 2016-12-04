@@ -22,7 +22,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         case showFormulaDetail = "ShowFormulaDetail"
     }
     
-    fileprivate var realm: Realm! = try! Realm()
+    public var realm: Realm! = try! Realm()
     
     fileprivate var searchResult: [Formula] = []
     

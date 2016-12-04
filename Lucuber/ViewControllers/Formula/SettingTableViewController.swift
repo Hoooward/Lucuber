@@ -58,7 +58,7 @@ class SettingTableViewController: UITableViewController {
         if indexPath.row == 1 {
             
             
-            pushCurrentUserUpdateInformation()
+//            pushCurrentUserUpdateInformation()
         }
     }
 }

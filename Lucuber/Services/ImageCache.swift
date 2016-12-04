@@ -33,11 +33,11 @@ final class CubeImageCache {
    
     
     func storeAlreadyUploadImageToCache(with image: UIImage, imageExtension: imageExtension, imageURLString: String) {
-        guard let attachmentURL = URL(string: imageURLString) else {
+        guard let attachmentURL = NSURL(string: imageURLString) else {
             return
         }
         
-        let originKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: attachmentURL.absoluteString)
+        let originKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: attachmentURL.absoluteString!)
         
         var originalData: Data?
         

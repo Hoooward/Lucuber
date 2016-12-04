@@ -42,7 +42,6 @@ class DetailContentCell: UITableViewCell {
         
         self.formula = formula
         
-        printLog(formula)
         let rotations: [String] = formula.contents.map {
             $0.rotation
         }

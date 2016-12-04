@@ -88,7 +88,6 @@ class DetailHeaderView: UIView {
     
     fileprivate func updateUI(with formula: Formula) {
         
-        printLog("需要更新的 - \(formula)")
         updateCurrentShowFormula?(formula)
         updateNavigationBar?(formula)
         updateFormulaContentCell?(formula)
