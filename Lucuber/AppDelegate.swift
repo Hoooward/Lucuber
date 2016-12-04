@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        
+        // 配置 Realm
+        Realm.Configuration.defaultConfiguration = realmConfig()
+        
         /// 所有请求是否 Log
         AVOSCloud.setAllLogsEnabled(false)
 

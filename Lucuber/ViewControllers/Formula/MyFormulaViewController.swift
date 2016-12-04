@@ -15,12 +15,35 @@ class MyFormulaViewController: BaseCollectionViewController {
     
     // MARK: - Properties
     
+    var afterUploadFormulaInformationNotificationToken: NotificationToken? = nil
+    
     let refreshControl = UIRefreshControl()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        afterUploadFormulaInformationNotificationToken = formulasData.addNotificationBlock { [weak self] changes in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            switch changes {
+                
+            case .initial(_):
+                strongSelf.collectionView?.reloadData()
+                printLog("初始化数据刷新了")
+                
+            case .update(_, deletions: _, insertions: _, modifications: _):
+                
+                strongSelf.collectionView?.reloadData()
+                printLog("更新数据刷新了")
+                
+            default:break
+            }
+        }
         
         userMode = .card
         uploadMode = .my
@@ -93,127 +116,7 @@ class MyFormulaViewController: BaseCollectionViewController {
         })
     }
     
-    public func pushCurrentUserUpdateInformation() {
-        
-        
-        
-        if let currentUser = currentUser(in: realm) {
-            
-            // 更新用户修改的公式
-            let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
-            
-            if !unPusheFormula.isEmpty {
-                
-                for formula in unPusheFormula {
-                    
-                    pushFormulaToLeancloud(with: formula, failureHandler: {
-                        reason, errorMessage in
-                        
-                        defaultFailureHandler(reason, errorMessage)
-                        
-                    }, completion: {
-                        _ in
-                        self.realm.refresh()
-                        printLog("更新公式信息到Leancloud成功")
-                    })
-                }
-            }
-            // Leanclooud 断标记删除的内容
-            let deletedFormula = deleteByCreatorFormula(with: currentUser, inRealm: realm)
-            var discoverFormulas = [DiscoverFormula]()
-            
-            if !deletedFormula.isEmpty {
-                
-                for formula in deletedFormula {
-                    
-                    if formula.lcObjectID == "" {
-                        
-                        try? realm.write {
-                            realm.delete(formula)
-                        }
-                        realm.refresh()
-                        
-                    } else {
-                        
-                        let discoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: formula.lcObjectID)
-                        
-                       discoverFormula.setValue(true, forKey: "deletedByCreator")
-                        
-                       discoverFormulas.append(discoverFormula)
-                    }
-                }
-            }
-            
-            if !discoverFormulas.isEmpty {
-                
-                AVObject.saveAll(inBackground: discoverFormulas, block: { [weak self] success, error in
-                    
-                    guard let strongSelf = self else {
-                        return
-                    }
-                    
-                    if error != nil {
-                        defaultFailureHandler(Reason.network(error), "删除公式推送失败")
-                    }
-                    
-                    if success {
-                        printLog("删除公式推送成功, 共删除 \(discoverFormulas.count) 个公式")
-                        try? strongSelf.realm.write {
-                            strongSelf.realm.delete(deletedFormula)
-                        }
-                        strongSelf.realm.refresh()
-                    }
-                    
-                })
-            }
-            
-            let deletedContents = deleteByCreatorRContent(with: currentUser, inRealm: realm)
-            
-            var discoverContents = [DiscoverContent]()
-            if !deletedContents.isEmpty {
-                
-                for content in deletedContents {
-                    
-                    if content.lcObjectID == "" {
-                        try? realm.write {
-                            realm.delete(content)
-                        }
-                        realm.refresh()
-                        
-                    } else {
-                        
-                        let discoverContent = DiscoverContent(className: "DiscoverContent", objectId: content.lcObjectID)
-                        discoverContent.setValue(true, forKey: "deletedByCreator")
-                        discoverContents.append(discoverContent)
-                    }
-                }
-            }
-            
-            if !discoverContents.isEmpty {
-               
-                AVObject.saveAll(inBackground: discoverContents, block: { [weak self] success, error in
-                    
-                    guard let strongSelf = self else {
-                        return
-                    }
-                    
-                    if error != nil {
-                        defaultFailureHandler(Reason.network(error), "删除公式Content推送失败")
-                    }
-                    
-                    if success {
-                        printLog("删除公式Content信息推送成功, 共删除 \(discoverContents.count) 个Content")
-                        try? strongSelf.realm.write {
-                            strongSelf.realm.delete(deletedContents)
-                        }
-                        strongSelf.realm.refresh()
-                    }
-                })
-            }
-            
-            
-        }
-    }
+ 
     
 }
 
