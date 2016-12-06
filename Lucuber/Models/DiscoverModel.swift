@@ -104,7 +104,15 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var messagesCount: Int
     
     @NSManaged var body: String
-    @NSManaged var kind: String
+    @NSManaged var kindString: String
+    
+    
+    var kind: FeedKind {
+        if let kind = FeedKind(rawValue: kindString) {
+            return kind
+        }
+        return FeedKind.text
+    }
     
     @NSManaged var deleted: Bool
     @NSManaged var withFormula: DiscoverFormula?

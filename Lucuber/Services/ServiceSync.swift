@@ -275,29 +275,39 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     
 }
 
-internal func fetchDiscoverFeed( uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: NSDate, completion: (([Feed]) -> Void)?, failureHandler: ((NSError) -> Void)? ) {
-    
+internal func fetchDiscoverFeed(with kind: FeedKind, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
+                                                                                                                           
     let query = AVQuery(className: DiscoverFeed.parseClassName())
-    
-//    query.addDescendingOrder(AVQuery.DefaultKey.updatedTime.rawValue)
     query.limit = 20
     
-    switch category {
+    switch kind {
         
-    case .All:
-        // Do Noting
+    case .text:
         break
         
-    case .Topic:
-        // Do Noting
+    case .image:
         break
         
-    case .Formula:
-        query.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Formula.rawValue)
+    case .url:
+        break
         
-    case .Record:
-        query.whereKey(Feed.Feedkey_category, equalTo: FeedCategory.Record.rawValue)
+    case .audio:
+        break
         
+    case .location:
+        break
+        
+    case .video:
+        break
+        
+    case .formula:
+        query.whereKey("categoryString", equalTo: FeedCategory.formula.rawValue)
+        
+    case .record:
+        query.whereKey("categoryString", equalTo: FeedCategory.record.rawValue)
+        
+    default:
+        break
     }
     
     switch uploadingFeedMode {
@@ -305,22 +315,19 @@ internal func fetchDiscoverFeed( uploadingFeedMode: UploadFeedMode, lastFeedCrea
     case .top:
         // Do Noting
         break
-        
     case .loadMore:
-        query.whereKey(AVQuery.DefaultKey.creatTime.rawValue, lessThan: lastFeedCreatDate)
+        query.whereKey("createAt", lessThan: lastFeedCreatDate)
     }
     
     query.findObjectsInBackground { newFeeds, error in
         
         if error != nil {
             
-            failureHandler?(error as! NSError)
+            failureHandler(Reason.network(error), "请求 Feed 失败")
             
         } else {
             
-            if let newFeeds = newFeeds as? [Feed] {
-                
-                //                printLog("newFeeds.count = \(newFeeds.count)")
+            if let newFeeds = newFeeds as? [DiscoverFeed] {
                 completion?(newFeeds)
             }
         }

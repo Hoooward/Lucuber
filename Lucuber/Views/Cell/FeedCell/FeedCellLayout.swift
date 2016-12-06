@@ -44,11 +44,11 @@ struct FeedCellLayout {
     var height: CGFloat = 0
     
     
-    init(feed: DiscoverFormula) {
+    init(feed: DiscoverFeed) {
         
         
-        switch feed.attachment {
-        case .Text:
+        switch feed.kind {
+        case .text:
             height = FeedBaseCell.heightOfFeed(feed: feed)
         case .Image(let imagesAttachments):
             if imagesAttachments.count > 1 {

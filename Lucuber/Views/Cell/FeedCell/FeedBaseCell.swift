@@ -17,7 +17,7 @@ class FeedBaseCell: UITableViewCell {
         return maxWidth
     }()
     
-    var feed: Feed?
+    var feed: DiscoverFeed?
     
     var tapAvataraction: ((FeedBaseCell) -> Void)?
     
@@ -26,20 +26,20 @@ class FeedBaseCell: UITableViewCell {
     var touchesCancelledAction: ((UITableViewCell) -> Void)?
     
     /// 通过Feed内容计算高度
-    class func heightOfFeed(feed: Feed) -> CGFloat {
+    class func heightOfFeed(feed: DiscoverFeed) -> CGFloat {
         
-        let rect = (feed.contentBody! as NSString).boundingRect(with: CGSize(width: FeedBaseCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17)], context: nil)
+        let rect = (feed.body as NSString).boundingRect(with: CGSize(width: FeedBaseCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17)], context: nil)
         
         let height: CGFloat = 10 + 40 + ceil(rect.height) + 4 + 15 + 17 + 15
         return ceil(height)
     }
     
     
-    func configureWithFeed(feed: Feed, layout: FeedCellLayout, needshowCategory: Bool) {
+    func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
         self.feed = feed
         let defaultLayout = layout.defaultLayout
         
-        messageTextView.text = "\(feed.contentBody!)" // ref http://stackoverflow.com/a/25994821
+        messageTextView.text = "\(feed.body)" // ref http://stackoverflow.com/a/25994821
         //println("messageTextView.text: >>>\(messageTextView.text)<<<")
         messageTextView.frame = defaultLayout.messageTextViewFrame
         
@@ -50,9 +50,8 @@ class FeedBaseCell: UITableViewCell {
         avatarImageView.image = UIImage(named: "Howard")
         avatarImageView.frame = defaultLayout.avatarImageViewFrame
         
-        categoryButton.setTitle(feed.category, for: .normal)
+        categoryButton.setTitle(feed.kind.rawValue, for: .normal)
         categoryButton.frame = defaultLayout.categoryButtonFrame
-        
         
         
         leftBottomLabel.text = "1小时前"

@@ -667,6 +667,8 @@ public enum FeedKind: String {
     case video = "video"
     case audio = "audio"
     case location = "location"
+    case formula = "formula"
+    case record = "record"
     
     case AppleMusic = "apple_music"
     case AppleMovie = "apple_movie"

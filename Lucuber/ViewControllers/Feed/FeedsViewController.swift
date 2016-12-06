@@ -13,7 +13,7 @@ struct LayoutCatch {
     
     var FeedCellLayoutHash = [String: FeedCellLayout]()
     
-    mutating func FeedCellLayoutOfFeed(feed: DiscoverFormula) -> FeedCellLayout {
+    mutating func FeedCellLayoutOfFeed(feed: DiscoverFeed) -> FeedCellLayout {
         let key = feed.objectId ?? ""
         
         if let layout = FeedCellLayoutHash[key] {
@@ -27,7 +27,7 @@ struct LayoutCatch {
         }
     }
     
-    mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: DiscoverFormula) {
+    mutating func updateFeedCellLayout(layout: FeedCellLayout, forFeed feed: DiscoverFeed) {
         let key = feed.objectId ?? ""
         
         if !key.isEmpty {
@@ -35,7 +35,7 @@ struct LayoutCatch {
         }
     }
     
-    mutating func heightOfFeed(feed: DiscoverFormula) -> CGFloat {
+    mutating func heightOfFeed(feed: DiscoverFeed) -> CGFloat {
         let layout = FeedCellLayoutOfFeed(feed: feed)
         return layout.height
     }
@@ -213,11 +213,13 @@ class FeedsViewController: UIViewController {
             loadingFeedsIndicator.startAnimating()
         }
         
-        let failureHandler: (_ error: NSError) -> Void  = { error in
+        let failureHandler: FailureHandler  = { reason, errorMessage in
+            
+            defaultFailureHandler(reason, errorMessage)
             
                 DispatchQueue.main.async { [weak self] in
                     
-                    CubeAlert.alertSorry(message: error.localizedFailureReason, inViewController: self)
+//                    CubeAlert.alertSorry(message: error.localizedFailureReason, inViewController: self)
                     
                     self?.loadingFeedsIndicator.stopAnimating()
                     self?.refreshControl.endRefreshing()
@@ -292,13 +294,15 @@ class FeedsViewController: UIViewController {
             
         }  else {
             
+            // 设定排序
             var feedStoryStyle = self.feedSortStyle
             
             
         }
         
-        fetchFeedWithCategory(category: FeedCategory.All, uploadingFeedMode: mode,lastFeedCreatDate: lastFeedCreatedDate, completion: completion, failureHandler: failureHandler)
-    }
+        fetchDiscoverFeed(with: FeedKind.text, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
+        
+     }
     
     // MARK: - Target & Action
     
@@ -360,7 +364,34 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError()
         }
         
-        func cellForFeed(feed: Feed) -> UITableViewCell {
+        func cellForFeed(feed: DiscoverFeed) -> UITableViewCell {
+            
+            switch feed.kind {
+                
+            case .text:
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
+                
+                cell.configureWithFeed(feed, layout: FeedsViewController.layoutCatch.FeedCellLayoutOfFeed(feed: feed), needshowCategory: false)
+                
+                return cell
+                
+            case .url:
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: feedu, for: <#T##IndexPath#>)
+                
+            default:
+                break
+            }
+            
+            
+            switch feed.attachment {
+            case .:
+                
+            default:
+                <#code#>
+            }
+            
             
             switch feed.attachment {
                 
