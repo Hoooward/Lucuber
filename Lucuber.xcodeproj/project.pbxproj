@@ -29,6 +29,7 @@
 		E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4217F231D962C4B00E575AB /* CategoryMenuController.swift */; };
 		E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4217F291D96655100E575AB /* NewFormula.storyboard */; };
 		E424A8661DF6CF27008A6AD0 /* FeedURLContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424A8651DF6CF27008A6AD0 /* FeedURLContainerView.swift */; };
+		E424A8681DF6D7A4008A6AD0 /* FeedURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424A8671DF6D7A4008A6AD0 /* FeedURLCell.swift */; };
 		E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
 		E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
 		E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */; };
@@ -268,6 +269,7 @@
 		E4217F231D962C4B00E575AB /* CategoryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMenuController.swift; sourceTree = "<group>"; };
 		E4217F291D96655100E575AB /* NewFormula.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewFormula.storyboard; sourceTree = "<group>"; };
 		E424A8651DF6CF27008A6AD0 /* FeedURLContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedURLContainerView.swift; sourceTree = "<group>"; };
+		E424A8671DF6D7A4008A6AD0 /* FeedURLCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedURLCell.swift; sourceTree = "<group>"; };
 		E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailContentCell.xib; sourceTree = "<group>"; };
 		E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FormulaDetail.storyboard; sourceTree = "<group>"; };
 		E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetailViewController.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 				E4CED7B61DE862770036A11C /* LoadMoreCell */,
 				E4CED7B91DE862770036A11C /* MediaCell */,
 				E424A8651DF6CF27008A6AD0 /* FeedURLContainerView.swift */,
+				E424A8671DF6D7A4008A6AD0 /* FeedURLCell.swift */,
 			);
 			path = FeedCell;
 			sourceTree = "<group>";
@@ -1884,6 +1887,7 @@
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */,
+				E424A8681DF6D7A4008A6AD0 /* FeedURLCell.swift in Sources */,
 				E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */,
 				E4CED8691DE862770036A11C /* NameTextViewCell.swift in Sources */,
 				E4CED8811DE862770036A11C /* KeyButton.swift in Sources */,
