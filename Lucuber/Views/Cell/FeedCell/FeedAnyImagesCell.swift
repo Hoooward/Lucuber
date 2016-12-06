@@ -14,20 +14,20 @@ class FeedAnyImagesCell: FeedBaseCell  {
     
     var tapMediaAction: tapMediaActionTypealias
     
-    override class func heightOfFeed(feed: Feed) -> CGFloat {
+    override class func heightOfFeed(feed: DiscoverFeed) -> CGFloat {
         
         let height = super.heightOfFeed(feed: feed) + Config.FeedAnyImagesCell.imageSize.height + 15
         
         return ceil(height)
     }
     
-    override func configureWithFeed(feed: Feed, layout: FeedCellLayout, needshowCategory: Bool) {
-        super.configureWithFeed(feed: feed, layout: layout, needshowCategory: needshowCategory)
+    override func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
+        super.configureWithFeed(feed, layout: layout, needshowCategory: needshowCategory)
         
         
-        switch feed.attachments {
+        switch feed.attachment {
             
-        case .Image(let imageAttachments):
+        case .images(let imageAttachments):
             self.imageAttachments = imageAttachments
             
         default:

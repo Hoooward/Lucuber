@@ -49,6 +49,12 @@ class FeedsViewController: UIViewController {
 //    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
 
     
+    var seletedFeedCategory: FeedCategory?
+    
+    var needShowCategory: Bool {
+        return (seletedFeedCategory == nil) ? true : false
+    }
+    
     var feeds = [DiscoverFeed]()
     var uploadingFeeds = [DiscoverFeed]()
     
@@ -99,6 +105,7 @@ class FeedsViewController: UIViewController {
     fileprivate let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
     fileprivate let FeedAnyImagesCellIdentifier = "FeedAnyImagesCell"
     fileprivate let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
+    fileprivate let FeedURLCellIdentifier = "FeedURLCell"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -275,7 +282,7 @@ class FeedsViewController: UIViewController {
                     let newFeedCount = strongSelf.feeds.count
                     
                     let indexPaths = Array(oldFeedsCount..<newFeedCount).map {
-                        IndexPath(row: $0, section: Section.Feed.rawValue)
+                        IndexPath(row: $0, section: Section.feed.rawValue)
                     }
                     
                     wayToUpdata = .insert(indexPaths )
@@ -300,7 +307,7 @@ class FeedsViewController: UIViewController {
             
         }
         
-        fetchDiscoverFeed(with: FeedKind.text, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
+        fetchDiscoverFeed(with: FeedCategory.text, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
         
      }
     
@@ -329,7 +336,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
     enum Section: Int {
         case uploadingFeed = 0
-        case Feed
+        case feed
         case loadMore
     }
     
@@ -348,7 +355,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         case .uploadingFeed:
             return uploadingFeeds.count
             
-        case .Feed:
+        case .feed:
             return feeds.count
             
         case .loadMore:
@@ -366,7 +373,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         
         func cellForFeed(feed: DiscoverFeed) -> UITableViewCell {
             
-            switch feed.kind {
+            switch feed.category {
                 
             case .text:
                 
@@ -378,48 +385,24 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 
             case .url:
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: feedu, for: <#T##IndexPath#>)
-                
-            default:
-                break
-            }
-            
-            
-            switch feed.attachment {
-            case .:
-                
-            default:
-                <#code#>
-            }
-            
-            
-            switch feed.attachment {
-                
-            case .Text:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
-                cell.configureWithFeed(feed: feed, layout: FeedsViewController.layoutCatch.FeedCellLayoutOfFeed(feed: feed), needshowCategory: false)
+                let cell = tableView.dequeueReusableCell(withIdentifier: FeedURLCellIdentifier, for: indexPath) as! FeedURLCell
                 return cell
                 
-            case .Image(let imagesAttachments):
                 
-                if imagesAttachments.count  > 1 {
+            case .image:
+                
+                if feed.imageAttachmentsCount == 1 {
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: FeedBiggerImageCellIdentifier, for: indexPath) as! FeedBiggerImageCell
+                    return cell
+                } else {
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: FeedAnyImagesCellIdentifier, for: indexPath) as! FeedAnyImagesCell
-                    
-                    cell.configureWithFeed(feed: feed, layout: FeedsViewController.layoutCatch.FeedCellLayoutOfFeed(feed: feed), needshowCategory: false)
-                    
                     return cell
                 }
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: FeedBiggerImageCellIdentifier, for: indexPath) as! FeedBiggerImageCell
-                
-                cell.configureWithFeed(feed: feed, layout: FeedsViewController.layoutCatch.FeedCellLayoutOfFeed(feed: feed), needshowCategory: false)
-                
-                return cell
-                
             default:
-                return UITableViewCell()
+                break
             }
         }
         
@@ -429,7 +412,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             let feed = uploadingFeeds[indexPath.row]
             return cellForFeed(feed: feed)
             
-        case .Feed:
+        case .feed:
             let feed = feeds[indexPath.row]
             return cellForFeed(feed: feed)
             
@@ -448,10 +431,81 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         
+        func configureFeedCell(cell: UITableViewCell, withFeed feed: DiscoverFeed) {
+            
+            guard let cell = cell as? FeedBaseCell else {
+                return
+            }
+            
+//            cell.needsShowLocation
+            
+            cell.tapAvatarAction = { [weak self] cell in
+                guard
+                    let strongSelf = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                printLog("点击头像在indexPath: \(indexPath)")
+                strongSelf.performSegue(withIdentifier: "", sender: indexPath)
+            }
+            
+            
+            cell.tapKindAction = { [weak self] cell in
+                guard
+                    let strongSelf = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                printLog("点击Kind在indexPath: \(indexPath)")
+                strongSelf.performSegue(withIdentifier: "", sender: indexPath)
+            }
+            
+            cell.touchesBeganAction = { [weak self] cell in
+                guard
+                    let strongSelf = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                strongSelf.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                
+            }
+            
+            cell.touchesEndedAction = { [weak self] cell in
+                guard
+                    let _ = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                delay(0.03) {
+                    [weak self] in
+                    self?.tableView(tableView, didSelectRowAt: indexPath)
+                }
+            }
+            
+            cell.touchesCancelledAction = { [weak self] cell in
+                guard
+                    let strongSelf = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                strongSelf.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            
+            let layout = FeedsViewController.layoutCatch.FeedCellLayoutOfFeed(feed: feed)
+            
+            switch feed.category {
+            case .text:
+                
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                
+            default:
+                break
+            }
+        }
         
         switch section {
             
-        case .Feed:
+        case .feed:
             
             _ = feeds[indexPath.row]
             
@@ -524,7 +578,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             let feed = uploadingFeeds[indexPath.row]
             return FeedsViewController.layoutCatch.heightOfFeed(feed: feed)
             
-        case .Feed :
+        case .feed :
             let feed = feeds[indexPath.row]
             return FeedsViewController.layoutCatch.heightOfFeed(feed: feed)
             

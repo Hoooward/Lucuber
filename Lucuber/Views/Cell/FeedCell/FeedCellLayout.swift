@@ -47,10 +47,10 @@ struct FeedCellLayout {
     init(feed: DiscoverFeed) {
         
         
-        switch feed.kind {
+        switch feed.category {
         case .text:
             height = FeedBaseCell.heightOfFeed(feed: feed)
-        case .Image(let imagesAttachments):
+        case .images(let imagesAttachments):
             if imagesAttachments.count > 1 {
                 height = FeedAnyImagesCell.heightOfFeed(feed: feed)
             } else {
@@ -65,7 +65,7 @@ struct FeedCellLayout {
         let nicknameLabelFrame: CGRect
         let categoryButtonFrame: CGRect
         
-        if let category = FeedCategory(rawValue: feed.category) {
+        if let category = FeedCategory(rawValue: feed.categoryString) {
             
             let rect = (category.rawValue as NSString).boundingRect(with: CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.FeedDetailCell.categryButtonAttributies, context: nil)
             
@@ -83,7 +83,7 @@ struct FeedCellLayout {
             categoryButtonFrame = CGRect.zero
         }
         
-        let rect1 = (feed.contentBody! as NSString).boundingRect(with: CGSize(width: FeedBaseCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesFontLeading, .usesLineFragmentOrigin], attributes: Config.FeedDetailCell.messageTextViewAttributies, context: nil)
+        let rect1 = (feed.body as NSString).boundingRect(with: CGSize(width: FeedBaseCell.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesFontLeading, .usesLineFragmentOrigin], attributes: Config.FeedDetailCell.messageTextViewAttributies, context: nil)
         
         let messageTextViewHeight = ceil(rect1.height)
         let messageTextViewFrame = CGRect(x: 65, y: 54, width: screenWidth - 65 - 15, height: messageTextViewHeight)
@@ -112,7 +112,7 @@ struct FeedCellLayout {
         
         switch feed.attachment {
             
-        case .Image(let imagesAttachments):
+        case .images(let imagesAttachments):
             
             if imagesAttachments.count > 1 {
                 

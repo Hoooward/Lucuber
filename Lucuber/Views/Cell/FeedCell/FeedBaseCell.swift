@@ -19,7 +19,8 @@ class FeedBaseCell: UITableViewCell {
     
     var feed: DiscoverFeed?
     
-    var tapAvataraction: ((FeedBaseCell) -> Void)?
+    var tapAvatarAction: ((FeedBaseCell) -> Void)?
+    var tapKindAction: ((FeedBaseCell) -> Void)?
     
     var touchesBeganAction: ((UITableViewCell) -> Void)?
     var touchesEndedAction: ((UITableViewCell) -> Void)?
@@ -50,7 +51,7 @@ class FeedBaseCell: UITableViewCell {
         avatarImageView.image = UIImage(named: "Howard")
         avatarImageView.frame = defaultLayout.avatarImageViewFrame
         
-        categoryButton.setTitle(feed.kind.rawValue, for: .normal)
+        categoryButton.setTitle(feed.category.rawValue, for: .normal)
         categoryButton.frame = defaultLayout.categoryButtonFrame
         
         

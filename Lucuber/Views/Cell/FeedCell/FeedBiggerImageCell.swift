@@ -13,22 +13,22 @@ class FeedBiggerImageCell: FeedBaseCell {
     
     var tapMediaAction: tapMediaActionTypealias = nil
     
-    override class func heightOfFeed(feed: Feed) -> CGFloat {
+    override class func heightOfFeed(feed: DiscoverFeed) -> CGFloat {
         
         let height = super.heightOfFeed(feed: feed) + Config.FeedBiggerImageCell.imageSize.height + 15
         return ceil(height)
         
     }
     
-    override func configureWithFeed(feed: Feed, layout: FeedCellLayout, needshowCategory: Bool) {
-        super.configureWithFeed(feed: feed, layout: layout, needshowCategory: needshowCategory)
+    override func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
+        super.configureWithFeed(feed, layout: layout, needshowCategory: needshowCategory)
         
         if let biggerImageLayout = layout.biggerImageLayout {
             biggerImageView.frame = biggerImageLayout.biggerImageViewFrame
         }
         
         switch feed.attachment {
-        case .Image(let imageAttachments):
+        case .images(let imageAttachments):
             
             if let attachment = imageAttachments.first {
                 //大图还是使用原始大小的图片.
@@ -67,7 +67,7 @@ class FeedBiggerImageCell: FeedBaseCell {
         
         if let feed = feed {
             switch feed.attachment {
-            case .Image(let imageAttachments):
+            case .images(let imageAttachments):
                 tapMediaAction?(biggerImageView, biggerImageView.image, imageAttachments , 0)
             default:
                 break

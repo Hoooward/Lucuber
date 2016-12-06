@@ -275,7 +275,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     
 }
 
-internal func fetchDiscoverFeed(with kind: FeedKind, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
+internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
                                                                                                                            
     let query = AVQuery(className: DiscoverFeed.parseClassName())
     query.limit = 20

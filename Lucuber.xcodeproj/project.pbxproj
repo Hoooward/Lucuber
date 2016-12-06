@@ -66,6 +66,7 @@
 		E4443DE81DEB414300BC9632 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
 		E4443DE91DEB414300BC9632 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
 		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
+		E44D3B511DF6F40F00673FFD /* LoadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B71DE862770036A11C /* LoadMoreTableViewCell.swift */; };
 		E45378A51DEAAF9400A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
@@ -1772,6 +1773,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E44D3B511DF6F40F00673FFD /* LoadMoreTableViewCell.swift in Sources */,
 				E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */,
 				E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */,
 				E4CE8B2A1DF42A0A00944099 /* FeedBiggerImageCell.swift in Sources */,

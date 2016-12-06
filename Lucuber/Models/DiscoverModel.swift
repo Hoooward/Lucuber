@@ -104,14 +104,14 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var messagesCount: Int
     
     @NSManaged var body: String
-    @NSManaged var kindString: String
+    @NSManaged var categoryString: String
     
     
-    var kind: FeedKind {
-        if let kind = FeedKind(rawValue: kindString) {
-            return kind
+    var category: FeedCategory {
+        if let category = FeedCategory(rawValue: categoryString) {
+            return category
         }
-        return FeedKind.text
+        return FeedCategory.text
     }
     
     @NSManaged var deleted: Bool
@@ -126,9 +126,9 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     
     public var hasMapImage: Bool {
         
-        if let kind = FeedKind(rawValue: kind) {
+        if let category = FeedCategory(rawValue: categoryString) {
             
-            switch kind {
+            switch category {
             case .location:
                 return true
             default:
@@ -168,9 +168,9 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     }
     
     public enum Attachment  {
-        case Images([ImageAttachment])
-        case Audio(AudioInfo)
-        case Location(LocationInfo)
+        case images([ImageAttachment])
+        case audio(AudioInfo)
+        case location(LocationInfo)
         case URL(OpenGraphInfo)
     }
     
@@ -181,7 +181,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         if let attachment = attachment {
             
             switch attachment {
-            case .Images(let attachments):
+            case .images(let attachments):
                 return attachments
             default:
                 return nil

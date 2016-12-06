@@ -659,7 +659,7 @@ public enum FeedSortStyle: String {
     }
 }
 
-public enum FeedKind: String {
+public enum FeedCategory: String {
     
     case text = "text"
     case url = "web_page"
@@ -696,12 +696,12 @@ public enum FeedKind: String {
     }
 }
 
-public enum FeedCategory: String {
-    case all = "所有"
-    case formula = "公式"
-    case record = "成绩"
-    case topic = "话题"
-}
+//public enum FeedCategory: String {
+//    case all = "所有"
+//    case formula = "公式"
+//    case record = "成绩"
+//    case topic = "话题"
+//}
 
 open class Attachment: Object {
     
@@ -735,7 +735,7 @@ open class Feed: Object {
     //    dynamic var distance: Double = 0
     open dynamic var messagesCount: Int = 0
     open dynamic var body: String = ""
-    open dynamic var kind: String = FeedKind.text.rawValue
+    open dynamic var categoryString: String = FeedCategory.text.rawValue
     
     open var attachments = List<Attachment>()
     open dynamic var audio: FeedAudio?
