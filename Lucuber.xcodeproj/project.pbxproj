@@ -67,6 +67,7 @@
 		E4443DE91DEB414300BC9632 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
 		E44547B71DE6B5BC006816EF /* ServiceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44547B61DE6B5BC006816EF /* ServiceSync.swift */; };
 		E44D3B511DF6F40F00673FFD /* LoadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B71DE862770036A11C /* LoadMoreTableViewCell.swift */; };
+		E44D3B531DF6F69D00673FFD /* URL+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D3B521DF6F69D00673FFD /* URL+Cube.swift */; };
 		E45378A51DEAAF9400A65F43 /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
@@ -279,6 +280,7 @@
 		E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseModel.swift; sourceTree = "<group>"; };
 		E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverModel.swift; sourceTree = "<group>"; };
 		E44547B61DE6B5BC006816EF /* ServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSync.swift; sourceTree = "<group>"; };
+		E44D3B521DF6F69D00673FFD /* URL+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Cube.swift"; sourceTree = "<group>"; };
 		E45378A41DEAAF9400A65F43 /* SendingMessagePool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingMessagePool.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E459DF3C1DB491E200A0E1E0 /* CubeServiceSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeServiceSync.swift; sourceTree = "<group>"; };
@@ -1377,6 +1379,7 @@
 				E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */,
 				E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */,
 				E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */,
+				E44D3B521DF6F69D00673FFD /* URL+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1829,6 +1832,7 @@
 				E4CED8731DE862770036A11C /* TypeSelectedCell.swift in Sources */,
 				E4CED86F1DE862770036A11C /* StarRatingCell.swift in Sources */,
 				E47926261D968CDB004D58BF /* Keyboard.swift in Sources */,
+				E44D3B531DF6F69D00673FFD /* URL+Cube.swift in Sources */,
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
 				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,

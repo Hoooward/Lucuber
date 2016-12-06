@@ -401,9 +401,13 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     return cell
                 }
                 
+                // TODO: - 其他类型的 Cell
+                
             default:
-                break
+                  let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
+                return cell
             }
+            
         }
         
         switch section {
@@ -417,12 +421,10 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             return cellForFeed(feed: feed)
             
         case .loadMore:
-            
             return tableView.dequeueReusableCell(withIdentifier: LoadMoreTableViewCellIdentifier, for: indexPath)
         }
         
     }
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
@@ -431,6 +433,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         
+        // 设置Cell公共的闭包
         func configureFeedCell(cell: UITableViewCell, withFeed feed: DiscoverFeed) {
             
             guard let cell = cell as? FeedBaseCell else {
@@ -497,6 +500,20 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             case .text:
                 
                 cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                
+            case .url:
+                
+                guard let cell = cell as? FeedURLCell else {
+                    break
+                }
+                
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                
+                cell.tapURLInfoAction = { [weak self] URL in
+                    printLog("打开URL \(URL)")
+                    
+                    
+                }
                 
             default:
                 break

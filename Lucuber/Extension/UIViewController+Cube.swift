@@ -7,6 +7,24 @@
 //
 
 import UIKit
+import SafariServices
+
+extension UIViewController {
+    
+    func cube_openURL(_ URL: URL) {
+        
+        if let URL = URL.validNetworkURL {
+           
+            let safariViewController = SFSafariViewController(url: URL)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else {
+           
+            CubeAlert.alertSorry(message: "无效的URL", inViewController: self)
+        }
+    }
+}
+
 
 extension UIViewController {
     
