@@ -27,7 +27,7 @@ class FeedBiggerImageCell: FeedBaseCell {
             biggerImageView.frame = biggerImageLayout.biggerImageViewFrame
         }
         
-        switch feed.attachment {
+        switch feed.attachment! {
         case .images(let imageAttachments):
             
             if let attachment = imageAttachments.first {
@@ -66,7 +66,7 @@ class FeedBiggerImageCell: FeedBaseCell {
     func tap(sender: UIGestureRecognizer) {
         
         if let feed = feed {
-            switch feed.attachment {
+            switch feed.attachment! {
             case .images(let imageAttachments):
                 tapMediaAction?(biggerImageView, biggerImageView.image, imageAttachments , 0)
             default:

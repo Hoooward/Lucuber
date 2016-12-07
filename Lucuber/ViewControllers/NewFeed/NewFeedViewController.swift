@@ -9,17 +9,63 @@
 import UIKit
 import MobileCoreServices
 import Photos
+import RealmSwift
+import AVOSCloud
 
 class NewFeedViewController: UIViewController {
     
     enum Attachment {
-        case media
+        case normal
         case formula
+    }
+    
+    enum UploadState {
+        case ready
+        case uploading
+        case failed(message: String)
+        case success
+    }
+    
+    var uploadState: UploadState = .ready {
+        
+        willSet {
+            
+            switch newValue {
+            case .ready:
+                break
+                
+            case .uploading:
+                postButton.isEnabled = false
+                messageTextView.resignFirstResponder()
+                CubeHUD.showActivityIndicator()
+                
+            case .failed(message: let message):
+                CubeHUD.hideActivityIndicator()
+                postButton.isEnabled = true
+                
+                if presentingViewController != nil {
+                    CubeAlert.alertSorry(message: message, inViewController: self)
+                } else {
+                    
+//                    FeedsViewController.handleError
+                }
+                
+            case .success:
+                CubeHUD.hideActivityIndicator()
+                messageTextView.text = nil
+            }
+            
+        }
+        
     }
     
     // MARK: - Properties
     
-    var attachment: Attachment = .media
+    var attachment: Attachment = .normal
+    
+    var beforUploadingFeedAction: ((DiscoverFeed, NewFeedViewController) -> Void)?
+    var afterUploadingFeedAction: ((DiscoverFeed) -> Void)?
+    
     var mediaImages = [UIImage]() {
         didSet {
             
@@ -41,7 +87,7 @@ class NewFeedViewController: UIViewController {
     fileprivate var isReadyForPost = false {
         willSet {
             
-            postFeedBarButton.isEnabled = newValue
+            postButton.isEnabled = newValue
             
             if !newValue && isNeverInputMessage {
                 messageTextView.text = placeholderOfMessage
@@ -67,7 +113,7 @@ class NewFeedViewController: UIViewController {
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var messageTextViewHeightContraint: NSLayoutConstraint!
     
-    @IBOutlet weak var postFeedBarButton: UIBarButtonItem!
+    @IBOutlet weak var postButton: UIBarButtonItem!
     
     fileprivate let placeholderOfMessage = "写点什么"
     fileprivate let feedMediaAdddCellIdentifier = "FeedMediaAddCell"
@@ -81,7 +127,7 @@ class NewFeedViewController: UIViewController {
     private func makeUI() {
     
         switch attachment {
-        case .media:
+        case .normal:
             
             title = "新话题"
             mediaCollectionView.isHidden = false
@@ -102,7 +148,7 @@ class NewFeedViewController: UIViewController {
         messageTextViewHeightContraint.constant = CGFloat(messageTextViewHeight)
         messageTextView.layoutIfNeeded()
         
-        isReadyForPost = false
+        isReadyForPvar = false
         messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messageTextView.textContainer.lineFragmentPadding = 0
         messageTextView.delegate = self
@@ -120,8 +166,110 @@ class NewFeedViewController: UIViewController {
     
     // MARK: -  Action & Target
     
+    func tryMakeUploadingFeed() -> DiscoverFeed? {
+        
+        guard let currentAVUser = AVUser.current(), let realm = try? Realm(), let currentRuser = currentUser(in: realm) else {
+            return nil
+        }
+        
+        var category: FeedCategory = .text
+        
+        let message = messageTextView.text.trimming(trimmingType: .whitespaceAndNewLine)
+        
+        var feedAttachment: DiscoverFeed.Attachment?
+        
+        switch attachment {
+            
+        case .normal:
+            
+            if !mediaImages.isEmpty {
+                category = .image
+                
+                var imageAttachments: [ImageAttachment] = []
+                
+                for image in mediaImages {
+                    
+                    let imageWidth = image.size.width
+                    let imageHeight = image.size.height
+                    
+                    let fixedImageWidth: CGFloat
+                    let fixedImageHeight: CGFloat
+                    
+                    if imageWidth > imageHeight {
+                        fixedImageWidth = min(imageWidth, Config.Media.miniImageWidth)
+                        fixedImageHeight = imageHeight * (fixedImageWidth / imageWidth)
+                    } else {
+                        fixedImageHeight =  min(imageHeight, Config.Media.miniImageHeight)
+                        fixedImageWidth = imageWidth * (fixedImageHeight / imageHeight)
+                    }
+                    
+                    let fixedSize = CGSize(width: fixedImageWidth, height: fixedImageHeight)
+                    
+                    if let image = image.resizeTo(targetSize: fixedSize, quality: .medium) {
+                        
+                        let attachment = ImageAttachment(metadata: "", URLString: "", image: image)
+                        imageAttachments.append(attachment)
+                    }
+                }
+                
+                if !imageAttachments.isEmpty {
+                   feedAttachment = .images(imageAttachments)
+                }
+            }
+            
+            
+            
+        default:
+            break
+        }
+        
+        let newDiscoverFeed = DiscoverFeed()
+        
+        newDiscoverFeed.creator = currentAVUser
+        newDiscoverFeed.localObjectID = Feed.randomLocalObjectID()
+        newDiscoverFeed.allowComment = true
+        newDiscoverFeed.categoryString = category.rawValue
+        newDiscoverFeed.attachment = feedAttachment
+        newDiscoverFeed.distance = 0
+        newDiscoverFeed.messagesCount = 0
+        newDiscoverFeed.body = message
+        newDiscoverFeed.highlightedKeywordsBody = ""
+        
+        return newDiscoverFeed
+        
+    }
+    
     @IBAction func post(_ sender: Any) {
         printLog("post")
+        post(again: false)
+    }
+    
+    
+    fileprivate func post(again: Bool) {
+        
+        let messageLength = messageTextView.text.characters.count
+        
+        guard messageLength <= 300 else {
+            CubeAlert.alertSorry(message: "发表的内容太长喽, 建议在 300 个字以内.", inViewController: self)
+            return
+        }
+    
+        
+        if !again {
+            uploadState = .uploading
+            
+            if let feed = tryMakeUploadingFeed() {
+                
+                if feed.category.needBackgroundUpload {
+                    
+                    
+                }
+            }
+            
+            
+            
+        }
+        
     }
     
     @IBAction func dismiss(_ sender: Any) {

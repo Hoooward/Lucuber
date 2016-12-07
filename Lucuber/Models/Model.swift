@@ -681,6 +681,8 @@ public enum FeedCategory: String {
             return true
         case .audio:
             return true
+        case .formula:
+            return true
         default:
             return false
         }

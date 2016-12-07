@@ -45,6 +45,13 @@ extension Message: RandomID {
     }
 }
 
+extension Feed: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Feed" + String.random()
+    }
+}
+
 extension String {
     
     static func random(length: Int = 15) -> String {

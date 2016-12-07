@@ -8,9 +8,6 @@
 
 import Foundation
 
-
-
-
 extension URL {
     
     var cube_isNetworkURL: Bool {
@@ -52,6 +49,6 @@ extension URL {
                 
             }
         }
-            
+        return nil
     }
 }

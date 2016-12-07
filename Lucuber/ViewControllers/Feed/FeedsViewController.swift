@@ -42,11 +42,15 @@ struct LayoutCatch {
     
 }
 
-class FeedsViewController: UIViewController {
+class FeedsViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Properties
     
 //    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
+    
+    enum SegueIdentifier: String {
+        case newFeed = "ShowNewFeed"
+    }
 
     
     var seletedFeedCategory: FeedCategory?
@@ -133,7 +137,7 @@ class FeedsViewController: UIViewController {
                     guard let strongSelf = self else { return }
                     
 //                    strongSelf.newFeedAttachmentType = .media
-                    strongSelf.performSegue(withIdentifier: "ShowNewFeed", sender: nil)
+                    strongSelf.performSegue(identifier: .newFeed)
                 }
             ),
             
@@ -206,6 +210,8 @@ class FeedsViewController: UIViewController {
         uploadFeed()
     }
     
+    
+    fileprivate var canLoadMore: Bool = false
     
     fileprivate func uploadFeed(mode: UploadFeedMode = .top, finish: (() -> Void)? = nil) {
         
@@ -327,6 +333,85 @@ class FeedsViewController: UIViewController {
     
     // MARK: - PrepareForSegue
     
+    
+    fileprivate var newFeedViewController: NewFeedViewController?
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let identifier = segueIdentifier(for: segue)
+        
+        
+        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
+            [weak self] feed, newFeedViewController in
+            
+            self?.newFeedViewController = newFeedViewController
+            
+            DispatchQueue.main.async {
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.tableView.customScrollsToTop()
+                strongSelf.tableView.beginUpdates()
+                
+                strongSelf.uploadingFeeds.insert(feed, at: 0)
+                
+                let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
+                strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                
+                strongSelf.tableView.endUpdates()
+            }
+        }
+        
+        let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
+            [weak self] feed in
+            
+            self?.newFeedViewController = nil
+            
+            DispatchQueue.main.async {
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.tableView.customScrollsToTop()
+                
+                strongSelf.tableView.beginUpdates()
+                
+                var animation: UITableViewRowAnimation = .automatic
+                
+                if !strongSelf.uploadingFeeds.isEmpty {
+                    
+                    strongSelf.uploadingFeeds = []
+                    
+                    let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
+                    
+                    strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+                    
+                    animation = .none
+                }
+                
+                strongSelf.feeds.insert(feed, at: 0)
+                
+                let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
+                strongSelf.tableView.insertRows(at: [indexPath], with: animation)
+                
+                strongSelf.tableView.endUpdates()
+                
+                
+            }
+        }
+        
+        switch identifier {
+            
+        case .newFeed:
+            
+            break
+            
+            
+        }
+        
+    }
  
 }
 
@@ -511,8 +596,59 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.tapURLInfoAction = { [weak self] URL in
                     printLog("打开URL \(URL)")
+                    self?.cube_openURL(URL)
+                }
+                
+            case .image:
+                
+                let tapMediaAction: tapMediaActionTypealias = { [weak self] transitionView, image, attachments, index in
                     
+                    guard let image = image else {
+                        return
+                    }
                     
+                    let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+                    
+                    vc.startIndex = index
+                    //                vc.transitionView = transitionView
+                    let frame = transitionView.convert(transitionView.bounds, to: self?.view)
+                    vc.previewImageViewInitalFrame = frame
+                    vc.bottomPreviewImage = image
+                    
+                    delay(0) {
+                        //                    transitionView.alpha = 0
+                    }
+                    
+                    vc.afterDismissAction = { [weak self] in
+                        
+                        //                    transitionView.alpha = 1
+                        self?.view.window?.makeKeyAndVisible()
+                    }
+                    
+                    vc.previewMedias = attachments.map { PreviewMedia.attachmentType($0) }
+                    
+                    mediaPreviewWindow.rootViewController = vc
+                    mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+                    mediaPreviewWindow.makeKeyAndVisible()
+                    
+                }
+                
+                if feed.imageAttachmentsCount == 1 {
+                    guard let cell = cell as? FeedBiggerImageCell else {
+                        break
+                    }
+                    
+                    cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                    cell.tapMediaAction = tapMediaAction
+                    
+                } else {
+                   
+                    guard let cell = cell as? FeedAnyImagesCell else {
+                        break
+                    }
+                    
+                    cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                    cell.tapMediaAction = tapMediaAction
                 }
                 
             default:
@@ -521,65 +657,40 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         switch section {
+        case .uploadingFeed:
             
+//            let feed = uploadingFeeds[indexPath.row]
+//            configureFeedCell(cell: cell, withFeed: feed)
+         
+            break
         case .feed:
-            
-            _ = feeds[indexPath.row]
-            
-            let tapMediaAction: tapMediaActionTypealias = { [weak self] transitionView, image, attachments, index in
-                
-                guard let image = image else {
-                    return
-                }
-                
-                let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
-                
-                vc.startIndex = index
-                //                vc.transitionView = transitionView
-                let frame = transitionView.convert(transitionView.bounds, to: self?.view)
-                vc.previewImageViewInitalFrame = frame
-                vc.bottomPreviewImage = image
-                
-                delay(0) {
-                    //                    transitionView.alpha = 0
-                }
-                
-                vc.afterDismissAction = { [weak self] in
-                    
-                    //                    transitionView.alpha = 1
-                    self?.view.window?.makeKeyAndVisible()
-                }
-                
-                vc.previewMedias = attachments.map { PreviewMedia.attachmentType($0) }
-                
-                mediaPreviewWindow.rootViewController = vc
-                mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
-                mediaPreviewWindow.makeKeyAndVisible()
-                
-            }
-            
-            if let cell = cell as? FeedBiggerImageCell {
-                cell.tapMediaAction = tapMediaAction
-            }
-            
-            if let cell = cell as? FeedAnyImagesCell {
-                cell.tapMediaAction = tapMediaAction
-            }
-            
-            
+            let feed = feeds[indexPath.row]
+            configureFeedCell(cell: cell, withFeed: feed)
             
         case .loadMore:
+            
             guard let cell = cell as? LoadMoreTableViewCell else {
-                return
-            }
-            cell.isLoading = true
-            uploadFeed(mode: UploadFeedMode.loadMore) {
-                cell.isLoading = false
+                break
             }
             
-        default:
-            break
+            guard canLoadMore else {
+                cell.isLoading = false
+                break
+            }
+            
+            printLog("加载更多 Feed")
+            
+            if !cell.isLoading {
+                cell.isLoading = true
+            }
+            
+            uploadFeed(mode: .loadMore, finish: {
+                [weak cell] in
+                
+                cell?.isLoading = false
+            })
         }
+      
     }
     
     
@@ -609,7 +720,45 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath , animated: true)
         
         
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            return
+        }
+        
+        switch section {
+        case .uploadingFeed:
+            break
+        case .feed:
+            performSegue(withIdentifier: "", sender: indexPath)
+        case .loadMore:
+            break
+        }
+        
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        guard let section = Section(rawValue: indexPath.section) else {
+            return false
+        }
+        
+        switch section {
+        case .uploadingFeed:
+            return false
+            
+        case .feed:
+            
+            
+            return true
+        default:
+            return false
+        }
+    }
+    
+    // TODO: - Report
     
 }
 
@@ -617,5 +766,4 @@ extension FeedsViewController: UISearchBarDelegate {
     
 }
 
-///缓存Cell中元素的Frame
 

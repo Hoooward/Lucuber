@@ -235,7 +235,7 @@
                         <outlet property="mediaCollectionViewHeightConstraint" destination="CeW-60-Ucq" id="SWs-pw-pWM"/>
                         <outlet property="messageTextView" destination="fEe-7e-pKW" id="ABB-tz-Cqm"/>
                         <outlet property="messageTextViewHeightContraint" destination="c6F-0P-mNF" id="yGU-FN-Wq7"/>
-                        <outlet property="postFeedBarButton" destination="QqU-kh-qmp" id="yBf-XW-jyd"/>
+                        <outlet property="postButton" destination="QqU-kh-qmp" id="7x1-26-NDg"/>
                         <segue destination="xRQ-nl-9T9" kind="show" identifier="ShowPickPhotoView" id="hhS-6W-v0G"/>
                     </connections>
                 </viewController>

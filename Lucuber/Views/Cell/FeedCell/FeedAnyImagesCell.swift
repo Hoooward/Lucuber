@@ -24,15 +24,20 @@ class FeedAnyImagesCell: FeedBaseCell  {
     override func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
         super.configureWithFeed(feed, layout: layout, needshowCategory: needshowCategory)
         
-        
-        switch feed.attachment {
-            
-        case .images(let imageAttachments):
-            self.imageAttachments = imageAttachments
-            
-        default:
-            break
+        if let attachment = feed.attachment {
+            if case let .images(imageAttachments) = attachment {
+                self.imageAttachments = imageAttachments
+            }
         }
+        
+//        switch feed.attachment {
+//
+//        case .images(let imageAttachments):
+//            self.imageAttachments = imageAttachments
+//            
+//        default:
+//            break
+//        }
         
         if let anyImagesLayout = layout.anyImagesLayout {
             mediaCollectionView.frame = anyImagesLayout.mediaCollectionViewFrame

@@ -167,14 +167,14 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         public let thumbnailImageURLString: String
     }
     
-    public enum Attachment  {
+    public enum Attachment {
         case images([ImageAttachment])
         case audio(AudioInfo)
         case location(LocationInfo)
         case URL(OpenGraphInfo)
     }
     
-    public let attachment: Attachment? = nil
+    public var attachment: Attachment? = nil
     
     public var imageAttachments: [ImageAttachment]? {
         

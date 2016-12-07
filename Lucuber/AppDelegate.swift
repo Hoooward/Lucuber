@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverContent.registerSubclass()
         DiscoverPreferences.registerSubclass()
         DiscoverMessage.registerSubclass()
+        DiscoverFeed.registerSubclass()
         
         
         window = UIWindow()

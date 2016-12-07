@@ -46,12 +46,11 @@ struct FeedCellLayout {
     
     init(feed: DiscoverFeed) {
         
-        
         switch feed.category {
         case .text:
             height = FeedBaseCell.heightOfFeed(feed: feed)
-        case .images(let imagesAttachments):
-            if imagesAttachments.count > 1 {
+        case .image:
+            if feed.imageAttachmentsCount > 1 {
                 height = FeedAnyImagesCell.heightOfFeed(feed: feed)
             } else {
                 height = FeedBiggerImageCell.heightOfFeed(feed: feed)
@@ -110,7 +109,7 @@ struct FeedCellLayout {
         
         let beginY = messageTextViewFrame.maxY + 15
         
-        switch feed.attachment {
+        switch feed.attachment! {
             
         case .images(let imagesAttachments):
             
