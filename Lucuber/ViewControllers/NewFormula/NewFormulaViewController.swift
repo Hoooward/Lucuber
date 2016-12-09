@@ -313,18 +313,19 @@ class NewFormulaViewController: UIViewController {
         
         view.endEditing(true)
         
-//        if isReadyForSave {
-//
-//            let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
-//            vc.attachment = NewFeedViewController.Attachment.formula
-//            vc.attachmentFormula = formula
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            
-//        } else {
-//            
-//            CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
-//            
-//        }
+        if self.formula.isReadyToPush {
+      
+
+            let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
+            vc.attachment = NewFeedViewController.Attachment.formula
+            vc.attachmentFormula = formula
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            
+            CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
+            
+        }
         
     // TODO: 分别处理多个Edit的方法。
         

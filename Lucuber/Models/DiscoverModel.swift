@@ -174,6 +174,8 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         case URL(OpenGraphInfo)
     }
     
+    @NSManaged var attachmentsInfo: NSDictionary
+    
     public var attachment: Attachment? = nil
     
     public var imageAttachments: [ImageAttachment]? {
@@ -193,6 +195,10 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     public var imageAttachmentsCount: Int {
         return imageAttachments?.count ?? 0
     }
+    
+    
+    @NSManaged var latitude: Double
+    @NSManaged var longitude: Double
     
     @NSManaged var distance: Double
     // 暂时无用

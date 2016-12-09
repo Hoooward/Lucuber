@@ -39,6 +39,10 @@ struct FeedCellLayout {
     
     var anyImagesLayout: AnyImagesLayout?
     
+    struct URLLayout {
+        let URLContainerViewFrame: CGRect
+    }
+    var _URLLayout: URLLayout?
     
     /// Cell的高度
     var height: CGFloat = 0
@@ -56,7 +60,7 @@ struct FeedCellLayout {
                 height = FeedBiggerImageCell.heightOfFeed(feed: feed)
             }
         default:
-            break
+            height = FeedURLCell.heightOfFeed(feed: feed)
         }
         
         let avatarImageViewFrame = CGRect(x: 15, y: 10, width: 40, height: 40)
@@ -107,20 +111,22 @@ struct FeedCellLayout {
         
         self.defaultLayout = defaultLayout
         
-        let beginY = messageTextViewFrame.maxY + 15
+        let beginY = messageTextViewFrame.origin.y + messageTextViewFrame.height + 15
         
-        switch feed.attachment! {
+        
+        switch feed.category {
             
-        case .images(let imagesAttachments):
+        case .url:
+            let height: CGFloat = leftBottomLabelFrame.origin.y - beginY - 15
+            let URLContainerViewFrame = CGRect(x: 65, y: beginY, width: screenWidth - 65 - 60, height: height)
+            let _URLLayout = FeedCellLayout.URLLayout(URLContainerViewFrame: URLContainerViewFrame)
             
-            if imagesAttachments.count > 1 {
-                
-                let mediaCollectionViewFrame = CGRect(origin: CGPoint(x:65, y: beginY), size: Config.FeedAnyImagesCell.mediaCollectionViewSize)
-                
-                self.anyImagesLayout = AnyImagesLayout(mediaCollectionViewFrame: mediaCollectionViewFrame)
-            }
+            self._URLLayout = _URLLayout
             
-            if imagesAttachments.count == 1 {
+            
+        case .image:
+            
+            if feed.imageAttachmentsCount == 1 {
                 
                 let biggerImageViewFrame = CGRect(origin: CGPoint(x: 65, y: beginY), size: Config.FeedBiggerImageCell.imageSize)
                 let biggerImageLayout = BiggerImageLayout(biggerImageViewFrame: biggerImageViewFrame)
@@ -128,10 +134,20 @@ struct FeedCellLayout {
                 
             }
             
+            if feed.imageAttachmentsCount > 1 {
+                
+                let mediaCollectionViewFrame = CGRect(origin: CGPoint(x:65, y: beginY), size: Config.FeedAnyImagesCell.mediaCollectionViewSize)
+                
+                self.anyImagesLayout = AnyImagesLayout(mediaCollectionViewFrame: mediaCollectionViewFrame)
+ 
+                
+            }
             
         default:
             break
         }
+        
+     
     }
     
 }

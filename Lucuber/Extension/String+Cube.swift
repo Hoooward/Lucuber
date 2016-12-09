@@ -227,6 +227,72 @@ extension String {
 }
 
 
+// OpenGrop
+
+extension String {
+    
+    func truncate(length: Int, trailing: String? = nil) -> String {
+        if self.characters.count > length {
+            return self.substring(to: self.index(self.startIndex, offsetBy: length)) + (trailing ?? "")
+        } else {
+            return self
+        }
+    }
+    
+    var truncateForFeed: String {
+        return truncate(length: 120, trailing: "...")
+    }
+    
+    var opengraph_removeAllWhitespaces: String {
+        return self.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: " ", with: "")
+    }
+    
+    var opengraph_removeAllNewLines: String {
+        return self.components(separatedBy: CharacterSet.newlines).joined(separator: "")
+    }
+    
+    var opengraph_embeddedURLs: [URL] {
+        
+        guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
+            return []
+        }
+        
+        var URLs = [URL]()
+        
+        detector.enumerateMatches(in: self, options: [], range: NSRange(location: 0, length: (self as NSString).length)) {
+           result, flags, stop in
+            
+            if let URL = result?.url {
+                URLs.append(URL)
+            }
+        }
+        return URLs
+    }
+    
+    var opengraph_firstImageURL: URL? {
+        
+        let URLs = opengraph_embeddedURLs
+        
+        guard !URLs.isEmpty else {
+            return nil
+        }
+        
+        let imageExtentions = [
+            "png",
+            "jpg",
+            "jpeg"
+        ]
+        
+        for URL in URLs {
+            let pathExtension = URL.pathExtension.lowercased()
+            if imageExtentions.contains(pathExtension) {
+                return URL
+            }
+        }
+        return nil
+    }
+    
+}
 
 
 

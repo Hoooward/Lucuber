@@ -11,12 +11,15 @@ import MobileCoreServices
 import Photos
 import RealmSwift
 import AVOSCloud
+import Kingfisher
 
 class NewFeedViewController: UIViewController {
     
     enum Attachment {
         case normal
         case formula
+        case location
+        case voice
     }
     
     enum UploadState {
@@ -80,7 +83,6 @@ class NewFeedViewController: UIViewController {
     
     fileprivate var pickedImageAssets = [PHAsset]()
     
-    var newFeed = Feed()
     var attachmentFormula: Formula?
     
     fileprivate var isNeverInputMessage = true
@@ -139,6 +141,9 @@ class NewFeedViewController: UIViewController {
             mediaCollectionView.isHidden = true
             formulaView.isHidden = false
             
+        default:
+            break
+            
         }
         
         view.backgroundColor = UIColor.cubeBackgroundColor()
@@ -148,7 +153,7 @@ class NewFeedViewController: UIViewController {
         messageTextViewHeightContraint.constant = CGFloat(messageTextViewHeight)
         messageTextView.layoutIfNeeded()
         
-        isReadyForPvar = false
+        isReadyForPost = false
         messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messageTextView.textContainer.lineFragmentPadding = 0
         messageTextView.delegate = self
@@ -240,7 +245,6 @@ class NewFeedViewController: UIViewController {
     }
     
     @IBAction func post(_ sender: Any) {
-        printLog("post")
         post(again: false)
     }
     
@@ -261,13 +265,213 @@ class NewFeedViewController: UIViewController {
             if let feed = tryMakeUploadingFeed() {
                 
                 if feed.category.needBackgroundUpload {
+                    beforUploadingFeedAction?(feed, self)
+                    CubeHUD.hideActivityIndicator()
+                    dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+        
+        let message = messageTextView.text.trimming(trimmingType: .whitespaceAndNewLine)
+        
+        var category: FeedCategory = .text
+        var attachments: JSONDictionary?
+        
+        let tryCreateFeed: (_ withFormula: DiscoverFormula?) -> Void = {
+            [weak self] formula in
+            
+            var openGraph: OpenGraph?
+            
+            let doCreateFeed: () -> Void = {
+                [weak self] in
+                
+                if let openGraph = openGraph, openGraph.isValid {
+                   
+                    category = .url
                     
+                    let URLInfo: JSONDictionary = [
+                        "url": openGraph.URL.absoluteString,
+                        "siteName": (openGraph.siteName ?? "").truncateForFeed,
+                        "title": (openGraph.title ?? "").truncateForFeed,
+                        "description": (openGraph.description ?? "").truncateForFeed,
+                        "image_url": openGraph.previewImageURLString ?? "",
+                    ]
+                    
+                    attachments = URLInfo 
+                }
+                
+                createFeedWithCategory(category, message: message, attachments: attachments, withFormula: formula, coordinate: nil, allowComment: true, failureHandler: { reason, errorMessage in
+                    
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                    let message = errorMessage ?? "创建 Feed 失败"
+                    self?.uploadState = .failed(message: message)
+                    
+                }, completion: { newFeed in
+                    
+                    self?.afterUploadingFeedAction?(newFeed)
+                    
+                    CubeHUD.hideActivityIndicator()
+//                     NSNotificationCenter.defaultCenter().postNotificationName(YepConfig.Notification.createdFeed, object: Box<DiscoveredFeed>(feed))
+                    
+                    if !category.needBackgroundUpload {
+                        self?.dismiss(animated: true, completion: nil)
+                    }
+                    
+//                    syncGroupsAndDoFurtherAction {}
+                    
+                })
+            }
+            
+            
+            guard category.needParseOpenGraph,
+                let firstURL = message.opengraph_embeddedURLs.first else {
+                doCreateFeed()
+                return
+            }
+            
+            let parseOpenGraphGroup = DispatchGroup()
+            
+            parseOpenGraphGroup.enter()
+            
+            
+            openGraphWithURL(firstURL, failureHandler: {
+                reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                
+                parseOpenGraphGroup.leave()
+                
+            }, completion: { _openGraph in
+                
+                openGraph = _openGraph
+                
+                parseOpenGraphGroup.leave()
+            })
+            
+            
+            parseOpenGraphGroup.notify(queue: DispatchQueue.main, execute: {
+                
+                doCreateFeed()
+            })
+            
+        }
+        
+        switch attachment {
+            
+        case .normal:
+            
+            let mediaImagesCount = mediaImages.count
+            
+            var imagesData = [Data]()
+            
+            for image in mediaImages {
+                
+                let imageWidth = image.size.width
+                let imageHeight = image.size.height
+                
+                let fixedImageWidth: CGFloat
+                let fixedImageHeight: CGFloat
+                
+                if imageWidth > imageHeight {
+                    fixedImageWidth = min(imageWidth, Config.Media.imageWidth)
+                    fixedImageHeight = imageHeight * (fixedImageWidth / imageWidth)
+                } else {
+                    fixedImageHeight = min(imageHeight, Config.Media.imageHeight)
+                    fixedImageWidth = imageWidth * (fixedImageHeight / imageHeight)
+                }
+                
+                let fixedSize = CGSize(width: fixedImageWidth, height: fixedImageHeight)
+                
+                if let image = image.resizeTo(targetSize: fixedSize, quality: CGInterpolationQuality.high), let imageData = UIImageJPEGRepresentation(image, 0.95) {
+                    
+                    imagesData.append(imageData)
                     
                 }
             }
             
+            guard imagesData.count == mediaImagesCount else {
+                defaultFailureHandler(Reason.network(nil), "创建图片失败")
+                self.uploadState = .failed(message: "图片数据准备失败")
+                break
+            }
+            
+            pushDatasToLeancloud(with: imagesData, failureHandler: {
+                reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                self.uploadState = .failed(message: "图片数据上传失败")
+                
+            }, completion: { [weak self] URLs in
+                
+                guard let URLs = URLs else {
+                    tryCreateFeed(nil)
+                    return
+                }
+                
+                if !URLs.isEmpty {
+                    let imagesInfos: JSONDictionary = ["urls": URLs as AnyObject]
+                    
+                    attachments = imagesInfos
+                    category = .image
+                    
+                }
+                
+                tryCreateFeed(nil)
+                
+                if let strongSelf = self {
+                    
+                   let bigger = (strongSelf.mediaImages.count == 1)
+                    
+                    for i in 0..<strongSelf.mediaImages.count {
+                        
+                        let image = strongSelf.mediaImages[i]
+                        let URLString = URLs[i]
+                        
+                        let sideLength: CGFloat
+                        if bigger {
+                            sideLength = Config.FeedBiggerImageCell.imageSize.width
+                        } else {
+                            sideLength = Config.FeedAnyImagesCell.imageSize.width
+                        }
+                        
+                        let scaledKey = CubeImageCache.attachmentSideLengthKeyWithURLString(URLString: URLString, sideLenght: sideLength)
+                        let scaledImage = image.scaleToSideLenght(sidLenght: sideLength)
+                        let scaledData = UIImageJPEGRepresentation(image, 1.0)
+                        
+                        ImageCache.default.store(scaledImage, original: scaledData, forKey: scaledKey, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: nil)
+                        
+                        let originalKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: URLString)
+                        let originalData = UIImageJPEGRepresentation(image, 1.0)
+                        
+                        ImageCache.default.store(image, original: originalData, forKey: originalKey, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: nil)
+                    }
+                    
+                }
+            })
+      
+        case .formula:
+            
+            guard let attachmentFormula = attachmentFormula else {
+                break
+            }
             
             
+            pushFormulaToLeancloud(with: attachmentFormula, failureHandler: {
+                reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                
+                self.uploadState = .failed(message: "上传公式失败")
+                
+            }, completion: { newDiscoverFormula in
+                
+                category = .formula
+                tryCreateFeed(newDiscoverFormula)
+            })
+            
+        default:
+            break
         }
         
     }

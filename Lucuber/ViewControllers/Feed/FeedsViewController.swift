@@ -137,7 +137,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                     guard let strongSelf = self else { return }
                     
 //                    strongSelf.newFeedAttachmentType = .media
-                    strongSelf.performSegue(identifier: .newFeed)
+                    strongSelf.performSegue(identifier: .newFeed, sender: nil)
                 }
             ),
             
@@ -156,7 +156,10 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                     }
                     newVc.editType = NewFormulaViewController.EditType.newAttchment
                     newVc.view.alpha = 1
-                    newVc.formula = Formula.new(inRealm: realm)
+                    
+                    try? realm.write {
+                        newVc.formula = Formula.new(inRealm: realm)
+                    }
                     newVc.realm = realm
                     
                     strongSelf.present(navigationVC, animated: true, completion: nil)
@@ -200,6 +203,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         tableView.register(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
         tableView.register(FeedAnyImagesCell.self, forCellReuseIdentifier: FeedAnyImagesCellIdentifier)
         tableView.register(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
+           tableView.register(FeedURLCell.self, forCellReuseIdentifier: FeedURLCellIdentifier)
         
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
@@ -398,16 +402,32 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                 
                 strongSelf.tableView.endUpdates()
                 
-                
             }
+            
+            // TODO: - joinGroup
         }
+        
+        let getFeedsViewController: () -> FeedsViewController? = {
+            [weak self] in
+            return self
+        }
+        
         
         switch identifier {
             
         case .newFeed:
             
-            break
+            guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
+                return
+            }
             
+            vc.beforUploadingFeedAction = beforeUploadingFeedAction
+            vc.afterUploadingFeedAction = afterCreatedFeedAction
+//            vc.getFeedsViewController = getFeedsViewController
+            
+            
+        default:
+            break
             
         }
         

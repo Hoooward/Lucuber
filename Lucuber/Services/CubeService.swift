@@ -8,6 +8,10 @@ import Foundation
 import AVOSCloud
 import RealmSwift
 import PKHUD
+import CoreLocation
+import Alamofire
+import  Kanna
+import Kingfisher
 
 
 public enum ErrorCode: String {
@@ -102,6 +106,50 @@ public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping Fail
             failureHandler(Reason.network(error), "网络请求失败")
         }
     }
+}
+
+public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLsString: [String]?) -> Void) {
+    
+    guard let datas = datas else {
+        failureHandler(Reason.noData, "传入的 Data 为空")
+        return
+    }
+    
+    let files = datas.map { AVFile(data: $0) }
+    
+    
+    var URLs: [String] = []
+    
+    let uploadFileGroup = DispatchGroup()
+    
+    for file in files {
+        
+        uploadFileGroup.enter()
+        
+        file.saveInBackground { success, error in
+           
+            if error != nil {
+                
+                failureHandler(Reason.network(error), "上传图片失败")
+                uploadFileGroup.leave()
+            }
+            
+            if success {
+                
+                if let url = file.url {
+                    URLs.append(url)
+                }
+                
+                uploadFileGroup.leave()
+            }
+        }
+    }
+    
+    uploadFileGroup.notify(queue: DispatchQueue.main, execute: {
+        
+        completion(URLs)
+    })
+    
 }
 
 
@@ -314,7 +362,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
     }
 }
 
-public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: (() -> Void)?) {
+public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
     
     guard let newDiscoverFormula = parseFormulaToDisvocerModel(with: newFormula) else  {
         failureHandler(Reason.other(nil), "模型转换失败")
@@ -357,7 +405,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                         createOrUpdateRCategory(with: newFormula, uploadMode: .my, inRealm: realm)
                     }
                     
-                    completion?()
+                    completion?(newDiscoverFormula)
                 }
                 
             })
@@ -405,7 +453,12 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                 }
                 
                 if let newResizeImage = newResizeImage {
-                    CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newResizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
+//                    CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newResizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
+//                    
+                    let originalKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: imageURLString)
+                    let originalData = UIImageJPEGRepresentation(newResizeImage, 1.0)
+                    
+                    ImageCache.default.store(newResizeImage, original: originalData, forKey: originalKey, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: nil)
                     
                     FileManager.removeFormulaLocalImageData(with: newFormula.localObjectID)
                 }
@@ -587,6 +640,120 @@ public func pushCurrentUserUpdateInformation() {
 public enum UploadFeedMode {
     case top
     case loadMore
+}
+
+public func openGraphWithURL(_ URL: URL, failureHandler: FailureHandler?, completion: @escaping (OpenGraph) -> Void) {
+    
+    Alamofire.request(URL.absoluteString).responseString { (response) in
+        
+        let error = response.result.error
+        
+        guard error == nil else {
+            
+            failureHandler?(Reason.network(error), "网络错误")
+            
+            return
+        }
+        
+        if let HTMLString = response.result.value {
+            
+            var finalURL = URL
+            if let _finalURL = response.response?.url {
+                finalURL = _finalURL
+            }
+            
+        
+            if let openGraph = OpenGraph.fromHTMLString(HTMLString, forURL: finalURL) {
+                completion(openGraph)
+            }
+            
+            return
+        }
+        
+    }
+    
+}
+
+public typealias JSONDictionary = [String: Any]
+
+public func createFeedWithCategory(_ category: FeedCategory, message: String, attachments: JSONDictionary?, withFormula formula: DiscoverFormula?, coordinate: CLLocationCoordinate2D? , allowComment: Bool, failureHandler: FailureHandler?, completion: ((DiscoverFeed) -> Void)?) {
+    
+    guard let currentUser = AVUser.current() else {
+        defaultFailureHandler(Reason.noSuccess, "没有登录")
+        return
+    }
+    var newDiscoverFeed = DiscoverFeed()
+    
+    newDiscoverFeed.localObjectID = Feed.randomLocalObjectID()
+    newDiscoverFeed.categoryString = category.rawValue
+    newDiscoverFeed.messagesCount = 0
+    newDiscoverFeed.body = message
+    newDiscoverFeed.creator = currentUser
+    newDiscoverFeed.allowComment = allowComment
+    newDiscoverFeed.distance = 0
+    newDiscoverFeed.highlightedKeywordsBody = ""
+    
+    if let coordinate = coordinate {
+        newDiscoverFeed.latitude = coordinate.latitude
+        newDiscoverFeed.longitude = coordinate.longitude
+    }
+    
+    switch category {
+    case .text:
+        
+        break
+        
+    case .formula:
+        
+        guard let formula = formula else {
+            break
+        }
+        
+        newDiscoverFeed.withFormula = formula
+        
+    case .url:
+        
+        guard let attachments = attachments as? [String: String] else {
+            break
+        }
+        
+        newDiscoverFeed.attachmentsInfo = attachments as NSDictionary
+        
+    case .image:
+        
+        guard let attachments = attachments as? [String: [String]] else {
+            break
+        }
+        
+        newDiscoverFeed.attachmentsInfo = attachments as NSDictionary
+        
+    case .location:
+        break
+        
+    case .audio:
+        break
+        
+    case .record:
+        break
+        
+    default:
+        break
+    }
+    
+    newDiscoverFeed.saveInBackground {
+        success, error in
+        
+        if error != nil {
+            
+            failureHandler?(Reason.network(error), "发送 Feed 失败")
+        }
+        
+        if success {
+            
+            completion?(newDiscoverFeed)
+        }
+    }
+    
 }
 
 //extension AVQuery {

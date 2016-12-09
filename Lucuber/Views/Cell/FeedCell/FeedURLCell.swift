@@ -42,6 +42,9 @@ class FeedURLCell: FeedBaseCell {
             }
         }
         
+        let _URLLayout = layout._URLLayout!
+        feedURLContainerView.frame = _URLLayout.URLContainerViewFrame
+        
         // TODO: 没有进行 Layout 布局设置
     }
     

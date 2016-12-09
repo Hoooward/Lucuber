@@ -110,7 +110,7 @@ public class FeedURLContainerView: UIView {
         
         do {
             let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[backgroundImageView]|", options: [], metrics: nil, views: views)
-            let constraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroudImageView]|", options: [], metrics: nil, views: views)
+            let constraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundImageView]|", options: [], metrics: nil, views: views)
             
             NSLayoutConstraint.activate(constraintsH)
             NSLayoutConstraint.activate(constraintsV)
