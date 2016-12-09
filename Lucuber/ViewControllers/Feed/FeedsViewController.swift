@@ -110,6 +110,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     fileprivate let FeedAnyImagesCellIdentifier = "FeedAnyImagesCell"
     fileprivate let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
     fileprivate let FeedURLCellIdentifier = "FeedURLCell"
+    fileprivate let FeedFormulaCellIdentifier = "FeedFormulaCell"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -203,7 +204,8 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         tableView.register(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
         tableView.register(FeedAnyImagesCell.self, forCellReuseIdentifier: FeedAnyImagesCellIdentifier)
         tableView.register(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
-           tableView.register(FeedURLCell.self, forCellReuseIdentifier: FeedURLCellIdentifier)
+        tableView.register(FeedURLCell.self, forCellReuseIdentifier: FeedURLCellIdentifier)
+        tableView.register(FeedFormulaCell.self, forCellReuseIdentifier: FeedFormulaCellIdentifier)
         
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
@@ -484,8 +486,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
                 
-                cell.configureWithFeed(feed, layout: FeedsViewController.layoutCatch.FeedCellLayoutOfFeed(feed: feed), needshowCategory: false)
-                
                 return cell
                 
             case .url:
@@ -507,6 +507,11 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 // TODO: - 其他类型的 Cell
+            case .formula:
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: FeedFormulaCellIdentifier, for: indexPath) as! FeedFormulaCell
+                return cell
+                
                 
             default:
                   let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
@@ -670,6 +675,11 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
                     cell.tapMediaAction = tapMediaAction
                 }
+                
+                
+            case .formula:
+                
+                 cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
                 
             default:
                 break

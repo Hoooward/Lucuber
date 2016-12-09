@@ -265,20 +265,24 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 content.indicatorImageName = discoverContent.indicatorImageName
                 
             }
-            
         }
         
         createOrUpdateRCategory(with: formula, uploadMode: uploadMode, inRealm: realm)
         
         completion?(formula)
     }
-    
 }
 
 internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
                                                                                                                            
     let query = AVQuery(className: DiscoverFeed.parseClassName())
+    
     query.limit = 20
+    query.includeKey("withFormula")
+    query.includeKey("withFormula.contents")
+    query.includeKey("creator")
+//    query.addDescendingOrder("createAt")
+    query.order(byDescending: "createdAt")
     
     switch kind {
         
@@ -328,6 +332,13 @@ internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSort
         } else {
             
             if let newFeeds = newFeeds as? [DiscoverFeed] {
+ 
+                newFeeds.forEach {
+                    $0.parseAttachmentsInfo()
+                }
+                
+                
+                
                 completion?(newFeeds)
             }
         }

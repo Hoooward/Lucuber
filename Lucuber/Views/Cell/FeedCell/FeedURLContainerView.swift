@@ -81,10 +81,10 @@ public class FeedURLContainerView: UIView {
     private func makeUI () {
         
         addSubview(backgroundImageView)
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        
         addSubview(siteNameLabel)
         addSubview(titleLabel)
-        
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         siteNameLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -117,7 +117,7 @@ public class FeedURLContainerView: UIView {
         }
         
         do {
-            let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[siteNameLabel]-|", options: [], metrics: nil, views: views)
+            let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|-[siteNameLabel]-|", options: [], metrics: nil, views: views)
             
             let metrcs: [String: Any] = [
                 "top": compressionMode ? 4 : 8,

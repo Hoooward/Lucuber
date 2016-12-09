@@ -44,23 +44,37 @@ struct FeedCellLayout {
     }
     var _URLLayout: URLLayout?
     
-    /// Cell的高度
-    var height: CGFloat = 0
     
+    struct FormulaLayout {
+        let formulaContainerViewFrame: CGRect
+    }
+    var _formulaLayout: FormulaLayout?
+    
+    var height: CGFloat = 0
     
     init(feed: DiscoverFeed) {
         
         switch feed.category {
+            
         case .text:
             height = FeedBaseCell.heightOfFeed(feed: feed)
+            
         case .image:
+            
             if feed.imageAttachmentsCount > 1 {
                 height = FeedAnyImagesCell.heightOfFeed(feed: feed)
             } else {
                 height = FeedBiggerImageCell.heightOfFeed(feed: feed)
             }
-        default:
+            
+        case .url:
             height = FeedURLCell.heightOfFeed(feed: feed)
+            
+        case .formula:
+            height = FeedFormulaCell.heightOfFeed(feed: feed)
+            
+        default:
+            height = FeedBaseCell.heightOfFeed(feed: feed)
         }
         
         let avatarImageViewFrame = CGRect(x: 15, y: 10, width: 40, height: 40)
@@ -116,6 +130,14 @@ struct FeedCellLayout {
         
         switch feed.category {
             
+        case .formula:
+            
+            let height: CGFloat = leftBottomLabelFrame.origin.y - beginY - 15
+            let formulaContainerViewFrame = CGRect(x: 65, y: beginY, width: screenWidth - 65 - 60, height: height)
+            let _formulaLayout = FeedCellLayout.FormulaLayout(formulaContainerViewFrame: formulaContainerViewFrame)
+            
+            self._formulaLayout = _formulaLayout
+            
         case .url:
             let height: CGFloat = leftBottomLabelFrame.origin.y - beginY - 15
             let URLContainerViewFrame = CGRect(x: 65, y: beginY, width: screenWidth - 65 - 60, height: height)
@@ -139,7 +161,6 @@ struct FeedCellLayout {
                 let mediaCollectionViewFrame = CGRect(origin: CGPoint(x:65, y: beginY), size: Config.FeedAnyImagesCell.mediaCollectionViewSize)
                 
                 self.anyImagesLayout = AnyImagesLayout(mediaCollectionViewFrame: mediaCollectionViewFrame)
- 
                 
             }
             

@@ -172,11 +172,51 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         case audio(AudioInfo)
         case location(LocationInfo)
         case URL(OpenGraphInfo)
+        case formula(DiscoverFormula)
     }
     
     @NSManaged var attachmentsInfo: NSDictionary
     
+    func parseAttachmentsInfo() {
+        
+        if let info = attachmentsInfo as? [String: [String]] ,let urls: [String] = info["urls"] {
+            
+            var attachments: [ImageAttachment] = []
+            urls.forEach { URL in
+                let attachment = ImageAttachment(metadata: nil, URLString: URL, image: nil)
+                attachments.append(attachment)
+            }
+           
+            self.attachment = .images(attachments)
+        }
+        
+        if let info = attachmentsInfo as? [String: String] {
+            
+            if
+                let URLString = info["url"] ,
+                let URL = URL(string: URLString),
+                let siteName = info["siteName"] ,
+                let title = info["title"] ,
+                let infoDescription = info["description"] ,
+                let thumbnailImageURLString = info["image_url"]  {
+                
+                let openGraph = OpenGraphInfo(URL: URL, siteName: siteName, title: title, infoDescription: infoDescription, thumbnailImageURLString: thumbnailImageURLString)
+                
+                self.attachment = .URL(openGraph)
+                
+            }
+            
+        }
+        
+        if let formula = withFormula {
+            
+            self.attachment = .formula(formula)
+        }
+        
+    }
+    
     public var attachment: Attachment? = nil
+        
     
     public var imageAttachments: [ImageAttachment]? {
         

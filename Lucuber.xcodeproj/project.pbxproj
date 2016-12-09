@@ -32,6 +32,7 @@
 		E424A8681DF6D7A4008A6AD0 /* FeedURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E424A8671DF6D7A4008A6AD0 /* FeedURLCell.swift */; };
 		E42C82951DF855DA00D315CF /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82941DF855DA00D315CF /* OpenGraph.swift */; };
 		E42C82971DFADCD300D315CF /* FeedFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82961DFADCD300D315CF /* FeedFormulaCell.swift */; };
+		E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82981DFADD5100D315CF /* FeedFormulaContainerView.swift */; };
 		E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
 		E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
 		E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */; };
@@ -278,6 +279,7 @@
 		E424A8671DF6D7A4008A6AD0 /* FeedURLCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedURLCell.swift; sourceTree = "<group>"; };
 		E42C82941DF855DA00D315CF /* OpenGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGraph.swift; sourceTree = "<group>"; };
 		E42C82961DFADCD300D315CF /* FeedFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaCell.swift; sourceTree = "<group>"; };
+		E42C82981DFADD5100D315CF /* FeedFormulaContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaContainerView.swift; sourceTree = "<group>"; };
 		E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailContentCell.xib; sourceTree = "<group>"; };
 		E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FormulaDetail.storyboard; sourceTree = "<group>"; };
 		E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetailViewController.swift; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 				E424A8651DF6CF27008A6AD0 /* FeedURLContainerView.swift */,
 				E424A8671DF6D7A4008A6AD0 /* FeedURLCell.swift */,
 				E42C82961DFADCD300D315CF /* FeedFormulaCell.swift */,
+				E42C82981DFADD5100D315CF /* FeedFormulaContainerView.swift */,
 			);
 			path = FeedCell;
 			sourceTree = "<group>";
@@ -1795,6 +1798,7 @@
 				E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */,
 				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
 				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
+				E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
 				E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */,
 				E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */,
