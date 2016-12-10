@@ -147,7 +147,11 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
     
     uploadFileGroup.notify(queue: DispatchQueue.main, execute: {
         
-        completion(URLs)
+        if URLs.count != files.count {
+            failureHandler(Reason.network(nil), "有部分图片上传失败")
+        } else {
+            completion(URLs)
+        }
     })
     
 }

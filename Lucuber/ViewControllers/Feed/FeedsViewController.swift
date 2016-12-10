@@ -565,7 +565,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             
-            cell.tapKindAction = { [weak self] cell in
+            cell.tapCategoryAction = { [weak self] cell in
                 guard
                     let strongSelf = self,
                     let indexPath = tableView.indexPath(for: cell) else {

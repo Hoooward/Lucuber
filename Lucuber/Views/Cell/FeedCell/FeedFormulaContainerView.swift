@@ -85,7 +85,6 @@ public class FeedFormulaContainerView: UIView {
     
     public func configureWithDiscoverFormula(formula: DiscoverFormula) {
         
-        printLog(formula)
         nameLabel.text = formula.name
         
         indicatorView.configureWithCategory(category: formula.category)

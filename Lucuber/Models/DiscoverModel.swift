@@ -292,12 +292,14 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var recommended: Bool
     
     
+    public var uploadingErrorMessage: String? = nil
+    
     public var timeString: String {
         
 //        let date = Date(timeIntervalSince1970: createdAt)
         // TimeAgo
         
-        return ""
+        return "1小时"
     }
     
     public var timeAndDistanceString: String {

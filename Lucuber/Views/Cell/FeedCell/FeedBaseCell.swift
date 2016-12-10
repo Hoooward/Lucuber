@@ -18,14 +18,19 @@ class FeedBaseCell: UITableViewCell {
         return maxWidth
     }()
     
+    var needShowDistance: Bool = false
+    
     var feed: DiscoverFeed?
     
     var tapAvatarAction: ((FeedBaseCell) -> Void)?
-    var tapKindAction: ((FeedBaseCell) -> Void)?
+    var tapCategoryAction: ((FeedBaseCell) -> Void)?
     
     var touchesBeganAction: ((UITableViewCell) -> Void)?
     var touchesEndedAction: ((UITableViewCell) -> Void)?
     var touchesCancelledAction: ((UITableViewCell) -> Void)?
+    
+    var retryUploadingFeedAction: ((_ cell: FeedBaseCell) -> Void)?
+    var deleteUploadingFeedAction: ((_ cell: FeedBaseCell) -> Void)?
     
     /// 通过Feed内容计算高度
     class func heightOfFeed(feed: DiscoverFeed) -> CGFloat {
@@ -38,30 +43,85 @@ class FeedBaseCell: UITableViewCell {
     
     
     func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
-        self.feed = feed
+        
         let defaultLayout = layout.defaultLayout
         
-        messageTextView.text = "\(feed.body)" // ref http://stackoverflow.com/a/25994821
-        //println("messageTextView.text: >>>\(messageTextView.text)<<<")
+        self.feed = feed
+        
+        if let url = feed.creator?.avatorImageURL() {
+            
+            let cubeAvatar = CubeAvatar(avatarUrlString: url, avatarStyle: nanoAvatarStyle)
+            avatarImageView.navi_setAvatar(cubeAvatar, withFadeTransitionDuration: 0.5)
+            
+        } else {
+            avatarImageView.image = #imageLiteral(resourceName: "default_avatar_60")
+        }
+        
+        if needShowDistance {
+            leftBottomLabel.text = feed.timeAndDistanceString
+        } else {
+            leftBottomLabel.text = feed.timeString
+        }
+        
+        messageTextView.text = "\u{200B}\(feed.body)" // ref http://stackoverflow.com/a/25994821
         messageTextView.frame = defaultLayout.messageTextViewFrame
         
-        nickNameLabel.text = feed.creator?.username ?? "iTychooo"
-        nickNameLabel.frame = defaultLayout.nicknameLabelFrame
+        messageCountLabel.text = feed.messagesCount > 99 ? "99+" : "\(feed.messagesCount)"
+        messagesConutEqualsZero = feed.messagesCount == 0
+        messageCountLabel.frame = defaultLayout.messageCountLabelFrame
         
-        
-        avatarImageView.image = UIImage(named: "Howard")
-        avatarImageView.frame = defaultLayout.avatarImageViewFrame
-        
-        categoryButton.setTitle(feed.category.rawValue, for: .normal)
+        if needshowCategory {
+            categoryButton.isHidden = false
+            categoryButton.setTitle(feed.category.title, for: .normal)
+            
+        } else {
+            
+            categoryButton.isHidden = true
+        }
         categoryButton.frame = defaultLayout.categoryButtonFrame
         
         
-        leftBottomLabel.text = "1小时前"
+        var _nickName = "未知"
+        if let userName = feed.creator?.username {
+            _nickName = userName
+        }
+        if let nickName = feed.creator?.nickname() {
+            _nickName = nickName
+        }
+        
+        nickNameLabel.text = _nickName
+        nickNameLabel.frame = defaultLayout.nicknameLabelFrame
+        
+        
+        avatarImageView.frame = defaultLayout.avatarImageViewFrame
         leftBottomLabel.frame = defaultLayout.leftBottomLabelFrame
         discussionImageView.frame = defaultLayout.discussionImageViewFrame
         
-        messageCountLabel.text = "10"
-        messageCountLabel.frame = defaultLayout.messageCountLabelFrame
+        
+      
+        if let message = feed.uploadingErrorMessage {
+            hasUploadingErrorMessage = true
+            
+            let y = leftBottomLabel.frame.origin.y - (30 - leftBottomLabel.frame.height) * 0.5
+            uploadingErrorContainerView.frame = CGRect(x: 65, y: y, width: UIScreen.main.bounds.width - 65, height: 30)
+            uploadingErrorContainerView.errorMessageLabel.text = message
+            
+            uploadingErrorContainerView.retryAction = { [weak self] in
+                if let strongSelf = self {
+                    strongSelf.retryUploadingFeedAction?(strongSelf)
+                }
+            }
+            
+            uploadingErrorContainerView.deleteAction = { [weak self] in
+                if let strongSelf = self {
+                    strongSelf.deleteUploadingFeedAction?(strongSelf)
+                }
+            }
+            
+            contentView.addSubview(uploadingErrorContainerView)
+        } else {
+            hasUploadingErrorMessage = false
+        }
         
     }
     
@@ -220,10 +280,12 @@ class FeedBaseCell: UITableViewCell {
     
     func tapCategory(sender: UIGestureRecognizer) {
         
+        tapCategoryAction?(self)
     }
     
     func tapAvatar(sender: UIGestureRecognizer) {
         
+        tapAvatarAction?(self)
     }
 
     

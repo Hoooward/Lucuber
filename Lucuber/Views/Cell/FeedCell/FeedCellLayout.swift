@@ -84,7 +84,7 @@ struct FeedCellLayout {
         
         if let category = FeedCategory(rawValue: feed.categoryString) {
             
-            let rect = (category.rawValue as NSString).boundingRect(with: CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.FeedDetailCell.categryButtonAttributies, context: nil)
+            let rect = (category.title as NSString).boundingRect(with: CGSize(width: 320, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.FeedDetailCell.categryButtonAttributies, context: nil)
             
             let categoryButtonWidth = ceil(rect.width) + 20
             

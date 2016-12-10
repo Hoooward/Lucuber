@@ -675,6 +675,18 @@ public enum FeedCategory: String {
     case AppleEBook = "apple_ebook"
     
     
+    public var title: String {
+        
+        switch self {
+        case .formula:
+            return "公式"
+        case .record:
+            return "成绩"
+        default:
+            return "话题"
+        }
+    }
+    
     public var needBackgroundUpload: Bool {
         switch self {
         case .image:
