@@ -30,14 +30,6 @@ class FeedAnyImagesCell: FeedBaseCell  {
             }
         }
         
-//        switch feed.attachment {
-//
-//        case .images(let imageAttachments):
-//            self.imageAttachments = imageAttachments
-//            
-//        default:
-//            break
-//        }
         
         if let anyImagesLayout = layout.anyImagesLayout {
             mediaCollectionView.frame = anyImagesLayout.mediaCollectionViewFrame
@@ -65,7 +57,6 @@ class FeedAnyImagesCell: FeedBaseCell  {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        
         return collectionView
         
     }()
@@ -76,8 +67,14 @@ class FeedAnyImagesCell: FeedBaseCell  {
         contentView.addSubview(mediaCollectionView)
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageAttachments = []
     }
 }
 
@@ -96,11 +93,6 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedMediaCellIdentifier, for: indexPath) as! FeedMediaCell
         
-//        let attachment = imageAttachments[indexPath.row]
-//        
-//        cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: cell.imageView.size)
-//        
-//        cell.deleteImageView.isHidden = true
         
         return cell
     }
@@ -112,8 +104,17 @@ extension FeedAnyImagesCell: UICollectionViewDelegate, UICollectionViewDataSourc
         }
         
         let attachment = imageAttachments[indexPath.row]
-        cell.imageView.showActivityIndicatorWhenLoading = true
-        cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: cell.imageView.size)
+        
+        if attachment.isTemporary {
+            
+            cell.imageView.image = attachment.image
+            
+        } else {
+            
+            cell.imageView.showActivityIndicatorWhenLoading = true
+            cell.imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: cell.imageView.size)
+        }
+        
         cell.deleteImageView.isHidden = true
 
         

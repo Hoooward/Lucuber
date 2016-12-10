@@ -231,7 +231,7 @@ class NewFeedViewController: UIViewController {
         let newDiscoverFeed = DiscoverFeed()
         
         newDiscoverFeed.creator = currentAVUser
-        newDiscoverFeed.localObjectID = Feed.randomLocalObjectID()
+//        newDiscoverFeed.localObjectID = Feed.randomLocalObjectID()
         newDiscoverFeed.allowComment = true
         newDiscoverFeed.categoryString = category.rawValue
         newDiscoverFeed.attachment = feedAttachment

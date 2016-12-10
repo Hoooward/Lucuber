@@ -27,20 +27,30 @@ class FeedBiggerImageCell: FeedBaseCell {
             biggerImageView.frame = biggerImageLayout.biggerImageViewFrame
         }
         
-        switch feed.attachment! {
-        case .images(let imageAttachments):
+        if let attachment = feed.attachment {
             
-            if let attachment = imageAttachments.first {
-                //大图还是使用原始大小的图片.
-                imageAttachment = attachment
-                biggerImageView.showActivityIndicatorWhenLoading = true
-                biggerImageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: nil)
+            switch attachment {
+            case .images(let imageAttachments):
+                
+                if let attachment = imageAttachments.first {
+                    //大图还是使用原始大小的图片.
+                    
+                    if attachment.isTemporary {
+                        
+                        biggerImageView.image = attachment.image
+                        
+                    } else {
+                        
+                        biggerImageView.showActivityIndicatorWhenLoading = true
+                        biggerImageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: nil)
+                        
+                    }
+                }
+                
+            default:
+                break
             }
-            
-        default:
-            break
         }
-        
         
     }
     
@@ -75,7 +85,6 @@ class FeedBiggerImageCell: FeedBaseCell {
         }
     }
     
-    var imageAttachment: ImageAttachment?
     
     override func prepareForReuse() {
         super.prepareForReuse()

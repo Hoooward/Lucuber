@@ -380,6 +380,8 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                     return
                 }
                 
+                feed.parseAttachmentsInfo()
+                
                 strongSelf.tableView.customScrollsToTop()
                 
                 strongSelf.tableView.beginUpdates()
@@ -689,8 +691,8 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .uploadingFeed:
             
-//            let feed = uploadingFeeds[indexPath.row]
-//            configureFeedCell(cell: cell, withFeed: feed)
+            let feed = uploadingFeeds[indexPath.row]
+            configureFeedCell(cell: cell, withFeed: feed)
          
             break
         case .feed:

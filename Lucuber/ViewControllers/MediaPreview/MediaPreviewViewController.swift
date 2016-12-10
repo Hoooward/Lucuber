@@ -269,9 +269,6 @@ class MediaPreviewViewController: UIViewController {
         // 设置分享的动作
     }
     
-    
-    
-    
 }
 
 extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -310,13 +307,13 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                 
                 mediaControlView.isHidden = false
                 cell.activityIndicator.startAnimating()
-//                CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: nil, completion: { (url, image, cacheType) in
-//                    cell.mediaView.image = image
-//                    cell.activityIndicator.stopAnimating()
-//                })
                 
+                CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: nil, imageExtesion: CubeImageCache.imageExtension.jpeg, completion: {
+                    url, image, cacheType in
+                    cell.mediaView.image = image
+                    cell.activityIndicator.stopAnimating()
+                })
                 
-                break
             default:
                 break
             }
