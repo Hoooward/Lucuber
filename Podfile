@@ -3,6 +3,7 @@
 
 target 'Lucuber' do
 
+pod 'Navi', '~> 1.1.0'
 pod 'Alamofire', '~> 4.0'
 pod 'AVOSCloud'
 #pod 'AVOSCloudIM'
