@@ -315,7 +315,7 @@ open class Preferences: Object {
 
 open class Avatar: Object {
     
-    open dynamic var avatarURLString: String = ""
+    open dynamic var avatarUrlString: String = ""
     open dynamic var avatarFileName: String = ""
     open dynamic var roundMini: Data = Data() // 60
     open dynamic var roundNano: Data = Data() // 40

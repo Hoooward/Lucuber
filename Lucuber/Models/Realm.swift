@@ -55,7 +55,10 @@ public func creatMeInRealm() -> RUser? {
     
 }
 
-// MARK: - Realm
+public func avatarWith(_ urlString: String, inRealm realm: Realm) -> Avatar? {
+    let predicate = NSPredicate(format: "avatarUrlString = %@", urlString)
+    return realm.objects(Avatar.self).filter(predicate).first
+}
 
 
 public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {

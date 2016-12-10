@@ -33,6 +33,7 @@
 		E42C82951DF855DA00D315CF /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82941DF855DA00D315CF /* OpenGraph.swift */; };
 		E42C82971DFADCD300D315CF /* FeedFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82961DFADCD300D315CF /* FeedFormulaCell.swift */; };
 		E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82981DFADD5100D315CF /* FeedFormulaContainerView.swift */; };
+		E42C829B1DFBA9F700D315CF /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C829A1DFBA9F700D315CF /* Avatar.swift */; };
 		E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA31DE3FA43009C0E78 /* JSONData.swift */; };
 		E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BAA41DE3FA43009C0E78 /* PrepareData.swift */; };
 		E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */; };
@@ -280,6 +281,7 @@
 		E42C82941DF855DA00D315CF /* OpenGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGraph.swift; sourceTree = "<group>"; };
 		E42C82961DFADCD300D315CF /* FeedFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaCell.swift; sourceTree = "<group>"; };
 		E42C82981DFADD5100D315CF /* FeedFormulaContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFormulaContainerView.swift; sourceTree = "<group>"; };
+		E42C829A1DFBA9F700D315CF /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		E42D20C31DEFD2D400E4F637 /* DetailContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailContentCell.xib; sourceTree = "<group>"; };
 		E435C0241D9EA4020026FA08 /* FormulaDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FormulaDetail.storyboard; sourceTree = "<group>"; };
 		E435C0261D9EA41D0026FA08 /* FormulaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaDetailViewController.swift; sourceTree = "<group>"; };
@@ -662,6 +664,7 @@
 				E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */,
 				E4DAFE0B1DEB326F008A8702 /* ModelExtesion.swift */,
 				E42C82941DF855DA00D315CF /* OpenGraph.swift */,
+				E42C829A1DFBA9F700D315CF /* Avatar.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1828,6 +1831,7 @@
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
 				E41ECF531DB61A34005BEFE4 /* MediaControlView.swift in Sources */,
 				E4CED8381DE862770036A11C /* CateogryMenuCell.swift in Sources */,
+				E42C829B1DFBA9F700D315CF /* Avatar.swift in Sources */,
 				E4CED8341DE862770036A11C /* ActionSheetView.swift in Sources */,
 				E4CED86B1DE862770036A11C /* NewFormulaTextCell.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,

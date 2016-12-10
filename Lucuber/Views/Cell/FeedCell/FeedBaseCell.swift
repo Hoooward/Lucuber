@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Navi
 
 public typealias tapMediaActionTypealias =  ((_ transitionView: UIView, _ image: UIImage?, _ imageAttachments: [ImageAttachment], _ index: Int) -> Void)?
 
