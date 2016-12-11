@@ -155,7 +155,7 @@ public class Config {
         
         public static let mediaPreferredWidth: CGFloat = CubeRuler.iPhoneHorizontal(192, 225, 250).value
         public static let mediaPreferredHeight: CGFloat = CubeRuler.iPhoneHorizontal(208, 244, 270).value
-//
+
         public static let mediaMinWidth: CGFloat = 60
         public static let mediaMinHeight: CGFloat = 45
         

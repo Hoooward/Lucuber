@@ -232,6 +232,11 @@
 		E4F38D5A1DFD20C500F0DF8A /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D581DFD20C400F0DF8A /* SendingMessagePool.swift */; };
 		E4F38D651DFD21D100F0DF8A /* Service+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D631DFD21D100F0DF8A /* Service+Fetch.swift */; };
 		E4F38D661DFD21D100F0DF8A /* Service+Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D641DFD21D100F0DF8A /* Service+Push.swift */; };
+		E4F38D681DFD2B7F00F0DF8A /* MoreMessageTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D671DFD2B7F00F0DF8A /* MoreMessageTypeView.swift */; };
+		E4F38D6C1DFD342100F0DF8A /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D6A1DFD342100F0DF8A /* TitleCell.swift */; };
+		E4F38D6D1DFD342100F0DF8A /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D6B1DFD342100F0DF8A /* TitleCell.xib */; };
+		E4F38D701DFD34B600F0DF8A /* PickPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D6E1DFD34B600F0DF8A /* PickPhotosCell.swift */; };
+		E4F38D711DFD34B600F0DF8A /* PickPhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D6F1DFD34B600F0DF8A /* PickPhotosCell.xib */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -447,6 +452,11 @@
 		E4F38D581DFD20C400F0DF8A /* SendingMessagePool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingMessagePool.swift; sourceTree = "<group>"; };
 		E4F38D631DFD21D100F0DF8A /* Service+Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Service+Fetch.swift"; sourceTree = "<group>"; };
 		E4F38D641DFD21D100F0DF8A /* Service+Push.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Service+Push.swift"; sourceTree = "<group>"; };
+		E4F38D671DFD2B7F00F0DF8A /* MoreMessageTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMessageTypeView.swift; sourceTree = "<group>"; };
+		E4F38D6A1DFD342100F0DF8A /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
+		E4F38D6B1DFD342100F0DF8A /* TitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCell.xib; sourceTree = "<group>"; };
+		E4F38D6E1DFD34B600F0DF8A /* PickPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosCell.swift; sourceTree = "<group>"; };
+		E4F38D6F1DFD34B600F0DF8A /* PickPhotosCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickPhotosCell.xib; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -737,6 +747,7 @@
 		E4CED79D1DE862770036A11C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E4F38D691DFD340C00F0DF8A /* MoreMessageType */,
 				E4CED79E1DE862770036A11C /* CategoryMenuCell */,
 				E4CED7A01DE862770036A11C /* ConversationCell */,
 				E4CED7AE1DE862770036A11C /* FeedCell */,
@@ -1342,6 +1353,7 @@
 		E4F38D441DFD1DB300F0DF8A /* MoreMessageType */ = {
 			isa = PBXGroup;
 			children = (
+				E4F38D671DFD2B7F00F0DF8A /* MoreMessageTypeView.swift */,
 			);
 			path = MoreMessageType;
 			sourceTree = "<group>";
@@ -1411,6 +1423,17 @@
 				E4F38D581DFD20C400F0DF8A /* SendingMessagePool.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		E4F38D691DFD340C00F0DF8A /* MoreMessageType */ = {
+			isa = PBXGroup;
+			children = (
+				E4F38D6A1DFD342100F0DF8A /* TitleCell.swift */,
+				E4F38D6B1DFD342100F0DF8A /* TitleCell.xib */,
+				E4F38D6E1DFD34B600F0DF8A /* PickPhotosCell.swift */,
+				E4F38D6F1DFD34B600F0DF8A /* PickPhotosCell.xib */,
+			);
+			path = MoreMessageType;
 			sourceTree = "<group>";
 		};
 		E4F9F10C1D991E040076C57C /* Login */ = {
@@ -1607,6 +1630,7 @@
 				E4DF66041D8D9633005CE518 /* Timer.storyboard in Resources */,
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
+				E4F38D711DFD34B600F0DF8A /* PickPhotosCell.xib in Resources */,
 				E4CED8541DE862770036A11C /* DetailFormulasCell.xib in Resources */,
 				E4CED8741DE862770036A11C /* TypeSelectedCell.xib in Resources */,
 				E4CED8401DE862770036A11C /* ChatSectionDateCell.xib in Resources */,
@@ -1623,6 +1647,7 @@
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E4CED86E1DE862770036A11C /* NewSectionHeaderView.xib in Resources */,
 				E4CED8611DE862770036A11C /* NoResultCell.xib in Resources */,
+				E4F38D6D1DFD342100F0DF8A /* TitleCell.xib in Resources */,
 				E4CE8B261DF2E35100944099 /* Setting.storyboard in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
@@ -1876,6 +1901,7 @@
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
 				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
+				E4F38D681DFD2B7F00F0DF8A /* MoreMessageTypeView.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
 				E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */,
 				E4F38D551DFD1F6C00F0DF8A /* DetailTitleView.swift in Sources */,
@@ -1885,10 +1911,12 @@
 				E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */,
+				E4F38D701DFD34B600F0DF8A /* PickPhotosCell.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E45351EB1DFC1DF70092805B /* ConversationTitleView.swift in Sources */,
 				E4CED8601DE862770036A11C /* NoResultCell.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
+				E4F38D6C1DFD342100F0DF8A /* TitleCell.swift in Sources */,
 				E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E4CED85E1DE862770036A11C /* NormalFormulaCell.swift in Sources */,
