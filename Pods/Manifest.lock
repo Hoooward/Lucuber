@@ -5,6 +5,7 @@ PODS:
   - Kingfisher (3.2.2)
   - Navi (1.1.0)
   - PKHUD (3.2.1)
+  - Proposer (1.1.0)
   - Realm (2.1.1):
     - Realm/Headers (= 2.1.1)
   - Realm/Headers (2.1.1)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - Kingfisher (~> 3.0)
   - Navi (~> 1.1.0)
   - PKHUD (from `https://github.com/toyship/PKHUD.git`)
+  - Proposer (~> 1.1.0)
   - RealmSwift
   - Reveal-SDK
   - SwiftyJSON
@@ -40,11 +42,12 @@ SPEC CHECKSUMS:
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
   Navi: 486cdec680956c8f6a1e882c66cbf86d0ad52490
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
+  Proposer: 422c693b1917a461af30e7139b0d05eefe999e16
   Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
   RealmSwift: 749fd955bf8d6471c21d218b9389a47aaeccfe3f
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 69da1f371bd1371643efb0aa05dfdbd1c8f66cd3
+PODFILE CHECKSUM: 65c82e1bb183a5cf8e2fa030289d72c4ca55c68c
 
 COCOAPODS: 1.1.1
