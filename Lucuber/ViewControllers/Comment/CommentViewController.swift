@@ -16,24 +16,7 @@ class CommentViewController: UIViewController {
     var feed: DiscoverFeed?
     
     var conversation: Conversation!
-    
-    fileprivate lazy var messages: Results<Message> = {
-        
-        return messagesWith(self.conversation, inRealm: self.realm)
-    }()
-    
-    fileprivate var inActiveNewMessageIDSet = Set<String>()
-    
-    fileprivate var lastUpdateMessagesCount: Int = 0
-    fileprivate let messagesBunchCount = 20
-    
-    fileprivate var displayedMessagesRange: NSRange = NSRange() {
-        didSet {
-            needShowLoadPreviousSection = displayedMessagesRange.length >= messagesBunchCount
-        }
-    }
-    fileprivate var needShowLoadPreviousSection: Bool = false 
-    
+
     var afterSentMessageAction: (() -> Void)?
     var afterDeletedFeedAction: ((String) -> Void)?
     var conversationIsDirty = false
@@ -42,11 +25,28 @@ class CommentViewController: UIViewController {
     
     fileprivate var realm: Realm!
     
-//    fileprivate lazy var rMessages: Result<RMessage> = {
-//    
-//        return messag
-//    }
-//    
+    fileprivate lazy var messages: Results<Message> = {
+        
+        return messagesWith(self.conversation, inRealm: self.realm)
+    }()
+    
+    fileprivate var displayedMessagesRange: NSRange = NSRange() {
+        didSet {
+            needShowLoadPreviousSection = displayedMessagesRange.length >= messagesBunchCount
+        }
+    }
+    
+    fileprivate var needShowLoadPreviousSection: Bool = false
+    fileprivate var needReloadLoadPreviousSection: Bool = false
+    
+    // 上次更新 UI 时的消息数量
+    fileprivate var lastUpdateMessagesCount: Int = 0
+    
+    // 一次 Fetch 多少个 Message
+    fileprivate let messagesBunchCount = 20
+    
+    // 后台收到的消息
+    fileprivate var inActiveNewMessageIDSet = Set<String>()
     
     fileprivate lazy var sectionDateFormatter: DateFormatter =  {
         let dateFormatter = DateFormatter()
@@ -60,48 +60,59 @@ class CommentViewController: UIViewController {
         dateFormatter.dateFormat = "EEEE HH:mm"
         return dateFormatter
     }()
+ 
+    var headerView: CommentHeaderView?
+    var draBeginLocation: CGPoint?
+
+    @IBOutlet weak var messageToolbar: MessageToolbar!
+    @IBOutlet weak var commentCollectionView: UICollectionView!
+    @IBOutlet weak var messageToolbarBottomConstraints: NSLayoutConstraint!
+    
+    fileprivate var commentCollectionViewHasBeenMovedToBottomOnece = false
+    
+    fileprivate var checkTypingStatusTimer: Timer?
+    fileprivate var typingResetDelay: Float = 0
+    
+    private let keyboardMan = KeyboardMan()
+    private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
+    
+    var isFirstAppear = true
     
     private lazy var titleView: ConversationTitleView = {
         let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
         
-//        if nameOfConversation(self.conversation) != "" {
-//            titleView.nameLabel.text = nameOfConversation(self.conversation)
-//        } else {
-//            titleView.nameLabel.text = NSLocalizedString("Discussion", comment: "")
-//        }
-//        
-//        self.updateStateInfoOfTitleView(titleView)
-//        
-//        titleView.userInteractionEnabled = true
-//
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.showFriendProfile(_:)))
-//        
-//        titleView.addGestureRecognizer(tap)
+        if let title = titleName(of: self.conversation) {
+            titleView.nameLabel.text = title
+        } else {
+            titleView.nameLabel.text = "讨论"
+        }
         
-        titleView.nameLabel.text = "讨论"
+        //        if nameOfConversation(self.conversation) != "" {
+        //            titleView.nameLabel.text = nameOfConversation(self.conversation)
+        //        } else {
+        //            titleView.nameLabel.text = NSLocalizedString("Discussion", comment: "")
+        //        }
+        //
+        //        self.updateStateInfoOfTitleView(titleView)
+        //
+        //        titleView.userInteractionEnabled = true
+        //
+        //        let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.showFriendProfile(_:)))
+        //
+        //        titleView.addGestureRecognizer(tap)
+        
         titleView.stateInfoLabel.textColor = UIColor.gray
         titleView.stateInfoLabel.text = "上次见是一周以前"
         
         return titleView
     }()
     
-    
-    
-    
-    
-    var headerView: CommentHeaderView?
-    var draBeginLocation: CGPoint?
-
-    @IBOutlet weak var messageToolbar: MessageToolbar!
-    @IBOutlet weak var commentCollectionView: UICollectionView!
-    
-    private var commentCollectionViewHasBeenMovedToBottomOnece = false
-    
-    @IBOutlet weak var messageToolbarBottomConstraints: NSLayoutConstraint!
-    
-    private let keyboardMan = KeyboardMan()
-    private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
-    
+    // TODO: - 更新 TitleViewInfo
+    fileprivate func updateInfoOfTitleView(titleView: ConversationTitleView) {
+        guard !self.conversation.isInvalidated else {
+            return
+        }
+    }
     
     fileprivate lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width
@@ -110,7 +121,6 @@ class CommentViewController: UIViewController {
     fileprivate lazy var messageTextViewMaxWidth: CGFloat = {
         return self.collectionViewWidth - Config.chatCellGapBetweenWallAndAvatar() - Config.chatCellAvatarSize() - Config.chatCellGapBetweenTextContentLabelAndAvatar() - Config.chatTextGapBetweenWallAndContentLabel()
     }()
-    
     
     private var textContentLabelWidths = [String: CGFloat]()
     fileprivate func textContentLabelWidthOfMessage(_ message: Message) -> CGFloat {
@@ -569,8 +579,6 @@ class CommentViewController: UIViewController {
         }
         
     }
-    
-    private var isFirstAppear: Bool = true
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

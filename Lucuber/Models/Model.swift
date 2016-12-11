@@ -738,22 +738,22 @@ open class FeedLocation: Object {
 }
 
 
-public class OpenGraphInfo: Object {
+open class OpenGraphInfo: Object {
     
-    public dynamic var URLString: String = ""
-    public dynamic var siteName: String = ""
-    public dynamic var title: String = ""
-    public dynamic var infoDescription: String = ""
-    public dynamic var thumbnailImageURLString: String = ""
+    open dynamic var URLString: String = ""
+    open dynamic var siteName: String = ""
+    open dynamic var title: String = ""
+    open dynamic var infoDescription: String = ""
+    open dynamic var thumbnailImageURLString: String = ""
     
-    public let messages = LinkingObjects(fromType: Message.self, property: "openGraphInfo")
-    public let feeds = LinkingObjects(fromType: Feed.self, property: "openGraphInfo")
+//    open let messages = LinkingObjects(fromType: Message.self, property: "openGraphInfo")
+    open let feeds = LinkingObjects(fromType: Feed.self, property: "openGraphInfo")
     
-    public override class func primaryKey() -> String? {
+    open override class func primaryKey() -> String? {
         return "URLString"
     }
     
-    public override class func indexedProperties() -> [String] {
+    open override class func indexedProperties() -> [String] {
         return ["URLString"]
     }
     
@@ -767,7 +767,7 @@ public class OpenGraphInfo: Object {
         self.thumbnailImageURLString = thumbnailImageURLString
     }
     
-    public class func withURLString(URLString: String, inRealm realm: Realm) -> OpenGraphInfo? {
+    open class func withURLString(URLString: String, inRealm realm: Realm) -> OpenGraphInfo? {
         return realm.objects(OpenGraphInfo.self).filter("URLString = %@", URLString).first
     }
 }
@@ -1006,6 +1006,49 @@ open class Conversation: Object {
     
     open var needDetectMention: Bool {
         return type == ConversationType.group.rawValue
+    }
+}
+
+protocol RandomID {
+    static func randomLocalObjectID() -> String
+}
+
+extension RandomID where Self: Object {
+    
+}
+
+extension Formula: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Formula_" + String.random()
+    }
+}
+
+extension Content: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Content_" + String.random()
+    }
+}
+
+extension RUser: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "RUser_" + String.random()
+    }
+}
+
+extension Message: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Message_" + String.random()
+    }
+}
+
+extension Feed: RandomID {
+    
+    class func randomLocalObjectID() -> String {
+        return "Feed" + String.random()
     }
 }
 

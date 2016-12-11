@@ -57,8 +57,10 @@ final class CubeImageCache {
             var originalData: Data?
             
             switch imageExtension {
+                
             case .jpeg:
                 originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                
             case .png:
                 originalData = UIImagePNGRepresentation(resultImage)
                 
@@ -67,7 +69,6 @@ final class CubeImageCache {
             ImageCache.default.store(resultImage, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
                         
             })
-            
         })
     }
     
@@ -126,7 +127,6 @@ final class CubeImageCache {
                             ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
                                 
                             })
-                            
                         }
                         
                         DispatchQueue.main.async {
@@ -135,58 +135,53 @@ final class CubeImageCache {
                         
                     } else {
                         
-                   
                         // 如果没有找到, 下载
-                       ImageDownloader.default.downloadImage(with: attachmentURL as URL, options: options, progressBlock: { (receivedSize, totalSize) in
+                        ImageDownloader.default.downloadImage(with: attachmentURL as URL, options: options, progressBlock: { (receivedSize, totalSize) in
                             
-                            }, completionHandler: { (image, error, imageURL, originalData) in
+                        }, completionHandler: { (image, error, imageURL, originalData) in
+                            
+                            if let image = image {
                                 
-                                if let image = image {
+                                ImageCache.default.store(image, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
                                     
-                                    ImageCache.default.store(image, original: originalData, forKey: originKey,  toDisk: true, completionHandler: {
+                                })
+                                
+                                var resultImage = image
+                                
+                                if sideLenght != 0 {
+                                    
+                                    resultImage = image.scaleToSideLenght(sidLenght: sideLenght)
+                                    
+                                    var originalData: Data?
+                                    
+                                    switch imageExtesion {
+                                    case .jpeg:
+                                        originalData = UIImageJPEGRepresentation(resultImage, 1.0)
+                                    case .png:
+                                        originalData = UIImagePNGRepresentation(image)
+                                        
+                                    }
+                                    
+                                    ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
                                         
                                     })
                                     
-                                    var resultImage = image
-                                    
-                                    if sideLenght != 0 {
-                                        
-                                        resultImage = image.scaleToSideLenght(sidLenght: sideLenght)
-                                        
-                                        var originalData: Data?
-                                        
-                                        switch imageExtesion {
-                                        case .jpeg:
-                                            originalData = UIImageJPEGRepresentation(resultImage, 1.0)
-                                        case .png:
-                                            originalData = UIImagePNGRepresentation(image)
-                                            
-                                        }
-                                        
-                                        ImageCache.default.store(resultImage, original: originalData, forKey: sideLengtKey,  toDisk: true, completionHandler: {
-                                            
-                                        })
-                                        
-                                    }
-                                    
-                                    DispatchQueue.main.async {
-                                        completion(attachmentURL, resultImage, cacheType)
-                                    }
-
-                                } else {
-                                    
-                                    DispatchQueue.main.async {
-                                        completion(attachmentURL, nil, cacheType)
-                                    }
-
                                 }
+                                
+                                DispatchQueue.main.async {
+                                    completion(attachmentURL, resultImage, cacheType)
+                                }
+                                
+                            } else {
+                                
+                                DispatchQueue.main.async {
+                                    completion(attachmentURL, nil, cacheType)
+                                }
+                            }
                         })
-                        
                     }
                 })
-                
             }
-    
         })
     }
 }

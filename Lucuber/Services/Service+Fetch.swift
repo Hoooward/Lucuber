@@ -70,9 +70,10 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
         }
     }
     
+    query.order(byAscending: "createdAt")
     query.limit = 20
     // 此次请求需要将完整的 creatorUser 信息获取到.
-    query.includeKey("creatarUser")
+    query.includeKey("creator")
     query.findObjectsInBackground {
         result, error in
         
@@ -117,8 +118,9 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
 func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: ((_ newSectionMessageIDs: [String]) -> Void)?) {
 
 
-    if let messageID = discoverMessage.objectId {
+    if  !discoverMessage.localObjectID.isEmpty {
 
+        let messageID = discoverMessage.localObjectID
         // 尝试从数据库中取得与 ID 对应的 Message
         var message = messageWith(messageID, inRealm: realm)
 

@@ -36,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverMessage.registerSubclass()
         DiscoverFeed.registerSubclass()
         
-        
         window = UIWindow()
         window?.frame = UIScreen.main.bounds
         window?.rootViewController = determineRootViewController()

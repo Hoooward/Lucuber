@@ -10,22 +10,17 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-//public let realmQueue = dispatch_queue_create("com.Lucuber.realmQueue", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0))
-
 let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS.utility, attributes: DispatchQueue.Attributes.concurrent)
 
 public func realmConfig() -> Realm.Configuration {
-    
     var config = Realm.Configuration()
     config.schemaVersion = 1
     config.migrationBlock = { migration, oldSchemaVersion in
     }
-    
     return config
 }
 
 // MARK: - User
-
 public func creatMeInRealm() -> RUser? {
     
     guard
@@ -37,7 +32,6 @@ public func creatMeInRealm() -> RUser? {
     
     if let user = userWith(currentUserlcObjectID, inRealm: realm) {
         return user
-        
     } else {
         let newUser = RUser()
         newUser.localObjectID = currentUser.localObjectID() ?? ""
@@ -52,14 +46,11 @@ public func creatMeInRealm() -> RUser? {
         }
         return newUser
     }
-    
 }
 
 public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUser? {
     
-    guard let avUser = avUser else {
-        return nil
-    }
+    guard let avUser = avUser else { return nil }
     
     var user = userWith(avUser.objectId!, inRealm: realm)
     
@@ -91,11 +82,9 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
                 let newRMasterList = newMasterList.map({ FormulaMaster(value: [$0, user]) })
                 
                 realm.add(newRMasterList)
-                
             }
         }
     }
-    
     return user
 }
 
@@ -143,20 +132,7 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
     if let _ = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) { return }
     let newMaster = FormulaMaster(value: [localObjectID, currentUser])
     realm.add(newMaster)
-    
 }
-
-//public func updateMasterList(with currentUser: RUser, discoverUser: AVUser, inRealm realm: Realm) {
-//    if let newMasterList = discoverUser.masterList() {
-//        let oldMasterList = mastersWith(currentUser, inRealm: realm)
-//        
-//        try? realm.write { realm.delete(oldMasterList) }
-//        
-//        let masterList = newMasterList.map { FormulaMaster(value:[$0, currentUser]) }
-//        try? realm.write { realm.add(masterList) }
-//    }
-//}
-
 
 // MARK: - Formula
 
@@ -169,6 +145,7 @@ public func deleteByCreatorFormula(with currentUser: RUser, inRealm realm: Realm
 }
 
 public func deleteByCreatorRContent(with currentUser: RUser, inRealm realm: Realm) -> Results<Content> {
+    
     let predicate = NSPredicate(format: "creator = %@", currentUser)
     let predicate2 = NSPredicate(format: "deleteByCreator = %@", true as CVarArg)
     
@@ -187,18 +164,21 @@ public func unPushedFormula(with currentUser: RUser, inRealm realm: Realm) -> Re
 public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory> {
     
     let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
-    return realm.objects(RCategory.self).filter(predicate)
     
+    return realm.objects(RCategory.self).filter(predicate)
 }
 
 public func contentWith(_ objectID: String, inRealm realm: Realm) -> Content? {
     
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
+    
     return realm.objects(Content.self).filter(predicate).first
 }
 
 public func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> Results<Content>? {
+    
     let predicate = NSPredicate(format: "atFormulaLocalObjectID = %@", atFormulaObjectID)
+    
     return realm.objects(Content.self).filter(predicate)
 }
 
@@ -208,7 +188,9 @@ func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, inRe
 }
 
 func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
+    
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
+    
     return realm.objects(Formula.self).filter(predicate).first
 }
 
@@ -222,7 +204,6 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Typ
     let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
     
     return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
-    
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Results<Formula> {
@@ -255,21 +236,18 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
             return realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: true)
         }
     }
-    
 }
 
 public func createOrUpdateRCategory(with formula: Formula, uploadMode: UploadFormulaMode, inRealm realm: Realm) {
+    
     let categorys = categorysWith(uploadMode, inRealm: realm)
     
-    // TODO: /
     let categoryTexts = categorys.map { $0.name }
     if !categoryTexts.contains(formula.categoryString) {
         
         let newRCategory = RCategory(value: [formula.categoryString, uploadMode.rawValue])
         realm.add(newRCategory)
-        
-    } 
-    
+    }
 }
 
 public func deleteEmptyRCategory(with uploadMode: UploadFormulaMode, inRealm realm: Realm) {
@@ -294,12 +272,9 @@ public func deleteEmptyRCategory(with uploadMode: UploadFormulaMode, inRealm rea
 
 // MARK: - Message
 
-
 public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGFloat)? {
     
-    guard !message.isInvalidated else {
-        return nil
-    }
+    guard !message.isInvalidated else { return nil }
     
     if let mediaMetaData = message.mediaMetaData {
         
@@ -317,18 +292,12 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
                     return (width, height)
                 }
             }
-            
         }
-        
     }
     return nil
 }
 
-public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
-    
-    let predicate = NSPredicate(format: "groupID = %@" , groupID)
-    return realm.objects(Group.self).filter(predicate).first
-}
+
 
 public func messagesWith(_ conversation: Conversation, inRealm realm: Realm) -> Results<Message> {
     
@@ -344,12 +313,11 @@ public func messageWith(_ messageID: String, inRealm realm: Realm) -> Message? {
         return nil
     }
     
-    let predicate = NSPredicate(format: "messageID = %@", messageID)
+    let predicate = NSPredicate(format: "localObjectID = %@", messageID)
     let message = realm.objects(Message.self).filter(predicate)
     return message.first
 }
 
-/// 在传入的 message 后面创建 DataSectionMessage
 public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMessage message: Message,  inRealm realm: Realm, completion: ((Message) -> Void)? ) {
     
     let messages = messagesWith(conversation, inRealm: realm)
@@ -383,13 +351,10 @@ public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMe
                     
                     completion?(newSectionDateMessage)
                 }
-                
             }
         }
     }
 }
-
-
 
 // MARK: - Feed
 
@@ -398,332 +363,43 @@ public func feedWith(_ lcObjcetID: String, inRealm realm: Realm) -> Feed? {
     return realm.objects(Feed.self).filter(predicate).first
 }
 
-
-
-/**
- After loaded Libray formulas form LeanCloud. need delete old formulas content
- and rewrite new content
- if dont do this,  the old conents still exist
- */
-
-public func deleteLibraryFormalsRContentAtRealm() {
+// MARK: - Group
+public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
     
-    let realm = try! Realm()
+    let predicate = NSPredicate(format: "groupID = %@" , groupID)
     
-    try! realm.write {
-        
-        let predicate = NSPredicate(format: "isLibrary == %@", true as Bool as CVarArg)
-        let formulas = realm.objects(Formula.self).filter(predicate)
-        
-//        formulas.forEach {
-        
-           // $0.contentsString.forEach {_ in
-//                realm.delete($0)
-                
-            //}
-//        }
-    }
-    
+    return realm.objects(Group.self).filter(predicate).first
 }
 
-public func deleteMyFormulasRContentAtRealm() {
+// MARK: - Conversation
+
+public func titleName(of conversation: Conversation) -> String? {
     
-    guard let realm = try? Realm() else {
-        return
+    guard !conversation.isInvalidated else {
+        return nil
     }
     
-    try? realm.write {
-        
-        let predicate = NSPredicate(format: "isLibrary == %@", false as Bool as CVarArg)
-        let formulas = realm.objects(Formula.self).filter(predicate)
-        
-//        formulas.forEach {
-            
-           // $0.contentsString.forEach {_ in
-//                realm.delete($0)
-            //}
-//        }
+    if conversation.type == ConversationType.oneToOne.rawValue {
+        if let withFirend = conversation.withFriend {
+            return withFirend.nickname
+        }
     }
+    
+    if conversation.type == ConversationType.group.rawValue {
+        if let withGroup = conversation.withGroup {
+            return withGroup.groupName
+        }
+    }
+    return nil
 }
 
 
-/**
- After loaded formulas from LeanCloud, or user creat new Formula,
- update categoryMenusList
- 
- - parameter categorys:    new categorys
- - parameter mode:         which userinterface : My or Library
- - parameter isNewFormula: its user creat new formula or not
- */
-
-//public func saveCategoryMenusAtRealm(categorys: [Category], mode: UploadFormulaMode?, isNewFromula: Bool = false) {
-//    
-//    let realm = try! Realm()
-//    
-//    if !isNewFromula {
-//        
-//        try! realm.write {
-//            
-//            if let mode = mode {
-//                
-//                let predicate = NSPredicate(format: "mode == %@", mode.rawValue)
-//                realm.delete(realm.objects(RCategory.self).filter(predicate))
-//                
-//                printLog("\(mode.rawValue) -> " + "重新从服务器获取公式后, 删除 Realm 中的所有 CategoryMenuList")
-//                
-//                // if Library categorys have changed, 必须将之前选中的公式类别更改为默认的三阶, 不然可能之前存储的选中类别已不存在.
-//                UserDefaults.setSelected(category: .x3x3, mode: .library)
-//                
-//                var result = [RCategory]()
-//                categorys.forEach {
-//                    category in
-//                    let r = category.convertToRCategory()
-//                    r.mode = mode.rawValue
-//                    result.append(r)
-//                }
-//                
-//                realm.add(result)
-//                
-//                printLog("\(mode.rawValue) -> " + "新的 CategoryMenuList 写入 Realm")
-//            }
-//            
-//        }
-//        
-//    } else {
-//        
-//         // if creat new Formula,  categorys are only have one object
-//        let rNew = categorys.first!.convertToRCategory()
-//        
-//        let predicate = NSPredicate(format: "mode == %@", UploadFormulaMode.my.rawValue)
-//        let predicate2 = NSPredicate(format: "categoryString == %@", rNew.categoryString)
-//        
-//        if realm.objects(RCategory.self).filter(predicate).filter(predicate2).isEmpty {
-//            
-//            try! realm.write {
-//                
-//                rNew.mode = UploadFormulaMode.my.rawValue
-//                realm.add(rNew)
-//            }
-//            
-//             printLog("\(UploadFormulaMode.my.rawValue) -> " + "CategoryMenuList 添加新类别成功")
-//            
-//        } else {
-//           
-//            printLog("\(UploadFormulaMode.my.rawValue) -> " + "此类别已经在数据库中了")
-//            
-//        }
-//    }
-//    
-//}
-
-/**
- Get formula's category from Realm
- 
- - parameter mode: Which userinsterface need this
- 
- - returns: [Category]
- */
-
-//public func getCategoryMenusAtRealm(mode: UploadFormulaMode) -> [Category] {
-//    
-//    let realm = try! Realm()
-//    let predicate = NSPredicate(format: "mode == %@", mode.rawValue)
-//    return realm.objects(RCategory.self).filter(predicate).map { $0.convertToCategory() }.sorted { $0.sortIndex < $1.sortIndex }
-//    
-//}
-
-/**
- After get Formuls from LeanCloud or User creat new Formula at local
- Update Data
- 
- - parameter formulas:          [Formula] from LeanCloud
- - parameter mode:              My or Library
- - parameter isCreatNewFormula: its user creat new formula at local or note
- */
-
-//public func saveUploadFormulasAtRealm(formulas: [Formula], mode: UploadFormulaMode?, isCreatNewFormula: Bool = false) {
-//    
-//    let realm = try! Realm()
-//    
-//    try! realm.write {
-//        
-//        realm.add(formulas.map { $0.convertRFormulaModel()}, update: true)
-//    }
-//    
-//    /// get new category menu list
-//    var categorys = Set<Category>()
-//    
-//    formulas.forEach {
-//        if !categorys.contains($0.category) {
-//            categorys.insert($0.category)
-//        }
-//    }
-//    
-//    saveCategoryMenusAtRealm(categorys: Array(categorys), mode: mode, isNewFromula: isCreatNewFormula)
-//}
-
-/**
- get formuls from Realm.
- 
- - parameter mode:     .My or .Library
- - parameter category: formula's categoty, etc: .x3x3 .x5x5
- 
- - returns: Change the RFormula to Formula's Objects
- */
-
- func getFormulsFormRealmWithMode(mode: UploadFormulaMode, category: Category) -> Results<Formula> {
-    
-    let realm = try! Realm()
-    
-    switch mode {
-        
-    case .my:
-        
-        
-        let id = AVUser.current()!.objectId!
-        let predicate = NSPredicate(format: "creatUserID = %@", id)
-        let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        let result =  realm.objects(Formula.self).filter(predicate).filter(predicate2)
-        return result
-        
-        
-    case .library:
-        
-        let predicate = NSPredicate(format: "isLibraryFormulas == true")
-        let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
-        return realm.objects(Formula.self).filter(predicate).filter(predicate2)
-    }
-}
-
-
-//
-//extension Category {
-//    
-//    func convertToRCategory() -> RCategory { switch self {
-//        default:
-//            let r = RCategory()
-//            r.categoryString = self.rawValue
-//            return r
-//        }
-//    }
-//}
-
-
-//extension FormulaContent {
-//    
-//    func convertRContent() -> RContent {
-//        
-//        let content = RContent()
-//        
-//        if let text = text {
-//            content.text = text
-//        }
-//        
-//        switch rotation {
-//        case .BL(let rotation, _):
-//            content.rotation = rotation
-//        case .FL(let rotation, _):
-//            content.rotation = rotation
-//        case .FR(let rotation, _):
-//            content.rotation = rotation
-//        case .BR(let rotation, _):
-//            content.rotation = rotation
-//        }
-//        return content
-//    }
-//}
-
-//class RCategory: Object {
-//    
-//    dynamic var categoryString = ""
-//    dynamic var mode = ""
-//    
-//    func convertToCategory() -> Category {
-//        return Category(rawValue: categoryString)!
-//    }
-//}
-
-//class RContent: Object {
-//    
-//    dynamic var text = ""
-//    dynamic var rotation = ""
-//    dynamic var cellHeight = 0
-//    
-//    //    let owners = LinkingObjects(fromType: RFormula.self, property: "contentsString")
-//    
-//    func convertToFormulaContent() -> FormulaContent {
-//        return FormulaContent(text: text, rotation: rotation)
-//    }
-//}
-
-//extension AVUser {
-//    
-//    func converRUserModel() -> RUser {
-//        let rUser = RUser()
-//        rUser.avatarImageUrl = self.getUserAvatarImageUrl()
-//        rUser.userID = self.objectId!
-//        rUser.nickName = self.getUserNickName()
-//        return rUser
-//    }
-//}
 
 
 
-//class RUser: Object {
-//    
-//    dynamic var userID: String = ""
-//    dynamic var nickName: String?
-//    dynamic var userName: String = ""
-//    dynamic var avatarImageUrl: String?
-//    
-//    dynamic var introduction: String = ""
-//    
-//    public override static func indexedProperties() -> [String] {
-//        return ["userID"]
-//    }
-//    
-//    let messages = LinkingObjects(fromType: Message.self, property: "creatUser")
-//    let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
-//    
-//    var conversation: Conversation? {
-//        return conversations.first
-//    }
-//    
-//    public let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
-//    public let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
-////    public let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
-//    
-//    dynamic var leanCloudObjectID: String = ""
-//    
-//    func convertToAVUser() -> AVUser {
-//        
-//        let user = AVUser()
-//        user.set(userID: userID)
-//        
-//        if let nickName = nickName {
-//            user.set(nikeName: nickName)
-//        }
-//        
-//        if let url = avatarImageUrl {
-//            user.setUserAvatar(imageUrl: url)
-//        }
-//        
-//        
-//        user.username = userName
-//        
-//        return user
-//    }
-//    
-//    func isMe() -> Bool {
-//        
-//        guard let currentUser = AVUser.current(), let userID = currentUser.objectId else {
-//            return false
-//        }
-//        
-//        return userID == self.userID
-//        
-//    }
-//}
+
+
+
 
 
 

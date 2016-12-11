@@ -14,7 +14,6 @@ extension Notification.Name {
     
     static let categotyPickViewDidSeletedRowNotification = Notification.Name("categotyPickViewDidSeletedRowNotification")
     
-    
     static let changeRootViewControllerNotification = Notification.Name("changeRootViewController")
     
     static let updateFormulasLibraryNotification = Notification.Name("updateFormulasLibrary")
@@ -63,14 +62,7 @@ public class Config {
         public static let indicaterHeight: CGFloat = 2
         public static let buttonTagBaseValue = 100
     }
-    
-//    public struct BaseRotation {
-//        public static let FR: Rotation = Rotation.FR("FR", "图例的状态")
-//        public static let FL: Rotation = Rotation.FL("FL", "魔方整体顺时针旋转 90° 的状态")
-//        public static let BL: Rotation = Rotation.BL("BL", "魔方整体顺时针旋转 180° 的状态")
-//        public static let BR: Rotation = Rotation.BR("BR", "魔方整体顺时针旋转 270° 的状态")
-//    }
-    
+
     public struct FormulaCell {
         
         public static let normalCellEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

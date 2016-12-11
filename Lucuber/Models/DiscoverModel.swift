@@ -320,31 +320,6 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     
     
     
-    
-    
-    
-    
-    
-    //
-    //    ///通过 ImageURL 的数量来判断 附件的种类
-    //    var attachment: Attachment {
-    //
-    //        guard let imagesUrl = imagesUrl else {
-    //            return .Text
-    //        }
-    //
-    //        if imagesUrl.isEmpty {
-    //            return .Text
-    //        }
-    //
-    //        if imagesUrl.isEmpty && FeedCategory(rawValue: self.category) == .Formula {
-    //            return .Formula
-    //            
-    //        }
-    //        
-    //        return .Image(imagesUrl.map {ImageAttachment(metadata: nil, URLString: $0, image: nil)})
-    
-    
 }
 
 

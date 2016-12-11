@@ -13,7 +13,6 @@ class CommentHeaderView: UIView {
     // MARK: - Properties
     
     @IBOutlet weak var categoryIndicatorView: CategoryIndicatorView!
-    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var creatTimeLabel: UILabel!
     @IBOutlet weak var starRatingView: StarRatingView!
@@ -52,7 +51,6 @@ class CommentHeaderView: UIView {
                     self?.creatTimeLabel.alpha = 0
                     self?.starRatingView.alpha = 0
                     
-                    
                     }, completion: {  _ in
                         
                 })
@@ -73,17 +71,13 @@ class CommentHeaderView: UIView {
                     self?.creatTimeLabel.alpha = 1
                     self?.starRatingView.alpha = 1
                     
-                    
                     }, completion: { _ in
-                        //                        self?.layoutIfNeeded()
                         
                 })
             }
             
             changeStatusAction?(status)
-            
         }
-    
     }
     
     var formula: Formula? {
@@ -92,23 +86,12 @@ class CommentHeaderView: UIView {
         }
     }
     
-    // MARK: - Life Cycle
-    
-    private func makeUI() {
-        
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(CommentHeaderView.changeStatus))
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tap)
-        
-//        clipsToBounds = true
-        
-        print(self.layer.anchorPoint)
-  
         
     }
     
@@ -126,6 +109,7 @@ class CommentHeaderView: UIView {
     }
     
     private func updateUI() {
+        
         guard let formula = formula else {
            return
         }

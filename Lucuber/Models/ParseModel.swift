@@ -11,8 +11,6 @@ import RealmSwift
 import AVOSCloud
 
 
-
-
 public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessage {
     
     let discoverMessage = DiscoverMessage()

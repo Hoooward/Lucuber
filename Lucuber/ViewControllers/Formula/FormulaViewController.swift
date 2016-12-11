@@ -121,7 +121,6 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         
     }
     
-    
     // MARK: - Action & Target
     
     @IBAction func newFormulaButtonClicked(_ sender: AnyObject) {
