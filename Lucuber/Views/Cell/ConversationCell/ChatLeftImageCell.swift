@@ -139,7 +139,7 @@ class ChatLeftImageCell: ChatBaseCell {
     
     func configureWithMessage(message: Message, messageImagePreferredWidth: CGFloat, messageImagePreferredHeight: CGFloat, messageImagePreferredAspectRatio: CGFloat, mediaTapAction: MediaTapAction?, collectionView: UICollectionView, indexPath: NSIndexPath) {
         
-        self.user = message.creatUser
+        self.user = message.creator
         
         self.mediaTapAction = mediaTapAction
         

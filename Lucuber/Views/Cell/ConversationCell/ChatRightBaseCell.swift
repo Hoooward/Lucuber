@@ -95,8 +95,8 @@ class ChatRightBaseCell: ChatBaseCell {
         }
         
         if let message = message {
-            if !message.invalidate {
-                if let messageSendState = MessageSendState(rawValue: message.sendStateInt) {
+            if !message.isInvalidated {
+                if let messageSendState = MessageSendState(rawValue: message.sendState) {
                     self.messageSendState = messageSendState
                 }
             }

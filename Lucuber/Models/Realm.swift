@@ -55,11 +55,54 @@ public func creatMeInRealm() -> RUser? {
     
 }
 
+public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUser? {
+    
+    guard let avUser = avUser else {
+        return nil
+    }
+    
+    var user = userWith(avUser.objectId!, inRealm: realm)
+    
+    if user == nil {
+        let newUser = RUser()
+        newUser.lcObjcetID = avUser.objectId!
+        
+        // TODO: - 标记陌生人
+        realm.add(newUser)
+        user = newUser
+    }
+    
+    if let user = user {
+        
+        user.localObjectID = avUser.localObjectID() ?? ""
+        user.avatorImageURL = avUser.avatorImageURL()
+        user.nickname = avUser.nickname() ?? ""
+        user.username = avUser.username ?? ""
+        user.introduction = avUser.introduction()
+        
+        let oldMasterList: [String] = user.masterList.map({ $0.formulaID })
+        
+        if let newMasterList = avUser.masterList() {
+            
+            if oldMasterList != newMasterList {
+                
+                realm.delete(user.masterList)
+                
+                let newRMasterList = newMasterList.map({ FormulaMaster(value: [$0, user]) })
+                
+                realm.add(newRMasterList)
+                
+            }
+        }
+    }
+    
+    return user
+}
+
 public func avatarWith(_ urlString: String, inRealm realm: Realm) -> Avatar? {
     let predicate = NSPredicate(format: "avatarUrlString = %@", urlString)
     return realm.objects(Avatar.self).filter(predicate).first
 }
-
 
 public func userWith(_ userID: String, inRealm realm: Realm) -> RUser? {
     let predicate = NSPredicate(format: "lcObjcetID = %@", userID)
@@ -176,37 +219,10 @@ func formulaCollectionWith(objectID: String, inRealm realm: Realm) -> Results<Fo
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Results<Formula>{
     
-//    var predicate = NSPredicate(format: "categoryString = %@ AND typeString = %@", category.rawValue, type.rawValue)
-//    
-//    if case .all = category {
-//         predicate = NSPredicate(format: "typeString = %@", type.rawValue)
-//    }
-//    
-//    if case .unKnow = type {
-////        return realm.objects(Formula.self).filter("")
-//    }
-//
-//
-//    switch uploadMode {
-//    case .my:
-//        
-//        guard let currentUser = currentUser(in: realm) else { fatalError() }
-//        
-//        let myPredicate = NSPredicate(format: "creator = %@", currentUser)
-//        let myPredicate2 = NSPredicate(format: "deletedByCreator == %@", false as CVarArg)
-//        return realm.objects(Formula.self).filter(myPredicate).filter(predicate).filter(myPredicate2).sorted(byProperty: "createdUnixTime", ascending: false)
-//        
-//    case .library:
-//        
-//        let libraryPredicate = NSPredicate(format: "isLibrary == true")
-//        return realm.objects(Formula.self).filter(libraryPredicate).filter(predicate)
-//        
-//    }
     let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
     
     return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
     
-//    return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Results<Formula> {
@@ -279,6 +295,35 @@ public func deleteEmptyRCategory(with uploadMode: UploadFormulaMode, inRealm rea
 // MARK: - Message
 
 
+public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGFloat)? {
+    
+    guard !message.isInvalidated else {
+        return nil
+    }
+    
+    if let mediaMetaData = message.mediaMetaData {
+        
+        if !mediaMetaData.data.isEmpty {
+            
+            guard let result = try? JSONSerialization.jsonObject(with: mediaMetaData.data , options: JSONSerialization.ReadingOptions()) else {
+                fatalError()
+            }
+            
+            if let metaDataInfo = result as? [String: Any] {
+                
+                if let
+                    width = metaDataInfo["width"] as? CGFloat,
+                    let height = metaDataInfo["height"] as? CGFloat {
+                    return (width, height)
+                }
+            }
+            
+        }
+        
+    }
+    return nil
+}
+
 public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
     
     let predicate = NSPredicate(format: "groupID = %@" , groupID)
@@ -343,6 +388,16 @@ public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMe
         }
     }
 }
+
+
+
+// MARK: - Feed
+
+public func feedWith(_ lcObjcetID: String, inRealm realm: Realm) -> Feed? {
+    let predicate = NSPredicate(format: "lcObjectID = %@", lcObjcetID)
+    return realm.objects(Feed.self).filter(predicate).first
+}
+
 
 
 /**

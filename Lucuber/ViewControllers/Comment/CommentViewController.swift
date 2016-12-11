@@ -13,11 +13,13 @@ import RealmSwift
 class CommentViewController: UIViewController {
     
     var formula: Formula?
+    var feed: DiscoverFeed?
+    
     var conversation: Conversation!
     
     fileprivate lazy var messages: Results<Message> = {
         
-        return messagesOfConversation(conversation: self.conversation, inRealm: self.realm)
+        return messagesWith(self.conversation, inRealm: self.realm)
     }()
     
     fileprivate var inActiveNewMessageIDSet = Set<String>()
@@ -113,7 +115,7 @@ class CommentViewController: UIViewController {
     private var textContentLabelWidths = [String: CGFloat]()
     fileprivate func textContentLabelWidthOfMessage(_ message: Message) -> CGFloat {
         
-        let key = message.messageID
+        let key = message.localObjectID
             
         if let textContentLabelWidth = textContentLabelWidths[key] {
             return textContentLabelWidth
@@ -137,7 +139,7 @@ class CommentViewController: UIViewController {
     private var messageCellHeights = [String: CGFloat]()
     fileprivate func heightOfMessage(_ message: Message) -> CGFloat {
         
-       let key = message.messageID
+       let key = message.localObjectID
             
         if let height = messageCellHeights[key] {
             return height
@@ -145,7 +147,9 @@ class CommentViewController: UIViewController {
         
         var height: CGFloat = 0
         
-        switch message.mediaType {
+        let type =  MessageMediaType(rawValue: message.mediaType)!
+        
+        switch type {
             
         case .text:
             
@@ -167,10 +171,10 @@ class CommentViewController: UIViewController {
         }
         
         if conversation.withGroup != nil {
-            if message.mediaType != MessageMediaType.sectionDate {
+            if message.mediaType != MessageMediaType.sectionDate.rawValue {
                 
-                if let sender = message.creatUser {
-                    if !sender.isMe() {
+                if let sender = message.creator {
+                    if !sender.isMe {
                         height += Config.ChatCell.marginTopForGroup
                     }
                 }
@@ -268,12 +272,12 @@ class CommentViewController: UIViewController {
                     firstMessage = minMessage
                 }
                 
-                syncMessage(withRecipientID: recipiendID, messageAge: .old, lastMessage: nil, firstMessage: firstMessage, failureHandler: { [weak self] in
+                fetchMessage(withRecipientID: recipiendID, messageAge: .old, lastMessage: nil, firstMessage: firstMessage, failureHandler: { [weak self] reason, errorMessage in
                     
                     self?.isLoadingPreviousMessages = false
                     completion()
+                    defaultFailureHandler(reason, errorMessage)
                     
-                    printLog("从网络加载过去的 Messaage 失败")
                     }, completion: { [weak self] newMessageID  in
                         
                         tryPostNewMessageReceivedNotification(withMessageIDs: newMessageID, messageAge: .old)
@@ -286,7 +290,6 @@ class CommentViewController: UIViewController {
                         } else {
                             printLog("从网络加载过去的 Message 成功.")
                         }
-                        
                         completion()
                 })
             }
@@ -523,7 +526,9 @@ class CommentViewController: UIViewController {
                 lastMessage = maxMessage
             }
             
-            syncMessage(withRecipientID: recipiendID, messageAge: .new, lastMessage: lastMessage, firstMessage: nil, failureHandler: {
+            fetchMessage(withRecipientID: recipiendID, messageAge: .new, lastMessage: lastMessage, firstMessage: nil, failureHandler: {
+                reason, errorMessage in
+                defaultFailureHandler(reason, errorMessage)
                 
                 failedAction?()
                 }, completion: { newMessageID in
@@ -588,13 +593,13 @@ class CommentViewController: UIViewController {
                     
                     if let withFriend = self?.conversation.withFriend {
                         
-                        sendText(text: text, toRecipient: withFriend.lcObjcetID, recipientType: "User", afterCreatedMessage: { [weak self] message in
+                        pushMessageText(text, toRecipient: withFriend.lcObjcetID, recipientType: "User", afterCreatedMessage: { [weak self] message in
                             
                             self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in })
                             
-                            }, failureHandler: {
+                            }, failureHandler: { reason, errorMessage in
                                 
-                                printLog("发送失败")
+                                defaultFailureHandler(reason, errorMessage)
                                 
                             }, completion: { _ in
                                 
@@ -605,13 +610,14 @@ class CommentViewController: UIViewController {
                         
                     } else if let withGroup = self?.conversation.withGroup {
                         
-                        sendText(text: text, toRecipient: withGroup.groupID, recipientType: "group", afterCreatedMessage: { [weak self] message in
+                        pushMessageText(text, toRecipient: withGroup.groupID, recipientType: "group", afterCreatedMessage: { [weak self] message in
                             
                             self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in })
                             
-                            }, failureHandler: {
+                            }, failureHandler: { reason, errorMessage in
+                            
+                                defaultFailureHandler(reason, errorMessage)
                                 
-                                     printLog("发送失败")
                             }, completion: { _ in
                                 
                                 printLog("发送成功")
@@ -678,7 +684,7 @@ class CommentViewController: UIViewController {
                 
                 for messageID in messageIDs {
                     
-                    if let message = messageWithMessageID(messageID: messageID, inRealm: realm) {
+                    if let message = messageWith(messageID, inRealm: realm) {
                         if let messageInConversationId = message.conversation?.fakeID {
                             if messageInConversationId == conversationID {
                                 filteredMessageIDs.append(messageID)
@@ -798,7 +804,7 @@ class CommentViewController: UIViewController {
                 for messageID in messageIDs {
                     
                     if
-                        let message = messageWithMessageID(messageID: messageID, inRealm: realm) ,
+                        let message = messageWith(messageID, inRealm: realm) ,
                         let index = messages.index(of: message){
                         
                         let indexPath = IndexPath(item: index - displayedMessagesRange.location, section: Section.message.rawValue)
@@ -1148,7 +1154,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 fatalError("messages 越界")
             }
             
-            if message.mediaType == .sectionDate {
+            if message.mediaType == MessageMediaType.sectionDate.rawValue {
                 
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatSectionDateCellIdentifier, for: indexPath) as! ChatSectionDateCell
                 

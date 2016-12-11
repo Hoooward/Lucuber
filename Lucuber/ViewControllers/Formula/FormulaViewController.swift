@@ -125,8 +125,7 @@ class FormulaViewController: UIViewController, SegueHandlerType {
     // MARK: - Action & Target
     
     @IBAction func newFormulaButtonClicked(_ sender: AnyObject) {
-        
-        performSegue(identifier: .showNewFormula, sender: nil)
+        cube_performSegue(with: .showNewFormula, sender: nil)
     }
     
     @objc private func layoutButtonClicked(button: UIView) {

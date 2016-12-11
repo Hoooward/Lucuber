@@ -575,7 +575,7 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             
         case .comment:
             
-            self.performSegue(identifier: .comment, sender: formula)
+            self.cube_performSegue(with: .comment, sender: formula)
             
             break
         default:

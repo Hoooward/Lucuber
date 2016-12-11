@@ -53,6 +53,7 @@
                         <outlet property="loadingFeedsIndicator" destination="dpy-Fs-5VI" id="HOE-6v-MWC"/>
                         <outlet property="tableView" destination="OFL-Bc-Ig8" id="gpS-ln-rWL"/>
                         <segue destination="3ev-RH-Kkl" kind="presentation" identifier="ShowNewFeed" id="wke-SS-UkO"/>
+                        <segue destination="CjY-iE-cLT" kind="show" identifier="ShowCommentView" id="i0v-l6-Ylw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epp-Ol-UN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -66,6 +67,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X4N-XD-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1116" y="674"/>
+        </scene>
+        <!--Comment-->
+        <scene sceneID="vCU-Ld-1el">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" id="CjY-iE-cLT" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y5g-DY-fb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1114" y="805"/>
         </scene>
         <!--话题-->
         <scene sceneID="a90-5j-wwF">

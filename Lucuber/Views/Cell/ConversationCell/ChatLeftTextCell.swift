@@ -88,7 +88,7 @@ class ChatLeftTextCell: ChatBaseCell {
     
     func configureWithMessage(message: Message, textContentLabelWidth: CGFloat, collectionView: UICollectionView, indexPath: NSIndexPath) {
         
-        self.user = message.creatUser
+        self.user = message.creator
         
         if let _ = message.conversation?.withGroup {
             self.inGroup = true
@@ -145,7 +145,7 @@ class ChatLeftTextCell: ChatBaseCell {
                 strongSelf.bubbleBodyShapeLayer.path = UIBezierPath(roundedRect: bubbleBodyFrame, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width: Config.ChatCell.bubbleCornerRadius, height: Config.ChatCell.bubbleCornerRadius)).cgPath
                 
                 if strongSelf.inGroup {
-                    strongSelf.nameLabel.text = strongSelf.user?.nickName
+                    strongSelf.nameLabel.text = strongSelf.user?.nickname
                     
                     let height = Config.ChatCell.nameLabelHeightForGroup
                     let x = textContentTextViewFrame.origin.x

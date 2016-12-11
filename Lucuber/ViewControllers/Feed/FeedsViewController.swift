@@ -50,6 +50,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     
     enum SegueIdentifier: String {
         case newFeed = "ShowNewFeed"
+        case comment = "ShowCommentView"
     }
 
     
@@ -138,7 +139,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                     guard let strongSelf = self else { return }
                     
 //                    strongSelf.newFeedAttachmentType = .media
-                    strongSelf.performSegue(identifier: .newFeed, sender: nil)
+                    strongSelf.cube_performSegue(with: .newFeed, sender: nil)
                 }
             ),
             
@@ -429,9 +430,53 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             vc.afterUploadingFeedAction = afterCreatedFeedAction
 //            vc.getFeedsViewController = getFeedsViewController
             
+        case .comment:
             
-        default:
-            break
+            let vc = segue.destination as! CommentViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let feed = feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
+                return
+            }
+            
+            realm.beginWrite()
+            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+            try? realm.commitWrite()
+            
+            vc.conversation = feedConversation
+            
+            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+                
+                if let strongSelf = self {
+                   
+                    var deletedFeed: DiscoverFeed?
+                    for feed in strongSelf.feeds {
+                        if feed.objectId! == feedLcObjcetID {
+                            deletedFeed = feed
+                            break
+                        }
+                    }
+                    
+                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+                        strongSelf.feeds.remove(at: index)
+                        
+                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+                        
+                        return
+                    }
+                    
+                    
+                    delay(1) {
+                        self?.uploadFeed()
+                    }
+
+                    
+                }
+                
+            }
+    
             
         }
         
@@ -764,7 +809,9 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         case .uploadingFeed:
             break
         case .feed:
-            performSegue(withIdentifier: "", sender: indexPath)
+            
+            cube_performSegue(with: SegueIdentifier.comment, sender: indexPath as AnyObject?)
+            
         case .loadMore:
             break
         }

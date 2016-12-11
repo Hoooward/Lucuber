@@ -737,9 +737,44 @@ open class FeedLocation: Object {
     //    public dynamic var coordinate: Coordinate?
 }
 
+
+public class OpenGraphInfo: Object {
+    
+    public dynamic var URLString: String = ""
+    public dynamic var siteName: String = ""
+    public dynamic var title: String = ""
+    public dynamic var infoDescription: String = ""
+    public dynamic var thumbnailImageURLString: String = ""
+    
+    public let messages = LinkingObjects(fromType: Message.self, property: "openGraphInfo")
+    public let feeds = LinkingObjects(fromType: Feed.self, property: "openGraphInfo")
+    
+    public override class func primaryKey() -> String? {
+        return "URLString"
+    }
+    
+    public override class func indexedProperties() -> [String] {
+        return ["URLString"]
+    }
+    
+    public convenience init(URLString: String, siteName: String, title: String, infoDescription: String, thumbnailImageURLString: String) {
+        self.init()
+        
+        self.URLString = URLString
+        self.siteName = siteName
+        self.title = title
+        self.infoDescription = infoDescription
+        self.thumbnailImageURLString = thumbnailImageURLString
+    }
+    
+    public class func withURLString(URLString: String, inRealm realm: Realm) -> OpenGraphInfo? {
+        return realm.objects(OpenGraphInfo.self).filter("URLString = %@", URLString).first
+    }
+}
+
 open class Feed: Object {
     
-    open dynamic var feedID: String = ""
+    open dynamic var lcObjectID: String = ""
     open dynamic var allowComment: Bool = true
     
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
@@ -755,6 +790,7 @@ open class Feed: Object {
     open dynamic var audio: FeedAudio?
     open dynamic var location: FeedLocation?
     open dynamic var withFormula: Formula?
+    open dynamic var openGraphInfo: OpenGraphInfo?
     
     open dynamic var deleted: Bool = false // 被管理员或创建者删除
     

@@ -105,7 +105,7 @@ class ChatRightTextCell: ChatRightBaseCell {
     func configureWithMessage(message: Message, textContentLabelWidth: CGFloat, mediaTapAction: MediaTapAction?, collectionView: UICollectionView, indexPath: NSIndexPath) {
         
         self.message = message
-        self.user = message.creatUser
+        self.user = message.creator
         
         self.avatarImageView.image = UIImage(named: "Howard")
         
