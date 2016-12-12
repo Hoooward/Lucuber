@@ -1,10 +1,8 @@
 
-//
 
 import Foundation
 import AVOSCloud
 import RealmSwift
-
 
 public enum Rotation: String {
     
@@ -12,9 +10,9 @@ public enum Rotation: String {
     case FL = "FL"
     case BL = "BL"
     case BR = "BR"
-    
+
     var placeholderText: String {
-        
+
         switch self {
         case .FR:
             return "图例的状态"
@@ -93,7 +91,7 @@ public enum Type: String {
     case unKnow = "unKnow"
     
     var sortIndex: Int {
-        
+
         switch self {
         case .Cross: return 1
         case .F2L:   return 2
