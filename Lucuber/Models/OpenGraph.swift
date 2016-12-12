@@ -30,6 +30,7 @@ public struct OpenGraph {
             return false
         }
         return true
+
     }
     
     init(URL: URL) {
