@@ -35,7 +35,7 @@ class MoreMessageTypeView: UIView {
         return tableView
     }()
     
-    public var alertCanNotAccessCameraAction: (() -> Void)?
+    public var alertCanNotAccessPhotoLibraryAction: (() -> Void)?
     public var takePhotoAction: (() -> Void)?
     public var choosePhotoAction: (() -> Void)?
     public var pickLocationAction: (() -> Void)?

@@ -9,6 +9,7 @@
 import UIKit
 import AVOSCloud
 import RealmSwift
+import Proposer
 
 class CommentViewController: UIViewController {
     
@@ -77,6 +78,111 @@ class CommentViewController: UIViewController {
     private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
     
     var isFirstAppear = true
+    
+    fileprivate lazy var moreMessageTypeView: MoreMessageTypeView = {
+        let view = MoreMessageTypeView()
+        
+        view.alertCanNotAccessPhotoLibraryAction = { [weak self] in
+            self?.alertCanNotOpenPhotoLibrary()
+        }
+        
+        view.sendImageAction = { [weak self] image in
+            self?.sendImage(image)
+        }
+        
+        view.takePhotoAction = { [weak self] in
+            
+            let openCamera: ProposerAction = { [weak self] in
+                
+                guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                    self?.alertCanNotOpenCamera()
+                    return
+                }
+                if let strongSelf = self {
+                    strongSelf.imagePicker.sourceType = .camera
+                    strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                }
+            }
+            
+            proposeToAccess(.camera, agreed: openCamera, rejected: {
+                self?.alertCanNotOpenCamera()
+            })
+        }
+        
+        view.choosePhotoAction = { [weak self] in
+            
+            let openPhotoLibrary: ProposerAction = { [weak self] in
+                
+                guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+                    self?.alertCanNotOpenPhotoLibrary()
+                    return
+                }
+                
+                if let strongSelf = self {
+                    strongSelf.imagePicker.sourceType = .photoLibrary
+                    strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+                }
+            }
+            
+            proposeToAccess(.photos, agreed: openPhotoLibrary, rejected: {
+                self?.alertCanNotOpenPhotoLibrary()
+            })
+        }
+        
+        view.pickLocationAction = { [weak self] in
+            // TODO: - PickLocation
+            self?.performSegue(withIdentifier: "", sender: nil)
+        }
+        
+        return view
+    }()
+    
+    fileprivate lazy var imagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+//        imagePicker.mediaTypes =  [kUTTypeImage as String, kUTTypeMovie as String]
+        imagePicker.videoQuality = .typeMedium
+        imagePicker.allowsEditing = false
+        return imagePicker
+    }()
+    
+    func sendImage(_ image: UIImage) {
+        
+        let imageData = UIImageJPEGRepresentation(image, 0.95)!
+        
+        let messageImageName = UUID().uuidString
+        
+        if let withGroup = conversation.withGroup {
+            
+            pushMessageImage(atPath: nil, orFileData: imageData, metaData: nil, toRecipient: withGroup.groupID, recipientType: "group", afterCreatedMessage: { [weak self] message in
+                
+                DispatchQueue.main.async {
+                    if let _ = FileManager.saveMessageImageData(imageData, withName: messageImageName) {
+                        if let realm = message.realm {
+                            
+                            try? realm.write {
+                                message.localAttachmentName = messageImageName
+                                message.mediaType = MessageMediaType.image.rawValue
+                            }
+                        }
+                    }
+                    
+                    self?.updateCommentCollectionViewWithMessageIDs(messagesID: nil, messageAge: .new, scrollToBottom: true, success: { _ in
+                    })
+                }
+                
+                }, failureHandler: { [weak self] reason, errorMessage in
+                    
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                    CubeAlert.alertSorry(message: "发送图片失败!\n 尝试点击图片重试", inViewController: self)
+                    
+                }, completion: { success in
+                    printLog("发送 Message 成功")
+            })
+        }
+        
+    }
     
     private lazy var titleView: ConversationTitleView = {
         let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
@@ -1110,6 +1216,11 @@ public enum TimeDirection {
         default:
             return .new
         }
+    }
+}
+
+extension CommentViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     }
 }
 

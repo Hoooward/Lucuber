@@ -313,13 +313,10 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         
         if let distanceString = distanceString {
             return timeString + "  .  " + distanceString
-        }else {
+        } else {
             return timeString
         }
     }
-    
-    
-    
 }
 
 

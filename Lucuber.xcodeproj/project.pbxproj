@@ -126,8 +126,6 @@
 		E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */; };
 		E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */; };
 		E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */; };
-		E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */; };
-		E4CE8B261DF2E35100944099 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4CE8B241DF2E35100944099 /* Setting.storyboard */; };
 		E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7AF1DE862770036A11C /* FeedAnyImagesCell.swift */; };
 		E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B01DE862770036A11C /* FeedBaseCell.swift */; };
@@ -212,7 +210,6 @@
 		E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF65F61D8D94B1005CE518 /* MainNavigationController.swift */; };
 		E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */; };
 		E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65FF1D8D961F005CE518 /* Result.storyboard */; };
-		E4DF66041D8D9633005CE518 /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF66021D8D9633005CE518 /* Timer.storyboard */; };
 		E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */; };
 		E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */; };
 		E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF660A1D8D9B03005CE518 /* FormulaViewController.swift */; };
@@ -237,6 +234,12 @@
 		E4F38D6D1DFD342100F0DF8A /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D6B1DFD342100F0DF8A /* TitleCell.xib */; };
 		E4F38D701DFD34B600F0DF8A /* PickPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D6E1DFD34B600F0DF8A /* PickPhotosCell.swift */; };
 		E4F38D711DFD34B600F0DF8A /* PickPhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D6F1DFD34B600F0DF8A /* PickPhotosCell.xib */; };
+		E4F38D741DFD3C2500F0DF8A /* CameraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D721DFD3C2500F0DF8A /* CameraCell.swift */; };
+		E4F38D751DFD3C2500F0DF8A /* CameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D731DFD3C2500F0DF8A /* CameraCell.xib */; };
+		E4F38D771DFD845700F0DF8A /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D761DFD845700F0DF8A /* PhotoCell.xib */; };
+		E4F38D7D1DFF1FA800F0DF8A /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D7C1DFF1FA800F0DF8A /* SettingTableViewController.swift */; };
+		E4F38D811DFF1FD600F0DF8A /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */; };
+		E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D821DFF20E100F0DF8A /* Setting.storyboard */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -340,8 +343,6 @@
 		E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFormulaLayout.swift; sourceTree = "<group>"; };
-		E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = Lucuber/ViewControllers/Formula/SettingTableViewController.swift; sourceTree = SOURCE_ROOT; };
-		E4CE8B251DF2E35100944099 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Setting.storyboard; sourceTree = SOURCE_ROOT; };
 		E4CED7961DE862770036A11C /* ActionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
 		E4CED79F1DE862770036A11C /* CateogryMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogryMenuCell.swift; sourceTree = "<group>"; };
 		E4CED7A11DE862770036A11C /* ChatBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBaseCell.swift; sourceTree = "<group>"; };
@@ -435,7 +436,6 @@
 		E4DF65F61D8D94B1005CE518 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		E4DF66001D8D961F005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Result.storyboard; sourceTree = SOURCE_ROOT; };
-		E4DF66031D8D9633005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/Timer.storyboard; sourceTree = SOURCE_ROOT; };
 		E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
 		E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Cube.swift"; sourceTree = "<group>"; };
 		E4DF660A1D8D9B03005CE518 /* FormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaViewController.swift; sourceTree = "<group>"; };
@@ -457,6 +457,12 @@
 		E4F38D6B1DFD342100F0DF8A /* TitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCell.xib; sourceTree = "<group>"; };
 		E4F38D6E1DFD34B600F0DF8A /* PickPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPhotosCell.swift; sourceTree = "<group>"; };
 		E4F38D6F1DFD34B600F0DF8A /* PickPhotosCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickPhotosCell.xib; sourceTree = "<group>"; };
+		E4F38D721DFD3C2500F0DF8A /* CameraCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCell.swift; sourceTree = "<group>"; };
+		E4F38D731DFD3C2500F0DF8A /* CameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraCell.xib; sourceTree = "<group>"; };
+		E4F38D761DFD845700F0DF8A /* PhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
+		E4F38D7C1DFF1FA800F0DF8A /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
+		E4F38D821DFF20E100F0DF8A /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -1040,6 +1046,7 @@
 				E4CED7F81DE862770036A11C /* AlbumListCell.swift */,
 				E4CED7F91DE862770036A11C /* AlbumListCell.xib */,
 				E4CED7FA1DE862770036A11C /* PhotoCell.swift */,
+				E4F38D761DFD845700F0DF8A /* PhotoCell.xib */,
 			);
 			path = PickPhotoCell;
 			sourceTree = "<group>";
@@ -1255,8 +1262,8 @@
 				E4DF65F51D8D94B1005CE518 /* Navigation */,
 				E4DF65F41D8D94B1005CE518 /* Formula */,
 				E4DF65F71D8D94B1005CE518 /* Result */,
-				E4DF65F81D8D94B1005CE518 /* Setting */,
-				E4DF65FB1D8D94B1005CE518 /* Timer */,
+				E4F38D7F1DFF1FC300F0DF8A /* Timer */,
+				E4F38D7B1DFF1FA800F0DF8A /* Setting */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1299,29 +1306,12 @@
 			path = Result;
 			sourceTree = "<group>";
 		};
-		E4DF65F81D8D94B1005CE518 /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				E4CE8B241DF2E35100944099 /* Setting.storyboard */,
-				E4CE8B221DF2E2D900944099 /* SettingTableViewController.swift */,
-			);
-			path = Setting;
-			sourceTree = "<group>";
-		};
 		E4DF65F91D8D94B1005CE518 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
 				E4DF65FA1D8D94B1005CE518 /* MainTabbarController.swift */,
 			);
 			path = TabBar;
-			sourceTree = "<group>";
-		};
-		E4DF65FB1D8D94B1005CE518 /* Timer */ = {
-			isa = PBXGroup;
-			children = (
-				E4DF66021D8D9633005CE518 /* Timer.storyboard */,
-			);
-			path = Timer;
 			sourceTree = "<group>";
 		};
 		E4DF66051D8D9738005CE518 /* Extension */ = {
@@ -1432,8 +1422,27 @@
 				E4F38D6B1DFD342100F0DF8A /* TitleCell.xib */,
 				E4F38D6E1DFD34B600F0DF8A /* PickPhotosCell.swift */,
 				E4F38D6F1DFD34B600F0DF8A /* PickPhotosCell.xib */,
+				E4F38D721DFD3C2500F0DF8A /* CameraCell.swift */,
+				E4F38D731DFD3C2500F0DF8A /* CameraCell.xib */,
 			);
 			path = MoreMessageType;
+			sourceTree = "<group>";
+		};
+		E4F38D7B1DFF1FA800F0DF8A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E4F38D821DFF20E100F0DF8A /* Setting.storyboard */,
+				E4F38D7C1DFF1FA800F0DF8A /* SettingTableViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		E4F38D7F1DFF1FC300F0DF8A /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		E4F9F10C1D991E040076C57C /* Login */ = {
@@ -1627,7 +1636,6 @@
 				E47926621D96E005004D58BF /* CubeType.plist in Resources */,
 				E4CED8701DE862770036A11C /* StarRatingCell.xib in Resources */,
 				E4CED8431DE862770036A11C /* LoadMoreCollectionViewCell.xib in Resources */,
-				E4DF66041D8D9633005CE518 /* Timer.storyboard in Resources */,
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
 				E4F38D711DFD34B600F0DF8A /* PickPhotosCell.xib in Resources */,
@@ -1641,6 +1649,7 @@
 				E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */,
 				E4CED84D1DE862770036A11C /* FeedMediaCell.xib in Resources */,
 				E4CED85F1DE862770036A11C /* NormalFormulaCell.xib in Resources */,
+				E4F38D771DFD845700F0DF8A /* PhotoCell.xib in Resources */,
 				E4CED84F1DE862770036A11C /* DetailCommentCell.xib in Resources */,
 				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
 				E4CED86C1DE862770036A11C /* NewFormulaTextCell.xib in Resources */,
@@ -1648,14 +1657,15 @@
 				E4CED86E1DE862770036A11C /* NewSectionHeaderView.xib in Resources */,
 				E4CED8611DE862770036A11C /* NoResultCell.xib in Resources */,
 				E4F38D6D1DFD342100F0DF8A /* TitleCell.xib in Resources */,
-				E4CE8B261DF2E35100944099 /* Setting.storyboard in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
 				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 				E4CED8671DE862770036A11C /* FormulaTextViewCell.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
+				E4F38D751DFD3C2500F0DF8A /* CameraCell.xib in Resources */,
 				E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
+				E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */,
 				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
 				E4CED8571DE862770036A11C /* DetailMasterCell.xib in Resources */,
 				E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */,
@@ -1663,6 +1673,7 @@
 				E4CED8591DE862770036A11C /* DetailSeparatorCell.xib in Resources */,
 				E4CED85D1DE862770036A11C /* HeaderReusableView.xib in Resources */,
 				E4CED8651DE862770036A11C /* CategorySeletedCell.xib in Resources */,
+				E4F38D811DFF1FD600F0DF8A /* Timer.storyboard in Resources */,
 				E4CED8721DE862770036A11C /* TypePickViewCell.xib in Resources */,
 				E41ECF591DB77374005BEFE4 /* MediaViewCell.xib in Resources */,
 				E4CED8791DE862770036A11C /* CommentHeaderView.xib in Resources */,
@@ -1852,11 +1863,11 @@
 				E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
 				E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */,
-				E4CE8B231DF2E2D900944099 /* SettingTableViewController.swift in Sources */,
 				E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */,
 				E4E03BFF1DEC6EA10023B3B0 /* DetailMasterCell.swift in Sources */,
 				E4DAFE081DEB2AF4008A8702 /* Model.swift in Sources */,
 				E4CED86D1DE862770036A11C /* NewSectionHeaderView.swift in Sources */,
+				E4F38D741DFD3C2500F0DF8A /* CameraCell.swift in Sources */,
 				E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */,
 				E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */,
 				E4CED8771DE862770036A11C /* PhotoCell.swift in Sources */,
@@ -1961,6 +1972,7 @@
 				E4CED8531DE862770036A11C /* DetailFormulasCell.swift in Sources */,
 				E4CED8781DE862770036A11C /* CommentHeaderView.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
+				E4F38D7D1DFF1FA800F0DF8A /* SettingTableViewController.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */,
 				E424A8681DF6D7A4008A6AD0 /* FeedURLCell.swift in Sources */,
@@ -2002,14 +2014,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		E4CE8B241DF2E35100944099 /* Setting.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4CE8B251DF2E35100944099 /* Base */,
-			);
-			name = Setting.storyboard;
-			sourceTree = "<group>";
-		};
 		E4DF65E41D8D92D6005CE518 /* Formula.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2034,14 +2038,6 @@
 				E4DF66001D8D961F005CE518 /* Base */,
 			);
 			name = Result.storyboard;
-			sourceTree = "<group>";
-		};
-		E4DF66021D8D9633005CE518 /* Timer.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4DF66031D8D9633005CE518 /* Base */,
-			);
-			name = Timer.storyboard;
 			sourceTree = "<group>";
 		};
 		E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */ = {
