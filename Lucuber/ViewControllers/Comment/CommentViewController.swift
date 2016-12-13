@@ -1243,20 +1243,62 @@ class CommentViewController: UIViewController {
                         realm.delete(sectionDateMessage)
 
                         if isMyMessage {
+
                             realm.delete(message)
 
+                            deleteMessageFromServer(message: message, failureHandler: {
+                                reason, errorMessage in
+                                defaultFailureHandler(reason, errorMessage)
+                                }, completion: {
+                                printLog("删除 Message 成功")
 
+                            })
 
+                        } else {
+                            message.hidden = true
                         }
                     }
+
+                    if canDeleteTowMessages {
+                        let previousIndexPath = IndexPath(item: currentIndexPath.item - 1, section: currentIndexPath.section)
+                        strongSelf.commentCollectionView.deleteItems(at: [previousIndexPath, currentIndexPath])
+
+                    } else {
+                        strongSelf.commentCollectionView.deleteItems(at: [currentIndexPath])
+                    }
+
+                } else {
+
+                    strongSelf.displayedMessagesRange.length -= 1
+
+                    try? realm.write {
+                        message.deleteAttachment(inRealm: realm)
+
+                        if isMyMessage {
+
+                            realm.delete(message)
+
+                            deleteMessageFromServer(message: message, failureHandler: {
+                                reason, errorMessage in
+
+                                defaultFailureHandler(reason, errorMessage)
+                            }, completion: {
+
+                                printLog("删除 Message 成功")
+                            })
+
+                        } else {
+                            message.hidden = true
+                        }
+                    }
+
+                    strongSelf.commentCollectionView.deleteItems(at: [currentIndexPath])
                 }
 
-
+                strongSelf.lastUpdateMessagesCount = strongSelf.messages.count
             }
-
         }
     }
-
 
 }
 
@@ -1407,23 +1449,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-
-        seletedIndexPathForMenu = indexPath
-
-        if let _ = commentCollectionView.cellForItem(at: indexPath) as? ChatBaseCell {
-
-            var canReport = false
-
-            let title: String
-
-            if let message = messages[safe: displayedMessagesRange.location + indexPath.item] {
-
-//                let isMymessage = message.c
-            }
-        }
-
-    }
 
 
 }
