@@ -10,6 +10,7 @@
 		11CE6FB4D5761449D983BD9E /* Pods_LucuberKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334ED53D389A550452728B65 /* Pods_LucuberKit.framework */; };
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */; };
+		CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */; };
 		CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */; };
 		CC714DB93638172BC6BA46B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7149FBEE537BDC8E3B2B09 /* Service.swift */; };
 		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
@@ -243,6 +244,8 @@
 		E4F38D7D1DFF1FA800F0DF8A /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D7C1DFF1FA800F0DF8A /* SettingTableViewController.swift */; };
 		E4F38D811DFF1FD600F0DF8A /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */; };
 		E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D821DFF20E100F0DF8A /* Setting.storyboard */; };
+		E4F38D851E0002EB00F0DF8A /* UICollectionView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */; };
+		E4F38D871E00054C00F0DF8A /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D861E00054C00F0DF8A /* Reusable.swift */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -273,6 +276,7 @@
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+sendMessage.swift"; sourceTree = "<group>"; };
 		CC7149FBEE537BDC8E3B2B09 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+collectionView.swift"; sourceTree = "<group>"; };
 		CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+ImagePicker.swift"; sourceTree = "<group>"; };
 		E4011F311DB1F90E00EEBBCF /* CommentViewController+Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Formula.swift"; sourceTree = "<group>"; };
 		E4011F331DB277BE00EEBBCF /* Date+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Cube.swift"; sourceTree = "<group>"; };
@@ -469,6 +473,8 @@
 		E4F38D7C1DFF1FA800F0DF8A /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
 		E4F38D821DFF20E100F0DF8A /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cube.swift"; sourceTree = "<group>"; };
+		E4F38D861E00054C00F0DF8A /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -649,6 +655,7 @@
 				E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */,
 				CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */,
 				CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */,
+				CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -1345,6 +1352,8 @@
 				E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */,
 				E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */,
 				E44D3B521DF6F69D00673FFD /* URL+Cube.swift */,
+				E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */,
+				E4F38D861E00054C00F0DF8A /* Reusable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1846,6 +1855,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45351EF1DFC1E510092805B /* MessageLoadingProgressView.swift in Sources */,
+				E4F38D851E0002EB00F0DF8A /* UICollectionView+Cube.swift in Sources */,
 				E42C829E1DFBD01300D315CF /* ChatBaseCell.swift in Sources */,
 				E42C829F1DFBD01300D315CF /* ChatLeftImageCell.swift in Sources */,
 				E42C82A01DFBD01300D315CF /* ChatLeftTextCell.swift in Sources */,
@@ -1878,6 +1888,7 @@
 				E4CED86D1DE862770036A11C /* NewSectionHeaderView.swift in Sources */,
 				E4F38D741DFD3C2500F0DF8A /* CameraCell.swift in Sources */,
 				E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */,
+				E4F38D871E00054C00F0DF8A /* Reusable.swift in Sources */,
 				E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */,
 				E4CED8771DE862770036A11C /* PhotoCell.swift in Sources */,
 				E4CED87F1DE862770036A11C /* FormulaTextView.swift in Sources */,
@@ -1996,6 +2007,7 @@
 				CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */,
 				CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */,
 				CC714DB93638172BC6BA46B9 /* Service.swift in Sources */,
+				CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

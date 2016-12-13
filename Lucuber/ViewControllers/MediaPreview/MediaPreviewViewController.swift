@@ -11,7 +11,7 @@ import UIKit
 let mediaPreviewWindow = UIWindow(frame: UIScreen.main.bounds)
 
 public enum PreviewMedia {
-    case message
+    case message(Message)
     case attachmentType(ImageAttachment)
     case localImage(UIImage)
 }

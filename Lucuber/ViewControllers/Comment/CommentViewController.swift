@@ -24,14 +24,14 @@ class CommentViewController: UIViewController {
 
     fileprivate var seletedIndexPathForMenu: IndexPath?
 
-    fileprivate var realm: Realm!
+    var realm: Realm!
 
-    fileprivate lazy var messages: Results<Message> = {
+    lazy var messages: Results<Message> = {
 
         return messagesWith(self.conversation, inRealm: self.realm)
     }()
 
-    fileprivate var displayedMessagesRange: NSRange = NSRange() {
+    var displayedMessagesRange: NSRange = NSRange() {
         didSet {
             needShowLoadPreviousSection = displayedMessagesRange.length >= messagesBunchCount
         }
@@ -49,7 +49,7 @@ class CommentViewController: UIViewController {
     // 后台收到的消息
     fileprivate var inActiveNewMessageIDSet = Set<String>()
 
-    fileprivate lazy var sectionDateFormatter: DateFormatter = {
+    lazy var sectionDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
@@ -192,15 +192,14 @@ class CommentViewController: UIViewController {
         return self.collectionViewWidth - Config.chatCellGapBetweenWallAndAvatar() - Config.chatCellAvatarSize() - Config.chatCellGapBetweenTextContentLabelAndAvatar() - Config.chatTextGapBetweenWallAndContentLabel()
     }()
 
-    private var textContentLabelWidths = [String: CGFloat]()
-    fileprivate func textContentLabelWidthOfMessage(_ message: Message) -> CGFloat {
+    var textContentLabelWidths = [String: CGFloat]()
+    func textContentLabelWidth(of message: Message) -> CGFloat {
 
         let key = message.localObjectID
 
         if let textContentLabelWidth = textContentLabelWidths[key] {
             return textContentLabelWidth
         }
-
 
         let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
 
@@ -211,13 +210,11 @@ class CommentViewController: UIViewController {
             textContentLabelWidths[key] = width
         }
 
-
         return width
-
     }
 
-    private var messageCellHeights = [String: CGFloat]()
-    fileprivate func heightOfMessage(_ message: Message) -> CGFloat {
+    var messageCellHeights = [String: CGFloat]()
+    func heightOfMessage(_ message: Message) -> CGFloat {
 
         let key = message.localObjectID
 
@@ -247,7 +244,6 @@ class CommentViewController: UIViewController {
 
         default:
             height = 20
-
         }
 
         if conversation.withGroup != nil {
@@ -263,6 +259,7 @@ class CommentViewController: UIViewController {
 
         return height
     }
+
 
 
     func makeHeaderView(with formula: Formula?) {
@@ -507,6 +504,7 @@ class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        prepareCommentCollectionView()
 
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.handelNewMessaageIDsReceviedNotification(notification:)), name: Notification.Name.newMessageIDsReceivedNotification, object: nil)
 
@@ -528,17 +526,6 @@ class CommentViewController: UIViewController {
 
         makeHeaderView(with: formula)
 
-        commentCollectionView.keyboardDismissMode = .onDrag
-        commentCollectionView.alwaysBounceVertical = true
-
-        commentCollectionView.register(UINib(nibName: loadMoreCollectionCellIdenfitifier, bundle: nil), forCellWithReuseIdentifier: loadMoreCollectionCellIdenfitifier)
-        commentCollectionView.register(UINib(nibName: chatSectionDateCellIdentifier, bundle: nil), forCellWithReuseIdentifier: chatSectionDateCellIdentifier)
-        commentCollectionView.register(ChatLeftTextCell.self, forCellWithReuseIdentifier: chatLeftTextCellIdentifier)
-        commentCollectionView.register(ChatLeftImageCell.self, forCellWithReuseIdentifier: chatLeftImageCellIdentifier)
-        commentCollectionView.register(ChatRightTextCell.self, forCellWithReuseIdentifier: chatRightTextCellIdentifier)
-        commentCollectionView.register(ChatRightImageCell.self, forCellWithReuseIdentifier: chatRightImageCellIdentifier)
-
-        commentCollectionView.bounces = true
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.tapToDismissMessageToolbar))
         commentCollectionView.addGestureRecognizer(tap)
@@ -1320,138 +1307,7 @@ public enum TimeDirection {
 
 
 
-extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    enum Section: Int {
-        case loadPrevious
-        case message
-    }
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        guard let section = Section(rawValue: section) else {
-            return 0
-        }
-
-        switch section {
-
-        case .loadPrevious:
-            return 1
-
-        case .message:
-
-            return displayedMessagesRange.length
-        }
-
-
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        guard let section = Section(rawValue: indexPath.section) else {
-            fatalError()
-        }
-
-        switch section {
-        case .loadPrevious:
-
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadMoreCollectionCellIdenfitifier, for: indexPath) as! LoadMoreCollectionViewCell
-            return cell
-
-        case .message:
-
-
-            guard let message = messages[safe: indexPath.item + displayedMessagesRange.location] else {
-                fatalError("messages 越界")
-            }
-
-            if message.mediaType == MessageMediaType.sectionDate.rawValue {
-
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatSectionDateCellIdentifier, for: indexPath) as! ChatSectionDateCell
-
-
-                let createdAt = Date(timeIntervalSince1970: message.createdUnixTime)
-
-                cell.sectionDateLabel.text = sectionDateFormatter.string(from: createdAt)
-
-                return cell
-            }
-
-            if message.isfromMe {
-
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatRightTextCellIdentifier, for: indexPath) as! ChatRightTextCell
-
-                cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidthOfMessage(message), mediaTapAction: nil, collectionView: collectionView, indexPath: indexPath as NSIndexPath)
-
-                return cell
-
-            } else {
-
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatLeftTextCellIdentifier, for: indexPath) as! ChatLeftTextCell
-
-                cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidthOfMessage(message), collectionView: collectionView, indexPath: indexPath as NSIndexPath)
-
-                return cell
-            }
-        }
-
-        func prepareCell(cell: ChatBaseCell) {
-
-            if let _  = self.conversation.withGroup {
-                cell.inGroup = true
-            } else {
-                cell.inGroup = false
-            }
-
-//            cell.tapAvatarAction { [weak self] user in
-//                // TODO: - 显示用户
-//            }
-
-//            cell.deleteMessageAction { [weak self] in
-//
-//
-//
-//            }
-
-
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
-        guard let section = Section(rawValue: section) else {
-            fatalError()
-        }
-
-        switch section {
-        case .loadPrevious:
-            return UIEdgeInsets.zero
-        case .message:
-            return UIEdgeInsets(top: 5, left: 0, bottom: 15, right: 0)
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        guard let section = Section(rawValue: indexPath.section) else {
-            fatalError()
-        }
-
-        switch section {
-        case .loadPrevious:
-            return CGSize(width: UIScreen.main.bounds.width, height: 20)
-        case .message:
-            return CGSize(width: UIScreen.main.bounds.width, height: heightOfMessage(messages[indexPath.item + displayedMessagesRange.location]))
-        }
-    }
-
-
-
-}
 
 extension CommentViewController: UIScrollViewDelegate {
 
