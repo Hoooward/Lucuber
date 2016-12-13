@@ -57,7 +57,15 @@ class MessageToolbar: UIToolbar {
         
         // TODO: finish
     }
-    
+
+    var conversation: Conversation? {
+        willSet {
+            if let _ = newValue {
+                NotificationCenter.default.addObserver(self, selector: #selector(MessageToolbar.updateDraft), name: Notification.Name.updateDraftOfConversationNotification, object: nil)
+            }
+        }
+
+    }
     // TODO: 这里传入 FOrmula 可能不对， Yep 中传入的是 Conversation
     var formula: Formula? {
         
@@ -317,7 +325,9 @@ class MessageToolbar: UIToolbar {
     }
     
     func moreButtonClicked() {
-        
+
+        moreMessageTypeAction?()
+
     }
     
     func toggleRecordVoice() {

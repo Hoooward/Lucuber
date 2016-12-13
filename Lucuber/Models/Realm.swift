@@ -26,16 +26,16 @@ public func creatMeInRealm() -> RUser? {
     guard
         let realm = try? Realm() ,
         let currentUser = AVUser.current(),
-        let currentUserlcObjectID = currentUser.objectId else {
+        let currentUserLcObjectID = currentUser.objectId else {
         return nil
     }
     
-    if let user = userWith(currentUserlcObjectID, inRealm: realm) {
+    if let user = userWith(currentUserLcObjectID, inRealm: realm) {
         return user
     } else {
         let newUser = RUser()
         newUser.localObjectID = currentUser.localObjectID() ?? ""
-        newUser.lcObjcetID = currentUserlcObjectID
+        newUser.lcObjcetID = currentUserLcObjectID
         newUser.avatorImageURL = currentUser.avatorImageURL() ?? ""
         newUser.nickname = currentUser.nickname() ?? ""
         newUser.username = currentUser.username ?? ""
@@ -380,8 +380,8 @@ public func titleName(of conversation: Conversation) -> String? {
     }
     
     if conversation.type == ConversationType.oneToOne.rawValue {
-        if let withFirend = conversation.withFriend {
-            return withFirend.nickname
+        if let withFriend = conversation.withFriend {
+            return withFriend.nickname
         }
     }
     

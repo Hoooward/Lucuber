@@ -14,7 +14,7 @@ class PickPhotosCell: UITableViewCell {
 
     @IBOutlet weak var photosCollectionView: UICollectionView!
 
-    public var alertCanNotAccessCameraAction: (() -> Void)?
+    public var alertCanNotAccessPhotoLibraryAction: (() -> Void)?
     public var takePhotoAction: (() -> Void)?
     public var pickedPhotosAction: ((Set<PHAsset>) -> Void)?
     
@@ -37,6 +37,8 @@ class PickPhotosCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
+
+       printLog(photosCollectionView.collectionViewLayout)
         
         photosCollectionView.backgroundColor = UIColor.clear
         photosCollectionView.register(UINib(nibName: cameraCellIdentifier, bundle: nil), forCellWithReuseIdentifier: cameraCellIdentifier)
@@ -47,7 +49,7 @@ class PickPhotosCell: UITableViewCell {
         photosCollectionView.showsHorizontalScrollIndicator = false
         
         if let layout = photosCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize = CGSize(width: 70, height: 70)
+            layout.itemSize = CGSize(width: 69.5, height: 69.5)
             layout.minimumInteritemSpacing = 10
             layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             
@@ -64,7 +66,7 @@ class PickPhotosCell: UITableViewCell {
                 
                 let options = PHFetchOptions()
                 options.sortDescriptors = [
-                    NSSortDescriptor(key: "creationData", ascending: false)
+                    NSSortDescriptor(key: "creationDate", ascending: false)
                 ]
                 
                 let images = PHAsset.fetchAssets(with: .image, options: options)
@@ -79,7 +81,7 @@ class PickPhotosCell: UITableViewCell {
             }
             
         }, rejected: { [weak self] in
-            self?.alertCanNotAccessCameraAction?()
+            self?.alertCanNotAccessPhotoLibraryAction?()
         })
     }
 }

@@ -38,11 +38,13 @@ class MoreMessageTypeView: UIView {
     public var alertCanNotAccessPhotoLibraryAction: (() -> Void)?
     public var takePhotoAction: (() -> Void)?
     public var choosePhotoAction: (() -> Void)?
-    public var pickLocationAction: (() -> Void)?
     public var sendImageAction: ((UIImage) -> Void)?
+    public var pickLocationAction: (() -> Void)?
     
     var pickedImageSet = Set<PHAsset>() {
         didSet {
+            let indexPath = IndexPath(item: Row.photoLibrary.rawValue, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
     
@@ -202,9 +204,164 @@ extension MoreMessageTypeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+
+        guard let row = Row(rawValue: indexPath.row) else {
+            fatalError()
+        }
+
+        switch row {
+
+        case .pickPhoto:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: pickPhotosCellIdentifier, for: indexPath) as! PickPhotosCell
+
+            cell.alertCanNotAccessPhotoLibraryAction = { [weak self] in
+                self?.alertCanNotAccessPhotoLibraryAction?()
+            }
+
+            cell.takePhotoAction = { [weak self] in
+                self?.hideAndDo(action: {
+                    self?.takePhotoAction?()
+                })
+            }
+
+            cell.pickedPhotosAction = { [weak self] pickedImageSet in
+
+                self?.pickedImageSet = pickedImageSet
+
+            }
+
+            return cell
+
+        default:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: titleCellIdentifier, for: indexPath) as! TitleCell
+
+            cell.nameLabel.text = row.title
+            cell.nameLabel.textColor = UIColor.cubeTintColor()
+
+            if case .photoLibrary = row {
+
+                if !pickedImageSet.isEmpty {
+                    cell.nameLabel.text = "发送照片: \(pickedImageSet.count)"
+                }
+            }
+
+            return cell
+        }
+
     }
-    
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        guard let row = Row(rawValue: indexPath.row) else {
+            return 0
+        }
+
+        if case .pickPhoto = row {
+            return 100
+        } else {
+            return 60
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+
+        guard let row = Row(rawValue: indexPath.row) else {
+            fatalError()
+        }
+
+        switch row {
+
+        case .photoLibrary:
+
+            if !pickedImageSet.isEmpty {
+
+                var images = [UIImage]()
+
+                let options = PHImageRequestOptions()
+                options.isSynchronous = true
+                options.version = .current
+                options.deliveryMode = .highQualityFormat
+                options.resizeMode = .exact
+                options.isNetworkAccessAllowed = true
+
+                let imageManager = PHCachingImageManager()
+
+                for imageAsset in pickedImageSet {
+
+                    let maxSize: CGFloat = 1024
+
+                    let pixelWidth = CGFloat(imageAsset.pixelWidth)
+                    let pixelHeight = CGFloat(imageAsset.pixelHeight)
+
+
+                    let targetSize: CGSize
+
+                    if pixelWidth > pixelHeight {
+                        let width = maxSize
+                        let height = floor(maxSize * (pixelHeight / pixelWidth))
+                        targetSize = CGSize(width: width, height: height)
+
+                    } else {
+                        let height = maxSize
+                        let width = floor(maxSize * (pixelWidth / pixelHeight))
+                        targetSize = CGSize(width: width, height: height)
+                    }
+
+                    imageManager.requestImageData(for: imageAsset, options: options, resultHandler: {
+                       data, string, imageOrientation, _ in
+
+                        if let data = data, let image = UIImage(data: data) {
+                            if let image = image.resizeTo(targetSize: targetSize, quality: .medium) {
+                                images.append(image)
+                            }
+                        }
+                    })
+                }
+
+                for (index, image) in images.enumerated() {
+                    delay(0.1 * Double(index)) { [weak self] in
+                        self?.sendImageAction?(image)
+                    }
+                }
+
+                pickedImageSet.removeAll()
+
+                hideAndDo(action: {
+
+                    let indexPath = IndexPath(row: Row.pickPhoto.rawValue, section: 0)
+                    if let cell = tableView.cellForRow(at: indexPath) as? PickPhotosCell {
+                        cell.pickedImageSet.removeAll()
+                        cell.photosCollectionView.reloadData()
+                    }
+
+                })
+            } else {
+
+                hideAndDo(action: { [weak self] in
+                    self?.choosePhotoAction?()
+                })
+            }
+
+        case .location:
+            hideAndDo(action: { [weak self] in
+                self?.pickLocationAction?()
+            })
+
+        case .cancel:
+            hide()
+
+        default:
+            break
+        }
+    }
+
+
 }
 
 
