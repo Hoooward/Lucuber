@@ -13,6 +13,7 @@
 		CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */; };
 		CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */; };
 		CC714DB93638172BC6BA46B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7149FBEE537BDC8E3B2B09 /* Service.swift */; };
+		CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */; };
 		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
 		E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406A43C1D9A99F400B4BD0A /* UIImage+Cube.swift */; };
 		E41AC7F61DEDC95900CE3123 /* DeatilHeaderCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41AC7F51DEDC95800CE3123 /* DeatilHeaderCollectionViewLayout.swift */; };
@@ -246,6 +247,7 @@
 		E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F38D821DFF20E100F0DF8A /* Setting.storyboard */; };
 		E4F38D851E0002EB00F0DF8A /* UICollectionView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */; };
 		E4F38D871E00054C00F0DF8A /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D861E00054C00F0DF8A /* Reusable.swift */; };
+		E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DAE1E00655200F0DF8A /* StockService.swift */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -274,6 +276,7 @@
 		7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit.debug.xcconfig"; sourceTree = "<group>"; };
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
+		CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Conversation.swift"; sourceTree = "<group>"; };
 		CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+sendMessage.swift"; sourceTree = "<group>"; };
 		CC7149FBEE537BDC8E3B2B09 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+collectionView.swift"; sourceTree = "<group>"; };
@@ -475,6 +478,7 @@
 		E4F38D821DFF20E100F0DF8A /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cube.swift"; sourceTree = "<group>"; };
 		E4F38D861E00054C00F0DF8A /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		E4F38DAE1E00655200F0DF8A /* StockService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -656,6 +660,7 @@
 				CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */,
 				CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */,
 				CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */,
+				CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -724,6 +729,7 @@
 				E4F38D631DFD21D100F0DF8A /* Service+Fetch.swift */,
 				E4F38D641DFD21D100F0DF8A /* Service+Push.swift */,
 				CC7149FBEE537BDC8E3B2B09 /* Service.swift */,
+				E4F38DAE1E00655200F0DF8A /* StockService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1972,6 +1978,7 @@
 				E42C82951DF855DA00D315CF /* OpenGraph.swift in Sources */,
 				E4CED88F1DE862770036A11C /* Palette.swift in Sources */,
 				E4CED8681DE862770036A11C /* FormulaNameTextField.swift in Sources */,
+				E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */,
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
 				E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */,
@@ -2008,6 +2015,7 @@
 				CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */,
 				CC714DB93638172BC6BA46B9 /* Service.swift in Sources */,
 				CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */,
+				CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

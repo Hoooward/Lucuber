@@ -650,7 +650,8 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
         defaultFailureHandler(Reason.noSuccess, "没有登录")
         return
     }
-    var newDiscoverFeed = DiscoverFeed()
+    
+    let newDiscoverFeed = DiscoverFeed()
     
     newDiscoverFeed.localObjectID = Feed.randomLocalObjectID()
     newDiscoverFeed.categoryString = category.rawValue
@@ -708,19 +709,31 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
         break
     }
     
-    newDiscoverFeed.saveInBackground {
-        success, error in
+    let conversationService = ConversationService.shared
+    
+    conversationService.creatNewConversation(with: newDiscoverFeed.localObjectID, failureHandler: {
+        reason, errorMessage in
         
-        if error != nil {
-            
-            failureHandler?(Reason.network(error), "发送 Feed 失败")
-        }
+        failureHandler?(reason, errorMessage)
         
-        if success {
+    }, completion: { newConversation in
+        
+        newDiscoverFeed.saveInBackground {
+            success, error in
             
-            completion?(newDiscoverFeed)
+            if error != nil {
+                
+                failureHandler?(Reason.network(error), "发送 Feed 失败")
+            }
+            
+            if success {
+                
+                completion?(newDiscoverFeed)
+            }
         }
-    }
+        printLog(newConversation)
+        
+    })
     
 }
 

@@ -697,7 +697,7 @@ public func saveFeedWithDiscoverFeed(_ feedData: DiscoverFeed, group: Group, inR
         newFeed.lcObjectID = feedData.objectId!
         newFeed.allowComment = feedData.allowComment
         newFeed.createdUnixTime = feedData.createdAt!.timeIntervalSince1970
-        newFeed.updatedUnixTime = feedData.updatedAt!.timeIntervalSince1970
+        newFeed.updatedUnixTime = feedData.updatedAt?.timeIntervalSince1970 ?? 0
         newFeed.creator = getOrCreatRUserWith(feedData.creator, inRealm: realm)
         newFeed.body = feedData.body
         
