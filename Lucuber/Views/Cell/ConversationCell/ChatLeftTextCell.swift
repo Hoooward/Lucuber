@@ -86,7 +86,7 @@ class ChatLeftTextCell: ChatBaseCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureWithMessage(message: Message, textContentLabelWidth: CGFloat, collectionView: UICollectionView, indexPath: NSIndexPath) {
+    func configureWithMessage(message: Message, textContentLabelWidth: CGFloat, collectionView: UICollectionView, indexPath: IndexPath) {
         
         self.user = message.creator
         

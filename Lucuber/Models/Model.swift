@@ -487,8 +487,6 @@ public class Message: Object {
     open dynamic var mediaType: Int = 0
     open dynamic var textContent: String = ""
     
-    
-    
     open dynamic var attachmentURLString: String = ""
     open dynamic var localAttachmentName: String = ""
     open dynamic var thumbnailURLString: String = ""

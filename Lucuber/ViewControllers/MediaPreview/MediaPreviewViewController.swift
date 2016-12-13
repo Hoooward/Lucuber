@@ -17,29 +17,29 @@ public enum PreviewMedia {
 }
 
 class MediaPreviewViewController: UIViewController {
-    
+
     // MARK: - Properties
-    
+
     var previewMedias: [PreviewMedia] = []
-    
+
     var showFinished = false
-    
+
     var currentIndex: Int = 0
-    
+
     var startIndex: Int = 0 {
         didSet {
             currentIndex = startIndex
         }
     }
-    
+
     var previewImageViewInitalFrame: CGRect?
     var topPreviewImage: UIImage?
     var bottomPreviewImage: UIImage?
-    
+
     weak var transitionView: UIView?
-    
+
     var afterDismissAction: (() -> Void)?
-    
+
     fileprivate lazy var topPreviewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -47,7 +47,7 @@ class MediaPreviewViewController: UIViewController {
         imageView.backgroundColor = UIColor.clear
         return imageView
     }()
-    
+
     fileprivate lazy var bottomPreviewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -55,222 +55,215 @@ class MediaPreviewViewController: UIViewController {
         imageView.backgroundColor = UIColor.clear
         return imageView
     }()
-    
+
     @IBOutlet weak var mediasCollectionView: UICollectionView!
     @IBOutlet weak var mediaControlView: MediaControlView!
-    
-    
+
+
     fileprivate let mediaViewCellIdentifier = "MediaViewCell"
     // MARK: - Life Cycle
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // 暂时只处理显示 image
         mediaControlView.type = .image
-        
+
         mediasCollectionView.showsVerticalScrollIndicator = false
         mediasCollectionView.showsHorizontalScrollIndicator = false
         mediasCollectionView.isPagingEnabled = true
-        
+
         mediasCollectionView.backgroundColor = UIColor.clear
         mediasCollectionView.register(UINib(nibName: mediaViewCellIdentifier, bundle: nil), forCellWithReuseIdentifier: mediaViewCellIdentifier)
-        
+
         guard let previewImageViewInitalFrame = self.previewImageViewInitalFrame else {
             // 初始化时,需要赋值
             return
         }
-        
+
         topPreviewImageView.frame = previewImageViewInitalFrame
         bottomPreviewImageView.frame = previewImageViewInitalFrame
-        
+
         topPreviewImageView.contentMode = .scaleAspectFill
         bottomPreviewImageView.contentMode = .scaleAspectFill
-        
+
         view.addSubview(topPreviewImageView)
         view.addSubview(bottomPreviewImageView)
-        
+
         guard let bottomPreviewImage = self.bottomPreviewImage else {
             return
         }
-        
+
         bottomPreviewImageView.image = bottomPreviewImage
         topPreviewImageView.image = topPreviewImage
-        
+
         let previewImageWidth = bottomPreviewImage.size.width
         let previewImageHeight = bottomPreviewImage.size.height
-        
+
         let previewImageViewWidth = UIScreen.main.bounds.width
         let previewImageViewHeight = (previewImageHeight / previewImageWidth) * previewImageViewWidth
-        
+
         mediasCollectionView.alpha = 0
         mediaControlView.alpha = 0
-        
+
         topPreviewImageView.alpha = 0
         bottomPreviewImageView.alpha = 1
-        
+
         view.backgroundColor = UIColor.clear
-        
-        
+
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             [weak self] in
-            
+
             self?.view.backgroundColor = UIColor.black
-            
+
             if let _ = self?.topPreviewImage {
                 self?.topPreviewImageView.alpha = 1
                 self?.bottomPreviewImageView.alpha = 0
             }
-            
+
             let frame = CGRect(x: 0,
-                               y: (UIScreen.main.bounds.height - previewImageViewHeight) * 0.5,
-                               width: previewImageViewWidth,
-                               height: previewImageViewHeight)
-            
+                    y: (UIScreen.main.bounds.height - previewImageViewHeight) * 0.5,
+                    width: previewImageViewWidth,
+                    height: previewImageViewHeight)
+
             self?.topPreviewImageView.frame = frame
             self?.bottomPreviewImageView.frame = frame
-            
-            }, completion: { [weak self] finished in
-                
-                self?.mediasCollectionView.alpha = 1
-                
-                
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
-                    [weak self] in
-                    
-                    self?.mediaControlView.alpha = 1
-                    
-                    }, completion: { _ in  })
-                
-                UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
-                    [weak self] in
-                    
-                    self?.topPreviewImageView.alpha = 0
-                    self?.bottomPreviewImageView.alpha = 0
-                    
-                    }, completion: { _ in
-                        
-                        self?.showFinished = true
-                })
+
+        }, completion: { [weak self] finished in
+
+            self?.mediasCollectionView.alpha = 1
+
+
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+                [weak self] in
+
+                self?.mediaControlView.alpha = 1
+
+            }, completion: { _ in })
+
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
+                [weak self] in
+
+                self?.topPreviewImageView.alpha = 0
+                self?.bottomPreviewImageView.alpha = 0
+
+            }, completion: { _ in
+
+                self?.showFinished = true
+            })
         })
-        
-        
+
         let swip = UISwipeGestureRecognizer(target: self, action: #selector(MediaPreviewViewController.dismissPreview))
         swip.direction = .up
         view.addGestureRecognizer(swip)
-        
-        
-        
+
         let swip2 = UISwipeGestureRecognizer(target: self, action: #selector(MediaPreviewViewController.dismissPreview))
         swip.direction = .down
         view.addGestureRecognizer(swip2)
-        
-        
     }
-    
-    
+
     var isFirstLayoutSubviews = true
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         if isFirstLayoutSubviews {
-            
+
             let index = startIndex
-            
+
             let targetIndexPath = IndexPath(item: index, section: 0)
             mediasCollectionView.scrollToItem(at: targetIndexPath, at: UICollectionViewScrollPosition.init(rawValue: 0), animated: false)
-            
+
             delay(0.1) { [weak self] in
-                
+
                 guard let cell = self?.mediasCollectionView.cellForItem(at: targetIndexPath) as? MediaViewCell else {
                     return
                 }
-                
+
                 guard let previewMedia = self?.previewMedias[index] else {
                     return
                 }
-                
-                
+
+
                 // TODO: - 设置分享 actino
                 self?.prepareForShare(with: cell, previewMedia: previewMedia)
             }
         }
-        
+
         isFirstLayoutSubviews = false
     }
-    
+
     deinit {
         printLog("MediaViewController 死亡")
     }
-    
+
     func dismissPreview() {
-        
+
         guard showFinished else {
             return
         }
-        
+
         let finishDismissAction: () -> Void = {
             [weak self] in
-            
+
             mediaPreviewWindow.windowLevel = UIWindowLevelNormal
-            
+
             self?.afterDismissAction?()
-            
+
             delay(0.05) {
                 mediaPreviewWindow.rootViewController = nil
             }
         }
-        
+
         if let _ = topPreviewImage {
             topPreviewImageView.alpha = 1
             bottomPreviewImageView.alpha = 0
-            
+
         } else {
             bottomPreviewImageView.alpha = 1
         }
-        
+
         self.view.backgroundColor = UIColor.clear
-        
+
         UIView.animate(withDuration: 0.1, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             [weak self] in
             self?.mediaControlView.alpha = 0
             self?.mediasCollectionView.alpha = 0
-            }, completion: nil)
-        
+        }, completion: nil)
+
         var frame = self.previewImageViewInitalFrame ?? CGRect.zero
-        
+
         if currentIndex != startIndex {
             let offsetIndex = currentIndex - startIndex
             frame.origin.x += CGFloat(offsetIndex) * frame.width + CGFloat(offsetIndex) * 4
         }
-        
+
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
             [weak self] in
-            
+
             if let _ = self?.topPreviewImage {
                 self?.topPreviewImageView.alpha = 0
                 self?.bottomPreviewImageView.alpha = 1
             }
-            
+
             self?.topPreviewImageView.frame = frame
             self?.bottomPreviewImageView.frame = frame
-            
-            }, completion: { _ in
-                finishDismissAction()
-            }
+
+        }, completion: { _ in
+            finishDismissAction()
+        }
         )
     }
-    
-    
+
+
     fileprivate func prepareForShare(with cell: MediaViewCell, previewMedia: PreviewMedia) {
-        
+
         // 设置分享的动作
     }
-    
-}
 
+
+}
 extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -283,10 +276,9 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mediaViewCellIdentifier, for: indexPath) as! MediaViewCell
 
-        
         return cell
     }
     
@@ -302,6 +294,7 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                 
                 mediaControlView.isHidden = true
                 cell.mediaView.image = image
+                cell.activityIndicator.stopAnimating()
                 
             case .attachmentType(let attachment):
                 
@@ -313,9 +306,26 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                     cell.mediaView.image = image
                     cell.activityIndicator.stopAnimating()
                 })
-                
-            default:
-                break
+
+            case .message(let message):
+
+                switch message.mediaType {
+
+                case MessageMediaType.image.rawValue:
+
+                    mediaControlView.type = .image
+                    cell.mediaView.scrollView.isHidden = false
+
+                    if let imageFileUrl = FileManager.cubeMessageImageURL(with: message.localAttachmentName), let image = UIImage(contentsOfFile: imageFileUrl.absoluteString) {
+                        cell.mediaView.image = image
+                    }
+
+                    cell.activityIndicator.stopAnimating()
+
+                default:
+                    break
+                }
+
             }
             
             cell.mediaView.tapToDismissAction = {

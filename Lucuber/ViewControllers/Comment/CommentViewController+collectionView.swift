@@ -124,10 +124,8 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             if message.isfromMe {
 
                 let cell: ChatRightTextCell = collectionView.dequeueReusableCell(for: indexPath)
-
-//                cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidthOfMessage(message), mediaTapAction: nil, collectionView: collectionView, indexPath: indexPath as NSIndexPath)
-
                 return cell
+
 
             } else {
 
@@ -145,23 +143,40 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                         if message.downloadState == MessageDownloadState.downloaded.rawValue {
 
                             if let messageTextView = self?.messageToolbar.messageTextView {
-                                if messageTextView.isFirstResponder() {
+                                if messageTextView.isFirstResponder {
                                     self?.messageToolbar.state = .normal
                                     return
                                 }
                             }
 
-
-
+                            self?.showMessageMedia(from: message)
                         }
 
                     }, collectionView: collectionView, indexPath: indexPath)
 
 
 
+                default:
 
+                    let message = message as! Message
+                    if message.deletedByCreator {
+                        // TODO: - Indicator Cell
+                    } else {
+                        // TODO: - openGraphInfo
 
-                default: break
+                        if let cell = cell as? ChatLeftTextCell {
+
+                            cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
+
+                            cell.tapUsernameAction = { [weak self] in
+                                // TODO: - ShowProfileWithUsername
+                            }
+
+                            cell.tapFeedAction = { [weak self] feed in
+                                // TODO: - showConversationWithFeed
+                            }
+                        }
+                    }
 
                 }
 
@@ -259,6 +274,146 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+
+        switch section {
+
+        case .loadPrevious:
+            break
+
+        case .message:
+
+            guard let message = messages[safe: indexPath.item + displayedMessagesRange.location] else {
+                return
+            }
+
+            if message.mediaType == MessageMediaType.sectionDate.rawValue {
+
+                if let cell = cell as? ChatSectionDateCell {
+
+                    let createdAt = Date(timeIntervalSince1970: message.createdUnixTime)
+                    cell.sectionDateLabel.text = sectionDateFormatter.string(from: createdAt)
+                    // TODO: - 判断是否在一周内
+                    return
+                }
+            }
+
+            func prepareCell(cell: ChatBaseCell) {
+
+                if let _  = self.conversation.withGroup {
+                    cell.inGroup = true
+                } else {
+                    cell.inGroup = false
+                }
+
+                cell.tapAvatarAction  = { [weak self] user in
+                    // TODO: - 显示用户
+                }
+
+                cell.deleteMessageAction = { [weak self] in
+                    self?.deleteMessage(at: indexPath, withMessage: message)
+                }
+
+                cell.reportMessageAction = { [weak self] in
+                    // TODO: - 举报
+                }
+            }
+
+            if message.isfromMe {
+
+                let message = message as! Message
+
+                switch message.mediaType {
+
+                case MessageMediaType.image.rawValue:
+
+                    if let cell = cell as? ChatRightImageCell {
+
+                        cell.configureWithMessage(message: message, messageImagePreferredWidth: messageImagePreferredWidth, messageImagePreferredHeight: messageImagePreferredHeight, messageImagePreferredAspectRatio: messageImagePreferredAspectRatio, mediaTapAction: {
+                            [weak self] in
+
+                            if message.sendState == MessageSendState.failed.rawValue {
+
+                                CubeAlert.confirmOrCancel(title: "失败", message: "重新发送图片?", confirmTitle: "重新发送", cancelTitles: "取消", inViewController: self , confirmAction: {
+
+
+                                }, cancelAction: {
+
+                                })
+
+                            }
+
+                        }, collectionView: collectionView, indexPath: indexPath)
+
+                    }
+
+
+                default:
+                    break
+
+                }
+
+
+            } else {
+                switch message.mediaType {
+
+                case MessageMediaType.image.rawValue:
+
+                    if let cell = cell as? ChatLeftImageCell {
+
+                        prepareCell(cell: cell)
+
+                        cell.configureWithMessage(message, messageImagePreferredWidth: messageImagePreferredWidth, messageImagePreferredHeight: messageImagePreferredHeight, messageImagePreferredAspectRatio: messageImagePreferredAspectRatio, mediaTapAction: {
+                            [weak self] in
+
+                            if message.downloadState == MessageDownloadState.downloaded.rawValue {
+
+                                if let messageTextView = self?.messageToolbar.messageTextView {
+                                    if messageTextView.isFirstResponder {
+                                        self?.messageToolbar.state = .normal
+                                        return
+                                    }
+                                }
+
+                                self?.showMessageMedia(from: message)
+                            }
+
+                        }, collectionView: collectionView, indexPath: indexPath)
+                    }
+
+                default:
+
+                    let message = message as! Message
+                    if message.deletedByCreator {
+                        // TODO: - Indicator Cell
+                    } else {
+                        // TODO: - openGraphInfo
+
+                        if let cell = cell as? ChatLeftTextCell {
+
+                            prepareCell(cell: cell)
+
+                            cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
+
+                            cell.tapUsernameAction = { [weak self] name in
+                                // TODO: - ShowProfileWithUsername
+                            }
+
+                            cell.tapFeedAction = { [weak self] feed in
+                                // TODO: - showConversationWithFeed
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 

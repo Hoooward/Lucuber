@@ -11,20 +11,22 @@ import Foundation
 
 extension Date {
     
-//    
-//    func isInCurrentWeek() -> Bool {
-//        
-//        
-////        let calendar = NSCalendar.current
-////        
-////        let firstDateOfWeek = calendar.
-////        
-////        if self.compare(firstDateOfWeek) == .orderedDescending {
-////            return true
-////        }
-////        
-////        return false
-//        
-//    }
+
+    func isInCurrentWeek() -> Bool {
+
+        let calendar = Calendar.current
+
+        let firstDateOfWeek = calendar.firstWeekday
+
+
+
+
+        if self.compare(firstDateOfWeek) == .orderedDescending {
+            return true
+        }
+
+        return false
+
+    }
     
 }
