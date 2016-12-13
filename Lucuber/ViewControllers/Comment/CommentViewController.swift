@@ -755,7 +755,6 @@ class CommentViewController: UIViewController {
 
     // MARK: - Action & Target
 
-
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 
         guard
@@ -1194,6 +1193,70 @@ class CommentViewController: UIViewController {
 
     }
 
+    func deleteMessage(at indexPath: IndexPath, withMessage message: Message) {
+
+        DispatchQueue.main.sync { [weak self] in
+
+            if let strongSelf = self, let realm = message.realm {
+
+                let isMyMessage = message.creator?.isMe ?? false
+
+                // 先判断上一条 Message 是不是 SecitonMessage
+                var sectionDateMessage: Message?
+
+                if let currentMessageIndex = strongSelf.messages.index(of: message) {
+
+                    let previousMessageIndex = currentMessageIndex - 1
+
+                    if let previousMessage = strongSelf.messages[safe: previousMessageIndex]{
+
+                        if previousMessage.mediaType == MessageMediaType.sectionDate.rawValue {
+                            sectionDateMessage = previousMessage
+                        }
+                    }
+                }
+
+                let currentIndexPath: IndexPath
+                if let index = strongSelf.messages.index(of: message) {
+                    currentIndexPath =  IndexPath(item: index - strongSelf.displayedMessagesRange.location, section: indexPath.section)
+                } else {
+                    currentIndexPath = indexPath
+                }
+
+                if let sectionDateMessage = sectionDateMessage {
+
+                    var canDeleteTowMessages = false
+
+                    if strongSelf.displayedMessagesRange.length >= 2 {
+                        strongSelf.displayedMessagesRange.length -= 2
+                        canDeleteTowMessages = true
+
+                    } else {
+                        if strongSelf.displayedMessagesRange.location >= 1 {
+                            strongSelf.displayedMessagesRange.location -= 1
+                        }
+                        strongSelf.displayedMessagesRange.length -= 1
+                    }
+
+                    try? realm.write {
+                        message.deleteAttachment(inRealm: realm)
+                        realm.delete(sectionDateMessage)
+
+                        if isMyMessage {
+                            realm.delete(message)
+
+
+
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+    }
+
 
 }
 
@@ -1293,6 +1356,27 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return cell
             }
         }
+
+        func prepareCell(cell: ChatBaseCell) {
+
+            if let _  = self.conversation.withGroup {
+                cell.inGroup = true
+            } else {
+                cell.inGroup = false
+            }
+
+//            cell.tapAvatarAction { [weak self] user in
+//                // TODO: - 显示用户
+//            }
+
+//            cell.deleteMessageAction { [weak self] in
+//
+//
+//
+//            }
+
+
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -1321,6 +1405,24 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .message:
             return CGSize(width: UIScreen.main.bounds.width, height: heightOfMessage(messages[indexPath.item + displayedMessagesRange.location]))
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+
+        seletedIndexPathForMenu = indexPath
+
+        if let _ = commentCollectionView.cellForItem(at: indexPath) as? ChatBaseCell {
+
+            var canReport = false
+
+            let title: String
+
+            if let message = messages[safe: displayedMessagesRange.location + indexPath.item] {
+
+//                let isMymessage = message.c
+            }
+        }
+
     }
 
 
