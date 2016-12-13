@@ -92,97 +92,45 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
                 let cell: ChatSectionDateCell = collectionView.dequeueReusableCell(for: indexPath)
 
-                let createdAt = Date(timeIntervalSince1970: message.createdUnixTime)
-
-                cell.sectionDateLabel.text = sectionDateFormatter.string(from: createdAt)
-
                 return cell
             }
 
-
-            func prepareCell(cell: ChatBaseCell) {
-
-                if let _  = self.conversation.withGroup {
-                    cell.inGroup = true
-                } else {
-                    cell.inGroup = false
-                }
-
-                cell.tapAvatarAction  = { [weak self] user in
-                    // TODO: - 显示用户
-                }
-
-                cell.deleteMessageAction = { [weak self] in
-                    self?.deleteMessage(at: indexPath, withMessage: message)
-                }
-
-                cell.reportMessageAction = { [weak self] in
-                    // TODO: - 举报
-                }
-            }
 
             if message.isfromMe {
 
-                let cell: ChatRightTextCell = collectionView.dequeueReusableCell(for: indexPath)
-                return cell
-
+                
+                switch message.mediaType {
+                    
+                case MessageMediaType.image.rawValue:
+                    
+                    let cell: ChatRightImageCell = collectionView.dequeueReusableCell(for: indexPath)
+                    
+                    return cell
+                
+                    
+                default:
+                    
+                    let cell: ChatRightTextCell = collectionView.dequeueReusableCell(for: indexPath)
+                    return cell
+                }
 
             } else {
 
                 switch message.mediaType {
-
+                    
                 case MessageMediaType.image.rawValue:
-
+                    
                     let cell: ChatLeftImageCell = collectionView.dequeueReusableCell(for: indexPath)
-
-                    prepareCell(cell: cell)
-
-                    cell.configureWithMessage(message, messageImagePreferredWidth: messageImagePreferredWidth, messageImagePreferredHeight: messageImagePreferredHeight, messageImagePreferredAspectRatio: messageImagePreferredAspectRatio, mediaTapAction: {
-                        [weak self] in
-
-                        if message.downloadState == MessageDownloadState.downloaded.rawValue {
-
-                            if let messageTextView = self?.messageToolbar.messageTextView {
-                                if messageTextView.isFirstResponder {
-                                    self?.messageToolbar.state = .normal
-                                    return
-                                }
-                            }
-
-                            self?.showMessageMedia(from: message)
-                        }
-
-                    }, collectionView: collectionView, indexPath: indexPath)
-
-
-
+                    
+                    return cell
+                    
+                    
                 default:
-
-                    let message = message as! Message
-                    if message.deletedByCreator {
-                        // TODO: - Indicator Cell
-                    } else {
-                        // TODO: - openGraphInfo
-
-                        if let cell = cell as? ChatLeftTextCell {
-
-                            cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
-
-                            cell.tapUsernameAction = { [weak self] in
-                                // TODO: - ShowProfileWithUsername
-                            }
-
-                            cell.tapFeedAction = { [weak self] feed in
-                                // TODO: - showConversationWithFeed
-                            }
-                        }
-                    }
-
+                    
+                    let cell: ChatLeftTextCell = collectionView.dequeueReusableCell(for: indexPath)
+                    return cell
                 }
-
-
             }
-
         }
     }
 
@@ -326,7 +274,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
             if message.isfromMe {
 
-                let message = message as! Message
 
                 switch message.mediaType {
 
@@ -354,7 +301,20 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 
                 default:
-                    break
+                    if let cell = cell as? ChatLeftTextCell {
+
+                        prepareCell(cell: cell)
+
+                        cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
+
+                        cell.tapUsernameAction = { [weak self] name in
+                            // TODO: - ShowProfileWithUsername
+                        }
+
+                        cell.tapFeedAction = { [weak self] feed in
+                            // TODO: - showConversationWithFeed
+                        }
+                    }
 
                 }
 

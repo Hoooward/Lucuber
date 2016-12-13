@@ -1,6 +1,15 @@
 PODS:
   - Alamofire (4.2.0)
   - AVOSCloud (3.8.0)
+  - AVOSCloudIM (3.8.0):
+    - AVOSCloud (= 3.8.0)
+    - AVOSCloudIM/_ARC (= 3.8.0)
+    - AVOSCloudIM/_NOARC (= 3.8.0)
+  - AVOSCloudIM/_ARC (3.8.0):
+    - AVOSCloud (= 3.8.0)
+    - AVOSCloudIM/_NOARC (= 3.8.0)
+  - AVOSCloudIM/_NOARC (3.8.0):
+    - AVOSCloud (= 3.8.0)
   - Kanna (2.1.1)
   - Kingfisher (3.2.2)
   - Navi (1.1.0)
@@ -17,6 +26,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AVOSCloud
+  - AVOSCloudIM
   - Kanna (~> 2.1.0)
   - Kingfisher (~> 3.0)
   - Navi (~> 1.1.0)
@@ -38,6 +48,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   AVOSCloud: ae9804496f51de99c4143fea7f842d6f46a32b4c
+  AVOSCloudIM: bea73c50c58c7c5e466e0c7134b4b7d2f02c338a
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
   Navi: 486cdec680956c8f6a1e882c66cbf86d0ad52490
@@ -48,6 +59,6 @@ SPEC CHECKSUMS:
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 65c82e1bb183a5cf8e2fa030289d72c4ca55c68c
+PODFILE CHECKSUM: 1b4b5e55199752097c78f5c049c6c642365e6e79
 
 COCOAPODS: 1.1.1
