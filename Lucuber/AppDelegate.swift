@@ -60,7 +60,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = creatMeInRealm()
         
        
-        registerForRemoteNotification()
+       
+        
+        
+        AVPush.setProductionMode(false)
+        let push = AVPush()
+        push.setMessage("啊啊啊")
+       // [AVPush setProductionMode:NO];
+        
+        push.sendInBackground()
         return true
     }
 
@@ -78,16 +86,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let storyboardName = AVUser.isLogin ? "Main" : "Resgin"
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        
+        if AVUser.isLogin {
+            registerForRemoteNotification()
+        }
+        
         return storyboard.instantiateInitialViewController()!
     }
     
-  
     
     func applicationDidEnterBackground(_ application: UIApplication) {
        
 //        pushCurrentUserUpdateInformation()
     }
     
+    // 在用户 登录/注册 成功后才申请通知权限
     func registerForRemoteNotification() {
 
         if #available(iOS 10, *) {
@@ -115,7 +128,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AVOSCloud.handleRemoteNotifications(withDeviceToken: deviceToken)
+        
+        let installation = AVInstallation.current()
+        installation.setDeviceTokenFrom(deviceToken)
+        installation.setObject(AVUser.current(), forKey: "creator")
+        installation.saveInBackground()
+        
     }
     
     

@@ -21,11 +21,7 @@ class MainTabbarController: UITabBarController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let push = AVPush()
-        push.setMessage("啊啊啊")
-        
-        push.sendInBackground()
+      
     }
     
     
