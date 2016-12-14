@@ -152,6 +152,20 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             newMessage.textContent = discoverMessage.textContent
             newMessage.mediaType = discoverMessage.mediaType
             
+            let metaDataInfo = discoverMessage.metaDataInfo
+            
+            if !metaDataInfo.isEmpty {
+                
+                if let data = Data.init(base64Encoded: metaDataInfo) {
+                    
+                    let newMetaData = MediaMetaData()
+                    newMetaData.data = data
+                    realm.add(newMetaData)
+                    
+                    newMessage.mediaMetaData = newMetaData
+                }
+            }
+            
             // 全部标记为已读
             newMessage.sendState = MessageSendState.read.rawValue
 
@@ -311,6 +325,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                             if createdNewConversation {
                                 // 发送创建新的 Conversation 通知
                             }
+                            
 
                             if let sectionDateMessageID = sectionDateMessageID {
 
@@ -319,9 +334,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                                 completion?([messageID])
                             }
                         }
-
                     }
-
             }
 
         }

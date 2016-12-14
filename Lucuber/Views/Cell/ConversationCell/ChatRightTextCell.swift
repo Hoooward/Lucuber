@@ -102,7 +102,7 @@ class ChatRightTextCell: ChatRightBaseCell {
     }
     
     
-    func configureWithMessage(message: Message, textContentLabelWidth: CGFloat, mediaTapAction: MediaTapAction?, collectionView: UICollectionView, indexPath: NSIndexPath) {
+    func configureWithMessage(message: Message, textContentLabelWidth: CGFloat, mediaTapAction: MediaTapAction?, collectionView: UICollectionView, indexPath: IndexPath) {
         
         self.message = message
         self.user = message.creator

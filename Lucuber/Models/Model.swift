@@ -424,10 +424,10 @@ public enum MessageMediaType: Int, CustomStringConvertible {
     //文件消息	-6
     
     case sectionDate = 0
-    case text  = -1
-    case image = -2
-    case audio = -3
-    case video = -4
+    case text  = 1
+    case image = 2
+    case audio = 3
+    case video = 4
     
     public var description: String {
         

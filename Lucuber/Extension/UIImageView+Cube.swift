@@ -62,6 +62,14 @@ private var imageAttachmentURLKey: Void?
 
 extension UIImageView {
     
+    fileprivate var imageAttachmentURL: NSURL? {
+        return objc_getAssociatedObject(self, &imageAttachmentURLKey) as? NSURL
+    }
+    
+    fileprivate func setImageAttachmentURL(URL: NSURL) {
+        objc_setAssociatedObject(self, &imageAttachmentURLKey, URL, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
     public func setImageWithURL(URL: NSURL) {
         
         self.kf.setImage(with: ImageResource(downloadURL: URL as URL), placeholder: nil, options: [.transition(ImageTransition.fade(1))], progressBlock: { (receivedSize, totalSize) in
@@ -71,16 +79,11 @@ extension UIImageView {
         })
      
     }
-    
-    private var imageAttachmentURL: NSURL? {
-        return objc_getAssociatedObject(self, &imageAttachmentURLKey) as? NSURL
-    }
-    
-    private func setImageAttachmentURL(URL: NSURL) {
-        objc_setAssociatedObject(self, &imageAttachmentURLKey, URL, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-    
-   
+}
+
+// MARK: - Feed
+
+extension UIImageView {
     
     public func cube_setImageAtFeedCellWithAttachment(attachment: ImageAttachment, withSize size: CGSize?) {
         
@@ -93,7 +96,7 @@ extension UIImageView {
         var activityIndicator: UIActivityIndicatorView? = nil
         
         if showActivityIndicatorWhenLoading {
-           
+            
             activityIndicator = self.activityIndicator
             activityIndicator?.isHidden = false
             activityIndicator?.startAnimating()
@@ -113,16 +116,21 @@ extension UIImageView {
             if cacheType != .memory {
                 UIView.transition(with: strongSelf, duration: 0.2, options: .transitionCrossDissolve, animations: {
                     strongSelf.image = image
-                    }, completion: nil)
+                }, completion: nil)
             }
             
             strongSelf.image = image
             
-           activityIndicator?.stopAnimating()
+            activityIndicator?.stopAnimating()
             
         })
-
     }
+}
+
+// MARK: - Formula
+
+extension UIImageView {
+    
     
     public func cube_setImageAtFormulaCell(with URLString: String, size: CGSize?) {
         guard let URL = NSURL(string: URLString) else {
@@ -164,8 +172,82 @@ extension UIImageView {
             
             activityIndicator?.stopAnimating()
             
+        })
+    }
+}
+
+// MARK: - Message
+
+extension UIImageView {
+    
+    public func cube_setImage(with message: Message , size: CGSize?) {
+        
+        var imageUrlString: String = ""
+        
+        switch message.mediaType {
+            
+        case MessageMediaType.image.rawValue:
+            
+            imageUrlString = message.attachmentURLString
+            
+        default:
+            break
+        }
+        
+        guard let url = NSURL(string: imageUrlString) else {
+            return
+        }
+        
+        setImageAttachmentURL(URL: url)
+        
+        let attachment = ImageAttachment(metadata: nil, URLString: imageUrlString, image: nil)
+        
+        let showActivityIndicatorWhenLoading = self.showActivityIndicatorWhenLoading
+        
+        var activityIndicator: UIActivityIndicatorView? = nil
+        
+        if showActivityIndicatorWhenLoading {
+            activityIndicator = self.activityIndicator
+            activityIndicator?.isHidden = false
+            activityIndicator?.startAnimating()
+        }
+        
+        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width,imageExtesion: CubeImageCache.imageExtension.png, completion: {
+            [weak self] url, image, cacheType in
+            
+            printLog(image)
+            guard
+                let strongSelf = self,
+                let attachmentURL = strongSelf.imageAttachmentURL,
+                attachmentURL == url else {
+                    return
+            }
+            
+            if cacheType != .memory {
+                UIView.transition(with: strongSelf, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                    strongSelf.image = image
+                }, completion: nil)
+            }
+            
+            strongSelf.image = image
+            
+            activityIndicator?.stopAnimating()
             
         })
     }
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

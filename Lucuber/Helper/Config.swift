@@ -181,6 +181,23 @@ public class Config {
         public static let miniImageHeight: CGFloat = 200
     }
     
+    public struct MetaData {
+        
+        public static let imageWidth = "image_width"
+        public static let imageHeight = "image_height"
+        
+        public static let thumbnailString = "thumbnail_string"
+        public static let blurredThumbnailString = "blurred_thumbnail_string"
+        
+        public static let videoWidth = "video_width"
+        public static let videoHeight = "video_height"
+        
+        public static let audioDuration = "audio_duration"
+        public static let audioSamples = "audio_samples"
+        
+        public static let thumbnailMaxSize: CGFloat = 60
+    }
+    
     
     public struct FeedDetailCell {
         

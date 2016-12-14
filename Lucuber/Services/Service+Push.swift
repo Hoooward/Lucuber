@@ -60,6 +60,7 @@ public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping Fail
     }
     
     let file = AVFile(data: data)
+    
     file.saveInBackground { success, error in
         if success {
             completion(file.url)
@@ -173,6 +174,21 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
         }
     }
     
+    // 将 media 的图片信息保存
+    if let metaData = metaData {
+        
+        let newMetaData = MediaMetaData()
+        
+        if let data = Data.init(base64Encoded: metaData) {
+            
+            newMetaData.data = data
+            
+            try? realm.write {
+                realm.add(newMetaData)
+                message.mediaMetaData = newMetaData
+            }
+        }
+    }
     
     // 如果没有 Conversation ，创建
     var conversation: Conversation? = nil
@@ -376,7 +392,6 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                 
             })
         }
-        
     }
     
     var newImageData: Data?
@@ -419,8 +434,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                 }
                 
                 if let newResizeImage = newResizeImage {
-//                    CubeImageCache.shard.storeAlreadyUploadImageToCache(with: newResizeImage, imageExtension: CubeImageCache.imageExtension.png, imageURLString: imageURLString)
-//                    
+//
                     let originalKey = CubeImageCache.attachmentOriginKeyWithURLString(URLString: imageURLString)
                     let originalData = UIImageJPEGRepresentation(newResizeImage, 1.0)
                     
@@ -433,7 +447,6 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                
                 printLog("URLString 为空")
             }
-            
             
             
             AVObject.saveAll(inBackground: newDiscoverFormula.contents, block: saveAllObject)

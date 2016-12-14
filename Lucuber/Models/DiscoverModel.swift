@@ -44,6 +44,8 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     
     @NSManaged var deletedByCreator: Bool
     
+   
+    
 }
 
 
@@ -68,7 +70,6 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     @NSManaged var attachmentID: String
     @NSManaged var attachmentExpiresUnixTime: TimeInterval
     
-    @NSManaged var mediaMetaData: Data
     
     @NSManaged var hidden: Bool
     @NSManaged var deletedByCreator: Bool
@@ -79,6 +80,8 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     @NSManaged var recipientType: String
     
     @NSManaged var recipientID: String
+    
+    @NSManaged var metaDataInfo: String
     
 }
 

@@ -11,7 +11,6 @@ import AVOSCloud
 
 class ChatBaseCell: UICollectionViewCell {
     
-    
     // MARK: Properties
     
     lazy var nameLabel: UILabel = {

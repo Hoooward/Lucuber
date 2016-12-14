@@ -32,12 +32,13 @@ public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessag
     discoverMessage.localAttachmentName = message.localAttachmentName
     discoverMessage.localthumbnailName = message.localThumbnailName
     
+    
+    if let metaDataInfo = message.mediaMetaData , let dataString = metaDataInfo.dataString {
+        discoverMessage.metaDataInfo = dataString
+    }
+    
     discoverMessage.attachmentID = message.attachmentID
     discoverMessage.attachmentExpiresUnixTime = message.attachmentExpiresUnixTime
-    
-    if let data = message.mediaMetaData?.data {
-        discoverMessage.mediaMetaData = data
-    }
     
     discoverMessage.hidden = message.hidden
     discoverMessage.deletedByCreator = message.deletedByCreator

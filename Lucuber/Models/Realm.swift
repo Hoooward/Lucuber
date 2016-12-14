@@ -283,12 +283,11 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
             guard let result = try? JSONSerialization.jsonObject(with: mediaMetaData.data , options: JSONSerialization.ReadingOptions()) else {
                 fatalError()
             }
-            
             if let metaDataInfo = result as? [String: Any] {
                 
                 if let
-                    width = metaDataInfo["width"] as? CGFloat,
-                    let height = metaDataInfo["height"] as? CGFloat {
+                    width = metaDataInfo[Config.MetaData.imageWidth] as? CGFloat,
+                    let height = metaDataInfo[Config.MetaData.imageHeight] as? CGFloat {
                     return (width, height)
                 }
             }

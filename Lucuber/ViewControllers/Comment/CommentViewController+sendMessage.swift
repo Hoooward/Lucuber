@@ -72,11 +72,14 @@ extension  CommentViewController {
 
         let imageData = UIImageJPEGRepresentation(image, 0.95)!
 
+        let metaData = metaDataStringOfImage(image, needBlureThumbnail: false)
+        
         let messageImageName = UUID().uuidString
+        
 
         if let withGroup = conversation.withGroup {
 
-            pushMessageImage(atPath: nil, orFileData: imageData, metaData: nil, toRecipient: withGroup.groupID, recipientType: "group", afterCreatedMessage: { [weak self] message in
+            pushMessageImage(atPath: nil, orFileData: imageData, metaData: metaData, toRecipient: withGroup.groupID, recipientType: "group", afterCreatedMessage: { [weak self] message in
 
                 DispatchQueue.main.async {
                     if let _ = FileManager.saveMessageImageData(imageData, withName: messageImageName) {

@@ -128,6 +128,11 @@ class ChatRightImageCell: ChatRightBaseCell {
         
         loadingProgress = 0
         
+        let imagePreferredWidth = Config.ChatCell.mediaPreferredWidth
+        let imagePreferredHeight = Config.ChatCell.mediaPreferredHeight
+        let imagePreferredAspectRetion: CGFloat = 4.0 / 3.0
+        
+        
         if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {
             
             let aspectRatio = imageWidth / imageHeight

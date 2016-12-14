@@ -263,6 +263,8 @@
 		E4F38DC01E0124D600F0DF8A /* UICollectionView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */; };
 		E4F38DC11E0124D600F0DF8A /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D861E00054C00F0DF8A /* Reusable.swift */; };
 		E4F38DC31E01913700F0DF8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4F38DC21E01913700F0DF8A /* MapKit.framework */; };
+		E4F38DC61E01BA5200F0DF8A /* CubeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DC51E01BA5200F0DF8A /* CubeMedia.swift */; };
+		E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DC81E01C91E00F0DF8A /* Message+Cube.swift */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -498,6 +500,8 @@
 		E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLineView.swift; sourceTree = "<group>"; };
 		E4F38DC21E01913700F0DF8A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4F38DC41E01918500F0DF8A /* Lucuber.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lucuber.entitlements; sourceTree = "<group>"; };
+		E4F38DC51E01BA5200F0DF8A /* CubeMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeMedia.swift; sourceTree = "<group>"; };
+		E4F38DC81E01C91E00F0DF8A /* Message+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+Cube.swift"; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -659,6 +663,7 @@
 				E4B09BA21D8E3D340090671F /* Config.swift */,
 				E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */,
 				E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */,
+				E4F38DC51E01BA5200F0DF8A /* CubeMedia.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1362,6 +1367,7 @@
 		E4DF66051D8D9738005CE518 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				E4F38DC71E01C91100F0DF8A /* Model+Extenstion */,
 				E4DF66061D8D9738005CE518 /* UIColor+Cube.swift */,
 				E4DF66071D8D9738005CE518 /* UIFont+Cube.swift */,
 				E4DF660C1D8D9D1B005CE518 /* UINavigationController+Cube.swift */,
@@ -1506,6 +1512,14 @@
 				E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */,
 			);
 			path = HorizontalLineView;
+			sourceTree = "<group>";
+		};
+		E4F38DC71E01C91100F0DF8A /* Model+Extenstion */ = {
+			isa = PBXGroup;
+			children = (
+				E4F38DC81E01C91E00F0DF8A /* Message+Cube.swift */,
+			);
+			path = "Model+Extenstion";
 			sourceTree = "<group>";
 		};
 		E4F9F10C1D991E040076C57C /* Login */ = {
@@ -1946,6 +1960,7 @@
 				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
 				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
 				E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */,
+				E4F38DC61E01BA5200F0DF8A /* CubeMedia.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
 				E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */,
 				E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */,
@@ -2043,6 +2058,7 @@
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
 				E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */,
+				E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
 				E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */,
 				E4CED8581DE862770036A11C /* DetailSeparatorCell.swift in Sources */,
