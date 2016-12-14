@@ -248,6 +248,8 @@
 		E4F38D851E0002EB00F0DF8A /* UICollectionView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */; };
 		E4F38D871E00054C00F0DF8A /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D861E00054C00F0DF8A /* Reusable.swift */; };
 		E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DAE1E00655200F0DF8A /* StockService.swift */; };
+		E4F38DB21E0075FF00F0DF8A /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DB11E0075FF00F0DF8A /* SubscribeView.swift */; };
+		E4F38DB51E01130E00F0DF8A /* HorizontalLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -479,6 +481,8 @@
 		E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cube.swift"; sourceTree = "<group>"; };
 		E4F38D861E00054C00F0DF8A /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		E4F38DAE1E00655200F0DF8A /* StockService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
+		E4F38DB11E0075FF00F0DF8A /* SubscribeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeView.swift; sourceTree = "<group>"; };
+		E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLineView.swift; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -737,6 +741,8 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4F38DB31E01130000F0DF8A /* HorizontalLineView */,
+				E4F38DB01E00753700F0DF8A /* SubscribeView */,
 				E4CED8021DE862770036A11C /* CubeHUD */,
 				E4CED8001DE862770036A11C /* CubeAlert */,
 				E4F38D531DFD1F6B00F0DF8A /* FormulaDetailTitleView */,
@@ -1469,6 +1475,22 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		E4F38DB01E00753700F0DF8A /* SubscribeView */ = {
+			isa = PBXGroup;
+			children = (
+				E4F38DB11E0075FF00F0DF8A /* SubscribeView.swift */,
+			);
+			path = SubscribeView;
+			sourceTree = "<group>";
+		};
+		E4F38DB31E01130000F0DF8A /* HorizontalLineView */ = {
+			isa = PBXGroup;
+			children = (
+				E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */,
+			);
+			path = HorizontalLineView;
+			sourceTree = "<group>";
+		};
 		E4F9F10C1D991E040076C57C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1946,6 +1968,7 @@
 				E4F38D5A1DFD20C500F0DF8A /* SendingMessagePool.swift in Sources */,
 				E4CED8891DE862770036A11C /* NavigationTitleLabel.swift in Sources */,
 				E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */,
+				E4F38DB51E01130E00F0DF8A /* HorizontalLineView.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */,
 				E4F38D701DFD34B600F0DF8A /* PickPhotosCell.swift in Sources */,
@@ -2012,6 +2035,7 @@
 				E4CED8901DE862770036A11C /* TwicketSegmentedControl.swift in Sources */,
 				E4CED8661DE862770036A11C /* FormulaTextViewCell.swift in Sources */,
 				CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */,
+				E4F38DB21E0075FF00F0DF8A /* SubscribeView.swift in Sources */,
 				CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */,
 				CC714DB93638172BC6BA46B9 /* Service.swift in Sources */,
 				CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */,

@@ -34,8 +34,11 @@ extension UIColor {
     }
   
     class func formulaDetailText() -> UIColor {
-        
         return UIColor.black
+    }
+
+    class func cubeBorderColor() -> UIColor {
+        return UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
     }
     
     class func formulaDetailNumber() -> UIColor {
