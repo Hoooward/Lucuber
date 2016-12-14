@@ -8,6 +8,7 @@
 
 import Foundation
 import AVOSCloud
+import AVOSCloudIM
 
 public func loginAdmin() {
     
@@ -23,6 +24,19 @@ public func loginAdmin() {
         
     })
     
+}
+
+class CustomMessage: AVIMTypedMessage, AVIMTypedMessageSubclassing {
+    
+    public static func classMediaType() -> AVIMMessageMediaType {
+        return kAVIMMessageMediaTypeNone
+    }
+    
+    var deletedByCreator: Bool = false
+    var disc: String = "dsasd"
+    var creator: AVUser?
+    
+  
 }
 
 

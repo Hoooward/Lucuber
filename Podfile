@@ -25,6 +25,12 @@ pod 'AVOSCloud'
 pod 'RealmSwift'
 pod 'Kingfisher', '~> 3.0'
 pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
+pod 'AVOSCloudIM'
+pod 'Proposer', '~> 1.1.0'
+pod 'Navi', '~> 1.1.0'
+pod 'Kanna', '~> 2.1.0'
+pod 'Alamofire', '~> 4.0'
+
 #pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 

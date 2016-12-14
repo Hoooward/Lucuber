@@ -12,12 +12,20 @@ import Photos
 import CoreTelephony
 import PKHUD
 import RealmSwift
+import UserNotifications
 
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    enum RemoteNotificationType: String {
+        case message = "message"
+        case officialMessage = "official_message"
+        case friendRequest = "friend_request"
+        case messageDeleted = "message_deleted"
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -52,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = creatMeInRealm()
         
        
-        
+        registerForRemoteNotification()
         return true
     }
 
@@ -79,6 +87,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
 //        pushCurrentUserUpdateInformation()
     }
+    
+    func registerForRemoteNotification() {
+
+        if #available(iOS 10, *) {
+            let notificationCenter = UNUserNotificationCenter.current()
+            
+            //notificationCenter.delegate = self
+        
+            notificationCenter.requestAuthorization(options: [UNAuthorizationOptions.alert, UNAuthorizationOptions.badge, UNAuthorizationOptions.sound], completionHandler: {
+                success, error in
+                
+                UIApplication.shared.registerForRemoteNotifications()
+            })
+            
+            notificationCenter.getNotificationSettings(completionHandler: {
+                setting in
+                
+                if setting.authorizationStatus == UNAuthorizationStatus.authorized {
+                    printLog("授权成功")
+                }
+                
+            })
+        }
+        
+        // TODO: - iOS 10 以下的版本
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        AVOSCloud.handleRemoteNotifications(withDeviceToken: deviceToken)
+    }
+    
+    
+    
+    
 }
 
 

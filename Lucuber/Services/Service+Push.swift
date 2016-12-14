@@ -10,7 +10,7 @@ import RealmSwift
 import PKHUD
 import CoreLocation
 import Alamofire
-import  Kanna
+import Kanna
 import Kingfisher
 
 

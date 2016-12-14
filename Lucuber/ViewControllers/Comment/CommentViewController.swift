@@ -183,6 +183,39 @@ class CommentViewController: UIViewController {
             return
         }
     }
+    
+    private lazy var subscribeView: SubscribeView = {
+        
+        let subscribeView = SubscribeView()
+
+        subscribeView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.view.insertSubview(subscribeView, belowSubview: self.messageToolbar)
+
+        let leading = NSLayoutConstraint(item: subscribeView, attribute: .leading, relatedBy: .equal, toItem: self.messageToolbar, attribute: .leading, multiplier: 1.0, constant: 0)
+
+        let trailing = NSLayoutConstraint(item: subscribeView, attribute: .trailing, relatedBy: .equal, toItem: self.messageToolbar, attribute: .trailing, multiplier: 1.0, constant: 0)
+
+        let bottom = NSLayoutConstraint(item: subscribeView, attribute: .bottom, relatedBy: .equal, toItem: self.messageToolbar, attribute: .top, multiplier: 1.0, constant: SubscribeView.totalHeight)
+
+        let height = NSLayoutConstraint(item: subscribeView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: SubscribeView.totalHeight)
+
+        NSLayoutConstraint.activate([leading, trailing, bottom, height])
+        self.view.layoutIfNeeded()
+
+        subscribeView.bottomConstraint = bottom
+
+        return subscribeView
+        
+    }()
+
+    func tryShowSubscribeView() {
+
+        guard let group = conversation.withGroup , !group.incloudMe  else {
+            return
+        }
+
+    }
 
     fileprivate lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width

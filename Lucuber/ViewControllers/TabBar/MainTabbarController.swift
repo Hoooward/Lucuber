@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVOSCloud
 
 class MainTabbarController: UITabBarController {
 
@@ -14,9 +15,20 @@ class MainTabbarController: UITabBarController {
         super.viewDidLoad()
         
         self.tabBar.tintColor = UIColor.cubeTintColor()
-
-        // Do any additional setup after loading the view.
+        
+        
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let push = AVPush()
+        push.setMessage("啊啊啊")
+        
+        push.sendInBackground()
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

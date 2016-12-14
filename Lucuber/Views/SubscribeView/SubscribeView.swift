@@ -10,7 +10,7 @@ import UIKit
 
 final class SubscribeView: UIView {
     
-    static let totleHeight: CGFloat = 50
+    static let totalHeight: CGFloat = 50
     
     var subscribeAction: (() -> Void)?
     var showWithChangeAction: (() -> Void)?
@@ -69,7 +69,7 @@ final class SubscribeView: UIView {
         
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
             
-            self?.bottomConstraint?.constant = SubscribeView.totleHeight
+            self?.bottomConstraint?.constant = SubscribeView.totalHeight
             self?.hidWithChangeAction?()
             self?.superview?.layoutIfNeeded()
             

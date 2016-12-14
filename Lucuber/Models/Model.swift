@@ -416,11 +416,18 @@ public enum UserFriendState: Int {
 
 public enum MessageMediaType: Int, CustomStringConvertible {
     
+    //文本消息	-1
+    //图像消息	-2
+    //音频消息	-3
+    //视频消息	-4
+    //位置消息	-5
+    //文件消息	-6
+    
     case sectionDate = 0
-    case text  = 1
-    case image = 2
-    case audio = 3
-    case video = 4
+    case text  = -1
+    case image = -2
+    case audio = -3
+    case video = -4
     
     public var description: String {
         
@@ -939,7 +946,8 @@ open class Conversation: Object {
             if let withGroup = withGroup {
                 return withGroup.groupID
             }
-            
+
+
         default:
             return nil
         }
@@ -972,7 +980,7 @@ open class Conversation: Object {
     
     open dynamic var withFriend: RUser?
     open dynamic var withGroup: Group?
-    
+
     open dynamic var draft: Draft?
     
     open let messages = LinkingObjects(fromType: Message.self, property: "conversation")

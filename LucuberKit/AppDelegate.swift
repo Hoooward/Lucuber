@@ -25,11 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverContent.registerSubclass()
         DiscoverPreferences.registerSubclass()
         DiscoverMessage.registerSubclass()
+        CustomMessage.registerSubclass()
         
-//        window = UIWindow()
-//        window?.frame = UIScreen.main.bounds
-//        window?.rootViewController = determineRootViewController()
-//        window?.makeKeyAndVisible()
+        window = UIWindow()
+        window?.frame = UIScreen.main.bounds
+        window?.rootViewController = determineRootViewController()
+        window?.makeKeyAndVisible()
         // 注意会重复添加数据
 //        pushBaseFormulaDataToLeanCloud()
         
@@ -50,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func determineRootViewController() -> UIViewController {
         
-        let storyboardName = AVUser.isLogin ? "Main" : "Resgin"
+        let storyboardName = AVUser.isLogin ? "Main1" : "Resgin"
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         return storyboard.instantiateInitialViewController()!
     }

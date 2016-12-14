@@ -250,6 +250,19 @@
 		E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DAE1E00655200F0DF8A /* StockService.swift */; };
 		E4F38DB21E0075FF00F0DF8A /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DB11E0075FF00F0DF8A /* SubscribeView.swift */; };
 		E4F38DB51E01130E00F0DF8A /* HorizontalLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */; };
+		E4F38DB61E01239E00F0DF8A /* Service+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D631DFD21D100F0DF8A /* Service+Fetch.swift */; };
+		E4F38DB71E01239E00F0DF8A /* Service+Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D641DFD21D100F0DF8A /* Service+Push.swift */; };
+		E4F38DB81E01239E00F0DF8A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7149FBEE537BDC8E3B2B09 /* Service.swift */; };
+		E4F38DB91E01239E00F0DF8A /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38DAE1E00655200F0DF8A /* StockService.swift */; };
+		E4F38DBA1E0124BD00F0DF8A /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D571DFD20C400F0DF8A /* ImageCache.swift */; };
+		E4F38DBB1E0124BD00F0DF8A /* SendingMessagePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D581DFD20C400F0DF8A /* SendingMessagePool.swift */; };
+		E4F38DBC1E0124BD00F0DF8A /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
+		E4F38DBD1E0124BD00F0DF8A /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C82941DF855DA00D315CF /* OpenGraph.swift */; };
+		E4F38DBE1E0124BD00F0DF8A /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C829A1DFBA9F700D315CF /* Avatar.swift */; };
+		E4F38DBF1E0124D600F0DF8A /* URL+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D3B521DF6F69D00673FFD /* URL+Cube.swift */; };
+		E4F38DC01E0124D600F0DF8A /* UICollectionView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */; };
+		E4F38DC11E0124D600F0DF8A /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D861E00054C00F0DF8A /* Reusable.swift */; };
+		E4F38DC31E01913700F0DF8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4F38DC21E01913700F0DF8A /* MapKit.framework */; };
 		E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */; };
 		E4F9F11B1D991E040076C57C /* RegisterPickAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */; };
 		E4F9F11C1D991E040076C57C /* RegisterPickMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */; };
@@ -483,6 +496,8 @@
 		E4F38DAE1E00655200F0DF8A /* StockService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
 		E4F38DB11E0075FF00F0DF8A /* SubscribeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeView.swift; sourceTree = "<group>"; };
 		E4F38DB41E01130E00F0DF8A /* HorizontalLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLineView.swift; sourceTree = "<group>"; };
+		E4F38DC21E01913700F0DF8A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E4F38DC41E01918500F0DF8A /* Lucuber.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lucuber.entitlements; sourceTree = "<group>"; };
 		E4F9F1101D991E040076C57C /* RegisterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCodeViewController.swift; sourceTree = "<group>"; };
 		E4F9F1111D991E040076C57C /* RegisterPickAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickAvatarViewController.swift; sourceTree = "<group>"; };
 		E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPickMobileViewController.swift; sourceTree = "<group>"; };
@@ -517,6 +532,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F38DC31E01913700F0DF8A /* MapKit.framework in Frameworks */,
 				AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +554,7 @@
 		B26AE18ECEF437035ED9FD18 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4F38DC21E01913700F0DF8A /* MapKit.framework */,
 				5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */,
 				334ED53D389A550452728B65 /* Pods_LucuberKit.framework */,
 			);
@@ -1528,6 +1545,7 @@
 		E4FFAA911D8D29DE0039BA8A /* Lucuber */ = {
 			isa = PBXGroup;
 			children = (
+				E4F38DC41E01918500F0DF8A /* Lucuber.entitlements */,
 				E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */,
 				E4FFAA961D8D29DE0039BA8A /* Main.storyboard */,
 				E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */,
@@ -1630,7 +1648,15 @@
 					E4FFAA7B1D8D29A30039BA8A = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = M8E7Y88Q7R;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1827,6 +1853,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F38DBF1E0124D600F0DF8A /* URL+Cube.swift in Sources */,
+				E4F38DC01E0124D600F0DF8A /* UICollectionView+Cube.swift in Sources */,
+				E4F38DC11E0124D600F0DF8A /* Reusable.swift in Sources */,
+				E4F38DBA1E0124BD00F0DF8A /* ImageCache.swift in Sources */,
+				E4F38DBB1E0124BD00F0DF8A /* SendingMessagePool.swift in Sources */,
+				E4F38DBC1E0124BD00F0DF8A /* Keyboard.swift in Sources */,
+				E4F38DBD1E0124BD00F0DF8A /* OpenGraph.swift in Sources */,
+				E4F38DBE1E0124BD00F0DF8A /* Avatar.swift in Sources */,
+				E4F38DB61E01239E00F0DF8A /* Service+Fetch.swift in Sources */,
+				E4F38DB71E01239E00F0DF8A /* Service+Push.swift in Sources */,
+				E4F38DB81E01239E00F0DF8A /* Service.swift in Sources */,
+				E4F38DB91E01239E00F0DF8A /* StockService.swift in Sources */,
 				E42D20C11DEE94B700E4F637 /* JSONData.swift in Sources */,
 				E42D20C21DEE94B700E4F637 /* PrepareData.swift in Sources */,
 				E4E03BFE1DEC6C540023B3B0 /* KeyboardMan.swift in Sources */,
@@ -2283,12 +2321,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Lucuber/Lucuber.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = M8E7Y88Q7R;
 				INFOPLIST_FILE = Lucuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bd04d326-81e1-4398-b6cf-a12fc9db8dae";
+				PROVISIONING_PROFILE_SPECIFIER = LucuberDevice;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2300,12 +2342,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Lucuber/Lucuber.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = M8E7Y88Q7R;
 				INFOPLIST_FILE = Lucuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bd04d326-81e1-4398-b6cf-a12fc9db8dae";
+				PROVISIONING_PROFILE_SPECIFIER = LucuberDevice;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
