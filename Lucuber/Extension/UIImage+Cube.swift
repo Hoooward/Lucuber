@@ -283,6 +283,98 @@ extension UIImage {
     }
 }
 
+public enum MessageImageBubbleDirection {
+    case left
+    case right
+}
+
+extension UIImage {
+
+    public func maskWithImage(_ maskImage: UIImage) -> UIImage {
+
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
+
+        let context = UIGraphicsGetCurrentContext()
+
+        var transform = CGAffineTransform.identity.concatenating(CGAffineTransform(scaleX: 1.0, y: -1.0))
+    
+        transform = transform.concatenating(CGAffineTransform(translationX: 0.0, y: self.size.height))
+        context?.concatenate(transform)
+        
+        let drawRect = CGRect(origin: CGPoint.zero, size: self.size)
+        
+        context?.clip(to: drawRect, mask: maskImage.cgImage!)
+        context?.draw(self.cgImage!, in: drawRect)
+        
+        let roundImage = UIGraphicsGetImageFromCurrentImageContext()!
+        
+        UIGraphicsEndImageContext()
+
+        return roundImage
+    }
+
+    public struct BubbleMaskImage {
+
+        public static let left: UIImage = {
+            let scale = UIScreen.main.scale
+            let orientation: UIImageOrientation = .up
+            let image = UIImage(named: "left_tail_image_bubble")!
+            var maskImage = UIImage(cgImage: image.cgImage!, scale: scale, orientation: orientation)
+            maskImage = maskImage.resizableImage(withCapInsets: UIEdgeInsets(top: 25, left: 27, bottom: 20, right: 20), resizingMode:
+            UIImageResizingMode.stretch)
+            return maskImage
+        }()
+
+        public static let right: UIImage = {
+            let scale = UIScreen.main.scale
+            let orientation: UIImageOrientation = .up
+            let image = UIImage(named: "right_tail_image_bubble")!
+            var maskImage = UIImage(cgImage: image.cgImage!, scale: scale, orientation: orientation)
+            maskImage = maskImage.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 20, bottom: 20, right: 27), resizingMode:
+            UIImageResizingMode.stretch)
+            return maskImage
+        }()
+    }
+
+    public func cropToAspectRatio(aspectRatio: CGFloat) -> UIImage {
+        let size = self.size
+
+        let originalAspectRatio = size.width / size.height
+
+        var rect = CGRect.zero
+
+        if originalAspectRatio > aspectRatio {
+            let width = size.height * aspectRatio
+            rect = CGRect(x: (size.width - width) * 0.5, y: 0, width: width, height: size.height)
+        } else if originalAspectRatio < aspectRatio {
+            let height = size.width / aspectRatio
+            rect = CGRect(x: 0, y: (size.height - height) * 0.5, width: size.width, height: height)
+        } else {
+            return self
+        }
+
+        let cgImage = self.cgImage!.cropping(to: rect)!
+        return UIImage(cgImage: cgImage)
+    }
+
+    public func bubbleImage(with direction: MessageImageBubbleDirection, size: CGSize) -> UIImage {
+
+        let maskImage: UIImage
+
+        if direction == .left {
+            maskImage = BubbleMaskImage.left
+        } else {
+            maskImage = BubbleMaskImage.right
+        }
+
+        let bubbleImage = cropToAspectRatio(aspectRatio: size.width / size.height).resizeTo(targetSize: size).maskWithImage(maskImage)
+        
+        return bubbleImage
+    }
+
+}
+
 
 
 

@@ -293,6 +293,25 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
             }
         }
     }
+
+    return nil
+}
+
+public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
+
+    guard !message.isInvalidated else {
+        return nil
+    }
+
+    if let metaData = message.mediaMetaData {
+        if let metaDataInfo = try? JSONSerialization.jsonObject(with: metaData.data, options: JSONSerialization.ReadingOptions()) {
+            if let imageString = metaDataInfo[Config.MetaData.blurredThumbnailString] as? String {
+                if let data = Data(base64Encoded: imageString) {
+                    return UIImage(data: data)
+                }
+            }
+        }
+    }
     return nil
 }
 
