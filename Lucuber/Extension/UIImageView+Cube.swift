@@ -178,62 +178,36 @@ extension UIImageView {
 
 // MARK: - Message
 
+private var messageImageAssociatedKey: Void?
 extension UIImageView {
     
-    public func cube_setImage(with message: Message , size: CGSize?) {
+    private var cube_messageImageKey: String? {
+        return objc_getAssociatedObject(self, &messageImageAssociatedKey) as? String
+    }
+    
+    private func cube_setMessageImageKey(messageMapImageKey: String) {
+        objc_setAssociatedObject(self, &messageImageAssociatedKey, messageMapImageKey, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    
+    public func cube_setImage(with message: Message , size: CGSize, direction: MessageImageBubbleDirection, completion: @escaping (Double, UIImage?) -> Void) {
         
-        var imageUrlString: String = ""
+        let imageKey = message.imageKey
         
-        switch message.mediaType {
+        cube_setMessageImageKey(messageMapImageKey: imageKey)
+        
+        
+        CubeImageCache.shard.imageOfMessage(message: message, withSize: size, direction: direction, completion: {
+            [weak self] progress, image in
             
-        case MessageMediaType.image.rawValue:
-            
-            imageUrlString = message.attachmentURLString
-            
-        default:
-            break
-        }
-        
-        guard let url = NSURL(string: imageUrlString) else {
-            return
-        }
-        
-        setImageAttachmentURL(URL: url)
-        
-        let attachment = ImageAttachment(metadata: nil, URLString: imageUrlString, image: nil)
-        
-        let showActivityIndicatorWhenLoading = self.showActivityIndicatorWhenLoading
-        
-        var activityIndicator: UIActivityIndicatorView? = nil
-        
-        if showActivityIndicatorWhenLoading {
-            activityIndicator = self.activityIndicator
-            activityIndicator?.isHidden = false
-            activityIndicator?.startAnimating()
-        }
-        
-        CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: size?.width,imageExtesion: CubeImageCache.imageExtension.png, completion: {
-            [weak self] url, image, cacheType in
-            
-            printLog(image)
-            guard
-                let strongSelf = self,
-                let attachmentURL = strongSelf.imageAttachmentURL,
-                attachmentURL == url else {
-                    return
+            guard let strongSelf = self, let _imageKey = strongSelf.cube_messageImageKey, _imageKey == imageKey else {
+                return
             }
             
-            if cacheType != .memory {
-                UIView.transition(with: strongSelf, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                    strongSelf.image = image
-                }, completion: nil)
-            }
-            
-            strongSelf.image = image
-            
-            activityIndicator?.stopAnimating()
+            completion(progress, image)
             
         })
+        
     }
 }
 

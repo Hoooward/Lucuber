@@ -231,9 +231,9 @@ final class CubeImageCache {
 
                     if let message = messageWith(messageID, inRealm: realm) {
 
-                        if let blurThumbnailImage = thumbnailImageOfMessage(message) {
+                        if let blurThumbnailImage = blurThumbnailImageOfMessage(message) {
                             
-                            let bubbleThumbnailImage = blurThumbnailImage.bubbleImage(with: direction, size: size)
+                            let bubbleThumbnailImage = blurThumbnailImage.bubbleImage(with: direction, size: size).decodedImage()
 
                             self.cache.setObject(bubbleThumbnailImage, forKey: thumbnailKey)
                             
@@ -264,7 +264,7 @@ final class CubeImageCache {
                     
                     if !fileName.isEmpty, let imageFileUrl = FileManager.cubeMessageImageURL(with: fileName), let image = UIImage(contentsOfFile: imageFileUrl.path) {
                         
-                        let messageImage = image.bubbleImage(with: direction, size: size)
+                        let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
                         
                         self.cache.setObject(messageImage, forKey: imageKey)
                         
@@ -328,7 +328,7 @@ final class CubeImageCache {
                                     // 如果是 image 类型的 Message 任务完成
                                     if let image = UIImage(data: data) {
                                         
-                                        let messageImage = image.bubbleImage(with: direction, size: size)
+                                        let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
                                         
                                         self.cache.setObject(messageImage, forKey: imageKey)
                                         
@@ -386,7 +386,8 @@ final class CubeImageCache {
                                             }
                                             
                                             if let image = UIImage(data: data) {
-                                                let messageImage = image.bubbleImage(with: direction, size: size)
+
+                                                let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
                                                 
                                                 self.cache.setObject(messageImage, forKey: imageKey)
                                                 

@@ -224,6 +224,18 @@ class CommentViewController: UIViewController {
     fileprivate lazy var messageTextViewMaxWidth: CGFloat = {
         return self.collectionViewWidth - Config.chatCellGapBetweenWallAndAvatar() - Config.chatCellAvatarSize() - Config.chatCellGapBetweenTextContentLabelAndAvatar() - Config.chatTextGapBetweenWallAndContentLabel()
     }()
+    
+    var messageImagePreferredWidth: CGFloat {
+        return Config.ChatCell.mediaPreferredWidth
+    }
+    
+    var messageImagePreferredHeight: CGFloat {
+        return Config.ChatCell.mediaPreferredHeight
+    }
+    
+    var messageImagePreferredAspectRatio: CGFloat {
+        return 4.0 / 3.0
+    }
 
     var textContentLabelWidths = [String: CGFloat]()
     func textContentLabelWidth(of message: Message) -> CGFloat {
@@ -257,11 +269,10 @@ class CommentViewController: UIViewController {
 
         var height: CGFloat = 0
 
-        let type = MessageMediaType(rawValue: message.mediaType)!
 
-        switch type {
+        switch message.mediaType {
 
-        case .text:
+        case MessageMediaType.text.rawValue:
 
             let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
 
@@ -272,11 +283,25 @@ class CommentViewController: UIViewController {
                 textContentLabelWidths[key] = ceil(rect.width)
             }
 
-                // TODO: - 图片的 message 高度并未处理
 
+        case MessageMediaType.image.rawValue:
+            
+            if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {
+                let aspectRatio = imageWidth / imageHeight
+                
+                if aspectRatio >= 1 {
+                    height = max(ceil(messageImagePreferredWidth / aspectRatio), Config.ChatCell.mediaMinHeight)
+                } else {
+                    height = max(messageImagePreferredHeight, ceil(Config.ChatCell.mediaMinWidth / aspectRatio))
+                }
+                
+            } else {
+                height = ceil(messageImagePreferredWidth / messageImagePreferredAspectRatio)
+            }
+            
 
         default:
-            height = 20
+            height = 40
         }
 
         if conversation.withGroup != nil {

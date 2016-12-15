@@ -16,16 +16,17 @@ class ChatRightImageCell: ChatRightBaseCell {
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = UIColor.rightBubbleTintColor()
         imageView.mask = self.messageImageMakeImageView
+        imageView.clipsToBounds = true
         return imageView
     }()
     
     lazy var messageImageMakeImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: ""))
+        let imageView = UIImageView(image: UIImage(named: "right_tail_image_bubble"))
         return imageView
     }()
     
     lazy var borderImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: ""))
+        let imageView = UIImageView(image: UIImage(named: "right_tail_image_bubble_border"))
         return imageView
     }()
     
@@ -56,9 +57,8 @@ class ChatRightImageCell: ChatRightBaseCell {
         contentView.addSubview(borderImageView)
         contentView.addSubview(loadingProgressView)
         
-        UIView.performWithoutAnimation {
-            [weak self] in
-            self?.makeUI()
+        UIView.setAnimationsEnabled(false); do{
+            makeUI()
         }
         
         messageImageView.isUserInteractionEnabled = true
@@ -73,6 +73,12 @@ class ChatRightImageCell: ChatRightBaseCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        messageImageView.image = nil
     }
     
     func tapMediaAction() {
@@ -97,6 +103,13 @@ class ChatRightImageCell: ChatRightBaseCell {
             
             if progress <= 1.0 {
                 loadingProgress = progress
+                
+                if progress == 1.0 {
+                    if let image = image {
+                        self.messageImageView.image = image
+                    }
+                    return
+                }
             }
             
             if let image = image {
@@ -117,108 +130,43 @@ class ChatRightImageCell: ChatRightBaseCell {
         
         self.mediaTapAction = mediaTapAction
         
-        UIView.performWithoutAnimation { [weak self] in
-            self?.makeUI()
+        UIView.setAnimationsEnabled(false); do {
+            makeUI()
         }
-        
-//        if let sender = message.creatUser {
-//            let userAvatar = UserAvatar(userID: sender.userID, avatarURLString: sender.avatarURLString, avatarStyle: nanoAvatarStyle)
-//            avatarImageView.navi_setAvatar(userAvatar, withFadeTransitionDuration: avatarFadeTransitionDuration)
-//        }
+
+        UIView.setAnimationsEnabled(true)
+        if let url = message.creator?.avatorImageURL {
+            
+            let cubeAvatar = CubeAvatar(avatarUrlString: url, avatarStyle: nanoAvatarStyle)
+            avatarImageView.navi_setAvatar(cubeAvatar, withFadeTransitionDuration: 0.5)
+            
+        } else {
+            avatarImageView.image = #imageLiteral(resourceName: "default_avatar_60")
+        }
         
         loadingProgress = 0
         
-        let imagePreferredWidth = Config.ChatCell.mediaPreferredWidth
-        let imagePreferredHeight = Config.ChatCell.mediaPreferredHeight
-        let imagePreferredAspectRation: CGFloat = 4.0 / 3.0
+        let imageSize = message.fixedImageSize
         
+        messageImageView.cube_setImage(with: message, size: imageSize, direction: MessageImageBubbleDirection.right, completion: { progress, image in
+            self.loadingWithProgress(progress: progress, image: image)
+        })
         
-        if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {
+        UIView.setAnimationsEnabled(false); do {
+            let width = min(imageSize.width, Config.ChatCell.imageMaxWidth)
             
-            let aspectRatio = imageWidth / imageHeight
+            messageImageView.frame = CGRect(x: (avatarImageView.frame).minX - Config.ChatCell.gapBetweenAvatarImageViewAndBubble - width, y: 0, width: width, height: bounds.height)
+            messageImageMakeImageView.frame = messageImageView.bounds
             
-            let messageImagePreferredWidth = max(messageImagePreferredWidth, ceil(Config.ChatCell.mediaMinHeight * aspectRatio))
-            let messageImagePreferredHeight = max(messageImagePreferredHeight, ceil(Config.ChatCell.mediaMinWidth / aspectRatio))
+            dotImageView.center = CGPoint(x: messageImageView.frame.minX - Config.ChatCell.gapBetweenDotImageViewAndBubble, y: messageImageView.frame.midY)
             
-            if aspectRatio >= 1 {
-                let width = min(messageImagePreferredWidth, Config.ChatCell.imageMaxWidth)
-                
-                UIView.performWithoutAnimation { [weak self] in
-                    
-                    if let strongSelf = self {
-                        strongSelf.messageImageView.frame = CGRect(x: strongSelf.avatarImageView.frame.minX - Config.ChatCell.gapBetweenAvatarImageViewAndBubble - width, y: 0, width: width, height: strongSelf.bounds.height)
-                        strongSelf.messageImageMakeImageView.frame = strongSelf.messageImageView.bounds
-                        
-                        strongSelf.dotImageView.center = CGPoint(x: strongSelf.messageImageView.frame.minX - Config.ChatCell.gapBetweenDotImageViewAndBubble, y: strongSelf.messageImageView.frame.midY)
-                        
-                        strongSelf.loadingProgressView.center = CGPoint(x: strongSelf.messageImageView.frame.midX + Config.ChatCell.playImageViewXOffset, y: strongSelf.messageImageView.frame.midY)
-                        
-                        strongSelf.borderImageView.frame = strongSelf.messageImageView.frame
-                    }
-                }
-                
-                var size = CGSize(width: messageImagePreferredWidth, height: ceil(messageImagePreferredWidth / aspectRatio))
-                size = size.ensureMinWidthOrHeight(Config.ChatCell.mediaMinHeight)
-                
-//                messageImageView.yep_setImageOfMessage(message, withSize: size, tailDirection: .Right, completion: { loadingProgress, image in
-//                    dispatch_async(dispatch_get_main_queue()) { [weak self] in
-//                        self?.loadingWithProgress(loadingProgress, image: image)
-//                    }
-//                })
-                
-            } else {
-                let width = messageImagePreferredHeight * aspectRatio
-                
-                UIView.performWithoutAnimation { [weak self] in
-                    
-                    if let strongSelf = self {
-                        strongSelf.messageImageView.frame = CGRect(x: strongSelf.avatarImageView.frame.minX - Config.ChatCell.gapBetweenAvatarImageViewAndBubble - width, y: 0, width: width, height: strongSelf.bounds.height)
-                        strongSelf.messageImageMakeImageView.frame = strongSelf.messageImageView.bounds
-                        
-                        strongSelf.dotImageView.center = CGPoint(x: strongSelf.messageImageView.frame.minX - Config.ChatCell.gapBetweenDotImageViewAndBubble, y: strongSelf.messageImageView.frame.midY)
-                        
-                        strongSelf.loadingProgressView.center = CGPoint(x: strongSelf.messageImageView.frame.midX + Config.ChatCell.playImageViewXOffset, y: strongSelf.messageImageView.frame.midY)
-                        
-                        strongSelf.borderImageView.frame = strongSelf.messageImageView.frame
-                    }
-                }
-                
-                var size = CGSize(width: messageImagePreferredHeight * aspectRatio, height: messageImagePreferredHeight)
-                size = size.ensureMinWidthOrHeight(Config.ChatCell.mediaMinHeight)
-                
-//                messageImageView.yep_setImageOfMessage(message, withSize: size, tailDirection: .Right, completion: { loadingProgress, image in
-//                    dispatch_async(dispatch_get_main_queue()) { [weak self] in
-//                        self?.loadingWithProgress(loadingProgress, image: image)
-//                    }
-//                })
-            }
+            loadingProgressView.center = CGPoint(x: messageImageView.frame.midX + Config.ChatCell.playImageViewXOffset, y: messageImageView.frame.midY)
             
-        } else {
-            let width = messageImagePreferredWidth
-            
-            UIView.performWithoutAnimation { [weak self] in
-                
-                if let strongSelf = self {
-                    strongSelf.messageImageView.frame = CGRect(x: strongSelf.avatarImageView.frame.minX - Config.ChatCell.gapBetweenAvatarImageViewAndBubble - width, y: 0, width: width, height: strongSelf.bounds.height)
-                    strongSelf.messageImageMakeImageView.frame = strongSelf.messageImageView.bounds
-                    
-                    strongSelf.dotImageView.center = CGPoint(x: strongSelf.messageImageView.frame.minX - Config.ChatCell.gapBetweenDotImageViewAndBubble, y: strongSelf.messageImageView.frame.midY)
-                    
-                    strongSelf.loadingProgressView.center = CGPoint(x: strongSelf.messageImageView.frame.midX + Config.ChatCell.playImageViewXOffset, y: strongSelf.messageImageView.frame.midY)
-                    
-                    strongSelf.borderImageView.frame = strongSelf.messageImageView.frame
-                }
-            }
-            
-            let size = CGSize(width: messageImagePreferredWidth, height: ceil(messageImagePreferredWidth / messageImagePreferredAspectRatio))
-            
-//            messageImageView.yep_setImageOfMessage(message, withSize: size, tailDirection: .Right, completion: { loadingProgress, image in
-//                dispatch_async(dispatch_get_main_queue()) { [weak self] in
-//                    self?.loadingWithProgress(loadingProgress, image: image)
-//                }
-//            })
+            borderImageView.frame = messageImageView.frame
         }
+        UIView.setAnimationsEnabled(true)
     }
+        
     
 }
 

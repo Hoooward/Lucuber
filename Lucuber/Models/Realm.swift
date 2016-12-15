@@ -280,8 +280,8 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
         
         if !mediaMetaData.data.isEmpty {
             
-            guard let result = try? JSONSerialization.jsonObject(with: mediaMetaData.data , options: JSONSerialization.ReadingOptions()) else {
-                fatalError()
+            guard let result = try? JSONSerialization.jsonObject(with: mediaMetaData.data , options: JSONSerialization.ReadingOptions.init(rawValue: 0)) else {
+                return nil
             }
             if let metaDataInfo = result as? [String: Any] {
                 
@@ -304,13 +304,22 @@ public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
     }
 
     if let metaData = message.mediaMetaData {
-        if let metaDataInfo = try? JSONSerialization.jsonObject(with: metaData.data, options: JSONSerialization.ReadingOptions()) {
-            if let imageString = metaDataInfo[Config.MetaData.blurredThumbnailString] as? String {
-                if let data = Data(base64Encoded: imageString) {
-                    return UIImage(data: data)
+        
+        if !metaData.data.isEmpty {
+            
+            guard let result = try? JSONSerialization.jsonObject(with: metaData.data, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) else {
+                return nil
+            }
+            
+            if let metaDataInfo = result as? [String: Any] {
+                if let imageString = metaDataInfo[Config.MetaData.blurredThumbnailString] as? String {
+                    if let data = Data(base64Encoded: imageString) {
+                        return UIImage(data: data)
+                    }
                 }
             }
         }
+        
     }
     return nil
 }

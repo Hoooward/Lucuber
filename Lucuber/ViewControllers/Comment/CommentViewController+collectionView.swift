@@ -30,17 +30,7 @@ extension CommentViewController {
 
 extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    private var messageImagePreferredWidth: CGFloat {
-        return Config.ChatCell.mediaPreferredWidth
-    }
 
-    private var messageImagePreferredHeight: CGFloat {
-        return Config.ChatCell.mediaPreferredHeight
-    }
-
-    private var messageImagePreferredAspectRatio: CGFloat {
-        return 4.0 / 3.0
-    }
 
     enum Section: Int {
         case loadPrevious
@@ -280,7 +270,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
                     if let cell = cell as? ChatRightImageCell {
 
-                        printLog(message)
                         cell.configureWithMessage(message: message, messageImagePreferredWidth: messageImagePreferredWidth, messageImagePreferredHeight: messageImagePreferredHeight, messageImagePreferredAspectRatio: messageImagePreferredAspectRatio, mediaTapAction: {
                             [weak self] in
 

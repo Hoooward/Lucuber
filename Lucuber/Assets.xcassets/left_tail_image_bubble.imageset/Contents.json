@@ -6,22 +6,24 @@
       "resizing" : {
         "mode" : "9-part",
         "center" : {
-          "mode" : "fill",
+          "mode" : "tile",
           "width" : 1,
           "height" : 1
         },
-        "capInsets" : {
-          "bottom" : 20,
-          "top" : 25,
-          "right" : 20,
-          "left" : 27
+        "cap-insets" : {
+          "bottom" : 79,
+          "top" : 80,
+          "right" : 94,
+          "left" : 96
         }
       }
     }
   ],
   "info" : {
     "version" : 1,
-    "author" : "xcode",
+    "author" : "xcode"
+  },
+  "properties" : {
     "template-rendering-intent" : "template"
   }
 }

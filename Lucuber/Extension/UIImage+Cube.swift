@@ -51,7 +51,7 @@ extension UIImage {
             newSize = CGSize(width: scale * floor(size.width * widthRatio), height: scale * floor(size.height * widthRatio))
         }
         
-        let rect = CGRect(origin: CGPoint.zero, size: newSize)
+        let rect = CGRect(x: 0, y: 0, width: floor(newSize.width), height: floor(newSize.height))
         
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         self.draw(in: rect)
@@ -289,71 +289,90 @@ public enum MessageImageBubbleDirection {
 }
 
 extension UIImage {
+    
+    
+    public func renderAtSize(_ size: CGSize) -> UIImage {
+        
+        // 确保 size 为整数，防止 mask 里出现白线
+        let size = CGSize(width: ceil(size.width), height: ceil(size.height))
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0) // key
+        let context = UIGraphicsGetCurrentContext()
+        
+        draw(in: CGRect(origin: CGPoint.zero, size: size))
+        
+        let cgImage = context!.makeImage()!
+        
+        let image = UIImage(cgImage: cgImage)
+        
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
 
     public func maskWithImage(_ maskImage: UIImage) -> UIImage {
-
+        
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
-
+        
         let context = UIGraphicsGetCurrentContext()
-
+        
         var transform = CGAffineTransform.identity.concatenating(CGAffineTransform(scaleX: 1.0, y: -1.0))
-    
         transform = transform.concatenating(CGAffineTransform(translationX: 0.0, y: self.size.height))
-        context?.concatenate(transform)
+        context!.concatenate(transform)
         
         let drawRect = CGRect(origin: CGPoint.zero, size: self.size)
         
-        context?.clip(to: drawRect, mask: maskImage.cgImage!)
-        context?.draw(self.cgImage!, in: drawRect)
+        context!.clip(to: drawRect, mask: maskImage.cgImage!)
         
-        let roundImage = UIGraphicsGetImageFromCurrentImageContext()!
+        context!.draw(self.cgImage!, in: drawRect)
+        
+        let roundImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
-
-        return roundImage
+        
+        return roundImage!
     }
-
+    
     public struct BubbleMaskImage {
-
-        public static let left: UIImage = {
+        
+        public static let leftTail: UIImage = {
             let scale = UIScreen.main.scale
             let orientation: UIImageOrientation = .up
-            let image = UIImage(named: "left_tail_image_bubble")!
-            var maskImage = UIImage(cgImage: image.cgImage!, scale: scale, orientation: orientation)
-            maskImage = maskImage.resizableImage(withCapInsets: UIEdgeInsets(top: 25, left: 27, bottom: 20, right: 20), resizingMode:
-            UIImageResizingMode.stretch)
+            var maskImage = UIImage(cgImage: UIImage(named: "left_tail_image_bubble")!.cgImage!, scale: scale, orientation: orientation)
+            maskImage = maskImage.resizableImage(withCapInsets: UIEdgeInsets(top: 25, left: 27, bottom: 20, right: 20), resizingMode: UIImageResizingMode.stretch)
             return maskImage
         }()
-
-        public static let right: UIImage = {
+        
+        public static let rightTail: UIImage = {
             let scale = UIScreen.main.scale
             let orientation: UIImageOrientation = .up
-            let image = UIImage(named: "right_tail_image_bubble")!
-            var maskImage = UIImage(cgImage: image.cgImage!, scale: scale, orientation: orientation)
-            maskImage = maskImage.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 20, bottom: 20, right: 27), resizingMode:
-            UIImageResizingMode.stretch)
+            var maskImage = UIImage(cgImage: UIImage(named: "right_tail_image_bubble")!.cgImage!, scale: scale, orientation: orientation)
+            maskImage = maskImage.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 20, bottom: 20, right: 27), resizingMode: UIImageResizingMode.stretch)
             return maskImage
         }()
     }
 
-    public func cropToAspectRatio(aspectRatio: CGFloat) -> UIImage {
+
+    public func cropToAspectRatio(_ aspectRatio: CGFloat) -> UIImage {
         let size = self.size
-
+        
         let originalAspectRatio = size.width / size.height
-
+        
         var rect = CGRect.zero
-
+        
         if originalAspectRatio > aspectRatio {
             let width = size.height * aspectRatio
             rect = CGRect(x: (size.width - width) * 0.5, y: 0, width: width, height: size.height)
+            
         } else if originalAspectRatio < aspectRatio {
             let height = size.width / aspectRatio
             rect = CGRect(x: 0, y: (size.height - height) * 0.5, width: size.width, height: height)
+            
         } else {
             return self
         }
-
+        
         let cgImage = self.cgImage!.cropping(to: rect)!
         return UIImage(cgImage: cgImage)
     }
@@ -363,16 +382,40 @@ extension UIImage {
         let maskImage: UIImage
 
         if direction == .left {
-            maskImage = BubbleMaskImage.left
+            maskImage = BubbleMaskImage.leftTail.renderAtSize(size)
         } else {
-            maskImage = BubbleMaskImage.right
+            maskImage = BubbleMaskImage.rightTail.renderAtSize(size)
         }
 
-        let bubbleImage = cropToAspectRatio(aspectRatio: size.width / size.height).resizeTo(targetSize: size).maskWithImage(maskImage)
+        let bubbleImage = cropToAspectRatio(size.width / size.height).resizeTo(targetSize: size).maskWithImage(maskImage)
         
         return bubbleImage
     }
 
+}
+
+public extension UIImage {
+    
+    public func decodedImage() -> UIImage {
+        return decodedImage(scale: scale)
+    }
+    
+    public func decodedImage(scale: CGFloat) -> UIImage {
+        let imageRef = cgImage
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: imageRef!.width, height: imageRef!.height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+        
+        if let context = context {
+            let rect = CGRect(x: 0, y: 0, width: CGFloat(imageRef!.width), height: CGFloat(imageRef!.height))
+            context.draw(imageRef!, in: rect)
+            let decompressedImageRef = context.makeImage()!
+            
+            return UIImage(cgImage: decompressedImageRef, scale: scale, orientation: imageOrientation)
+        }
+        
+        return self
+    }
 }
 
 
