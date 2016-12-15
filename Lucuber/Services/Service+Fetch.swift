@@ -151,21 +151,16 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             newMessage.localObjectID = discoverMessage.localObjectID
             newMessage.textContent = discoverMessage.textContent
             newMessage.mediaType = discoverMessage.mediaType
-            
-            let metaDataInfo = discoverMessage.metaDataInfo
-            
-            if !metaDataInfo.isEmpty {
-                
-                if let data = Data.init(base64Encoded: metaDataInfo) {
-                    
-                    let newMetaData = MediaMetaData()
-                    newMetaData.data = data
-                    realm.add(newMetaData)
-                    
-                    newMessage.mediaMetaData = newMetaData
-                }
+
+            if !discoverMessage.metaData.isEmpty {
+
+                let newMetaData = MediaMetaData()
+                newMetaData.data = discoverMessage.metaData
+                realm.add(newMetaData)
+
+                newMessage.mediaMetaData = newMetaData
             }
-            
+
             // 全部标记为已读
             newMessage.sendState = MessageSendState.read.rawValue
 

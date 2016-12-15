@@ -121,7 +121,7 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
 
 
 
-public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
+public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: Data?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     createAndPushMessage(with: MessageMediaType.image, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
@@ -131,13 +131,13 @@ public func pushMessageText(_ text: String, toRecipient recipientID: String, rec
     createAndPushMessage(with: MessageMediaType.text, atFilePath: nil, orFileData: nil, metaData: nil, text: text, toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
-public func pushMessageAudio(atPath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void ) {
+public func pushMessageAudio(atPath filePath: String?, orFileData fileData: Data?, metaData: Data?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void ) {
     
     createAndPushMessage(with: MessageMediaType.audio, atFilePath: filePath, orFileData: fileData, metaData: metaData, text: "", toRecipient: recipientID, recipientType: recipientType, afterCreatedMessage: afterCreatedMessage, failureHandler: failureHandler, completion: completion)
 }
 
 
-public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
+public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath filePath: String?, orFileData fileData: Data?, metaData: Data?, text: String, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     // 因为 message_id 必须来自远端，线程无法切换，所以这里暂时没用 realmQueue
     // TOOD: 也许有办法
@@ -176,20 +176,16 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
     // 将 media 的图片信息保存
     if let metaData = metaData {
-        
+
         let newMetaData = MediaMetaData()
-        
-        if let data = Data.init(base64Encoded: metaData) {
-            
-            newMetaData.data = data
-            
-            try? realm.write {
-                realm.add(newMetaData)
-                message.mediaMetaData = newMetaData
-            }
+        newMetaData.data = metaData
+
+        try? realm.write {
+            realm.add(newMetaData)
+            message.mediaMetaData = newMetaData
         }
     }
-    
+
     // 如果没有 Conversation ，创建
     var conversation: Conversation? = nil
     
@@ -286,7 +282,7 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
 }
 
-public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String?, orFileData fileData: Data?, metaData: String?, toRecipient recipientID: String, recipientType: String, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
+public func pushMessageToLeancloud(with message: Message, atFilePath filePath: String?, orFileData fileData: Data?, metaData: Data?, toRecipient recipientID: String, recipientType: String, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     guard let mediaType = MessageMediaType(rawValue: message.mediaType) else {
         printLog("无效的 mediaType")

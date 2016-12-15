@@ -65,7 +65,7 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     @NSManaged var attachmentURLString: String
     @NSManaged var thumbnailURLString: String
     @NSManaged var localAttachmentName: String
-    @NSManaged var localthumbnailName: String
+    @NSManaged var localThumbnailName: String
     
     @NSManaged var attachmentID: String
     @NSManaged var attachmentExpiresUnixTime: TimeInterval
@@ -80,6 +80,8 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     @NSManaged var recipientType: String
     
     @NSManaged var recipientID: String
+
+    @NSManaged var metaData: Data
     
     @NSManaged var metaDataInfo: String
     

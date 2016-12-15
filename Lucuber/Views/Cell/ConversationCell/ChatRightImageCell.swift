@@ -130,7 +130,7 @@ class ChatRightImageCell: ChatRightBaseCell {
         
         let imagePreferredWidth = Config.ChatCell.mediaPreferredWidth
         let imagePreferredHeight = Config.ChatCell.mediaPreferredHeight
-        let imagePreferredAspectRetion: CGFloat = 4.0 / 3.0
+        let imagePreferredAspectRation: CGFloat = 4.0 / 3.0
         
         
         if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {

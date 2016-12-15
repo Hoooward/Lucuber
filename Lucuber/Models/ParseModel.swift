@@ -30,11 +30,11 @@ public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessag
     discoverMessage.attachmentURLString = message.attachmentURLString
     discoverMessage.thumbnailURLString = message.thumbnailURLString
     discoverMessage.localAttachmentName = message.localAttachmentName
-    discoverMessage.localthumbnailName = message.localThumbnailName
+    discoverMessage.localThumbnailName = message.localThumbnailName
     
     
-    if let metaDataInfo = message.mediaMetaData , let dataString = metaDataInfo.dataString {
-        discoverMessage.metaDataInfo = dataString
+    if let metaData = message.mediaMetaData {
+        discoverMessage.metaData = metaData.data
     }
     
     discoverMessage.attachmentID = message.attachmentID
