@@ -288,6 +288,7 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
                 if let
                     width = metaDataInfo[Config.MetaData.imageWidth] as? CGFloat,
                     let height = metaDataInfo[Config.MetaData.imageHeight] as? CGFloat {
+                    printLog("从 MetaData 中解析出的 Size \(width), \(height)")
                     return (width, height)
                 }
             }
@@ -314,6 +315,7 @@ public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
             if let metaDataInfo = result as? [String: Any] {
                 if let imageString = metaDataInfo[Config.MetaData.blurredThumbnailString] as? String {
                     if let data = Data(base64Encoded: imageString) {
+                        printLog("从 MetaData 中解析出缩略图")
                         return UIImage(data: data)
                     }
                 }

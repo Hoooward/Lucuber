@@ -36,6 +36,73 @@ public func tryPostNewMessageReceivedNotification(withMessageIDs messageIDs: [St
     }
 }
 
+func fetchUnreadMessage(failureHandler: FailureHandler?, completion: ([DiscoverMessage]) -> Void) {
+    
+    guard let realm = try? Realm() else { return }
+    let _lasestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: false).first
+    let latestMessage = latestValidMessageInRealm(realm: realm)
+    
+    printLog("_latestMessage: \(_lasestMessage?.localObjectID), \(_lasestMessage?.createdUnixTime)")
+    printLog("+latestMessage: \(latestMessage?.localObjectID), \(latestMessage?.createdUnixTime)")
+    printLog("*now: \(NSDate().timeIntervalSince1970)")
+    
+    
+}
+
+
+public func latestValidMessageInRealm(realm: Realm) -> Message? {
+    
+    let latestGroupMessage = latestValidMessageInRealm(realm: realm, withConversationType: "group")
+    let latestOneToOneMessage = latestValidMessageInRealm(realm: realm, withConversationType: "user")
+    
+    let latestMessage: Message? = [latestGroupMessage, latestOneToOneMessage].flatMap({ $0 }).sorted(by: { $0.createdUnixTime > $1.createdUnixTime }).first
+    
+    return latestMessage
+}
+
+public func latestValidMessageInRealm(realm: Realm, withConversationType conversationType: String) -> Message? {
+    
+    switch conversationType {
+        
+    case "user":
+        let predicate = NSPredicate(format: "hidden = false AND deletedByCreator = false AND blockedByRecipient == false AND fromFriend != nil AND conversation != nil AND conversation.type = %d", "user")
+        return realm.objects(Message.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first
+        
+    case "group": // Public for now
+        let predicate = NSPredicate(format: "withGroup != nil AND withGroup.includeMe = true AND withGroup.groupType = %d", GroupType.Public.rawValue)
+        let messages: [Message]? = realm.objects(Conversation.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first?.messages.sorted(by: { $0.createdUnixTime > $1.createdUnixTime })
+        
+        return messages?.filter({ ($0.hidden == false) && ($0.isIndicator == false) && ($0.mediaType != MessageMediaType.sectionDate.rawValue)}).first
+        
+    default: return nil
+    }
+    
+}
+
+func fetchMessageWithMessageID(_ messageID: String) {
+    
+    let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageID)
+    
+    discoverMessage.fetchInBackground { message, error in
+        
+        if let message = message as? DiscoverMessage {
+            guard let realm = try? Realm() else {
+                return
+            }
+            
+            realm.beginWrite()
+            convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: .new, inRealm: realm, completion: { _ in
+                
+                tryPostNewMessageReceivedNotification(withMessageIDs: [message.localObjectID], messageAge: .new)
+            })
+            try? realm.commitWrite()
+            
+        }
+        
+    }
+}
+
+
 func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, lastMessage: Message?, firstMessage: Message?, failureHandler: @escaping FailureHandler, completion: ((_ messagesID: [String]) -> Void)?) {
     
     guard let recipientID = recipientID else {
@@ -71,7 +138,7 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
     }
     
     query.order(byAscending: "createdAt")
-    query.limit = 20
+    query.limit = 10
     // 此次请求需要将完整的 creatorUser 信息获取到.
     query.includeKey("creator")
     query.findObjectsInBackground {
@@ -149,17 +216,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             let newMessage = Message()
             newMessage.lcObjectID = discoverMessage.objectId!
             newMessage.localObjectID = discoverMessage.localObjectID
-            newMessage.textContent = discoverMessage.textContent
-            newMessage.mediaType = discoverMessage.mediaType
-
-            if !discoverMessage.metaData.isEmpty {
-
-                let newMetaData = MediaMetaData()
-                newMetaData.data = discoverMessage.metaData
-                realm.add(newMetaData)
-
-                newMessage.mediaMetaData = newMetaData
-            }
+         
 
             // 全部标记为已读
             newMessage.sendState = MessageSendState.read.rawValue
@@ -184,6 +241,20 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
         }
 
         if let message = message {
+            
+            message.textContent = discoverMessage.textContent
+            message.mediaType = discoverMessage.mediaType
+            message.attachmentURLString = discoverMessage.attachmentURLString
+            message.thumbnailURLString = discoverMessage.thumbnailURLString
+            
+            if discoverMessage.metaData.length > 0 {
+                
+                let newMetaData = MediaMetaData()
+                newMetaData.data = discoverMessage.metaData as Data
+                realm.add(newMetaData)
+                
+                message.mediaMetaData = newMetaData
+            }
 
             // 创建本地不存在的 User
             if let messageCreatorUserID = discoverMessage.creator.objectId {

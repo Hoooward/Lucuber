@@ -44,6 +44,8 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     
     @NSManaged var deletedByCreator: Bool
     
+
+    
    
     
 }
@@ -81,9 +83,10 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     
     @NSManaged var recipientID: String
 
-    @NSManaged var metaData: Data
+    @NSManaged var metaData: NSData
     
     @NSManaged var metaDataInfo: String
+    
     
 }
 

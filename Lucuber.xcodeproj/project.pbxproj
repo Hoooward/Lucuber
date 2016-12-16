@@ -10,6 +10,7 @@
 		11CE6FB4D5761449D983BD9E /* Pods_LucuberKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334ED53D389A550452728B65 /* Pods_LucuberKit.framework */; };
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */; };
+		CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */; };
 		CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */; };
 		CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */; };
 		CC714DB93638172BC6BA46B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7149FBEE537BDC8E3B2B09 /* Service.swift */; };
@@ -89,6 +90,8 @@
 		E45351EF1DFC1E510092805B /* MessageLoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED81B1DE862770036A11C /* MessageLoadingProgressView.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
+		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
+		E46047AC1E03BA4100B6D501 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E46047AB1E03BA4100B6D501 /* FXBlurView.m */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
@@ -294,6 +297,7 @@
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Conversation.swift"; sourceTree = "<group>"; };
+		CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Cube.swift"; sourceTree = "<group>"; };
 		CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+sendMessage.swift"; sourceTree = "<group>"; };
 		CC7149FBEE537BDC8E3B2B09 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+collectionView.swift"; sourceTree = "<group>"; };
@@ -336,6 +340,10 @@
 		E45351EA1DFC1DF70092805B /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
 		E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
+		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		E46047AA1E03BA4100B6D501 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		E46047AB1E03BA4100B6D501 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
@@ -653,9 +661,19 @@
 			path = ServerTest;
 			sourceTree = "<group>";
 		};
+		E46047A91E03BA4100B6D501 /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				E46047AA1E03BA4100B6D501 /* FXBlurView.h */,
+				E46047AB1E03BA4100B6D501 /* FXBlurView.m */,
+			);
+			path = FXBlurView;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E46047A91E03BA4100B6D501 /* FXBlurView */,
 				E479265E1D96E005004D58BF /* CubeCategory.plist */,
 				E479265F1D96E005004D58BF /* CubeType.plist */,
 				E47926601D96E005004D58BF /* FormulaKeyboard.plist */,
@@ -664,6 +682,7 @@
 				E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */,
 				E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */,
 				E4F38DC51E01BA5200F0DF8A /* CubeMedia.swift */,
+				E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -756,6 +775,7 @@
 				E4F38D641DFD21D100F0DF8A /* Service+Push.swift */,
 				CC7149FBEE537BDC8E3B2B09 /* Service.swift */,
 				E4F38DAE1E00655200F0DF8A /* StockService.swift */,
+				E46047A71E039C2200B6D501 /* Downloader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1389,6 +1409,7 @@
 				E44D3B521DF6F69D00673FFD /* URL+Cube.swift */,
 				E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */,
 				E4F38D861E00054C00F0DF8A /* Reusable.swift */,
+				CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2047,6 +2068,7 @@
 				E4CED8861DE862770036A11C /* CameraPreviewView.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,
 				E4207A2B1D93CA7F003CF073 /* Animation.swift in Sources */,
+				E46047A81E039C2300B6D501 /* Downloader.swift in Sources */,
 				E41AC7F91DEDEA7100CE3123 /* HeaderViewCell.swift in Sources */,
 				E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */,
 				E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */,
@@ -2079,6 +2101,7 @@
 				E4F38D7D1DFF1FA800F0DF8A /* SettingTableViewController.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */,
+				E46047AC1E03BA4100B6D501 /* FXBlurView.m in Sources */,
 				E424A8681DF6D7A4008A6AD0 /* FeedURLCell.swift in Sources */,
 				E4CED8691DE862770036A11C /* NameTextViewCell.swift in Sources */,
 				E4CED8811DE862770036A11C /* KeyButton.swift in Sources */,
@@ -2094,6 +2117,7 @@
 				CC714DB93638172BC6BA46B9 /* Service.swift in Sources */,
 				CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */,
 				CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */,
+				CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2347,6 +2371,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bd04d326-81e1-4398-b6cf-a12fc9db8dae";
 				PROVISIONING_PROFILE_SPECIFIER = LucuberDevice;
+				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Helper/Lucuber-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2368,6 +2393,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bd04d326-81e1-4398-b6cf-a12fc9db8dae";
 				PROVISIONING_PROFILE_SPECIFIER = LucuberDevice;
+				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Helper/Lucuber-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

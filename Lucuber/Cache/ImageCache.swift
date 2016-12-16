@@ -254,6 +254,7 @@ final class CubeImageCache {
                 }
             }
             
+            
             cacheQueue.async {
                 
                 guard let realm = try? Realm() else {
@@ -296,117 +297,159 @@ final class CubeImageCache {
 
 
                 if let message = messageWith(messageID, inRealm: realm) {
-
-                    // 先下载 atachment
-                    let attachmentUrlString = message.attachmentURLString
                     
-                    if !attachmentUrlString.isEmpty, let url = URL(string: attachmentUrlString) {
+                    
+                    func doDownloadAttachmentsOfMessage(message: Message) {
                         
-                        Alamofire.request(url).downloadProgress(queue: self.cacheQueue, closure: {
-                            progress in
-                            
-                        }).responseData(queue: self.cacheQueue, completionHandler: { dataResponse in
-                            
-                            if let data = dataResponse.data {
-                                
-                                var fileName = message.localAttachmentName
-                                
-                                if fileName.isEmpty {
-                                    fileName = UUID().uuidString
-                                }
-                                
-                                realm.beginWrite()
-                                switch message.mediaType {
-                                    
-                                case MessageMediaType.image.rawValue:
-                                    
-                                    _ = FileManager.saveMessageImageData(data, withName: fileName)
-                                    
-                                    message.localAttachmentName = fileName
-                                    message.downloadState = MessageDownloadState.downloaded.rawValue
-                                    
-                                    // 如果是 image 类型的 Message 任务完成
-                                    if let image = UIImage(data: data) {
-                                        
-                                        let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
-                                        
-                                        self.cache.setObject(messageImage, forKey: imageKey)
-                                        
-                                        DispatchQueue.main.async {
-                                            completion(1.0, messageImage)
-                                        }
-                                    }
-                                    
-                                case MessageMediaType.video.rawValue:
-                                    
-                                    _ = FileManager.saveMessageVideoData(data, withName: fileName)
-                                    message.localAttachmentName = fileName
-                                    if !message.localThumbnailName.isEmpty {
-                                        message.downloadState = MessageDownloadState.downloaded.rawValue
-                                    }
-                                    
-                                case  MessageMediaType.audio.rawValue:
-                                    
-                                    _ = FileManager.saveMessageAudioData(messageAudioData: data, withName: fileName)
-                                    message.localAttachmentName = fileName
-                                    message.downloadState = MessageDownloadState.downloaded.rawValue
-                                    
-                                default: break
-                                    
-                                }
-                                try? realm.commitWrite()
-                            }
-                            
-                            // attachment 下载完成后, 如果是 video 类型的 Message, 下载缩略图
-                            
-                            if message.mediaType == MessageMediaType.video.rawValue {
-                                
-                                let thumbnailUrlString = message.thumbnailURLString
-                                
-                                if !thumbnailUrlString.isEmpty, let url = URL(string:thumbnailUrlString) {
-                                    
-                                    Alamofire.request(url).downloadProgress(queue: self.cacheQueue, closure: { progress in
-                                        
-                                    }).responseData(queue: self.cacheQueue, completionHandler: { dataResponse in
-                                        
-                                        
-                                        if let data = dataResponse.data {
-                                            
-                                            var fileName = message.localThumbnailName
-                                            
-                                            if fileName.isEmpty {
-                                                fileName = UUID().uuidString
-                                            }
-                                            
-                                            realm.beginWrite()
-                                            _ = FileManager.saveMessageImageData(data, withName: fileName)
-                                            message.localThumbnailName = fileName
-                                            if !message.localAttachmentName.isEmpty {
-                                                message.downloadState = MessageDownloadState.downloaded.rawValue
-                                            }
-                                            
-                                            if let image = UIImage(data: data) {
+                        let mediaType = message.mediaType
+                        
+                        CubeDownloader.downloadAttachmentsOfMessage(message, reportProgress: { progress, image in
 
-                                                let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
-                                                
-                                                self.cache.setObject(messageImage, forKey: imageKey)
-                                                
-                                                DispatchQueue.main.async {
-                                                    completion(1.5, messageImage)
-                                                    
-                                                }
-                                            }
-                                        }
-                                        
-                                    })
-                                    
-                                }
-                                
+
+                            DispatchQueue.main.async {
+                                completion(progress, image)
                             }
                             
+                        }, imageTransform: { image in
+                            return image.bubbleImage(with: direction, size: size).decodedImage()
+                            
+                        }, imageFinished: { image in
+                            
+                            let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
+                            
+                            self.cache.setObject(messageImage, forKey: imageKey)
+
+                            DispatchQueue.main.async {
+
+                                if mediaType == MessageMediaType.image.rawValue {
+                                    completion(1.0, messageImage)
+                                } else { // 视频的封面图片，要保障设置到
+                                    completion(1.5, messageImage)
+                                }
+                            }
+
                         })
                     }
+
+                    printLog("开始下载图片")
+                    doDownloadAttachmentsOfMessage(message: message)
                     
+
+                    // 先下载 atachment
+//                    let attachmentUrlString = message.attachmentURLString
+//
+//                    if !attachmentUrlString.isEmpty, let url = URL(string: attachmentUrlString) {
+//
+//
+//
+//                        Alamofire.request(url).downloadProgress(closure: { progress in
+//
+//                        }).response(completionHandler: { dataResponse in
+//
+//
+//
+//                            if let data = dataResponse.data {
+//
+//                                var fileName = message.localAttachmentName
+//
+//                                if fileName.isEmpty {
+//                                    fileName = UUID().uuidString
+//                                }
+//
+//
+//
+//                                realm.beginWrite()
+//                                switch message.mediaType {
+//
+//                                case MessageMediaType.image.rawValue:
+//
+//                                    _ = FileManager.saveMessageImageData(data, withName: fileName)
+//
+//                                    message.localAttachmentName = fileName
+//                                    message.downloadState = MessageDownloadState.downloaded.rawValue
+//
+//                                    // 如果是 image 类型的 Message 任务完成
+//                                    if let image = UIImage(data: data) {
+//
+//                                        let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
+//
+//                                        self.cache.setObject(messageImage, forKey: imageKey)
+//
+//                                        DispatchQueue.main.async {
+//                                            completion(1.0, messageImage)
+//                                        }
+//                                    }
+//
+//                                case MessageMediaType.video.rawValue:
+//
+//                                    _ = FileManager.saveMessageVideoData(data, withName: fileName)
+//                                    message.localAttachmentName = fileName
+//                                    if !message.localThumbnailName.isEmpty {
+//                                        message.downloadState = MessageDownloadState.downloaded.rawValue
+//                                    }
+//
+//                                case  MessageMediaType.audio.rawValue:
+//
+//                                    _ = FileManager.saveMessageAudioData(messageAudioData: data, withName: fileName)
+//                                    message.localAttachmentName = fileName
+//                                    message.downloadState = MessageDownloadState.downloaded.rawValue
+//
+//                                default: break
+//
+//                                }
+//                                try? realm.commitWrite()
+//                            }
+//
+//                            // attachment 下载完成后, 如果是 video 类型的 Message, 下载缩略图
+//
+//                            if message.mediaType == MessageMediaType.video.rawValue {
+//
+//                                let thumbnailUrlString = message.thumbnailURLString
+//
+//                                if !thumbnailUrlString.isEmpty, let url = URL(string:thumbnailUrlString) {
+//
+//                                    Alamofire.request(url).downloadProgress(queue: self.cacheQueue, closure: { progress in
+//
+//                                    }).responseData(queue: self.cacheQueue, completionHandler: { dataResponse in
+//
+//
+//                                        if let data = dataResponse.data {
+//
+//                                            var fileName = message.localThumbnailName
+//
+//                                            if fileName.isEmpty {
+//                                                fileName = UUID().uuidString
+//                                            }
+//
+//                                            realm.beginWrite()
+//                                            _ = FileManager.saveMessageImageData(data, withName: fileName)
+//                                            message.localThumbnailName = fileName
+//                                            if !message.localAttachmentName.isEmpty {
+//                                                message.downloadState = MessageDownloadState.downloaded.rawValue
+//                                            }
+//
+//                                            if let image = UIImage(data: data) {
+//
+//                                                let messageImage = image.bubbleImage(with: direction, size: size).decodedImage()
+//
+//                                                self.cache.setObject(messageImage, forKey: imageKey)
+//
+//                                                DispatchQueue.main.async {
+//                                                    completion(1.5, messageImage)
+//
+//                                                }
+//                                            }
+//                                        }
+//
+//                                    })
+//
+//                                }
+//
+//                            }
+//
+//                        })
+//                    }
+//
                 } else {
                     
                     DispatchQueue.main.async {

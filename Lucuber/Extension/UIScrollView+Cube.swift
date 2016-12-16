@@ -22,7 +22,6 @@ extension UIScrollView {
     }
 }
 
-
 extension UIScrollView {
     
     func zoom(to zoomPoint: CGPoint, withScale scale: CGFloat) {

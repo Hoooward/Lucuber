@@ -158,7 +158,6 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
     message.mediaType = mediaType.rawValue
     message.downloadState = MessageDownloadState.downloaded.rawValue
-    //    message.sendStateInt = MessageSendState.notSend.rawValue
     message.readed = true
     
     
@@ -299,9 +298,31 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
             
             let realm = message.realm
             try? realm?.write {
+                
                 message.lcObjectID = discoverMessage.objectId ?? ""
                 message.sendState = MessageSendState.successed.rawValue
+                
+                if let createdAt = discoverMessage.createdAt {
+                    message.createdUnixTime = createdAt.timeIntervalSince1970
+                    
+                }
+                
             }
+            
+            //TODO: - 创建新的 Message 后发送通知
+            
+            let dict: [String: Any] = [
+                "alert" : "您有一条新的消息",
+                "notificationType": "message",
+                "messageID" : "\(message.lcObjectID)"
+            ]
+            
+            let push = AVPush()
+            push.setChannel(message.recipientID)
+            
+            push.setData(dict)
+            push.sendInBackground()
+            
             completion(success)
         }
         

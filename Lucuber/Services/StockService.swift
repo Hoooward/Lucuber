@@ -68,7 +68,6 @@ class ConversationService: NSObject {
     
     func fetchMessage(with conversationID: String, messageAge: MessageAge) {
         
-        
         let query = self.currentUserClient.conversationQuery()
         
         query.getConversationById(conversationID, callback: {

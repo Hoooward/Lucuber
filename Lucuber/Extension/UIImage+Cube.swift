@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ImageIO
 
 extension UIImage {
     
@@ -63,7 +64,6 @@ extension UIImage {
     
 }
 
-
 extension UIImage {
     
     public func scaleToSideLenght(sidLenght: CGFloat) -> UIImage {
@@ -72,11 +72,6 @@ extension UIImage {
         let pixelHeight = size.height * scale
         
         
-//        printLog("pixelSideLenght = \(pixelSideLenght)")
-//        printLog("scale = \(UIScreen.main.scale)")
-//        printLog("imagescale = \(scale)")
-//        printLog("pixelWidth = \(pixelWidth)")
-//        printLog("pixelHeight = \(pixelHeight)")
         var newSize = CGSize.zero
         
         if pixelWidth > pixelHeight {

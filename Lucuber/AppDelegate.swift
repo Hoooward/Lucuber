@@ -26,6 +26,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case friendRequest = "friend_request"
         case messageDeleted = "message_deleted"
     }
+    
+    private var remoteNotificationType: RemoteNotificationType? {
+        willSet {
+//            if let type = newValue {
+//                switch type {
+//                    
+//                case .Message, .OfficialMessage:
+//                    lauchStyle.value = .Message
+//                    
+//                default:
+//                    break
+//                }
+//            }
+        }
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -134,6 +149,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.setObject(AVUser.current(), forKey: "creator")
         installation.saveInBackground()
         
+    }
+    
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        guard AVUser.isLogin, let type = userInfo["notificationType"] as? String, let remoteNotificationType = RemoteNotificationType(rawValue: type) else {
+            completionHandler(.noData)
+            return
+            
+        }
+        
+        defer {
+            if application.applicationState != .active {
+                self.remoteNotificationType = remoteNotificationType
+            }
+        }
+        
+        switch remoteNotificationType {
+            
+        case .message:
+            
+            if let messageID = userInfo["messageID"] as? String {
+                
+                fetchMessageWithMessageID(messageID)
+            }
+            // TODO: - 同步未读消息
+            
+            break
+        default:
+            break
+        }
     }
     
     

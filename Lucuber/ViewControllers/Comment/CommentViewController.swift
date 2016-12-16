@@ -12,6 +12,7 @@ import RealmSwift
 import Proposer
 
 class CommentViewController: UIViewController {
+ 
 
     var formula: Formula?
     var feed: DiscoverFeed?
@@ -556,11 +557,24 @@ class CommentViewController: UIViewController {
 
 
     deinit {
+        printLog("对话视图已成功释放")
         NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TODO: 接受 Push 通知
+        
+        let currentInstallation = AVInstallation.current()
+        currentInstallation.addUniqueObject(conversation.recipiendID!, forKey: "channels")
+        currentInstallation.saveInBackground { success, error in
+            
+            if success {
+                printLog("已经订阅该Feed分组-ID: \(self.conversation.recipiendID)")
+            }
+        }
+        
 
         prepareCommentCollectionView()
 
@@ -674,10 +688,13 @@ class CommentViewController: UIViewController {
                 return
             }
 
+            let predicate = NSPredicate(format: "sendState == %d" , MessageSendState.successed.rawValue)
             var lastMessage: Message?
-            if let maxMessage = self.messages.last {
+            if let maxMessage = self.messages.filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true).last {
                 lastMessage = maxMessage
             }
+            
+            
 
             fetchMessage(withRecipientID: recipiendID, messageAge: .new, lastMessage: lastMessage, firstMessage: nil, failureHandler: {
                 reason, errorMessage in
@@ -945,6 +962,8 @@ class CommentViewController: UIViewController {
 
             if newMessageCount != messageIDs.count {
                 commentCollectionView.reloadData()
+                
+                return
             }
         }
 

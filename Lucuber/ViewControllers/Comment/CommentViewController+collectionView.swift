@@ -179,7 +179,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier:
                 "MediaPreviewViewController") as! MediaPreviewViewController
 
-                let predicate = NSPredicate(format: "mediaType = %@", MessageMediaType.image.rawValue)
+                let predicate = NSPredicate(format: "mediaType == %d", MessageMediaType.image.rawValue)
                 let mediaMessageResult = messages.filter(predicate)
                 let mediaMessages: [Message] = mediaMessageResult.map { $0 }
 
