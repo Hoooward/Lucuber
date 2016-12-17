@@ -974,7 +974,7 @@ open class Conversation: Object {
         return uniqueSortedUsers
     }
     
-    open dynamic var type: Int = ConversationType.oneToOne.rawValue
+    open dynamic var type: Int = ConversationType.group.rawValue
     open dynamic var updateUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     open dynamic var withFriend: RUser?

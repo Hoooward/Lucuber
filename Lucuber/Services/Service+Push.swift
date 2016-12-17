@@ -349,14 +349,12 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 public func pushNewMessageNotificationToAPNs(with message: Message) {
 
     let dict: [String: Any] = [
-
             "alert": "您关注的话题有新的消息.",
             "type": AppDelegate.RemoteNotificationType.message.rawValue,
             "messageID": message.lcObjectID,
-            "sound": "cheering.caf",
-            "badge": "Increment"
     ]
 
+    AVPush.setProductionMode(false)
     let push = AVPush()
     push.setChannel(message.recipientID)
 

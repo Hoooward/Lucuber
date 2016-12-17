@@ -328,8 +328,8 @@ public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
 
 public func lastValidMessageInRealm(realm: Realm) -> Message? {
 
-    var latestGroupMessage = latestValidMessagesInRealm(realm, withConversationType: .group)
-    var latestOneToOneMessage = latestValidMessagesInRealm(realm, withConversationType: .oneToOne)
+    let latestGroupMessage = latestValidMessagesInRealm(realm, withConversationType: .group)
+    let latestOneToOneMessage = latestValidMessagesInRealm(realm, withConversationType: .oneToOne)
 
 	let latestMessage: Message? = [latestOneToOneMessage, latestGroupMessage].flatMap { $0 }.sorted(by: { $0
             .createdUnixTime > $1.createdUnixTime }).first
@@ -345,8 +345,7 @@ public func latestValidMessagesInRealm(_ realm: Realm, withConversationType conv
     switch conversationType {
 
     case .oneToOne:
-        let predicate = NSPredicate(format: "hidden = false AND deletedByCreator = false AND blockedByRecipient == " +
-                "false AND creator != nil AND conversation != nil AND conversation.type = %d", conversationType
+        let predicate = NSPredicate(format: "hidden = false AND deletedByCreator = false AND blockedByRecipient == false AND creator != nil AND conversation != nil AND conversation.type = %d", conversationType
                 .rawValue)
         return realm.objects(Message.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first
 

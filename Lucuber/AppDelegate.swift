@@ -87,9 +87,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         printLog("进入前台")
 
-        fetchUnreadMessages() {}
 
 		if !isFirstLaunch {
+//            fetchUnreadMessages() {}
 
 
         } else {
@@ -220,7 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    private func fetchUnreadMessages(_ action: () -> Void) {
+    private func fetchUnreadMessages(_ action: @escaping () -> Void) {
 
         guard AVUser.isLogin else {
             action()

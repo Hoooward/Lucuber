@@ -35,11 +35,11 @@ public func tryPostNewMessageReceivedNotification(withMessageIDs messageIDs: [St
     }
 }
 
-func fetchUnreadMessage(failureHandler: FailureHandler?, completion: ([String]) -> Void) {
+func fetchUnreadMessage(failureHandler: FailureHandler?, completion: @escaping ([String]) -> Void) {
     
     guard let realm = try? Realm() else { return }
     let _latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: false).first
-    let latestMessage = latestValidMessageInRealm(realm: realm)
+    let latestMessage = lastValidMessageInRealm(realm: realm)
     
     printLog("_latestMessage: \(_latestMessage?.localObjectID), \(_latestMessage?.createdUnixTime)")
     printLog("+latestMessage: \(latestMessage?.localObjectID), \(latestMessage?.createdUnixTime)")
@@ -49,17 +49,24 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: ([String]) 
 	query.includeKey("creator")
     query.order(byAscending: "createdAt")
     query.limit = 1000
-    let maxCreatedUnixTime = latestMessage.createdUnixTime
-    query.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
-
-    fetchMessageFromLeancloud(with: query, messageAge: .new, failureHandler: failureHandler, completion:
-    completion)
+    
+    if let latestMessage = latestMessage {
+        
+        let maxCreatedUnixTime = latestMessage.createdUnixTime
+        query.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
+        
+        fetchMessageFromLeancloud(with: query, messageAge: .new, failureHandler: failureHandler, completion: completion)
+        
+    } else {
+        
+        return
+    }
 
 
 }
 
 // 不使用公共的 fetchMessageFromLeancloud 方法, 避免服务器端查询表, 减少延迟
-func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureHandler, completion: ( [String]) -> Void) {
+func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureHandler, completion: @escaping ( [String]) -> Void) {
 
     let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageLcID)
     
@@ -126,9 +133,7 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
     completion)
 }
 
-public func fetchMessageFromLeancloud(with query: AVQuery, messageAge: MessageAge, failureHandler: @escaping
-FailureHandler?, completion: ((_
-                                                                                                                   messagesID: [String]) -> Void)?) {
+public func fetchMessageFromLeancloud(with query: AVQuery, messageAge: MessageAge, failureHandler: FailureHandler?, completion: ((_ messagesID: [String]) -> Void)?) {
 
     query.findObjectsInBackground {
         result, error in
