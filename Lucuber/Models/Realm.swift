@@ -326,7 +326,44 @@ public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
     return nil
 }
 
+public func lastValidMessageInRealm(realm: Realm) -> Message? {
 
+    var latestGroupMessage = latestValidMessagesInRealm(realm, withConversationType: .group)
+    var latestOneToOneMessage = latestValidMessagesInRealm(realm, withConversationType: .oneToOne)
+
+	let latestMessage: Message? = [latestOneToOneMessage, latestGroupMessage].flatMap { $0 }.sorted(by: { $0
+            .createdUnixTime > $1.createdUnixTime }).first
+
+    printLog("获取到的最后一个有效Message 为 \(latestMessage), content: \(latestMessage?.textContent)")
+
+    return latestMessage
+}
+
+public func latestValidMessagesInRealm(_ realm: Realm, withConversationType conversationType: ConversationType) ->
+        Message? {
+
+    switch conversationType {
+
+    case .oneToOne:
+        let predicate = NSPredicate(format: "hidden = false AND deletedByCreator = false AND blockedByRecipient == " +
+                "false AND creator != nil AND conversation != nil AND conversation.type = %d", conversationType
+                .rawValue)
+        return realm.objects(Message.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first
+
+    case .group: // Public for now
+        let predicate = NSPredicate(format: "withGroup != nil AND withGroup.includeMe = true AND withGroup.groupType = %d", GroupType.Public.rawValue)
+        let messages: [Message]? = realm.objects(Conversation.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first?.messages.sorted(by: { $0.createdUnixTime > $1.createdUnixTime })
+
+        let me = currentUser(in: realm)
+
+		let includeMeMessages: [Message]? = messages?.filter({ ($0.hidden == false) && ($0.isIndicator == false) && ($0
+                .mediaType !=
+                MessageMediaType.sectionDate.rawValue)})
+
+        // 返回不包括我的创建的最后一个消息
+        return includeMeMessages?.filter({ $0.creator ?? RUser() != me }).first
+    }
+}
 
 public func messagesWith(_ conversation: Conversation, inRealm realm: Realm) -> Results<Message> {
     

@@ -48,85 +48,85 @@ class ConversationService: NSObject {
     
 
 
-    func fetchMessage(with conversationID: String, messageAge: MessageAge) {
-        
-        let query = self.currentUserClient.conversationQuery()
-        
-        query.getConversationById(conversationID, callback: {
-            
-            conversation, error in
-            
-            self.currentConversation = conversation
-            conversation?.queryMessages(withLimit: 20, callback: {
-                messages, error in
-                
-                var messageIDs = [String]()
-                
-                if let messages = messages as? [AVIMMessage] {
-                    
-                    guard let realm = try? Realm() else {
-                        return
-                    }
-                    printLog("共获取到 **\(messages.count)** 个新 Messages")
-                    
-                    realm.beginWrite()
-                    
-                    messages.forEach { discoverMessage in
-                        
-                        guard let messageID = discoverMessage.messageId else {
-                            return
-                        }
-                        
-                        var message = messageWith(messageID, inRealm: realm)
-                        
-                        if message == nil {
-                            
-                            // 如果本地没有这个 Message , 创建一个新的
-                            let newMessage = Message()
-                            newMessage.lcObjectID = messageID
-                            //newMessage.textContent = discoverMessage.text ?? ""
-                            //newMessage.mediaType = Int(discoverMessage.mediaType)
-                            
-                            newMessage.sendState = MessageSendState.read.rawValue
-                            
-                            newMessage.createdUnixTime = TimeInterval( discoverMessage.sendTimestamp)
-                            if case .new = messageAge {
-                                if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
-                                    if newMessage.createdUnixTime < latestMessage.createdUnixTime {
-                                        // 只考虑最近的消息，过了可能混乱的时机就不再考虑
-                                        if abs(newMessage.createdUnixTime - latestMessage.createdUnixTime) < 60 {
-                                            printLog("xbefore newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
-                                            newMessage.createdUnixTime = latestMessage.createdUnixTime + 0.00005
-                                            printLog("xadjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            realm.add(newMessage)
-                            
-                            message = newMessage
-                        }
-                        
-                        if let message = message {
-                            
-                            let userID = discoverMessage.clientId
-                                
-                            printLog(conversation?.members)
-                            
-                        }
-                        
-                        
-                    }
-                    
-                }
-                
-                
-                printLog(messages)
-            })
-            
-        })
-    }
+//    func fetchMessage(with conversationID: String, messageAge: MessageAge) {
+//        
+//        let query = self.currentUserClient.conversationQuery()
+//        
+//        query.getConversationById(conversationID, callback: {
+//            
+//            conversation, error in
+//            
+//            self.currentConversation = conversation
+//            conversation?.queryMessages(withLimit: 20, callback: {
+//                messages, error in
+//                
+//                var messageIDs = [String]()
+//                
+//                if let messages = messages as? [AVIMMessage] {
+//                    
+//                    guard let realm = try? Realm() else {
+//                        return
+//                    }
+//                    printLog("共获取到 **\(messages.count)** 个新 Messages")
+//                    
+//                    realm.beginWrite()
+//                    
+//                    messages.forEach { discoverMessage in
+//                        
+//                        guard let messageID = discoverMessage.messageId else {
+//                            return
+//                        }
+//                        
+//                        var message = messageWith(messageID, inRealm: realm)
+//                        
+//                        if message == nil {
+//                            
+//                            // 如果本地没有这个 Message , 创建一个新的
+//                            let newMessage = Message()
+//                            newMessage.lcObjectID = messageID
+//                            //newMessage.textContent = discoverMessage.text ?? ""
+//                            //newMessage.mediaType = Int(discoverMessage.mediaType)
+//                            
+//                            newMessage.sendState = MessageSendState.read.rawValue
+//                            
+//                            newMessage.createdUnixTime = TimeInterval( discoverMessage.sendTimestamp)
+//                            if case .new = messageAge {
+//                                if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
+//                                    if newMessage.createdUnixTime < latestMessage.createdUnixTime {
+//                                        // 只考虑最近的消息，过了可能混乱的时机就不再考虑
+//                                        if abs(newMessage.createdUnixTime - latestMessage.createdUnixTime) < 60 {
+//                                            printLog("xbefore newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+//                                            newMessage.createdUnixTime = latestMessage.createdUnixTime + 0.00005
+//                                            printLog("xadjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            
+//                            realm.add(newMessage)
+//                            
+//                            message = newMessage
+//                        }
+//                        
+//                        if let message = message {
+//                            
+//                            let userID = discoverMessage.clientId
+//                                
+//                            printLog(conversation?.members)
+//                            
+//                        }
+//                        
+//                        
+//                    }
+//                    
+//                }
+//                
+//                
+//                printLog(messages)
+//            })
+//            
+//        })
+//    }
     
     func creatNewConversation(with name: String, failureHandler: @escaping FailureHandler, completion: @escaping (AVIMConversation) -> Void) {
         

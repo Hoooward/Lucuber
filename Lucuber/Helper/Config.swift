@@ -28,8 +28,11 @@ extension Notification.Name {
     
     static let afterUploadUserInformationNotification = Notification.Name("afterUploadUserInformation")
 
-    // Appdelete
+    static let changedConversationNotification = Notification.Name("changedConversationNotification")
+
+    // AppDelegate
     static let applicationDidBecomeActiveNotification = Notification.Name("applicationDidBecomeActive")
+
 }
 
 public class Config {

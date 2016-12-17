@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if AVUser.isLogin {
 
-            if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
-                remoteNotificationType = RemoteNotificationType(rawValue: Type)
+            if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
+                remoteNotificationType = RemoteNotificationType(rawValue: type)
             }
         }
 
@@ -87,15 +87,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         printLog("进入前台")
 
-		if isFirstLaunch {
-            // TODO: - 同步所有未读消息
+        fetchUnreadMessages() {}
+
+		if !isFirstLaunch {
+
 
         } else {
 
+			// TODO: - 第一次 Launch 可以做一些需要加载的数据
+
+			// 同步我订阅的 Feed ,获取最新的 Conversation 信息
+
+
         }
+
+        application.applicationIconBadgeNumber = -1
 
         NotificationCenter.default.post(name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
 		isFirstLaunch = false
+    }
+
+    func applicationWillResignActive(_ application: UIApplication) {
+
+        printLog("即将进入后台")
+
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        printLog("进入后台")
+
+        // TODO -: 发送保存草稿的通知
+
     }
 
 
@@ -186,6 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     defaultFailureHandler(reason, errorMessage)
                 }, completion: { messageIds in
                     tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
+					completionHandler(.newData)
                 })
             }
 
@@ -193,6 +218,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         default:
             break
         }
+    }
+
+    private func fetchUnreadMessages(_ action: () -> Void) {
+
+        guard AVUser.isLogin else {
+            action()
+            return
+        }
+
+        fetchUnreadMessage(failureHandler: {
+            reason, errorMessage in
+            defaultFailureHandler(reason, errorMessage)
+        }, completion: { newMessageIds in
+            tryPostNewMessageReceivedNotification(withMessageIDs: newMessageIds, messageAge: .new)
+
+            action()
+        })
     }
 
 

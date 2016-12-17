@@ -41,7 +41,7 @@ public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessag
     
     discoverMessage.hidden = message.hidden
     discoverMessage.deletedByCreator = message.deletedByCreator
-    discoverMessage.bolckedByRecipient = message.blockedByRecipient
+    discoverMessage.blockedByRecipient = message.blockedByRecipient
     
     // TODO: - 暂时不将 Conversatioon 的数据上传到服务器, 仅本地构建.
     // discvoerMessage.conversation  .

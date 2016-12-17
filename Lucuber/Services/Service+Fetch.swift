@@ -35,19 +35,30 @@ public func tryPostNewMessageReceivedNotification(withMessageIDs messageIDs: [St
     }
 }
 
-func fetchUnreadMessage(failureHandler: FailureHandler?, completion: ([DiscoverMessage]) -> Void) {
+func fetchUnreadMessage(failureHandler: FailureHandler?, completion: ([String]) -> Void) {
     
     guard let realm = try? Realm() else { return }
-    let _lasestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: false).first
+    let _latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: false).first
     let latestMessage = latestValidMessageInRealm(realm: realm)
     
-    printLog("_latestMessage: \(_lasestMessage?.localObjectID), \(_lasestMessage?.createdUnixTime)")
+    printLog("_latestMessage: \(_latestMessage?.localObjectID), \(_latestMessage?.createdUnixTime)")
     printLog("+latestMessage: \(latestMessage?.localObjectID), \(latestMessage?.createdUnixTime)")
     printLog("*now: \(NSDate().timeIntervalSince1970)")
-    
-    
+
+	let query = AVQuery(className: "DiscoverMessage")
+	query.includeKey("creator")
+    query.order(byAscending: "createdAt")
+    query.limit = 1000
+    let maxCreatedUnixTime = latestMessage.createdUnixTime
+    query.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
+
+    fetchMessageFromLeancloud(with: query, messageAge: .new, failureHandler: failureHandler, completion:
+    completion)
+
+
 }
 
+// 不使用公共的 fetchMessageFromLeancloud 方法, 避免服务器端查询表, 减少延迟
 func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureHandler, completion: ( [String]) -> Void) {
 
     let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageLcID)
@@ -111,47 +122,53 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
     query.order(byAscending: "createdAt")
     query.limit = 20
 
+    fetchMessageFromLeancloud(with: query, messageAge: messageAge, failureHandler: failureHandler, completion:
+    completion)
+}
+
+public func fetchMessageFromLeancloud(with query: AVQuery, messageAge: MessageAge, failureHandler: @escaping
+FailureHandler?, completion: ((_
+                                                                                                                   messagesID: [String]) -> Void)?) {
+
     query.findObjectsInBackground {
         result, error in
-        
+
         if error != nil {
-            failureHandler(Reason.network(error), "网路请求 Messages 数据失败")
+            failureHandler?(Reason.network(error), "网路请求 Messages 数据失败")
         }
-        
+
         var messageIDs = [String]()
-        
+
         if let discoverMessages = result as? [DiscoverMessage] {
-            
+
             guard let realm = try? Realm() else {
                 return
             }
-            
+
             printLog("共获取到 **\(discoverMessages.count)** 个新 DiscoverMessages")
-            
+
             realm.beginWrite()
             if !discoverMessages.isEmpty { printLog("开始将 DiscoverMessage 转换成 Message 并存入本地") }
             discoverMessages.forEach {
-                
+
                 convertDiscoverMessageToRealmMessage(discoverMessage: $0, messageAge: messageAge, inRealm: realm) {
                     newMessagesID in
-                    
+
                     messageIDs += newMessagesID
                 }
-                
+
             }
             if !discoverMessages.isEmpty {
                 printLog(" DiscoverMessage 转换成 Message 已完成. 生成了 **\(messageIDs.count)** 个新" +
-                    " Message")
+                        " Message")
             }
-            
+
             try? realm.commitWrite()
-            
+
             completion?(messageIDs)
         }
     }
-    
 }
-
 func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: ((_ newSectionMessageIDs: [String]) -> Void)?) {
 
     if  !discoverMessage.localObjectID.isEmpty {
@@ -169,19 +186,15 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             let meUserID = AVUser.current()?.objectId {
 
             if discoverMessageCreatorUserID == meUserID {
-
                 if let message = message {
-
                     realm.delete(message)
                 }
             }
-
-            }
+           }
         }
 
         if message == nil {
 
-            // 如果本地没有这个 Message , 创建一个新的
             let newMessage = Message()
             newMessage.lcObjectID = discoverMessage.objectId!
             newMessage.localObjectID = discoverMessage.localObjectID
@@ -192,9 +205,9 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                     if newMessage.createdUnixTime < latestMessage.createdUnixTime {
                         // 只考虑最近的消息，过了可能混乱的时机就不再考虑
                         if abs(newMessage.createdUnixTime - latestMessage.createdUnixTime) < 60 {
-                            printLog("xbefore newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+                            printLog("before newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
                             newMessage.createdUnixTime = latestMessage.createdUnixTime + 0.00005
-                            printLog("xadjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
+                            printLog("adjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
                         }
                     }
                 }
@@ -207,11 +220,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
         if let message = message {
             
-
-            
-
-
-            // 创建本地不存在的 User
             if let messageCreatorUserID = discoverMessage.creator.objectId {
 
                 var sender = userWith(messageCreatorUserID, inRealm: realm)
@@ -220,9 +228,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
                     let newUser = getOrCreatRUserWith(discoverMessage.creator, inRealm: realm)
 
-//                    printLog(discoverMessage.creatarUser)
                     // TODO: 如果需要标记 newUser 为陌生人
-
                     sender = newUser
                 }
 
@@ -245,7 +251,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
                             let newGroup = Group()
                             newGroup.groupID = discoverMessage.recipientID
-                            newGroup.incloudMe = true
+                            newGroup.includeMe = true
 
                             realm.add(newGroup)
 
@@ -254,7 +260,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                             senderFromGroup = newGroup
                         }
                     }
-
 
                     var conversation: Conversation?
                     var conversationWithUser: RUser?
@@ -360,18 +365,21 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         var sectionDateMessageID: String?
 
                         tryCreatDateSectionMessage(with: conversation, beforeMessage: message, inRealm: realm, completion: {
-                            sectionDateMesage in
+                            sectionDateMessage in
 
-                            realm.add(sectionDateMesage)
+                            realm.add(sectionDateMessage)
 
-                            sectionDateMessageID = sectionDateMesage.localObjectID
+                            sectionDateMessageID = sectionDateMessage.localObjectID
 
                         })
 
                         if createdNewConversation {
-                            // 发送创建新的 Conversation 通知
-                        }
 
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(name: Notification.Name.changedConversationNotification, object: nil)
+                            }
+
+                        }
 
                         if let sectionDateMessageID = sectionDateMessageID {
 
@@ -379,12 +387,14 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         } else {
                             completion?([messageID])
                         }
+
+                    } else {
+
+                        message.deletedInRealm(realm: realm)
                     }
                 }
             }
-
         }
-
     }
 }
 

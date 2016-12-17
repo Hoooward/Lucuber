@@ -24,7 +24,7 @@ extension CommentViewController {
         if group == nil {
             
             let newGroup = Group()
-            newGroup.incloudMe = false
+            newGroup.includeMe = false
             newGroup.groupID = groupID
             
             realm.add(newGroup)

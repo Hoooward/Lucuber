@@ -212,7 +212,7 @@ class CommentViewController: UIViewController {
 
     func tryShowSubscribeView() {
 
-        guard let group = conversation.withGroup , !group.incloudMe  else {
+        guard let group = conversation.withGroup , !group.includeMe  else {
             return
         }
 

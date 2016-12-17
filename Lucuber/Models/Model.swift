@@ -820,7 +820,7 @@ open class Feed: Object {
 public enum GroupType: Int {
     
     case Public = 0
-    case Privcate = 1
+    case Private = 1
 }
 
 open class Group: Object {
@@ -834,12 +834,12 @@ open class Group: Object {
     open dynamic var owner: RUser?
     open var members = List<RUser>()
     
-    open dynamic var groupType: Int = GroupType.Privcate.rawValue
+    open dynamic var groupType: Int = GroupType.Public.rawValue
     
     open dynamic var withFeed: Feed?
     open dynamic var withFormula: Formula?
     
-    open dynamic var incloudMe: Bool = false
+    open dynamic var includeMe: Bool = false
     
     open let conversations = LinkingObjects(fromType: Conversation.self, property: "withGroup")
     
@@ -863,8 +863,7 @@ open class Group: Object {
         
         realm.delete(self)
     }
-    
-    
+
 }
 
 open class Draft: Object {
