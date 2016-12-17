@@ -44,15 +44,10 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     
     @NSManaged var deletedByCreator: Bool
     
-
-    
-   
-    
 }
 
 
 public class DiscoverMessage: AVObject, AVSubclassing {
-    
     
     public class func parseClassName() -> String {
         return "DiscoverMessage"
@@ -63,7 +58,6 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     @NSManaged var mediaType: Int
     @NSManaged var textContent: String
     
-    
     @NSManaged var attachmentURLString: String
     @NSManaged var thumbnailURLString: String
     @NSManaged var localAttachmentName: String
@@ -71,23 +65,19 @@ public class DiscoverMessage: AVObject, AVSubclassing {
     
     @NSManaged var attachmentID: String
     @NSManaged var attachmentExpiresUnixTime: TimeInterval
-    
-    
+
     @NSManaged var hidden: Bool
     @NSManaged var deletedByCreator: Bool
-    @NSManaged var bolckedByRecipient: Bool
+    @NSManaged var blockedByRecipient: Bool
     
     @NSManaged var creator: AVUser
     
     @NSManaged var recipientType: String
-    
     @NSManaged var recipientID: String
 
     @NSManaged var metaData: NSData
-    
     @NSManaged var metaDataInfo: String
-    
-    
+
 }
 
 public protocol OpenGraphInfoType {
@@ -168,13 +158,8 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     
     @NSManaged var deleted: Bool
     @NSManaged var withFormula: DiscoverFormula?
-    
-//    @NSManaged var imagesUrl: [String]?
-    
-//    @NSManaged var comments: [String]?
-    
+
     @NSManaged var highlightedKeywordsBody: String
-    
     
     public var hasMapImage: Bool {
         
@@ -189,8 +174,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         }
         return false
     }
-    
-  
+
     public struct AudioInfo {
         public let feedID: String
         public let URLString: String
@@ -264,12 +248,10 @@ open class DiscoverFeed: AVObject, AVSubclassing {
             
             self.attachment = .formula(formula)
         }
-        
     }
     
     public var attachment: Attachment? = nil
         
-    
     public var imageAttachments: [ImageAttachment]? {
         
         if let attachment = attachment {
@@ -287,8 +269,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     public var imageAttachmentsCount: Int {
         return imageAttachments?.count ?? 0
     }
-    
-    
+
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
     
@@ -326,7 +307,6 @@ open class DiscoverFeed: AVObject, AVSubclassing {
         }
     }
 }
-
 
 open class DiscoverContent: AVObject, AVSubclassing {
     public class func parseClassName() -> String {

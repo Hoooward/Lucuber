@@ -14,7 +14,6 @@ import Kanna
 import Kingfisher
 
 
-
 public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
     
     guard !images.isEmpty else {
@@ -43,12 +42,11 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
 
 public func pushToMasterListLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
     
-    guard let currenUser = AVUser.current() else {
+    guard let currentUser = AVUser.current() else {
         return
     }
-    currenUser.setMasterList(masterList)
-    currenUser.saveEventually()
-    
+    currentUser.setMasterList(masterList)
+    currentUser.saveEventually()
 }
 
 
@@ -306,23 +304,10 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
                     message.createdUnixTime = createdAt.timeIntervalSince1970
                     
                 }
-                
             }
             
-            //TODO: - 创建新的 Message 后发送通知
-            
-            let dict: [String: Any] = [
-                "alert" : "您有一条新的消息",
-                "notificationType": "message",
-                "messageID" : "\(message.lcObjectID)"
-            ]
-            
-            let push = AVPush()
-            push.setChannel(message.recipientID)
-            
-            push.setData(dict)
-            push.sendInBackground()
-            
+            pushNewMessageNotificationToAPNs(with: message)
+
             completion(success)
         }
         
@@ -352,13 +337,31 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
                 }
                 discoverMessage.saveInBackground(messageSavedCompletion)
             }
-            
-            
+
         })
         
     default:
         break
     }
+}
+
+
+public func pushNewMessageNotificationToAPNs(with message: Message) {
+
+    let dict: [String: Any] = [
+
+            "alert": "您关注的话题有新的消息.",
+            "type": AppDelegate.RemoteNotificationType.message.rawValue,
+            "messageID": message.lcObjectID,
+            "sound": "cheering.caf",
+            "badge": "Increment"
+    ]
+
+    let push = AVPush()
+    push.setChannel(message.recipientID)
+
+    push.setData(dict)
+    push.sendInBackground()
 }
 
 public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
@@ -487,7 +490,7 @@ public func pushCurrentUserUpdateInformation() {
     }
     
     func pushDeletedByCreatorFormulaInfomation(nextMission: @escaping () -> Void) {
-        // Leanclooud 断标记删除的内容
+        // Leancloud 断标记删除的内容
         if let currentUser = currentUser(in: realm) {
             
             let deletedFormula = deleteByCreatorFormula(with: currentUser, inRealm: realm)
@@ -634,7 +637,6 @@ public func pushCurrentUserUpdateInformation() {
 
 
 
-
 public enum UploadFeedMode {
     case top
     case loadMore
@@ -698,73 +700,40 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
     }
     
     switch category {
-    case .text:
-        
-        break
-        
     case .formula:
-        
         guard let formula = formula else {
             break
         }
-        
         newDiscoverFeed.withFormula = formula
         
     case .url:
-        
         guard let attachments = attachments as? [String: String] else {
             break
         }
-        
         newDiscoverFeed.attachmentsInfo = attachments as NSDictionary
         
     case .image:
-        
         guard let attachments = attachments as? [String: [String]] else {
             break
         }
-        
         newDiscoverFeed.attachmentsInfo = attachments as NSDictionary
-        
-    case .location:
-        break
-        
-    case .audio:
-        break
-        
-    case .record:
-        break
-        
+
     default:
         break
     }
-    
-    let conversationService = ConversationService.shared
-    
-    conversationService.creatNewConversation(with: newDiscoverFeed.localObjectID, failureHandler: {
-        reason, errorMessage in
-        
-        failureHandler?(reason, errorMessage)
-        
-    }, completion: { newConversation in
-        
-        newDiscoverFeed.saveInBackground {
-            success, error in
-            
-            if error != nil {
-                
-                failureHandler?(Reason.network(error), "发送 Feed 失败")
-            }
-            
-            if success {
-                
-                completion?(newDiscoverFeed)
-            }
+
+    newDiscoverFeed.saveInBackground {
+        success, error in
+
+        if error != nil {
+            failureHandler?(Reason.network(error), "发送 Feed 失败")
         }
-        printLog(newConversation)
-        
-    })
-    
+
+        if success {
+            completion?(newDiscoverFeed)
+        }
+    }
+
 }
 
 //extension AVQuery {

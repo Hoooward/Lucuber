@@ -12,7 +12,7 @@ extension Notification.Name {
     
     static let formulaCategoryMenuDidmissNotification = Notification.Name("formulaCategoryMenuDismissNotification")
     
-    static let categotyPickViewDidSeletedRowNotification = Notification.Name("categotyPickViewDidSeletedRowNotification")
+    static let categotyPickViewDidSeletedRowNotification = Notification.Name("categoryPickViewDidSelectedRowNotification")
     
     static let changeRootViewControllerNotification = Notification.Name("changeRootViewController")
     
@@ -22,11 +22,14 @@ extension Notification.Name {
     
     static let updateMessageStatesNotification = Notification.Name("updateMessageStates")
     
-    static let updateDraftOfConversationNotification = Notification.Name("updateDraftOfconversation")
+    static let updateDraftOfConversationNotification = Notification.Name("updateDraftOfConversation")
     
-    static let newMessageIDsReceivedNotification = Notification.Name("newMessageIDsReceivedn")
+    static let newMessageIDsReceivedNotification = Notification.Name("newMessageIDsReceived")
     
     static let afterUploadUserInformationNotification = Notification.Name("afterUploadUserInformation")
+
+    // Appdelete
+    static let applicationDidBecomeActiveNotification = Notification.Name("applicationDidBecomeActive")
 }
 
 public class Config {

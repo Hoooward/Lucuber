@@ -14,7 +14,6 @@ import PKHUD
 
 // MARK: - Message
 
-
 public enum MessageAge: String {
     case old = "old"
     case new = "new"
@@ -49,56 +48,29 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: ([DiscoverM
     
 }
 
+func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureHandler, completion: ( [String]) -> Void) {
 
-public func latestValidMessageInRealm(realm: Realm) -> Message? {
-    
-    let latestGroupMessage = latestValidMessageInRealm(realm: realm, withConversationType: "group")
-    let latestOneToOneMessage = latestValidMessageInRealm(realm: realm, withConversationType: "user")
-    
-    let latestMessage: Message? = [latestGroupMessage, latestOneToOneMessage].flatMap({ $0 }).sorted(by: { $0.createdUnixTime > $1.createdUnixTime }).first
-    
-    return latestMessage
-}
-
-public func latestValidMessageInRealm(realm: Realm, withConversationType conversationType: String) -> Message? {
-    
-    switch conversationType {
-        
-    case "user":
-        let predicate = NSPredicate(format: "hidden = false AND deletedByCreator = false AND blockedByRecipient == false AND fromFriend != nil AND conversation != nil AND conversation.type = %d", "user")
-        return realm.objects(Message.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first
-        
-    case "group": // Public for now
-        let predicate = NSPredicate(format: "withGroup != nil AND withGroup.includeMe = true AND withGroup.groupType = %d", GroupType.Public.rawValue)
-        let messages: [Message]? = realm.objects(Conversation.self).filter(predicate).sorted(byProperty: "updatedUnixTime", ascending: false).first?.messages.sorted(by: { $0.createdUnixTime > $1.createdUnixTime })
-        
-        return messages?.filter({ ($0.hidden == false) && ($0.isIndicator == false) && ($0.mediaType != MessageMediaType.sectionDate.rawValue)}).first
-        
-    default: return nil
-    }
-    
-}
-
-func fetchMessageWithMessageID(_ messageID: String) {
-    
-    let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageID)
+    let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageLcID)
     
     discoverMessage.fetchInBackground { message, error in
         
         if let message = message as? DiscoverMessage {
+
             guard let realm = try? Realm() else {
                 return
             }
-            
+
+            var newMessageIDs = [String]()
             realm.beginWrite()
-            convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: .new, inRealm: realm, completion: { _ in
-                
-                tryPostNewMessageReceivedNotification(withMessageIDs: [message.localObjectID], messageAge: .new)
+
+            convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: .new, inRealm: realm, completion: { messageIDs in
+                newMessageIDs.append(contentsOf: messageIDs)
             })
+
             try? realm.commitWrite()
-            
+
+			completion(newMessageIDs)
         }
-        
     }
 }
 
@@ -121,11 +93,9 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
             query.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
             
         } else {
-            // 如果当前 Message 为空
             printLog("本地 Realm 中没有 Message, 开始请求最新的 20 条 Message")
             query.whereKey("createdAt", lessThanOrEqualTo: NSDate())
             query.order(byDescending: "createdAt")
-            
         }
         
     case .old:
@@ -137,10 +107,10 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
         }
     }
     
-    query.order(byAscending: "createdAt")
-    query.limit = 10
-    // 此次请求需要将完整的 creatorUser 信息获取到.
     query.includeKey("creator")
+    query.order(byAscending: "createdAt")
+    query.limit = 20
+
     query.findObjectsInBackground {
         result, error in
         
@@ -162,9 +132,6 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
             if !discoverMessages.isEmpty { printLog("开始将 DiscoverMessage 转换成 Message 并存入本地") }
             discoverMessages.forEach {
                 
-                
-                // 将 DiscoverMessage 转换成 Message
-                
                 convertDiscoverMessageToRealmMessage(discoverMessage: $0, messageAge: messageAge, inRealm: realm) {
                     newMessagesID in
                     
@@ -172,7 +139,10 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
                 }
                 
             }
-            if !discoverMessages.isEmpty { printLog(" DiscoverMessage 转换成 Message 已完成") }
+            if !discoverMessages.isEmpty {
+                printLog(" DiscoverMessage 转换成 Message 已完成. 生成了 **\(messageIDs.count)** 个新" +
+                    " Message")
+            }
             
             try? realm.commitWrite()
             
@@ -183,7 +153,6 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
 }
 
 func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: ((_ newSectionMessageIDs: [String]) -> Void)?) {
-
 
     if  !discoverMessage.localObjectID.isEmpty {
 
@@ -216,10 +185,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             let newMessage = Message()
             newMessage.lcObjectID = discoverMessage.objectId!
             newMessage.localObjectID = discoverMessage.localObjectID
-         
-
-            // 全部标记为已读
-            newMessage.sendState = MessageSendState.read.rawValue
 
             newMessage.createdUnixTime = (discoverMessage.createdAt?.timeIntervalSince1970)!
             if case .new = messageAge {
@@ -242,19 +207,9 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
         if let message = message {
             
-            message.textContent = discoverMessage.textContent
-            message.mediaType = discoverMessage.mediaType
-            message.attachmentURLString = discoverMessage.attachmentURLString
-            message.thumbnailURLString = discoverMessage.thumbnailURLString
+
             
-            if discoverMessage.metaData.length > 0 {
-                
-                let newMetaData = MediaMetaData()
-                newMetaData.data = discoverMessage.metaData as Data
-                realm.add(newMetaData)
-                
-                message.mediaMetaData = newMetaData
-            }
+
 
             // 创建本地不存在的 User
             if let messageCreatorUserID = discoverMessage.creator.objectId {
@@ -276,6 +231,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                     message.creator = sender
                     message.recipientID = discoverMessage.recipientID
                     message.recipientType = discoverMessage.recipientType
+
                     // 判断 message 来自 group 还是 user
                     var senderFromGroup: Group? = nil
 
@@ -307,7 +263,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         conversation = senderFromGroup.conversation
 
                     } else {
-                        // 如果这个消息的发送者不是我自己
+						// TODO: - 与朋友聊天
                         if let meUserID = AVUser.current()?.objectId, meUserID != sender.lcObjcetID {
                             conversation = sender.conversation
                             conversationWithUser = sender
@@ -346,61 +302,85 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
                         }
 
+                        // 上面这段代码暂时无用
                     }
-                        var createdNewConversation = false
 
-                        if conversation == nil {
+                    var createdNewConversation = false
 
-                            let newConversation = Conversation()
+                    if conversation == nil {
 
-                            if let senderFromGroup = senderFromGroup {
-                                newConversation.type = ConversationType.group.rawValue
-                                newConversation.withGroup = senderFromGroup
-                            } else {
-                                newConversation.type = ConversationType.oneToOne.rawValue
-                                newConversation.withFriend = conversationWithUser
-                            }
+                        let newConversation = Conversation()
 
-                            realm.add(newConversation)
-
-                            conversation = newConversation
-
-                            createdNewConversation = true
+                        if let senderFromGroup = senderFromGroup {
+                            newConversation.type = ConversationType.group.rawValue
+                            newConversation.withGroup = senderFromGroup
+                        } else {
+                            newConversation.type = ConversationType.oneToOne.rawValue
+                            newConversation.withFriend = conversationWithUser
                         }
 
-                        if let conversation = conversation {
+                        realm.add(newConversation)
 
-                            // TODO :- 同步已读
+                        conversation = newConversation
 
-                            //                                        if message.conversation == nil &&
-                            //
+                        createdNewConversation = true
+                    }
 
-                            message.conversation = conversation
+                    if let conversation = conversation {
 
-                            var sectionDateMessageID: String?
+                        if let sender = message.creator, sender.isMe {
+                            message.readed = true
+                        }
 
-                            tryCreatDateSectionMessage(with: conversation, beforeMessage: message, inRealm: realm, completion: {
-                                sectionDateMesage in
+						// 标记未读状态
+                        if message.conversation == nil && message.readed == false && message.createdUnixTime > conversation.updateUnixTime {
 
-                                realm.add(sectionDateMesage)
-
-                                sectionDateMessageID = sectionDateMesage.localObjectID
-
-                            })
-
-                            if createdNewConversation {
-                                // 发送创建新的 Conversation 通知
-                            }
-                            
-
-                            if let sectionDateMessageID = sectionDateMessageID {
-
-                                completion?([sectionDateMessageID, messageID])
-                            } else {
-                                completion?([messageID])
+                            if message.createdUnixTime > (Date().timeIntervalSince1970 - (60*60*12)) {
+								conversation.hasUnreadMessages = true
+                                conversation.updateUnixTime = Date().timeIntervalSince1970
                             }
                         }
+
+                        message.conversation = conversation
+
+                        message.textContent = discoverMessage.textContent
+                        message.mediaType = discoverMessage.mediaType
+                        message.attachmentURLString = discoverMessage.attachmentURLString
+                        message.thumbnailURLString = discoverMessage.thumbnailURLString
+
+                        if discoverMessage.metaData.length > 0 {
+
+                            let newMetaData = MediaMetaData()
+                            newMetaData.data = discoverMessage.metaData as Data
+                            realm.add(newMetaData)
+
+                            message.mediaMetaData = newMetaData
+                        }
+
+                        var sectionDateMessageID: String?
+
+                        tryCreatDateSectionMessage(with: conversation, beforeMessage: message, inRealm: realm, completion: {
+                            sectionDateMesage in
+
+                            realm.add(sectionDateMesage)
+
+                            sectionDateMessageID = sectionDateMesage.localObjectID
+
+                        })
+
+                        if createdNewConversation {
+                            // 发送创建新的 Conversation 通知
+                        }
+
+
+                        if let sectionDateMessageID = sectionDateMessageID {
+
+                            completion?([sectionDateMessageID, messageID])
+                        } else {
+                            completion?([messageID])
+                        }
                     }
+                }
             }
 
         }
@@ -463,6 +443,8 @@ public func fetchPreferences(failureHandler: @escaping FailureHandler, completio
         }
     }
 }
+
+// MARK: - Formula
 
 public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
     

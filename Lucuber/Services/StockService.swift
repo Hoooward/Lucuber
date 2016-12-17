@@ -47,25 +47,7 @@ class ConversationService: NSObject {
     }
     
 
-    /*
-    func sendMessage(text: String ) {
-        
-        let message = CustomMessage()
-        message.text = text
-        message.attributes = nil
-        message.deletedByCreator = true
-        message.creator = AVUser.current()
-        currentConversation?.send(message, callback: { success, error in
-            
-            if success {
-                printLog("发送成功")
-            }
-            
-        })
-        
-    }
-    */
-    
+
     func fetchMessage(with conversationID: String, messageAge: MessageAge) {
         
         let query = self.currentUserClient.conversationQuery()

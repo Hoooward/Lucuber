@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     enum RemoteNotificationType: String {
         case message = "message"
+		case bunchMessages = "bunchMessages"
         case officialMessage = "official_message"
         case friendRequest = "friend_request"
         case messageDeleted = "message_deleted"
@@ -45,10 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // 配置 Realm
         Realm.Configuration.defaultConfiguration = realmConfig()
         
-        /// 所有请求是否 Log
         AVOSCloud.setAllLogsEnabled(false)
 
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
@@ -67,28 +66,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
         
-        
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)
-        
-        
+
         _ = creatMeInRealm()
-        
-       
-       
-        
-        
-        AVPush.setProductionMode(false)
-        let push = AVPush()
-        push.setMessage("啊啊啊")
-       // [AVPush setProductionMode:NO];
-        
-        push.sendInBackground()
+
+        if AVUser.isLogin {
+
+            if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
+                remoteNotificationType = RemoteNotificationType(rawValue: Type)
+            }
+        }
+
         return true
     }
 
-  
-    
+
+	private var isFirstLaunch: Bool = true
+    func applicationDidBecomeActive(_ application: UIApplication) {
+
+        printLog("进入前台")
+
+		if isFirstLaunch {
+            // TODO: - 同步所有未读消息
+
+        } else {
+
+        }
+
+        NotificationCenter.default.post(name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
+		isFirstLaunch = false
+    }
+
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -154,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        guard AVUser.isLogin, let type = userInfo["notificationType"] as? String, let remoteNotificationType = RemoteNotificationType(rawValue: type) else {
+        guard AVUser.isLogin, let type = userInfo["type"] as? String, let remoteNotificationType = RemoteNotificationType(rawValue: type) else {
             completionHandler(.noData)
             return
             
@@ -170,20 +180,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         case .message:
             
-            if let messageID = userInfo["messageID"] as? String {
-                
-                fetchMessageWithMessageID(messageID)
+            if let messageId = userInfo["messageID"] as? String {
+
+				fetchMessageWithMessageLcID(messageId, failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                }, completion: { messageIds in
+                    tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
+                })
             }
-            // TODO: - 同步未读消息
-            
+
             break
         default:
             break
         }
     }
-    
-    
-    
+
+
+
     
 }
 

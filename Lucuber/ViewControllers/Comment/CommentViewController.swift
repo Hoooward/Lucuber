@@ -580,6 +580,9 @@ class CommentViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.handelNewMessaageIDsReceviedNotification(notification:)), name: Notification.Name.newMessageIDsReceivedNotification, object: nil)
 
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.handelApplicationDidBecomeActive(notification:)), name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
+
+
         realm = try! Realm()
 
         lastUpdateMessagesCount = messages.count
@@ -684,7 +687,7 @@ class CommentViewController: UIViewController {
         let syncMessages: (_ failedAction: (() -> Void)?, _ successAction: (() -> Void)?) -> Void = { failedAction, successAction in
 
 
-            guard let recipiendID = self.conversation.recipiendID else {
+            guard let recipientID = self.conversation.recipiendID else {
                 return
             }
 
@@ -696,7 +699,7 @@ class CommentViewController: UIViewController {
             
             
 
-            fetchMessage(withRecipientID: recipiendID, messageAge: .new, lastMessage: lastMessage, firstMessage: nil, failureHandler: {
+            fetchMessage(withRecipientID: recipientID, messageAge: .new, lastMessage: lastMessage, firstMessage: nil, failureHandler: {
                 reason, errorMessage in
                 defaultFailureHandler(reason, errorMessage)
 
@@ -1363,6 +1366,29 @@ class CommentViewController: UIViewController {
             }
         }
     }
+
+
+    // 应用进入前台时, 插入后台状态收到的消息
+    @objc private func handelApplicationDidBecomeActive(notification: Notification) {
+		guard UIApplication.shared.applicationState == .active else {
+            return
+        }
+
+		tryInsertInActiveNewMessage()
+    }
+
+    private func tryInsertInActiveNewMessage() {
+
+        if inActiveNewMessageIDSet.count > 0 {
+            updateCommentCollectionViewWithMessageIDs(messagesID: Array(inActiveNewMessageIDSet), messageAge: .new, scrollToBottom: false, success: { _ in
+            })
+
+            inActiveNewMessageIDSet = []
+            printLog("已插入后台接受的 Message")
+        }
+    }
+
+
 
 }
 
