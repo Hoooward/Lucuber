@@ -4,10 +4,8 @@
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/AppDelegate.swift" afterPath="$PROJECT_DIR$/Lucuber/AppDelegate.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Model.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Model.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Services/Service+Fetch.swift" afterPath="$PROJECT_DIR$/Lucuber/Services/Service+Fetch.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Services/Service+Push.swift" afterPath="$PROJECT_DIR$/Lucuber/Services/Service+Push.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,51 +27,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="CommentViewController+sendMessage.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+sendMessage.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Service+Fetch.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service+Fetch.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1872">
-              <caret line="106" column="8" lean-forward="true" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="8" />
+            <state relative-caret-position="522">
+              <caret line="41" column="40" lean-forward="false" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Service+Push.swift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service+Push.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3911">
-              <caret line="350" column="30" lean-forward="false" selection-start-line="350" selection-start-column="30" selection-end-line="350" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Realm.swift" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Realm.swift" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lucuber/Models/Realm.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="330" column="49" lean-forward="true" selection-start-line="330" selection-start-column="49" selection-end-line="330" selection-end-column="49" />
+            <state relative-caret-position="324">
+              <caret line="338" column="39" lean-forward="false" selection-start-line="338" selection-start-column="39" selection-end-line="338" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Object.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pods/RealmSwift/RealmSwift/Object.swift">
+      <file leaf-file-name="Service+Push.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service+Push.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Model.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Models/Model.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="966" column="21" lean-forward="false" selection-start-line="966" selection-start-column="21" selection-end-line="966" selection-end-column="21" />
+            <state relative-caret-position="-4608">
+              <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -102,30 +90,8 @@
       <file leaf-file-name="CommentViewController.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppDelegate.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/AppDelegate.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="208" column="36" lean-forward="false" selection-start-line="208" selection-start-column="36" selection-end-line="208" selection-end-column="36" />
-              <folding>
-                <element signature="e#120#132#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommentViewController+Feed.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Feed.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+            <state relative-caret-position="216">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -157,8 +123,8 @@
       <find>handelApplecationDidBecomeActive</find>
       <find>fetchMessage</find>
       <find>latestValidMessageInRealm</find>
-      <find>conversation</find>
       <find>viewdidload</find>
+      <find>conversation</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,12 +167,12 @@
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Formula.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Models/ParseModel.swift" />
-        <option value="$PROJECT_DIR$/Lucuber/AppDelegate.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Feed.swift" />
-        <option value="$PROJECT_DIR$/Lucuber/Services/Service+Fetch.swift" />
-        <option value="$PROJECT_DIR$/Lucuber/Models/Realm.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Models/Model.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Services/Service+Push.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/Services/Service+Fetch.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/AppDelegate.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/Models/Realm.swift" />
       </list>
     </option>
   </component>
@@ -521,7 +487,7 @@
       <workItem from="1481606497768" duration="15000" />
       <workItem from="1481606542788" duration="30650000" />
       <workItem from="1481781483424" duration="18890000" />
-      <workItem from="1481904623674" duration="18702000" />
+      <workItem from="1481904623674" duration="24864000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -548,7 +514,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74665000" />
+    <option name="totallyTimeSpent" value="80827000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -560,7 +526,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="96" y="23" width="1719" height="1177" extended-state="0" />
+    <frame x="96" y="23" width="1719" height="1177" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32920355" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -619,11 +585,6 @@
           <url>file://$PROJECT_DIR$/Lucuber/Views/SubscribeView/SubscribeView.swift</url>
           <line>4</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Lucuber/AppDelegate.swift</url>
-          <line>211</line>
-          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -873,14 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+sendMessage.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Models/OpenGraph.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -953,24 +906,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Models/Model.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="966" column="21" lean-forward="false" selection-start-line="966" selection-start-column="21" selection-end-line="966" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/AppDelegate.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="208" column="36" lean-forward="false" selection-start-line="208" selection-start-column="36" selection-end-line="208" selection-end-column="36" />
-          <folding>
-            <element signature="e#120#132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Models/ParseModel.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -989,8 +924,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        <state relative-caret-position="216">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service+Push.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4608">
+          <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+sendMessage.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Models/Model.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="550" column="27" lean-forward="false" selection-start-line="550" selection-start-column="27" selection-end-line="550" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1003,26 +962,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Models/Realm.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/AppDelegate.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="330" column="49" lean-forward="true" selection-start-line="330" selection-start-column="49" selection-end-line="330" selection-end-column="49" />
-          <folding />
+        <state relative-caret-position="-864">
+          <caret line="60" column="26" lean-forward="false" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
+          <folding>
+            <element signature="e#120#132#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service+Fetch.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1872">
-          <caret line="106" column="8" lean-forward="true" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="8" />
+        <state relative-caret-position="522">
+          <caret line="41" column="40" lean-forward="false" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service+Push.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/Models/Realm.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3911">
-          <caret line="350" column="30" lean-forward="false" selection-start-line="350" selection-start-column="30" selection-end-line="350" selection-end-column="30" />
+        <state relative-caret-position="324">
+          <caret line="338" column="39" lean-forward="false" selection-start-line="338" selection-start-column="39" selection-end-line="338" selection-end-column="39" />
           <folding />
         </state>
       </provider>

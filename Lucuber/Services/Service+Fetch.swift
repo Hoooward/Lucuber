@@ -48,7 +48,8 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: @escaping (
 	let query = AVQuery(className: "DiscoverMessage")
 	query.includeKey("creator")
     query.order(byAscending: "createdAt")
-    query.limit = 1000
+	// 只拿最近的100个未读消息
+    query.limit = 100
     
     if let latestMessage = latestMessage {
         
@@ -357,6 +358,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         message.mediaType = discoverMessage.mediaType
                         message.attachmentURLString = discoverMessage.attachmentURLString
                         message.thumbnailURLString = discoverMessage.thumbnailURLString
+                        message.sendState = MessageSendState.successed.rawValue
 
                         if discoverMessage.metaData.length > 0 {
 

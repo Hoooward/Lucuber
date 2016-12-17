@@ -328,17 +328,20 @@ public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
 
 public func lastValidMessageInRealm(realm: Realm) -> Message? {
 
-    let latestGroupMessage = latestValidMessagesInRealm(realm, withConversationType: .group)
-    let latestOneToOneMessage = latestValidMessagesInRealm(realm, withConversationType: .oneToOne)
+    let predicate = NSPredicate(format: "hidden = false AND deletedByCreator = false AND sendState = %d",
+            MessageSendState.successed.rawValue)
 
-	let latestMessage: Message? = [latestOneToOneMessage, latestGroupMessage].flatMap { $0 }.sorted(by: { $0
-            .createdUnixTime > $1.createdUnixTime }).first
+    // 返回最后一个 不是当前用户发送的 message
+    if let me = currentUser(in: realm) {
+        return realm.objects(Message.self).filter(predicate).filter({ $0.creator ?? RUser() != me }).sorted(by: {$0.createdUnixTime > $1 .createdUnixTime }).first
+    }
+    
+    return realm.objects(Message.self).filter(predicate).sorted(by: {$0.createdUnixTime > $1
+        .createdUnixTime }).first
 
-    printLog("获取到的最后一个有效Message 为 \(latestMessage), content: \(latestMessage?.textContent)")
-
-    return latestMessage
 }
-
+/*
+这个查询方法会引起异常
 public func latestValidMessagesInRealm(_ realm: Realm, withConversationType conversationType: ConversationType) ->
         Message? {
 
@@ -363,6 +366,7 @@ public func latestValidMessagesInRealm(_ realm: Realm, withConversationType conv
         return includeMeMessages?.filter({ $0.creator ?? RUser() != me }).first
     }
 }
+*/
 
 public func messagesWith(_ conversation: Conversation, inRealm realm: Realm) -> Results<Message> {
     

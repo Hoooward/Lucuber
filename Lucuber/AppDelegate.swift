@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 		if !isFirstLaunch {
-//            fetchUnreadMessages() {}
+            fetchUnreadMessages() {}
 
 
         } else {
