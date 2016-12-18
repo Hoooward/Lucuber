@@ -284,7 +284,6 @@ class MessageToolbar: UIToolbar {
     
     func updateHeightOfMessageTextView() {
         
-        
         let size = messageTextView.sizeThatFits(CGSize(width: messageTextView.bounds.width, height: CGFloat(FLT_MAX)))
         
         let newHeight = size.height

@@ -453,6 +453,8 @@ class CommentViewController: UIViewController {
             }
 
             if let strongSelf = self {
+                
+                let subscribeViewHeight = strongSelf.isSubscribeViewShowing ? SubscribeView.totalHeight : 0
 
                 if strongSelf.messageToolbarBottomConstraints.constant > 0 {
 
@@ -463,7 +465,7 @@ class CommentViewController: UIViewController {
                         strongSelf.commentCollectionView.contentOffset.y += keyboardHeightIncrement
                     }
 
-                    let bottom = keyboardHeight + strongSelf.messageToolbar.frame.height
+                    let bottom = keyboardHeight + strongSelf.messageToolbar.frame.height + subscribeViewHeight
                     strongSelf.commentCollectionView.contentInset.bottom = bottom
                     strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
                     strongSelf.messageToolbarBottomConstraints.constant = keyboardHeight
@@ -473,7 +475,7 @@ class CommentViewController: UIViewController {
                 } else {
 
                     strongSelf.commentCollectionView.contentOffset.y += keyboardHeightIncrement
-                    let bottom = keyboardHeight + strongSelf.messageToolbar.frame.height
+                    let bottom = keyboardHeight + strongSelf.messageToolbar.frame.height + subscribeViewHeight
                     strongSelf.commentCollectionView.contentInset.bottom = bottom
                     strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
                     strongSelf.messageToolbarBottomConstraints.constant = keyboardHeight
@@ -510,16 +512,19 @@ class CommentViewController: UIViewController {
             }
         }
 
+        tryShowSubscribeView()
         commentCollectionView.contentInset = UIEdgeInsets(top: 64 + 60 + 20, left: 0, bottom: 44, right: 0)
+        
         print(commentCollectionView.contentInset)
      
-        tryFetchMessages()
+       
     }
 
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
 
+        tryFetchMessages()
         commentCollectionViewHasBeenMovedToBottomOnece = true
 
         if isFirstAppear {
@@ -678,7 +683,8 @@ class CommentViewController: UIViewController {
         }
 
 
-        let keyboardAndToobarHeight = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
+        let subscribeViewHeight = isSubscribeViewShowing ? SubscribeView.totalHeight : 0
+        let keyboardAndToobarHeight = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height + subscribeViewHeight
 
         var scrollToBottom = true
         if case .old = messageAge {
@@ -983,9 +989,12 @@ class CommentViewController: UIViewController {
 //        printLog("messageToobar.frame = \(messageToolbar.frame)")
 //        printLog("collectionViewOffsetY = \(commentCollectionView.contentOffset)")
 //        printLog("collectionViewContentInset = \(commentCollectionView.contentInset))")
+        
+        let subscribeViewHeight = isSubscribeViewShowing ? SubscribeView.totalHeight : 0
 
-        let newContentOffsetY = commentCollectionView.contentSize.height - messageToolbar.frame.origin.y
+        let newContentOffsetY = commentCollectionView.contentSize.height - messageToolbar.frame.origin.y + subscribeViewHeight
 
+        // TODO: - 这里 + 44 是干什么的
         let bottom = view.bounds.height - messageToolbar.frame.origin.y + 44
 
         guard newContentOffsetY + commentCollectionView.contentInset.top > 0  else {
@@ -1040,7 +1049,6 @@ class CommentViewController: UIViewController {
 //            printLog("collectionViewOffsetY = \(self.commentCollectionView.contentOffset)")
 //            printLog("collectionViewContentInset = \(self.commentCollectionView.contentInset))")
         }
-
     }
 
     func deleteMessage(at indexPath: IndexPath, withMessage message: Message) {
