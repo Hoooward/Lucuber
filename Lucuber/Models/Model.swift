@@ -830,7 +830,6 @@ open class Group: Object {
     open dynamic var notificationEnabled: Bool = true
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
-    
     open dynamic var owner: RUser?
     open var members = List<RUser>()
     

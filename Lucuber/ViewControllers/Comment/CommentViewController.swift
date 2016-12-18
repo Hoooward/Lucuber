@@ -148,7 +148,6 @@ class CommentViewController: UIViewController {
     }()
 
 
-
     private lazy var titleView: ConversationTitleView = {
         let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
 

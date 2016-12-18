@@ -442,7 +442,7 @@ public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
 
 // MARK: - Conversation
 
-public func titleName(of conversation: Conversation) -> String? {
+public func titleNameOfConversation(_ conversation: Conversation) -> String? {
     
     guard !conversation.isInvalidated else {
         return nil
@@ -456,7 +456,7 @@ public func titleName(of conversation: Conversation) -> String? {
     
     if conversation.type == ConversationType.group.rawValue {
         if let withGroup = conversation.withGroup {
-            return withGroup.groupName
+            return withGroup.groupName.isEmpty ? "话题讨论" : "\(withGroup.groupName)"
         }
     }
     return nil
