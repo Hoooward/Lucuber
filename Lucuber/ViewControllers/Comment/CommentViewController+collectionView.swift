@@ -30,8 +30,6 @@ extension CommentViewController {
 
 extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-
-
     enum Section: Int {
         case loadPrevious
         case message

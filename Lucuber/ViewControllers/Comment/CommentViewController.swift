@@ -80,6 +80,7 @@ class CommentViewController: UIViewController {
     private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
 
     var isFirstAppear = true
+    var isSubscribeViewShowing: Bool = false
 
     fileprivate lazy var moreMessageTypeView: MoreMessageTypeView = {
         let view = MoreMessageTypeView()
@@ -138,16 +139,15 @@ class CommentViewController: UIViewController {
 
         return view
     }()
-
+    
     fileprivate lazy var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-//        imagePicker.mediaTypes =  [kUTTypeImage as String, kUTTypeMovie as String]
+        //        imagePicker.mediaTypes =  [kUTTypeImage as String, kUTTypeMovie as String]
         imagePicker.videoQuality = .typeMedium
         imagePicker.allowsEditing = false
         return imagePicker
     }()
-
 
     private lazy var titleView: ConversationTitleView = {
         let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
@@ -185,7 +185,7 @@ class CommentViewController: UIViewController {
         }
     }
     
-    private lazy var subscribeView: SubscribeView = {
+    lazy var subscribeView: SubscribeView = {
         
         let subscribeView = SubscribeView()
 
@@ -210,13 +210,12 @@ class CommentViewController: UIViewController {
         
     }()
 
-   
 
-    fileprivate lazy var collectionViewWidth: CGFloat = {
+    lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width
     }()
 
-    fileprivate lazy var messageTextViewMaxWidth: CGFloat = {
+    lazy var messageTextViewMaxWidth: CGFloat = {
         return self.collectionViewWidth - Config.chatCellGapBetweenWallAndAvatar() - Config.chatCellAvatarSize() - Config.chatCellGapBetweenTextContentLabelAndAvatar() - Config.chatTextGapBetweenWallAndContentLabel()
     }()
     
@@ -233,154 +232,12 @@ class CommentViewController: UIViewController {
     }
 
     var textContentLabelWidths = [String: CGFloat]()
-    func textContentLabelWidth(of message: Message) -> CGFloat {
-
-        let key = message.localObjectID
-
-        if let textContentLabelWidth = textContentLabelWidths[key] {
-            return textContentLabelWidth
-        }
-
-        let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
-
-        let width = ceil(rect.width)
-
-        if !key.isEmpty {
-
-            textContentLabelWidths[key] = width
-        }
-
-        return width
-    }
-
     var messageCellHeights = [String: CGFloat]()
-    func heightOfMessage(_ message: Message) -> CGFloat {
-
-        let key = message.localObjectID
-
-        if let height = messageCellHeights[key] {
-            return height
-        }
-
-        var height: CGFloat = 0
-
-
-        switch message.mediaType {
-
-        case MessageMediaType.text.rawValue:
-
-            let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
-
-            height = max(ceil(rect.height) + (11 * 2), Config.chatCellAvatarSize())
-
-            if !key.isEmpty {
-
-                textContentLabelWidths[key] = ceil(rect.width)
-            }
-
-
-        case MessageMediaType.image.rawValue:
-            
-            if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {
-                let aspectRatio = imageWidth / imageHeight
-                
-                if aspectRatio >= 1 {
-                    height = max(ceil(messageImagePreferredWidth / aspectRatio), Config.ChatCell.mediaMinHeight)
-                } else {
-                    height = max(messageImagePreferredHeight, ceil(Config.ChatCell.mediaMinWidth / aspectRatio))
-                }
-                
-            } else {
-                height = ceil(messageImagePreferredWidth / messageImagePreferredAspectRatio)
-            }
-            
-
-        default:
-            height = 40
-        }
-
-        if conversation.withGroup != nil {
-            if message.mediaType != MessageMediaType.sectionDate.rawValue {
-
-                if let sender = message.creator {
-                    if !sender.isMe {
-                        height += Config.ChatCell.marginTopForGroup
-                    }
-                }
-            }
-        }
-
-        return height
-    }
-
-
-
-    func makeHeaderView(with formula: Formula?) {
-        guard let formula = formula else {
-            return
-        }
-
-        let headerView = CommentHeaderView.creatCommentHeaderViewFormNib()
-        headerView.formula = formula
-
-        headerView.changeStatusAction = {
-            [weak self] status in
-
-            switch status {
-            case .small:
-
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
-                    [weak self] in
-                    self?.commentCollectionView.contentInset.top = 64 + 60 + 20
-                }, completion: nil)
-
-//                printLog(self?.commentCollectionView.contentInset)
-
-            case .big:
-
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
-                    [weak self] in
-                    self?.commentCollectionView.contentInset.top = 64 + 120 + 20
-                }, completion: nil)
-
-                if let messageToolbar = self?.messageToolbar {
-
-                    if !messageToolbar.state.isAtBottom {
-                        messageToolbar.state = .normal
-                    }
-                }
-
-//                printLog(self?.commentCollectionView.contentInset)
-
-
-            }
-        }
-
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(headerView)
-
-        let views: [String: AnyObject] = [
-                "headerView": headerView
-        ]
-
-        let constraintH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[headerView]|", options: [], metrics: nil, views: views)
-
-        let top = NSLayoutConstraint(item: headerView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 64)
-
-        let height = NSLayoutConstraint(item: headerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 60)
-
-        NSLayoutConstraint.activate(constraintH)
-        NSLayoutConstraint.activate([top, height])
-
-        headerView.heightConstraint = height
-
-        self.headerView = headerView
-
-    }
-
+   
 
     fileprivate var isLoadingPreviousMessages = false
     fileprivate var noMorePreviousMessage = false
+    
     fileprivate func tryLoadPreviousMessage(completion: @escaping () -> Void) {
 
         if isLoadingPreviousMessages {
@@ -434,6 +291,7 @@ class CommentViewController: UIViewController {
             }
 
             if newMessageCount > 0 {
+                
                 self.displayedMessagesRange.location -= newMessageCount
                 self.displayedMessagesRange.length += newMessageCount
 
@@ -477,29 +335,19 @@ class CommentViewController: UIViewController {
                     completion()
                     printLog("从本地加载过去的 Message 成功.")
                 })
-
             }
         }
-
     }
-
-
-    fileprivate let loadMoreCollectionCellIdenfitifier = "LoadMoreCollectionViewCell"
-    fileprivate let chatSectionDateCellIdentifier = "ChatSectionDateCell"
-    fileprivate let chatLeftTextCellIdentifier = "ChatLeftTextCell"
-    fileprivate let chatRightTextCellIdentifier = "ChatRightTextCell"
-    fileprivate let chatLeftImageCellIdentifier = "ChatLeftImageCell"
-    fileprivate let chatRightImageCellIdentifier = "ChatRightImageCell"
 
     // MARK: - Life Cycle
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-    
-//        self.tabBarController?.tabBar.isHidden = true
-
         tryShowSubscribeView()
+    
+        self.tabBarController?.tabBar.isHidden = true
+        
         navigationController?.setNavigationBarHidden(false, animated: false)
 
         if isFirstAppear {
@@ -518,16 +366,14 @@ class CommentViewController: UIViewController {
 
                 self?.moreMessageTypeView.show(in: window)
 
-                if let state = self?.messageToolbar.state {
+                if let _ = self?.messageToolbar.state {
                     self?.messageToolbar.state = .normal
                 }
 
                 delay(0.2) {
                     self?.imagePicker.hidesBarsOnTap = false
                 }
-
             }
-
         }
 
         messageToolbar.stateTransitionAction = {
@@ -550,128 +396,15 @@ class CommentViewController: UIViewController {
 
             }
         }
-
     }
-
 
     deinit {
         printLog("对话视图已成功释放")
         NotificationCenter.default.removeObserver(self)
     }
     
-    private var isSubscribeThisConversation: Bool = false
-    var isSubscribeViewShowing: Bool = false
-    
-    func tryShowSubscribeView() {
-        
-        guard let group = conversation.withGroup else {
-            return
-        }
-
-		guard userNotificationStateIsAuthorized() else {
-			// 用户没有开启通知权限,在这里可以处理一下是否需要开启
-            printLog("用户尚未开启通知, 暂时无法接受消息")
-			return
-        }
-
-		// 控制仅显示一次
-		guard SubscribeViewShown.canShow(groupID: group.groupID) else {
-            return
-        }
-
-
-        subscribeView.subscribeAction = { [weak self] in
-
-            subscribeConversationWithGroupID(group.groupID, failureHandler:{ reason, errorMessage in
-
-                defaultFailureHandler(reason, errorMessage)
-            }, completion: {
-                // 订阅成功
-                printLog("订阅成功 id: \(group.groupID)")
-
-                // 创建新的 Realm 实例, 因为 self 很可能已经释放
-                printLog("before isIncludeMe = \(group.includeMe)")
-
-                if let strongSelf = self {
-                    try? strongSelf.realm.write {
-                        group.includeMe = true
-                    }
-                }
-            })
-        }
-
-        subscribeView.showWithChangeAction = { [weak self] in
-
-            guard let strongSelf = self else {
-                return
-            }
-
-            let bottom = strongSelf.view.bounds.height - strongSelf.messageToolbar.frame.origin.y + SubscribeView.totalHeight
-
-            let extraPart = strongSelf.commentCollectionView.contentSize.height - (strongSelf.messageToolbar.frame.origin.y - SubscribeView.totalHeight)
-
-            let newContentOffsetY: CGFloat
-
-            if extraPart > 0 {
-                newContentOffsetY = strongSelf.commentCollectionView.contentOffset.y + SubscribeView.totalHeight
-            } else {
-                newContentOffsetY = strongSelf.commentCollectionView.contentOffset.y
-            }
-
-            strongSelf.tryUpdateCommentCollectionViewWith(newContentInsetbottom: bottom, newContentOffsetY: newContentOffsetY)
-
-            strongSelf.isSubscribeViewShowing = true
-        }
-
-
-        subscribeView.hidWithChangeAction = { [weak self] in
-
-            guard let strongSelf = self else {
-                return
-            }
-
-            let bottom = strongSelf.view.bounds.height - strongSelf.messageToolbar.frame.origin.y
-
-            let newContentOffsetY = strongSelf.commentCollectionView.contentSize.height - strongSelf.messageToolbar.frame.origin.y
-
-            self?.tryUpdateCommentCollectionViewWith(newContentInsetbottom: bottom, newContentOffsetY: newContentOffsetY)
-
-            self?.isSubscribeViewShowing = false
-
-        }
-
-
-		delay(3) { [weak self] in
-
-            self?.subscribeView.show()
-            // 在 Realm 中保存已经展示过的记录
-
-            guard let strongSelf = self else {
-                return
-            }
-
-            guard  let realm = try? Realm() else {
-                return
-            }
-
-            let shown = SubscribeViewShown(groupID: group.groupID)
-            try? realm.write {
-                realm.add(shown, update: true)
-            }
-
-        }
-
-        // TODO: 在这里显示 订阅窗口.
-        // 1. 我在进入该视图时已经订阅了该频道
-        // 2.
-
-    }
-
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
         prepareCommentCollectionView()
 
@@ -703,7 +436,6 @@ class CommentViewController: UIViewController {
         commentCollectionView.addGestureRecognizer(tap)
 
         messageToolbarBottomConstraints.constant = 0
-
 
         keyboardMan.animateWhenKeyboardAppear = {
             [weak self] apperaPostIndex, keyboardHeight, keyboardHeightIncrement in
@@ -780,67 +512,12 @@ class CommentViewController: UIViewController {
 
         commentCollectionView.contentInset = UIEdgeInsets(top: 64 + 60 + 20, left: 0, bottom: 44, right: 0)
         print(commentCollectionView.contentInset)
-
-        let syncMessages: (_ failedAction: (() -> Void)?, _ successAction: (() -> Void)?) -> Void = { failedAction, successAction in
-
-
-            guard let recipientID = self.conversation.recipiendID else {
-                return
-            }
-
-            let predicate = NSPredicate(format: "sendState == %d" , MessageSendState.successed.rawValue)
-            var lastMessage: Message?
-            if let maxMessage = self.messages.filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true).last {
-                lastMessage = maxMessage
-            }
-            
-            
-
-            fetchMessage(withRecipientID: recipientID, messageAge: .new, lastMessage: lastMessage, firstMessage: nil, failureHandler: {
-                reason, errorMessage in
-                defaultFailureHandler(reason, errorMessage)
-
-                failedAction?()
-            }, completion: { newMessageID in
-
-                tryPostNewMessageReceivedNotification(withMessageIDs: newMessageID, messageAge: .new)
-
-            })
-
-        }
-
-
-        switch conversation.type {
-
-        case ConversationType.oneToOne.rawValue:
-
-            printLog("进入新的 Conversation ->> 开始同步最新的 Message")
-            syncMessages({
-
-                printLog("获取数据失败")
-            }, {
-
-            })
-
-
-        case ConversationType.group.rawValue:
-
-            printLog("进入新的 Conversation ->> 开始同步最新的 Message")
-            syncMessages({
-
-                printLog("获取数据失败")
-            }, {
-
-            })
-
-
-        default:
-            break
-        }
-
+     
+        tryFetchMessages()
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
 
         commentCollectionViewHasBeenMovedToBottomOnece = true
@@ -855,7 +532,6 @@ class CommentViewController: UIViewController {
 
                     self?.cleanTextInput()
                     self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
-
 
                     if text.isEmpty {
                         return
@@ -874,7 +550,6 @@ class CommentViewController: UIViewController {
                         }, completion: { _ in
 
                             printLog("发送成功")
-
 
                         })
 
@@ -895,14 +570,11 @@ class CommentViewController: UIViewController {
                             printLog("Send Text Message Success!")
                         })
                     }
-
                 }
-
             }
         }
 
         isFirstAppear = false
-
     }
 
     override func viewDidLayoutSubviews() {
@@ -916,7 +588,6 @@ class CommentViewController: UIViewController {
     }
 
     // MARK: - Action & Target
-
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 
         guard
@@ -942,11 +613,11 @@ class CommentViewController: UIViewController {
         realm.refresh()
 
         if let conversation = conversation {
-
+            
             if
-                    let conversationID = conversation.fakeID,
-                    let currentVisibleConversationID = commentController.conversation.fakeID {
-
+                let conversationID = conversation.fakeID,
+                let currentVisibleConversationID = commentController.conversation.fakeID {
+                
                 if conversationID != currentVisibleConversationID {
                     return
                 }
@@ -980,25 +651,20 @@ class CommentViewController: UIViewController {
 
                     inActiveNewMessageIDSet.insert(newMessageID)
                     printLog("inActiveNewMessageIDSet 插入了一条新信息 \(newMessageID)")
-
                 }
             }
         }
-
     }
 
     fileprivate func batchMarkMessgesAsreaded() {
 
         DispatchQueue.main.async {
             [weak self] in
-
             guard let _ = self else {
                 return
             }
-
         }
     }
-
 
     func updateCommentCollectionViewWithMessageIDs(messagesID: [String]?, messageAge: MessageAge, scrollToBottom: Bool, success: @escaping (Bool) -> Void) {
 
@@ -1036,7 +702,6 @@ class CommentViewController: UIViewController {
 
             // 订阅栏如果出现
         }
-
     }
 
     private func adjustCommentCollectionViewWithMessageIDs(messageIDs: [String]?, messageAge: MessageAge, adjustHeight: CGFloat, scrollToBottom: Bool, success: @escaping (Bool) -> Void) {
@@ -1050,7 +715,6 @@ class CommentViewController: UIViewController {
         }
 
         let newMessageCount = Int(messages.count - _lastTimeMessagesCount)
-
 
         let lastDisplayedMessagesRange = displayedMessagesRange
 
@@ -1083,7 +747,6 @@ class CommentViewController: UIViewController {
                         
                         indexPaths.append(indexPath)
                     } else {
-                        
                         printLog("unknow message")
                     }
                 }
@@ -1129,14 +792,12 @@ class CommentViewController: UIViewController {
                             strongSelf.commentCollectionView.setContentOffset(contentOffset, animated: false)
 
                             CATransaction.commit()
-
                             // 上面的 CATransaction 保证了 CollectionView 在插入后不闪动
                         }
                     })
-
-
                     break
                 }
+                
             } else {
 
                 printLog("self message")
@@ -1205,7 +866,6 @@ class CommentViewController: UIViewController {
                         }
                     }
 
-
                 }, completion: { _ in
                     success(true)
                 })
@@ -1217,8 +877,6 @@ class CommentViewController: UIViewController {
 
             success(true)
         }
-
-
     }
 
     func tryUpdateCommentCollectionViewWith(newContentInsetbottom bottom: CGFloat, newContentOffsetY: CGFloat) {
@@ -1500,6 +1158,8 @@ class CommentViewController: UIViewController {
         }
 
 		tryInsertInActiveNewMessage()
+        
+        tryFetchMessages()
     }
 
     private func tryInsertInActiveNewMessage() {
@@ -1512,8 +1172,6 @@ class CommentViewController: UIViewController {
             printLog("已插入后台接受的 Message")
         }
     }
-
-
 
 }
 
@@ -1532,10 +1190,6 @@ public enum TimeDirection {
         }
     }
 }
-
-
-
-
 
 extension CommentViewController: UIScrollViewDelegate {
 

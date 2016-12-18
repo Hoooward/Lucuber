@@ -11,8 +11,8 @@
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */; };
 		CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */; };
-		CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */; };
-		CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */; };
+		CC71484A30B5E743F91AB3C0 /* CommentViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714D4540871F3E0AD1C541 /* CommentViewController+CollectionView.swift */; };
+		CC714D9261228F6E13B4F4FA /* CommentViewController+SendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7146210788559E40A58A50 /* CommentViewController+SendMessage.swift */; };
 		CC714DB93638172BC6BA46B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7149FBEE537BDC8E3B2B09 /* Service.swift */; };
 		CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */; };
 		E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4011F331DB277BE00EEBBCF /* Date+Cube.swift */; };
@@ -81,6 +81,9 @@
 		E4443DE71DEB414300BC9632 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E4443DE81DEB414300BC9632 /* UIImageView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF471DB5DAC5005BEFE4 /* UIImageView+Cube.swift */; };
 		E4443DE91DEB414300BC9632 /* UITableView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF4B1DB602FE005BEFE4 /* UITableView+Cube.swift */; };
+		E44483391E067E91008311F5 /* CommentViewController+FetchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44483381E067E91008311F5 /* CommentViewController+FetchMessage.swift */; };
+		E444833B1E0680E9008311F5 /* CommentViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444833A1E0680E9008311F5 /* CommentViewController+Views.swift */; };
+		E444833D1E068206008311F5 /* CommentViewController+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444833C1E068206008311F5 /* CommentViewController+Cache.swift */; };
 		E44D3B511DF6F40F00673FFD /* LoadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B71DE862770036A11C /* LoadMoreTableViewCell.swift */; };
 		E44D3B531DF6F69D00673FFD /* URL+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D3B521DF6F69D00673FFD /* URL+Cube.swift */; };
 		E44D3B541DF822B100673FFD /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */; };
@@ -298,9 +301,9 @@
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Conversation.swift"; sourceTree = "<group>"; };
 		CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Cube.swift"; sourceTree = "<group>"; };
-		CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+sendMessage.swift"; sourceTree = "<group>"; };
+		CC7146210788559E40A58A50 /* CommentViewController+SendMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+SendMessage.swift"; sourceTree = "<group>"; };
 		CC7149FBEE537BDC8E3B2B09 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+collectionView.swift"; sourceTree = "<group>"; };
+		CC714D4540871F3E0AD1C541 /* CommentViewController+CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+ImagePicker.swift"; sourceTree = "<group>"; };
 		E4011F311DB1F90E00EEBBCF /* CommentViewController+Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Formula.swift"; sourceTree = "<group>"; };
 		E4011F331DB277BE00EEBBCF /* Date+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Cube.swift"; sourceTree = "<group>"; };
@@ -336,6 +339,9 @@
 		E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Cube.swift"; sourceTree = "<group>"; };
 		E43B6F3F1DEA9B4000CE1FB5 /* ParseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseModel.swift; sourceTree = "<group>"; };
 		E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverModel.swift; sourceTree = "<group>"; };
+		E44483381E067E91008311F5 /* CommentViewController+FetchMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+FetchMessage.swift"; sourceTree = "<group>"; };
+		E444833A1E0680E9008311F5 /* CommentViewController+Views.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Views.swift"; sourceTree = "<group>"; };
+		E444833C1E068206008311F5 /* CommentViewController+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Cache.swift"; sourceTree = "<group>"; };
 		E44D3B521DF6F69D00673FFD /* URL+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Cube.swift"; sourceTree = "<group>"; };
 		E45351EA1DFC1DF70092805B /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
 		E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
@@ -703,9 +709,12 @@
 				E42C82A71DFBD0AE00D315CF /* CommentViewController+Feed.swift */,
 				E48BCD491DA8AAD500C4A1B7 /* Comment.storyboard */,
 				CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */,
-				CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */,
-				CC714D4540871F3E0AD1C541 /* CommentViewController+collectionView.swift */,
+				E44483381E067E91008311F5 /* CommentViewController+FetchMessage.swift */,
+				CC7146210788559E40A58A50 /* CommentViewController+SendMessage.swift */,
+				CC714D4540871F3E0AD1C541 /* CommentViewController+CollectionView.swift */,
 				CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */,
+				E444833A1E0680E9008311F5 /* CommentViewController+Views.swift */,
+				E444833C1E068206008311F5 /* CommentViewController+Cache.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -2042,6 +2051,7 @@
 				E4F38D5A1DFD20C500F0DF8A /* SendingMessagePool.swift in Sources */,
 				E4CED8891DE862770036A11C /* NavigationTitleLabel.swift in Sources */,
 				E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */,
+				E44483391E067E91008311F5 /* CommentViewController+FetchMessage.swift in Sources */,
 				E4F38DB51E01130E00F0DF8A /* HorizontalLineView.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */,
@@ -2057,6 +2067,7 @@
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,
 				E4CED84E1DE862770036A11C /* DetailCommentCell.swift in Sources */,
 				E4CED8801DE862770036A11C /* InputAccessoryView.swift in Sources */,
+				E444833D1E068206008311F5 /* CommentViewController+Cache.swift in Sources */,
 				E4CED8551DE862770036A11C /* DetailHeaderView.swift in Sources */,
 				E4CED8921DE862770036A11C /* MyFormulaVisitorView.swift in Sources */,
 				E4CED8751DE862770036A11C /* AlbumListCell.swift in Sources */,
@@ -2072,6 +2083,7 @@
 				E41AC7F91DEDEA7100CE3123 /* HeaderViewCell.swift in Sources */,
 				E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */,
 				E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */,
+				E444833B1E0680E9008311F5 /* CommentViewController+Views.swift in Sources */,
 				E4CED8931DE862770036A11C /* UpdateLibraryErrorView.swift in Sources */,
 				E42C82951DF855DA00D315CF /* OpenGraph.swift in Sources */,
 				E4CED88F1DE862770036A11C /* Palette.swift in Sources */,
@@ -2113,9 +2125,9 @@
 				E4CED8661DE862770036A11C /* FormulaTextViewCell.swift in Sources */,
 				CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */,
 				E4F38DB21E0075FF00F0DF8A /* SubscribeView.swift in Sources */,
-				CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */,
+				CC714D9261228F6E13B4F4FA /* CommentViewController+SendMessage.swift in Sources */,
 				CC714DB93638172BC6BA46B9 /* Service.swift in Sources */,
-				CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */,
+				CC71484A30B5E743F91AB3C0 /* CommentViewController+CollectionView.swift in Sources */,
 				CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */,
 				CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */,
 			);
