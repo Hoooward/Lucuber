@@ -100,6 +100,7 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
         failureHandler(Reason.network(nil), "recipientID 无效")
         return
     }
+    
     let query = AVQuery(className: "DiscoverMessage")
     query.whereKey("recipientID", equalTo: recipientID)
     query.includeKey("creator")

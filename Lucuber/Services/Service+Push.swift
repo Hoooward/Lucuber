@@ -305,9 +305,10 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 
 //                if let createdAt = discoverMessage.createdAt {
 //                    message.createdUnixTime = createdAt.timeIntervalSince1970
-//                    
+//
 //                }
             }
+            NotificationCenter.default.post(name: Notification.Name.updateMessageStatesNotification, object: nil)
             
             pushNewMessageNotificationToAPNs(with: message)
 

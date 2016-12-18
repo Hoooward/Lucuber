@@ -46,10 +46,11 @@ class ChatRightBaseCell: ChatBaseCell {
                 }
                 
             case .successed:
+				// TODO: - 仅 group 下, 不需要标记已读未读
                 dotImageView.image = UIImage(named: "icon_dot_unread")
-                dotImageView.isHidden = false
+//                dotImageView.isHidden = false
                 
-//                dotImageView.isHidden = true
+                dotImageView.isHidden = true
                 removeSendingAnimation()
                 
             case .read:
