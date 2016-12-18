@@ -102,6 +102,8 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
     }
     let query = AVQuery(className: "DiscoverMessage")
     query.whereKey("recipientID", equalTo: recipientID)
+    query.includeKey("creator")
+    query.limit = 20
     
     switch messageAge {
     case .new:
@@ -110,10 +112,14 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
             printLog("从本地 Realm 获取最新的 Message 创建日期, 开始请求更新的 Message")
             let maxCreatedUnixTime = lastMessage.createdUnixTime
             query.whereKey("createdAt", greaterThan:  NSDate(timeIntervalSince1970: maxCreatedUnixTime))
+            query.limit = 1000
+            // 升序排列, 优先拿创建之间最小的, 保证获取全部信息(不丢失信息)
+            query.order(byAscending: "createdAt")
             
         } else {
+            
             printLog("本地 Realm 中没有 Message, 开始请求最新的 20 条 Message")
-            query.whereKey("createdAt", lessThanOrEqualTo: NSDate())
+            // 降序排列, 优先拿创建时间最大的
             query.order(byDescending: "createdAt")
         }
         
@@ -123,12 +129,10 @@ func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, 
             printLog("从本地 Realm 获取最旧的 Message 创建日期, 开始请求更旧的 Message")
             let minCreatedUnixTime = firstMessage.createdUnixTime
             query.whereKey("createdAt", lessThan: NSDate(timeIntervalSince1970: minCreatedUnixTime))
+            // 降序排列, 优先拿创建时间最大的
+            query.order(byDescending: "createdAt")
         }
     }
-    
-    query.includeKey("creator")
-    query.order(byAscending: "createdAt")
-    query.limit = 20
 
     fetchMessageFromLeancloud(with: query, messageAge: messageAge, failureHandler: failureHandler, completion:
     completion)
@@ -155,7 +159,13 @@ public func fetchMessageFromLeancloud(with query: AVQuery, messageAge: MessageAg
 
             realm.beginWrite()
             if !discoverMessages.isEmpty { printLog("开始将 DiscoverMessage 转换成 Message 并存入本地") }
-            discoverMessages.forEach {
+            
+            // 重新升序排列的目的是优先在数据库中创建比较早的 Message, 这样方便后面的 Message 与其对比创建时间,才能正确生成 SectionDateCell
+            discoverMessages.sorted(by: {one, two in
+                
+                one.createdAt!.timeIntervalSince1970 < two.createdAt!.timeIntervalSince1970
+                
+            }).forEach {
 
                 convertDiscoverMessageToRealmMessage(discoverMessage: $0, messageAge: messageAge, inRealm: realm) {
                     newMessagesID in
@@ -257,7 +267,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
                             let newGroup = Group()
                             newGroup.groupID = discoverMessage.recipientID
-                            newGroup.includeMe = true
+                            newGroup.includeMe = false
 
                             realm.add(newGroup)
 
@@ -308,9 +318,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                                             _ = getOrCreatRUserWith(user, inRealm: realm)
                                     }
                                 })
-                                
                             }
-
                         }
 
                         // 上面这段代码暂时无用

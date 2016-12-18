@@ -193,6 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
             
         }
+        printLog("收到通知")
         
         defer {
             if application.applicationState != .active {
@@ -209,6 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				fetchMessageWithMessageLcID(messageId, failureHandler: { reason, errorMessage in
                     defaultFailureHandler(reason, errorMessage)
                 }, completion: { messageIds in
+                    printLog("下载通知的 Message 完成")
                     tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
 					completionHandler(.newData)
                 })

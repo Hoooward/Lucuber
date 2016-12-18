@@ -497,9 +497,9 @@ class CommentViewController: UIViewController {
         super.viewWillAppear(animated)
         
     
-        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.isHidden = true
 
-          tryShowSubscribeView()
+        tryShowSubscribeView()
         navigationController?.setNavigationBarHidden(false, animated: false)
 
         if isFirstAppear {
@@ -573,85 +573,101 @@ class CommentViewController: UIViewController {
             printLog("用户尚未开启通知, 暂时无法接受消息")
 			return
         }
-        
+
+		// 控制仅显示一次
+		guard SubscribeViewShown.canShow(groupID: group.groupID) else {
+            return
+        }
+
+
         subscribeView.subscribeAction = { [weak self] in
 
+            subscribeConversationWithGroupID(group.groupID, failureHandler:{ reason, errorMessage in
 
+                defaultFailureHandler(reason, errorMessage)
+            }, completion: {
+                // 订阅成功
+                printLog("订阅成功 id: \(group.groupID)")
 
+                // 创建新的 Realm 实例, 因为 self 很可能已经释放
+                printLog("before isIncludeMe = \(group.includeMe)")
+
+                if let strongSelf = self {
+                    try? strongSelf.realm.write {
+                        group.includeMe = true
+                    }
+                }
+            })
         }
-        
+
         subscribeView.showWithChangeAction = { [weak self] in
-            
+
             guard let strongSelf = self else {
                 return
             }
-            
+
             let bottom = strongSelf.view.bounds.height - strongSelf.messageToolbar.frame.origin.y + SubscribeView.totalHeight
-            
+
             let extraPart = strongSelf.commentCollectionView.contentSize.height - (strongSelf.messageToolbar.frame.origin.y - SubscribeView.totalHeight)
-            
+
             let newContentOffsetY: CGFloat
-            
+
             if extraPart > 0 {
                 newContentOffsetY = strongSelf.commentCollectionView.contentOffset.y + SubscribeView.totalHeight
             } else {
                 newContentOffsetY = strongSelf.commentCollectionView.contentOffset.y
             }
-            
+
             strongSelf.tryUpdateCommentCollectionViewWith(newContentInsetbottom: bottom, newContentOffsetY: newContentOffsetY)
-            
+
             strongSelf.isSubscribeViewShowing = true
         }
-        
+
+
         subscribeView.hidWithChangeAction = { [weak self] in
-            
+
             guard let strongSelf = self else {
                 return
             }
-            
+
             let bottom = strongSelf.view.bounds.height - strongSelf.messageToolbar.frame.origin.y
-            
+
             let newContentOffsetY = strongSelf.commentCollectionView.contentSize.height - strongSelf.messageToolbar.frame.origin.y
-            
+
             self?.tryUpdateCommentCollectionViewWith(newContentInsetbottom: bottom, newContentOffsetY: newContentOffsetY)
-            
+
             self?.isSubscribeViewShowing = false
-            
+
         }
-        
-        delay(3, clouser: {
-            
-            self.subscribeView.show()
-        })
-        
-        
-        // 在 Realm 中保存已经展示过的记录
-        
-        weak var weakSelf = self
-        do {
-            
-            if weakSelf == nil {
+
+
+		delay(3) { [weak self] in
+
+            self?.subscribeView.show()
+            // 在 Realm 中保存已经展示过的记录
+
+            guard let strongSelf = self else {
                 return
             }
-            
+
             guard  let realm = try? Realm() else {
                 return
             }
-            
+
             let shown = SubscribeViewShown(groupID: group.groupID)
-            
             try? realm.write {
                 realm.add(shown, update: true)
             }
+
         }
-      
+
         // TODO: 在这里显示 订阅窗口.
         // 1. 我在进入该视图时已经订阅了该频道
         // 2.
-        
+
     }
 
-  
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1056,18 +1072,18 @@ class CommentViewController: UIViewController {
             if let messageIDs = messageIDs {
 
                 var indexPaths = [IndexPath]()
-
+                
                 for messageID in messageIDs {
-
+                    
                     if
-                            let message = messageWith(messageID, inRealm: realm),
-                            let index = messages.index(of: message) {
-
+                        let message = messageWith(messageID, inRealm: realm),
+                        let index = messages.index(of: message) {
+                        
                         let indexPath = IndexPath(item: index - displayedMessagesRange.location, section: Section.message.rawValue)
-
+                        
                         indexPaths.append(indexPath)
                     } else {
-
+                        
                         printLog("unknow message")
                     }
                 }

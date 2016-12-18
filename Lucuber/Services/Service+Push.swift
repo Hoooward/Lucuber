@@ -299,11 +299,14 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
                 
                 message.lcObjectID = discoverMessage.objectId ?? ""
                 message.sendState = MessageSendState.successed.rawValue
-                
-                if let createdAt = discoverMessage.createdAt {
-                    message.createdUnixTime = createdAt.timeIntervalSince1970
-                    
-                }
+
+
+                // 重新设置服务器端的创建时间会导致与push 之前创建的 SectionDate Cell 时间
+
+//                if let createdAt = discoverMessage.createdAt {
+//                    message.createdUnixTime = createdAt.timeIntervalSince1970
+//                    
+//                }
             }
             
             pushNewMessageNotificationToAPNs(with: message)

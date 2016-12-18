@@ -405,9 +405,12 @@ public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMe
                 let sectionDateMessageCreatedUnixTime = message.createdUnixTime - 0.00005
                 let sectionDateMessageID = "sectionDate-\(sectionDateMessageCreatedUnixTime)"
                 
+                
                 if let _ = messageWith(sectionDateMessageID, inRealm: realm) {
                     
                 } else {
+                    printLog("创建了新的 SectionMessage : - > 创建时间为 \(sectionDateMessageCreatedUnixTime)")
+                    printLog("last Message 的创建时间 \(message.createdUnixTime)")
                     
                     let newSectionDateMessage = Message()
                     newSectionDateMessage.localObjectID = sectionDateMessageID
