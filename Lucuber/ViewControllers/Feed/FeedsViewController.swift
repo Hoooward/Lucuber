@@ -445,6 +445,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             try? realm.commitWrite()
             
             vc.conversation = feedConversation
+            vc.hidesBottomBarWhenPushed = true
             
             vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
                 

@@ -495,7 +495,11 @@ class CommentViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+    
+        self.tabBarController?.tabBar.isHidden = true
 
+          tryShowSubscribeView()
         navigationController?.setNavigationBarHidden(false, animated: false)
 
         if isFirstAppear {
@@ -560,7 +564,7 @@ class CommentViewController: UIViewController {
     
     func tryShowSubscribeView() {
         
-        guard let group = conversation.withGroup , !group.includeMe  else {
+        guard let group = conversation.withGroup else {
             return
         }
 
@@ -569,20 +573,11 @@ class CommentViewController: UIViewController {
             printLog("用户尚未开启通知, 暂时无法接受消息")
 			return
         }
-
-		guard isSubscribeThisConversation else {
-            printLog("用户已经开启通知, 但尚未订阅该频道, 或者服务器尚未返回订阅成功的数据")
-            return
-        }
-        
-        let currentInstallation = AVInstallation.current()
-
-        
-        let installation = AVInstallation(className: "_Installation", objectId: currentInstallation.objectId ?? "")
         
         subscribeView.subscribeAction = { [weak self] in
-            
-            // TODO: - 退出群组
+
+
+
         }
         
         subscribeView.showWithChangeAction = { [weak self] in
@@ -624,81 +619,42 @@ class CommentViewController: UIViewController {
             
         }
         
-        subscribeView.show()
+        delay(3, clouser: {
+            
+            self.subscribeView.show()
+        })
         
         
+        // 在 Realm 中保存已经展示过的记录
         
-        
+        weak var weakSelf = self
+        do {
+            
+            if weakSelf == nil {
+                return
+            }
+            
+            guard  let realm = try? Realm() else {
+                return
+            }
+            
+            let shown = SubscribeViewShown(groupID: group.groupID)
+            
+            try? realm.write {
+                realm.add(shown, update: true)
+            }
+        }
       
-
-        
-        
-        
         // TODO: 在这里显示 订阅窗口.
         // 1. 我在进入该视图时已经订阅了该频道
         // 2.
         
     }
 
-    func subscribeConversation(_ conversation: Conversation) {
-        
-        guard let group = conversation.withGroup, userNotificationStateIsAuthorized() else {
-            printLog("用户没有开启权限")
-            return
-        }
-        
-        let currentInstallation = AVInstallation.current()
-        currentInstallation.addUniqueObject(conversation.recipiendID!, forKey: "channels")
-        currentInstallation.saveInBackground { success, error in
-
-            if success {
-                printLog("已经订阅该Feed分组-ID: \(self.conversation.recipiendID)")
-                
-                try? self.realm.write {
-                    
-                    group.includeMe = true
-                    
-                }
-
-            }
-        }
-
-    }
-    
-    func userNotificationStateIsAuthorized() -> Bool {
-        
-        var isAuthorized = false
-        // TODO: - 仅处理了 iOS10
-        if #available(iOS 10.0, *) {
-            let notificationCenter = UNUserNotificationCenter.current()
-            
-            notificationCenter.getNotificationSettings(completionHandler: {
-                setting in
-                
-                if setting.authorizationStatus != .authorized {
-                    
-                    isAuthorized = false
-                    printLog("请在设置-隐私-中开启通知")
-                } else {
-                    isAuthorized = true
-                    printLog("已经可以正常接受消息")
-                }
-            })
-        }
-        
-        return isAuthorized
-    }
+  
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // TODO: 接受 Push 通知
-		if userNotificationStateIsAuthorized() {
-
-			// 如果已经开启了通知才进行频道订阅
-            subscribeConversation(conversation)
-        }
-
 
 
         prepareCommentCollectionView()
@@ -1591,7 +1547,6 @@ extension CommentViewController: UIScrollViewDelegate {
 //            printLog("从上一次网络请求过去的 Message 得知已没有更旧的数据")
             return
         }
-
 
         guard scrollView.isAtTop && (scrollView.isDragging || scrollView.isDecelerating) else {
             return

@@ -1011,6 +1011,7 @@ open class Conversation: Object {
     }
 }
 
+
 protocol RandomID {
     static func randomLocalObjectID() -> String
 }
@@ -1054,6 +1055,31 @@ extension Feed: RandomID {
     }
 }
 
+open class SubscribeViewShown: Object {
+    
+    open dynamic var groupID: String = ""
+    
+    open override class func primaryKey() -> String? {
+        return "groupID"
+    }
+    
+    open override class func indexedProperties() -> [String] {
+        return ["groupID"]
+    }
+    
+    public convenience init(groupID: String) {
+        self.init()
+        self.groupID = groupID
+    }
+    
+    open class func canShow(groupID: String) -> Bool {
+        guard let realm = try? Realm() else {
+            return false
+        }
+        return realm.objects(SubscribeViewShown.self).filter("groupID = %@", groupID).isEmpty
+    }
+    
+}
 
 
 
