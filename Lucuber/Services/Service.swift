@@ -62,9 +62,6 @@ public func userNotificationStateIsAuthorized() -> Bool {
 
 public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
     
-    guard userNotificationStateIsAuthorized() else {
-        return
-    }
     
     let currentInstallation = AVInstallation.current()
     currentInstallation.addUniqueObject(groupID, forKey: "channels")

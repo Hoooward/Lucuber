@@ -14,14 +14,16 @@ extension CommentViewController {
         
         let fetchMessages: (_ failedAction: (() -> Void)?, _ successAction: (() -> Void)?) -> Void = { [weak self] failedAction, successAction in
             
-            guard let recipientID = self?.conversation.recipiendID else {
+            guard let strongSelf = self, let recipientID = self?.conversation.recipiendID, let me = currentUser(in: strongSelf.realm) else {
                 return
             }
             
             let predicate = NSPredicate(format: "sendState == %d" , MessageSendState.successed.rawValue)
             var lastMessage: Message?
-            if let maxMessage = self?.messages.filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true).last {
-                lastMessage = maxMessage
+            if let messages: [Message]? = self?.messages.filter(predicate).filter({ $0.creator ?? RUser() != me }) {
+                lastMessage = messages?.sorted(by: {
+                    $0.createdUnixTime > $1.createdUnixTime
+                }).first
             }
             
             // TODO: - 未来这里可能需要在一个独立的线程做

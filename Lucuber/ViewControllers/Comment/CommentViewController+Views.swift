@@ -18,10 +18,10 @@ extension CommentViewController {
             return
         }
         
-        guard userNotificationStateIsAuthorized() else {
-            printLog("用户尚未开启通知, 暂时无法接受消息")
-            return
-        }
+//        guard userNotificationStateIsAuthorized() else {
+//            printLog("用户尚未开启通知, 暂时无法接受消息")
+//            return
+//        }
         
         // 仅显示一次
         guard SubscribeViewShown.canShow(groupID: group.groupID) else {

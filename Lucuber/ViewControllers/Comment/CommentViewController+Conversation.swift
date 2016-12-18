@@ -32,5 +32,3 @@ extension CommentViewController {
         
     }
 }
-
-// 2.
