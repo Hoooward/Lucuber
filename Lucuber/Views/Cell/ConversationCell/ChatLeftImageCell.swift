@@ -42,7 +42,7 @@ class ChatLeftImageCell: ChatBaseCell {
     
     func makeUI() {
         
-        let haleAvatarSize = Config.chatCellAvatarSize()
+        let halfAvatarSize = Config.chatCellAvatarSize() / 2
         
         var topOffset: CGFloat = 0
         
@@ -52,7 +52,7 @@ class ChatLeftImageCell: ChatBaseCell {
             topOffset = 0
         }
         
-        avatarImageView.center = CGPoint(x: Config.chatCellGapBetweenWallAndAvatar() + haleAvatarSize , y: haleAvatarSize + topOffset)
+        avatarImageView.center = CGPoint(x: Config.chatCellGapBetweenWallAndAvatar() + halfAvatarSize , y: halfAvatarSize + topOffset)
         
     }
     
