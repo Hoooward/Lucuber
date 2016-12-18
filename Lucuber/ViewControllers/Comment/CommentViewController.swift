@@ -10,6 +10,7 @@ import UIKit
 import AVOSCloud
 import RealmSwift
 import Proposer
+import UserNotifications
 
 class CommentViewController: UIViewController {
  
@@ -151,7 +152,7 @@ class CommentViewController: UIViewController {
     private lazy var titleView: ConversationTitleView = {
         let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
 
-        if let title = titleName(of: self.conversation) {
+        if let title = titleNameOfConversation(self.conversation) {
             titleView.nameLabel.text = title
         } else {
             titleView.nameLabel.text = "讨论"
@@ -209,13 +210,7 @@ class CommentViewController: UIViewController {
         
     }()
 
-    func tryShowSubscribeView() {
-
-        guard let group = conversation.withGroup , !group.includeMe  else {
-            return
-        }
-
-    }
+   
 
     fileprivate lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width
@@ -559,21 +554,152 @@ class CommentViewController: UIViewController {
         printLog("对话视图已成功释放")
         NotificationCenter.default.removeObserver(self)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    private var isSubscribeThisConversation: Bool = false
+    var isSubscribeViewShowing: Bool = false
+    
+    func tryShowSubscribeView() {
         
-        // TODO: 接受 Push 通知
+        guard let group = conversation.withGroup , !group.includeMe  else {
+            return
+        }
+
+		guard userNotificationStateIsAuthorized() else {
+			// 用户没有开启通知权限,在这里可以处理一下是否需要开启
+            printLog("用户尚未开启通知, 暂时无法接受消息")
+			return
+        }
+
+		guard isSubscribeThisConversation else {
+            printLog("用户已经开启通知, 但尚未订阅该频道, 或者服务器尚未返回订阅成功的数据")
+            return
+        }
+        
+        let currentInstallation = AVInstallation.current()
+
+        
+        let installation = AVInstallation(className: "_Installation", objectId: currentInstallation.objectId ?? "")
+        
+        subscribeView.subscribeAction = { [weak self] in
+            
+            // TODO: - 退出群组
+        }
+        
+        subscribeView.showWithChangeAction = { [weak self] in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let bottom = strongSelf.view.bounds.height - strongSelf.messageToolbar.frame.origin.y + SubscribeView.totalHeight
+            
+            let extraPart = strongSelf.commentCollectionView.contentSize.height - (strongSelf.messageToolbar.frame.origin.y - SubscribeView.totalHeight)
+            
+            let newContentOffsetY: CGFloat
+            
+            if extraPart > 0 {
+                newContentOffsetY = strongSelf.commentCollectionView.contentOffset.y + SubscribeView.totalHeight
+            } else {
+                newContentOffsetY = strongSelf.commentCollectionView.contentOffset.y
+            }
+            
+            strongSelf.tryUpdateCommentCollectionViewWith(newContentInsetbottom: bottom, newContentOffsetY: newContentOffsetY)
+            
+            strongSelf.isSubscribeViewShowing = true
+        }
+        
+        subscribeView.hidWithChangeAction = { [weak self] in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let bottom = strongSelf.view.bounds.height - strongSelf.messageToolbar.frame.origin.y
+            
+            let newContentOffsetY = strongSelf.commentCollectionView.contentSize.height - strongSelf.messageToolbar.frame.origin.y
+            
+            self?.tryUpdateCommentCollectionViewWith(newContentInsetbottom: bottom, newContentOffsetY: newContentOffsetY)
+            
+            self?.isSubscribeViewShowing = false
+            
+        }
+        
+        subscribeView.show()
+        
+        
+        
+        
+      
+
+        
+        
+        
+        // TODO: 在这里显示 订阅窗口.
+        // 1. 我在进入该视图时已经订阅了该频道
+        // 2.
+        
+    }
+
+    func subscribeConversation(_ conversation: Conversation) {
+        
+        guard let group = conversation.withGroup, userNotificationStateIsAuthorized() else {
+            printLog("用户没有开启权限")
+            return
+        }
         
         let currentInstallation = AVInstallation.current()
         currentInstallation.addUniqueObject(conversation.recipiendID!, forKey: "channels")
         currentInstallation.saveInBackground { success, error in
-            
+
             if success {
                 printLog("已经订阅该Feed分组-ID: \(self.conversation.recipiendID)")
+                
+                try? self.realm.write {
+                    
+                    group.includeMe = true
+                    
+                }
+
             }
         }
+
+    }
+    
+    func userNotificationStateIsAuthorized() -> Bool {
         
+        var isAuthorized = false
+        // TODO: - 仅处理了 iOS10
+        if #available(iOS 10.0, *) {
+            let notificationCenter = UNUserNotificationCenter.current()
+            
+            notificationCenter.getNotificationSettings(completionHandler: {
+                setting in
+                
+                if setting.authorizationStatus != .authorized {
+                    
+                    isAuthorized = false
+                    printLog("请在设置-隐私-中开启通知")
+                } else {
+                    isAuthorized = true
+                    printLog("已经可以正常接受消息")
+                }
+            })
+        }
+        
+        return isAuthorized
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // TODO: 接受 Push 通知
+		if userNotificationStateIsAuthorized() {
+
+			// 如果已经开启了通知才进行频道订阅
+            subscribeConversation(conversation)
+        }
+
+
 
         prepareCommentCollectionView()
 
@@ -1123,6 +1249,34 @@ class CommentViewController: UIViewController {
 
     }
 
+    func tryUpdateCommentCollectionViewWith(newContentInsetbottom bottom: CGFloat, newContentOffsetY: CGFloat) {
+        
+        guard newContentOffsetY + commentCollectionView.contentInset.top > 0 else {
+            commentCollectionView.contentInset.bottom = bottom
+            commentCollectionView.scrollIndicatorInsets.bottom = bottom
+            return
+        }
+        
+        var needUpdate = false
+        
+        let bottomInsetOffset = bottom - commentCollectionView.contentInset.bottom
+        
+        if bottomInsetOffset != 0 {
+            needUpdate = true
+        }
+        
+        if commentCollectionView.contentOffset.y != newContentOffsetY {
+            needUpdate = true
+        }
+        
+        guard needUpdate else {
+            return
+        }
+        
+        commentCollectionView.contentInset.bottom = bottom
+        commentCollectionView.scrollIndicatorInsets.bottom = bottom
+        commentCollectionView.contentOffset.y = newContentOffsetY
+    }
 
     fileprivate func tryScrollToBottom() {
 
