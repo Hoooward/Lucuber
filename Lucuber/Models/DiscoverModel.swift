@@ -274,8 +274,6 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var longitude: Double
     
     @NSManaged var distance: Double
-    // 暂时无用
-    @NSManaged var skill: String
     
     @NSManaged var groupID: String
     @NSManaged var recommended: Bool
@@ -306,6 +304,36 @@ open class DiscoverFeed: AVObject, AVSubclassing {
             return timeString
         }
     }
+}
+// MARK: - FeedHeaderView
+extension DiscoverFeed {
+
+    var hasAttachments: Bool {
+        return category != .text
+    }
+
+    var openGraphInfo: OpenGraphInfoType? {
+
+        if let attachment = self.attachment {
+
+            if case let .URL(openGraphInfo) = attachment {
+
+                return openGraphInfo
+            }
+        }
+        return nil
+    }
+    
+    var formulaInfo: DiscoverFormula? {
+        
+        if let attachment = self.attachment {
+            if case let .formula(discoverFormula) = attachment {
+                return discoverFormula
+            }
+        }
+        return nil
+    }
+    
 }
 
 open class DiscoverContent: AVObject, AVSubclassing {

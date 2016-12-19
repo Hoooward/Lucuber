@@ -43,4 +43,19 @@ class FeedMediaCell: UICollectionViewCell {
         imageView.image = image
         deleteImageView.isHidden = false
     }
+
+    func configureWithAttachment(_ attachment: ImageAttachment, bigger: Bool) {
+
+        if attachment.isTemporary {
+            imageView.image = attachment.image
+
+        } else {
+            let size = bigger ? Config.FeedBiggerImageCell.imageSize : Config.FeedAnyImagesCell.imageSize
+
+			imageView.showActivityIndicatorWhenLoading = true
+            imageView.cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: size)
+        }
+
+        deleteImageView.isHidden = true
+    }
 }
