@@ -66,6 +66,24 @@ class CommentViewController: UIViewController {
 
     var formulaHeaderView: CommentHeaderView?
     var feedHeaderView: FeedHeaderView?
+    
+    var isHaveHeaderView: Bool {
+        if let _ = self.formulaHeaderView { return true }
+        if let _ = self.feedHeaderView { return true }
+        return false
+    }
+    
+    var headerViewHeight: CGFloat {
+        if let formulaHeaderView = formulaHeaderView {
+            return formulaHeaderView.bounds.height
+        }
+        
+        if let feedHeaderView = feedHeaderView {
+            return feedHeaderView.bounds.height
+        }
+        return 0
+    }
+    
     var draBeginLocation: CGPoint?
 
     @IBOutlet weak var messageToolbar: MessageToolbar!
@@ -344,7 +362,11 @@ class CommentViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        // 初始化 headerView
+        makeFormulaHeaderView(with: formula)
+        makeFeedHeaderView(with: feed)
+
         tryShowSubscribeView()
     
         self.tabBarController?.tabBar.isHidden = true
@@ -377,8 +399,7 @@ class CommentViewController: UIViewController {
             }
         }
 
-        messageToolbar.stateTransitionAction = {
-            [weak self] messageToolbar, previousState, currentStatue in
+        messageToolbar.stateTransitionAction = { [weak self] messageToolbar, previousState, currentStatue in
 
             switch currentStatue {
 
@@ -430,7 +451,6 @@ class CommentViewController: UIViewController {
         navigationItem.titleView = titleView
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_more"), style: .plain, target: self, action: #selector(CommentViewController.moreAction))
 
-        makeHeaderView(with: formula)
 
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.tapToDismissMessageToolbar))
@@ -846,8 +866,9 @@ class CommentViewController: UIViewController {
             }
 
             let keyboardAndTooBarHeight = adjustHeight
+            
 
-            let blockedHeight = 64 + (headerView != nil ? headerView!.height : 0) + keyboardAndTooBarHeight
+            let blockedHeight = 64 + (isHaveHeaderView ? headerViewHeight : 0) + keyboardAndTooBarHeight
 
             let visibleHeight = commentCollectionView.frame.height - blockedHeight
 
@@ -922,7 +943,8 @@ class CommentViewController: UIViewController {
 
         let messageToobarTop = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
 
-        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
+        let headerHeight: CGFloat = isHaveHeaderView ? headerViewHeight : 0
+        
         let invisbleHeight = messageToobarTop + 64 + headerHeight
         let visibleHeight = commentCollectionView.frame.height - invisbleHeight
 
@@ -940,7 +962,7 @@ class CommentViewController: UIViewController {
 
     private func setCommentCollectionViewOriginalContentInset() {
 
-        let headerHeight: CGFloat = headerView == nil ? 0 : headerView!.height
+        let headerHeight: CGFloat = isHaveHeaderView ? headerViewHeight : 0
         commentCollectionView.contentInset.top = 64 + headerHeight + 5
 
         commentCollectionView.contentInset.bottom = messageToolbar.height + 10
@@ -962,16 +984,7 @@ class CommentViewController: UIViewController {
 
     }
 
-    fileprivate func tryChangedHeaderToSmall() {
 
-        guard let headerView = headerView else {
-            return
-        }
-
-        if headerView.status == .big {
-            headerView.status = .small
-        }
-    }
 
     fileprivate func trySnapContentOfCommentCollectionViewToBottom(needAnimation: Bool = false) {
 

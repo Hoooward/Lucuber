@@ -12,18 +12,22 @@ import RealmSwift
 
 extension CommentViewController {
 
-    func makeHeaderView(with feed: DiscoverFeed) {
+    func makeFeedHeaderView(with feed: DiscoverFeed?) {
+
+		guard let feed = feed else {
+			return
+		}
 
 		let feedHeaderView = FeedHeaderView.instanceFromNib()
 
         feedHeaderView.feed = feed
 
 
-		feedHeaderView.tapAvatarAction { [weak self] in
+		feedHeaderView.tapAvatarAction = { [weak self] in
 			// TODO: - 点击头像
         }
 
-        feedHeaderView.foldAction { [weak self] in
+        feedHeaderView.foldAction = { [weak self] in
 
             if let strongSelf = self {
 
@@ -41,7 +45,7 @@ extension CommentViewController {
 
                 UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
 
-                    self?.commentCollectionView.contentInset.top = 64 + FeedHeaderView.normalHeight + 5
+                    self?.commentCollectionView.contentInset.top = 64 + feedHeaderView.normalHeight + 5
 
                 }, completion: nil)
 
@@ -78,6 +82,18 @@ extension CommentViewController {
 		feedHeaderView.heightConstraint = height
 
 		self.feedHeaderView = feedHeaderView
+    }
+    
+    func tryFoldFeedHeaderView() {
+        
+        guard let feedHeaderView = feedHeaderView else {
+            return
+        }
+        
+        if feedHeaderView.foldProgress != 1.0 {
+            feedHeaderView.foldProgress = 1.0
+        }
+        
     }
     
     func tryShowSubscribeView() {
@@ -177,7 +193,7 @@ extension CommentViewController {
     }
 
 
-    func makeHeaderView(with formula: Formula?) {
+    func makeFormulaHeaderView(with formula: Formula?) {
         guard let formula = formula else {
             return
         }
@@ -232,6 +248,17 @@ extension CommentViewController {
         
         self.formulaHeaderView = headerView
         
+    }
+    
+    func tryChangedHeaderToSmall() {
+        
+        guard let formulaHeaderView = formulaHeaderView else {
+            return
+        }
+        
+        if formulaHeaderView.status == .big {
+            formulaHeaderView.status = .small
+        }
     }
     
     

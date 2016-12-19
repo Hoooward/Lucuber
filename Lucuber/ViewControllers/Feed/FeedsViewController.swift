@@ -446,6 +446,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             
             vc.conversation = feedConversation
             vc.hidesBottomBarWhenPushed = true
+            vc.feed = feed
             
             vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
                 

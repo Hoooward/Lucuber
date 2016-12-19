@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Helper/Config.swift" afterPath="$PROJECT_DIR$/Lucuber/Helper/Config.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Views/CommentHeader/FeedHeaderView.swift" afterPath="$PROJECT_DIR$/Lucuber/Views/CommentHeader/FeedHeaderView.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -119,11 +116,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentViewController.swift" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CommentViewController.swift" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="319" column="38" lean-forward="false" selection-start-line="319" selection-start-column="38" selection-end-line="319" selection-end-column="38" />
+            <state relative-caret-position="117">
+              <caret line="309" column="12" lean-forward="false" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommentViewController+Views.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -139,24 +146,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentViewController+Views.swift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>messageToolbar</find>
-      <find>messageToolbar.</find>
-      <find>viewwilla</find>
-      <find>moreMessageTypeAction</find>
       <find>moremessage</find>
       <find>imagepicker</find>
       <find>send</find>
@@ -183,6 +176,10 @@
       <find>C</find>
       <find>tapurl</find>
       <find>heightConstraint</find>
+      <find>makeheader</find>
+      <find>formulaHeaderView</find>
+      <find>makehe</find>
+      <find>viewwillapp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -234,8 +231,8 @@
         <option value="$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/MediaCell/FeedMediaCell.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Views/CommentHeader/FeedHeaderView.swift" />
-        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
       </list>
     </option>
   </component>
@@ -247,9 +244,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="566" />
-    <option name="y" value="23" />
-    <option name="width" value="854" />
+    <option name="x" value="19" />
+    <option name="y" value="143" />
+    <option name="width" value="1366" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -373,7 +370,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
@@ -474,7 +471,7 @@
       <workItem from="1481781483424" duration="18890000" />
       <workItem from="1481904623674" duration="31027000" />
       <workItem from="1482115463413" duration="1717000" />
-      <workItem from="1482118486098" duration="8463000" />
+      <workItem from="1482118486098" duration="8924000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -501,7 +498,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97170000" />
+    <option name="totallyTimeSpent" value="97631000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -513,7 +510,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="566" y="23" width="854" height="877" extended-state="0" />
+    <frame x="19" y="143" width="1366" height="877" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -970,18 +967,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="319" column="38" lean-forward="false" selection-start-line="319" selection-start-column="38" selection-end-line="319" selection-end-column="38" />
+        <state relative-caret-position="306">
+          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        <state relative-caret-position="117">
+          <caret line="309" column="12" lean-forward="false" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="12" />
           <folding />
         </state>
       </provider>

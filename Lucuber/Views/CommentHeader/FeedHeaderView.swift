@@ -83,21 +83,21 @@ class FeedHeaderView: UIView {
             }
 
             let normalHeight = self.normalHeight
-            let attachmentUrlsIsEmpty = imagesAttachments.isEmpty
+            let attachmentUrlsIsEmpty = imageAttachments.isEmpty
             
-            UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: UIViewAnimationOptions(rawValue: 0), animations: { [weak self] in
+            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: UIViewAnimationOptions(rawValue: 0), animations: { [weak self] in
 
                 self?.nicknameLabelCenterYConstraint.constant = -10 * newValue
                 self?.messageTextViewTopConstraint.constant = -25 * newValue + 4
 
                 if newValue == 1.0 {
-                    self?.messageTextViewTrailingConstraint.constant = attachmentURLsIsEmpty ? 15 : (5 + 40 + 15)
+                    self?.messageTextViewTrailingConstraint.constant = CGFloat(attachmentUrlsIsEmpty ? 15 : (5 + 40 + 15))
                     self?.messageTextViewHeightConstraint.constant = 20
                 }
 
                 if newValue == 0.0 {
                     self?.messageTextViewTrailingConstraint.constant = 15
-					calculateHeightOfMessageTextView()
+					self?.calculateHeightOfMessageTextView()
                 }
 
 
@@ -113,7 +113,7 @@ class FeedHeaderView: UIView {
                 self?.messageLabel.alpha = newValue
                 self?.messageTextView.alpha = foldingAlpha
 
-            }, completion: {
+            }, completion: { _ in
 
             })
 
