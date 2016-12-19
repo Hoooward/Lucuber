@@ -64,7 +64,8 @@ class CommentViewController: UIViewController {
         return dateFormatter
     }()
 
-    var headerView: CommentHeaderView?
+    var formulaHeaderView: CommentHeaderView?
+    var feedHeaderView: FeedHeaderView?
     var draBeginLocation: CGPoint?
 
     @IBOutlet weak var messageToolbar: MessageToolbar!

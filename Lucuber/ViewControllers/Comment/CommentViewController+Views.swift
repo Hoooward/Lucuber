@@ -11,6 +11,74 @@ import RealmSwift
 
 
 extension CommentViewController {
+
+    func makeHeaderView(with feed: DiscoverFeed) {
+
+		let feedHeaderView = FeedHeaderView.instanceFromNib()
+
+        feedHeaderView.feed = feed
+
+
+		feedHeaderView.tapAvatarAction { [weak self] in
+			// TODO: - 点击头像
+        }
+
+        feedHeaderView.foldAction { [weak self] in
+
+            if let strongSelf = self {
+
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+
+                    self?.commentCollectionView.contentInset.top = 64 + FeedHeaderView.foldHeight + 5
+
+                }, completion: nil)
+            }
+        }
+
+        feedHeaderView.unfoldAction = { [weak self] feedHeaderView in
+
+            if let strongSelf = self {
+
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+
+                    self?.commentCollectionView.contentInset.top = 64 + FeedHeaderView.normalHeight + 5
+
+                }, completion: nil)
+
+                if !strongSelf.messageToolbar.state.isAtBottom {
+					strongSelf.messageToolbar.state = .normal
+                }
+            }
+        }
+
+        feedHeaderView.tapImagesAction = { [weak self] transitionViews, attachments, image, index in
+            // TODO: - 执行 previewImage
+        }
+
+        feedHeaderView.tapUrlInfoAction = { [weak self] url in
+            self?.cube_openURL(url)
+        }
+
+        feedHeaderView.translatesAutoresizingMaskIntoConstraints = false
+
+        let views: [String: AnyObject] = [
+            "feedHeaderView": feedHeaderView
+        ]
+
+
+        let constrainsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[feedHeaderView]|", options: [], metrics: nil, views: views)
+
+		let top = NSLayoutConstraint(item: feedHeaderView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 64)
+
+		let height = NSLayoutConstraint(item: feedHeaderView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: feedHeaderView.normalHeight)
+
+		NSLayoutConstraint.activate(constrainsH)
+		NSLayoutConstraint.activate([top, height])
+
+		feedHeaderView.heightConstraint = height
+
+		self.feedHeaderView = feedHeaderView
+    }
     
     func tryShowSubscribeView() {
         
@@ -107,7 +175,8 @@ extension CommentViewController {
         }
         
     }
-    
+
+
     func makeHeaderView(with formula: Formula?) {
         guard let formula = formula else {
             return
@@ -158,10 +227,10 @@ extension CommentViewController {
         
         NSLayoutConstraint.activate(constraintH)
         NSLayoutConstraint.activate([top, height])
-        
+
         headerView.heightConstraint = height
         
-        self.headerView = headerView
+        self.formulaHeaderView = headerView
         
     }
     

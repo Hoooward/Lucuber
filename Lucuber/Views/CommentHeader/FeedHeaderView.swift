@@ -51,16 +51,99 @@ class FeedHeaderView: UIView {
         }
     }
     
+    static let foldHeight: CGFloat = 60
+    weak var heightConstraint: NSLayoutConstraint?
+
+    class func instanceFromNib() -> FeedHeaderView {
+        return UINib(nibName: "FeedHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! FeedHeaderView
+    }
+
+    var normalHeight: CGFloat {
+
+        guard let feed = feed else {
+            return FeedHeaderView.foldHeight
+        }
+        
+        let rect = (feed.body as NSString).boundingRect(with: CGSize(width: FeedHeaderView.messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesFontLeading, .usesLineFragmentOrigin], attributes: Config.FeedHeaderView.textAttributes, context: nil)
+        
+        var height: CGFloat = ceil(rect.height) + 10 + 40 + 4 + 15 + 17 + 15
+        
+        if feed.hasAttachments {
+            height += 80 + 15
+        }
+        
+        return ceil(height)
+
+    }
+
+    var foldProgress: CGFloat = 0 {
+		willSet {
+            guard newValue >= 0 && newValue <= 1 else {
+                return
+            }
+
+            let normalHeight = self.normalHeight
+            let attachmentUrlsIsEmpty = imagesAttachments.isEmpty
+            
+            UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: UIViewAnimationOptions(rawValue: 0), animations: { [weak self] in
+
+                self?.nicknameLabelCenterYConstraint.constant = -10 * newValue
+                self?.messageTextViewTopConstraint.constant = -25 * newValue + 4
+
+                if newValue == 1.0 {
+                    self?.messageTextViewTrailingConstraint.constant = attachmentURLsIsEmpty ? 15 : (5 + 40 + 15)
+                    self?.messageTextViewHeightConstraint.constant = 20
+                }
+
+                if newValue == 0.0 {
+                    self?.messageTextViewTrailingConstraint.constant = 15
+					calculateHeightOfMessageTextView()
+                }
+
+
+                self?.heightConstraint?.constant = FeedHeaderView.foldHeight + (normalHeight - FeedHeaderView.foldHeight) * (1 - newValue)
+
+                self?.layoutIfNeeded()
+
+                let foldingAlpha = (1 - newValue)
+                self?.mediaCollectionView.alpha = foldingAlpha
+                self?.timeLabel.alpha = foldingAlpha
+                self?.mediaView.alpha = newValue
+
+                self?.messageLabel.alpha = newValue
+                self?.messageTextView.alpha = foldingAlpha
+
+            }, completion: {
+
+            })
+
+
+            if newValue == 1.0 {
+
+				foldAction?()
+            }
+
+            if newValue == 0.0 {
+
+                unfoldAction?(self)
+            }
+            
+        }
+
+    }
 
     var tapUrlInfoAction: ((URL) -> Void)?
     var tapFormulaInfoAction: ((DiscoverFormula) -> Void)?
     var tapImagesAction: ((_ transitionViews: [UIView?], _ attachments: [ImageAttachment], _ image: UIImage?, _ index: Int) -> Void)?
-    
+
+    var tapAvatarAction: (() -> Void)?
+    var foldAction: (() -> Void)?
+    var unfoldAction: ((FeedHeaderView) -> Void)?
+
     static let messageTextViewMaxWidth: CGFloat = {
         let maxWidth = UIScreen.main.bounds.width - (15 + 40 + 10 + 15)
         return maxWidth
     }()
-
 
     lazy var feedFormulaContainerView: FeedFormulaContainerView = {
         let rect = CGRect(x: 0, y: 0, width: 200, height: 150)
@@ -110,12 +193,6 @@ class FeedHeaderView: UIView {
         return view
     }()
 
-    
-
-    
-     let feedMediaCellID = "FeedMediaCell"
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -173,9 +250,16 @@ class FeedHeaderView: UIView {
 
     @objc private func toggleScroll(sender: UIGestureRecognizer) {
 
+		if foldProgress == 1 {
+            foldProgress = 0
+        } else if foldProgress == 0 {
+            foldProgress = 1
+        }
     }
 
     @objc private func tapAvatar(sender: UIGestureRecognizer) {
+
+        tapAvatarAction?()
     }
 
     @objc private func tapAttachment(sender: UIGestureRecognizer) {
@@ -199,8 +283,10 @@ class FeedHeaderView: UIView {
         
         // 设置约束
         timeLabelTopConstraint.constant = CGFloat(feed.hasAttachments ? (15 + 80 + 15) : 15)
-
-        imageAttachments = feed.imageAttachments
+        
+        if let imageAttachments = feed.imageAttachments {
+            self.imageAttachments = imageAttachments
+        }
 
         messageLabelTrailingConstraint.constant = CGFloat(feed.hasAttachments ? 15 : 60)
 
@@ -256,11 +342,7 @@ class FeedHeaderView: UIView {
             break
         }
         
-        
-        
-        
-        
-        
+
     }
 }
 
@@ -308,8 +390,6 @@ extension FeedHeaderView: UICollectionViewDelegate, UICollectionViewDataSource, 
         tapImagesAction?(transitionViews, imageAttachments, cell.imageView.image, indexPath.item)
         
     }
-
-
 }
 
 extension FeedHeaderView: UIGestureRecognizerDelegate {
