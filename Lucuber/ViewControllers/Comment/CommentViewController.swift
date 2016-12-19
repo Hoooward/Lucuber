@@ -497,13 +497,16 @@ class CommentViewController: UIViewController {
                     return
                 }
             }
+            
 
             if let strongSelf = self {
 
+                let subscribeViewHeight = strongSelf.isSubscribeViewShowing ? SubscribeView.totalHeight : 0
+     
                 if strongSelf.messageToolbarBottomConstraints.constant > 0 {
                     strongSelf.commentCollectionView.contentOffset.y -= keyboardHeight
 
-                    let bottom = strongSelf.messageToolbar.frame.height
+                    let bottom = strongSelf.messageToolbar.frame.height + subscribeViewHeight
                     strongSelf.commentCollectionView.contentInset.bottom = bottom
                     strongSelf.commentCollectionView.scrollIndicatorInsets.bottom = bottom
                     strongSelf.messageToolbarBottomConstraints.constant = 0

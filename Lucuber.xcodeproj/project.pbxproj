@@ -137,6 +137,9 @@
 		E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */; };
 		E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */; };
 		E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */; };
+		E4C40DE41E07866100ED46F2 /* FeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */; };
+		E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */; };
+		E4C40DE91E078A7200ED46F2 /* FeedMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */; };
 		E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7AF1DE862770036A11C /* FeedAnyImagesCell.swift */; };
 		E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B01DE862770036A11C /* FeedBaseCell.swift */; };
@@ -387,6 +390,9 @@
 		E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFormulaLayout.swift; sourceTree = "<group>"; };
+		E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderView.swift; sourceTree = "<group>"; };
+		E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
+		E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaView.swift; sourceTree = "<group>"; };
 		E4CED7961DE862770036A11C /* ActionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
 		E4CED79F1DE862770036A11C /* CateogryMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogryMenuCell.swift; sourceTree = "<group>"; };
 		E4CED7A11DE862770036A11C /* ChatBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBaseCell.swift; sourceTree = "<group>"; };
@@ -789,9 +795,18 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		E4C40DE71E078A6900ED46F2 /* FeedMedia */ = {
+			isa = PBXGroup;
+			children = (
+				E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */,
+			);
+			path = FeedMedia;
+			sourceTree = "<group>";
+		};
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4C40DE71E078A6900ED46F2 /* FeedMedia */,
 				E4F38DB31E01130000F0DF8A /* HorizontalLineView */,
 				E4F38DB01E00753700F0DF8A /* SubscribeView */,
 				E4CED8021DE862770036A11C /* CubeHUD */,
@@ -1135,6 +1150,8 @@
 			children = (
 				E4CED7FC1DE862770036A11C /* CommentHeaderView.swift */,
 				E4CED7FD1DE862770036A11C /* CommentHeaderView.xib */,
+				E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */,
+				E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */,
 			);
 			path = CommentHeader;
 			sourceTree = "<group>";
@@ -1777,6 +1794,7 @@
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
 				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 				E4CED8671DE862770036A11C /* FormulaTextViewCell.xib in Resources */,
+				E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E4F38D751DFD3C2500F0DF8A /* CameraCell.xib in Resources */,
 				E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */,
@@ -2057,6 +2075,7 @@
 				E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */,
 				E4F38D701DFD34B600F0DF8A /* PickPhotosCell.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
+				E4C40DE91E078A7200ED46F2 /* FeedMediaView.swift in Sources */,
 				E45351EB1DFC1DF70092805B /* ConversationTitleView.swift in Sources */,
 				E4CED8601DE862770036A11C /* NoResultCell.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
@@ -2094,6 +2113,7 @@
 				E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */,
 				E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
+				E4C40DE41E07866100ED46F2 /* FeedHeaderView.swift in Sources */,
 				E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */,
 				E4CED8581DE862770036A11C /* DetailSeparatorCell.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
