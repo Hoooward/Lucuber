@@ -48,13 +48,14 @@ public class FeedFormulaContainerView: UIView {
     
     lazy var countLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 8)
         label.textColor = UIColor.lightGray
         return label
     }()
     
     lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
+//        imageView.image = UIImage(named: "url_container_left_background")
         return imageView
     }()
     
@@ -93,7 +94,7 @@ public class FeedFormulaContainerView: UIView {
             $0.deletedByCreator == false
             }
 
-        countLabel.text = "共 \(contents.count) 个公式"
+        countLabel.text = "含 \(contents.count) 个公式"
         
         if let firstContent = contents.first {
             contentLabel.text = firstContent.text
@@ -135,14 +136,7 @@ public class FeedFormulaContainerView: UIView {
         
         let views: [String: AnyObject] = [
             "backgroundImageView": backgroundImageView,
-            "countLabel": countLabel,
-            "contentLabel": contentLabel,
-            "nameLabel": nameLabel,
-            "indicatorView": indicatorView,
-//            "bottomContainerView": bottomContainerView,
-            "thumbnailImageView" : thumbnailImageView
         ]
-        
         
         do {
             let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[backgroundImageView]|", options: [], metrics: nil, views: views)
@@ -152,22 +146,24 @@ public class FeedFormulaContainerView: UIView {
             NSLayoutConstraint.activate(constraintsV)
         }
         
+        let imageWidth: CGFloat = compressionMode ? 60 : 70
+        let thumbnailImageViewLeftConstant: CGFloat = compressionMode ? 12 : 15
         do {
             
-            let thumbnailImageViewLeft = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 10)
+            let thumbnailImageViewLeft = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: thumbnailImageViewLeftConstant)
             
             let thumbnailImageViewCenterY = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
             
-            let thumbnailImageViewHeight = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 70)
+            let thumbnailImageViewHeight = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: imageWidth)
             
-              let thumbnailImageViewWidth = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 70)
+              let thumbnailImageViewWidth = NSLayoutConstraint.init(item: thumbnailImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: imageWidth)
             
             NSLayoutConstraint.activate([thumbnailImageViewLeft, thumbnailImageViewCenterY, thumbnailImageViewHeight, thumbnailImageViewWidth])
             
         }
         
         do {
-            let nameLabelLeft = NSLayoutConstraint.init(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: thumbnailImageView, attribute: .leading, multiplier: 1, constant: 80)
+            let nameLabelLeft = NSLayoutConstraint.init(item: nameLabel, attribute: .leading, relatedBy: .equal, toItem: thumbnailImageView, attribute: .leading, multiplier: 1, constant: imageWidth + 10)
             
             let nameLabelTop = NSLayoutConstraint.init(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .top, multiplier: 1, constant: 0)
             
@@ -203,7 +199,7 @@ public class FeedFormulaContainerView: UIView {
             
             let countLabelLeft = NSLayoutConstraint.init(item: countLabel, attribute: .leading, relatedBy: .equal, toItem: nameLabel, attribute: .leading, multiplier: 1, constant: 0)
             
-            let countLabelTop = NSLayoutConstraint.init(item: countLabel, attribute: .top, relatedBy: .equal, toItem: nameLabel, attribute: .bottom, multiplier: 1, constant: 10)
+            let countLabelTop = NSLayoutConstraint.init(item: countLabel, attribute: .top, relatedBy: .equal, toItem: nameLabel, attribute: .bottom, multiplier: 1, constant: 5)
             
             let countLabelTrailing = NSLayoutConstraint.init(item: countLabel, attribute: .trailing, relatedBy: .equal, toItem: indicatorView, attribute: .leading, multiplier: 1, constant: 10)
             

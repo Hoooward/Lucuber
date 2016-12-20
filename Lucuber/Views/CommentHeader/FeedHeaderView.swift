@@ -108,6 +108,7 @@ class FeedHeaderView: UIView {
                 let foldingAlpha = (1 - newValue)
                 self?.mediaCollectionView.alpha = foldingAlpha
                 self?.timeLabel.alpha = foldingAlpha
+                self?.attachmentContainerView.alpha = foldingAlpha
                 self?.mediaView.alpha = newValue
 
                 self?.messageLabel.alpha = newValue
@@ -148,8 +149,9 @@ class FeedHeaderView: UIView {
     lazy var feedFormulaContainerView: FeedFormulaContainerView = {
         let rect = CGRect(x: 0, y: 0, width: 200, height: 150)
         let view = FeedFormulaContainerView(frame: rect)
-        view.compressionMode = false
+        view.compressionMode = true
 
+        view.translatesAutoresizingMaskIntoConstraints = false
         self.attachmentContainerView.addSubview(view)
 
         let views: [String: AnyObject] = [
@@ -161,6 +163,8 @@ class FeedHeaderView: UIView {
 
         NSLayoutConstraint.activate(constraintsH)
         NSLayoutConstraint.activate(constraintsV)
+        
+        self.attachmentContainerView.layoutIfNeeded()
 
         let tapFormulaAction = UITapGestureRecognizer(target: self, action: #selector(FeedHeaderView.tapFormulaAction(sender: )))
 
