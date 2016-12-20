@@ -184,6 +184,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 if let index = mediaMessageResult.index(of: message) {
                     vc.previewMedias = mediaMessages.map { PreviewMedia.message($0) }
                     vc.startIndex = index
+	                vc.isConversationDismissStyle = true
                 }
 
                 vc.previewImageViewInitalFrame = frame

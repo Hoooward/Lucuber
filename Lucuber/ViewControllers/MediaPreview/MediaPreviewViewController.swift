@@ -19,7 +19,6 @@ public enum PreviewMedia {
 class MediaPreviewViewController: UIViewController {
 
     // MARK: - Properties
-
     var previewMedias: [PreviewMedia] = []
 
     var showFinished = false
@@ -31,6 +30,9 @@ class MediaPreviewViewController: UIViewController {
             currentIndex = startIndex
         }
     }
+
+    // 为 true 时, 在 dismiss 动画时, 不更新 frame
+    var isConversationDismissStyle: Bool = false
 
     var previewImageViewInitalFrame: CGRect?
     var topPreviewImage: UIImage?
@@ -52,6 +54,7 @@ class MediaPreviewViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
+        imageView.backgroundColor = UIColor.clear
         imageView.backgroundColor = UIColor.clear
         return imageView
     }()
@@ -234,10 +237,12 @@ class MediaPreviewViewController: UIViewController {
 
         var frame = self.previewImageViewInitalFrame ?? CGRect.zero
 
-        if currentIndex != startIndex {
+
+        if currentIndex != startIndex && !isConversationDismissStyle {
             let offsetIndex = currentIndex - startIndex
             frame.origin.x += CGFloat(offsetIndex) * frame.width + CGFloat(offsetIndex) * 4
         }
+
 
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
             [weak self] in
@@ -258,11 +263,8 @@ class MediaPreviewViewController: UIViewController {
 
 
     fileprivate func prepareForShare(with cell: MediaViewCell, previewMedia: PreviewMedia) {
-
         // 设置分享的动作
     }
-
-
 }
 extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
