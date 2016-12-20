@@ -35,7 +35,6 @@ public func deleteMessageFromServer(message: Message, failureHandler: @escaping 
     }
 }
 
-
 public func userNotificationStateIsAuthorized() -> Bool {
     
     var isAuthorized = false
@@ -87,7 +86,6 @@ public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: 
             completion()
         }
     }
-    
 }
 
 public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {

@@ -192,7 +192,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         
         searchBar.sizeToFit()
         tableView.tableHeaderView = searchBar
-        
+        refreshControl.tintColor = UIColor.cubeTintColor()
         tableView.addSubview(refreshControl)
         
         tableView.backgroundColor = UIColor.white
@@ -327,8 +327,11 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     // MARK: - Target & Action
     
     func tryRefreshOrGetNewFeeds() {
-        
-         uploadFeed()
+       
+        delay(1.5) {
+           self.uploadFeed()
+        }
+     
     }
     
     @IBAction func creatNewFeed(_ sender: AnyObject) {
