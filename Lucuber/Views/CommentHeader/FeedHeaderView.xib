@@ -23,7 +23,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wUE-G8-32M" userLabel="NicknameLabel">
-                    <rect key="frame" x="65" y="21" width="38.5" height="18"/>
+                    <rect key="frame" x="65" y="21" width="39" height="18"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -78,6 +78,14 @@
                         <constraint firstAttribute="height" constant="80" id="Kga-gd-LlU"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIG-L1-T6Q" userLabel="BottomLine">
+                    <rect key="frame" x="0.0" y="222" width="395" height="1"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Hzt-4q-8yc"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="fyw-cH-xFG"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -88,13 +96,16 @@
                 <constraint firstItem="9jd-Uw-jMw" firstAttribute="leading" secondItem="CIU-x6-rtR" secondAttribute="leading" id="6MA-rO-2gq"/>
                 <constraint firstAttribute="trailing" secondItem="Ebf-dB-5ii" secondAttribute="trailing" constant="60" id="7Df-V0-0OJ"/>
                 <constraint firstItem="A4B-zs-QnZ" firstAttribute="top" secondItem="CIU-x6-rtR" secondAttribute="bottom" constant="15" id="9I7-Ho-Z2n"/>
+                <constraint firstItem="LIG-L1-T6Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="A7j-Jp-RqT"/>
                 <constraint firstAttribute="trailing" secondItem="CIU-x6-rtR" secondAttribute="trailing" constant="15" id="Fvn-sl-Nvn"/>
                 <constraint firstItem="Ebf-dB-5ii" firstAttribute="leading" secondItem="CIU-x6-rtR" secondAttribute="leading" id="O3H-Ku-1Vs"/>
+                <constraint firstAttribute="trailing" secondItem="LIG-L1-T6Q" secondAttribute="trailing" id="Pan-bw-hzP"/>
                 <constraint firstItem="u0k-qg-h0H" firstAttribute="top" secondItem="CIU-x6-rtR" secondAttribute="top" id="RMR-ol-D47"/>
                 <constraint firstItem="vug-3X-u0y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="TpY-yO-4Jw"/>
                 <constraint firstItem="A4B-zs-QnZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UDd-lh-gyZ"/>
                 <constraint firstItem="wUE-G8-32M" firstAttribute="leading" secondItem="vug-3X-u0y" secondAttribute="trailing" constant="10" id="Vc6-Me-SfM"/>
                 <constraint firstItem="u0k-qg-h0H" firstAttribute="leading" secondItem="CIU-x6-rtR" secondAttribute="leading" id="aJN-Tn-gv4"/>
+                <constraint firstAttribute="bottom" secondItem="LIG-L1-T6Q" secondAttribute="bottom" id="gQz-xf-ady"/>
                 <constraint firstItem="vug-3X-u0y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="gxm-hO-cVy"/>
                 <constraint firstItem="CIU-x6-rtR" firstAttribute="top" secondItem="vug-3X-u0y" secondAttribute="bottom" constant="4" id="l8r-23-h5E"/>
                 <constraint firstAttribute="trailing" secondItem="A4B-zs-QnZ" secondAttribute="trailing" id="lOC-b3-agu"/>
