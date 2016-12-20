@@ -12,6 +12,7 @@ PODS:
     - AVOSCloud (= 3.8.0)
   - Kanna (2.1.1)
   - Kingfisher (3.2.2)
+  - MonkeyKing (1.1.0)
   - Navi (1.1.0)
   - PKHUD (3.2.1)
   - Proposer (1.1.0)
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - AVOSCloudIM
   - Kanna (~> 2.1.0)
   - Kingfisher (~> 3.0)
+  - MonkeyKing (~> 1.1.0)
   - Navi (~> 1.1.0)
   - PKHUD (from `https://github.com/toyship/PKHUD.git`)
   - Proposer (~> 1.1.0)
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   AVOSCloudIM: bea73c50c58c7c5e466e0c7134b4b7d2f02c338a
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
+  MonkeyKing: dc16753cab7ece2d83e61976cd09fc3a7f783f1f
   Navi: 486cdec680956c8f6a1e882c66cbf86d0ad52490
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
   Proposer: 422c693b1917a461af30e7139b0d05eefe999e16
@@ -59,6 +62,6 @@ SPEC CHECKSUMS:
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 269022a6d0beeca45f13cfa608e7d1d256ed6392
+PODFILE CHECKSUM: 44b67692004697cf72ccef60654c38ec82ff6907
 
 COCOAPODS: 1.1.1
