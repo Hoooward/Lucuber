@@ -57,39 +57,39 @@ extension CommentViewController {
                         }
                     })
                     
-                }
-                    
-                // TODO: - 尚未测试
-                if #available(iOS 9.0, *) {
-                    if let setting = UIApplication.shared.currentUserNotificationSettings {
-                        
-                        switch setting.types {
+                } else {
+                    // TODO: - 尚未测试
+                    if #available(iOS 9.0, *) {
+                        if let setting = UIApplication.shared.currentUserNotificationSettings {
                             
-                        case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
-                            
-                            if let group = self?.conversation.withGroup {
+                            switch setting.types {
                                 
-                                subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                                    defaultFailureHandler(reason, errorMessage)
+                            case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
+                                
+                                if let group = self?.conversation.withGroup {
                                     
-                                }, completion: {
-                                    
-                                    if let strongSelf = self {
-                                        try? strongSelf.realm.write {
-                                            group.includeMe = true
+                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                        defaultFailureHandler(reason, errorMessage)
+                                        
+                                    }, completion: {
+                                        
+                                        if let strongSelf = self {
+                                            try? strongSelf.realm.write {
+                                                group.includeMe = true
+                                            }
                                         }
-                                    }
+                                    })
+                                }
+                                
+                            default:
+                                manager.moreView.hideAndDo(afterHideAction: {
+                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
                                 })
                             }
-                            
-                        default:
-                            manager.moreView.hideAndDo(afterHideAction: {
-                                CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-                            })
                         }
                     }
                 }
-                
+             
             } else {
                 
                 if let group = self?.conversation.withGroup {

@@ -192,7 +192,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         
         searchBar.sizeToFit()
         tableView.tableHeaderView = searchBar
-        refreshControl.tintColor = UIColor.cubeTintColor()
+//        refreshControl.tintColor = UIColor.cubeTintColor()
         tableView.addSubview(refreshControl)
         
         tableView.backgroundColor = UIColor.white

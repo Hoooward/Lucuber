@@ -13,8 +13,8 @@ final class CommentMoreViewManager {
     
     var conversation: Conversation?
     
-    var toggleSubscribeAction: ((Bool) -> Void)?
-    var reportAction: (() -> Void)?
+    public var toggleSubscribeAction: ((Bool) -> Void)?
+    public var reportAction: (() -> Void)?
 
     private func makeSubscribeGroupItem(notificationEnabled: Bool) -> ActionSheetView.Item {
         return .Switch(
@@ -27,7 +27,7 @@ final class CommentMoreViewManager {
         )
     }
 
-    lazy var moreView: ActionSheetView = {
+    public lazy var moreView: ActionSheetView = {
 
         let reportItem = ActionSheetView.Item.Default(
             title: "举报",
@@ -45,13 +45,6 @@ final class CommentMoreViewManager {
             isSubscribe = group.includeMe
         }
 
-//        if let channels = currentUserInstallation.channels as? [String] {
-//            let channelsSet: Set<String> = Set(channels.map { $0 })
-//            if channelsSet.contains(groupID) {
-//                isSubscribe = true
-//            }
-//        }
-
         let subscribeGroupItem = self.makeSubscribeGroupItem(notificationEnabled: isSubscribe)
 
         let view: ActionSheetView = ActionSheetView(items: [
@@ -61,9 +54,5 @@ final class CommentMoreViewManager {
         ])
 
         return view
-        
     }()
-    
-    
-
 }

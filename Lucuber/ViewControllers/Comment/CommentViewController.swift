@@ -369,20 +369,18 @@ class CommentViewController: UIViewController {
         super.viewWillAppear(animated)
 
         // 初始化 headerView
-        makeFormulaHeaderView(with: formula)
-        makeFeedHeaderView(with: feed)
-        tryFoldHeaderView()
 
         tryShowSubscribeView()
-    
+
         self.tabBarController?.tabBar.isHidden = true
-        
+
         navigationController?.setNavigationBarHidden(false, animated: false)
 
         if isFirstAppear {
-//            if let feed = conversation.withGroup?.withFeed {
-//                // TODO: - setup header View
-//            }
+
+            makeFormulaHeaderView(with: formula)
+            makeFeedHeaderView(with: feed)
+            tryFoldHeaderView()
         }
 
         messageToolbar.conversation = conversation
