@@ -39,36 +39,35 @@ public func deleteMessageFromServer(message: Message, failureHandler: @escaping 
 public func userNotificationStateIsAuthorized() -> Bool {
     
     var isAuthorized = false
-    
-    if let settings = UIApplication.shared.currentUserNotificationSettings {
-        
-        switch settings.types {
-        case UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound:
-            isAuthorized = true
-        default:
-            isAuthorized = false
-        }
-    }
-    
-    
-//    // TODO: - 仅处理了 iOS10
-//    if #available(iOS 10.0, *) {
-//        let notificationCenter = UNUserNotificationCenter.current()
+//    
+//    if let settings = UIApplication.shared.currentUserNotificationSettings {
 //        
-//        notificationCenter.getNotificationSettings(completionHandler: {
-//            setting in
-//            
-//            if setting.authorizationStatus != .authorized {
-//                
-//                isAuthorized = false
-//                printLog("请在设置-隐私-中开启通知")
-//            } else {
-//                isAuthorized = true
-//                printLog("已经可以正常接受消息")
-//            }
-//        })
+//        switch settings.types {
+//        case UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound:
+//            isAuthorized = true
+//        default:
+//            isAuthorized = false
+//        }
 //    }
 //    
+    // TODO: - 仅处理了 iOS10
+    if #available(iOS 10.0, *) {
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        notificationCenter.getNotificationSettings(completionHandler: {
+            setting in
+            
+            if setting.authorizationStatus != .authorized {
+                
+                isAuthorized = false
+                printLog("请在设置-隐私-中开启通知")
+            } else {
+                isAuthorized = true
+                printLog("已经可以正常接受消息")
+            }
+        })
+    }
+    
     return isAuthorized
 }
 
@@ -84,6 +83,7 @@ public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: 
         }
         
         if success {
+            printLog("订阅成功")
             completion()
         }
     }
@@ -109,6 +109,7 @@ public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler
                 }
                 
                 if success {
+                    printLog("订阅取消成功")
                     completion()
                 }
                 

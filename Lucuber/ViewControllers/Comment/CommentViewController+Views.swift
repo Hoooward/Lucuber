@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import AVOSCloud
+import UserNotifications
 
 
 extension CommentViewController {
@@ -22,24 +23,35 @@ extension CommentViewController {
         manager.toggleSubscribeAction = { [weak self] switchOn in
             
             if switchOn {
-                
-                guard userNotificationStateIsAuthorized() else {
-                    manager.moreView.hideAndDo(afterHideAction: {
-                        CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-                    })
-                    return
-                }
-                
-                if let group = self?.conversation.withGroup {
+                if #available(iOS 10.0, *) {
                     
-                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                        defaultFailureHandler(reason, errorMessage)
+                    let notificationCenter = UNUserNotificationCenter.current()
+                    notificationCenter.getNotificationSettings(completionHandler: {
+                        setting in
                         
-                    }, completion: {
-                        
-                        if let strongSelf = self {
-                            try? strongSelf.realm.write {
-                                group.includeMe = true
+                        DispatchQueue.main.async {
+                            if setting.authorizationStatus != .authorized {
+                                
+                                manager.moreView.hideAndDo(afterHideAction: {
+                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+                                })
+                                
+                            } else {
+                                
+                                if let group = self?.conversation.withGroup {
+                                    
+                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                        defaultFailureHandler(reason, errorMessage)
+                                        
+                                    }, completion: {
+                                        
+                                        if let strongSelf = self {
+                                            try? strongSelf.realm.write {
+                                                group.includeMe = true
+                                            }
+                                        }
+                                    })
+                                }
                             }
                         }
                     })
@@ -165,12 +177,7 @@ extension CommentViewController {
         guard let group = conversation.withGroup else {
             return
         }
-        
-//        guard userNotificationStateIsAuthorized() else {
-//            printLog("用户尚未开启通知, 暂时无法接受消息")
-//            return
-//        }
-        
+
         // 仅显示一次
         guard SubscribeViewShown.canShow(groupID: group.groupID) else {
             return
