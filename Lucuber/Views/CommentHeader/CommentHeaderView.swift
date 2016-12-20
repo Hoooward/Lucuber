@@ -104,8 +104,6 @@ class CommentHeaderView: UIView {
     
     func changeStatus() {
         status = status == .small ? .big : .small
-        
-        
     }
     
     private func updateUI() {
@@ -113,7 +111,6 @@ class CommentHeaderView: UIView {
         guard let formula = formula else {
            return
         }
-        
         imageView.image = UIImage(named: formula.imageName)
         nameLabel.text = formula.name
         categoryIndicatorView.configureWithCategory(category: formula.category.rawValue)

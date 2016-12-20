@@ -104,9 +104,9 @@ public class FeedFormulaContainerView: UIView {
         
 //        contentLabel.text = "..................."
         
-        if let imageURL = URL.init(string: formula.imageURL) {
+        if let _ = URL.init(string: formula.imageURL) {
             
-            thumbnailImageView.kf.setImage(with: ImageResource.init(downloadURL: imageURL, cacheKey: nil), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+            thumbnailImageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: thumbnailImageView.frame.size)
         } else {
             thumbnailImageView.image = nil
             thumbnailImageView.backgroundColor = UIColor.lightGray
