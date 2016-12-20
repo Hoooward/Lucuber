@@ -241,9 +241,6 @@ final class CubeImageCache {
                                 
                                 completion(progress, bubbleThumbnailImage)
                             }
-                            
-                            
-                            
                         }
                         
                     } else {
@@ -253,7 +250,6 @@ final class CubeImageCache {
 
                 }
             }
-            
             
             cacheQueue.async {
                 

@@ -366,7 +366,7 @@ class CommentViewController: UIViewController {
         // 初始化 headerView
         makeFormulaHeaderView(with: formula)
         makeFeedHeaderView(with: feed)
-        tryFoldFeedHeaderView()
+        tryFoldHeaderView()
 
         tryShowSubscribeView()
     
@@ -405,7 +405,7 @@ class CommentViewController: UIViewController {
             switch currentStatue {
 
             case .beginTextInput:
-                self?.tryChangedHeaderToSmall()
+                self?.tryFoldHeaderView()
                 self?.trySnapContentOfCommentCollectionViewToBottom(needAnimation: true)
 
             case .textInputing:
@@ -1234,8 +1234,7 @@ extension CommentViewController: UIScrollViewDelegate {
             let deltaY = location.y - dragBeginLocation.y
 
             if deltaY < -30 {
-                tryChangedHeaderToSmall()
-
+                tryFoldHeaderView()
             }
         }
 

@@ -11,6 +11,22 @@ import RealmSwift
 
 
 extension CommentViewController {
+    
+    func tryFoldHeaderView() {
+        
+        if let formulaHeaderView = formulaHeaderView {
+            if formulaHeaderView.status == .big {
+                formulaHeaderView.status = .small
+            }
+        }
+        
+        if let feedHeaderView = feedHeaderView {
+            if feedHeaderView.foldProgress != 1.0 {
+                feedHeaderView.foldProgress = 1.0
+            }
+        }
+    }
+    
 
     func makeFeedHeaderView(with feed: DiscoverFeed?) {
 
@@ -29,7 +45,7 @@ extension CommentViewController {
 
         feedHeaderView.foldAction = { [weak self] in
 
-            if let strongSelf = self {
+            if let _ = self {
 
                 UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
 
@@ -83,18 +99,6 @@ extension CommentViewController {
 		feedHeaderView.heightConstraint = height
 
 		self.feedHeaderView = feedHeaderView
-    }
-    
-    func tryFoldFeedHeaderView() {
-        
-        guard let feedHeaderView = feedHeaderView else {
-            return
-        }
-        
-        if feedHeaderView.foldProgress != 1.0 {
-            feedHeaderView.foldProgress = 1.0
-        }
-        
     }
     
     func tryShowSubscribeView() {
@@ -251,17 +255,6 @@ extension CommentViewController {
         
     }
     
-    func tryChangedHeaderToSmall() {
-        
-        guard let formulaHeaderView = formulaHeaderView else {
-            return
-        }
-        
-        if formulaHeaderView.status == .big {
-            formulaHeaderView.status = .small
-        }
-    }
-    
-    
+   
     
 }
