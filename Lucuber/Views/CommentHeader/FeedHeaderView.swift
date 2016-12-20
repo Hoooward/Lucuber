@@ -370,8 +370,12 @@ extension FeedHeaderView: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        return CGSize(width: 80, height: 80)
+        // 只有一张图, 大图
+        if imageAttachments.count == 1 {
+            return CGSize(width: 80, height: 80)
+        } else {
+            return Config.FeedAnyImagesCell.imageSize
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
