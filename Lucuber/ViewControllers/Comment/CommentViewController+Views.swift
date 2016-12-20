@@ -10,112 +10,212 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 import UserNotifications
+import Proposer
 
-
+// MARK: - titleView
 extension CommentViewController {
-    
-    func makeCommentMoreViewManager() -> CommentMoreViewManager {
-        
-        let manager = CommentMoreViewManager()
-        
-        manager.conversation = self.conversation
-        
-        manager.toggleSubscribeAction = { [weak self] switchOn in
-            
-            if switchOn {
-                if #available(iOS 10.0, *) {
-                    
-                    let notificationCenter = UNUserNotificationCenter.current()
-                    notificationCenter.getNotificationSettings(completionHandler: {
-                        setting in
-                        
-                        // 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
-                        DispatchQueue.main.async {
-                            if setting.authorizationStatus != .authorized {
-                                
-                                manager.moreView.hideAndDo(afterHideAction: {
-                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-                                })
-                                
-                            } else {
-                                
-                                if let group = self?.conversation.withGroup {
-                                    
-                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                                        defaultFailureHandler(reason, errorMessage)
-                                        
-                                    }, completion: {
-                                        
-                                        if let strongSelf = self {
-                                            try? strongSelf.realm.write {
-                                                group.includeMe = true
-                                            }
-                                        }
-                                    })
-                                }
-                            }
-                        }
-                    })
-                    
-                } else {
-                    // TODO: - 尚未测试
-                    if #available(iOS 9.0, *) {
-                        if let setting = UIApplication.shared.currentUserNotificationSettings {
-                            
-                            switch setting.types {
-                                
-                            case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
-                                
-                                if let group = self?.conversation.withGroup {
-                                    
-                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                                        defaultFailureHandler(reason, errorMessage)
-                                        
-                                    }, completion: {
-                                        
-                                        if let strongSelf = self {
-                                            try? strongSelf.realm.write {
-                                                group.includeMe = true
-                                            }
-                                        }
-                                    })
-                                }
-                                
-                            default:
-                                manager.moreView.hideAndDo(afterHideAction: {
-                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-                                })
-                            }
-                        }
-                    }
-                }
-             
-            } else {
-                
-                if let group = self?.conversation.withGroup {
-                    
-                    unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                        defaultFailureHandler(reason, errorMessage)
-                        
-                    }, completion: {
-                        
-                        if let strongSelf = self {
-                            try? strongSelf.realm.write {
-                                group.includeMe = false
-                            }
-                        }
-                    })
-                }
-            }
-        }
-        
-        manager.reportAction = { [weak self] in
-            // TODO: - 举报
-        }
-        
-        return manager
-    }
-    
+
+	func makeTitleView() -> ConversationTitleView {
+
+		let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
+
+		if let title = titleNameOfConversation(self.conversation) {
+			titleView.nameLabel.text = title
+		} else {
+			titleView.nameLabel.text = "讨论"
+		}
+
+		/*
+		if nameOfConversation(self.conversation) != "" {
+			titleView.nameLabel.text = nameOfConversation(self.conversation)
+		} else {
+			titleView.nameLabel.text = NSLocalizedString("Discussion", comment: "")
+		}
+
+		self.updateStateInfoOfTitleView(titleView)
+
+		titleView.userInteractionEnabled = true
+
+		let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.showFriendProfile(_:)))
+
+		titleView.addGestureRecognizer(tap)
+		*/
+
+		titleView.stateInfoLabel.textColor = UIColor.gray
+		titleView.stateInfoLabel.text = "上次见是一周以前"
+
+		return titleView
+	}
+}
+
+// MARK: - MoreMessageTypesView
+extension  CommentViewController {
+
+	func makeMoreMessageTypeView() -> MoreMessageTypeView {
+		let view = MoreMessageTypeView()
+
+		view.alertCanNotAccessPhotoLibraryAction = { [weak self] in
+			self?.alertCanNotOpenPhotoLibrary()
+		}
+
+		view.sendImageAction = { [weak self] image in
+			self?.sendImage(image)
+		}
+
+		view.takePhotoAction = { [weak self] in
+			let openCamera: ProposerAction = { [weak self] in
+
+				guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+					self?.alertCanNotOpenCamera()
+					return
+				}
+				if let strongSelf = self {
+					strongSelf.imagePicker.sourceType = .camera
+					strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+				}
+			}
+
+			proposeToAccess(.camera, agreed: openCamera, rejected: {
+				self?.alertCanNotOpenCamera()
+			})
+		}
+
+		view.choosePhotoAction = { [weak self] in
+
+			let openPhotoLibrary: ProposerAction = { [weak self] in
+
+				guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+					self?.alertCanNotOpenPhotoLibrary()
+					return
+				}
+
+				if let strongSelf = self {
+					strongSelf.imagePicker.sourceType = .photoLibrary
+					strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
+				}
+			}
+
+			proposeToAccess(.photos, agreed: openPhotoLibrary, rejected: {
+				self?.alertCanNotOpenPhotoLibrary()
+			})
+		}
+
+		view.pickLocationAction = { [weak self] in
+			// TODO: - PickLocation
+		}
+		return view
+	}
+}
+
+// MARK: - MoreViewManager
+extension  CommentViewController {
+	func makeCommentMoreViewManager() -> CommentMoreViewManager {
+
+		let manager = CommentMoreViewManager()
+
+		manager.conversation = self.conversation
+
+		manager.toggleSubscribeAction = { [weak self] switchOn in
+
+			if switchOn {
+				if #available(iOS 10.0, *) {
+
+					let notificationCenter = UNUserNotificationCenter.current()
+					notificationCenter.getNotificationSettings(completionHandler: {
+						setting in
+
+						// 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
+						DispatchQueue.main.async {
+							if setting.authorizationStatus != .authorized {
+
+								manager.moreView.hideAndDo(afterHideAction: {
+									CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+								})
+
+							} else {
+
+								if let group = self?.conversation.withGroup {
+
+									subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+										defaultFailureHandler(reason, errorMessage)
+
+									}, completion: {
+
+										if let strongSelf = self {
+											try? strongSelf.realm.write {
+												group.includeMe = true
+											}
+										}
+									})
+								}
+							}
+						}
+					})
+
+				} else {
+					// TODO: - 尚未测试
+					if #available(iOS 9.0, *) {
+						if let setting = UIApplication.shared.currentUserNotificationSettings {
+
+							switch setting.types {
+
+							case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
+
+								if let group = self?.conversation.withGroup {
+
+									subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+										defaultFailureHandler(reason, errorMessage)
+
+									}, completion: {
+
+										if let strongSelf = self {
+											try? strongSelf.realm.write {
+												group.includeMe = true
+											}
+										}
+									})
+								}
+
+							default:
+								manager.moreView.hideAndDo(afterHideAction: {
+									CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+								})
+							}
+						}
+					}
+				}
+
+			} else {
+
+				if let group = self?.conversation.withGroup {
+
+					unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+						defaultFailureHandler(reason, errorMessage)
+
+					}, completion: {
+
+						if let strongSelf = self {
+							try? strongSelf.realm.write {
+								group.includeMe = false
+							}
+						}
+					})
+				}
+			}
+		}
+
+		manager.reportAction = { [weak self] in
+			// TODO: - 举报
+		}
+
+		return manager
+	}
+}
+
+
+// MARK: - HeaderView Formula&Feed
+extension CommentViewController {
+
     func tryFoldHeaderView() {
         
         if let formulaHeaderView = formulaHeaderView {
@@ -130,7 +230,6 @@ extension CommentViewController {
             }
         }
     }
-    
 
     func makeFeedHeaderView(with feed: DiscoverFeed?) {
 
@@ -277,8 +376,7 @@ extension CommentViewController {
         delay(3) { [weak self] in
             
             self?.subscribeView.show()
-            // 在 Realm 中保存已经展示过的记录
-            
+
             guard  self != nil else {
                 return
             }
@@ -291,11 +389,8 @@ extension CommentViewController {
             try? realm.write {
                 realm.add(shown, update: true)
             }
-            
         }
-        
     }
-
 
     func makeFormulaHeaderView(with formula: Formula?) {
         guard let formula = formula else {
@@ -351,9 +446,45 @@ extension CommentViewController {
         headerView.heightConstraint = height
         
         self.formulaHeaderView = headerView
-        
     }
-    
-   
-    
+}
+
+// MARK: - subscribeView
+extension CommentViewController {
+
+	func makeSubscribeView() -> SubscribeView {
+
+		let subscribeView = SubscribeView()
+
+		subscribeView.translatesAutoresizingMaskIntoConstraints = false
+		self.view.insertSubview(subscribeView, belowSubview: self.messageToolbar)
+
+		let leading = NSLayoutConstraint(item: subscribeView, attribute: .leading, relatedBy: .equal, toItem: self.messageToolbar, attribute: .leading, multiplier: 1.0, constant: 0)
+
+		let trailing = NSLayoutConstraint(item: subscribeView, attribute: .trailing, relatedBy: .equal, toItem: self.messageToolbar, attribute: .trailing, multiplier: 1.0, constant: 0)
+
+		let bottom = NSLayoutConstraint(item: subscribeView, attribute: .bottom, relatedBy: .equal, toItem: self.messageToolbar, attribute: .top, multiplier: 1.0, constant: SubscribeView.totalHeight)
+
+		let height = NSLayoutConstraint(item: subscribeView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: SubscribeView.totalHeight)
+
+		NSLayoutConstraint.activate([leading, trailing, bottom, height])
+		self.view.layoutIfNeeded()
+
+		subscribeView.bottomConstraint = bottom
+
+		return subscribeView
+	}
+}
+
+// MARK: - imagePicker
+extension CommentViewController {
+
+	func makeImagePickerController() -> UIImagePickerController {
+		let imagePicker = UIImagePickerController()
+		imagePicker.delegate = self
+		//imagePicker.mediaTypes =  [kUTTypeImage as String, kUTTypeMovie as String]
+		imagePicker.videoQuality = .typeMedium
+		imagePicker.allowsEditing = false
+		return imagePicker
+	}
 }

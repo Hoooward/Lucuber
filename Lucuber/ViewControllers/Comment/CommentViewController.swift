@@ -18,17 +18,15 @@ class CommentViewController: UIViewController {
     var feed: DiscoverFeed?
 
     var conversation: Conversation!
+    var realm: Realm!
 
     var afterSentMessageAction: (() -> Void)?
     var afterDeletedFeedAction: ((String) -> Void)?
     var conversationIsDirty = false
 
-    fileprivate var seletedIndexPathForMenu: IndexPath?
-
-    var realm: Realm!
+    var seletedIndexPathForMenu: IndexPath?
 
     lazy var messages: Results<Message> = {
-
         return messagesWith(self.conversation, inRealm: self.realm)
     }()
 
@@ -38,17 +36,17 @@ class CommentViewController: UIViewController {
         }
     }
 
-    fileprivate var needShowLoadPreviousSection: Bool = false
-    fileprivate var needReloadLoadPreviousSection: Bool = false
+    var needShowLoadPreviousSection: Bool = false
+    var needReloadLoadPreviousSection: Bool = false
 
     // 上次更新 UI 时的消息数量
-    fileprivate var lastUpdateMessagesCount: Int = 0
+    var lastUpdateMessagesCount: Int = 0
 
     // 一次 Fetch 多少个 Message
-    fileprivate let messagesBunchCount = 20
+    let messagesBunchCount = 20
 
     // 后台收到的消息
-    fileprivate var inActiveNewMessageIDSet = Set<String>()
+    var inActiveNewMessageIDSet = Set<String>()
 
     lazy var sectionDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -57,7 +55,7 @@ class CommentViewController: UIViewController {
         return dateFormatter
     }()
 
-    fileprivate lazy var sectionDateInCurrentWeekFormatter: DateFormatter = {
+    lazy var sectionDateInCurrentWeekFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE HH:mm"
         return dateFormatter
@@ -76,7 +74,6 @@ class CommentViewController: UIViewController {
         if let formulaHeaderView = formulaHeaderView {
             return formulaHeaderView.bounds.height
         }
-        
         if let feedHeaderView = feedHeaderView {
             return feedHeaderView.bounds.height
         }
@@ -89,151 +86,41 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var commentCollectionView: UICollectionView!
     @IBOutlet weak var messageToolbarBottomConstraints: NSLayoutConstraint!
 
-    fileprivate var commentCollectionViewHasBeenMovedToBottomOnece = false
+    var commentCollectionViewHasBeenMovedToBottomOnece = false
 
-    fileprivate var checkTypingStatusTimer: Timer?
-    fileprivate var typingResetDelay: Float = 0
+    var checkTypingStatusTimer: Timer?
+    var typingResetDelay: Float = 0
 
-    private let keyboardMan = KeyboardMan()
-    private var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
+    let keyboardMan = KeyboardMan()
+    var giveUpKeyboardHideAnimationWhenViewControllerDisapeear = false
 
     var isFirstAppear = true
     var isSubscribeViewShowing: Bool = false
 
-    fileprivate lazy var moreMessageTypeView: MoreMessageTypeView = {
-        let view = MoreMessageTypeView()
-
-        view.alertCanNotAccessPhotoLibraryAction = { [weak self] in
-            self?.alertCanNotOpenPhotoLibrary()
-        }
-
-        view.sendImageAction = { [weak self] image in
-            self?.sendImage(image)
-        }
-
-        view.takePhotoAction = { [weak self] in
-
-            let openCamera: ProposerAction = { [weak self] in
-
-                guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-                    self?.alertCanNotOpenCamera()
-                    return
-                }
-                if let strongSelf = self {
-                    strongSelf.imagePicker.sourceType = .camera
-                    strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
-                }
-            }
-
-            proposeToAccess(.camera, agreed: openCamera, rejected: {
-                self?.alertCanNotOpenCamera()
-            })
-        }
-
-        view.choosePhotoAction = { [weak self] in
-
-            let openPhotoLibrary: ProposerAction = { [weak self] in
-
-                guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
-                    self?.alertCanNotOpenPhotoLibrary()
-                    return
-                }
-
-                if let strongSelf = self {
-                    strongSelf.imagePicker.sourceType = .photoLibrary
-                    strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
-                }
-            }
-
-            proposeToAccess(.photos, agreed: openPhotoLibrary, rejected: {
-                self?.alertCanNotOpenPhotoLibrary()
-            })
-        }
-
-        view.pickLocationAction = { [weak self] in
-            // TODO: - PickLocation
-//            self?.performSegue(withIdentifier: "", sender: nil)
-        }
-
+    lazy var moreMessageTypeView: MoreMessageTypeView = {
+	    let view = self.makeMoreMessageTypeView()
         return view
     }()
     
-    fileprivate lazy var imagePicker: UIImagePickerController = {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        //        imagePicker.mediaTypes =  [kUTTypeImage as String, kUTTypeMovie as String]
-        imagePicker.videoQuality = .typeMedium
-        imagePicker.allowsEditing = false
+    lazy var imagePicker: UIImagePickerController = {
+        let imagePicker = self.makeImagePickerController()
         return imagePicker
     }()
 
-    private lazy var titleView: ConversationTitleView = {
-        let titleView = ConversationTitleView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 150, height: 44)))
-
-        if let title = titleNameOfConversation(self.conversation) {
-            titleView.nameLabel.text = title
-        } else {
-            titleView.nameLabel.text = "讨论"
-        }
-
-        //        if nameOfConversation(self.conversation) != "" {
-        //            titleView.nameLabel.text = nameOfConversation(self.conversation)
-        //        } else {
-        //            titleView.nameLabel.text = NSLocalizedString("Discussion", comment: "")
-        //        }
-        //
-        //        self.updateStateInfoOfTitleView(titleView)
-        //
-        //        titleView.userInteractionEnabled = true
-        //
-        //        let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.showFriendProfile(_:)))
-        //
-        //        titleView.addGestureRecognizer(tap)
-
-        titleView.stateInfoLabel.textColor = UIColor.gray
-        titleView.stateInfoLabel.text = "上次见是一周以前"
-
+    lazy var titleView: ConversationTitleView = {
+	    let titleView = self.makeTitleView()
         return titleView
     }()
 
-    // TODO: - 更新 TitleViewInfo
-    fileprivate func updateInfoOfTitleView(titleView: ConversationTitleView) {
-        guard !self.conversation.isInvalidated else {
-            return
-        }
-    }
-    
     lazy var subscribeView: SubscribeView = {
-        
-        let subscribeView = SubscribeView()
-
-        subscribeView.translatesAutoresizingMaskIntoConstraints = false
-
-        self.view.insertSubview(subscribeView, belowSubview: self.messageToolbar)
-
-        let leading = NSLayoutConstraint(item: subscribeView, attribute: .leading, relatedBy: .equal, toItem: self.messageToolbar, attribute: .leading, multiplier: 1.0, constant: 0)
-
-        let trailing = NSLayoutConstraint(item: subscribeView, attribute: .trailing, relatedBy: .equal, toItem: self.messageToolbar, attribute: .trailing, multiplier: 1.0, constant: 0)
-
-        let bottom = NSLayoutConstraint(item: subscribeView, attribute: .bottom, relatedBy: .equal, toItem: self.messageToolbar, attribute: .top, multiplier: 1.0, constant: SubscribeView.totalHeight)
-
-        let height = NSLayoutConstraint(item: subscribeView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: SubscribeView.totalHeight)
-
-        NSLayoutConstraint.activate([leading, trailing, bottom, height])
-        self.view.layoutIfNeeded()
-
-        subscribeView.bottomConstraint = bottom
-
+        let subscribeView = self.makeSubscribeView()
         return subscribeView
-        
     }()
     
     lazy var moreViewManager: CommentMoreViewManager = {
         let manager = self.makeCommentMoreViewManager()
         return manager
     }()
-    
-
 
     lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width
@@ -257,118 +144,13 @@ class CommentViewController: UIViewController {
 
     var textContentLabelWidths = [String: CGFloat]()
     var messageCellHeights = [String: CGFloat]()
-   
 
-    fileprivate var isLoadingPreviousMessages = false
-    fileprivate var noMorePreviousMessage = false
+    var isLoadingPreviousMessages = false
+    var noMorePreviousMessage = false
     
-    fileprivate func tryLoadPreviousMessage(completion: @escaping () -> Void) {
-        
-        if isLoadingPreviousMessages {
-            return
-        }
-
-        isLoadingPreviousMessages = true
-
-        printLog("准备加载旧Message")
-
-        if displayedMessagesRange.location == 0 {
-
-            printLog("从网络加载过去的 Message")
-
-
-            if let recipiendID = self.conversation.recipiendID {
-                var firstMessage: Message?
-                if let minMessage = self.messages.first {
-                    firstMessage = minMessage
-                }
-
-                fetchMessage(withRecipientID: recipiendID, messageAge: .old, lastMessage: nil, firstMessage: firstMessage, failureHandler: { [weak self] reason, errorMessage in
-
-                    self?.isLoadingPreviousMessages = false
-                    completion()
-                    defaultFailureHandler(reason, errorMessage)
-
-                }, completion: { [weak self] newMessageID in
-
-                    tryPostNewMessageReceivedNotification(withMessageIDs: newMessageID, messageAge: .old)
-
-                    self?.isLoadingPreviousMessages = false
-
-                    if newMessageID.isEmpty {
-                        self?.noMorePreviousMessage = true
-                        printLog("网络上没有更旧的 Message")
-                    } else {
-                        printLog("从网络加载过去的 Message 成功.")
-                    }
-                    completion()
-                })
-            }
-
-        } else {
-
-            printLog("从本地 Realm 中加载过去的 Message")
-            var newMessageCount = self.messagesBunchCount
-
-            if displayedMessagesRange.location - newMessageCount < 0 {
-                newMessageCount = displayedMessagesRange.location
-            }
-
-            if newMessageCount > 0 {
-                
-                self.displayedMessagesRange.location -= newMessageCount
-                self.displayedMessagesRange.length += newMessageCount
-
-                self.lastUpdateMessagesCount = self.messages.count
-
-                var indexPaths = [IndexPath]()
-                for i in 0 ..< newMessageCount {
-
-                    let indexPath = IndexPath(item: i, section: Section.message.rawValue)
-                    indexPaths.append(indexPath)
-                }
-
-                let bottomOffset = self.commentCollectionView.contentSize.height - self.commentCollectionView.contentOffset.y
-//                
-//                printLog("当前的contentSize: \(self.commentCollectionView.contentSize)")
-//                printLog("当前的ContentOffset: \(self.commentCollectionView.contentOffset)")
-                CATransaction.begin()
-                CATransaction.setDisableActions(true)
-
-                self.commentCollectionView.performBatchUpdates({
-                    [weak self] in
-                    self?.commentCollectionView.insertItems(at: indexPaths)
-
-                }, completion: {
-                    [weak self] finished in
-                    guard let strongSelf = self else {
-                        return
-                    }
-//                        printLog("插入之后的contentSize: \(self?.commentCollectionView.contentSize)")
-//                        printLog("插入之后的ContentOffset: \(self?.commentCollectionView.contentOffset)")
-                    var contentOffset = strongSelf.commentCollectionView.contentOffset
-                    contentOffset.y = strongSelf.commentCollectionView.contentSize.height - bottomOffset
-
-                    strongSelf.commentCollectionView.setContentOffset(contentOffset, animated: false)
-
-                    CATransaction.commit()
-
-                    // 上面的 CATransaction 保证了 CollectionView 在插入后不闪动
-
-                    self?.isLoadingPreviousMessages = false
-                    completion()
-                    printLog("从本地加载过去的 Message 成功.")
-                })
-            }
-        }
-    }
-
     // MARK: - Life Cycle
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // 初始化 headerView
 
         tryShowSubscribeView()
 
@@ -384,8 +166,6 @@ class CommentViewController: UIViewController {
         }
 
         messageToolbar.conversation = conversation
-
-        // MARK: - Make MessageToolbar Action
 
         messageToolbar.moreMessageTypeAction = { [weak self] in
 
@@ -419,7 +199,6 @@ class CommentViewController: UIViewController {
 
             default:
                 break
-
             }
         }
     }
@@ -438,24 +217,18 @@ class CommentViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.handelApplicationDidBecomeActive(notification:)), name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
 
-
         realm = try! Realm()
 
         lastUpdateMessagesCount = messages.count
 
         if messages.count >= messagesBunchCount {
-
             displayedMessagesRange = NSRange(location: messages.count - messagesBunchCount, length: messagesBunchCount)
         } else {
-
             displayedMessagesRange = NSRange(location: 0, length: messages.count)
         }
 
-
         navigationItem.titleView = titleView
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_more"), style: .plain, target: self, action: #selector(CommentViewController.moreAction))
-
-
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.tapToDismissMessageToolbar))
         commentCollectionView.addGestureRecognizer(tap)
@@ -522,7 +295,6 @@ class CommentViewController: UIViewController {
                     return
                 }
             }
-            
 
             if let strongSelf = self {
 
@@ -542,14 +314,10 @@ class CommentViewController: UIViewController {
 
         tryShowSubscribeView()
         commentCollectionView.contentInset = UIEdgeInsets(top: 64 + 60 + 20, left: 0, bottom: 44, right: 0)
-        
         print(commentCollectionView.contentInset)
-     
-       
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        
         super.viewDidAppear(animated)
 
         tryFetchMessages()
@@ -611,7 +379,6 @@ class CommentViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
-
         super.viewDidLayoutSubviews()
 
         if !commentCollectionViewHasBeenMovedToBottomOnece {
@@ -621,6 +388,11 @@ class CommentViewController: UIViewController {
     }
 
     // MARK: - Action & Target
+	func updateInfoOfTitleView(titleView: ConversationTitleView) {
+	// TODO: - 更新 TitleViewInfo
+		guard !self.conversation.isInvalidated else { return }
+	}
+
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 
         guard
@@ -635,7 +407,7 @@ class CommentViewController: UIViewController {
         handleRecievedNewMessage(messageIDs: messageIDs, messageAge: messageAge)
     }
 
-    private func handleRecievedNewMessage(messageIDs: [String], messageAge: MessageAge) {
+    func handleRecievedNewMessage(messageIDs: [String], messageAge: MessageAge) {
 
         var newMessageIDs: [String]?
 
@@ -672,10 +444,7 @@ class CommentViewController: UIViewController {
         }
 
         if UIApplication.shared.applicationState == .active {
-            updateCommentCollectionViewWithMessageIDs(messagesID: newMessageIDs, messageAge: messageAge, scrollToBottom: false, success: { _ in
-
-            })
-
+            updateCommentCollectionViewWithMessageIDs(messagesID: newMessageIDs, messageAge: messageAge, scrollToBottom: false, success: { _ in })
         } else {
 
 
@@ -689,8 +458,7 @@ class CommentViewController: UIViewController {
         }
     }
 
-    fileprivate func batchMarkMessgesAsreaded() {
-
+    func batchMarkMessgesAsreaded() {
         DispatchQueue.main.async {
             [weak self] in
             guard let _ = self else {
@@ -706,10 +474,8 @@ class CommentViewController: UIViewController {
         }
 
         if messagesID != nil {
-            // 标记已读
             batchMarkMessgesAsreaded()
         }
-
 
         let subscribeViewHeight = isSubscribeViewShowing ? SubscribeView.totalHeight : 0
         let keyboardAndToobarHeight = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height + subscribeViewHeight
@@ -733,16 +499,14 @@ class CommentViewController: UIViewController {
         if messagesID == nil {
 
             afterSentMessageAction?()
-
             // 订阅栏如果出现
         }
     }
 
-    private func adjustCommentCollectionViewWithMessageIDs(messageIDs: [String]?, messageAge: MessageAge, adjustHeight: CGFloat, scrollToBottom: Bool, success: @escaping (Bool) -> Void) {
+    func adjustCommentCollectionViewWithMessageIDs(messageIDs: [String]?, messageAge: MessageAge, adjustHeight: CGFloat, scrollToBottom: Bool, success: @escaping (Bool) -> Void) {
 
         let _lastTimeMessagesCount = lastUpdateMessagesCount
         lastUpdateMessagesCount = messages.count
-
 
         if messages.count <= _lastTimeMessagesCount {
             return
@@ -760,7 +524,6 @@ class CommentViewController: UIViewController {
 
             if newMessageCount != messageIDs.count {
                 commentCollectionView.reloadData()
-                
                 return
             }
         }
@@ -833,8 +596,6 @@ class CommentViewController: UIViewController {
                 }
                 
             } else {
-
-                printLog("self message")
 
                 // 这里做了一个假设：本地刚创建的消息比所有的已有的消息都要新，这在创建消息里做保证（服务器可能传回创建在“未来”的消息）
                 var indexPaths = [IndexPath]()
@@ -943,8 +704,7 @@ class CommentViewController: UIViewController {
         commentCollectionView.contentOffset.y = newContentOffsetY
     }
 
-    fileprivate func tryScrollToBottom() {
-
+    func tryScrollToBottom() {
         let messageToobarTop = messageToolbarBottomConstraints.constant + messageToolbar.bounds.height
 
         let headerHeight: CGFloat = isHaveHeaderView ? headerViewHeight : 0
@@ -953,7 +713,6 @@ class CommentViewController: UIViewController {
         let visibleHeight = commentCollectionView.frame.height - invisbleHeight
 
         let canScroll = visibleHeight <= commentCollectionView.contentSize.height
-
 //        printLog("collectionViewContentSize = \(commentCollectionView.contentSize)")
         if canScroll {
 
@@ -964,8 +723,7 @@ class CommentViewController: UIViewController {
 
     }
 
-    private func setCommentCollectionViewOriginalContentInset() {
-
+    func setCommentCollectionViewOriginalContentInset() {
         let headerHeight: CGFloat = isHaveHeaderView ? headerViewHeight : 0
         commentCollectionView.contentInset.top = 64 + headerHeight + 5
 
@@ -973,7 +731,7 @@ class CommentViewController: UIViewController {
         commentCollectionView.scrollIndicatorInsets.bottom = messageToolbar.height
     }
 
-    fileprivate func cleanTextInput() {
+    func cleanTextInput() {
         messageToolbar.messageTextView.text = ""
         messageToolbar.state = .beginTextInput
     }
@@ -982,39 +740,35 @@ class CommentViewController: UIViewController {
 
     }
 
-
     func moreAction() {
-        
         messageToolbar.state = .normal
-        
         if let window = view.window {
             moreViewManager.moreView.showInView(view: window)
         }
-
     }
-
-
 
     fileprivate func trySnapContentOfCommentCollectionViewToBottom(needAnimation: Bool = false) {
 
-//        if let lastToolbarFrame = messageToolbar.lastToobarFrame {
-//            if lastToolbarFrame == messageToolbar.frame {
-//                return
-//            } else {
-//                messageToolbar.lastToobarFrame = messageToolbar.frame
-//            }
-//        } else {
-//            
-//            messageToolbar.lastToobarFrame = messageToolbar.frame
+	    /*
+        if let lastToolbarFrame = messageToolbar.lastToobarFrame {
+            if lastToolbarFrame == messageToolbar.frame {
+                return
+            } else {
+                messageToolbar.lastToobarFrame = messageToolbar.frame
+            }
+        } else {
 
-//        }
+            messageToolbar.lastToobarFrame = messageToolbar.frame
 
-//        printLog(messageToolbar.state)
-//        
-//        printLog("contentSize = \(commentCollectionView.contentSize)")
-//        printLog("messageToobar.frame = \(messageToolbar.frame)")
-//        printLog("collectionViewOffsetY = \(commentCollectionView.contentOffset)")
-//        printLog("collectionViewContentInset = \(commentCollectionView.contentInset))")
+        }
+
+        printLog(messageToolbar.state)
+
+        printLog("contentSize = \(commentCollectionView.contentSize)")
+        printLog("messageToobar.frame = \(messageToolbar.frame)")
+        printLog("collectionViewOffsetY = \(commentCollectionView.contentOffset)")
+        printLog("collectionViewContentInset = \(commentCollectionView.contentInset))")
+	    */
         
         let subscribeViewHeight = isSubscribeViewShowing ? SubscribeView.totalHeight : 0
 
@@ -1066,14 +820,15 @@ class CommentViewController: UIViewController {
 
         delay(1) {
 
-//            printLog("**************************************************************")
-////            printLog("newCollectionContentOffset: = \(self.commentCollectionView.contentOffset)")
-//            printLog(self.messageToolbar.state)
-//            
-//            printLog("contentSize = \(self.commentCollectionView.contentSize)")
-//            printLog("messageToobar.frame = \(self.messageToolbar.frame)")
-//            printLog("collectionViewOffsetY = \(self.commentCollectionView.contentOffset)")
-//            printLog("collectionViewContentInset = \(self.commentCollectionView.contentInset))")
+	        /*
+            printLog("**************************************************************")
+            printLog("newCollectionContentOffset: = \(self.commentCollectionView.contentOffset)")
+            printLog(self.messageToolbar.state)
+            printLog("contentSize = \(self.commentCollectionView.contentSize)")
+            printLog("messageToobar.frame = \(self.messageToolbar.frame)")
+            printLog("collectionViewOffsetY = \(self.commentCollectionView.contentOffset)")
+            printLog("collectionViewContentInset = \(self.commentCollectionView.contentInset))")
+            */
         }
     }
 
@@ -1184,15 +939,12 @@ class CommentViewController: UIViewController {
         }
     }
 
-
     // 应用进入前台时, 插入后台状态收到的消息
     @objc private func handelApplicationDidBecomeActive(notification: Notification) {
 		guard UIApplication.shared.applicationState == .active else {
             return
         }
-
 		tryInsertInActiveNewMessage()
-        
         tryFetchMessages()
     }
 
@@ -1206,7 +958,6 @@ class CommentViewController: UIViewController {
             printLog("已插入后台接受的 Message")
         }
     }
-
 }
 
 public enum TimeDirection {

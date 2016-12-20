@@ -316,7 +316,7 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                     mediaControlView.type = .image
                     cell.mediaView.scrollView.isHidden = false
 
-                    if let imageFileUrl = FileManager.cubeMessageImageURL(with: message.localAttachmentName), let image = UIImage(contentsOfFile: imageFileUrl.absoluteString) {
+                    if let imageFileUrl = FileManager.cubeMessageImageURL(with: message.localAttachmentName), let image = UIImage(contentsOfFile: imageFileUrl.path) {
                         cell.mediaView.image = image
                     }
 
