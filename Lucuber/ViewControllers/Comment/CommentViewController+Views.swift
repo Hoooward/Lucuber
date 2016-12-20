@@ -8,9 +8,68 @@
 
 import UIKit
 import RealmSwift
+import AVOSCloud
 
 
 extension CommentViewController {
+    
+    func makeCommentMoreViewManager() -> CommentMoreViewManager {
+        
+        let manager = CommentMoreViewManager()
+        
+        manager.conversation = self.conversation
+        
+        manager.toggleSubscribeAction = { [weak self] switchOn in
+            
+            if switchOn {
+                
+                guard userNotificationStateIsAuthorized() else {
+                    manager.moreView.hideAndDo(afterHideAction: {
+                        CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+                    })
+                    return
+                }
+                
+                if let group = self?.conversation.withGroup {
+                    
+                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        
+                    }, completion: {
+                        
+                        if let strongSelf = self {
+                            try? strongSelf.realm.write {
+                                group.includeMe = true
+                            }
+                        }
+                    })
+                }
+                
+            } else {
+                
+                if let group = self?.conversation.withGroup {
+                    
+                    unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        
+                    }, completion: {
+                        
+                        if let strongSelf = self {
+                            try? strongSelf.realm.write {
+                                group.includeMe = false
+                            }
+                        }
+                    })
+                }
+            }
+        }
+        
+        manager.reportAction = { [weak self] in
+            // TODO: - 举报
+        }
+        
+        return manager
+    }
     
     func tryFoldHeaderView() {
         

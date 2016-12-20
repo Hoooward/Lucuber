@@ -140,6 +140,7 @@
 		E4C40DE41E07866100ED46F2 /* FeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */; };
 		E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */; };
 		E4C40DE91E078A7200ED46F2 /* FeedMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */; };
+		E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */; };
 		E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7AF1DE862770036A11C /* FeedAnyImagesCell.swift */; };
 		E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7B01DE862770036A11C /* FeedBaseCell.swift */; };
@@ -393,6 +394,7 @@
 		E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderView.swift; sourceTree = "<group>"; };
 		E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
 		E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaView.swift; sourceTree = "<group>"; };
+		E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentMoreViewManager.swift; sourceTree = "<group>"; };
 		E4CED7961DE862770036A11C /* ActionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
 		E4CED79F1DE862770036A11C /* CateogryMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogryMenuCell.swift; sourceTree = "<group>"; };
 		E4CED7A11DE862770036A11C /* ChatBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBaseCell.swift; sourceTree = "<group>"; };
@@ -721,6 +723,7 @@
 				CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */,
 				E444833A1E0680E9008311F5 /* CommentViewController+Views.swift */,
 				E444833C1E068206008311F5 /* CommentViewController+Cache.swift */,
+				E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -2007,6 +2010,7 @@
 				E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */,
 				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
 				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
+				E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */,
 				E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */,
 				E4F38DC61E01BA5200F0DF8A /* CubeMedia.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,

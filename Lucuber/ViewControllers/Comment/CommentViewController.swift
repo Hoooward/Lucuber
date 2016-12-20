@@ -14,7 +14,6 @@ import UserNotifications
 
 class CommentViewController: UIViewController {
  
-
     var formula: Formula?
     var feed: DiscoverFeed?
 
@@ -228,6 +227,12 @@ class CommentViewController: UIViewController {
         return subscribeView
         
     }()
+    
+    lazy var moreViewManager: CommentMoreViewManager = {
+        let manager = self.makeCommentMoreViewManager()
+        return manager
+    }()
+    
 
 
     lazy var collectionViewWidth: CGFloat = {
@@ -258,7 +263,7 @@ class CommentViewController: UIViewController {
     fileprivate var noMorePreviousMessage = false
     
     fileprivate func tryLoadPreviousMessage(completion: @escaping () -> Void) {
-
+        
         if isLoadingPreviousMessages {
             return
         }
@@ -981,7 +986,12 @@ class CommentViewController: UIViewController {
 
 
     func moreAction() {
-        printLog("")
+        
+        messageToolbar.state = .normal
+        
+        if let window = view.window {
+            moreViewManager.moreView.showInView(view: window)
+        }
 
     }
 

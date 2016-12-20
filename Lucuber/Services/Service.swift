@@ -39,24 +39,36 @@ public func deleteMessageFromServer(message: Message, failureHandler: @escaping 
 public func userNotificationStateIsAuthorized() -> Bool {
     
     var isAuthorized = false
-    // TODO: - 仅处理了 iOS10
-    if #available(iOS 10.0, *) {
-        let notificationCenter = UNUserNotificationCenter.current()
+    
+    if let settings = UIApplication.shared.currentUserNotificationSettings {
         
-        notificationCenter.getNotificationSettings(completionHandler: {
-            setting in
-            
-            if setting.authorizationStatus != .authorized {
-                
-                isAuthorized = false
-                printLog("请在设置-隐私-中开启通知")
-            } else {
-                isAuthorized = true
-                printLog("已经可以正常接受消息")
-            }
-        })
+        switch settings.types {
+        case UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound:
+            isAuthorized = true
+        default:
+            isAuthorized = false
+        }
     }
     
+    
+//    // TODO: - 仅处理了 iOS10
+//    if #available(iOS 10.0, *) {
+//        let notificationCenter = UNUserNotificationCenter.current()
+//        
+//        notificationCenter.getNotificationSettings(completionHandler: {
+//            setting in
+//            
+//            if setting.authorizationStatus != .authorized {
+//                
+//                isAuthorized = false
+//                printLog("请在设置-隐私-中开启通知")
+//            } else {
+//                isAuthorized = true
+//                printLog("已经可以正常接受消息")
+//            }
+//        })
+//    }
+//    
     return isAuthorized
 }
 
@@ -76,6 +88,34 @@ public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: 
         }
     }
     
+}
+
+public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
+    
+    let currentInstallation = AVInstallation.current()
+    
+    if let channles = currentInstallation.channels as? [String] {
+        
+        var resultChannles = channles
+        if channles.contains(groupID) {
+            if let index = channles.index(of: groupID) {
+                resultChannles.remove(at: index)
+            }
+            currentInstallation.channels = resultChannles
+            currentInstallation.saveInBackground { success, error in
+                
+                if error != nil {
+                    failureHandler(Reason.network(error), "取消订阅频道失败")
+                }
+                
+                if success {
+                    completion()
+                }
+                
+            }
+        }
+        
+    }
 }
 
 

@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Lucuber.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Helper/CubeMedia.swift" afterPath="$PROJECT_DIR$/Lucuber/Helper/CubeMedia.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Services/Service.swift" afterPath="$PROJECT_DIR$/Lucuber/Services/Service.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,73 +27,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Config.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Helper/Config.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-              <folding>
-                <marker date="1482143499000" expanded="true" signature="2802:3091" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="3127:3378" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="3417:3538" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="3588:4014" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="4045:4128" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="4166:4555" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="4591:4882" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="4918:5029" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="5062:6473" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="6503:6748" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="6781:7363" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="7392:7533" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="7567:7920" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="7964:8041" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="8083:8408" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="8449:8506" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="8560:8614" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="8654:8730" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiscoverModel.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="100" column="26" lean-forward="false" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
-              <folding>
-                <element signature="e#134#146#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FeedHeaderView.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/Views/CommentHeader/FeedHeaderView.swift">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
               <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageCache.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Cache/ImageCache.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-432">
-              <caret line="63" column="50" lean-forward="false" selection-start-line="63" selection-start-column="50" selection-end-line="63" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CGImage+Cube.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Extension/CGImage+Cube.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-              <folding />
+              <folding>
+                <marker date="1482209405000" expanded="true" signature="178:3693" ph="{...}" />
+                <marker date="1482209405000" expanded="true" signature="2518:3693" ph="{...}" />
+                <marker date="1482209405000" expanded="true" signature="2530:3693" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,33 +51,91 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UIImageView+Cube.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Extension/UIImageView+Cube.swift">
+      <file leaf-file-name="CommentViewController.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1188">
-              <caret line="87" column="16" lean-forward="false" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
+            <state relative-caret-position="450">
+              <caret line="421" column="0" lean-forward="false" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
+              <folding>
+                <marker date="1482219366000" expanded="true" signature="277:42292" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="8294:8352" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="8403:8462" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="8846:12609" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="12689:14261" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="14274:14367" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="19366:21503" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="21547:21756" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="22472:24162" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="24212:24367" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="24524:25505" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="25693:31913" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="32026:32900" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="32943:33801" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="33867:34185" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="34225:34328" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="34368:34376" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="34401:34430" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="34530:37650" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="37730:41638" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="41971:42289" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="42450:42574" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="42632:44251" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="42700:42824" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="42883:44061" ph="{...}" />
+                <marker date="1482219366000" expanded="true" signature="44210:44248" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommentMoreViewManager.swift" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+              <folding>
+                <element signature="e#147#164#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StockService.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/Services/StockService.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentViewController.swift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
+      <file leaf-file-name="Service.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="314" column="68" lean-forward="false" selection-start-line="314" selection-start-column="68" selection-end-line="314" selection-end-column="68" />
-              <folding>
-                <marker date="1482143499000" expanded="true" signature="34349:37469" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="37549:41457" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="41572:41741" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="41790:42108" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="42139:42395" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="42269:42393" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="42451:44077" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="42519:42643" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="42702:43887" ph="{...}" />
-                <marker date="1482143499000" expanded="true" signature="44036:44074" ph="{...}" />
-              </folding>
+            <state relative-caret-position="499">
+              <caret line="58" column="4" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AVInstallation.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Pods/AVOSCloud/AVOS/AVOSCloud/Push/AVInstallation.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="54" column="12" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AVInstallation.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Pods/AVOSCloud/AVOS/AVOSCloud/Push/AVInstallation.m">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,8 +143,8 @@
       <file leaf-file-name="CommentViewController+Views.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+            <state relative-caret-position="523">
+              <caret line="185" column="48" lean-forward="false" selection-start-line="185" selection-start-column="48" selection-end-line="185" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -164,7 +164,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>moremessage</find>
       <find>imagepicker</find>
       <find>send</find>
       <find>push</find>
@@ -194,6 +193,7 @@
       <find>formulaHeaderView</find>
       <find>makehe</find>
       <find>viewwillapp</find>
+      <find>subscribeConversationWithGroupID</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -247,6 +247,7 @@
         <option value="$PROJECT_DIR$/Lucuber/Views/CommentHeader/FeedHeaderView.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift" />
       </list>
     </option>
   </component>
@@ -296,6 +297,48 @@
     <panes>
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pods" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pods" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pods" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pods" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pods" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AVOSCloud" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" />
@@ -357,6 +400,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Comment" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Services" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -485,7 +546,7 @@
       <workItem from="1481781483424" duration="18890000" />
       <workItem from="1481904623674" duration="31027000" />
       <workItem from="1482115463413" duration="1717000" />
-      <workItem from="1482118486098" duration="9068000" />
+      <workItem from="1482118486098" duration="10855000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -512,7 +573,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97775000" />
+    <option name="totallyTimeSpent" value="99562000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -535,7 +596,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38156682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32626727" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277311" sideWeight="0.4386318" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32764506" sideWeight="0.4386318" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942238" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277311" sideWeight="0.5613682" order="2" side_tool="true" content_ui="tabs" />
@@ -593,20 +654,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Lucuber/Views/HorizontalLineView/HorizontalLineView.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LucuberKit/AppDelegate.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatLeftTextCell.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -705,13 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Services/StockService.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1494">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Formula.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -752,20 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="330" column="74" lean-forward="false" selection-start-line="330" selection-start-column="74" selection-end-line="330" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pods/AVOSCloud/AVOS/AVOSCloud/Push/AVInstallation.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
-          <caret line="32" column="11" lean-forward="false" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="62" column="138" lean-forward="false" selection-start-line="62" selection-start-column="138" selection-end-line="62" selection-end-column="138" />
         </state>
       </provider>
     </entry>
@@ -909,6 +935,8 @@
         <state relative-caret-position="108">
           <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
           <folding>
+            <marker date="1482143499000" expanded="true" signature="1389:8732" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="2265:2764" ph="{...}" />
             <marker date="1482143499000" expanded="true" signature="2802:3091" ph="{...}" />
             <marker date="1482143499000" expanded="true" signature="3127:3378" ph="{...}" />
             <marker date="1482143499000" expanded="true" signature="3417:3538" ph="{...}" />
@@ -969,7 +997,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding />
+          <folding>
+            <marker date="1482209405000" expanded="true" signature="178:3693" ph="{...}" />
+            <marker date="1482209405000" expanded="true" signature="2518:3693" ph="{...}" />
+            <marker date="1482209405000" expanded="true" signature="2530:3693" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -981,29 +1013,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
+    <entry file="file://$PROJECT_DIR$/Pods/AVOSCloud/AVOS/AVOSCloud/Push/AVInstallation.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        <state relative-caret-position="108">
+          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Services/StockService.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pods/AVOSCloud/AVOS/AVOSCloud/Push/AVInstallation.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="54" column="12" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="58" column="4" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="314" column="68" lean-forward="false" selection-start-line="314" selection-start-column="68" selection-end-line="314" selection-end-column="68" />
+        <state relative-caret-position="450">
+          <caret line="421" column="0" lean-forward="false" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
           <folding>
-            <marker date="1482143499000" expanded="true" signature="34349:37469" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="37549:41457" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="41572:41741" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="41790:42108" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="42139:42395" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="42269:42393" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="42451:44077" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="42519:42643" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="42702:43887" ph="{...}" />
-            <marker date="1482143499000" expanded="true" signature="44036:44074" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="277:42292" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="8294:8352" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="8403:8462" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="8846:12609" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="12689:14261" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="14274:14367" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="19366:21503" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="21547:21756" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="22472:24162" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="24212:24367" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="24524:25505" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="25693:31913" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="32026:32900" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="32943:33801" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="33867:34185" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="34225:34328" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="34368:34376" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="34401:34430" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="34530:37650" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="37730:41638" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="41971:42289" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="42450:42574" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="42632:44251" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="42700:42824" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="42883:44061" ph="{...}" />
+            <marker date="1482219366000" expanded="true" signature="44210:44248" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="185" column="48" lean-forward="false" selection-start-line="185" selection-start-column="48" selection-end-line="185" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+          <folding>
+            <element signature="e#147#164#0" expanded="true" />
           </folding>
         </state>
       </provider>
