@@ -84,7 +84,7 @@ class MediaControlView: UIView {
     lazy var shareButton: UIButton = {
         
         let button = UIButton()
-        button.setImage(UIImage(named: "icon_more"), for: .normal)
+        button.setImage(UIImage(named: "icon_more_image"), for: .normal)
         button.tintColor = UIColor.white
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         button.addTarget(self, action: #selector(MediaControlView.share), for: .touchUpInside)
@@ -118,7 +118,7 @@ class MediaControlView: UIView {
         ]
         
         let constraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[timeLable]|", options: [], metrics: nil, views: viewsDictionary)
-        let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|-30-[timeLable]-(>=0)-[playButton]-(>=0)-[shareButton]-30-|", options: [.alignAllCenterY, .alignAllTop, .alignAllBottom], metrics: nil, views: viewsDictionary)
+        let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|-30-[timeLable]-(>=0)-[playButton]-(>=0)-[shareButton]-20-|", options: [.alignAllCenterY, .alignAllTop, .alignAllBottom], metrics: nil, views: viewsDictionary)
         
         NSLayoutConstraint.activate(constraintsV)
         NSLayoutConstraint.activate(constraintsH)

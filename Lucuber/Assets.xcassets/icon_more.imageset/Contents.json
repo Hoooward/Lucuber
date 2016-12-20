@@ -2,7 +2,21 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icon_more.pdf"
+      "filename" : "icon_more.pdf",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 2,
+          "top" : 1,
+          "right" : 12,
+          "left" : 6
+        }
+      }
     }
   ],
   "info" : {
