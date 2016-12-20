@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Lucuber.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Helper/CubeMedia.swift" afterPath="$PROJECT_DIR$/Lucuber/Helper/CubeMedia.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,24 +34,24 @@
             <state relative-caret-position="108">
               <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
               <folding>
-                <marker date="1482139664000" expanded="true" signature="2802:3091" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="3127:3378" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="3417:3538" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="3588:4014" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="4045:4128" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="4166:4555" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="4591:4882" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="4918:5029" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="5062:6473" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="6503:6748" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="6781:7363" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="7392:7533" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="7567:7920" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="7964:8041" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="8083:8408" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="8449:8506" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="8560:8614" ph="{...}" />
-                <marker date="1482139664000" expanded="true" signature="8654:8730" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="2802:3091" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="3127:3378" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="3417:3538" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="3588:4014" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="4045:4128" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="4166:4555" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="4591:4882" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="4918:5029" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="5062:6473" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="6503:6748" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="6781:7363" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="7392:7533" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="7567:7920" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="7964:8041" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="8083:8408" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="8449:8506" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="8560:8614" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="8654:8730" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -119,9 +122,20 @@
       <file leaf-file-name="CommentViewController.swift" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="309" column="12" lean-forward="false" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="12" />
-              <folding />
+            <state relative-caret-position="207">
+              <caret line="314" column="68" lean-forward="false" selection-start-line="314" selection-start-column="68" selection-end-line="314" selection-end-column="68" />
+              <folding>
+                <marker date="1482143499000" expanded="true" signature="34349:37469" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="37549:41457" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="41572:41741" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="41790:42108" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="42139:42395" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="42269:42393" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="42451:44077" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="42519:42643" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="42702:43887" ph="{...}" />
+                <marker date="1482143499000" expanded="true" signature="44036:44074" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -244,10 +258,10 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="19" />
-    <option name="y" value="143" />
-    <option name="width" value="1366" />
-    <option name="height" value="877" />
+    <option name="x" value="61" />
+    <option name="y" value="23" />
+    <option name="width" value="1779" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -471,7 +485,7 @@
       <workItem from="1481781483424" duration="18890000" />
       <workItem from="1481904623674" duration="31027000" />
       <workItem from="1482115463413" duration="1717000" />
-      <workItem from="1482118486098" duration="8924000" />
+      <workItem from="1482118486098" duration="9068000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -498,7 +512,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97631000" />
+    <option name="totallyTimeSpent" value="97775000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -510,7 +524,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="19" y="143" width="1366" height="877" extended-state="1" />
+    <frame x="61" y="23" width="1779" height="1177" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -778,7 +792,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+SendMessage.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+sendMessage.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1152">
           <caret line="64" column="13" lean-forward="false" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
@@ -826,7 +840,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+CollectionView.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+collectionView.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6372">
           <caret line="356" column="25" lean-forward="false" selection-start-line="356" selection-start-column="25" selection-end-line="356" selection-end-column="25" />
@@ -895,24 +909,24 @@
         <state relative-caret-position="108">
           <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
           <folding>
-            <marker date="1482139664000" expanded="true" signature="2802:3091" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="3127:3378" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="3417:3538" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="3588:4014" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="4045:4128" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="4166:4555" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="4591:4882" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="4918:5029" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="5062:6473" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="6503:6748" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="6781:7363" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="7392:7533" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="7567:7920" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="7964:8041" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="8083:8408" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="8449:8506" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="8560:8614" ph="{...}" />
-            <marker date="1482139664000" expanded="true" signature="8654:8730" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="2802:3091" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="3127:3378" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="3417:3538" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="3588:4014" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="4045:4128" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="4166:4555" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="4591:4882" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="4918:5029" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="5062:6473" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="6503:6748" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="6781:7363" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="7392:7533" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="7567:7920" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="7964:8041" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="8083:8408" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="8449:8506" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="8560:8614" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="8654:8730" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -977,9 +991,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="309" column="12" lean-forward="false" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="12" />
-          <folding />
+        <state relative-caret-position="207">
+          <caret line="314" column="68" lean-forward="false" selection-start-line="314" selection-start-column="68" selection-end-line="314" selection-end-column="68" />
+          <folding>
+            <marker date="1482143499000" expanded="true" signature="34349:37469" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="37549:41457" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="41572:41741" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="41790:42108" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="42139:42395" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="42269:42393" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="42451:44077" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="42519:42643" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="42702:43887" ph="{...}" />
+            <marker date="1482143499000" expanded="true" signature="44036:44074" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -64,6 +64,7 @@ extension CommentViewController {
         }
 
         feedHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(feedHeaderView)
 
         let views: [String: AnyObject] = [
             "feedHeaderView": feedHeaderView

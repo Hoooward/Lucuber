@@ -106,20 +106,22 @@ public struct ImageAttachment {
         self.image = image
         self.URLString = URLString
     }
+
     
-    public var thumbnailImageData: NSData? {
-        guard (metadata?.characters.count)! > 0 else {
+    public var thumbnailImageData: Data? {
+        guard let metadata = metadata else {
             return nil
         }
         
-        //        if let data = metadata?.data(using: String.Encoding.utf8, allowLossyConversion:  false) {
-        //            if  let metadataInfo = encodeJSON(data) {
-        //                if let thumbnailString = metadataInfo["thumbnail"] as? String {
-        //                    let imageData = NSData(base64EncodedString: thumbnailString, options: NSDataBase64DecodingOptions(rawValue: 0))
-        //                    return imageData
-        //                }
-        //            }
-        //        }
+        if let data = metadata.data(using: String.Encoding.utf8, allowLossyConversion:  false) {
+            if  let result = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0)), let metaDataInfo = result as? [String: Any] {
+                
+                if let thumbnailString = metaDataInfo[Config.MetaData.blurredThumbnailString] as? String {
+                    let imageData = Data(base64Encoded: thumbnailString)
+                    return imageData
+                }
+            }
+        }
         return nil
     }
     
@@ -148,7 +150,6 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var body: String
     @NSManaged var categoryString: String
     
-    
     var category: FeedCategory {
         if let category = FeedCategory(rawValue: categoryString) {
             return category
@@ -160,39 +161,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var withFormula: DiscoverFormula?
 
     @NSManaged var highlightedKeywordsBody: String
-    
-    public var hasMapImage: Bool {
-        
-        if let category = FeedCategory(rawValue: categoryString) {
-            
-            switch category {
-            case .location:
-                return true
-            default:
-                return false
-            }
-        }
-        return false
-    }
-
-    public struct AudioInfo {
-        public let feedID: String
-        public let URLString: String
-        public let metaData: NSData
-        public let duration: TimeInterval
-        public let sampleValues: [CGFloat]
-    }
-    
-    public struct LocationInfo {
-        public let name: String
-        public let latitude: CLLocationDegrees
-        public let longitude: CLLocationDegrees
-        
-        public var coordinate: CLLocationCoordinate2D {
-            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        }
-    }
-    
+ 
     public struct OpenGraphInfo: OpenGraphInfoType {
         
         public let URL: URL
@@ -241,11 +210,9 @@ open class DiscoverFeed: AVObject, AVSubclassing {
                 self.attachment = .URL(openGraph)
                 
             }
-            
         }
         
         if let formula = withFormula {
-            
             self.attachment = .formula(formula)
         }
     }
@@ -278,7 +245,6 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var groupID: String
     @NSManaged var recommended: Bool
     
-    
     public var uploadingErrorMessage: String? = nil
     
     public var timeString: String {
@@ -304,6 +270,39 @@ open class DiscoverFeed: AVObject, AVSubclassing {
             return timeString
         }
     }
+    
+    public var hasMapImage: Bool {
+        
+        if let category = FeedCategory(rawValue: categoryString) {
+            
+            switch category {
+            case .location:
+                return true
+            default:
+                return false
+            }
+        }
+        return false
+    }
+    
+    public struct AudioInfo {
+        public let feedID: String
+        public let URLString: String
+        public let metaData: NSData
+        public let duration: TimeInterval
+        public let sampleValues: [CGFloat]
+    }
+    
+    public struct LocationInfo {
+        public let name: String
+        public let latitude: CLLocationDegrees
+        public let longitude: CLLocationDegrees
+        
+        public var coordinate: CLLocationCoordinate2D {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+    }
+    
 }
 // MARK: - FeedHeaderView
 extension DiscoverFeed {

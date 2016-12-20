@@ -103,7 +103,7 @@ class FeedHeaderView: UIView {
 
                 self?.heightConstraint?.constant = FeedHeaderView.foldHeight + (normalHeight - FeedHeaderView.foldHeight) * (1 - newValue)
 
-                self?.layoutIfNeeded()
+                self?.superview?.layoutSubviews()
 
                 let foldingAlpha = (1 - newValue)
                 self?.mediaCollectionView.alpha = foldingAlpha

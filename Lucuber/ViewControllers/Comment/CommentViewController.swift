@@ -366,6 +366,7 @@ class CommentViewController: UIViewController {
         // 初始化 headerView
         makeFormulaHeaderView(with: formula)
         makeFeedHeaderView(with: feed)
+        tryFoldFeedHeaderView()
 
         tryShowSubscribeView()
     

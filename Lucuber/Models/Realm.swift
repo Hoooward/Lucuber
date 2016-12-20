@@ -298,6 +298,30 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
     return nil
 }
 
+
+//public func decodeJSON(data: NSData) -> JSONDictionary? {
+//    
+//    if data.length > 0 {
+//        guard let result = try? JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions()) else {
+//            return JSONDictionary()
+//        }
+//        
+//        if let dictionary = result as? JSONDictionary {
+//            return dictionary
+//        } else if let array = result as? [JSONDictionary] {
+//            return ["data": array]
+//        } else {
+//            return JSONDictionary()
+//        }
+//    } else {
+//        return JSONDictionary()
+//    }
+//}
+//
+//public func encodeJSON(dict: JSONDictionary) -> NSData? {
+//    return dict.count > 0 ? (try? JSONSerialization.dataWithJSONObject(dict, options: JSONSerialization.WritingOptions())) as NSData : nil
+//}
+
 public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
 
     guard !message.isInvalidated else {

@@ -89,7 +89,7 @@ final class FeedMediaView: UIView {
 			}
 
 			addSubview(imageView1)
-			addSubview(imageView1)
+			addSubview(imageView2)
 
 
 		case 3:

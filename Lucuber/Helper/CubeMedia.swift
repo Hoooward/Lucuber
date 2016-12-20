@@ -64,8 +64,6 @@ public func metaDataOfImage(_ image: UIImage, needBlurThumbnail: Bool) -> Data? 
 
     }
 
-    var metaDataString: String? = nil
-
     if let metaData = try? JSONSerialization.data(withJSONObject: metaDataInfo, options: []) {
         return metaData
     }
