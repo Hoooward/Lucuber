@@ -106,16 +106,16 @@ final class FeedMediaView: UIView {
 			imageView2.center = CGPoint(x: imageView2.center.x, y: quarterRect.height * 1.5 + 1.0)
 
 			if let thumbnailImage = attachments[1].thumbnailImage {
-				imageView1.image = thumbnailImage
+				imageView2.image = thumbnailImage
 
 			} else {
-				imageView1.cube_setImageAtFeedCellWithAttachment(attachment: attachments[1], withSize: quarterRect.size)
+				imageView2.cube_setImageAtFeedCellWithAttachment(attachment: attachments[1], withSize: quarterRect.size)
 			}
 
 			imageView3.frame = halfRect
 			imageView3.center = CGPoint(x: halfRect.width * 1.5 + 1, y: imageView3.center.y)
 
-			if let thumbnailImage = attachments[3].thumbnailImage {
+			if let thumbnailImage = attachments[2].thumbnailImage {
 				imageView3.image = thumbnailImage
 
 			} else {
