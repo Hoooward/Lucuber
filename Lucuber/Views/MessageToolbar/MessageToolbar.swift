@@ -90,7 +90,6 @@ class MessageToolbar: UIToolbar {
             
             previousState = state
             
-            
             if let action = stateTransitionAction {
                 action(self, previousState, newValue)
             }
@@ -147,6 +146,18 @@ class MessageToolbar: UIToolbar {
                 
                 break
                 
+            }
+        }
+        
+        didSet {
+            
+            switch state {
+                
+            case .beginTextInput, .textInputing:
+                break
+                
+            default:
+                messageTextView.resignFirstResponder()
             }
         }
     }

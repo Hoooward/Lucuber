@@ -15,6 +15,10 @@ let kMonth = kDay * 31
 let kYear = kDay * 365
 
 extension Date {
+    
+    public var isInCurrentWeek: Bool {
+        return Calendar.current.isDateInWeekend(self)
+    }
 
     public var timeAgo: String {
         

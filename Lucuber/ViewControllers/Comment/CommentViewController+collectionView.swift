@@ -120,6 +120,10 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
         }
     }
+    
+    func showProfileWithUsername(userName: String) {
+        
+    }
 
     func showMessageMedia(from message: Message) {
 
@@ -207,7 +211,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 mediaPreviewWindow.makeKeyAndVisible()
 
             }
-
         }
     }
 
@@ -233,8 +236,12 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 if let cell = cell as? ChatSectionDateCell {
 
                     let createdAt = Date(timeIntervalSince1970: message.createdUnixTime)
-                    cell.sectionDateLabel.text = sectionDateFormatter.string(from: createdAt)
-                    // TODO: - 判断是否在一周内
+                    if createdAt.isInCurrentWeek {
+                        cell.sectionDateLabel.text = sectionDateInCurrentWeekFormatter.string(from: createdAt)
+                    } else {
+                        cell.sectionDateLabel.text = sectionDateFormatter.string(from: createdAt)
+                    }
+                    
                     return
                 }
             }
@@ -249,6 +256,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
                 cell.tapAvatarAction  = { [weak self] user in
                     // TODO: - 显示用户
+//                    self?.performSegue(withIdentifier: "", sender: nil)
                 }
 
                 cell.deleteMessageAction = { [weak self] in
@@ -261,7 +269,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
 
             if message.isfromMe {
-
 
                 switch message.mediaType {
 
@@ -390,6 +397,69 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: UIScreen.main.bounds.width, height: heightOfMessage(messages[indexPath.item + displayedMessagesRange.location]))
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        
+        seletedIndexPathForMenu = indexPath
+        
+        guard let _ = commentCollectionView.cellForItem(at: indexPath) else {
+            return false
+        }
+        
+        var title = ""
+        if let message = messages[safe: (displayedMessagesRange.location + indexPath.item)] {
+            
+            let isMy = message.creator?.isMe ?? false
+            
+            if isMy {
+                title = "撤回"
+            } else {
+                title = "隐藏"
+            }
+            
+            let menuItems = [
+                UIMenuItem(title: title, action: #selector(ChatBaseCell.deleteMessage(object:)))
+            ]
+            
+            UIMenuController.shared.menuItems = menuItems
+            
+            return true
+        }
+        
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        
+        if let _ = commentCollectionView.cellForItem(at: indexPath) as? ChatLeftTextCell {
+            if action == #selector(NSObject.copy) {
+                return true
+            }
+        } else if let _ = commentCollectionView.cellForItem(at: indexPath) as? ChatRightTextCell {
+            if action == #selector(NSObject.copy) {
+                return true
+            }
+        }
+        
+        if action == #selector(ChatBaseCell.deleteMessage(object:)) {
+            return true
+        }
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        
+        if let cell = commentCollectionView.cellForItem(at: indexPath) as? ChatLeftTextCell {
+            if action == #selector(NSObject.copy) {
+                UIPasteboard.general.string = cell.textContentTextView.text
+            }
+        } else if let cell = commentCollectionView.cellForItem(at: indexPath) as? ChatRightTextCell {
+            if action == #selector(NSObject.copy) {
+                UIPasteboard.general.string = cell.textContentTextView.text
+            }
+        }
+    }
+    
 
 
 
