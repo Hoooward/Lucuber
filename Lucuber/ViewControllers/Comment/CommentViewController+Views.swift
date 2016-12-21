@@ -26,12 +26,6 @@ extension CommentViewController {
 		}
 
 		/*
-		if nameOfConversation(self.conversation) != "" {
-			titleView.nameLabel.text = nameOfConversation(self.conversation)
-		} else {
-			titleView.nameLabel.text = NSLocalizedString("Discussion", comment: "")
-		}
-
 		self.updateStateInfoOfTitleView(titleView)
 
 		titleView.userInteractionEnabled = true
@@ -39,13 +33,29 @@ extension CommentViewController {
 		let tap = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.showFriendProfile(_:)))
 
 		titleView.addGestureRecognizer(tap)
-		*/
 
 		titleView.stateInfoLabel.textColor = UIColor.gray
-		titleView.stateInfoLabel.text = "上次见是一周以前"
-
+		titleView.stateInfoLabel.text = "刚刚开始讨论"
+         */
+        self.updateInfoOfTitleView(titleView: titleView)
 		return titleView
 	}
+    
+    func updateInfoOfTitleView(titleView: ConversationTitleView) {
+        // TODO: - 更新 TitleViewInfo
+        guard !self.conversation.isInvalidated else { return }
+        
+        // 拿到 conversation 的最后一个有效 Message, 不包含我
+        
+        if let message = messages.last {
+            let date = Date(timeIntervalSince1970: message.createdUnixTime)
+            titleView.stateInfoLabel.text = String(format: "上次见是%@", date.timeAgo)
+        } else {
+            titleView.stateInfoLabel.text = "刚刚开始讨论"
+        }
+        
+        titleView.stateInfoLabel.textColor = UIColor.gray
+    }
 }
 
 // MARK: - MoreMessageTypesView

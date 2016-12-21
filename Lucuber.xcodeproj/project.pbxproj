@@ -809,6 +809,7 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4CED79D1DE862770036A11C /* Cell */,
 				E4C40DE71E078A6900ED46F2 /* FeedMedia */,
 				E4F38DB31E01130000F0DF8A /* HorizontalLineView */,
 				E4F38DB01E00753700F0DF8A /* SubscribeView */,
@@ -820,7 +821,6 @@
 				E4F38D441DFD1DB300F0DF8A /* MoreMessageType */,
 				E45351EC1DFC1E2D0092805B /* MessageToolbar */,
 				E45351E91DFC1DF70092805B /* ConversationTitle */,
-				E4CED79D1DE862770036A11C /* Cell */,
 				E4CED7951DE862770036A11C /* ActionSheetView */,
 				E4CED7FB1DE862770036A11C /* CommentHeader */,
 				E4CED8061DE862770036A11C /* FormulaSearchBar */,

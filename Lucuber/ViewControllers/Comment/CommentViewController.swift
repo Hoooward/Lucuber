@@ -388,10 +388,7 @@ class CommentViewController: UIViewController {
     }
 
     // MARK: - Action & Target
-	func updateInfoOfTitleView(titleView: ConversationTitleView) {
-	// TODO: - 更新 TitleViewInfo
-		guard !self.conversation.isInvalidated else { return }
-	}
+
 
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 

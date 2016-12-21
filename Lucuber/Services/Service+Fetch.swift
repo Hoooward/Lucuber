@@ -63,7 +63,6 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: @escaping (
         return
     }
 
-
 }
 
 // 不使用公共的 fetchMessageFromLeancloud 方法, 避免服务器端查询表, 减少延迟
@@ -540,7 +539,6 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
     }
     
 }
-
 
 public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, withFeed feed: Feed?, inRealm realm: Realm, completion: ((Formula) -> Void)?) {
     
