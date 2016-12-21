@@ -47,7 +47,7 @@ extension UIFont {
     }
     
     class func feedBottomLabel() -> UIFont {
-        return UIFont.systemFont(ofSize: 14)
+        return UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
     }
     
     class func customKeyboardKeyTitle() -> UIFont {

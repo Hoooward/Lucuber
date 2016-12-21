@@ -294,7 +294,6 @@ class FeedHeaderView: UIView {
 
         messageLabelTrailingConstraint.constant = CGFloat(feed.hasAttachments ? 15 : 60)
 
-
         // 设置头像
         if let creator = feed.creator {
             let userAvatar = CubeAvatar(avatarUrlString: creator.avatorImageURL() ?? "", avatarStyle: nanoAvatarStyle)
@@ -303,8 +302,12 @@ class FeedHeaderView: UIView {
             nicknameLabel.text = creator.nickname() ?? ""
         }
         
-        // TODO: - 时间显示
-        timeLabel.text = "\(feed.createdAt?.timeIntervalSince1970)"
+        if let createdAt = feed.createdAt {
+            let date = Date(timeIntervalSince1970: createdAt.timeIntervalSince1970)
+            timeLabel.text = date.timeAgo
+        } else {
+            timeLabel.text = ""
+        }
         
         switch feed.category {
             
