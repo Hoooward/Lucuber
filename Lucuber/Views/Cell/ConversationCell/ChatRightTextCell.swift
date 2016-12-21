@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Navi
 
 class ChatRightTextCell: ChatRightBaseCell {
     
@@ -107,11 +108,17 @@ class ChatRightTextCell: ChatRightBaseCell {
         self.message = message
         self.user = message.creator
         
-        self.avatarImageView.image = UIImage(named: "Howard")
-        
         self.mediaTapAction = mediaTapAction
         
         textContentTextView.text = message.textContent
+        
+        if let url = message.creator?.avatorImageURL {
+            let cubeAvatar = CubeAvatar(avatarUrlString: url, avatarStyle: nanoAvatarStyle)
+            avatarImageView.navi_setAvatar(cubeAvatar, withFadeTransitionDuration: 0.5)
+            
+        } else {
+            avatarImageView.image = #imageLiteral(resourceName: "default_avatar_60")
+        }
         
         // 用 sizeThatFits 来对比，不需要 magicWidth 的时候就可以避免了
         var textContentLabelWidth = textContentLabelWidth
@@ -121,7 +128,6 @@ class ChatRightTextCell: ChatRightBaseCell {
         textContentTextView.textAlignment = ((size.height - textContentTextView.font!.lineHeight) < 20) ? .center : .left
         
         if ceil(size.width) != textContentLabelWidth {
-            
             
             if abs(ceil(size.width) - textContentLabelWidth) >= Config.ChatCell.magicWidth {
                 textContentLabelWidth += Config.ChatCell.magicWidth
@@ -150,12 +156,7 @@ class ChatRightTextCell: ChatRightBaseCell {
             }
         }
         
-        // TODO: 设置图片
-        
-//        if let sender = message.fromFriend {
-//            let userAvatar = UserAvatar(userID: sender.userID, avatarURLString: sender.avatarURLString, avatarStyle: nanoAvatarStyle)
-//            avatarImageView.navi_setAvatar(userAvatar, withFadeTransitionDuration: avatarFadeTransitionDuration)
-//        }
+
     }
 }
 

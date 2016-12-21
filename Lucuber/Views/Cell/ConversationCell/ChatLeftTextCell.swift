@@ -94,9 +94,15 @@ class ChatLeftTextCell: ChatBaseCell {
             self.inGroup = true
         }
         
-        self.avatarImageView.image = UIImage(named: "Howard")
-        
         textContentTextView.text = message.textContent
+        
+        if let url = message.creator?.avatorImageURL {
+            let cubeAvatar = CubeAvatar(avatarUrlString: url, avatarStyle: nanoAvatarStyle)
+            avatarImageView.navi_setAvatar(cubeAvatar, withFadeTransitionDuration: 0.5)
+            
+        } else {
+            avatarImageView.image = #imageLiteral(resourceName: "default_avatar_60")
+        }
         
         //textContentTextView.attributedText = NSAttributedString(string: message.textContent, attributes: textAttributes)
         
@@ -133,8 +139,6 @@ class ChatLeftTextCell: ChatBaseCell {
                 } else {
                     topOffset = 0
                 }
-                
-                
                 
                 let textContentTextViewFrame = CGRect(x: strongSelf.avatarImageView.frame.maxX + Config.chatCellGapBetweenTextContentLabelAndAvatar(), y: 3 + topOffset, width: textContentLabelWidth, height: strongSelf.bounds.height - topOffset - 3 * 2 - strongSelf.bottomGap)
                 

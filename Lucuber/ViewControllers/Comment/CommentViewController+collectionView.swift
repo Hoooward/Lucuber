@@ -28,7 +28,6 @@ extension CommentViewController {
     }
 }
 
-
 extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     enum Section: Int {
@@ -48,15 +47,12 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
         switch section {
 
-        case .loadPrevious:
-            return 1
+        case .loadPrevious: return 1
 
         case .message:
 
             return displayedMessagesRange.length
         }
-
-
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -366,9 +362,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                             self?.showConversationWithFeed(feed: feed)
                         }
                     }
-
                 }
-
 
             } else {
                 
@@ -428,7 +422,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
         }
     }
-
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
