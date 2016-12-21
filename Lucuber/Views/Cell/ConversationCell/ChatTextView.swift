@@ -64,7 +64,6 @@ class ChatTextView: UITextView {
         }
     }
     
-    
     override var canBecomeFirstResponder: Bool {
         return false
     }

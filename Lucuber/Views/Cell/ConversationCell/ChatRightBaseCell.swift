@@ -102,7 +102,6 @@ class ChatRightBaseCell: ChatBaseCell {
                 }
             }
         }
-        
     }
     
     func showSendingAnimation() {
