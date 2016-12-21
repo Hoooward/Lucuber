@@ -103,11 +103,8 @@ public class FeedFormulaContainerView: UIView {
         }
         
         if let image = formula.localImage {
-            
             thumbnailImageView.image = image
-            
         } else {
-            
             if let _ = URL.init(string: formula.imageURL) {
                 thumbnailImageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: thumbnailImageView.frame.size)
                 
@@ -116,13 +113,9 @@ public class FeedFormulaContainerView: UIView {
                 thumbnailImageView.backgroundColor = UIColor.lightGray
             }
         }
-        
-        
-        
     }
     
     private func makeUI() {
-        
         
         addSubview(backgroundImageView)
         addSubview(thumbnailImageView)

@@ -79,7 +79,7 @@
         <!--话题-->
         <scene sceneID="a90-5j-wwF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QaM-kA-mpr" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QaM-kA-mpr" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="话题" image="icon_feeds_active" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
