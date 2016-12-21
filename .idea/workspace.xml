@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/MediaPreview/MediaPreviewViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/MediaPreview/MediaPreviewViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -60,8 +60,28 @@
         <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/MediaPreview/MediaPreviewViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-              <folding />
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding>
+                <element signature="e#147#159#0" expanded="true" />
+                <marker date="1482246654000" expanded="true" signature="251:350" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="403:7971" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="565:637" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="582:631" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="1770:5181" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="5263:6096" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="6109:6159" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="6187:7849" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="7943:7969" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="8099:11013" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="8176:8200" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="8310:8352" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="8483:8646" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="8784:10548" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="10713:10761" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="10933:11006" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="11074:13307" ph="{...}" />
+                <marker date="1482246654000" expanded="true" signature="11147:13295" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -487,7 +507,7 @@
       <workItem from="1481781483424" duration="18890000" />
       <workItem from="1481904623674" duration="31027000" />
       <workItem from="1482115463413" duration="1717000" />
-      <workItem from="1482118486098" duration="15873000" />
+      <workItem from="1482118486098" duration="16424000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -514,7 +534,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104580000" />
+    <option name="totallyTimeSpent" value="105131000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1013,8 +1033,28 @@
     <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/MediaPreview/MediaPreviewViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
-          <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding />
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#147#159#0" expanded="true" />
+            <marker date="1482246654000" expanded="true" signature="251:350" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="403:7971" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="565:637" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="582:631" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="1770:5181" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="5263:6096" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="6109:6159" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="6187:7849" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="7943:7969" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="8099:11013" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="8176:8200" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="8310:8352" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="8483:8646" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="8784:10548" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="10713:10761" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="10933:11006" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="11074:13307" ph="{...}" />
+            <marker date="1482246654000" expanded="true" signature="11147:13295" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
