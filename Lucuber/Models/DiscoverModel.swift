@@ -24,6 +24,8 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     
     @NSManaged var imageName: String
     
+    var localImage: UIImage?
+    
     @NSManaged var imageURL: String
     
     @NSManaged var isLibrary: Bool

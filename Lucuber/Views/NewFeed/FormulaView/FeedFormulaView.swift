@@ -9,6 +9,8 @@
 import UIKit
 
 class FeedFormulaView: UIView {
+    
+    var tapAction: (() -> Void)?
  
     var formula: Formula? {
         didSet {
@@ -34,9 +36,16 @@ class FeedFormulaView: UIView {
         self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
         self.layer.borderWidth = 1.0
         
+        self.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(FeedFormulaView.tap(sender:)))
+        self.addGestureRecognizer(tap)
     }
     
-    func configViewWith(formula: Formula) {
+    func configViewWith(formula: Formula?) {
+        
     }
     
+    func tap(sender: UIGestureRecognizer) {
+        tapAction?()
+    }
 }

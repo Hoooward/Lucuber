@@ -68,6 +68,7 @@ class NewFeedViewController: UIViewController {
     
     var beforUploadingFeedAction: ((DiscoverFeed, NewFeedViewController) -> Void)?
     var afterUploadingFeedAction: ((DiscoverFeed) -> Void)?
+    var cancelCreatedFormulaFeed: ((Formula) -> Void)?
     
     var mediaImages = [UIImage]() {
         didSet {
@@ -146,6 +147,12 @@ class NewFeedViewController: UIViewController {
             
         }
         
+        formulaView.configViewWith(formula: attachmentFormula)
+        
+        formulaView.tapAction = { [weak self] in
+            _ = self?.navigationController?.popViewController(animated: true)
+        }
+        
         view.backgroundColor = UIColor.cubeBackgroundColor()
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         
@@ -168,12 +175,11 @@ class NewFeedViewController: UIViewController {
         
     }
     
-    
     // MARK: -  Action & Target
     
     func tryMakeUploadingFeed() -> DiscoverFeed? {
         
-        guard let currentAVUser = AVUser.current(), let realm = try? Realm(), let currentRuser = currentUser(in: realm) else {
+        guard let currentAVUser = AVUser.current(), let realm = try? Realm(), let _ = currentUser(in: realm) else {
             return nil
         }
         
@@ -222,7 +228,13 @@ class NewFeedViewController: UIViewController {
                 }
             }
             
-            
+        case .formula:
+
+            if let formula = attachmentFormula, let discoverFormula = parseFormulaToDisvocerModel(with: formula) {
+                category = .formula
+                feedAttachment = .formula(discoverFormula)
+                // TODO: - 存储图片
+            }
             
         default:
             break
@@ -231,7 +243,6 @@ class NewFeedViewController: UIViewController {
         let newDiscoverFeed = DiscoverFeed()
         
         newDiscoverFeed.creator = currentAVUser
-//        newDiscoverFeed.localObjectID = Feed.randomLocalObjectID()
         newDiscoverFeed.allowComment = true
         newDiscoverFeed.categoryString = category.rawValue
         newDiscoverFeed.attachment = feedAttachment
@@ -456,7 +467,6 @@ class NewFeedViewController: UIViewController {
                 break
             }
             
-            
             pushFormulaToLeancloud(with: attachmentFormula, failureHandler: {
                 reason, errorMessage in
                 
@@ -477,6 +487,11 @@ class NewFeedViewController: UIViewController {
     }
     
     @IBAction func dismiss(_ sender: Any) {
+        
+        if let formula = attachmentFormula {
+            cancelCreatedFormulaFeed?(formula)
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     

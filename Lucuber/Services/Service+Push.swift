@@ -409,7 +409,6 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
                 }
                 discoverMessage.saveInBackground(messageSavedCompletion)
             }
-
         })
         
     default:

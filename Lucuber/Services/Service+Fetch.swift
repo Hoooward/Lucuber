@@ -537,7 +537,6 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
                 })
             }
             
-            
             if !newDiscoverFormulas.isEmpty { printLog("DiscoverFormula 转换 Formula 完成") }
             
             try? realm.commitWrite()
@@ -635,12 +634,17 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         formula.typeString = discoverFormula.type
         formula.rating = discoverFormula.rating
         
-        if formula.updateUnixTime != discoverFormula.updatedAt!.timeIntervalSince1970 {
-            formula.isNewVersion = true
+        if let updateAt = discoverFormula.updatedAt {
+            if formula.updateUnixTime != updateAt.timeIntervalSince1970 {
+                formula.isNewVersion = true
+            }
+            formula.updateUnixTime = updateAt.timeIntervalSince1970
         }
         
-        formula.updateUnixTime = discoverFormula.updatedAt!.timeIntervalSince1970
-        formula.createdUnixTime = discoverFormula.createdAt!.timeIntervalSince1970
+        if let createdAt = discoverFormula.createdAt {
+            formula.createdUnixTime = createdAt.timeIntervalSince1970
+            
+        }
         
         // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
         

@@ -102,14 +102,22 @@ public class FeedFormulaContainerView: UIView {
             contentLabel.text = "..."
         }
         
-        
-        if let _ = URL.init(string: formula.imageURL) {
+        if let image = formula.localImage {
             
-            thumbnailImageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: thumbnailImageView.frame.size)
+            thumbnailImageView.image = image
+            
         } else {
-            thumbnailImageView.image = nil
-            thumbnailImageView.backgroundColor = UIColor.lightGray
+            
+            if let _ = URL.init(string: formula.imageURL) {
+                thumbnailImageView.cube_setImageAtFormulaCell(with: formula.imageURL, size: thumbnailImageView.frame.size)
+                
+            } else {
+                thumbnailImageView.image = nil
+                thumbnailImageView.backgroundColor = UIColor.lightGray
+            }
         }
+        
+        
         
     }
     

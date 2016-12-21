@@ -150,20 +150,89 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                 action: { [weak self] in
                     guard let strongSelf = self else { return }
                     
+                    let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
+                        [weak self] feed, newFeedViewController in
+                        
+                        self?.newFeedViewController = newFeedViewController
+                        
+                        DispatchQueue.main.async {
+                            
+                            guard let strongSelf = self else {
+                                return
+                            }
+                            strongSelf.tableView.customScrollsToTop()
+                            strongSelf.tableView.beginUpdates()
+                            
+                            strongSelf.uploadingFeeds.insert(feed, at: 0)
+                            
+                            let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
+                            strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                            
+                            printLog("已刷新")
+                            strongSelf.tableView.endUpdates()
+                        }
+                    }
+                    
+                    let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
+                        [weak self] feed in
+                        
+                        self?.newFeedViewController = nil
+                        
+                        DispatchQueue.main.async {
+                            
+                            guard let strongSelf = self else {
+                                return
+                            }
+                            
+                            feed.parseAttachmentsInfo()
+                            
+                            strongSelf.tableView.customScrollsToTop()
+                            
+                            strongSelf.tableView.beginUpdates()
+                            
+                            var animation: UITableViewRowAnimation = .automatic
+                            
+                            if !strongSelf.uploadingFeeds.isEmpty {
+                                
+                                strongSelf.uploadingFeeds = []
+                                
+                                let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
+                                
+                                strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+                                
+                                animation = .none
+                            }
+                            
+                            strongSelf.feeds.insert(feed, at: 0)
+                            
+                            let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
+                            strongSelf.tableView.insertRows(at: [indexPath], with: animation)
+                            
+                            strongSelf.tableView.endUpdates()
+                            
+                        }
+                        
+                        // TODO: - joinGroup
+                    }
+                    
+                    
                     let navigationVC = UIStoryboard(name: "NewFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
-                    let newVc = navigationVC.viewControllers.first as! NewFormulaViewController
+                    let vc = navigationVC.viewControllers.first as! NewFormulaViewController
                     
                     /// 由于初始化顺序,下面三行代码先后顺序不可改变
                     guard let realm = try? Realm() else {
                         return
                     }
-                    newVc.editType = NewFormulaViewController.EditType.newAttchment
-                    newVc.view.alpha = 1
+                    vc.editType = NewFormulaViewController.EditType.newAttchment
+                    vc.view.alpha = 1
                     
                     try? realm.write {
-                        newVc.formula = Formula.new(inRealm: realm)
+                        vc.formula = Formula.new(inRealm: realm)
                     }
-                    newVc.realm = realm
+                    vc.realm = realm
+                    
+                    vc.beforUploadingFeedAction = beforeUploadingFeedAction
+                    vc.afterUploadingFeedAction = afterCreatedFeedAction
                     
                     strongSelf.present(navigationVC, animated: true, completion: nil)
                     
@@ -187,6 +256,11 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     }()
     
     // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+         navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -370,6 +444,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                 let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
                 strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
                 
+                printLog("已刷新")
                 strongSelf.tableView.endUpdates()
             }
         }

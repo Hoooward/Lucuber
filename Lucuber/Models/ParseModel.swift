@@ -73,6 +73,7 @@ public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFor
     newDiscoverFormula.localObjectID = newFormula.localObjectID
     newDiscoverFormula.name = newFormula.name
     newDiscoverFormula.imageName = newFormula.imageName
+    newDiscoverFormula.localImage = newFormula.pickedLocalImage
     
     var discoverContents: [DiscoverContent] = []
     

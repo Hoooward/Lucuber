@@ -44,6 +44,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     fileprivate lazy var headerView: DetailHeaderView = DetailHeaderView()
     
+    fileprivate lazy var commentCellIndexPath: IndexPath = IndexPath(item: 0, section: Section.comment.rawValue)
+    
     fileprivate var lastSeletedFormulaContentCellHeight: CGFloat = 0
     
     private lazy var customNavigationItem: UINavigationItem = {
@@ -319,10 +321,11 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             strongSelf.formula = formula
        
             // 重新计算 contentCell 高度
-            let indexPath = IndexPath(row: 0, section: FormulaDetailViewController.Section.formulas.rawValue)
+            let indexPath = IndexPath(row: 0, section: Section.formulas.rawValue)
             
             strongSelf.tableView.beginUpdates()
             strongSelf.tableView.reloadSections(IndexSet(indexPath), with: .none)
+            strongSelf.tableView.reloadSections(IndexSet(strongSelf.commentCellIndexPath), with: .none)
             strongSelf.tableView.endUpdates()
         }
         
@@ -427,6 +430,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             
             
         case .edit:
+            
             let editVC = segue.destination as! NewFormulaViewController
             editVC.view.alpha = 1
             editVC.editType = NewFormulaViewController.EditType.editFormula
@@ -465,7 +469,8 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case .formulas: return 1
         case .separatorTwo: return 1
         case .master: return 1
-        case .comment: return 1
+        case .comment:
+            return formula.isBelongToFeed ? 1 : 0
         }
     }
     

@@ -37,6 +37,9 @@ class NewFormulaViewController: UIViewController {
     public var updateCurrentSelectedFormulaUI: (() -> Void)?
     
    
+    public var beforUploadingFeedAction: ((DiscoverFeed, NewFeedViewController) -> Void)?
+    public var afterUploadingFeedAction: ((DiscoverFeed) -> Void)?
+    
     public var formula = Formula() {
         didSet {
             headerView.configView(with: formula)
@@ -285,9 +288,7 @@ class NewFormulaViewController: UIViewController {
                 if self.isNeedRepush {
                     formula.isPushed = false
                 }
-                
             }
-            
             // 暂时存储本地图片, 待应用进入后台后再统一 push
             if let image = formula.pickedLocalImage {
                 
@@ -303,11 +304,8 @@ class NewFormulaViewController: UIViewController {
             updateCurrentSelectedFormulaUI?()
             
             self.dismiss(animated: true, completion: nil)
-
         }
-        
     }
-    
     
     func next(_ sender: UIBarButtonItem) {
         
@@ -315,14 +313,34 @@ class NewFormulaViewController: UIViewController {
         
         if self.formula.isReadyToPush {
       
-
             let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "NewFeedViewController") as! NewFeedViewController
             vc.attachment = NewFeedViewController.Attachment.formula
             vc.attachmentFormula = formula
+            
+            vc.beforUploadingFeedAction = beforUploadingFeedAction
+            vc.afterUploadingFeedAction = afterUploadingFeedAction
+            
+            vc.cancelCreatedFormulaFeed = { [weak self] formula in
+                
+                if let strongSelf = self {
+                    try? strongSelf.realm.write {
+                        strongSelf.formula.cascadeDelete(inRealm: strongSelf.realm)
+                    }
+                    
+                } else {
+                    
+                    guard let realm = try? Realm() else {
+                        return
+                    }
+                    try? realm.write {
+                        formula.cascadeDelete(inRealm: realm)
+                    }
+                }
+            }
+            
             self.navigationController?.pushViewController(vc, animated: true)
             
         } else {
-            
             CubeAlert.alertSorry(message: "请正确填写公式信息", inViewController: self)
             
         }
