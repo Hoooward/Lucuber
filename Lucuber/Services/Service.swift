@@ -31,6 +31,7 @@ public func deleteMessageFromServer(message: Message, failureHandler: @escaping 
         }
         if success {
             completion()
+            
         }
     }
 }

@@ -135,6 +135,10 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
     func showProfileWithUsername(userName: String) {
         
     }
+    
+    func showConversationWithFeed(feed: Any) {
+        
+    }
 
     func showMessageMedia(from message: Message) {
 
@@ -286,39 +290,80 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 case MessageMediaType.image.rawValue:
 
                     if let cell = cell as? ChatRightImageCell {
+                        
+                        prepareCell(cell: cell)
 
                         cell.configureWithMessage(message: message, messageImagePreferredWidth: messageImagePreferredWidth, messageImagePreferredHeight: messageImagePreferredHeight, messageImagePreferredAspectRatio: messageImagePreferredAspectRatio, mediaTapAction: {
                             [weak self] in
 
                             if message.sendState == MessageSendState.failed.rawValue {
 
-                                CubeAlert.confirmOrCancel(title: "失败", message: "重新发送图片?", confirmTitle: "重新发送", cancelTitles: "取消", inViewController: self , confirmAction: {
+                                CubeAlert.confirmOrCancel(title: "上传失败", message: "重新发送图片?", confirmTitle: "重新发送", cancelTitles: "取消", inViewController: self , confirmAction: {
 
+                                    resendMessage(message: message, failureHandler: { [weak self] reason, errorMessage in
+                                        defaultFailureHandler(reason, errorMessage)
+                                        
+                                        CubeAlert.alertSorry(message: "重新发送失败.", inViewController: self)
+                                        
+                                        }, completion: { success in
+                                            
+                                    })
 
                                 }, cancelAction: {
 
                                 })
 
+                            } else {
+                                
+                                if let messageTextView = self?.messageToolbar.messageTextView {
+                                    if messageTextView.isFirstResponder {
+                                        self?.messageToolbar.state = .normal
+                                        return
+                                    }
+                                }
+                                
+                                self?.showMessageMedia(from: message)
                             }
 
                         }, collectionView: collectionView, indexPath: indexPath)
 
                     }
 
-
                 default:
+                    
                     if let cell = cell as? ChatRightTextCell {
 
                         prepareCell(cell: cell)
 
-                        cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), mediaTapAction: nil, collectionView: collectionView, indexPath: indexPath)
+                        cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), mediaTapAction: { [weak self] in
+                            
+                            guard message.sendState == MessageSendState.failed.rawValue else {
+                                return
+                            }
+                            CubeAlert.confirmOrCancel(title: "上传失败", message: "重新发送文字?", confirmTitle: "重新发送", cancelTitles: "取消", inViewController: self , confirmAction: {
+                                
+                                resendMessage(message: message, failureHandler: { [weak self] reason, errorMessage in
+                                    defaultFailureHandler(reason, errorMessage)
+                                    
+                                    CubeAlert.alertSorry(message: "重新发送失败.", inViewController: self)
+                                    
+                                    }, completion: { success in
+                                        
+                                })
+                                
+                            }, cancelAction: {
+                                
+                            })
+                            
+                        }, collectionView: collectionView, indexPath: indexPath)
 
                         cell.tapUsernameAction = { [weak self] name in
-                            // TODO: - ShowProfileWithUsername
+                            self?.showProfileWithUsername(userName: name)
                         }
 
                         cell.tapFeedAction = { [weak self] feed in
                             // TODO: - showConversationWithFeed
+                            self?.showConversationWithFeed(feed: feed)
                         }
                     }
 
@@ -326,6 +371,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 
             } else {
+                
                 switch message.mediaType {
 
                 case MessageMediaType.image.rawValue:
@@ -370,11 +416,11 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                             cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
 
                             cell.tapUsernameAction = { [weak self] name in
-                                // TODO: - ShowProfileWithUsername
+                                self?.showProfileWithUsername(userName: name)
                             }
 
                             cell.tapFeedAction = { [weak self] feed in
-                                // TODO: - showConversationWithFeed
+                                self?.showConversationWithFeed(feed: feed)
                             }
                         }
                     }

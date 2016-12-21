@@ -831,7 +831,7 @@ class CommentViewController: UIViewController {
 
     func deleteMessage(at indexPath: IndexPath, withMessage message: Message) {
 
-        DispatchQueue.main.sync { [weak self] in
+        DispatchQueue.main.async { [weak self] in
 
             if let strongSelf = self, let realm = message.realm {
 
@@ -874,23 +874,27 @@ class CommentViewController: UIViewController {
                         strongSelf.displayedMessagesRange.length -= 1
                     }
 
-                    try? realm.write {
-                        message.deleteAttachment(inRealm: realm)
-                        realm.delete(sectionDateMessage)
-
-                        if isMyMessage {
-
-                            realm.delete(message)
-
-                            deleteMessageFromServer(message: message, failureHandler: {
-                                reason, errorMessage in
-                                defaultFailureHandler(reason, errorMessage)
-                                }, completion: {
-                                printLog("删除 Message 成功")
-
-                            })
-
-                        } else {
+                    if isMyMessage {
+                        
+                        deleteMessageFromServer(message: message, failureHandler: {
+                            reason, errorMessage in
+                            defaultFailureHandler(reason, errorMessage)
+                            
+                        }, completion: { [weak self] in
+                            
+                            if let strongSelf = self {
+                                try? strongSelf.realm.write {
+                                    realm.delete(sectionDateMessage)
+                                    message.deleteAttachment(inRealm: realm)
+                                    realm.delete(message)
+                                    printLog("删除 Message 成功")
+                                }
+                            }
+                        })
+                        
+                    } else {
+                        
+                        try? realm.write {
                             message.hidden = true
                         }
                     }
@@ -902,35 +906,38 @@ class CommentViewController: UIViewController {
                     } else {
                         strongSelf.commentCollectionView.deleteItems(at: [currentIndexPath])
                     }
-
+                    
                 } else {
-
+                    
                     strongSelf.displayedMessagesRange.length -= 1
-
-                    try? realm.write {
-                        message.deleteAttachment(inRealm: realm)
-
-                        if isMyMessage {
-
-                            realm.delete(message)
-
-                            deleteMessageFromServer(message: message, failureHandler: {
-                                reason, errorMessage in
-
-                                defaultFailureHandler(reason, errorMessage)
-                            }, completion: {
-
-                                printLog("删除 Message 成功")
-                            })
-
-                        } else {
+                    
+                    if isMyMessage {
+                        
+                        deleteMessageFromServer(message: message, failureHandler: {
+                            reason, errorMessage in
+                            defaultFailureHandler(reason, errorMessage)
+                            
+                        }, completion: { [weak self] in
+                            
+                            if let strongSelf = self {
+                                
+                                try? strongSelf.realm.write {
+                                    message.deleteAttachment(inRealm: realm)
+                                    realm.delete(message)
+                                    printLog("删除 Message 成功")
+                                }
+                            }
+                        })
+                        
+                    } else {
+                        try? realm.write {
                             message.hidden = true
                         }
                     }
-
+                    
                     strongSelf.commentCollectionView.deleteItems(at: [currentIndexPath])
                 }
-
+                
                 strongSelf.lastUpdateMessagesCount = strongSelf.messages.count
             }
         }

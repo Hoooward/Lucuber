@@ -161,19 +161,22 @@ public func fetchMessageFromLeancloud(with query: AVQuery, messageAge: MessageAg
             if !discoverMessages.isEmpty { printLog("开始将 DiscoverMessage 转换成 Message 并存入本地") }
             
             // 重新升序排列的目的是优先在数据库中创建比较早的 Message, 这样方便后面的 Message 与其对比创建时间,才能正确生成 SectionDateCell
-            discoverMessages.sorted(by: {one, two in
+            
+            let sortedMessages = discoverMessages.sorted(by: {one, two in
                 
                 one.createdAt!.timeIntervalSince1970 < two.createdAt!.timeIntervalSince1970
                 
-            }).forEach {
-
-                convertDiscoverMessageToRealmMessage(discoverMessage: $0, messageAge: messageAge, inRealm: realm) {
+            })
+            
+            for message in sortedMessages {
+                
+                convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: messageAge, inRealm: realm) {
                     newMessagesID in
-
+                    
                     messageIDs += newMessagesID
                 }
-
             }
+            
             if !discoverMessages.isEmpty {
                 printLog(" DiscoverMessage 转换成 Message 已完成. 生成了 **\(messageIDs.count)** 个新" +
                         " Message")
@@ -197,16 +200,21 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
         let deleted = discoverMessage.deletedByCreator
 
         if deleted {
-           if
-            let discoverMessageCreatorUserID = discoverMessage.creator.objectId,
-            let meUserID = AVUser.current()?.objectId {
-
-            if discoverMessageCreatorUserID == meUserID {
-                if let message = message {
-                    realm.delete(message)
+            /*
+             如果 Fetch 到的 Message 是 me 创建的, 如果 Realm 中有, 删除, 如果没有, return
+             如果 Fetch 到的 Message 不是 me 创建的, 在数据库中生成对象, 因为要标记撤回.
+             这样处理是因为每次的 Fetch 都会拉取当前 Conversation 的最后一个不是我创建的 Message 之后的数据
+             而之后的 Message 很可能是 Me 创建的
+            */
+            if let discoverMessageCreatorUserID = discoverMessage.creator.objectId, let meUserID = AVUser.current()?.objectId {
+                
+                if discoverMessageCreatorUserID == meUserID {
+                    if let message = message {
+                        realm.delete(message)
+                    }
+                    return
                 }
             }
-           }
         }
 
         if message == nil {
@@ -235,6 +243,8 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
         }
 
         if let message = message {
+            
+            
             
             if let messageCreatorUserID = discoverMessage.creator.objectId {
 
@@ -361,7 +371,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                         }
 
                         message.conversation = conversation
-
+                        message.deletedByCreator = discoverMessage.deletedByCreator
                         message.textContent = discoverMessage.textContent
                         message.mediaType = discoverMessage.mediaType
                         message.attachmentURLString = discoverMessage.attachmentURLString

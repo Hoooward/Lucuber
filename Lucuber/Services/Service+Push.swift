@@ -118,6 +118,74 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
 }
 
 
+public func resendMessage(message: Message, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
+    
+    var recipientID: String?
+    var recipientType: String?
+    
+    if let conversation = message.conversation {
+        if conversation.type == ConversationType.oneToOne.rawValue {
+            recipientID = conversation.withFriend?.lcObjcetID
+            recipientType = ConversationType.oneToOne.nameForServer
+            
+        } else if conversation.type == ConversationType.group.rawValue {
+            recipientID = conversation.withGroup?.groupID
+            recipientType = ConversationType.group.nameForServer
+        }
+    }
+    
+    if let recipientID = recipientID,
+        let recipientType = recipientType,
+        let messageMediaType = MessageMediaType(rawValue: message.mediaType) {
+        
+        // 发送之前先修改发送状态
+        DispatchQueue.main.async {
+            let realm = message.realm
+            try? realm?.write {
+                message.sendState = MessageSendState.notSend.rawValue
+            }
+            
+            NotificationCenter.default.post(name: Notification.Name.updateMessageStatesNotification, object: nil)
+        }
+        
+        let resendFailureHandler: FailureHandler = { reason, errorMessage in
+            
+            failureHandler(reason, errorMessage)
+            
+            DispatchQueue.main.async {
+
+                let realm = message.realm
+                
+                let _ = try? realm?.write {
+                    message.sendState = MessageSendState.failed.rawValue
+                }
+                
+               NotificationCenter.default.post(name: Notification.Name.updateMessageStatesNotification, object: nil)
+            }
+        }
+        
+        switch messageMediaType {
+        case .text:
+            
+            pushMessageToLeancloud(with: message, atFilePath: nil, orFileData: nil, metaData: nil, toRecipient: recipientID, recipientType: recipientType, failureHandler: resendFailureHandler, completion: completion)
+            
+        case .image:
+            
+            let filePath = FileManager.cubeMessageImageURL(with: message.localThumbnailName)?.path ?? ""
+            var fileData = Data()
+            if let image = UIImage(contentsOfFile: filePath) {
+               fileData = UIImageJPEGRepresentation(image, 0.95)!
+            }
+            
+            pushMessageToLeancloud(with: message, atFilePath: filePath, orFileData: fileData, metaData: nil, toRecipient: recipientID, recipientType: recipientType, failureHandler: resendFailureHandler, completion: completion)
+        default:
+            break
+        }
+        
+    
+    }
+}
+
 
 public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: Data?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
