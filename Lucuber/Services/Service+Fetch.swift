@@ -716,8 +716,8 @@ internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSort
     query.limit = 20
     query.includeKey("withFormula")
     query.includeKey("withFormula.contents")
+    query.includeKey("withFormula.creator")
     query.includeKey("creator")
-//    query.addDescendingOrder("createAt")
     query.order(byDescending: "createdAt")
     
     switch kind {
@@ -772,8 +772,6 @@ internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSort
                 newFeeds.forEach {
                     $0.parseAttachmentsInfo()
                 }
-                
-                
                 
                 completion?(newFeeds)
             }

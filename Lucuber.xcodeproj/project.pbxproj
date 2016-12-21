@@ -217,6 +217,9 @@
 		E4CED8921DE862770036A11C /* MyFormulaVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8321DE862770036A11C /* MyFormulaVisitorView.swift */; };
 		E4CED8931DE862770036A11C /* UpdateLibraryErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8331DE862770036A11C /* UpdateLibraryErrorView.swift */; };
 		E4CED8961DE88E0D0036A11C /* DetailContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */; };
+		E4D577231E0AAAC400A6516F /* MediaFormulaViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D577211E0AAAC300A6516F /* MediaFormulaViewCell.swift */; };
+		E4D577241E0AAAC400A6516F /* MediaFormulaViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4D577221E0AAAC300A6516F /* MediaFormulaViewCell.xib */; };
+		E4D577261E0AAE5900A6516F /* FeedsViewController+Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */; };
 		E4DAFE081DEB2AF4008A8702 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DAFE071DEB2AF4008A8702 /* Model.swift */; };
 		E4DAFE091DEB2AF4008A8702 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DAFE071DEB2AF4008A8702 /* Model.swift */; };
 		E4DAFE0A1DEB3221008A8702 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
@@ -483,6 +486,9 @@
 		E4CED8321DE862770036A11C /* MyFormulaVisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaVisitorView.swift; sourceTree = "<group>"; };
 		E4CED8331DE862770036A11C /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
 		E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContentCell.swift; sourceTree = "<group>"; };
+		E4D577211E0AAAC300A6516F /* MediaFormulaViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaFormulaViewCell.swift; sourceTree = "<group>"; };
+		E4D577221E0AAAC300A6516F /* MediaFormulaViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaFormulaViewCell.xib; sourceTree = "<group>"; };
+		E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedsViewController+Formula.swift"; sourceTree = "<group>"; };
 		E4DAFE071DEB2AF4008A8702 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E4DD92AD1E0A572700ACA872 /* ChatTextIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextIndicatorCell.swift; sourceTree = "<group>"; };
 		E4DF65E51D8D92D6005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Formula.storyboard; sourceTree = "<group>"; };
@@ -606,6 +612,8 @@
 				E41ECF561DB77374005BEFE4 /* MediaViewCell.xib */,
 				E41ECF521DB61A34005BEFE4 /* MediaControlView.swift */,
 				E41ECF5C1DB77976005BEFE4 /* MediaPreviewViewController.swift */,
+				E4D577211E0AAAC300A6516F /* MediaFormulaViewCell.swift */,
+				E4D577221E0AAAC300A6516F /* MediaFormulaViewCell.xib */,
 			);
 			path = MediaPreview;
 			sourceTree = "<group>";
@@ -1375,6 +1383,7 @@
 			children = (
 				E4DF65E91D8D9353005CE518 /* Feed.storyboard */,
 				E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */,
+				E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1797,6 +1806,7 @@
 				E4CED8611DE862770036A11C /* NoResultCell.xib in Resources */,
 				E4F38D6D1DFD342100F0DF8A /* TitleCell.xib in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
+				E4D577241E0AAAC400A6516F /* MediaFormulaViewCell.xib in Resources */,
 				E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */,
 				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 				E4CED8671DE862770036A11C /* FormulaTextViewCell.xib in Resources */,
@@ -2049,6 +2059,7 @@
 				E4CED86B1DE862770036A11C /* NewFormulaTextCell.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */,
+				E4D577261E0AAE5900A6516F /* FeedsViewController+Formula.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
@@ -2060,6 +2071,7 @@
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */,
+				E4D577231E0AAAC400A6516F /* MediaFormulaViewCell.swift in Sources */,
 				E4CED8961DE88E0D0036A11C /* DetailContentCell.swift in Sources */,
 				E4CED8731DE862770036A11C /* TypeSelectedCell.swift in Sources */,
 				E4CED86F1DE862770036A11C /* StarRatingCell.swift in Sources */,

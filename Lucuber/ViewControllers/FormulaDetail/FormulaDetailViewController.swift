@@ -36,6 +36,8 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         }
     }
     
+    public var previewFormulaStyle: PreviewFormulaStyle = .many
+    
     fileprivate var realm = try! Realm()
     
     public var uploadMode: UploadFormulaMode = .library
@@ -300,7 +302,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        headerView.configView(with: formula, withUploadMode: self.uploadMode)
+        headerView.configView(with: formula, withUploadMode: self.uploadMode, withPreviewStyle: self.previewFormulaStyle)
         
         headerView.updateNavigationBar = { [weak self] formula in
             guard let strongSelf = self else {

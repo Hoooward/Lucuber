@@ -12,6 +12,7 @@ import UIKit
 let mediaPreviewWindow = UIWindow(frame: UIScreen.main.bounds)
 
 public enum PreviewMedia {
+    case formula(DiscoverFormula)
     case message(Message)
     case attachmentType(ImageAttachment)
     case localImage(UIImage)
@@ -329,6 +330,8 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                     break
                 }
 
+            default:
+                break
             }
             
             cell.mediaView.tapToDismissAction = {

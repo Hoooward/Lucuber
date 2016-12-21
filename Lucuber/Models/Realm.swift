@@ -194,6 +194,13 @@ func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
     return realm.objects(Formula.self).filter(predicate).first
 }
 
+func formulaWith(localObjectID: String , inRealm realm: Realm) -> Results<Formula> {
+    
+    let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
+    
+    return realm.objects(Formula.self).filter(predicate)
+}
+
 func formulaCollectionWith(objectID: String, inRealm realm: Realm) -> Results<Formula> {
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
     return realm.objects(Formula.self).filter(predicate)

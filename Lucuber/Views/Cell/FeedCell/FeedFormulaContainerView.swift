@@ -94,7 +94,7 @@ public class FeedFormulaContainerView: UIView {
             $0.deletedByCreator == false
             }
 
-        countLabel.text = "含 \(contents.count) 个公式"
+        countLabel.text = "\(contents.count)个公式"
         
         if let firstContent = contents.first {
             contentLabel.text = firstContent.text
@@ -102,7 +102,6 @@ public class FeedFormulaContainerView: UIView {
             contentLabel.text = "..."
         }
         
-//        contentLabel.text = "..................."
         
         if let _ = URL.init(string: formula.imageURL) {
             
@@ -110,7 +109,6 @@ public class FeedFormulaContainerView: UIView {
         } else {
             thumbnailImageView.image = nil
             thumbnailImageView.backgroundColor = UIColor.lightGray
-            
         }
         
     }

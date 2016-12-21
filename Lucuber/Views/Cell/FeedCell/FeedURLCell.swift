@@ -28,6 +28,7 @@ class FeedURLCell: FeedBaseCell {
     
     override func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
         
+        
         super.configureWithFeed(feed, layout: layout, needshowCategory: needshowCategory)
         
         if let attachment = feed.attachment {
@@ -37,6 +38,10 @@ class FeedURLCell: FeedBaseCell {
                 
                 feedURLContainerView.configureWithOpenGraphInfoType(openGraphInfo: openGraphInfo)
                 
+                feedURLContainerView.tapAction = { [weak self] in
+                    self?.tapURLInfoAction?(openGraphInfo.URL)
+                }
+                
             default:
                 break
             }
@@ -45,6 +50,7 @@ class FeedURLCell: FeedBaseCell {
         let _URLLayout = layout._URLLayout!
         feedURLContainerView.frame = _URLLayout.URLContainerViewFrame
         
+       
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

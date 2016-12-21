@@ -51,6 +51,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     enum SegueIdentifier: String {
         case newFeed = "ShowNewFeed"
         case comment = "ShowCommentView"
+        case showFormulaInfo = "ShowFormulaInfo"
     }
 
     
@@ -482,6 +483,8 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                 
             }
     
+        default:
+            break
             
         }
         
@@ -672,7 +675,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
                 
                 cell.tapURLInfoAction = { [weak self] URL in
-                    printLog("打开URL \(URL)")
                     self?.cube_openURL(URL)
                 }
                 
@@ -731,7 +733,56 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 
             case .formula:
                 
-                 cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                guard let cell = cell as? FeedFormulaCell else {
+                    return
+                }
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                
+                cell.tapFormulaInfoAction = { [weak self] discoverFormula in
+
+                    guard let strongSelf = self, let realm = try? Realm() else {
+                        return
+                    }
+                    
+                    let feedId = feed.objectId!
+                    let groupId = feed.objectId!
+                    
+                    var group = groupWith(groupId, inRealm: realm)
+                    
+                    
+                    try? realm.write {
+                        if group == nil {
+                            let newGroup = Group()
+                            newGroup.groupID = groupId
+                            newGroup.includeMe = false
+                            realm.add(newGroup)
+                            group = newGroup
+                        }
+                    }
+                    
+                    guard let feedGroup = group else {
+                        return
+                    }
+                    
+                    // 首先保存当前的 Feed, 内部会自动保存与 Feed 关联的 Formula
+                    try? realm.write {
+                        saveFeedWithDiscoverFeed(feed, group: feedGroup, inRealm: realm)
+                    }
+//
+	                let feed = feedWith(feedId, inRealm: realm)
+                    if let formula = feed?.withFormula {
+//
+                        let detailVC = UIStoryboard(name: "FormulaDetail", bundle: nil).instantiateInitialViewController() as! FormulaDetailViewController
+//
+                        detailVC.formula = formula
+                        detailVC.previewFormulaStyle = .single
+                        
+                        self?.navigationController?.pushViewController(detailVC, animated: true)
+//
+                    }
+
+	                //
+                }
                 
             default:
                 break

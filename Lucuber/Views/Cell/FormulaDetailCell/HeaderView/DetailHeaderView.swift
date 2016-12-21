@@ -10,9 +10,16 @@ import UIKit
 import AVOSCloud
 import RealmSwift
 
-class DetailHeaderView: UIView {
+enum PreviewFormulaStyle {
+    case single
+    case many
+}
 
-    // MARK: - Properties
+class DetailHeaderView: UIView {
+    
+    public var previewFormulaStyle: PreviewFormulaStyle = .many
+    public var singleFormula: Formula?
+    
     private var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
@@ -36,7 +43,15 @@ class DetailHeaderView: UIView {
     fileprivate var uploadMode: UploadFormulaMode = .library
     
     fileprivate var formulasData: Results<Formula> {
-        return formulasWith(self.uploadMode, category: self.selectedCategory, type: self.selectedType, inRealm: self.realm)
+        
+        switch self.previewFormulaStyle {
+        case .single:
+            let formulaId = self.singleFormula?.localObjectID ?? ""
+            return formulaWith(localObjectID: formulaId, inRealm: self.realm)
+            
+        case .many:
+            return formulasWith(self.uploadMode, category: self.selectedCategory, type: self.selectedType, inRealm: self.realm)
+        }
     }
     
     public func reloadDataAfterDelete() {
@@ -61,13 +76,22 @@ class DetailHeaderView: UIView {
             collectionView.setContentOffset(point, animated: true)
             
         }
-        
     }
     
-    public func configView(with formula: Formula?, withUploadMode uploadMode: UploadFormulaMode) {
+    public func configView(with formula: Formula?, withUploadMode uploadMode: UploadFormulaMode, withPreviewStyle style: PreviewFormulaStyle) {
         
         guard let formula = formula else {
             return
+        }
+        previewFormulaStyle = style
+        
+        switch previewFormulaStyle {
+            
+        case .single:
+            singleFormula = formula
+            
+        case .many:
+            break
         }
         
         self.selectedType = formula.type

@@ -39,6 +39,10 @@ class FeedFormulaCell: FeedBaseCell {
                 
                 feedFormulaContainerView.configureWithDiscoverFormula(formula: formula)
                 
+                feedFormulaContainerView.tapAction = { [weak self] in
+                    self?.tapFormulaInfoAction?(formula)
+                }
+                
             default:
                 break
             }

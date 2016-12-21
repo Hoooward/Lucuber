@@ -157,7 +157,17 @@ open class Formula: Object {
     
     open dynamic var isNewVersion: Bool = false
     open dynamic var isPushed: Bool = false
-    
+
+    // 仅存在关联一个 Feed 的可能
+    open let withFeed = LinkingObjects(fromType: Feed.self, property: "withFormula")
+
+	open var isBelongToFeed: Bool {
+		if let _ = self.withFeed.first {
+			return true
+        }
+		return false
+    }
+
     open let totalContents = LinkingObjects(fromType: Content.self, property: "atFormula")
     
     open var contents: Results<Content> {

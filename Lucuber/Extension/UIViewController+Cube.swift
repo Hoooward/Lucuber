@@ -19,7 +19,6 @@ extension UIViewController {
             present(safariViewController, animated: true, completion: nil)
             
         } else {
-           
             CubeAlert.alertSorry(message: "无效的URL", inViewController: self)
         }
     }
