@@ -10,9 +10,8 @@ import UserNotifications
 
 // MARK: - Message
 
-public func deleteMessageFromServer(message: Message, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
+public func deleteMessageFromServer(messageID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
 
-    let messageID = message.lcObjectID
 
     guard !messageID.isEmpty else  {
         failureHandler(Reason.noData, "要删除的 MessageID 为空")

@@ -876,20 +876,21 @@ class CommentViewController: UIViewController {
 
                     if isMyMessage {
                         
-                        deleteMessageFromServer(message: message, failureHandler: {
+                        let messageID = message.lcObjectID
+                        
+                        
+                        try? realm.write {
+                            message.deleteAttachment(inRealm: realm)
+                            realm.delete(sectionDateMessage)
+                            realm.delete(message)
+                        }
+                        
+                        deleteMessageFromServer(messageID: messageID, failureHandler: {
                             reason, errorMessage in
                             defaultFailureHandler(reason, errorMessage)
                             
-                        }, completion: { [weak self] in
-                            
-                            if let strongSelf = self {
-                                try? strongSelf.realm.write {
-                                    realm.delete(sectionDateMessage)
-                                    message.deleteAttachment(inRealm: realm)
-                                    realm.delete(message)
-                                    printLog("删除 Message 成功")
-                                }
-                            }
+                        }, completion: {
+                            printLog("删除 Message 成功")
                         })
                         
                     } else {
@@ -913,20 +914,20 @@ class CommentViewController: UIViewController {
                     
                     if isMyMessage {
                         
-                        deleteMessageFromServer(message: message, failureHandler: {
+                        let messageID = message.lcObjectID
+                        
+                        
+                        try? realm.write {
+                            message.deletedInRealm(realm: realm)
+                            realm.delete(message)
+                        }
+                        
+                        deleteMessageFromServer(messageID: messageID, failureHandler: {
                             reason, errorMessage in
                             defaultFailureHandler(reason, errorMessage)
                             
-                        }, completion: { [weak self] in
-                            
-                            if let strongSelf = self {
-                                
-                                try? strongSelf.realm.write {
-                                    message.deleteAttachment(inRealm: realm)
-                                    realm.delete(message)
-                                    printLog("删除 Message 成功")
-                                }
-                            }
+                        }, completion: {
+                            printLog("删除 Message 成功")
                         })
                         
                     } else {
