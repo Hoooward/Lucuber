@@ -248,11 +248,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     public var uploadingErrorMessage: String? = nil
     
     public var timeString: String {
-        
-//        let date = Date(timeIntervalSince1970: createdAt)
-        // TimeAgo
-        
-        return "1小时"
+        return createdAt?.timeAgo ?? ""
     }
     
     public var timeAndDistanceString: String {
@@ -310,13 +306,11 @@ extension DiscoverFeed {
     var hasAttachments: Bool {
         return category != .text
     }
-
+    
     var openGraphInfo: OpenGraphInfoType? {
 
         if let attachment = self.attachment {
-
             if case let .URL(openGraphInfo) = attachment {
-
                 return openGraphInfo
             }
         }
@@ -332,7 +326,6 @@ extension DiscoverFeed {
         }
         return nil
     }
-    
 }
 
 open class DiscoverContent: AVObject, AVSubclassing {

@@ -243,7 +243,11 @@ public class Config {
     }
 }
 
-
+extension Config {
+    
+    public static var timeAgoAction: ((Date) -> String)?
+    public static var isAppActive: (() -> Bool)?
+}
 
 
 
