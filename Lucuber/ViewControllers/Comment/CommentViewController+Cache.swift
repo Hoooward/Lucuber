@@ -21,48 +21,59 @@ extension CommentViewController {
         
         var height: CGFloat = 0
         
-        switch message.mediaType {
+        if message.isIndicator {
+            height = 24
             
-        case MessageMediaType.text.rawValue:
+        }  else {
             
-            let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
-            
-            height = max(ceil(rect.height) + (11 * 2), Config.chatCellAvatarSize())
-            
-            if !key.isEmpty {
+            switch message.mediaType {
                 
-                textContentLabelWidths[key] = ceil(rect.width)
-            }
-            
-        case MessageMediaType.image.rawValue:
-            
-            if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {
-                let aspectRatio = imageWidth / imageHeight
+            case MessageMediaType.text.rawValue:
                 
-                if aspectRatio >= 1 {
-                    height = max(ceil(messageImagePreferredWidth / aspectRatio), Config.ChatCell.mediaMinHeight)
-                } else {
-                    height = max(messageImagePreferredHeight, ceil(Config.ChatCell.mediaMinWidth / aspectRatio))
+                let rect = (message.textContent as NSString).boundingRect(with: CGSize(width: messageTextViewMaxWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: Config.ChatCell.textAttributes, context: nil)
+                
+                height = max(ceil(rect.height) + (11 * 2), Config.chatCellAvatarSize())
+                
+                if !key.isEmpty {
+                    
+                    textContentLabelWidths[key] = ceil(rect.width)
                 }
                 
-            } else {
-                height = ceil(messageImagePreferredWidth / messageImagePreferredAspectRatio)
+            case MessageMediaType.image.rawValue:
+                
+                if let (imageWidth, imageHeight) = imageMetaOfMessage(message: message) {
+                    let aspectRatio = imageWidth / imageHeight
+                    
+                    if aspectRatio >= 1 {
+                        height = max(ceil(messageImagePreferredWidth / aspectRatio), Config.ChatCell.mediaMinHeight)
+                    } else {
+                        height = max(messageImagePreferredHeight, ceil(Config.ChatCell.mediaMinWidth / aspectRatio))
+                    }
+                    
+                } else {
+                    height = ceil(messageImagePreferredWidth / messageImagePreferredAspectRatio)
+                }
+                
+                
+            default:
+                height = 40
             }
             
-            
-        default:
-            height = 40
-        }
-        
-        if conversation.withGroup != nil {
-            if message.mediaType != MessageMediaType.sectionDate.rawValue {
-                
-                if let sender = message.creator {
-                    if !sender.isMe {
-                        height += Config.ChatCell.marginTopForGroup
+            if conversation.withGroup != nil {
+                if message.mediaType != MessageMediaType.sectionDate.rawValue {
+                    
+                    if let sender = message.creator {
+                        if !sender.isMe {
+                            height += Config.ChatCell.marginTopForGroup
+                        }
                     }
                 }
             }
+        }
+        
+        
+        if !key.isEmpty {
+            messageCellHeights[key] = height
         }
         
         return height
@@ -81,7 +92,6 @@ extension CommentViewController {
         let width = ceil(rect.width)
         
         if !key.isEmpty {
-            
             textContentLabelWidths[key] = width
         }
         

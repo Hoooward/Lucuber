@@ -388,8 +388,6 @@ class CommentViewController: UIViewController {
     }
 
     // MARK: - Action & Target
-
-
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 
         guard
@@ -918,7 +916,7 @@ class CommentViewController: UIViewController {
                         
                         
                         try? realm.write {
-                            message.deletedInRealm(realm: realm)
+                            message.deleteAttachment(inRealm: realm)
                             realm.delete(message)
                         }
                         

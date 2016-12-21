@@ -507,7 +507,7 @@ public class Message: Object {
     
     open var recalledTextContent: String {
         let nickname = creator?.nickname ?? ""
-        return String(format: "被撤回 - %@", nickname)
+        return String(format: "%@ 撤回了一条消息", nickname)
     }
     
     open var blockedTextContent: String {

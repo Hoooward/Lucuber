@@ -72,6 +72,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let message = messages[safe: indexPath.item + displayedMessagesRange.location] else {
                 fatalError("messages 越界")
             }
+            
 
             if message.mediaType == MessageMediaType.sectionDate.rawValue {
 
@@ -79,7 +80,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
                 return cell
             }
-
+            
 
             if message.isfromMe {
                 
@@ -104,7 +105,12 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 }
 
             } else {
-
+                
+                if message.deletedByCreator {
+                    let cell: ChatTextIndicatorCell = collectionView.dequeueReusableCell(for: indexPath)
+                    return cell
+                }
+                
                 switch message.mediaType {
                     
                 case MessageMediaType.image.rawValue:
@@ -115,12 +121,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                     
                     
                 default:
-                    
-                    if message.deletedByCreator {
-                        let cell: ChatTextIndicatorCell = collectionView.dequeueReusableCell(for: indexPath)
-                        return cell
-                    }
-                    
                     let cell: ChatLeftTextCell = collectionView.dequeueReusableCell(for: indexPath)
                     return cell
                 }
@@ -366,8 +366,15 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
             } else {
                 
+                if message.deletedByCreator {
+                    if let cell = cell as? ChatTextIndicatorCell {
+                        cell.configureWithMessage(message: message, indicateType: .recalledMessage)
+                    }
+                    return
+                }
+                
                 switch message.mediaType {
-
+                    
                 case MessageMediaType.image.rawValue:
 
                     if let cell = cell as? ChatLeftImageCell {
@@ -393,29 +400,21 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                     }
 
                 default:
-
-                    if message.deletedByCreator {
+                    
+                    // TODO: - openGraphInfo
+                    
+                    if let cell = cell as? ChatLeftTextCell {
                         
-                        if let cell = cell as? ChatTextIndicatorCell {
-                            cell.configureWithMessage(message: message, indicateType: .recalledMessage)
+                        prepareCell(cell: cell)
+                        
+                        cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
+                        
+                        cell.tapUsernameAction = { [weak self] name in
+                            self?.showProfileWithUsername(userName: name)
                         }
                         
-                    } else {
-                        // TODO: - openGraphInfo
-
-                        if let cell = cell as? ChatLeftTextCell {
-
-                            prepareCell(cell: cell)
-
-                            cell.configureWithMessage(message: message, textContentLabelWidth: textContentLabelWidth(of: message), collectionView: collectionView, indexPath: indexPath)
-
-                            cell.tapUsernameAction = { [weak self] name in
-                                self?.showProfileWithUsername(userName: name)
-                            }
-
-                            cell.tapFeedAction = { [weak self] feed in
-                                self?.showConversationWithFeed(feed: feed)
-                            }
+                        cell.tapFeedAction = { [weak self] feed in
+                            self?.showConversationWithFeed(feed: feed)
                         }
                     }
                 }
