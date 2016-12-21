@@ -220,6 +220,7 @@
 		E4DAFE081DEB2AF4008A8702 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DAFE071DEB2AF4008A8702 /* Model.swift */; };
 		E4DAFE091DEB2AF4008A8702 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DAFE071DEB2AF4008A8702 /* Model.swift */; };
 		E4DAFE0A1DEB3221008A8702 /* FileManager+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F3D1DE9B87200CE1FB5 /* FileManager+Cube.swift */; };
+		E4DD92AE1E0A572700ACA872 /* ChatTextIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DD92AD1E0A572700ACA872 /* ChatTextIndicatorCell.swift */; };
 		E4DF65E61D8D92D6005CE518 /* Formula.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E41D8D92D6005CE518 /* Formula.storyboard */; };
 		E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DF65E91D8D9353005CE518 /* Feed.storyboard */; };
 		E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF65F61D8D94B1005CE518 /* MainNavigationController.swift */; };
@@ -483,6 +484,7 @@
 		E4CED8331DE862770036A11C /* UpdateLibraryErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLibraryErrorView.swift; sourceTree = "<group>"; };
 		E4CED8951DE88E0D0036A11C /* DetailContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContentCell.swift; sourceTree = "<group>"; };
 		E4DAFE071DEB2AF4008A8702 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E4DD92AD1E0A572700ACA872 /* ChatTextIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextIndicatorCell.swift; sourceTree = "<group>"; };
 		E4DF65E51D8D92D6005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Formula.storyboard; sourceTree = "<group>"; };
 		E4DF65EA1D8D9353005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
 		E4DF65F61D8D94B1005CE518 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
@@ -882,6 +884,7 @@
 				E4CED7A61DE862770036A11C /* ChatRightTextCell.swift */,
 				E4CED7A71DE862770036A11C /* ChatSectionDateCell */,
 				E4CED7AB1DE862770036A11C /* LoadMoreCollectionViewCell */,
+				E4DD92AD1E0A572700ACA872 /* ChatTextIndicatorCell.swift */,
 			);
 			path = ConversationCell;
 			sourceTree = "<group>";
@@ -2105,6 +2108,7 @@
 				E46047A81E039C2300B6D501 /* Downloader.swift in Sources */,
 				E41AC7F91DEDEA7100CE3123 /* HeaderViewCell.swift in Sources */,
 				E41ECF4C1DB602FE005BEFE4 /* UITableView+Cube.swift in Sources */,
+				E4DD92AE1E0A572700ACA872 /* ChatTextIndicatorCell.swift in Sources */,
 				E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */,
 				E444833B1E0680E9008311F5 /* CommentViewController+Views.swift in Sources */,
 				E4CED8931DE862770036A11C /* UpdateLibraryErrorView.swift in Sources */,

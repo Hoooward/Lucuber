@@ -23,6 +23,7 @@ extension CommentViewController {
         commentCollectionView.registerClass(of: ChatRightTextCell.self)
         commentCollectionView.registerClass(of: ChatLeftImageCell.self)
         commentCollectionView.registerClass(of: ChatRightImageCell.self)
+        commentCollectionView.registerClass(of: ChatTextIndicatorCell.self)
 
     }
 }
@@ -97,6 +98,11 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                     
                 default:
                     
+                    if message.deletedByCreator {
+                        let cell: ChatTextIndicatorCell = collectionView.dequeueReusableCell(for: indexPath)
+                        return cell
+                    }
+                    
                     let cell: ChatRightTextCell = collectionView.dequeueReusableCell(for: indexPath)
                     return cell
                 }
@@ -113,6 +119,11 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                     
                     
                 default:
+                    
+                    if message.deletedByCreator {
+                        let cell: ChatTextIndicatorCell = collectionView.dequeueReusableCell(for: indexPath)
+                        return cell
+                    }
                     
                     let cell: ChatLeftTextCell = collectionView.dequeueReusableCell(for: indexPath)
                     return cell
@@ -343,9 +354,12 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
 
                 default:
 
-                    let message = message as! Message
                     if message.deletedByCreator {
-                        // TODO: - Indicator Cell
+                        
+                        if let cell = cell as? ChatTextIndicatorCell {
+                            cell.configureWithMessage(message: message, indicateType: .recalledMessage)
+                        }
+                        
                     } else {
                         // TODO: - openGraphInfo
 

@@ -505,6 +505,16 @@ public class Message: Object {
         return "image-\(self.localObjectID)-\(self.localAttachmentName)-\(self.thumbnailURLString)"
     }
     
+    open var recalledTextContent: String {
+        let nickname = creator?.nickname ?? ""
+        return String(format: "撤回的消息 - ", nickname)
+    }
+    
+    open var blockedTextContent: String {
+        let nickname = creator?.nickname ?? ""
+        return String(format: NSLocalizedString("Ooops! You've been blocked.", comment: ""), nickname)
+    }
+    
     open var nicknameWithtextContent: String {
         if let nickname = creator?.nickname {
             return nickname + textContent
