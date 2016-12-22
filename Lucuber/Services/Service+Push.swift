@@ -91,7 +91,7 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
            
             if error != nil {
                 
-                failureHandler(Reason.network(error), "上传图片失败")
+//                failureHandler(Reason.network(error), "上传图片失败")
                 uploadFileGroup.leave()
             }
             

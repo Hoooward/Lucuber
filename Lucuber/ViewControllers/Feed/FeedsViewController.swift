@@ -215,6 +215,11 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                         // TODO: - joinGroup
                     }
                     
+                    let getFeedsViewController: () -> FeedsViewController? = {
+                        [weak self] in
+                        return self
+                    }
+                    
                     
                     let navigationVC = UIStoryboard(name: "NewFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
                     let vc = navigationVC.viewControllers.first as! NewFormulaViewController
@@ -233,6 +238,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                     
                     vc.beforUploadingFeedAction = beforeUploadingFeedAction
                     vc.afterUploadingFeedAction = afterCreatedFeedAction
+                    vc.getFeedsViewController = getFeedsViewController
                     
                     strongSelf.present(navigationVC, animated: true, completion: nil)
                     
@@ -254,6 +260,14 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         return view
         
     }()
+    
+    func handleUploadingErrorMessage(message: String) {
+        
+        if !uploadingFeeds.isEmpty {
+            uploadingFeeds[0].uploadingErrorMessage = message
+            tableView.reloadSections(IndexSet(integer: Section.uploadingFeed.rawValue), with: .none)
+        }
+    }
     
     // MARK: - Life Cycle
     
@@ -419,7 +433,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     // MARK: - PrepareForSegue
     
     
-    fileprivate var newFeedViewController: NewFeedViewController?
+    var newFeedViewController: NewFeedViewController?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -507,7 +521,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             
             vc.beforUploadingFeedAction = beforeUploadingFeedAction
             vc.afterUploadingFeedAction = afterCreatedFeedAction
-//            vc.getFeedsViewController = getFeedsViewController
+            vc.getFeedsViewController = getFeedsViewController
             
         case .comment:
             
@@ -805,58 +819,65 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.tapMediaAction = tapMediaAction
                 }
                 
-                
+
             case .formula:
-                
+
                 guard let cell = cell as? FeedFormulaCell else {
                     return
                 }
                 cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
-                
+
                 cell.tapFormulaInfoAction = { [weak self] discoverFormula in
 
                     guard let strongSelf = self, let realm = try? Realm() else {
                         return
                     }
-                    
-                    let feedId = feed.objectId!
-                    let groupId = feed.objectId!
-                    
-                    var group = groupWith(groupId, inRealm: realm)
-                    
-                    
-                    try? realm.write {
-                        if group == nil {
-                            let newGroup = Group()
-                            newGroup.groupID = groupId
-                            newGroup.includeMe = false
-                            realm.add(newGroup)
-                            group = newGroup
-                        }
-                    }
-                    
-                    guard let feedGroup = group else {
-                        return
-                    }
-                    
-                    // 首先保存当前的 Feed, 内部会自动保存与 Feed 关联的 Formula
-                    try? realm.write {
-                        saveFeedWithDiscoverFeed(feed, group: feedGroup, inRealm: realm)
-                    }
-//
-	                let feed = feedWith(feedId, inRealm: realm)
-                    if let formula = feed?.withFormula {
-//
+
+                    let feedId = feed.objectId ?? ""
+                    if let formula = feedWith(feedId, inRealm: realm)?.withFormula {
                         let detailVC = UIStoryboard(name: "FormulaDetail", bundle: nil).instantiateInitialViewController() as! FormulaDetailViewController
 //
                         detailVC.formula = formula
                         detailVC.previewFormulaStyle = .single
-                        
-                        self?.navigationController?.pushViewController(detailVC, animated: true)
-//
-                    }
 
-	                //
+                        self?.navigationController?.pushViewController(detailVC, animated: true)
+
+                    } else {
+
+                        let groupId = feed.objectId ?? ""
+                        var group = groupWith(groupId, inRealm: realm)
+
+                        try? realm.write {
+                            if group == nil {
+                                let newGroup = Group()
+                                newGroup.groupID = groupId
+                                newGroup.includeMe = false
+                                realm.add(newGroup)
+                                group = newGroup
+                            }
+                        }
+
+                        guard let feedGroup = group else {
+                            return
+                        }
+
+                        // 首先保存当前的 Feed, 内部会自动保存与 Feed 关联的 Formula
+                        try? realm.write {
+                            saveFeedWithDiscoverFeed(feed, group: feedGroup, inRealm: realm)
+                        }
+//
+                        let feed = feedWith(feedId, inRealm: realm)
+                        if let formula = feed?.withFormula {
+//
+                            let detailVC = UIStoryboard(name: "FormulaDetail", bundle: nil).instantiateInitialViewController() as! FormulaDetailViewController
+//
+                            detailVC.formula = formula
+                            detailVC.previewFormulaStyle = .single
+
+                            self?.navigationController?.pushViewController(detailVC, animated: true)
+//
+                        }
+                    }
                 }
                 
             default:
@@ -869,6 +890,29 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             
             let feed = uploadingFeeds[indexPath.row]
             configureFeedCell(cell: cell, withFeed: feed)
+            
+            if let cell = cell as? FeedBaseCell {
+                
+                cell.retryUploadingFeedAction = { [weak self] cell in
+                    
+                    self?.newFeedViewController?.post(again: true)
+
+                    if let indexPath = self?.tableView.indexPath(for: cell) {
+                        self?.uploadingFeeds[indexPath.row].uploadingErrorMessage = nil
+                        cell.hasUploadingErrorMessage = false
+                    }
+                }
+
+	            cell.deleteUploadingFeedAction = { [weak self] cell in
+
+                    if let indexPath = self?.tableView.indexPath(for: cell) {
+                        self?.uploadingFeeds.remove(at: indexPath.row)
+                        self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self?.newFeedViewController = nil
+                    }
+
+                }
+            }
          
             break
         case .feed:

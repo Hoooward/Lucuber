@@ -15,9 +15,6 @@ import PKHUD
 
 class NewFormulaViewController: UIViewController {
     
-    // MARK: - Properties
-    
-//    var isNeedRepushNotificationToken: NotificationToken? = nil
     
     @IBOutlet weak var headerView: NewFormulaHeadView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
@@ -35,10 +32,10 @@ class NewFormulaViewController: UIViewController {
     public var savedNewFormulaDraft: (() -> Void)?
     public var updateSeletedCategory: ((Category?) -> Void)?
     public var updateCurrentSelectedFormulaUI: (() -> Void)?
-    
    
     public var beforUploadingFeedAction: ((DiscoverFeed, NewFeedViewController) -> Void)?
     public var afterUploadingFeedAction: ((DiscoverFeed) -> Void)?
+    public var getFeedsViewController: (() -> FeedsViewController?)?
     
     public var formula = Formula() {
         didSet {
@@ -319,6 +316,7 @@ class NewFormulaViewController: UIViewController {
             
             vc.beforUploadingFeedAction = beforUploadingFeedAction
             vc.afterUploadingFeedAction = afterUploadingFeedAction
+            vc.getFeedsViewController = getFeedsViewController
             
             vc.cancelCreatedFormulaFeed = { [weak self] formula in
                 

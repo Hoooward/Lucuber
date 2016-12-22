@@ -50,20 +50,20 @@ class NewFeedViewController: UIViewController {
                     CubeAlert.alertSorry(message: message, inViewController: self)
                 } else {
                     
+                    printLog(feedsViewController)
 //                    FeedsViewController.handleError
                 }
+                feedsViewController?.handleUploadingErrorMessage(message: message)
                 
             case .success:
                 CubeHUD.hideActivityIndicator()
                 messageTextView.text = nil
             }
-            
         }
-        
     }
     
-    // MARK: - Properties
-    
+    weak var feedsViewController: FeedsViewController?
+    var getFeedsViewController: (() -> FeedsViewController?)?
     var attachment: Attachment = .normal
     
     var beforUploadingFeedAction: ((DiscoverFeed, NewFeedViewController) -> Void)?
@@ -124,11 +124,8 @@ class NewFeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeUI()
-    }
-    
-    private func makeUI() {
-    
+        
+        
         switch attachment {
         case .normal:
             
@@ -147,6 +144,8 @@ class NewFeedViewController: UIViewController {
             
         }
         
+        feedsViewController = getFeedsViewController?()
+        
         formulaView.configViewWith(formula: attachmentFormula)
         
         formulaView.tapAction = { [weak self] in
@@ -164,7 +163,7 @@ class NewFeedViewController: UIViewController {
         messageTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messageTextView.textContainer.lineFragmentPadding = 0
         messageTextView.delegate = self
-//        messageTextView.tintColor = UIColor.cubeTintColor()
+        //        messageTextView.tintColor = UIColor.cubeTintColor()
         
         mediaCollectionView.backgroundColor = UIColor.clear
         
@@ -172,8 +171,8 @@ class NewFeedViewController: UIViewController {
         mediaCollectionView.delegate = self
         mediaCollectionView.dataSource = self
         mediaCollectionView.showsHorizontalScrollIndicator = false
-        
     }
+    
     
     // MARK: -  Action & Target
     
@@ -260,7 +259,7 @@ class NewFeedViewController: UIViewController {
     }
     
     
-    fileprivate func post(again: Bool) {
+     func post(again: Bool) {
         
         let messageLength = messageTextView.text.characters.count
         
