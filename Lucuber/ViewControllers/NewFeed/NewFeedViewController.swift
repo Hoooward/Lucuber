@@ -173,6 +173,8 @@ class NewFeedViewController: UIViewController {
         mediaCollectionView.showsHorizontalScrollIndicator = false
     }
     
+    deinit {
+    }
     
     // MARK: -  Action & Target
     
@@ -206,16 +208,16 @@ class NewFeedViewController: UIViewController {
                     let fixedImageHeight: CGFloat
                     
                     if imageWidth > imageHeight {
-                        fixedImageWidth = min(imageWidth, Config.Media.miniImageWidth)
+                        fixedImageWidth = min(imageWidth, CGFloat(1024))
                         fixedImageHeight = imageHeight * (fixedImageWidth / imageWidth)
                     } else {
-                        fixedImageHeight =  min(imageHeight, Config.Media.miniImageHeight)
+                        fixedImageHeight =  min(imageHeight, CGFloat(1024))
                         fixedImageWidth = imageWidth * (fixedImageHeight / imageHeight)
                     }
                     
                     let fixedSize = CGSize(width: fixedImageWidth, height: fixedImageHeight)
                     
-                    if let image = image.resizeTo(targetSize: fixedSize, quality: .medium) {
+                    if let image = image.resizeTo(targetSize: fixedSize, quality: .high) {
                         
                         let attachment = ImageAttachment(metadata: "", URLString: "", image: image)
                         imageAttachments.append(attachment)

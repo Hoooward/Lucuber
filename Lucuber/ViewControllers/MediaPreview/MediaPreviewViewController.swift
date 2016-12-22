@@ -305,11 +305,19 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                 mediaControlView.isHidden = false
                 cell.activityIndicator.startAnimating()
                 
-                CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: nil, imageExtesion: CubeImageCache.imageExtension.jpeg, completion: {
-                    url, image, cacheType in
-                    cell.mediaView.image = image
+                if attachment.isTemporary {
+                    
+                    cell.mediaView.image = attachment.image
                     cell.activityIndicator.stopAnimating()
-                })
+                    
+                } else {
+                    
+                    CubeImageCache.shard.imageOfAttachment(attachment: attachment, withSideLenght: nil, imageExtesion: CubeImageCache.imageExtension.jpeg, completion: {
+                        url, image, cacheType in
+                        cell.mediaView.image = image
+                        cell.activityIndicator.stopAnimating()
+                    })
+                }
 
             case .message(let message):
 

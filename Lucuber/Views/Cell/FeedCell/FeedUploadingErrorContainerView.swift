@@ -22,7 +22,7 @@ class FeedUploadingErrorContainerView: UIView {
     }()
     
     lazy var iconImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "tabbar_plus_sele"))
+        let imageView = UIImageView(image: UIImage(named: "icon_error"))
         return imageView
     }()
     

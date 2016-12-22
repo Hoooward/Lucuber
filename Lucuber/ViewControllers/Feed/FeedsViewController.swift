@@ -753,7 +753,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             switch feed.category {
             case .text:
                 
-                cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: false)
                 
             case .url:
                 
@@ -761,7 +761,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     break
                 }
                 
-                cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: false)
                 
                 cell.tapURLInfoAction = { [weak self] URL in
                     self?.cube_openURL(URL)
@@ -806,7 +806,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                         break
                     }
                     
-                    cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                    cell.configureWithFeed(feed, layout: layout, needshowCategory: false)
                     cell.tapMediaAction = tapMediaAction
                     
                 } else {
@@ -815,7 +815,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                         break
                     }
                     
-                    cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                    cell.configureWithFeed(feed, layout: layout, needshowCategory: false)
                     cell.tapMediaAction = tapMediaAction
                 }
                 
@@ -825,7 +825,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 guard let cell = cell as? FeedFormulaCell else {
                     return
                 }
-                cell.configureWithFeed(feed, layout: layout, needshowCategory: self.needShowCategory)
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: true)
 
                 cell.tapFormulaInfoAction = { [weak self] discoverFormula in
 
