@@ -8,6 +8,7 @@
 
 import UIKit
 import AVOSCloud
+import LucuberTimer
 
 class MainTabbarController: UITabBarController {
 
@@ -16,6 +17,22 @@ class MainTabbarController: UITabBarController {
         
         self.tabBar.tintColor = UIColor.cubeTintColor()
         
+        var formula = Scrambling()
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
+        printLog(formula.creatScramblingText())
         
     }
     

@@ -128,6 +128,12 @@
 		E495348B1E0CDF540008934D /* SearchFeeds.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E495348A1E0CDF540008934D /* SearchFeeds.storyboard */; };
 		E495348E1E0CEA140008934D /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495348D1E0CEA140008934D /* SearchTransition.swift */; };
 		E49534901E0CEB6A0008934D /* SearchTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495348F1E0CEB6A0008934D /* SearchTrigger.swift */; };
+		E49534A71E0D05A40008934D /* LucuberTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E49534A51E0D05A40008934D /* LucuberTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E49534AA1E0D05A40008934D /* LucuberTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49534A31E0D05A30008934D /* LucuberTimer.framework */; };
+		E49534AB1E0D05A40008934D /* LucuberTimer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E49534A31E0D05A30008934D /* LucuberTimer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E49534B11E0D06940008934D /* Scrambling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534B01E0D06940008934D /* Scrambling.swift */; };
+		E49534B91E0D19B50008934D /* LucuberTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534B81E0D19B50008934D /* LucuberTimerTests.swift */; };
+		E49534BB1E0D19B50008934D /* LucuberTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49534A31E0D05A30008934D /* LucuberTimer.framework */; };
 		E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
@@ -296,6 +302,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E49534A81E0D05A40008934D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4FFAA741D8D29A30039BA8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E49534A21E0D05A30008934D;
+			remoteInfo = LucuberTimer;
+		};
+		E49534BC1E0D19B50008934D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4FFAA741D8D29A30039BA8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E49534A21E0D05A30008934D;
+			remoteInfo = LucuberTimer;
+		};
+		E49534C11E0D1A310008934D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4FFAA741D8D29A30039BA8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4FFAA7B1D8D29A30039BA8A;
+			remoteInfo = Lucuber;
+		};
 		E4A3BA691DE3F874009C0E78 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E4FFAA741D8D29A30039BA8A /* Project object */;
@@ -304,6 +331,20 @@
 			remoteInfo = LucuberKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E49534AF1E0D05A40008934D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E49534AB1E0D05A40008934D /* LucuberTimer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1BDF5C2626D80270F6F2E746 /* Pods-LucuberKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -387,6 +428,13 @@
 		E495348A1E0CDF540008934D /* SearchFeeds.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchFeeds.storyboard; sourceTree = "<group>"; };
 		E495348D1E0CEA140008934D /* SearchTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransition.swift; sourceTree = "<group>"; };
 		E495348F1E0CEB6A0008934D /* SearchTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTrigger.swift; sourceTree = "<group>"; };
+		E49534A31E0D05A30008934D /* LucuberTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LucuberTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49534A51E0D05A40008934D /* LucuberTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LucuberTimer.h; sourceTree = "<group>"; };
+		E49534A61E0D05A40008934D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E49534B01E0D06940008934D /* Scrambling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrambling.swift; sourceTree = "<group>"; };
+		E49534B61E0D19B50008934D /* LucuberTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucuberTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49534B81E0D19B50008934D /* LucuberTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucuberTimerTests.swift; sourceTree = "<group>"; };
+		E49534BA1E0D19B50008934D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -557,6 +605,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E495349F1E0D05A30008934D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E49534B31E0D19B50008934D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E49534BB1E0D19B50008934D /* LucuberTimer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4A3BA521DE3F874009C0E78 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,6 +641,7 @@
 			files = (
 				E4F38DC31E01913700F0DF8A /* MapKit.framework in Frameworks */,
 				AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */,
+				E49534AA1E0D05A40008934D /* LucuberTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +850,25 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		E49534A41E0D05A40008934D /* LucuberTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E49534A51E0D05A40008934D /* LucuberTimer.h */,
+				E49534A61E0D05A40008934D /* Info.plist */,
+				E49534B01E0D06940008934D /* Scrambling.swift */,
+			);
+			path = LucuberTimer;
+			sourceTree = "<group>";
+		};
+		E49534B71E0D19B50008934D /* LucuberTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				E49534B81E0D19B50008934D /* LucuberTimerTests.swift */,
+				E49534BA1E0D19B50008934D /* Info.plist */,
+			);
+			path = LucuberTimerTests;
+			sourceTree = "<group>";
+		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -951,7 +1034,6 @@
 				E4CED7B01DE862770036A11C /* FeedBaseCell.swift */,
 				E4CED7B11DE862770036A11C /* FeedBiggerImageCell.swift */,
 				E4CED7B21DE862770036A11C /* FeedCellLayout.swift */,
-				E4CED7B31DE862770036A11C /* FeedFormulaView */,
 				E4CED7B41DE862770036A11C /* FeedTextView.swift */,
 				E4CED7B51DE862770036A11C /* FeedUploadingErrorContainerView.swift */,
 				E4CED7B61DE862770036A11C /* LoadMoreCell */,
@@ -962,13 +1044,6 @@
 				E42C82981DFADD5100D315CF /* FeedFormulaContainerView.swift */,
 			);
 			path = FeedCell;
-			sourceTree = "<group>";
-		};
-		E4CED7B31DE862770036A11C /* FeedFormulaView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FeedFormulaView;
 			sourceTree = "<group>";
 		};
 		E4CED7B61DE862770036A11C /* LoadMoreCell */ = {
@@ -1633,6 +1708,8 @@
 			children = (
 				E4FFAA911D8D29DE0039BA8A /* Lucuber */,
 				E4A3BA561DE3F874009C0E78 /* LucuberKit */,
+				E49534A41E0D05A40008934D /* LucuberTimer */,
+				E49534B71E0D19B50008934D /* LucuberTimerTests */,
 				E4FFAA7D1D8D29A30039BA8A /* Products */,
 				3F921722F0F6519457AE2EF2 /* Pods */,
 				B26AE18ECEF437035ED9FD18 /* Frameworks */,
@@ -1645,6 +1722,8 @@
 				E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */,
 				E4A3BA551DE3F874009C0E78 /* LucuberKit.app */,
 				E4A3BA681DE3F874009C0E78 /* LucuberKitTests.xctest */,
+				E49534A31E0D05A30008934D /* LucuberTimer.framework */,
+				E49534B61E0D19B50008934D /* LucuberTimerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1672,7 +1751,55 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E49534A01E0D05A30008934D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E49534A71E0D05A40008934D /* LucuberTimer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		E49534A21E0D05A30008934D /* LucuberTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E49534AC1E0D05A40008934D /* Build configuration list for PBXNativeTarget "LucuberTimer" */;
+			buildPhases = (
+				E495349E1E0D05A30008934D /* Sources */,
+				E495349F1E0D05A30008934D /* Frameworks */,
+				E49534A01E0D05A30008934D /* Headers */,
+				E49534A11E0D05A30008934D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LucuberTimer;
+			productName = LucuberTimer;
+			productReference = E49534A31E0D05A30008934D /* LucuberTimer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E49534B51E0D19B50008934D /* LucuberTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E49534BE1E0D19B50008934D /* Build configuration list for PBXNativeTarget "LucuberTimerTests" */;
+			buildPhases = (
+				E49534B21E0D19B50008934D /* Sources */,
+				E49534B31E0D19B50008934D /* Frameworks */,
+				E49534B41E0D19B50008934D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E49534BD1E0D19B50008934D /* PBXTargetDependency */,
+				E49534C21E0D1A310008934D /* PBXTargetDependency */,
+			);
+			name = LucuberTimerTests;
+			productName = LucuberTimerTests;
+			productReference = E49534B61E0D19B50008934D /* LucuberTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E4A3BA541DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4A3BA731DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKit" */;
@@ -1721,10 +1848,12 @@
 				E4FFAA7A1D8D29A30039BA8A /* Resources */,
 				47509323E1359E29F7629C42 /* [CP] Embed Pods Frameworks */,
 				17F452481A9A2562A7E9C54E /* [CP] Copy Pods Resources */,
+				E49534AF1E0D05A40008934D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E49534A91E0D05A40008934D /* PBXTargetDependency */,
 			);
 			name = Lucuber;
 			productName = Lucuber;
@@ -1737,10 +1866,21 @@
 		E4FFAA741D8D29A30039BA8A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Tychooo;
 				TargetAttributes = {
+					E49534A21E0D05A30008934D = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = M8E7Y88Q7R;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+					};
+					E49534B51E0D19B50008934D = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = M8E7Y88Q7R;
+						ProvisioningStyle = Automatic;
+					};
 					E4A3BA541DE3F874009C0E78 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = M8E7Y88Q7R;
@@ -1783,11 +1923,27 @@
 				E4FFAA7B1D8D29A30039BA8A /* Lucuber */,
 				E4A3BA541DE3F874009C0E78 /* LucuberKit */,
 				E4A3BA671DE3F874009C0E78 /* LucuberKitTests */,
+				E49534A21E0D05A30008934D /* LucuberTimer */,
+				E49534B51E0D19B50008934D /* LucuberTimerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E49534A11E0D05A30008934D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E49534B41E0D19B50008934D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4A3BA531DE3F874009C0E78 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1959,6 +2115,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E495349E1E0D05A30008934D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E49534B11E0D06940008934D /* Scrambling.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E49534B21E0D19B50008934D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E49534B91E0D19B50008934D /* LucuberTimerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4A3BA511DE3F874009C0E78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2212,6 +2384,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E49534A91E0D05A40008934D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E49534A21E0D05A30008934D /* LucuberTimer */;
+			targetProxy = E49534A81E0D05A40008934D /* PBXContainerItemProxy */;
+		};
+		E49534BD1E0D19B50008934D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E49534A21E0D05A30008934D /* LucuberTimer */;
+			targetProxy = E49534BC1E0D19B50008934D /* PBXContainerItemProxy */;
+		};
+		E49534C21E0D1A310008934D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4FFAA7B1D8D29A30039BA8A /* Lucuber */;
+			targetProxy = E49534C11E0D1A310008934D /* PBXContainerItemProxy */;
+		};
 		E4A3BA6A1DE3F874009C0E78 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E4A3BA541DE3F874009C0E78 /* LucuberKit */;
@@ -2281,6 +2468,87 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E49534AD1E0D05A40008934D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = LucuberTimer/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E49534AE1E0D05A40008934D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = LucuberTimer/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E49534BF1E0D19B50008934D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				INFOPLIST_FILE = LucuberTimerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		E49534C01E0D19B50008934D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				INFOPLIST_FILE = LucuberTimerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.LucuberTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		E4A3BA6F1DE3F874009C0E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */;
@@ -2490,6 +2758,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E49534AC1E0D05A40008934D /* Build configuration list for PBXNativeTarget "LucuberTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E49534AD1E0D05A40008934D /* Debug */,
+				E49534AE1E0D05A40008934D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E49534BE1E0D19B50008934D /* Build configuration list for PBXNativeTarget "LucuberTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E49534BF1E0D19B50008934D /* Debug */,
+				E49534C01E0D19B50008934D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		E4A3BA731DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
