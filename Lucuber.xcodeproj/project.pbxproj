@@ -134,6 +134,7 @@
 		E49534B11E0D06940008934D /* Scrambling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534B01E0D06940008934D /* Scrambling.swift */; };
 		E49534B91E0D19B50008934D /* LucuberTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534B81E0D19B50008934D /* LucuberTimerTests.swift */; };
 		E49534BB1E0D19B50008934D /* LucuberTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49534A31E0D05A30008934D /* LucuberTimer.framework */; };
+		E49534C41E0D1DB20008934D /* TimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534C31E0D1DB20008934D /* TimerLabel.swift */; };
 		E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
@@ -435,6 +436,7 @@
 		E49534B61E0D19B50008934D /* LucuberTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucuberTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49534B81E0D19B50008934D /* LucuberTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucuberTimerTests.swift; sourceTree = "<group>"; };
 		E49534BA1E0D19B50008934D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E49534C31E0D1DB20008934D /* TimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabel.swift; sourceTree = "<group>"; };
 		E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -856,6 +858,7 @@
 				E49534A51E0D05A40008934D /* LucuberTimer.h */,
 				E49534A61E0D05A40008934D /* Info.plist */,
 				E49534B01E0D06940008934D /* Scrambling.swift */,
+				E49534C31E0D1DB20008934D /* TimerLabel.swift */,
 			);
 			path = LucuberTimer;
 			sourceTree = "<group>";
@@ -2119,6 +2122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49534C41E0D1DB20008934D /* TimerLabel.swift in Sources */,
 				E49534B11E0D06940008934D /* Scrambling.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
