@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="D8g-yI-Cf7">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search Feeds View Controller-->
+        <scene sceneID="1Qf-10-o7o">
+            <objects>
+                <viewController id="D8g-yI-Cf7" customClass="SearchFeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XWL-7e-8vM"/>
+                        <viewControllerLayoutGuide type="bottom" id="aQ7-VE-1Xf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iGJ-7T-DNo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="8rN-na-xzC">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="D8g-yI-Cf7" id="eV1-p8-Hoe"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ylt-Fr-u1N">
+                                <rect key="frame" x="0.0" y="109" width="375" height="558"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bY8-NP-UKF" customClass="HorizontalLineView" customModule="Lucuber" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="108" width="375" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="zhk-RN-rIm"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bY8-NP-UKF" firstAttribute="top" secondItem="8rN-na-xzC" secondAttribute="bottom" id="62g-X0-tRm"/>
+                            <constraint firstItem="aQ7-VE-1Xf" firstAttribute="top" secondItem="ylt-Fr-u1N" secondAttribute="bottom" id="7Nn-n6-OFV"/>
+                            <constraint firstItem="ylt-Fr-u1N" firstAttribute="top" secondItem="bY8-NP-UKF" secondAttribute="bottom" id="HEv-bI-Gpw"/>
+                            <constraint firstAttribute="trailing" secondItem="bY8-NP-UKF" secondAttribute="trailing" id="JNY-8O-LpY"/>
+                            <constraint firstAttribute="trailing" secondItem="ylt-Fr-u1N" secondAttribute="trailing" id="MUF-ao-vYR"/>
+                            <constraint firstItem="8rN-na-xzC" firstAttribute="leading" secondItem="iGJ-7T-DNo" secondAttribute="leading" id="bjK-lF-vct"/>
+                            <constraint firstItem="ylt-Fr-u1N" firstAttribute="leading" secondItem="iGJ-7T-DNo" secondAttribute="leading" id="blb-1a-RHL"/>
+                            <constraint firstItem="bY8-NP-UKF" firstAttribute="leading" secondItem="iGJ-7T-DNo" secondAttribute="leading" id="ctA-Qd-vef"/>
+                            <constraint firstAttribute="trailing" secondItem="8rN-na-xzC" secondAttribute="trailing" id="kZ9-rF-EYY"/>
+                            <constraint firstItem="8rN-na-xzC" firstAttribute="top" secondItem="iGJ-7T-DNo" secondAttribute="top" constant="64" id="unb-Pi-TFn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="8rN-na-xzC" id="ww8-SP-iHb"/>
+                        <outlet property="searchBarBottomLineView" destination="bY8-NP-UKF" id="kz0-AU-hkZ"/>
+                        <outlet property="searchBarTopConstraint" destination="unb-Pi-TFn" id="Nb9-dx-TQI"/>
+                        <outlet property="tableView" destination="ylt-Fr-u1N" id="7eS-lF-awl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YgV-6g-hss" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-239.19999999999999" y="-64.31784107946028"/>
+        </scene>
+    </scenes>
+</document>

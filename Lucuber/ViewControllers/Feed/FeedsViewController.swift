@@ -20,9 +20,7 @@ struct LayoutCatch {
             return layout
         } else {
             let layout = FeedCellLayout(feed: feed)
-            
             updateFeedCellLayout(layout: layout, forFeed: feed)
-            
             return layout
         }
     }
@@ -39,21 +37,23 @@ struct LayoutCatch {
         let layout = FeedCellLayoutOfFeed(feed: feed)
         return layout.height
     }
-    
 }
 
-class FeedsViewController: UIViewController, SegueHandlerType {
+class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer{
     
     // MARK: - Properties
     
-//    private var newFeedAttachmentType: NewFeedViewController.Attachment = .Media
+    var originalNavigationControllerDelegate: UINavigationControllerDelegate?
+    lazy var searchTransition: SearchTransition = {
+        return SearchTransition()
+    }()
     
     enum SegueIdentifier: String {
         case newFeed = "ShowNewFeed"
         case comment = "ShowCommentView"
         case showFormulaInfo = "ShowFormulaInfo"
+        case showSearchFeeds = "ShowSearchFeeds"
     }
-
     
     var seletedFeedCategory: FeedCategory?
     
@@ -62,8 +62,14 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     }
     
     var feeds = [DiscoverFeed]()
-    var uploadingFeeds = [DiscoverFeed]()
     
+    var uploadingFeeds = [DiscoverFeed]()
+    func handleUploadingErrorMessage(message: String) {
+        if !uploadingFeeds.isEmpty {
+            uploadingFeeds[0].uploadingErrorMessage = message
+            tableView.reloadSections(IndexSet(integer: Section.uploadingFeed.rawValue), with: .none)
+        }
+    }
     // 显示某人所有的Feed
     public var profileUser: RUser?
     var perparedFeedsCount = 0
@@ -81,15 +87,15 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             // needShowDistance
             feeds = []
             tableView.reloadData()
-            
         }
     }
     
     fileprivate static var layoutCatch = LayoutCatch()
     
     @IBOutlet weak var loadingFeedsIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var tableView: UITableView!
+    
     private lazy var refreshControl: UIRefreshControl = {
-        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(FeedsViewController.tryRefreshOrGetNewFeeds), for: .valueChanged)
         return refreshControl
@@ -97,14 +103,13 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     }()
     
     private lazy var searchBar: UISearchBar = {
-        
-        let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = NSLocalizedString("Search", comment: "")
-        searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchbar_textfield_background"), for: .normal)
-        searchBar.delegate = self
+        let searchBar = self.makeSearchBar()
         return searchBar
-        
+    }()
+    
+    private lazy var newFeedActionSheetView: ActionSheetView = {
+        let view = self.makeFeedActionSheetView()
+        return view
     }()
     
     fileprivate let FeedBaseCellIdentifier = "FeedBaseCell"
@@ -114,163 +119,19 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     fileprivate let FeedURLCellIdentifier = "FeedURLCell"
     fileprivate let FeedFormulaCellIdentifier = "FeedFormulaCell"
     
-    @IBOutlet weak var tableView: UITableView!
-    
     var isUploadingFeed = false
     
     var lastFeedCreatedDate: Date {
-        
         if feeds.isEmpty { return Date() }
         
         var date: Date? = Date()
-        
         if let lastFeed = feeds.last {
             date = lastFeed.createdAt
         }
         return date ?? Date()
     }
     
-    private lazy var newFeedActionSheetView: ActionSheetView = {
-        
-        let view = ActionSheetView(items: [
-            .Option(
-                title: "文字和图片",
-                titleColor: UIColor.cubeTintColor(),
-                action: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    
-//                    strongSelf.newFeedAttachmentType = .media
-                    strongSelf.cube_performSegue(with: .newFeed, sender: nil)
-                }
-            ),
-            
-            .Option(
-                title: "公式",
-                titleColor: UIColor.cubeTintColor(),
-                action: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    
-                    let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
-                        [weak self] feed, newFeedViewController in
-                        
-                        self?.newFeedViewController = newFeedViewController
-                        
-                        DispatchQueue.main.async {
-                            
-                            guard let strongSelf = self else {
-                                return
-                            }
-                            strongSelf.tableView.customScrollsToTop()
-                            strongSelf.tableView.beginUpdates()
-                            
-                            strongSelf.uploadingFeeds.insert(feed, at: 0)
-                            
-                            let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
-                            strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                            
-                            printLog("已刷新")
-                            strongSelf.tableView.endUpdates()
-                        }
-                    }
-                    
-                    let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
-                        [weak self] feed in
-                        
-                        self?.newFeedViewController = nil
-                        
-                        DispatchQueue.main.async {
-                            
-                            guard let strongSelf = self else {
-                                return
-                            }
-                            
-                            feed.parseAttachmentsInfo()
-                            
-                            strongSelf.tableView.customScrollsToTop()
-                            
-                            strongSelf.tableView.beginUpdates()
-                            
-                            var animation: UITableViewRowAnimation = .automatic
-                            
-                            if !strongSelf.uploadingFeeds.isEmpty {
-                                
-                                strongSelf.uploadingFeeds = []
-                                
-                                let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
-                                
-                                strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
-                                
-                                animation = .none
-                            }
-                            
-                            strongSelf.feeds.insert(feed, at: 0)
-                            
-                            let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
-                            strongSelf.tableView.insertRows(at: [indexPath], with: animation)
-                            
-                            strongSelf.tableView.endUpdates()
-                            
-                        }
-                        
-                        // TODO: - joinGroup
-                    }
-                    
-                    let getFeedsViewController: () -> FeedsViewController? = {
-                        [weak self] in
-                        return self
-                    }
-                    
-                    
-                    let navigationVC = UIStoryboard(name: "NewFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
-                    let vc = navigationVC.viewControllers.first as! NewFormulaViewController
-                    
-                    /// 由于初始化顺序,下面三行代码先后顺序不可改变
-                    guard let realm = try? Realm() else {
-                        return
-                    }
-                    vc.editType = NewFormulaViewController.EditType.newAttchment
-                    vc.view.alpha = 1
-                    
-                    try? realm.write {
-                        vc.formula = Formula.new(inRealm: realm)
-                    }
-                    vc.realm = realm
-                    
-                    vc.beforUploadingFeedAction = beforeUploadingFeedAction
-                    vc.afterUploadingFeedAction = afterCreatedFeedAction
-                    vc.getFeedsViewController = getFeedsViewController
-                    
-                    strongSelf.present(navigationVC, animated: true, completion: nil)
-                    
-                }
-            ),
-            
-            .Option(
-                title: "复原成绩",
-                titleColor: UIColor.cubeTintColor(),
-                action: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    
-                }
-            ),
-            .Cancel
-            
-            ]
-        )
-        return view
-        
-    }()
-    
-    func handleUploadingErrorMessage(message: String) {
-        
-        if !uploadingFeeds.isEmpty {
-            uploadingFeeds[0].uploadingErrorMessage = message
-            tableView.reloadSections(IndexSet(integer: Section.uploadingFeed.rawValue), with: .none)
-        }
-    }
-    
     // MARK: - Life Cycle
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
          navigationController?.setNavigationBarHidden(false, animated: false)
@@ -281,7 +142,7 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         
         searchBar.sizeToFit()
         tableView.tableHeaderView = searchBar
-//        refreshControl.tintColor = UIColor.cubeTintColor()
+        
         tableView.addSubview(refreshControl)
         
         tableView.backgroundColor = UIColor.white
@@ -290,13 +151,13 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         
         tableView.rowHeight = 300
         
+        
         tableView.register(FeedBaseCell.self, forCellReuseIdentifier: FeedBaseCellIdentifier)
         tableView.register(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
         tableView.register(FeedAnyImagesCell.self, forCellReuseIdentifier: FeedAnyImagesCellIdentifier)
         tableView.register(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
         tableView.register(FeedURLCell.self, forCellReuseIdentifier: FeedURLCellIdentifier)
         tableView.register(FeedFormulaCell.self, forCellReuseIdentifier: FeedFormulaCellIdentifier)
-        
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationItem.title = "话题"
@@ -323,19 +184,14 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         }
         
         let failureHandler: FailureHandler  = { reason, errorMessage in
-            
             defaultFailureHandler(reason, errorMessage)
             
-                DispatchQueue.main.async { [weak self] in
-                    
-//                    CubeAlert.alertSorry(message: error.localizedFailureReason, inViewController: self)
-                    
-                    self?.loadingFeedsIndicator.stopAnimating()
-                    self?.refreshControl.endRefreshing()
-                    self?.isUploadingFeed = false
-                    
-                    finish?()
-                }
+            DispatchQueue.main.async { [weak self] in
+                self?.loadingFeedsIndicator.stopAnimating()
+                self?.refreshControl.endRefreshing()
+                self?.isUploadingFeed = false
+                finish?()
+            }
         }
         
         let completion: ([DiscoverFeed]) -> Void = { feeds in
@@ -401,26 +257,19 @@ class FeedsViewController: UIViewController, SegueHandlerType {
         if let  _ = profileUser {
             // 获取当前用户的Feed
             
-        }  else {
-            
+        } else {
             // 设定排序
             var feedStoryStyle = self.feedSortStyle
             
-            
         }
-        
         fetchDiscoverFeed(with: FeedCategory.text, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
-        
-     }
+    }
     
     // MARK: - Target & Action
-    
     func tryRefreshOrGetNewFeeds() {
-       
         delay(1.5) {
-           self.uploadFeed()
+            self.uploadFeed()
         }
-     
     }
     
     @IBAction func creatNewFeed(_ sender: AnyObject) {
@@ -431,14 +280,11 @@ class FeedsViewController: UIViewController, SegueHandlerType {
     }
     
     // MARK: - PrepareForSegue
-    
-    
     var newFeedViewController: NewFeedViewController?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let identifier = segueIdentifier(for: segue)
-        
         
         let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
             [weak self] feed, newFeedViewController in
@@ -458,7 +304,6 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                 let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
                 strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
                 
-                printLog("已刷新")
                 strongSelf.tableView.endUpdates()
             }
         }
@@ -499,7 +344,6 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                 strongSelf.tableView.insertRows(at: [indexPath], with: animation)
                 
                 strongSelf.tableView.endUpdates()
-                
             }
             
             // TODO: - joinGroup
@@ -510,11 +354,9 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             return self
         }
         
-        
         switch identifier {
             
         case .newFeed:
-            
             guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
                 return
             }
@@ -524,7 +366,6 @@ class FeedsViewController: UIViewController, SegueHandlerType {
             vc.getFeedsViewController = getFeedsViewController
             
         case .comment:
-            
             let vc = segue.destination as! CommentViewController
             
             guard let indexPath = sender as? IndexPath,
@@ -562,23 +403,23 @@ class FeedsViewController: UIViewController, SegueHandlerType {
                         return
                     }
                     
-                    
                     delay(1) {
                         self?.uploadFeed()
                     }
-
-                    
                 }
-                
             }
-    
+            
+        case .showSearchFeeds:
+            let vc = segue.destination as! SearchFeedsViewController
+            vc.hidesBottomBarWhenPushed = true
+            
+            prepareSearchTransition()
+            
         default:
             break
             
         }
-        
     }
- 
 }
 
 // MARK: - TableView Delegaate&DataSource
@@ -594,7 +435,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
- 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let section = Section(rawValue: section) else {
@@ -1018,6 +858,10 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FeedsViewController: UISearchBarDelegate {
     
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        performSegue(withIdentifier: "ShowSearchFeeds", sender: nil)
+        return false
+    }
 }
 
 
