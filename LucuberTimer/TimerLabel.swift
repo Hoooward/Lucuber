@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol TimerLabelDelegate: class {
+public protocol TimerLabelDelegate: class {
     func finishedCountDownTimer(with time: TimeInterval, atTimerLabel: TimerLabel)
     func timerLabelCountingTo(time: TimeInterval, withTimerType: TimerLabel.Style, atTimerLabel: TimerLabel)
     func customTextToDisplay(at time: TimeInterval, atTimerLabel: TimerLabel) -> String
 }
 
-fileprivate let defaultTimerFormatter = "HH:mm:ss"
+fileprivate let defaultTimerFormatter = "mm:ss:SS"
 fileprivate let hourFormatReplace = "!!!*"
 fileprivate let defaultFireIntervalNormal: TimeInterval = 0.1
 fileprivate let defaultFireIntervalHighUse: TimeInterval = 0.01
 fileprivate let defaultTimerLabelType: TimerLabel.Style = .stopWatch
 
-class TimerLabel: UILabel {
+public class TimerLabel: UILabel {
     
     public enum Style {
         case stopWatch
@@ -42,7 +42,7 @@ class TimerLabel: UILabel {
     public weak var delegate: TimerLabelDelegate?
     
     /// Time format wish to display in label
-    public var timeFormat: String = "HH:mm:ss"
+    public var timeFormat: String = "mm:ss:SS"
     /// Used for replace text in range
     public var textRange: NSRange = NSRange()
     public var attributedForTextInRange: [String: Any]?
@@ -51,7 +51,7 @@ class TimerLabel: UILabel {
     public var timerType: TimerLabel.Style = .timer
     
     /// Is time timer running?
-    fileprivate(set) var counting: Bool = false
+    public var isCounting: Bool = true
     
     /// Do you want to reset the Timer after countdown?
     public var resetTimerAfterFinish: Bool = false
@@ -112,8 +112,9 @@ class TimerLabel: UILabel {
                 creatTimer()
                 
                 if startCountDate == nil {
+                    startCountDate = Date()
                     if timerType == .stopWatch && timerUserValue > 0 {
-                        startCountDate = Date().addingTimeInterval(-timerUserValue)
+                        startCountDate = startCountDate?.addingTimeInterval(-timerUserValue)
                     }
                 }
                 
@@ -122,21 +123,21 @@ class TimerLabel: UILabel {
                     self.startCountDate = Date().addingTimeInterval(-countedTime)
                 }
                 
-                counting = true
+                isCounting = true
                 timer?.fire()
                 
             case .pause:
-                if counting {
+                if isCounting {
                     timer?.invalidate()
                     timer = nil
-                    counting = false
+                    isCounting = false
                     pausedTimeDate = Date()
                 }
                 
             case .reset:
                 pausedTimeDate = nil
                 timerUserValue = timerType == .stopWatch ? 0 : timerUserValue
-                startCountDate = counting ? Date() : nil
+                startCountDate = isCounting ? Date() : nil
                 
             }
         }
@@ -177,8 +178,9 @@ class TimerLabel: UILabel {
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setup()
     }
     
     convenience init(timerLabelType: TimerLabel.Style) {
@@ -224,7 +226,7 @@ class TimerLabel: UILabel {
             
         case .timer:
             
-            if counting {
+            if isCounting {
                 
                 if let startCountDate = startCountDate {
                     timeDiff = Date().timeIntervalSince(startCountDate)
@@ -261,6 +263,8 @@ class TimerLabel: UILabel {
         } else {
             timeLabel?.text = dateFormatter.string(from: timeToShow)
         }
+        
+//        print("\(timeToShow)")
         
         if sholdCountBeyondHHLimit {
             let originalTimeFormat = timeFormat
@@ -314,8 +318,6 @@ class TimerLabel: UILabel {
                 reset()
             }
         }
-        
-        
     }
     
     public func start() {

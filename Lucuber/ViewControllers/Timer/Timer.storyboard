@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dFP-U9-BET">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dFP-U9-BET">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Timer View Controller-->
         <scene sceneID="IiU-3A-B2n">
             <objects>
-                <viewController id="09v-jz-Feu" sceneMemberID="viewController">
+                <viewController id="09v-jz-Feu" customClass="TimerViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AMq-Eg-BGp"/>
                         <viewControllerLayoutGuide type="bottom" id="cs4-H0-BJc"/>
@@ -17,20 +19,71 @@
                     <view key="view" contentMode="scaleToFill" id="PrV-DT-zYv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="9IN-Qc-Did" customClass="TimerLabel" customModule="LucuberTimer">
+                                <rect key="frame" x="30" y="264" width="315" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="HEm-ey-Ab6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="70"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v">
+                                <rect key="frame" x="50" y="160" width="275" height="27.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qJg-rn-OMo" customClass="TimerControlView" customModule="LucuberTimer">
+                                <rect key="frame" x="0.0" y="329" width="375" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4ge-Iu-5BK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="9IN-Qc-Did" firstAttribute="centerX" secondItem="PrV-DT-zYv" secondAttribute="centerX" id="Abc-Yj-I9s"/>
+                            <constraint firstItem="pv8-Il-z1v" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" constant="50" id="D4F-bd-n48"/>
+                            <constraint firstItem="qJg-rn-OMo" firstAttribute="top" secondItem="9IN-Qc-Did" secondAttribute="bottom" constant="5" id="Ihe-fe-EVp"/>
+                            <constraint firstItem="pv8-Il-z1v" firstAttribute="top" secondItem="AMq-Eg-BGp" secondAttribute="bottom" constant="140" id="WFX-tE-vfY"/>
+                            <constraint firstAttribute="trailing" secondItem="pv8-Il-z1v" secondAttribute="trailing" constant="50" id="ZWT-5B-rqn"/>
+                            <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="30" id="bqS-W9-cbw"/>
+                            <constraint firstItem="qJg-rn-OMo" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" id="o10-p9-Xyd"/>
+                            <constraint firstItem="9IN-Qc-Did" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" constant="30" id="qvS-FH-ui3"/>
+                            <constraint firstAttribute="trailing" secondItem="qJg-rn-OMo" secondAttribute="trailing" id="wwz-Zu-4Yh"/>
+                            <constraint firstItem="9IN-Qc-Did" firstAttribute="centerY" secondItem="PrV-DT-zYv" secondAttribute="centerY" constant="-40" id="yYi-MH-4lV"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pGg-SW-wmd" appends="YES" id="NGx-OJ-KzK"/>
+                            <outletCollection property="gestureRecognizers" destination="ntk-Tk-sjl" appends="YES" id="3Ow-eX-b9s"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="2S1-h3-fAq"/>
+                    <connections>
+                        <outlet property="longPressGesture" destination="pGg-SW-wmd" id="TUo-eI-8XE"/>
+                        <outlet property="scramblingLabel" destination="pv8-Il-z1v" id="aQq-PB-sTy"/>
+                        <outlet property="tapGesture" destination="ntk-Tk-sjl" id="LoB-WV-5pd"/>
+                        <outlet property="timerControl" destination="qJg-rn-OMo" id="JeA-4l-YVj"/>
+                        <outlet property="timerLabel" destination="9IN-Qc-Did" id="ddv-Ag-RoI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vzp-Q1-4iF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="pGg-SW-wmd"/>
+                <tapGestureRecognizer id="ntk-Tk-sjl"/>
             </objects>
-            <point key="canvasLocation" x="3232.8000000000002" y="666.11694152923542"/>
+            <point key="canvasLocation" x="3112.8000000000002" y="659.82008995502258"/>
         </scene>
         <!--计时器-->
         <scene sceneID="KtA-Ru-xPf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dFP-U9-BET" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="计时器" image="tabbar_time" selectedImage="tabbar_time_sele" id="zAz-NQ-3cl"/>
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcv-pK-7yt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -43,7 +96,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1vD-5k-uuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2293.5999999999999" y="666.11694152923542"/>
+            <point key="canvasLocation" x="2247" y="660"/>
         </scene>
     </scenes>
     <resources>
