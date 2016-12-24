@@ -11,6 +11,7 @@ import LucuberTimer
 
 class TimerViewController: UIViewController {
     
+    @IBOutlet weak var scoreDetailView: ScoreDetailView!
     @IBOutlet weak var scoreView: ScoreView!
     @IBOutlet weak var topContaninerViewConstarint: NSLayoutConstraint!
     @IBOutlet weak var timerControl: TimerControlView!
@@ -33,6 +34,9 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let heightConstant = CubeRuler.iPhoneVertical(350, 380, 470, 500)
+        topContaninerViewConstarint.constant = CGFloat(heightConstant.value)
+        view.layoutIfNeeded()
         timerLabel.font = UIFont.timerLabelFont()
         
         scramblingLabel.text = scrambling.creatScramblingText()

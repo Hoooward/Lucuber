@@ -92,7 +92,9 @@
 		E45351EE1DFC1E2D0092805B /* MessageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */; };
 		E45351EF1DFC1E510092805B /* MessageLoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED81B1DE862770036A11C /* MessageLoadingProgressView.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
-		E457FE481E0E5D9900AB5F64 /* ScoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457FE471E0E5D9900AB5F64 /* ScoreDetailView.swift */; };
+		E457FE4B1E0E5EE200AB5F64 /* ScoreDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457FE491E0E5EE200AB5F64 /* ScoreDetailCell.swift */; };
+		E457FE4C1E0E5EE200AB5F64 /* ScoreDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E457FE4A1E0E5EE200AB5F64 /* ScoreDetailCell.xib */; };
+		E457FE4E1E0E610600AB5F64 /* ScoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457FE4D1E0E610600AB5F64 /* ScoreDetailView.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E46047AC1E03BA4100B6D501 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E46047AB1E03BA4100B6D501 /* FXBlurView.m */; };
@@ -408,7 +410,9 @@
 		E44D3B521DF6F69D00673FFD /* URL+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Cube.swift"; sourceTree = "<group>"; };
 		E45351EA1DFC1DF70092805B /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
 		E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
-		E457FE471E0E5D9900AB5F64 /* ScoreDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailView.swift; sourceTree = "<group>"; };
+		E457FE491E0E5EE200AB5F64 /* ScoreDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailCell.swift; sourceTree = "<group>"; };
+		E457FE4A1E0E5EE200AB5F64 /* ScoreDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreDetailCell.xib; sourceTree = "<group>"; };
+		E457FE4D1E0E610600AB5F64 /* ScoreDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailView.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047AA1E03BA4100B6D501 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
@@ -913,6 +917,8 @@
 			children = (
 				E49534DC1E0E2B000008934D /* ScoreCell.swift */,
 				E49534DD1E0E2B000008934D /* ScoreCell.xib */,
+				E457FE491E0E5EE200AB5F64 /* ScoreDetailCell.swift */,
+				E457FE4A1E0E5EE200AB5F64 /* ScoreDetailCell.xib */,
 			);
 			path = ScoreCell;
 			sourceTree = "<group>";
@@ -944,7 +950,7 @@
 		E49534F21E0E412C0008934D /* ScoreDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				E457FE471E0E5D9900AB5F64 /* ScoreDetailView.swift */,
+				E457FE4D1E0E610600AB5F64 /* ScoreDetailView.swift */,
 			);
 			path = ScoreDetailView;
 			sourceTree = "<group>";
@@ -2059,6 +2065,7 @@
 				E4CED8431DE862770036A11C /* LoadMoreCollectionViewCell.xib in Resources */,
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
+				E457FE4C1E0E5EE200AB5F64 /* ScoreDetailCell.xib in Resources */,
 				E4F38D711DFD34B600F0DF8A /* PickPhotosCell.xib in Resources */,
 				E4CED8541DE862770036A11C /* DetailFormulasCell.xib in Resources */,
 				E4CED8741DE862770036A11C /* TypeSelectedCell.xib in Resources */,
@@ -2295,6 +2302,7 @@
 				E4F38D851E0002EB00F0DF8A /* UICollectionView+Cube.swift in Sources */,
 				E42C829E1DFBD01300D315CF /* ChatBaseCell.swift in Sources */,
 				E42C829F1DFBD01300D315CF /* ChatLeftImageCell.swift in Sources */,
+				E457FE4E1E0E610600AB5F64 /* ScoreDetailView.swift in Sources */,
 				E42C82A01DFBD01300D315CF /* ChatLeftTextCell.swift in Sources */,
 				E42C82A11DFBD01300D315CF /* ChatRightBaseCell.swift in Sources */,
 				E42C82A21DFBD01300D315CF /* ChatRightImageCell.swift in Sources */,
@@ -2376,7 +2384,6 @@
 				E47926261D968CDB004D58BF /* Keyboard.swift in Sources */,
 				E44D3B531DF6F69D00673FFD /* URL+Cube.swift in Sources */,
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
-				E457FE481E0E5D9900AB5F64 /* ScoreDetailView.swift in Sources */,
 				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E4F38D681DFD2B7F00F0DF8A /* MoreMessageTypeView.swift in Sources */,
@@ -2388,6 +2395,7 @@
 				E4CED8891DE862770036A11C /* NavigationTitleLabel.swift in Sources */,
 				E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */,
 				E44483391E067E91008311F5 /* CommentViewController+FetchMessage.swift in Sources */,
+				E457FE4B1E0E5EE200AB5F64 /* ScoreDetailCell.swift in Sources */,
 				E4F38DB51E01130E00F0DF8A /* HorizontalLineView.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */,
