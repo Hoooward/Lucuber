@@ -16,6 +16,7 @@ public class ScoreCell: UITableViewCell {
     override public func awakeFromNib() {
         super.awakeFromNib()
         scoreLabel.font = UIFont.scoreLabelFont()
+        scoreLabel.textColor = UIColor.gray
     }
     
     public func configreCell(with score: String) {

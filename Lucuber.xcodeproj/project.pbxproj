@@ -92,6 +92,7 @@
 		E45351EE1DFC1E2D0092805B /* MessageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */; };
 		E45351EF1DFC1E510092805B /* MessageLoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED81B1DE862770036A11C /* MessageLoadingProgressView.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
+		E457FE481E0E5D9900AB5F64 /* ScoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457FE471E0E5D9900AB5F64 /* ScoreDetailView.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E46047AC1E03BA4100B6D501 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E46047AB1E03BA4100B6D501 /* FXBlurView.m */; };
@@ -407,6 +408,7 @@
 		E44D3B521DF6F69D00673FFD /* URL+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Cube.swift"; sourceTree = "<group>"; };
 		E45351EA1DFC1DF70092805B /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
 		E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
+		E457FE471E0E5D9900AB5F64 /* ScoreDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailView.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047AA1E03BA4100B6D501 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
@@ -939,6 +941,14 @@
 			path = TimerLabel;
 			sourceTree = "<group>";
 		};
+		E49534F21E0E412C0008934D /* ScoreDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				E457FE471E0E5D9900AB5F64 /* ScoreDetailView.swift */,
+			);
+			path = ScoreDetailView;
+			sourceTree = "<group>";
+		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1011,7 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E49534F21E0E412C0008934D /* ScoreDetailView */,
 				E49534E31E0E2B480008934D /* ScoreView */,
 				E49534E01E0E2B260008934D /* TimerControl */,
 				E4CED79D1DE862770036A11C /* Cell */,
@@ -2365,6 +2376,7 @@
 				E47926261D968CDB004D58BF /* Keyboard.swift in Sources */,
 				E44D3B531DF6F69D00673FFD /* URL+Cube.swift in Sources */,
 				E4E021FA1D9023C700DED99A /* String+Cube.swift in Sources */,
+				E457FE481E0E5D9900AB5F64 /* ScoreDetailView.swift in Sources */,
 				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E4F38D681DFD2B7F00F0DF8A /* MoreMessageTypeView.swift in Sources */,
@@ -2847,6 +2859,7 @@
 				E49534AE1E0D05A40008934D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E49534BE1E0D19B50008934D /* Build configuration list for PBXNativeTarget "LucuberTimerTests" */ = {
 			isa = XCConfigurationList;
@@ -2855,6 +2868,7 @@
 				E49534C01E0D19B50008934D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E4A3BA731DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKit" */ = {
 			isa = XCConfigurationList;

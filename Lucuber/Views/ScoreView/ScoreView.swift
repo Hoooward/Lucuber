@@ -20,26 +20,26 @@ public class ScoreView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorColor = UIColor.white
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = UIColor.white
+//        tableView.backgroundColor = UIColor.white
         let nib = UINib(nibName: scoreCellIdentifier, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: scoreCellIdentifier)
         return tableView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        makeUI()
-    }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         makeUI()
+        layoutIfNeeded()
     }
-    
     func makeUI() {
+        
+        backgroundColor = UIColor.white
         
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
