@@ -51,7 +51,7 @@ public class TimerLabel: UILabel {
     public var timerType: TimerLabel.Style = .timer
     
     /// Is time timer running?
-    public var isCounting: Bool = true
+    public var isCounting: Bool = false
     
     /// Do you want to reset the Timer after countdown?
     public var resetTimerAfterFinish: Bool = false

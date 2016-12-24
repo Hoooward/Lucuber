@@ -8,8 +8,19 @@
 
 import UIKit
 import LucuberTimer
+import RealmSwift
+
 
 class TimerViewController: UIViewController {
+    
+    let realm = try! Realm()
+    
+    var currentScoreGroup: ScoreGroup? {
+        didSet {
+            scoreView.scoreGroup = currentScoreGroup
+        }
+    }
+    
     
     @IBOutlet weak var scoreDetailView: ScoreDetailView!
     @IBOutlet weak var scoreView: ScoreView!
@@ -30,9 +41,13 @@ class TimerViewController: UIViewController {
         }
     }
     
-    
+    private func perpareScoreGroup() {
+        currentScoreGroup = getOrCreatDefaultScoreGroup()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        perpareScoreGroup()
         
         let heightConstant = CubeRuler.iPhoneVertical(350, 380, 470, 500)
         topContaninerViewConstarint.constant = CGFloat(heightConstant.value)
@@ -57,11 +72,25 @@ class TimerViewController: UIViewController {
     }
     
     func pasueTimer(sender: UIGestureRecognizer) {
+        
         if timerLabel.isCounting {
             timerLabel.pause()
             timerControl.status = .prepare
+            
+            realm.beginWrite()
+            let newScore = Score()
+            newScore.localObjectId = "123jyuuiayiusdyfiuhj11"
+            newScore.timertext = timerLabel.text ?? "00:00:00"
+            newScore.atGroup = currentScoreGroup
+            realm.add(newScore)
+            
+            try? realm.commitWrite()
+            
+            scoreView.updateTableView(with: newScore, inRealm: realm)
         }
+        
     }
+    
     func startTimer(sender: UIGestureRecognizer) {
         
         if timerLabel.isCounting {

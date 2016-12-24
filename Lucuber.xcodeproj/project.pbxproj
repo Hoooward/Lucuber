@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11CE6FB4D5761449D983BD9E /* Pods_LucuberKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334ED53D389A550452728B65 /* Pods_LucuberKit.framework */; };
+		811852247AE594D478B3A18F /* Pods_LucuberTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBCEF9AD7CFAA163A508A761 /* Pods_LucuberTimer.framework */; };
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */; };
 		CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */; };
@@ -261,6 +262,8 @@
 		E4E03BFF1DEC6EA10023B3B0 /* DetailMasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7CA1DE862770036A11C /* DetailMasterCell.swift */; };
 		E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */; };
 		E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
+		E4EFC0B11E0EA3B8006110F7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B01E0EA3B8006110F7 /* Model.swift */; };
+		E4EFC0B31E0EB340006110F7 /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */; };
 		E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */; };
 		E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */; };
 		E4F38D4E1DFD1E0D00F0DF8A /* CateogyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */; };
@@ -359,11 +362,14 @@
 
 /* Begin PBXFileReference section */
 		1BDF5C2626D80270F6F2E746 /* Pods-LucuberKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit.release.xcconfig"; sourceTree = "<group>"; };
+		1CF905E62884DE2553E08B52 /* Pods-LucuberTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberTimer/Pods-LucuberTimer.release.xcconfig"; sourceTree = "<group>"; };
 		334ED53D389A550452728B65 /* Pods_LucuberKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LucuberKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5944A1EAC5D1E37A4BFA2836 /* Pods-LucuberTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberTimer/Pods-LucuberTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit.debug.xcconfig"; sourceTree = "<group>"; };
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
+		CBCEF9AD7CFAA163A508A761 /* Pods_LucuberTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LucuberTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC71405D62B9E67C54303B3A /* CommentViewController+Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Conversation.swift"; sourceTree = "<group>"; };
 		CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Cube.swift"; sourceTree = "<group>"; };
 		CC7146210788559E40A58A50 /* CommentViewController+sendMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+sendMessage.swift"; sourceTree = "<group>"; };
@@ -584,6 +590,8 @@
 		E4DF660E1D8DA04E005CE518 /* UIStoryboard+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Cube.swift"; sourceTree = "<group>"; };
 		E4E021F91D9023C700DED99A /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMan.swift; sourceTree = "<group>"; };
+		E4EFC0B01E0EA3B8006110F7 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
 		E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogyItemView.swift; sourceTree = "<group>"; };
@@ -632,6 +640,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811852247AE594D478B3A18F /* Pods_LucuberTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +687,8 @@
 				98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */,
 				7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */,
 				1BDF5C2626D80270F6F2E746 /* Pods-LucuberKit.release.xcconfig */,
+				5944A1EAC5D1E37A4BFA2836 /* Pods-LucuberTimer.debug.xcconfig */,
+				1CF905E62884DE2553E08B52 /* Pods-LucuberTimer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -688,6 +699,7 @@
 				E4F38DC21E01913700F0DF8A /* MapKit.framework */,
 				5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */,
 				334ED53D389A550452728B65 /* Pods_LucuberKit.framework */,
+				CBCEF9AD7CFAA163A508A761 /* Pods_LucuberTimer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -883,6 +895,7 @@
 				E49534D01E0E1EB30008934D /* Extension */,
 				E49534CB1E0E1EAD0008934D /* Views */,
 				E49534B01E0D06940008934D /* Scrambling.swift */,
+				E4EFC0B01E0EA3B8006110F7 /* Model.swift */,
 			);
 			path = LucuberTimer;
 			sourceTree = "<group>";
@@ -908,6 +921,7 @@
 			isa = PBXGroup;
 			children = (
 				E49534D11E0E1EB30008934D /* UIColor+Cube.swift */,
+				E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1858,10 +1872,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E49534AC1E0D05A40008934D /* Build configuration list for PBXNativeTarget "LucuberTimer" */;
 			buildPhases = (
+				8BEEBBA090A9D721AF96522C /* [CP] Check Pods Manifest.lock */,
 				E495349E1E0D05A30008934D /* Sources */,
 				E495349F1E0D05A30008934D /* Frameworks */,
 				E49534A01E0D05A30008934D /* Headers */,
 				E49534A11E0D05A30008934D /* Resources */,
+				FF0457D02D92D5E176897FDB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2191,6 +2207,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8BEEBBA090A9D721AF96522C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		A1B3630DD46A72714D0902F4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2206,6 +2237,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FF0457D02D92D5E176897FDB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LucuberTimer/Pods-LucuberTimer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2215,7 +2261,9 @@
 			files = (
 				E49534D21E0E1EB30008934D /* UIColor+Cube.swift in Sources */,
 				E49534EC1E0E2C000008934D /* TimerLabel.swift in Sources */,
+				E4EFC0B31E0EB340006110F7 /* Array+Cube.swift in Sources */,
 				E49534B11E0D06940008934D /* Scrambling.swift in Sources */,
+				E4EFC0B11E0EA3B8006110F7 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2572,6 +2620,7 @@
 /* Begin XCBuildConfiguration section */
 		E49534AD1E0D05A40008934D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5944A1EAC5D1E37A4BFA2836 /* Pods-LucuberTimer.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -2599,6 +2648,7 @@
 		};
 		E49534AE1E0D05A40008934D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CF905E62884DE2553E08B52 /* Pods-LucuberTimer.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;

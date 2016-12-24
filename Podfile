@@ -21,6 +21,7 @@ pod 'MonkeyKing', '~> 1.1.0'
 end
 
 target 'LucuberKit' do
+
 pod 'SwiftyJSON'
 pod 'AVOSCloud'
 pod 'RealmSwift'
@@ -32,9 +33,11 @@ pod 'Navi', '~> 1.1.0'
 pod 'Kanna', '~> 2.1.0'
 pod 'Alamofire', '~> 4.0'
 
-#pod 'Ruler', '~> 1.0.0'
-#pod 'TwicketSegmentedControl'
+end
+target 'LucuberTimer' do 
 
+pod 'RealmSwift'
+pod 'AVOSCloud'
 
 
 end

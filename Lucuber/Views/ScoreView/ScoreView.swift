@@ -7,12 +7,33 @@
 //
 
 import UIKit
+import LucuberTimer
+import RealmSwift
 
 
 let scoreCellIdentifier = "ScoreCell"
 public class ScoreView: UIView {
     
-    public var Scores: [String] = [] {
+    public var scoreGroup: ScoreGroup? {
+        didSet {
+           tableView.reloadData()
+        }
+    }
+    
+    fileprivate var timerList: [Score] {
+        if let scoreGroup = scoreGroup {
+            return scoreGroup.timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+        }
+        return [Score]()
+    }
+    
+    public func updateTableView(with newScore: Score, inRealm realm: Realm) {
+        
+        let newScoreIndexPath = IndexPath(item: 0, section: 0)
+        tableView.insertRows(at: [newScoreIndexPath], with: .automatic)
+    }
+    
+    public var scores: [Score] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -20,7 +41,7 @@ public class ScoreView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorColor = UIColor.white
+        tableView.separatorColor = UIColor.clear
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.delegate = self
         tableView.dataSource = self
@@ -64,12 +85,15 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return timerList.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: scoreCellIdentifier, for: indexPath) as! ScoreCell
-        cell.scoreLabel.text = "00:12:23"
+        
+        let score = timerList[indexPath.row]
+        cell.scoreLabel.text = score.timertext
+        
         return cell
     }
     
