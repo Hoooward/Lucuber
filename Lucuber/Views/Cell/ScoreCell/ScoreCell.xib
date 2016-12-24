@@ -10,22 +10,22 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ScoreCell" rowHeight="42" id="KGk-i7-Jjw" customClass="ScoreCell" customModule="LucuberTimer" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="241" height="42"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ScoreCell" rowHeight="26" id="KGk-i7-Jjw" customClass="ScoreCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="241" height="26"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="241" height="41"/>
+                <rect key="frame" x="0.0" y="0.0" width="241" height="26"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="09v-AC-AMx">
-                        <rect key="frame" x="20" y="19" width="5" height="5"/>
+                        <rect key="frame" x="20" y="10.5" width="5" height="5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="5" id="BS3-rh-CoO"/>
                             <constraint firstAttribute="height" constant="5" id="iR6-ym-d0M"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPt-CT-XZz">
-                        <rect key="frame" x="40" y="5" width="181" height="31.5"/>
+                        <rect key="frame" x="40" y="0.0" width="181" height="25.5"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -33,18 +33,18 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="GPt-CT-XZz" secondAttribute="trailing" constant="20" id="40y-yd-084"/>
-                    <constraint firstItem="GPt-CT-XZz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="9Jg-lO-old"/>
+                    <constraint firstItem="GPt-CT-XZz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9Jg-lO-old"/>
                     <constraint firstItem="GPt-CT-XZz" firstAttribute="leading" secondItem="09v-AC-AMx" secondAttribute="trailing" constant="15" id="Af5-K8-Ze3"/>
                     <constraint firstItem="09v-AC-AMx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="R8B-Hm-Mm3"/>
                     <constraint firstItem="09v-AC-AMx" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cBn-Cp-nUS"/>
-                    <constraint firstAttribute="bottom" secondItem="GPt-CT-XZz" secondAttribute="bottom" constant="5" id="lDS-uL-7IS"/>
+                    <constraint firstAttribute="bottom" secondItem="GPt-CT-XZz" secondAttribute="bottom" id="lDS-uL-7IS"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="indicatorImageView" destination="09v-AC-AMx" id="5Iu-A7-6Jy"/>
                 <outlet property="scoreLabel" destination="GPt-CT-XZz" id="fcq-CV-P2r"/>
             </connections>
-            <point key="canvasLocation" x="-5.5" y="53"/>
+            <point key="canvasLocation" x="-5.5" y="45"/>
         </tableViewCell>
     </objects>
 </document>

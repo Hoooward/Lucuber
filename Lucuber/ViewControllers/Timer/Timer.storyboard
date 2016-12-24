@@ -7,6 +7,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="alarm clock.ttf">
+            <string>alarmclock</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Timer View Controller-->
         <scene sceneID="IiU-3A-B2n">
@@ -24,8 +29,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="470"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="9IN-Qc-Did" customClass="TimerLabel" customModule="LucuberTimer">
-                                        <rect key="frame" x="10" y="270" width="394" height="105"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="90"/>
+                                        <rect key="frame" x="50" y="281" width="314" height="94"/>
+                                        <fontDescription key="fontDescription" name="alarmclock" family="alarm clock" pointSize="90"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -42,7 +47,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v">
-                                        <rect key="frame" x="70" y="192" width="274" height="28"/>
+                                        <rect key="frame" x="70" y="203" width="274" height="28"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Label">
                                                 <attributes>
@@ -58,9 +63,9 @@
                                 <color key="backgroundColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="esw-vX-KNI" firstAttribute="top" secondItem="qJg-rn-OMo" secondAttribute="bottom" constant="20" id="4B5-cj-8JB"/>
-                                    <constraint firstItem="9IN-Qc-Did" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="10" id="4QN-xb-eR1"/>
+                                    <constraint firstItem="9IN-Qc-Did" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="50" id="4QN-xb-eR1"/>
                                     <constraint firstAttribute="height" constant="470" id="APL-9Z-ul4"/>
-                                    <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="10" id="C2O-hD-aRG"/>
+                                    <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="50" id="C2O-hD-aRG"/>
                                     <constraint firstItem="9IN-Qc-Did" firstAttribute="top" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="50" id="CYY-2g-hsb"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="FZO-cy-UZ3"/>
                                     <constraint firstAttribute="bottom" secondItem="esw-vX-KNI" secondAttribute="bottom" constant="-5" id="Jcu-A5-my2"/>
@@ -123,7 +128,7 @@
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcv-pK-7yt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kcv-pK-7yt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

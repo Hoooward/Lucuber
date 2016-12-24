@@ -59,5 +59,13 @@ extension UIFont {
         return UIFont.systemFont(ofSize: 16)
     }
     
+    public class func timerLabelFont() -> UIFont {
+        return UIFont(name: "alarmclock", size: 90)!
+    }
+    
+    public class func scoreLabelFont() -> UIFont {
+       return UIFont(name: "alarmclock", size: 12)!
+    }
+    
 
 }

@@ -72,6 +72,10 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
         cell.scoreLabel.text = "00:12:23"
         return cell
     }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 25
+    }
 }
 
 

@@ -141,6 +141,7 @@
 		E49534E21E0E2B260008934D /* TimerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534E11E0E2B260008934D /* TimerControlView.swift */; };
 		E49534E51E0E2B480008934D /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534E41E0E2B480008934D /* ScoreView.swift */; };
 		E49534EC1E0E2C000008934D /* TimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534EB1E0E2C000008934D /* TimerLabel.swift */; };
+		E49534F11E0E37370008934D /* alarm clock.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E49534EF1E0E334B0008934D /* alarm clock.ttf */; };
 		E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
@@ -449,6 +450,8 @@
 		E49534E11E0E2B260008934D /* TimerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerControlView.swift; sourceTree = "<group>"; };
 		E49534E41E0E2B480008934D /* ScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		E49534EB1E0E2C000008934D /* TimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabel.swift; sourceTree = "<group>"; };
+		E49534EF1E0E334B0008934D /* alarm clock.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "alarm clock.ttf"; sourceTree = "<group>"; };
+		E49534F01E0E34800008934D /* good times rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "good times rg.ttf"; sourceTree = "<group>"; };
 		E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -786,6 +789,8 @@
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E49534F01E0E34800008934D /* good times rg.ttf */,
+				E49534EF1E0E334B0008934D /* alarm clock.ttf */,
 				E46047A91E03BA4100B6D501 /* FXBlurView */,
 				E479265E1D96E005004D58BF /* CubeCategory.plist */,
 				E479265F1D96E005004D58BF /* CubeType.plist */,
@@ -2036,6 +2041,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49534F11E0E37370008934D /* alarm clock.ttf in Resources */,
 				E4CED86A1DE862770036A11C /* NameTextViewCell.xib in Resources */,
 				E47926621D96E005004D58BF /* CubeType.plist in Resources */,
 				E4CED8701DE862770036A11C /* StarRatingCell.xib in Resources */,

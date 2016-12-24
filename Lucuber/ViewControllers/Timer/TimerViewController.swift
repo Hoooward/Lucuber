@@ -33,6 +33,8 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        timerLabel.font = UIFont.timerLabelFont()
+        
         scramblingLabel.text = scrambling.creatScramblingText()
         
         timerControl.afterReadyStartAction = { [weak self] in
