@@ -11,11 +11,14 @@ import UIKit
 public class TimerControlView: UIView {
     
     let screenWidth = UIScreen.main.bounds.width
+    
     public enum Statue {
         case prepare
         case readyStart
         case start
     }
+    
+    public var afterReadyStartAction: (() -> Void)?
     
     public var status: Statue = .prepare {
         didSet {
@@ -31,7 +34,6 @@ public class TimerControlView: UIView {
                 
                 readyStartIndicatorLabel.transform = CGAffineTransform.identity
                 
-                break
                 
             case .readyStart:
                 
@@ -42,7 +44,9 @@ public class TimerControlView: UIView {
                     self.readyStartIndicatorLabel.alpha = 1
                     
                     
-                }, completion: nil)
+                }, completion: { _ in
+                    self.afterReadyStartAction?()
+                })
                 
             case .start:
                 
@@ -65,6 +69,7 @@ public class TimerControlView: UIView {
     private lazy var prepareStartIndicatorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.controlViewIndicatorLabel()
         label.text = "长按屏幕 准备开始"
         label.textAlignment = .center
         return label
@@ -73,19 +78,29 @@ public class TimerControlView: UIView {
     private lazy var readyStartIndicatorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.controlViewIndicatorLabel()
         label.text = "松开手指 开始计时"
         label.textAlignment = .center
         return label
     }()
     
-    override public func awakeFromNib() {
+    var isFirstLayout: Bool = true
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstLayout {
+            prepareStartIndicatorLabel.frame = bounds
+            
+            readyStartIndicatorLabel.frame = CGRect(x: -bounds.size.width, y: 0, width: bounds.size.width, height: bounds.size.height)
+        
+            status = .prepare
+        }
+        isFirstLayout = false
+    }
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
         addSubview(prepareStartIndicatorLabel)
         addSubview(readyStartIndicatorLabel)
-        prepareStartIndicatorLabel.frame = bounds
-        
-        readyStartIndicatorLabel.frame = CGRect(x: -bounds.size.width, y: 0, width: bounds.size.width, height: bounds.size.height)
-        
-        status = .prepare
     }
     
 }

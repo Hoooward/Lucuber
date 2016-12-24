@@ -134,9 +134,13 @@
 		E49534B11E0D06940008934D /* Scrambling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534B01E0D06940008934D /* Scrambling.swift */; };
 		E49534B91E0D19B50008934D /* LucuberTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534B81E0D19B50008934D /* LucuberTimerTests.swift */; };
 		E49534BB1E0D19B50008934D /* LucuberTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49534A31E0D05A30008934D /* LucuberTimer.framework */; };
-		E49534C41E0D1DB20008934D /* TimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534C31E0D1DB20008934D /* TimerLabel.swift */; };
 		E49534C61E0D4E1B0008934D /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534C51E0D4E1B0008934D /* TimerViewController.swift */; };
-		E49534C81E0D62DE0008934D /* TimerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534C71E0D62DE0008934D /* TimerControlView.swift */; };
+		E49534D21E0E1EB30008934D /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534D11E0E1EB30008934D /* UIColor+Cube.swift */; };
+		E49534DE1E0E2B000008934D /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534DC1E0E2B000008934D /* ScoreCell.swift */; };
+		E49534DF1E0E2B000008934D /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E49534DD1E0E2B000008934D /* ScoreCell.xib */; };
+		E49534E21E0E2B260008934D /* TimerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534E11E0E2B260008934D /* TimerControlView.swift */; };
+		E49534E51E0E2B480008934D /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534E41E0E2B480008934D /* ScoreView.swift */; };
+		E49534EC1E0E2C000008934D /* TimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534EB1E0E2C000008934D /* TimerLabel.swift */; };
 		E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
@@ -438,9 +442,13 @@
 		E49534B61E0D19B50008934D /* LucuberTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucuberTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49534B81E0D19B50008934D /* LucuberTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucuberTimerTests.swift; sourceTree = "<group>"; };
 		E49534BA1E0D19B50008934D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E49534C31E0D1DB20008934D /* TimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabel.swift; sourceTree = "<group>"; };
 		E49534C51E0D4E1B0008934D /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
-		E49534C71E0D62DE0008934D /* TimerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerControlView.swift; sourceTree = "<group>"; };
+		E49534D11E0E1EB30008934D /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
+		E49534DC1E0E2B000008934D /* ScoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
+		E49534DD1E0E2B000008934D /* ScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
+		E49534E11E0E2B260008934D /* TimerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerControlView.swift; sourceTree = "<group>"; };
+		E49534E41E0E2B480008934D /* ScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		E49534EB1E0E2C000008934D /* TimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabel.swift; sourceTree = "<group>"; };
 		E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -861,9 +869,9 @@
 			children = (
 				E49534A51E0D05A40008934D /* LucuberTimer.h */,
 				E49534A61E0D05A40008934D /* Info.plist */,
+				E49534D01E0E1EB30008934D /* Extension */,
+				E49534CB1E0E1EAD0008934D /* Views */,
 				E49534B01E0D06940008934D /* Scrambling.swift */,
-				E49534C31E0D1DB20008934D /* TimerLabel.swift */,
-				E49534C71E0D62DE0008934D /* TimerControlView.swift */,
 			);
 			path = LucuberTimer;
 			sourceTree = "<group>";
@@ -875,6 +883,55 @@
 				E49534BA1E0D19B50008934D /* Info.plist */,
 			);
 			path = LucuberTimerTests;
+			sourceTree = "<group>";
+		};
+		E49534CB1E0E1EAD0008934D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E49534EA1E0E2C000008934D /* TimerLabel */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E49534D01E0E1EB30008934D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E49534D11E0E1EB30008934D /* UIColor+Cube.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E49534DB1E0E2B000008934D /* ScoreCell */ = {
+			isa = PBXGroup;
+			children = (
+				E49534DC1E0E2B000008934D /* ScoreCell.swift */,
+				E49534DD1E0E2B000008934D /* ScoreCell.xib */,
+			);
+			path = ScoreCell;
+			sourceTree = "<group>";
+		};
+		E49534E01E0E2B260008934D /* TimerControl */ = {
+			isa = PBXGroup;
+			children = (
+				E49534E11E0E2B260008934D /* TimerControlView.swift */,
+			);
+			path = TimerControl;
+			sourceTree = "<group>";
+		};
+		E49534E31E0E2B480008934D /* ScoreView */ = {
+			isa = PBXGroup;
+			children = (
+				E49534E41E0E2B480008934D /* ScoreView.swift */,
+			);
+			path = ScoreView;
+			sourceTree = "<group>";
+		};
+		E49534EA1E0E2C000008934D /* TimerLabel */ = {
+			isa = PBXGroup;
+			children = (
+				E49534EB1E0E2C000008934D /* TimerLabel.swift */,
+			);
+			path = TimerLabel;
 			sourceTree = "<group>";
 		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
@@ -939,6 +996,8 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E49534E31E0E2B480008934D /* ScoreView */,
+				E49534E01E0E2B260008934D /* TimerControl */,
 				E4CED79D1DE862770036A11C /* Cell */,
 				E4C40DE71E078A6900ED46F2 /* FeedMedia */,
 				E4F38DB31E01130000F0DF8A /* HorizontalLineView */,
@@ -980,6 +1039,7 @@
 		E4CED79D1DE862770036A11C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E49534DB1E0E2B000008934D /* ScoreCell */,
 				E4F38D691DFD340C00F0DF8A /* MoreMessageType */,
 				E4CED79E1DE862770036A11C /* CategoryMenuCell */,
 				E4CED7A01DE862770036A11C /* ConversationCell */,
@@ -2016,6 +2076,7 @@
 				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
 				E4CED8571DE862770036A11C /* DetailMasterCell.xib in Resources */,
 				E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */,
+				E49534DF1E0E2B000008934D /* ScoreCell.xib in Resources */,
 				E41ECF5B1DB77959005BEFE4 /* MediaPreview.storyboard in Resources */,
 				E4CED8591DE862770036A11C /* DetailSeparatorCell.xib in Resources */,
 				E4CED85D1DE862770036A11C /* HeaderReusableView.xib in Resources */,
@@ -2128,9 +2189,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E49534C41E0D1DB20008934D /* TimerLabel.swift in Sources */,
+				E49534D21E0E1EB30008934D /* UIColor+Cube.swift in Sources */,
+				E49534EC1E0E2C000008934D /* TimerLabel.swift in Sources */,
 				E49534B11E0D06940008934D /* Scrambling.swift in Sources */,
-				E49534C81E0D62DE0008934D /* TimerControlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2242,6 +2303,7 @@
 				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
 				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
 				E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */,
+				E49534E51E0E2B480008934D /* ScoreView.swift in Sources */,
 				E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */,
 				E4F38DC61E01BA5200F0DF8A /* CubeMedia.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
@@ -2278,6 +2340,7 @@
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */,
 				E4D577261E0AAE5900A6516F /* FeedsViewController+Formula.swift in Sources */,
+				E49534E21E0E2B260008934D /* TimerControlView.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
@@ -2379,6 +2442,7 @@
 				E4CED8811DE862770036A11C /* KeyButton.swift in Sources */,
 				E4F38D651DFD21D100F0DF8A /* Service+Fetch.swift in Sources */,
 				E4CED88C1DE862770036A11C /* NewFormulaHeadView.swift in Sources */,
+				E49534DE1E0E2B000008934D /* ScoreCell.swift in Sources */,
 				E424A8661DF6CF27008A6AD0 /* FeedURLContainerView.swift in Sources */,
 				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4CED8901DE862770036A11C /* TwicketSegmentedControl.swift in Sources */,

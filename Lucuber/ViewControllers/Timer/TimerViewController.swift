@@ -11,21 +11,17 @@ import LucuberTimer
 
 class TimerViewController: UIViewController {
     
+    @IBOutlet weak var scoreView: ScoreView!
+    @IBOutlet weak var topContaninerViewConstarint: NSLayoutConstraint!
     @IBOutlet weak var timerControl: TimerControlView!
-    
-    @IBOutlet var longPressGesture: UILongPressGestureRecognizer! {
+    @IBOutlet weak var topBackgroundView: UIView! {
         didSet {
-            longPressGesture.minimumPressDuration = 0.5
-            longPressGesture.addTarget(self, action: #selector(TimerViewController.startTimer(sender:)))
-        }
-    }
-    @IBOutlet var tapGesture: UITapGestureRecognizer! {
-        didSet {
-            tapGesture.addTarget(self, action: #selector(TimerViewController.pasueTimer(sender:)))
+            topBackgroundView.backgroundColor = UIColor.cubeTintColor()
         }
     }
     
     lazy var scrambling = Scrambling()
+    
     @IBOutlet weak var scramblingLabel: UILabel!
     @IBOutlet weak var timerLabel: TimerLabel! {
         didSet {
@@ -38,8 +34,21 @@ class TimerViewController: UIViewController {
         super.viewDidLoad()
         
         scramblingLabel.text = scrambling.creatScramblingText()
+        
+        timerControl.afterReadyStartAction = { [weak self] in
+            self?.timerLabel.reset()
+        }
+        
+        let long = UILongPressGestureRecognizer(target: self, action: #selector(TimerViewController.startTimer(sender:)))
+        view.addGestureRecognizer(long)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(TimerViewController.pasueTimer(sender:)))
+        view.addGestureRecognizer(tap)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
     
     func pasueTimer(sender: UIGestureRecognizer) {
         if timerLabel.isCounting {

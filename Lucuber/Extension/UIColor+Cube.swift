@@ -114,6 +114,10 @@ extension UIColor {
         return UIColor(red: 0.557, green: 0.557, blue: 0.556, alpha: 1)
     }
     
+    class func timeControlViewIndicatorLabel() -> UIColor {
+        return UIColor.white
+    }
+    
     
 }
 
