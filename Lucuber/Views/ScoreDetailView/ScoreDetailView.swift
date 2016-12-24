@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Spring
 
-public class ScoreDetailView: UIView {
+public class ScoreDetailView: SpringView {
     
     @IBOutlet weak var fastyLabel: UILabel!
     @IBOutlet weak var slowlyLabel: UILabel!

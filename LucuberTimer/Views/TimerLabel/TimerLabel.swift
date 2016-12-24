@@ -250,7 +250,8 @@ public class TimerLabel: UILabel {
                 
             } else {
                 
-                timeToShow = timeToCountOff
+                // TODO: - 应该是 timeToCountOff, 但是在我的应用场景中初始化时会直接赋值当前时间
+                timeToShow = date1970.addingTimeInterval(0)
             }
         }
         

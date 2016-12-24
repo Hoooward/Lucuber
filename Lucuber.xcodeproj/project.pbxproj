@@ -262,7 +262,6 @@
 		E4E03BFF1DEC6EA10023B3B0 /* DetailMasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED7CA1DE862770036A11C /* DetailMasterCell.swift */; };
 		E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */; };
 		E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
-		E4EFC0B11E0EA3B8006110F7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B01E0EA3B8006110F7 /* Model.swift */; };
 		E4EFC0B31E0EB340006110F7 /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */; };
 		E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */; };
 		E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */; };
@@ -590,7 +589,6 @@
 		E4DF660E1D8DA04E005CE518 /* UIStoryboard+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Cube.swift"; sourceTree = "<group>"; };
 		E4E021F91D9023C700DED99A /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMan.swift; sourceTree = "<group>"; };
-		E4EFC0B01E0EA3B8006110F7 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
@@ -895,7 +893,6 @@
 				E49534D01E0E1EB30008934D /* Extension */,
 				E49534CB1E0E1EAD0008934D /* Views */,
 				E49534B01E0D06940008934D /* Scrambling.swift */,
-				E4EFC0B01E0EA3B8006110F7 /* Model.swift */,
 			);
 			path = LucuberTimer;
 			sourceTree = "<group>";
@@ -2263,7 +2260,6 @@
 				E49534EC1E0E2C000008934D /* TimerLabel.swift in Sources */,
 				E4EFC0B31E0EB340006110F7 /* Array+Cube.swift in Sources */,
 				E49534B11E0D06940008934D /* Scrambling.swift in Sources */,
-				E4EFC0B11E0EA3B8006110F7 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

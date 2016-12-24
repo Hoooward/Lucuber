@@ -9,10 +9,11 @@
 import UIKit
 import LucuberTimer
 import RealmSwift
+import Spring
 
 
 let scoreCellIdentifier = "ScoreCell"
-public class ScoreView: UIView {
+public class ScoreView: SpringView {
     
     public var scoreGroup: ScoreGroup? {
         didSet {
@@ -28,9 +29,12 @@ public class ScoreView: UIView {
     }
     
     public func updateTableView(with newScore: Score, inRealm realm: Realm) {
-        
         let newScoreIndexPath = IndexPath(item: 0, section: 0)
-        tableView.insertRows(at: [newScoreIndexPath], with: .automatic)
+        if timerList.count == 1 {
+            tableView.reloadRows(at: [newScoreIndexPath], with: .right)
+        } else {
+            tableView.insertRows(at: [newScoreIndexPath], with: .left)
+        }
     }
     
     public var scores: [Score] = [] {
@@ -39,43 +43,17 @@ public class ScoreView: UIView {
         }
     }
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorColor = UIColor.clear
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.showsVerticalScrollIndicator = false
-//        tableView.backgroundColor = UIColor.white
-        let nib = UINib(nibName: scoreCellIdentifier, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: scoreCellIdentifier)
-        return tableView
-    }()
-    
-    
-    public override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        makeUI()
-        layoutIfNeeded()
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.showsVerticalScrollIndicator = false
+            let nib = UINib(nibName: scoreCellIdentifier, bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: scoreCellIdentifier)
+        }
     }
-    func makeUI() {
-        
-        backgroundColor = UIColor.white
-        
-        addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let views: [String: Any] = [
-            "tableView": tableView
-        ]
-        
-        let constraintH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
-        let constraintV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
-        
-        NSLayoutConstraint.activate(constraintH)
-        NSLayoutConstraint.activate(constraintV)
-        
-    }
+
 }
 
 extension ScoreView: UITableViewDataSource, UITableViewDelegate {
@@ -85,14 +63,18 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timerList.count
+        return timerList.count == 0 ? 1 : timerList.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: scoreCellIdentifier, for: indexPath) as! ScoreCell
         
-        let score = timerList[indexPath.row]
-        cell.scoreLabel.text = score.timertext
+        if timerList.count == 0 {
+            cell.scoreLabel.text = "成绩记录"
+        } else {
+            let score = timerList[indexPath.row]
+            cell.scoreLabel.text = score.timertext
+        }
         
         return cell
     }

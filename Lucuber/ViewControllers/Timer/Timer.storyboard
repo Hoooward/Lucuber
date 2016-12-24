@@ -46,9 +46,9 @@
                                             <constraint firstAttribute="height" constant="45" id="h7S-Yr-H7S"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U D F R2 B F' L F' B' D' R' L' B' L' U F U' D' B' D2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v">
-                                        <rect key="frame" x="70" y="193" width="274" height="84"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U D F R2 B F' L F' B' D' R' L' B' L' U F U' D' B' D2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v" customClass="SpringLabel" customModule="Spring">
+                                        <rect key="frame" x="70" y="187" width="274" height="70"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -59,7 +59,7 @@
                                     <constraint firstItem="9IN-Qc-Did" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="50" id="4QN-xb-eR1"/>
                                     <constraint firstAttribute="height" constant="500" id="APL-9Z-ul4"/>
                                     <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="50" id="C2O-hD-aRG"/>
-                                    <constraint firstItem="9IN-Qc-Did" firstAttribute="top" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="60" id="CYY-2g-hsb"/>
+                                    <constraint firstItem="9IN-Qc-Did" firstAttribute="top" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="80" id="CYY-2g-hsb"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="FZO-cy-UZ3"/>
                                     <constraint firstAttribute="bottom" secondItem="esw-vX-KNI" secondAttribute="bottom" constant="-5" id="Jcu-A5-my2"/>
                                     <constraint firstItem="esw-vX-KNI" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="NkM-0r-Vfs"/>
@@ -68,14 +68,28 @@
                                     <constraint firstAttribute="trailing" secondItem="esw-vX-KNI" secondAttribute="trailing" id="anD-Gm-usA"/>
                                     <constraint firstItem="pv8-Il-z1v" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="70" id="gMj-SQ-3Qo"/>
                                     <constraint firstAttribute="trailing" secondItem="qJg-rn-OMo" secondAttribute="trailing" id="sEm-qC-I6g"/>
+                                    <constraint firstItem="pv8-Il-z1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="60" id="yz7-N3-mC4"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjI-gM-Ecv" customClass="ScoreView" customModule="Lucuber" customModuleProvider="target">
                                 <rect key="frame" x="20" y="508" width="120" height="171"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIg-vk-YVl">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="171"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="NIg-vk-YVl" secondAttribute="bottom" id="1kL-Ml-Ig7"/>
+                                    <constraint firstItem="NIg-vk-YVl" firstAttribute="top" secondItem="bjI-gM-Ecv" secondAttribute="top" id="8Z8-er-iBQ"/>
                                     <constraint firstAttribute="width" constant="120" id="PRK-eI-bX9"/>
+                                    <constraint firstItem="NIg-vk-YVl" firstAttribute="leading" secondItem="bjI-gM-Ecv" secondAttribute="leading" id="Vp9-iy-4NA"/>
+                                    <constraint firstAttribute="trailing" secondItem="NIg-vk-YVl" secondAttribute="trailing" id="ZLX-BY-XVw"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="tableView" destination="NIg-vk-YVl" id="tHQ-V3-O5l"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnN-gm-mcY" customClass="ScoreDetailView" customModule="Lucuber" customModuleProvider="target">
                                 <rect key="frame" x="244" y="508" width="150" height="129"/>

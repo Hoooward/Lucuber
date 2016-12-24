@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Spring
 
-public class TimerControlView: UIView {
+public class TimerControlView: SpringView {
     
     let screenWidth = UIScreen.main.bounds.width
     

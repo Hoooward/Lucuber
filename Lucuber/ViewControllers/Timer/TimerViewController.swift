@@ -9,6 +9,7 @@
 import UIKit
 import LucuberTimer
 import RealmSwift
+import Spring
 
 
 class TimerViewController: UIViewController {
@@ -20,7 +21,6 @@ class TimerViewController: UIViewController {
             scoreView.scoreGroup = currentScoreGroup
         }
     }
-    
     
     @IBOutlet weak var scoreDetailView: ScoreDetailView!
     @IBOutlet weak var scoreView: ScoreView!
@@ -34,7 +34,7 @@ class TimerViewController: UIViewController {
     
     lazy var scrambling = Scrambling()
     
-    @IBOutlet weak var scramblingLabel: UILabel!
+    @IBOutlet weak var scramblingLabel: SpringLabel!
     @IBOutlet weak var timerLabel: TimerLabel! {
         didSet {
             timerLabel.timerType = .stopWatch
@@ -67,6 +67,34 @@ class TimerViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        scramblingLabel.animation = "slideDown"
+        scramblingLabel.curve = "easeInOut"
+        scramblingLabel.duration = 0.8
+        scramblingLabel.animate()
+        
+        scoreView.animation = "slideRight"
+        scoreView.curve = "easeInOut"
+        scoreView.delay = 0.4
+        scoreView.duration = 0.8
+        scoreView.animate()
+        
+        scoreDetailView.animation = "slideLeft"
+        scoreDetailView.curve = "easeInOut"
+        scoreDetailView.delay = 0.4
+        scoreDetailView.duration = 0.8
+        scoreDetailView.animate()
+        
+        timerControl.animation = "zoomIn"
+        timerControl.curve = "easeInOut"
+        timerControl.delay = 0.6
+        timerControl.duration = 1.0
+        timerControl.animate()
+        
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -77,16 +105,20 @@ class TimerViewController: UIViewController {
             timerLabel.pause()
             timerControl.status = .prepare
             
+            
             realm.beginWrite()
             let newScore = Score()
-            newScore.localObjectId = "123jyuuiayiusdyfiuhj11"
+            newScore.localObjectId = Score.randomLocalObjectID()
             newScore.timertext = timerLabel.text ?? "00:00:00"
             newScore.atGroup = currentScoreGroup
+            newScore.scramblingText = scramblingLabel.text ?? ""
+         
             realm.add(newScore)
             
             try? realm.commitWrite()
             
             scoreView.updateTableView(with: newScore, inRealm: realm)
+            scramblingLabel.text = scrambling.creatScramblingText()
         }
         
     }
