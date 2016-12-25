@@ -16,15 +16,33 @@ public class ScoreDetailView: SpringView {
     @IBOutlet weak var totalStepsLabel: UILabel!
     @IBOutlet weak var popLabel: UILabel!
     
-//    lazy var tableView: UITableView = {
-//        let tableView = UITableView()
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.registerNib(of: ScoreDetailCell.self)
-//        tableView.showsVerticalScrollIndicator = false
-//        tableView.separatorStyle = .none
-//        return tableView
-//    }()
+    public var scoreGroup: ScoreGroup? {
+        didSet {
+            recalculateScoreData()
+        }
+    }
+    
+    private var timerList: [Score] {
+        if let scoreGroup = scoreGroup {
+            return scoreGroup.timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+        }
+        return [Score]()
+    }
+    
+    public func recalculateScoreData() {
+        
+        let cacheResult = timerList.sorted(by: { $0.timer < $1.timer })
+        
+        fastyLabel.text = cacheResult.first?.timertext ?? "00:00:00"
+        slowlyLabel.text = cacheResult.last?.timertext ?? "00:00:00"
+        
+        let total = cacheResult.map { $0.timer }.reduce(0) { total, num in total + num } / Double(cacheResult.count)
+        let totalDate = Date(timeIntervalSince1970: total)
+        totalStepsLabel.text = Config.timerDateFormatter().string(from: totalDate)
+        
+        popLabel.text = "\(cacheResult.filter { $0.isPop == true }.count)"
+        
+    }
     
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,46 +55,6 @@ public class ScoreDetailView: SpringView {
     
     override public func didMoveToSuperview() {
         super.didMoveToSuperview()
-//        makeUI()
-//        layoutIfNeeded()
-    }
-    
-//    func makeUI() {
-//        
-//        backgroundColor = UIColor.white
-//        
-//        addSubview(tableView)
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        let views: [String: Any] = [
-//            "tableView": tableView
-//        ]
-//        
-//        let constraintH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
-//        let constraintV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
-//        
-//        NSLayoutConstraint.activate(constraintH)
-//        NSLayoutConstraint.activate(constraintV)
-//    }
-    
-}
 
-//extension ScoreDetailView: UITableViewDelegate, UITableViewDataSource {
-//    
-//    public func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 6
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell: ScoreDetailCell = tableView.dequeueReusableCell(for: indexPath)
-//        return cell
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 20
-//    }
-//}
+    }
+}

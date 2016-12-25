@@ -37,6 +37,7 @@ public class TimerLabel: UILabel {
     public var countingToTimeAction: ((TimeInterval, TimerLabel.Style, TimerLabel) -> Void)?
     public var customTextToDisplayAction: ((TimeInterval, TimerLabel) -> String)?
     public var endedAction: ((TimeInterval) -> Void)?
+    public var getTimeToShow: ((TimeInterval) -> Void)?
     
     /// Use Delegate for finish or countdown timer
     public weak var delegate: TimerLabelDelegate?
@@ -52,6 +53,8 @@ public class TimerLabel: UILabel {
     
     /// Is time timer running?
     public var isCounting: Bool = false
+    /// Get current Time to Show
+    public var timeToShow = Date(timeIntervalSince1970: 0)
     
     /// Do you want to reset the Timer after countdown?
     public var resetTimerAfterFinish: Bool = false
@@ -215,7 +218,7 @@ public class TimerLabel: UILabel {
             timeDiff = Date().timeIntervalSince(startCountDate)
         }
 
-        var timeToShow = Date()
+      
         var timerEnded = false
         
         switch timerType {
@@ -258,6 +261,7 @@ public class TimerLabel: UILabel {
         let atTime = timerType == .stopWatch ? timeDiff : (timerUserValue - timeDiff) < 0 ? 0 : timeDiff - timerUserValue
         
         let text = delegate?.customTextToDisplay(at: atTime, atTimerLabel: self)
+        
         
         if let text = text {
             timeLabel?.text = text

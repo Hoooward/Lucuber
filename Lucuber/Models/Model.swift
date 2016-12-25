@@ -1121,6 +1121,9 @@ open class Score: Object {
     
     open dynamic var localObjectId: String = ""
     open dynamic var timertext: String = ""
+    
+    open dynamic var timer: TimeInterval = 0
+    
     open dynamic var isPop: Bool = false
     open dynamic var scramblingText: String = ""
     open dynamic var isDeleteByCreator: Bool = false

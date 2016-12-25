@@ -41,6 +41,13 @@ public class Config {
     
     public static let mobilePhoneCodeInSeconds = 59
     
+    public class func timerDateFormatter() -> DateFormatter  {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_GB")
+        dateFormatter.timeZone = TimeZone(identifier: "GMT")
+        dateFormatter.dateFormat = "mm:ss:SS"
+        return dateFormatter
+    }
     
     public class func chatCellAvatarSize() -> CGFloat {
         return 40.0
@@ -241,6 +248,8 @@ public class Config {
     public struct RotationControl {
         public static let controlMargin: CGFloat = 25 + 35 + 25 + 40
     }
+    
+
 }
 
 extension Config {

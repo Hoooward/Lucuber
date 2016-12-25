@@ -46,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+        printLog(path)
+        
         Realm.Configuration.defaultConfiguration = realmConfig()
         
         AVOSCloud.setAllLogsEnabled(false)
@@ -65,9 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
-        
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
-        printLog(path)
+   
 
         _ = creatMeInRealm()
 

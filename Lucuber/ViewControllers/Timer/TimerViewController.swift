@@ -19,6 +19,7 @@ class TimerViewController: UIViewController {
     var currentScoreGroup: ScoreGroup? {
         didSet {
             scoreView.scoreGroup = currentScoreGroup
+            scoreDetailView.scoreGroup = currentScoreGroup
         }
     }
     
@@ -32,8 +33,6 @@ class TimerViewController: UIViewController {
         }
     }
     
-    lazy var scrambling = Scrambling()
-    
     @IBOutlet weak var scramblingLabel: SpringLabel!
     @IBOutlet weak var timerLabel: TimerLabel! {
         didSet {
@@ -44,31 +43,8 @@ class TimerViewController: UIViewController {
     private func perpareScoreGroup() {
         currentScoreGroup = getOrCreatDefaultScoreGroup()
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        perpareScoreGroup()
-        
-        let heightConstant = CubeRuler.iPhoneVertical(350, 380, 470, 500)
-        topContaninerViewConstarint.constant = CGFloat(heightConstant.value)
-        view.layoutIfNeeded()
-        timerLabel.font = UIFont.timerLabelFont()
-        
-        scramblingLabel.text = scrambling.creatScramblingText()
-        
-        timerControl.afterReadyStartAction = { [weak self] in
-            self?.timerLabel.reset()
-        }
-        
-        let long = UILongPressGestureRecognizer(target: self, action: #selector(TimerViewController.startTimer(sender:)))
-        view.addGestureRecognizer(long)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(TimerViewController.pasueTimer(sender:)))
-        view.addGestureRecognizer(tap)
-    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    private func updateUIWithAnimation() {
         
         scramblingLabel.animation = "slideDown"
         scramblingLabel.curve = "easeInOut"
@@ -92,7 +68,35 @@ class TimerViewController: UIViewController {
         timerControl.delay = 0.6
         timerControl.duration = 1.0
         timerControl.animate()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        perpareScoreGroup()
+        
+        let heightConstant = CubeRuler.iPhoneVertical(350, 380, 470, 500).value
+        topContaninerViewConstarint.constant = CGFloat(heightConstant)
+        view.layoutIfNeeded()
+        
+        timerLabel.font = UIFont.timerLabelFont()
+        
+        scramblingLabel.text = Scrambling.shared.refreshScramblingText()
+        
+        timerControl.afterReadyStartAction = { [weak self] in
+            self?.timerLabel.reset()
+        }
+        
+        let long = UILongPressGestureRecognizer(target: self, action: #selector(TimerViewController.startTimer(sender:)))
+        view.addGestureRecognizer(long)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(TimerViewController.pasueTimer(sender:)))
+        view.addGestureRecognizer(tap)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateUIWithAnimation()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -102,13 +106,16 @@ class TimerViewController: UIViewController {
     func pasueTimer(sender: UIGestureRecognizer) {
         
         if timerLabel.isCounting {
+            
             timerLabel.pause()
             timerControl.status = .prepare
             
+            let timeToShow = timerLabel.timeToShow.timeIntervalSince1970
             
             realm.beginWrite()
             let newScore = Score()
             newScore.localObjectId = Score.randomLocalObjectID()
+            newScore.timer = timeToShow
             newScore.timertext = timerLabel.text ?? "00:00:00"
             newScore.atGroup = currentScoreGroup
             newScore.scramblingText = scramblingLabel.text ?? ""
@@ -118,7 +125,8 @@ class TimerViewController: UIViewController {
             try? realm.commitWrite()
             
             scoreView.updateTableView(with: newScore, inRealm: realm)
-            scramblingLabel.text = scrambling.creatScramblingText()
+            scoreDetailView.recalculateScoreData()
+            scramblingLabel.text = Scrambling.shared.refreshScramblingText()
         }
         
     }
@@ -128,9 +136,11 @@ class TimerViewController: UIViewController {
         if timerLabel.isCounting {
             return
         }
+        
         timerLabel.reset()
         
         switch sender.state {
+            
         case .began:
             timerControl.status = .readyStart
             

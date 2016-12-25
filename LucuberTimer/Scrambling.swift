@@ -10,6 +10,8 @@ import Foundation
 
 public class Scrambling {
     
+    public static let shared = Scrambling()
+    
     let scramblingStepText = ["R", "L", "F", "B", "U", "D"]
     
     var indexGroup = [Int]()
@@ -19,7 +21,7 @@ public class Scrambling {
         return Int(arc4random())
     }
     
-    public func creatScramblingText() -> String {
+    public func refreshScramblingText() -> String {
         
         var scramblingResult: String = ""
         var stepIndex: Int
