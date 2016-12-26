@@ -59,7 +59,6 @@ class ScoreHeaderView: UIView {
         
         graphView.set(data: date, withLabels: labels)
         
-        subTimerLabel
     }
     
     func makeUI() {

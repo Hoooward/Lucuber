@@ -1217,21 +1217,29 @@ open class ScoreGroup: Object {
     }
     
     open var slowliestTimer: Score? {
-        return timerList.sorted(byProperty: "timer", ascending: true).last
+        
+        let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
+        let dnfList = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true)
+        
+        if dnfList.isEmpty {
+            return timerList.sorted(byProperty: "timer", ascending: true).last
+        } else {
+            return dnfList.last
+        }
     }
     
     open var slowliestTimerString: String {
         guard let score = slowliestTimer else {
             return "00:00:00"
         }
-        return score.timertext
+        return score.isDNF ? "DNF" : score.timertext
     }
     
     open var realSlowliestTimerString: String {
         guard let score = slowliestTimer else {
             return "00"
         }
-        return score.realTimerString
+        return score.isDNF ? "DNF" : score.realTimerString
     }
     
     open var fiveStepsAverageString: String {
