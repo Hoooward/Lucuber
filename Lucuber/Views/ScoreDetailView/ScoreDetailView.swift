@@ -45,7 +45,7 @@ public class ScoreDetailView: SpringView {
             totalStepsLabel.text = "00:00:00"
         }
         
-        popLabel.text = "\(cacheResult.filter { $0.isPop == true }.count)"
+        popLabel.text = "\(cacheResult.filter { $0.isPOP == true }.count)"
         
     }
     

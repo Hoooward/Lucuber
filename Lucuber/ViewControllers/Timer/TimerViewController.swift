@@ -30,6 +30,7 @@ class TimerViewController: UIViewController {
     }
     @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var topBackgroundView: UIView!
     @IBOutlet weak var topContaninerViewConstarint: NSLayoutConstraint!
     @IBOutlet weak var timerControl: TimerControlView!
@@ -105,6 +106,7 @@ class TimerViewController: UIViewController {
             scoreView.updateTableView(with: newScore, inRealm: realm)
             scoreDetailView.recalculateScoreData()
             scramblingLabel.text = Scrambling.shared.refreshScramblingText()
+            refreshButton.isEnabled = true
         }
         
     }
@@ -120,6 +122,7 @@ class TimerViewController: UIViewController {
             
         case .began:
             timerControl.status = .readyStart
+            refreshButton.isEnabled = false
             
         case .ended:
             timerControl.status = .start
@@ -175,9 +178,8 @@ class TimerViewController: UIViewController {
         present(newScoreGroupVC, animated: true, completion: nil)
     }
     
-    
     private func perpareScoreGroup() {
-        currentScoreGroup = getOrCreatDefaultScoreGroup()
+        currentScoreGroup = getOrCreatedMyLastScoreGroup(inRealm: realm)
     }
     
     private func updateUIWithAnimation() {
@@ -204,5 +206,7 @@ class TimerViewController: UIViewController {
         timerControl.delay = 0.6
         timerControl.duration = 1.0
         timerControl.animate()
+        
+        timerLabel.text = "00:00:00"
     }
 }

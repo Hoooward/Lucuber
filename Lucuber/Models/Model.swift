@@ -380,10 +380,12 @@ open class RUser: Object {
     open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     open let messages = LinkingObjects(fromType: Message.self, property: "creator")
     open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")
-
+    
     open var conversation: Conversation? {
         return conversations.first
     }
+    
+    open let scoreGroups = LinkingObjects(fromType: ScoreGroup.self, property: "creator")
 
     open let ownedGroups = LinkingObjects(fromType: Group.self, property: "owner")
     open let belongsToGroups = LinkingObjects(fromType: Group.self, property: "members")
@@ -1171,6 +1173,100 @@ open class ScoreGroup: Object {
     open let timerList = LinkingObjects(fromType: Score.self, property: "atGroup")
     
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    open var popCount: Int {
+        let predicate = NSPredicate(format: "isPOP == %@", true as CVarArg)
+        let list = timerList.filter(predicate)
+        return list.isEmpty ? 0 : list.count
+    }
+    
+    open var popCountString: String {
+        return "\(popCount)"
+    }
+    
+    open var dnfCount: Int {
+        let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
+        let list = timerList.filter(predicate)
+        return list.isEmpty ? 0 : list.count
+    }
+    
+    open var dnfCountString: String {
+        return "\(dnfCount)"
+    }
+    
+    open var fastestTimer: Score? {
+        return timerList.sorted(byProperty: "timer", ascending: true).first
+    }
+    
+    open var fastestTimerString: String {
+        guard let score = fastestTimer else {
+            return "00:00:00"
+        }
+        return score.timertext
+    }
+    
+    open var slowliestTimer: Score? {
+        return timerList.sorted(byProperty: "timer", ascending: true).last
+    }
+    
+    open var slowliestTimerString: String {
+        guard let score = slowliestTimer else {
+            return "00:00:00"
+        }
+        return score.timertext
+    }
+    
+    open var fiveStepsAverageString: String {
+        guard timerList.count >= 5 else {
+            return "00:00:00"
+        }
+        
+        var result: [Score] = []
+        var list: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+        for index in 0..<5 {
+            result.append(list[index])
+        }
+        return calculateAverageString(array: result)
+    }
+    
+    open var tenStepsAverageString: String {
+        guard timerList.count >= 10 else {
+            return "00:00:00"
+        }
+        
+        var result: [Score] = []
+        var list: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+        for index in 0..<9 {
+            result.append(list[index])
+        }
+        return calculateAverageString(array: result)
+    }
+    
+    open var totalAverageString: String {
+        
+        guard !timerList.isEmpty else {
+           return "00:00:00"
+        }
+        return calculateAverageString(array: timerList.map { $0 })
+    }
+    
+    open var excludeFastestAndSlowliestOnAverage: String {
+        
+        guard timerList.count >= 3 else {
+            return "00:00:00"
+        }
+        
+        var list: [Score] = timerList.sorted(byProperty: "timer", ascending: true).map { $0 }
+        list.removeLast()
+        list.removeFirst()
+        return calculateAverageString(array: list)
+    }
+    
+    private func calculateAverageString(array: [Score]) -> String {
+        let total = array.map { $0.timer }.reduce(0) { total, num in total + num } / Double(array.count)
+        let totalDate = Date(timeIntervalSince1970: total)
+        return Config.timerDateFormatter().string(from: totalDate)
+    }
 }
 
 // MARK: - Group
@@ -1180,30 +1276,33 @@ public func scoreGroupWith(_ localObjectId: String, inRealm realm: Realm) -> Sco
     return realm.objects(ScoreGroup.self).filter(predicate).first
 }
 
-public func getOrCreatDefaultScoreGroup() -> ScoreGroup {
+public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreGroup>? {
+    guard let user = user else { return nil }
     
-    guard let realm = try? Realm() else {
-        fatalError()
-    }
-    
-    if let defaultGroup = scoreGroupWith(defaultScoreGroupLocalObjectId, inRealm: realm) {
-        return defaultGroup
-        
-    } else {
-        
-        realm.beginWrite()
-        let newGroup = ScoreGroup()
-        newGroup.localObjectId = defaultScoreGroupLocalObjectId
-        let me = currentUser(in: realm)
-        newGroup.creator = me
-        realm.add(newGroup)
-        try? realm.commitWrite()
-        
-        return newGroup
-    }
+    let predicate = NSPredicate(format: "creator == %@", user)
+    return realm.objects(ScoreGroup.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
 }
 
 
+public func getOrCreatedMyLastScoreGroup(inRealm realm: Realm) -> ScoreGroup {
+    
+    var group = scoreGroupWith(user: currentUser(in: realm), inRealm: realm)?.first
+    
+    if group == nil {
+        
+        try? realm.write {
+            let newGroup = ScoreGroup()
+            newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
+            newGroup.category = "三阶"
+            newGroup.creator = currentUser(in: realm)
+            realm.add(newGroup)
+            
+            group = newGroup
+        }
+    }
+    
+    return group!
+}
 
 
 

@@ -22,16 +22,21 @@ class ScoreViewController: UIViewController {
     
     @IBOutlet weak var scoreHeaderView: ScoreHeaderView!
     
+    var scoreGroups: Results<ScoreGroup>? = {
+       return scoreGroupWith(user: currentUser(in: self.realm), inRealm: self.realm)
+    }()
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        var date: [Double] = realm.objects(Score.self).map {
+        let date: [Double] = realm.objects(Score.self).map {
             $0.timer
         }
         
-        var labels: [String] = realm.objects(Score.self).map {
+        let labels: [String] = realm.objects(Score.self).map {
             $0.timertext
         }
+        printLog(date)
         
         scoreHeaderView.graphView.set(data: date, withLabels: labels)
         

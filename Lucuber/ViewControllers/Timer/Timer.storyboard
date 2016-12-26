@@ -226,6 +226,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="refreshButton" destination="oid-bx-WAt" id="FU5-Pu-q9R"/>
                         <outlet property="scoreDetailView" destination="bnN-gm-mcY" id="QYb-UK-dkU"/>
                         <outlet property="scoreView" destination="bjI-gM-Ecv" id="S40-o4-GC8"/>
                         <outlet property="scramblingLabel" destination="pv8-Il-z1v" id="aQq-PB-sTy"/>
@@ -243,7 +244,7 @@
         <!--计时器-->
         <scene sceneID="KtA-Ru-xPf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="计时器" image="tabbar_time" selectedImage="tabbar_time_sele" id="zAz-NQ-3cl"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>

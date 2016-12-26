@@ -10,13 +10,15 @@ import UIKit
 
 class ScoreGroupCell: UITableViewCell {
 
-    lazy var selectedBackView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    public func configureCell(with scoreGroup: ScoreGroup) {
+        
+    }
 
+    
  
 }

@@ -126,7 +126,7 @@
                     <tabBarItem key="tabBarItem" title="公式" image="tabbar_gongshi" selectedImage="tabbar_gongshi_sele" id="7md-lu-zpP"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cJO-O3-HmV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cJO-O3-HmV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
