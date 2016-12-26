@@ -70,6 +70,29 @@ public enum Category: String {
         }
     }
     
+    var indicatorString: String {
+        
+        switch self {
+        case .x2x2: return "2x2x2"
+        case .x3x3: return "3x3x3"
+        case .x4x4: return "4x4x4"
+        case .x5x5: return "5x5x5"
+        case .x6x6: return "6x6x6"
+        case .x7x7: return "7x7x7"
+        case .x8x8: return "8x8x8"
+        case .x9x9: return "9x9x9"
+        case .x10x10: return "10x10x10"
+        case .x11x11: return "11x11x11"
+        case .SquareOne: return "SquareOne"
+        case .Megaminx: return "Megaminx"
+        case .Pyraminx: return "Pyraminx"
+        case .RubiksClock: return "RubiksColock"
+        case .Other: return "其他"
+        case .unKnow: return "未知"
+        case .all: return "所有"
+        }
+    }
+    
 }
 
 public enum FormulaUserMode {
@@ -1120,16 +1143,21 @@ let defaultScoreGroupLocalObjectId: String = "defaultScoreGroup"
 open class Score: Object {
     
     open dynamic var localObjectId: String = ""
-    open dynamic var timertext: String = ""
+    open dynamic var lcObjectId: String = ""
     
+    open dynamic var timertext: String = ""
     open dynamic var timer: TimeInterval = 0
     
-    open dynamic var isPop: Bool = false
-    open dynamic var scramblingText: String = ""
+    open dynamic var creator: RUser?
+    open dynamic var category: String = ""
+    
+    open dynamic var isPOP: Bool = false
+    open dynamic var isDNF: Bool = false
     open dynamic var isDeleteByCreator: Bool = false
+    
+    open dynamic var scramblingText: String = ""
     open dynamic var atGroup: ScoreGroup?
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
-    
 }
 
 open class ScoreGroup: Object {
@@ -1138,9 +1166,11 @@ open class ScoreGroup: Object {
     open dynamic var localObjectId: String = ""
     open dynamic var category: String = ""
     open dynamic var creator: RUser?
-    //open let timerList = List<Score>()
+    open dynamic var isDeleteByCreator: Bool = false
+    
     open let timerList = LinkingObjects(fromType: Score.self, property: "atGroup")
     
+    open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
 }
 
 // MARK: - Group

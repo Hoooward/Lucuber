@@ -231,6 +231,7 @@
                         <outlet property="scramblingLabel" destination="pv8-Il-z1v" id="aQq-PB-sTy"/>
                         <outlet property="timerControl" destination="qJg-rn-OMo" id="JeA-4l-YVj"/>
                         <outlet property="timerLabel" destination="9IN-Qc-Did" id="ddv-Ag-RoI"/>
+                        <outlet property="titleLabel" destination="VMx-AF-7Jn" id="fmT-Ct-p8J"/>
                         <outlet property="topBackgroundView" destination="Ua5-BZ-4Yx" id="Vab-Z3-Y8H"/>
                         <outlet property="topContaninerViewConstarint" destination="APL-9Z-ul4" id="K13-g2-fpF"/>
                     </connections>
@@ -247,7 +248,7 @@
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcv-pK-7yt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kcv-pK-7yt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

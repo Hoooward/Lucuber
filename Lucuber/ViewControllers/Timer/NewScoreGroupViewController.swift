@@ -11,8 +11,10 @@ import UIKit
 class NewScoreGroupViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    public var afterSelectedNewCategory: ((String) -> Void)?
 
-    lazy var categorys: [String] = {
+    fileprivate lazy var categorys: [String] = {
         return self.loadCategoryFormMainBundle()
     }()
     
@@ -22,7 +24,6 @@ class NewScoreGroupViewController: UIViewController {
         let categorysInChinese = dict["Chinese"] as! [String]
         return categorysInChinese
     }
-    
 }
 extension NewScoreGroupViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -38,6 +39,16 @@ extension NewScoreGroupViewController: UITableViewDelegate, UITableViewDataSourc
         let cell: CategoryCell = tableView.dequeueReusableCell(for: indexPath)
         cell.categoryLabel.text = categorys[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
+        afterSelectedNewCategory?(categorys[indexPath.row])
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 
