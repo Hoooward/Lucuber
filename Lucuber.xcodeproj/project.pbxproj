@@ -103,6 +103,9 @@
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E475DA6A1E0FFFAE0079FE75 /* ScoreGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA681E0FFFAE0079FE75 /* ScoreGroupCell.swift */; };
 		E475DA6B1E0FFFAE0079FE75 /* ScoreGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E475DA691E0FFFAE0079FE75 /* ScoreGroupCell.xib */; };
+		E475DA701E10F9260079FE75 /* NewScoreGroupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */; };
+		E475DA721E10F9400079FE75 /* NewScoreGroupAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */; };
+		E475DA741E10FA9A0079FE75 /* NewScoreGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA731E10FA9A0079FE75 /* NewScoreGroupViewController.swift */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
 		E47926261D968CDB004D58BF /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
 		E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479262A1D96906C004D58BF /* FormulaInputViewController.swift */; };
@@ -431,6 +434,9 @@
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E475DA681E0FFFAE0079FE75 /* ScoreGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGroupCell.swift; sourceTree = "<group>"; };
 		E475DA691E0FFFAE0079FE75 /* ScoreGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreGroupCell.xib; sourceTree = "<group>"; };
+		E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupPresentationController.swift; sourceTree = "<group>"; };
+		E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupAnimator.swift; sourceTree = "<group>"; };
+		E475DA731E10FA9A0079FE75 /* NewScoreGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupViewController.swift; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
 		E47926251D968CDB004D58BF /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		E479262A1D96906C004D58BF /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
@@ -736,6 +742,7 @@
 		E4217F1C1D962BE200E575AB /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				E475DA6E1E10F5CD0079FE75 /* NewScoreGroup */,
 				E495348C1E0CEA040008934D /* Search */,
 				E4217F1D1D962BE200E575AB /* CategoryMenu */,
 			);
@@ -827,6 +834,15 @@
 				E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		E475DA6E1E10F5CD0079FE75 /* NewScoreGroup */ = {
+			isa = PBXGroup;
+			children = (
+				E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */,
+				E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */,
+			);
+			path = NewScoreGroup;
 			sourceTree = "<group>";
 		};
 		E47926291D969050004D58BF /* Keyboard */ = {
@@ -1776,6 +1792,7 @@
 			children = (
 				E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */,
 				E49534C51E0D4E1B0008934D /* TimerViewController.swift */,
+				E475DA731E10FA9A0079FE75 /* NewScoreGroupViewController.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -2383,6 +2400,7 @@
 				E49534891E0CDE660008934D /* SearchFeedsViewController.swift in Sources */,
 				E4CE8B2C1DF42A0A00944099 /* FeedTextView.swift in Sources */,
 				E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */,
+				E475DA721E10F9400079FE75 /* NewScoreGroupAnimator.swift in Sources */,
 				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
 				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
 				E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */,
@@ -2420,6 +2438,7 @@
 				E4CED8381DE862770036A11C /* CateogryMenuCell.swift in Sources */,
 				E42C829B1DFBA9F700D315CF /* Avatar.swift in Sources */,
 				E4CED8341DE862770036A11C /* ActionSheetView.swift in Sources */,
+				E475DA741E10FA9A0079FE75 /* NewScoreGroupViewController.swift in Sources */,
 				E4CED86B1DE862770036A11C /* NewFormulaTextCell.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E435C0271D9EA41D0026FA08 /* FormulaDetailViewController.swift in Sources */,
@@ -2480,6 +2499,7 @@
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E41ECF581DB77374005BEFE4 /* MediaViewCell.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
+				E475DA701E10F9260079FE75 /* NewScoreGroupPresentationController.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
 				E4CED8861DE862770036A11C /* CameraPreviewView.swift in Sources */,
 				E4217F1F1D962BF500E575AB /* CategoryMenuAnimator.swift in Sources */,

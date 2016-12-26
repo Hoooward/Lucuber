@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "skill_bubble.pdf",
+      "filename" : "new_score_group_popover.pdf",
       "resizing" : {
         "mode" : "9-part",
         "center" : {
@@ -11,9 +11,9 @@
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 11,
-          "top" : 12,
-          "right" : 26,
+          "bottom" : 35,
+          "top" : 34,
+          "right" : 38,
           "left" : 28
         }
       }

@@ -90,7 +90,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Bhl-Sp-vTH" secondAttribute="bottom" id="7QD-Rv-996"/>
                                     <constraint firstItem="AB9-9h-p3D" firstAttribute="leading" secondItem="ta6-33-5P4" secondAttribute="leading" id="AQn-w6-Phb"/>

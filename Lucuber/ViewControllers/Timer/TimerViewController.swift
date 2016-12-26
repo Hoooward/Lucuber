@@ -27,11 +27,14 @@ class TimerViewController: UIViewController {
     @IBOutlet weak var scoreView: ScoreView!
     @IBOutlet weak var topContaninerViewConstarint: NSLayoutConstraint!
     @IBOutlet weak var timerControl: TimerControlView!
+    
     @IBOutlet weak var topBackgroundView: UIView! {
         didSet {
             topBackgroundView.backgroundColor = UIColor.cubeTintColor()
         }
     }
+    
+    private lazy var newScoreGroupAnimator: NewScoreGroupAnimator = NewScoreGroupAnimator()
     
     @IBOutlet weak var scramblingLabel: SpringLabel!
     @IBOutlet weak var timerLabel: TimerLabel! {
@@ -152,9 +155,28 @@ class TimerViewController: UIViewController {
         }
     }
     
+
     var isCreatingNewGroup: Bool = false
     @IBAction func refreshGroupAction(_ sender: Any) {
         
+        let stroyboard = UIStoryboard(name: "Timer", bundle: nil)
+        
+        guard let newScoreGroupVC = stroyboard.instantiateViewController(withIdentifier: "NewScoreGroupViewController") as? NewScoreGroupViewController else {
+            return 
+        }
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let presentedWidth = screenWidth - 100
+        let presentedHeight = screenHeight - 400
+        
+        self.newScoreGroupAnimator.presentedFrame = CGRect(x: (screenWidth - presentedWidth) * 0.5, y: (screenHeight - presentedHeight) * 0.5, width: presentedWidth, height: presentedHeight)
+        newScoreGroupVC.transitioningDelegate = self.newScoreGroupAnimator
+        newScoreGroupVC.modalPresentationStyle = .custom
+        
+        present(newScoreGroupVC, animated: true, completion: nil)
+        
+        /*
         if isCreatingNewGroup {
             return
         }
@@ -175,5 +197,6 @@ class TimerViewController: UIViewController {
             self.isCreatingNewGroup = false
         }
         
+         */
     }
 }

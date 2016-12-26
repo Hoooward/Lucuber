@@ -25,7 +25,6 @@ class ScoreViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         var date: [Double] = realm.objects(Score.self).map {
             $0.timer
         }
@@ -33,9 +32,6 @@ class ScoreViewController: UIViewController {
         var labels: [String] = realm.objects(Score.self).map {
             $0.timertext
         }
-        
-        date.remove(at: 0)
-        labels.remove(at: 0)
         
         scoreHeaderView.graphView.set(data: date, withLabels: labels)
         
