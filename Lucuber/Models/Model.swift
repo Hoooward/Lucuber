@@ -1230,21 +1230,21 @@ open class ScoreGroup: Object {
     
     open var slowliestTimerString: String {
         guard let score = slowliestTimer else {
-            return "00:00:00"
+            return "00.00"
         }
         return score.isDNF ? "DNF" : score.timertext
     }
     
     open var realSlowliestTimerString: String {
         guard let score = slowliestTimer else {
-            return "00"
+            return "00.00"
         }
         return score.isDNF ? "DNF" : score.realTimerString
     }
     
     open var fiveStepsAverageString: String {
         guard timerList.count >= 5 else {
-            return "00:00:00"
+            return "00.00"
         }
         
         var result: [Score] = []
@@ -1257,7 +1257,7 @@ open class ScoreGroup: Object {
     
     open var tenStepsAverageString: String {
         guard timerList.count >= 10 else {
-            return "00:00:00"
+            return "00.00"
         }
         
         var result: [Score] = []
@@ -1271,7 +1271,7 @@ open class ScoreGroup: Object {
     open var totalAverageString: String {
         
         guard !timerList.isEmpty else {
-           return "00:00:00"
+           return "00.00"
         }
         return calculateAverageString(array: timerList.map { $0 })
     }
@@ -1286,7 +1286,7 @@ open class ScoreGroup: Object {
         let lastScore = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true).last
         
         if let lastScore = lastScore {
-            return "\(ceil(lastScore.timer))"
+            return "\(ceil(lastScore.timer)).00"
         } else {
             return "00.00"
         }
@@ -1295,19 +1295,42 @@ open class ScoreGroup: Object {
     open var excludeFastestAndSlowliestOnAverage: String {
         
         guard timerList.count >= 3 else {
-            return "00:00:00"
+            return "00.00"
         }
         
+        let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
+        let dnfList = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true)
+        
         var list: [Score] = timerList.sorted(byProperty: "timer", ascending: true).map { $0 }
-        list.removeLast()
+        
         list.removeFirst()
+        
+        if dnfList.isEmpty {
+            list.removeLast()
+            
+        } else {
+            
+            // 删除所有 DNF 的数据
+            var dnfIndexs = [Int]()
+            
+            dnfList.forEach {
+                if let index = list.index(of: $0) {
+                   dnfIndexs.append(index)
+                }
+            }
+            
+            dnfIndexs.forEach {
+                list.remove(at: $0)
+            }
+        }
+        
         return calculateAverageString(array: list)
+        
     }
     
     private func calculateAverageString(array: [Score]) -> String {
         let total = array.map { $0.timer }.reduce(0) { total, num in total + num } / Double(array.count)
-        let totalDate = Date(timeIntervalSince1970: total)
-        return Config.timerDateFormatter().string(from: totalDate)
+        return String(format: "%.2f", total)
     }
 }
 
