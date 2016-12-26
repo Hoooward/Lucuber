@@ -1276,6 +1276,22 @@ open class ScoreGroup: Object {
         return calculateAverageString(array: timerList.map { $0 })
     }
     
+    open var totalSubString: String {
+        
+        guard !timerList.isEmpty else {
+            return "00.00"
+        }
+        
+        let predicate = NSPredicate(format: "isPOP = false AND isDNF = false")
+        let lastScore = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true).last
+        
+        if let lastScore = lastScore {
+            return "\(ceil(lastScore.timer))"
+        } else {
+            return "00.00"
+        }
+    }
+    
     open var excludeFastestAndSlowliestOnAverage: String {
         
         guard timerList.count >= 3 else {
