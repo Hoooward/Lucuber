@@ -9,9 +9,11 @@
 import UIKit
 
 public class ScoreCell: UITableViewCell {
+    
 
     @IBOutlet weak var indicatorImageView: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
+    
     
     override public func awakeFromNib() {
         super.awakeFromNib()
@@ -19,7 +21,9 @@ public class ScoreCell: UITableViewCell {
         scoreLabel.textColor = UIColor.gray
     }
     
-    public func configreCell(with score: String) {
+    public func configreCell(with score: Score) {
     
+        scoreLabel.text = score.timertext
+        indicatorImageView.image = UIImage(named: score.isDNF ? "OvalRed" : "OvalBlue")
     }
 }

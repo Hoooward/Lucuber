@@ -1160,6 +1160,10 @@ open class Score: Object {
     open dynamic var scramblingText: String = ""
     open dynamic var atGroup: ScoreGroup?
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    
+    var realTimerString: String {
+        return String(format: "%.2f", timer)
+    }
 }
 
 open class ScoreGroup: Object {
@@ -1205,6 +1209,13 @@ open class ScoreGroup: Object {
         return score.timertext
     }
     
+    open var realFastestTimerString: String {
+        guard let score = fastestTimer else {
+            return "00"
+        }
+        return score.realTimerString
+    }
+    
     open var slowliestTimer: Score? {
         return timerList.sorted(byProperty: "timer", ascending: true).last
     }
@@ -1214,6 +1225,13 @@ open class ScoreGroup: Object {
             return "00:00:00"
         }
         return score.timertext
+    }
+    
+    open var realSlowliestTimerString: String {
+        guard let score = slowliestTimer else {
+            return "00"
+        }
+        return score.realTimerString
     }
     
     open var fiveStepsAverageString: String {

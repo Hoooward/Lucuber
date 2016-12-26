@@ -18,39 +18,25 @@ public class ScoreDetailView: SpringView {
     
     public var scoreGroup: ScoreGroup? {
         didSet {
-            recalculateScoreData()
+            updateUI()
         }
     }
     
-    private var timerList: [Score] {
-        if let scoreGroup = scoreGroup {
-            return scoreGroup.timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+    func updateUI() {
+        
+        guard let scoreGroup = scoreGroup else {
+            return
         }
-        return [Score]()
-    }
-    
-    public func recalculateScoreData() {
-        
-        let cacheResult = timerList.sorted(by: { $0.timer < $1.timer })
-        
-        fastyLabel.text = cacheResult.first?.timertext ?? "00:00:00"
-        slowlyLabel.text = cacheResult.last?.timertext ?? "00:00:00"
-        
-        let total = cacheResult.map { $0.timer }.reduce(0) { total, num in total + num } / Double(cacheResult.count)
-        printLog(total)
-        let totalDate = Date(timeIntervalSince1970: total)
-        totalStepsLabel.text = Config.timerDateFormatter().string(from: totalDate)
-        
-        if total == 0 {
-            totalStepsLabel.text = "00:00:00"
-        }
-        
-        popLabel.text = "\(cacheResult.filter { $0.isPOP == true }.count)"
+        fastyLabel.text = scoreGroup.fastestTimerString
+        slowlyLabel.text = scoreGroup.slowliestTimerString
+        totalStepsLabel.text = scoreGroup.totalAverageString
+        popLabel.text = scoreGroup.dnfCountString
         
     }
     
     public override func awakeFromNib() {
         super.awakeFromNib()
+        
         fastyLabel.textColor = UIColor.gray
         slowlyLabel.textColor = UIColor.gray
         totalStepsLabel.textColor = UIColor.gray

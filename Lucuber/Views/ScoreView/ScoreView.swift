@@ -12,7 +12,6 @@ import RealmSwift
 import Spring
 
 
-let scoreCellIdentifier = "ScoreCell"
 public class ScoreView: SpringView {
     
     public var scoreGroup: ScoreGroup? {
@@ -20,6 +19,8 @@ public class ScoreView: SpringView {
            tableView.reloadData()
         }
     }
+    
+    public var afterChangeScoreToDNF: (() -> Void)?
     
     fileprivate var timerList: [Score] {
         if let scoreGroup = scoreGroup {
@@ -49,11 +50,9 @@ public class ScoreView: SpringView {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.showsVerticalScrollIndicator = false
-            let nib = UINib(nibName: scoreCellIdentifier, bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: scoreCellIdentifier)
+            tableView.registerNib(of: ScoreCell.self)
         }
     }
-
 }
 
 extension ScoreView: UITableViewDataSource, UITableViewDelegate {
@@ -67,13 +66,12 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: scoreCellIdentifier, for: indexPath) as! ScoreCell
+        let cell: ScoreCell = tableView.dequeueReusableCell(for: indexPath)
         
         if timerList.count == 0 {
             cell.scoreLabel.text = "成绩记录"
         } else {
-            let score = timerList[indexPath.row]
-            cell.scoreLabel.text = score.timertext
+            cell.configreCell(with: timerList[indexPath.row])
         }
         
         return cell
@@ -82,6 +80,43 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 25
     }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        switch editingStyle {
+        case .delete:
+            
+            guard let realm = scoreGroup?.realm else {
+                return
+            }
+            
+            let score = timerList[indexPath.row]
+            try? realm.write { score.isDNF = !score.isDNF }
+            tableView.setEditing(false, animated: false)
+            
+            tableView.reloadRows(at: [indexPath], with: .right)
+            
+            afterChangeScoreToDNF?()
+            
+        default:
+            break
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return timerList.count == 0 ? UITableViewCellEditingStyle.none : UITableViewCellEditingStyle.delete
+    }
+    
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return timerList.count != 0 
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        let score = timerList[indexPath.row]
+        return score.isDNF ? "恢复" : "DNF"
+    }
+    
+    
 }
 
 

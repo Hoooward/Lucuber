@@ -102,7 +102,10 @@
                                     <constraint firstItem="Bhl-Sp-vTH" firstAttribute="top" secondItem="AB9-9h-p3D" secondAttribute="bottom" id="uEW-JX-ioq"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="categoryLabel" destination="KeX-7f-EhX" id="oNS-X8-EHo"/>
+                                    <outlet property="dateLabel" destination="b8K-wu-LNw" id="r72-0N-dfQ"/>
                                     <outlet property="graphView" destination="Bhl-Sp-vTH" id="LvD-Ga-Y69"/>
+                                    <outlet property="subTimerLabel" destination="cY3-TB-WZK" id="nBz-bf-eCJ"/>
                                     <outlet property="topView" destination="AB9-9h-p3D" id="jYp-TV-Vow"/>
                                 </connections>
                             </view>

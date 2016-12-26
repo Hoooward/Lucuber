@@ -65,6 +65,10 @@ class TimerViewController: UIViewController {
             self?.timerLabel.reset()
         }
         
+        scoreView.afterChangeScoreToDNF = { [weak self] in
+            self?.scoreDetailView.updateUI()
+        }
+        
         let long = UILongPressGestureRecognizer(target: self, action: #selector(TimerViewController.startTimer(sender:)))
         view.addGestureRecognizer(long)
         
@@ -104,7 +108,7 @@ class TimerViewController: UIViewController {
             try? realm.commitWrite()
             
             scoreView.updateTableView(with: newScore, inRealm: realm)
-            scoreDetailView.recalculateScoreData()
+            scoreDetailView.updateUI()
             scramblingLabel.text = Scrambling.shared.refreshScramblingText()
             refreshButton.isEnabled = true
         }

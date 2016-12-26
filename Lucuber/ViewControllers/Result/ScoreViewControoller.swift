@@ -22,53 +22,21 @@ class ScoreViewController: UIViewController {
     
     @IBOutlet weak var scoreHeaderView: ScoreHeaderView!
     
-    var scoreGroups: Results<ScoreGroup>? = {
+    lazy var scoreGroups: Results<ScoreGroup>? = {
        return scoreGroupWith(user: currentUser(in: self.realm), inRealm: self.realm)
     }()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+   
         
-        let date: [Double] = realm.objects(Score.self).map {
-            $0.timer
-        }
-        
-        let labels: [String] = realm.objects(Score.self).map {
-            $0.timertext
-        }
-        printLog(date)
-        
-        scoreHeaderView.graphView.set(data: date, withLabels: labels)
+        tableView.reloadData()
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scoreHeaderView.graphView.shouldAdaptRange = true
-        
-        scoreHeaderView.graphView.showsHorizontalScrollIndicator = false
-        scoreHeaderView.graphView.lineStyle = .smooth
-        scoreHeaderView.graphView.backgroundFillColor = UIColor.cubeTintColor()
-        scoreHeaderView.graphView.lineColor = UIColor.white
-        scoreHeaderView.graphView.lineWidth = 1
-        scoreHeaderView.graphView.dataPointSpacing = 80
-        scoreHeaderView.graphView.dataPointSize = 2
-        scoreHeaderView.graphView.dataPointFillColor = UIColor.white
-        scoreHeaderView.graphView.shouldFill = true
-        
-        scoreHeaderView.graphView.fillGradientType = .linear
-        scoreHeaderView.graphView.fillColor = UIColor.white.withAlphaComponent(0.4)
-
-        scoreHeaderView.graphView.fillGradientStartColor = UIColor.white.withAlphaComponent(0.5)
-        scoreHeaderView.graphView.fillGradientEndColor = UIColor.white.withAlphaComponent(0.3)
-        
-        scoreHeaderView.graphView.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
-        scoreHeaderView.graphView.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
-        scoreHeaderView.graphView.referenceLineLabelColor = UIColor.white
-        scoreHeaderView.graphView.dataPointLabelColor = UIColor.white
-        
-        scoreHeaderView.graphView.rangeMax = 20
-        
         let date: [Double] = realm.objects(Score.self).map {
             $0.timer
         }
@@ -78,8 +46,6 @@ class ScoreViewController: UIViewController {
         }
         
         scoreHeaderView.graphView.set(data: date, withLabels: labels)
-
-        
         
     }
     
@@ -94,11 +60,24 @@ extension ScoreViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return scoreGroups?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ScoreGroupCell = tableView.dequeueReusableCell(for: indexPath)
+        
+        if let scoreGroups = scoreGroups {
+            
+            cell.configureCell(with: scoreGroups[indexPath.row])
+        }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let scoreGroups = scoreGroups {
+            scoreHeaderView.configureGraphView(with: scoreGroups[indexPath.row])
+        }
     }
 }
