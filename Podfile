@@ -3,6 +3,7 @@
 
 target 'Lucuber' do
 
+pod 'ScrollableGraphView'
 pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
 pod 'Proposer', '~> 1.1.0'
 pod 'Navi', '~> 1.1.0'

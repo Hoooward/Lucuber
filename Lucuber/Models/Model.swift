@@ -1136,7 +1136,7 @@ open class ScoreGroup: Object {
     
     open dynamic var lcObjectId: String = ""
     open dynamic var localObjectId: String = ""
-    
+    open dynamic var category: String = ""
     open dynamic var creator: RUser?
     //open let timerList = List<Score>()
     open let timerList = LinkingObjects(fromType: Score.self, property: "atGroup")

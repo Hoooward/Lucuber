@@ -37,8 +37,13 @@ public class ScoreDetailView: SpringView {
         slowlyLabel.text = cacheResult.last?.timertext ?? "00:00:00"
         
         let total = cacheResult.map { $0.timer }.reduce(0) { total, num in total + num } / Double(cacheResult.count)
+        printLog(total)
         let totalDate = Date(timeIntervalSince1970: total)
         totalStepsLabel.text = Config.timerDateFormatter().string(from: totalDate)
+        
+        if total == 0 {
+            totalStepsLabel.text = "00:00:00"
+        }
         
         popLabel.text = "\(cacheResult.filter { $0.isPop == true }.count)"
         

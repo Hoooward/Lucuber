@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -13,7 +14,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Timer View Controller-->
+        <!--三阶-->
         <scene sceneID="IiU-3A-B2n">
             <objects>
                 <viewController id="09v-jz-Feu" customClass="TimerViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
@@ -52,8 +53,25 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oid-bx-WAt">
+                                        <rect key="frame" x="373.33333333333326" y="30" width="20.666666666666686" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="VqX-VN-WJY"/>
+                                            <constraint firstAttribute="width" secondItem="oid-bx-WAt" secondAttribute="height" multiplier="36:43" id="o8G-vK-Ygd"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="ios-refresh-empty"/>
+                                        <connections>
+                                            <action selector="refreshGroupAction:" destination="09v-jz-Feu" eventType="touchUpInside" id="DNU-dC-4GS"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="三阶" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMx-AF-7Jn">
+                                        <rect key="frame" x="190" y="32.333333333333336" width="34.666666666666657" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="esw-vX-KNI" firstAttribute="top" secondItem="qJg-rn-OMo" secondAttribute="bottom" constant="20" id="4B5-cj-8JB"/>
                                     <constraint firstItem="9IN-Qc-Did" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="50" id="4QN-xb-eR1"/>
@@ -61,12 +79,16 @@
                                     <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="50" id="C2O-hD-aRG"/>
                                     <constraint firstItem="9IN-Qc-Did" firstAttribute="top" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="80" id="CYY-2g-hsb"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="FZO-cy-UZ3"/>
+                                    <constraint firstAttribute="trailing" secondItem="oid-bx-WAt" secondAttribute="trailing" constant="20" id="Gfl-6S-GO1"/>
+                                    <constraint firstItem="VMx-AF-7Jn" firstAttribute="centerX" secondItem="Ua5-BZ-4Yx" secondAttribute="centerX" id="IuZ-Kb-Qba"/>
                                     <constraint firstAttribute="bottom" secondItem="esw-vX-KNI" secondAttribute="bottom" constant="-5" id="Jcu-A5-my2"/>
+                                    <constraint firstItem="oid-bx-WAt" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="30" id="MXy-sj-bnp"/>
                                     <constraint firstItem="esw-vX-KNI" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="NkM-0r-Vfs"/>
                                     <constraint firstAttribute="trailing" secondItem="pv8-Il-z1v" secondAttribute="trailing" constant="70" id="Q5S-wI-w1R"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="top" secondItem="9IN-Qc-Did" secondAttribute="bottom" constant="5" id="STu-2U-C3W"/>
                                     <constraint firstAttribute="trailing" secondItem="esw-vX-KNI" secondAttribute="trailing" id="anD-Gm-usA"/>
                                     <constraint firstItem="pv8-Il-z1v" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="70" id="gMj-SQ-3Qo"/>
+                                    <constraint firstItem="VMx-AF-7Jn" firstAttribute="centerY" secondItem="oid-bx-WAt" secondAttribute="centerY" id="ico-CB-pTP"/>
                                     <constraint firstAttribute="trailing" secondItem="qJg-rn-OMo" secondAttribute="trailing" id="sEm-qC-I6g"/>
                                     <constraint firstItem="pv8-Il-z1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="60" id="yz7-N3-mC4"/>
                                 </constraints>
@@ -198,7 +220,11 @@
                             <constraint firstItem="bnN-gm-mcY" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="bottom" constant="8" id="yeL-3e-VnE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="2S1-h3-fAq"/>
+                    <navigationItem key="navigationItem" title="三阶" id="2S1-h3-fAq">
+                        <barButtonItem key="rightBarButtonItem" title="重置" id="OfL-yS-1oP">
+                            <color key="tintColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="scoreDetailView" destination="bnN-gm-mcY" id="QYb-UK-dkU"/>
                         <outlet property="scoreView" destination="bjI-gM-Ecv" id="S40-o4-GC8"/>
@@ -216,14 +242,15 @@
         <!--计时器-->
         <scene sceneID="KtA-Ru-xPf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="计时器" image="tabbar_time" selectedImage="tabbar_time_sele" id="zAz-NQ-3cl"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kcv-pK-7yt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcv-pK-7yt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -236,6 +263,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ios-refresh-empty" width="36" height="43"/>
         <image name="loading" width="414" height="45"/>
         <image name="tabbar_time" width="28" height="30"/>
         <image name="tabbar_time_sele" width="28" height="30"/>

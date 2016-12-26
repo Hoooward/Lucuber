@@ -101,6 +101,8 @@
 		E46047AC1E03BA4100B6D501 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E46047AB1E03BA4100B6D501 /* FXBlurView.m */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
+		E475DA6A1E0FFFAE0079FE75 /* ScoreGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA681E0FFFAE0079FE75 /* ScoreGroupCell.swift */; };
+		E475DA6B1E0FFFAE0079FE75 /* ScoreGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E475DA691E0FFFAE0079FE75 /* ScoreGroupCell.xib */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
 		E47926261D968CDB004D58BF /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
 		E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479262A1D96906C004D58BF /* FormulaInputViewController.swift */; };
@@ -263,6 +265,8 @@
 		E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */; };
 		E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
 		E4EFC0B31E0EB340006110F7 /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */; };
+		E4EFC0B51E0FA308006110F7 /* ScoreViewControoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B41E0FA308006110F7 /* ScoreViewControoller.swift */; };
+		E4EFC0B71E0FA373006110F7 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B61E0FA373006110F7 /* ScoreHeaderView.swift */; };
 		E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */; };
 		E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */; };
 		E4F38D4E1DFD1E0D00F0DF8A /* CateogyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */; };
@@ -425,6 +429,8 @@
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		E475DA681E0FFFAE0079FE75 /* ScoreGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGroupCell.swift; sourceTree = "<group>"; };
+		E475DA691E0FFFAE0079FE75 /* ScoreGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreGroupCell.xib; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
 		E47926251D968CDB004D58BF /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		E479262A1D96906C004D58BF /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
@@ -590,6 +596,8 @@
 		E4E021F91D9023C700DED99A /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMan.swift; sourceTree = "<group>"; };
 		E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
+		E4EFC0B41E0FA308006110F7 /* ScoreViewControoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewControoller.swift; sourceTree = "<group>"; };
+		E4EFC0B61E0FA373006110F7 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
 		E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogyItemView.swift; sourceTree = "<group>"; };
@@ -1620,6 +1628,10 @@
 			isa = PBXGroup;
 			children = (
 				E4DF65FF1D8D961F005CE518 /* Result.storyboard */,
+				E4EFC0B41E0FA308006110F7 /* ScoreViewControoller.swift */,
+				E4EFC0B61E0FA373006110F7 /* ScoreHeaderView.swift */,
+				E475DA681E0FFFAE0079FE75 /* ScoreGroupCell.swift */,
+				E475DA691E0FFFAE0079FE75 /* ScoreGroupCell.xib */,
 			);
 			path = Result;
 			sourceTree = "<group>";
@@ -2107,6 +2119,7 @@
 				E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E4F38D751DFD3C2500F0DF8A /* CameraCell.xib in Resources */,
+				E475DA6B1E0FFFAE0079FE75 /* ScoreGroupCell.xib in Resources */,
 				E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */,
@@ -2366,6 +2379,7 @@
 				E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */,
 				E4CE8B2A1DF42A0A00944099 /* FeedBiggerImageCell.swift in Sources */,
 				E4CE8B2B1DF42A0A00944099 /* FeedCellLayout.swift in Sources */,
+				E4EFC0B71E0FA373006110F7 /* ScoreHeaderView.swift in Sources */,
 				E49534891E0CDE660008934D /* SearchFeedsViewController.swift in Sources */,
 				E4CE8B2C1DF42A0A00944099 /* FeedTextView.swift in Sources */,
 				E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */,
@@ -2377,6 +2391,7 @@
 				E4F38DC61E01BA5200F0DF8A /* CubeMedia.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
 				E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */,
+				E475DA6A1E0FFFAE0079FE75 /* ScoreGroupCell.swift in Sources */,
 				E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */,
 				E4E03BFF1DEC6EA10023B3B0 /* DetailMasterCell.swift in Sources */,
 				E4DAFE081DEB2AF4008A8702 /* Model.swift in Sources */,
@@ -2482,6 +2497,7 @@
 				E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */,
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
+				E4EFC0B51E0FA308006110F7 /* ScoreViewControoller.swift in Sources */,
 				E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */,
 				E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,

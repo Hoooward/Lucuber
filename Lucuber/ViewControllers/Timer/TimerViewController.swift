@@ -150,8 +150,30 @@ class TimerViewController: UIViewController {
             
         default: break
         }
+    }
+    
+    var isCreatingNewGroup: Bool = false
+    @IBAction func refreshGroupAction(_ sender: Any) {
         
+        if isCreatingNewGroup {
+            return
+        }
+        isCreatingNewGroup = true
         
+        realm.beginWrite()
+        let newGroup = ScoreGroup()
+        newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
+        let me = currentUser(in: realm)
+        newGroup.creator = me
+        realm.add(newGroup)
+        try? realm.commitWrite()
+        
+        currentScoreGroup = newGroup
+        updateUIWithAnimation()
+        
+        delay(1) {
+            self.isCreatingNewGroup = false
+        }
         
     }
 }
