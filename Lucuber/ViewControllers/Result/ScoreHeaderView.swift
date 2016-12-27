@@ -50,6 +50,14 @@ class ScoreHeaderView: UIView {
         graphView.dataPointLabelColor = UIColor.white
         
         graphView.rangeMax = 20
+        
+        prepareUseCraphView()
+    }
+    
+    private func prepareUseCraphView() {
+        let date = Array(repeating: 0.0, count: 10)
+        let label = Array(repeating: "00:00:00", count: 10)
+        graphView.set(data: date, withLabels: label)
     }
     
     public func configureGraphView(with scoreGroup: ScoreGroup) {
@@ -57,8 +65,21 @@ class ScoreHeaderView: UIView {
         let date: [Double] = scoreGroup.timerList.map { $0.timer }
         let labels: [String] = scoreGroup.timerList.map { $0.timertext }
         
-        graphView.set(data: date, withLabels: labels)
+        if date.isEmpty && labels.isEmpty {
+            prepareUseCraphView()
+        } else {
+            graphView.set(data: date, withLabels: labels)
+        }
         
+        if let category = Category(rawValue: scoreGroup.category) {
+            categoryLabel.text = category.indicatorString
+        } else {
+            categoryLabel.text = "3x3x3"
+        }
+        
+        dateLabel.text = scoreGroup.dateSectionString
+        
+        subTimerLabel.text = scoreGroup.totalSubString
     }
     
     func makeUI() {

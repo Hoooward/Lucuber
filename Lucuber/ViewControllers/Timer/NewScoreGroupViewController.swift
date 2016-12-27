@@ -25,6 +25,7 @@ class NewScoreGroupViewController: UIViewController {
         return categorysInChinese
     }
 }
+
 extension NewScoreGroupViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

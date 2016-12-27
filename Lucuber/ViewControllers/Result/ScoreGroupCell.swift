@@ -17,6 +17,10 @@ class ScoreGroupCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 220/255.0, green: 238/255.0, blue: 252/255.0, alpha: 1)
+        selectedBackgroundView = view
     }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -25,7 +29,6 @@ class ScoreGroupCell: UITableViewCell {
         return dateFormatter
     }()
     
-    
     public func configureCell(with scoreGroup: ScoreGroup) {
         
         dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: scoreGroup.createdUnixTime))
@@ -33,6 +36,11 @@ class ScoreGroupCell: UITableViewCell {
         slowliestLabel.text = scoreGroup.realSlowliestTimerString
         countLabel.text = "\(scoreGroup.timerList.count)"
         
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        self.isHighlighted = selected
     }
 
     

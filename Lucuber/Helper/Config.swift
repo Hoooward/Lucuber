@@ -49,6 +49,13 @@ public class Config {
         return dateFormatter
     }
     
+    public class func timeSectionFormatter() -> DateFormatter  {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }
+    
     public class func chatCellAvatarSize() -> CGFloat {
         return 40.0
     }

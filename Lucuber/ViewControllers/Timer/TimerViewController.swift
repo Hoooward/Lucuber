@@ -183,7 +183,8 @@ class TimerViewController: UIViewController {
     }
     
     private func perpareScoreGroup() {
-        currentScoreGroup = getOrCreatedMyLastScoreGroup(inRealm: realm)
+        // 直接拿最后一个创建的 Group
+        currentScoreGroup = scoreGroupWith(user: currentUser(in: realm), inRealm: realm).first
     }
     
     private func updateUIWithAnimation() {

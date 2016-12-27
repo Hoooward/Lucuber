@@ -14,7 +14,7 @@ public class ScoreDetailView: SpringView {
     @IBOutlet weak var fastyLabel: UILabel!
     @IBOutlet weak var slowlyLabel: UILabel!
     @IBOutlet weak var totalStepsLabel: UILabel!
-    @IBOutlet weak var popLabel: UILabel!
+    @IBOutlet weak var dnfLabel: UILabel!
     
     public var scoreGroup: ScoreGroup? {
         didSet {
@@ -30,7 +30,7 @@ public class ScoreDetailView: SpringView {
         fastyLabel.text = scoreGroup.fastestTimerString
         slowlyLabel.text = scoreGroup.slowliestTimerString
         totalStepsLabel.text = scoreGroup.totalAverageString
-        popLabel.text = scoreGroup.dnfCountString
+        dnfLabel.text = scoreGroup.dnfCountString
         
     }
     
@@ -40,7 +40,7 @@ public class ScoreDetailView: SpringView {
         fastyLabel.textColor = UIColor.gray
         slowlyLabel.textColor = UIColor.gray
         totalStepsLabel.textColor = UIColor.gray
-        popLabel.textColor = UIColor.gray
+        dnfLabel.textColor = UIColor.gray
         
     }
     

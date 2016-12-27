@@ -28,25 +28,19 @@ class ScoreViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-   
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.reloadData()
-        
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as! ScoreGroupCell
+        cell.setSelected(true, animated: false)
+        tableView(tableView, didSelectRowAt: indexPath)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let date: [Double] = realm.objects(Score.self).map {
-            $0.timer
-        }
-        
-        let labels: [String] = realm.objects(Score.self).map {
-            $0.timertext
-        }
-        
-        scoreHeaderView.graphView.set(data: date, withLabels: labels)
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -75,6 +69,13 @@ extension ScoreViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let firstRowIndexPath = IndexPath(row: 0, section: 0)
+        let cell = tableView.cellForRow(at: firstRowIndexPath )
+        
+        if indexPath.row != 0 {
+            cell?.setSelected(false, animated: true)
+        }
         
         if let scoreGroups = scoreGroups {
             scoreHeaderView.configureGraphView(with: scoreGroups[indexPath.row])

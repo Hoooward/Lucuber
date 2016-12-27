@@ -1199,7 +1199,8 @@ open class ScoreGroup: Object {
     }
     
     open var fastestTimer: Score? {
-        return timerList.sorted(byProperty: "timer", ascending: true).first
+        let predicate = NSPredicate(format: "isDNF == %@", false as CVarArg)
+        return timerList.filter(predicate).sorted(byProperty: "timer", ascending: true).first
     }
     
     open var fastestTimerString: String {
@@ -1211,7 +1212,7 @@ open class ScoreGroup: Object {
     
     open var realFastestTimerString: String {
         guard let score = fastestTimer else {
-            return "00"
+            return "0.00"
         }
         return score.realTimerString
     }
@@ -1230,21 +1231,21 @@ open class ScoreGroup: Object {
     
     open var slowliestTimerString: String {
         guard let score = slowliestTimer else {
-            return "00.00"
+            return "0.00"
         }
         return score.isDNF ? "DNF" : score.timertext
     }
     
     open var realSlowliestTimerString: String {
         guard let score = slowliestTimer else {
-            return "00.00"
+            return "0.00"
         }
         return score.isDNF ? "DNF" : score.realTimerString
     }
     
     open var fiveStepsAverageString: String {
         guard timerList.count >= 5 else {
-            return "00.00"
+            return "0.00"
         }
         
         var timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
@@ -1267,7 +1268,7 @@ open class ScoreGroup: Object {
     open var tenStepsAverageString: String {
         
         guard timerList.count >= 10 else {
-            return "00.00"
+            return "0.00"
         }
         
         var timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
@@ -1290,31 +1291,32 @@ open class ScoreGroup: Object {
     open var totalAverageString: String {
         
         guard !timerList.isEmpty else {
-           return "00.00"
+           return "0.00"
         }
-        return calculateAverageString(array: timerList.map { $0 })
+        let predicate = NSPredicate(format: "isPOP = false AND isDNF = false")
+        return calculateAverageString(array: timerList.filter(predicate).map { $0 })
     }
     
     open var totalSubString: String {
         
         guard !timerList.isEmpty else {
-            return "00.00"
+            return "00.0"
         }
         
         let predicate = NSPredicate(format: "isPOP = false AND isDNF = false")
         let lastScore = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true).last
         
         if let lastScore = lastScore {
-            return "\(ceil(lastScore.timer)).00"
+            return "\(ceil(lastScore.timer))"
         } else {
-            return "00.00"
+            return "00.0"
         }
     }
     
     open var excludeFastestAndSlowliestOnAverage: String {
         
         guard timerList.count >= 3 else {
-            return "00.00"
+            return "0.00"
         }
         
         let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
@@ -1328,7 +1330,6 @@ open class ScoreGroup: Object {
             list.removeLast()
             
         } else {
-            
             // 删除所有 DNF 的数据
             var dnfIndexs = [Int]()
             
@@ -1342,7 +1343,6 @@ open class ScoreGroup: Object {
                 list.remove(at: $0)
             }
         }
-        
         return calculateAverageString(array: list)
         
     }
@@ -1380,6 +1380,25 @@ open class ScoreGroup: Object {
         return list
     }
     
+    open var dateSectionString: String {
+        
+        let timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: true).map { $0 }
+        
+        if var firstScoreCreatedUnixTime = timerListArray.first?.createdUnixTime,
+            let lastScoreScretedUnixtime = timerListArray.last?.createdUnixTime {
+            
+            if firstScoreCreatedUnixTime < self.createdUnixTime {
+                firstScoreCreatedUnixTime = self.createdUnixTime
+            }
+            
+            let firstString = Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: firstScoreCreatedUnixTime))
+            let lastString = Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: lastScoreScretedUnixtime))
+            
+            return firstString + " - " + lastString
+        }
+        
+        return Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: self.createdUnixTime))
+    }
 }
 
 // MARK: - Group
@@ -1389,17 +1408,28 @@ public func scoreGroupWith(_ localObjectId: String, inRealm realm: Realm) -> Sco
     return realm.objects(ScoreGroup.self).filter(predicate).first
 }
 
-public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreGroup>? {
-    guard let user = user else { return nil }
+public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreGroup> {
+    guard let user = user else { fatalError() }
     
     let predicate = NSPredicate(format: "creator == %@", user)
+    let result = realm.objects(ScoreGroup.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
+    
+    if result.first == nil {
+        try? realm.write {
+            let newGroup = ScoreGroup()
+            newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
+            newGroup.category = "三阶"
+            newGroup.creator = currentUser(in: realm)
+            realm.add(newGroup)
+        }
+    }
     return realm.objects(ScoreGroup.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
 }
 
 
 public func getOrCreatedMyLastScoreGroup(inRealm realm: Realm) -> ScoreGroup {
     
-    var group = scoreGroupWith(user: currentUser(in: realm), inRealm: realm)?.first
+    var group = scoreGroupWith(user: currentUser(in: realm), inRealm: realm).first
     
     if group == nil {
         
