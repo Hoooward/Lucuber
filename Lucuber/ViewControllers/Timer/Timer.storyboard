@@ -47,7 +47,7 @@
                                             <constraint firstAttribute="height" constant="45" id="h7S-Yr-H7S"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U D F R2 B F' L F' B' D' R' L' B' L' U F U' D' B' D2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v" customClass="SpringLabel" customModule="Spring">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U D F R2 B F' L F' B' D' R' L' B' L' U F U' D' B' D2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v" customClass="SpringLabel" customModule="Spring">
                                         <rect key="frame" x="70" y="187" width="274" height="70"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,7 +90,7 @@
                                     <constraint firstItem="pv8-Il-z1v" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="70" id="gMj-SQ-3Qo"/>
                                     <constraint firstItem="VMx-AF-7Jn" firstAttribute="centerY" secondItem="oid-bx-WAt" secondAttribute="centerY" id="ico-CB-pTP"/>
                                     <constraint firstAttribute="trailing" secondItem="qJg-rn-OMo" secondAttribute="trailing" id="sEm-qC-I6g"/>
-                                    <constraint firstItem="pv8-Il-z1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="60" id="yz7-N3-mC4"/>
+                                    <constraint firstItem="pv8-Il-z1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="50" id="yz7-N3-mC4"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjI-gM-Ecv" customClass="ScoreView" customModule="Lucuber" customModuleProvider="target">

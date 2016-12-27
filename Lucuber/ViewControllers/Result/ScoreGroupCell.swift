@@ -14,6 +14,7 @@ class ScoreGroupCell: UITableViewCell {
     @IBOutlet weak var fastestLabel: UILabel!
     @IBOutlet weak var slowliestLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var detailButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,18 +30,33 @@ class ScoreGroupCell: UITableViewCell {
         return dateFormatter
     }()
     
+    private var scoreGroup: ScoreGroup?
+    
     public func configureCell(with scoreGroup: ScoreGroup) {
         
+        self.scoreGroup = scoreGroup
         dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: scoreGroup.createdUnixTime))
         fastestLabel.text = scoreGroup.realFastestTimerString
         slowliestLabel.text = scoreGroup.realSlowliestTimerString
         countLabel.text = "\(scoreGroup.timerList.count)"
+        
+        if scoreGroup.timerList.isEmpty {
+            detailButton.isEnabled = false
+        }
         
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.isHighlighted = selected
+        
+        detailButton.isEnabled = selected
+        
+        guard let scoreGroup = scoreGroup else { return }
+        if scoreGroup.timerList.isEmpty {
+            detailButton.isEnabled = false
+        }
+        
     }
 
     
