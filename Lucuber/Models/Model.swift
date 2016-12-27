@@ -1247,25 +1247,44 @@ open class ScoreGroup: Object {
             return "00.00"
         }
         
-        var result: [Score] = []
-        var list: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
-        for index in 0..<5 {
-            result.append(list[index])
+        var timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+        // 拿到前 5 个 score 中的 dnf
+        let frontFiveValidScore = timerListArray[0..<4]
+        
+        let dnfList = frontFiveValidScore.filter { $0.isDNF == true }
+        
+        switch dnfList.count {
+            
+        case 0, 1:
+            return calculateAverageString(array: frontFiveValidScore.map { $0 })
+            
+        default:
+            return "DNF\(dnfList.count)次"
         }
-        return calculateAverageString(array: result)
+ 
     }
     
     open var tenStepsAverageString: String {
+        
         guard timerList.count >= 10 else {
             return "00.00"
         }
         
-        var result: [Score] = []
-        var list: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
-        for index in 0..<9 {
-            result.append(list[index])
+        var timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
+        // 拿到前 10 个 score 中的 dnf
+        let frontTenValidScore = timerListArray[0..<9]
+        
+        let dnfList = frontTenValidScore.filter { $0.isDNF == true }
+        
+        switch dnfList.count {
+            
+        case 0, 1:
+            return calculateAverageString(array: frontTenValidScore.map { $0 })
+            
+        default:
+            return "DNF\(dnfList.count)次"
         }
-        return calculateAverageString(array: result)
+        
     }
     
     open var totalAverageString: String {
@@ -1332,6 +1351,35 @@ open class ScoreGroup: Object {
         let total = array.map { $0.timer }.reduce(0) { total, num in total + num } / Double(array.count)
         return String(format: "%.2f", total)
     }
+    
+    
+    var validTimerList: [Score] {
+        
+        let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
+        let dnfList = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true)
+        var list: [Score] = timerList.map { $0 }
+        
+        if dnfList.isEmpty {
+            return list
+            
+        } else {
+            // 删除所有 DNF 的数据
+            var dnfIndexs = [Int]()
+            
+            dnfList.forEach {
+                if let index = list.index(of: $0) {
+                    dnfIndexs.append(index)
+                }
+            }
+            
+            dnfIndexs.forEach {
+                list.remove(at: $0)
+            }
+        }
+        
+        return list
+    }
+    
 }
 
 // MARK: - Group
