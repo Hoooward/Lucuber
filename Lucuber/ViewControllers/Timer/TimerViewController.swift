@@ -73,6 +73,15 @@ class TimerViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(TimerViewController.pasueTimer(sender:)))
         view.addGestureRecognizer(tap)
+        
+        UIFont.familyNames.forEach { name in
+            
+            UIFont.fontNames(forFamilyName: name).forEach {
+                printLog($0)
+            }
+            
+            
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

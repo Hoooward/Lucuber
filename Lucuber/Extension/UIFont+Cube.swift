@@ -60,12 +60,12 @@ extension UIFont {
     }
     
     public class func timerLabelFont() -> UIFont {
-        let size = CubeRuler.iPhoneVertical(50, 50, 65, 76).value
-        return UIFont(name: "alarmclock", size: CGFloat(size))!
+        let size = CubeRuler.iPhoneVertical(50, 50, 70, 80).value
+        return UIFont(name: "Digital-7Mono", size: CGFloat(size))!
     }
     
     public class func scoreLabelFont() -> UIFont {
-       return UIFont(name: "alarmclock", size: 12)!
+       return UIFont(name: "Digital-7Mono", size: 12)!
     }
     
 
