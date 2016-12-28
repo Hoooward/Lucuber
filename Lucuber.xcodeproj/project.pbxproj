@@ -93,8 +93,6 @@
 		E45351EE1DFC1E2D0092805B /* MessageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */; };
 		E45351EF1DFC1E510092805B /* MessageLoadingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CED81B1DE862770036A11C /* MessageLoadingProgressView.swift */; };
 		E45378B61DEAE06E00A65F43 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
-		E457FE4B1E0E5EE200AB5F64 /* ScoreDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457FE491E0E5EE200AB5F64 /* ScoreDetailCell.swift */; };
-		E457FE4C1E0E5EE200AB5F64 /* ScoreDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E457FE4A1E0E5EE200AB5F64 /* ScoreDetailCell.xib */; };
 		E457FE4E1E0E610600AB5F64 /* ScoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457FE4D1E0E610600AB5F64 /* ScoreDetailView.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
@@ -160,6 +158,7 @@
 		E4A008081E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */; };
 		E4A0080B1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A008091E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift */; };
 		E4A0080C1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */; };
+		E4A0080F1E1413F400ABA5B5 /* ScoreTimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0080E1E1413F300ABA5B5 /* ScoreTimerLabel.swift */; };
 		E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */; };
 		E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA591DE3F874009C0E78 /* ViewController.swift */; };
 		E4A3BA5D1DE3F874009C0E78 /* Main1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5B1DE3F874009C0E78 /* Main1.storyboard */; };
@@ -428,8 +427,6 @@
 		E44D3B521DF6F69D00673FFD /* URL+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Cube.swift"; sourceTree = "<group>"; };
 		E45351EA1DFC1DF70092805B /* ConversationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTitleView.swift; sourceTree = "<group>"; };
 		E45351ED1DFC1E2D0092805B /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
-		E457FE491E0E5EE200AB5F64 /* ScoreDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailCell.swift; sourceTree = "<group>"; };
-		E457FE4A1E0E5EE200AB5F64 /* ScoreDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreDetailCell.xib; sourceTree = "<group>"; };
 		E457FE4D1E0E610600AB5F64 /* ScoreDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailView.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
@@ -489,6 +486,7 @@
 		E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScoreGroupDetailTitle.plist; sourceTree = "<group>"; };
 		E4A008091E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGroupDetailTimerCell.swift; sourceTree = "<group>"; };
 		E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreGroupDetailTimerCell.xib; sourceTree = "<group>"; };
+		E4A0080E1E1413F300ABA5B5 /* ScoreTimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreTimerLabel.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4A3BA591DE3F874009C0E78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -965,8 +963,6 @@
 			children = (
 				E49534DC1E0E2B000008934D /* ScoreCell.swift */,
 				E49534DD1E0E2B000008934D /* ScoreCell.xib */,
-				E457FE491E0E5EE200AB5F64 /* ScoreDetailCell.swift */,
-				E457FE4A1E0E5EE200AB5F64 /* ScoreDetailCell.xib */,
 			);
 			path = ScoreCell;
 			sourceTree = "<group>";
@@ -1013,6 +1009,14 @@
 				E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */,
 			);
 			path = ScoreDetail;
+			sourceTree = "<group>";
+		};
+		E4A0080D1E1413EA00ABA5B5 /* TimerLabel */ = {
+			isa = PBXGroup;
+			children = (
+				E4A0080E1E1413F300ABA5B5 /* ScoreTimerLabel.swift */,
+			);
+			path = TimerLabel;
 			sourceTree = "<group>";
 		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
@@ -1077,6 +1081,7 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4A0080D1E1413EA00ABA5B5 /* TimerLabel */,
 				E49534F21E0E412C0008934D /* ScoreDetailView */,
 				E49534E31E0E2B480008934D /* ScoreView */,
 				E49534E01E0E2B260008934D /* TimerControl */,
@@ -2133,7 +2138,6 @@
 				E4CED8431DE862770036A11C /* LoadMoreCollectionViewCell.xib in Resources */,
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
-				E457FE4C1E0E5EE200AB5F64 /* ScoreDetailCell.xib in Resources */,
 				E4F38D711DFD34B600F0DF8A /* PickPhotosCell.xib in Resources */,
 				E4CED8541DE862770036A11C /* DetailFormulasCell.xib in Resources */,
 				E4CED8741DE862770036A11C /* TypeSelectedCell.xib in Resources */,
@@ -2477,6 +2481,7 @@
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
+				E4A0080F1E1413F400ABA5B5 /* ScoreTimerLabel.swift in Sources */,
 				E45351EE1DFC1E2D0092805B /* MessageToolbar.swift in Sources */,
 				E41ECF571DB77374005BEFE4 /* MediaView.swift in Sources */,
 				E4F38D661DFD21D100F0DF8A /* Service+Push.swift in Sources */,
@@ -2503,7 +2508,6 @@
 				E4CED8891DE862770036A11C /* NavigationTitleLabel.swift in Sources */,
 				E49430771DE07F9A00A23F02 /* PickPhotosViewController.swift in Sources */,
 				E44483391E067E91008311F5 /* CommentViewController+FetchMessage.swift in Sources */,
-				E457FE4B1E0E5EE200AB5F64 /* ScoreDetailCell.swift in Sources */,
 				E4F38DB51E01130E00F0DF8A /* HorizontalLineView.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */,

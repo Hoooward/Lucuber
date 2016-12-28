@@ -133,9 +133,13 @@ extension UIColor {
         return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
     }
     
-    
     class func scoreGroupNormalLabelTextColor() -> UIColor {
-        return UIColor.black
+        return timerLabelTextColor()
+    }
+    
+    // MARK: - TimerLabel
+    class func timerLabelTextColor() -> UIColor {
+        return UIColor(red: 60/255.0, green: 77/255.0, blue: 95/255.0, alpha: 1)
     }
     
     

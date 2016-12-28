@@ -11,10 +11,10 @@ import Spring
 
 public class ScoreDetailView: SpringView {
     
-    @IBOutlet weak var fastyLabel: UILabel!
-    @IBOutlet weak var slowlyLabel: UILabel!
-    @IBOutlet weak var totalStepsLabel: UILabel!
-    @IBOutlet weak var dnfLabel: UILabel!
+    @IBOutlet weak var fastyLabel: ScoreTimerLabel!
+    @IBOutlet weak var slowlyLabel: ScoreTimerLabel!
+    @IBOutlet weak var totalStepsLabel: ScoreTimerLabel!
+    @IBOutlet weak var dnfLabel: ScoreTimerLabel!
     
     public var scoreGroup: ScoreGroup? {
         didSet {
@@ -27,8 +27,8 @@ public class ScoreDetailView: SpringView {
         guard let scoreGroup = scoreGroup else {
             return
         }
-        fastyLabel.text = scoreGroup.fastestTimerString
-        slowlyLabel.text = scoreGroup.slowliestTimerString
+        fastyLabel.text = scoreGroup.realFastestTimerString
+        slowlyLabel.text = scoreGroup.realSlowliestTimerString
         totalStepsLabel.text = scoreGroup.totalAverageString
         dnfLabel.text = scoreGroup.dnfCountString
         
@@ -36,11 +36,6 @@ public class ScoreDetailView: SpringView {
     
     public override func awakeFromNib() {
         super.awakeFromNib()
-        
-        fastyLabel.textColor = UIColor.gray
-        slowlyLabel.textColor = UIColor.gray
-        totalStepsLabel.textColor = UIColor.gray
-        dnfLabel.textColor = UIColor.gray
         
     }
     

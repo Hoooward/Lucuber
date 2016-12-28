@@ -53,8 +53,6 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
-        
         topBackgroundView.backgroundColor = UIColor.cubeTintColor()
         topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 500).value)
         view.layoutIfNeeded()
