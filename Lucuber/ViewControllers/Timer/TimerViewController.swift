@@ -53,7 +53,7 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        perpareScoreGroup()
+    
         
         topBackgroundView.backgroundColor = UIColor.cubeTintColor()
         topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 500).value)
@@ -80,6 +80,11 @@ class TimerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateUIWithAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        perpareScoreGroup()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -214,5 +219,6 @@ class TimerViewController: UIViewController {
         timerControl.animate()
         
         timerLabel.text = "00:00:00"
+        refreshButton.isEnabled = true
     }
 }

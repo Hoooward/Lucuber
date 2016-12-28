@@ -1178,6 +1178,13 @@ open class ScoreGroup: Object {
     
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
+    open func cascadeDelete(inRealm realm: Realm) {
+        timerList.forEach {
+            realm.delete($0)
+        }
+        realm.delete(self)
+    }
+    
     open var popCount: Int {
         let predicate = NSPredicate(format: "isPOP == %@", true as CVarArg)
         let list = timerList.filter(predicate)

@@ -188,8 +188,6 @@ extension ScoreDetailViewController: UITableViewDelegate, UITableViewDataSource 
             }
             
             tableView.reloadData()
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-            
         })
         
         let copyAction = UITableViewRowAction(style: .normal, title: "复制", handler: { [weak self] action, indexPath in

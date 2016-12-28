@@ -32,12 +32,19 @@ class ScoreViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: true)
-        
         tableView.reloadData()
-        let indexPath = IndexPath(row: 0, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! ScoreGroupCell
-        cell.setSelected(true, animated: false)
-        tableView(tableView, didSelectRowAt: indexPath)
+        
+        guard let scoreGroups = scoreGroups else {
+            return
+        }
+        
+        if scoreGroups.count == 1 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) as? ScoreGroupCell {
+                cell.setSelected(true, animated: false)
+                tableView(tableView, didSelectRowAt: indexPath)
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -119,4 +126,37 @@ extension ScoreViewController: UITableViewDelegate, UITableViewDataSource {
             scoreHeaderView.configureGraphView(with: scoreGroups[indexPath.row])
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deletedGroupAction = UITableViewRowAction(style: .destructive, title: "删除", handler: { [weak self] action, indexPath in
+            
+            guard let strongSelf = self , let scoreGroups = strongSelf.scoreGroups else {
+                return
+            }
+            
+            CubeAlert.confirmOrCancel(title: "删除分组", message: "确定要删除这个分组吗? 与其关联的所有成绩将一起被删除!", confirmTitle: "删除", cancelTitles: "取消", inViewController: self, confirmAction: {
+                
+                let scoreGroup = scoreGroups[indexPath.row]
+                try? strongSelf.realm.write {
+                    scoreGroup.cascadeDelete(inRealm: strongSelf.realm)
+                }
+                tableView.reloadData()
+                
+            }, cancelAction: {
+                
+            })
+            
+        })
+        
+        
+        
+        return [deletedGroupAction]
+    }
 }
+
+
