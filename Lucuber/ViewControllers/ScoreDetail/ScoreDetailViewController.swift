@@ -192,13 +192,31 @@ extension ScoreDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
         })
         
+        let copyAction = UITableViewRowAction(style: .normal, title: "复制", handler: { [weak self] action, indexPath in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let score = strongSelf.timerList[indexPath.row]
+            
+            UIPasteboard.general.string = score.scramblingText
+        })
+        
+        copyAction.backgroundColor = UIColor.orange
+        
         dnfAction.backgroundColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
         
-        return [deleteAction, dnfAction]
+        return [deleteAction, copyAction, dnfAction]
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return indexPath.section == 1
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
