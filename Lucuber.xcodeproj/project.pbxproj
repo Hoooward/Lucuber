@@ -274,7 +274,7 @@
 		E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */; };
 		E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */; };
 		E4EFC0B31E0EB340006110F7 /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */; };
-		E4EFC0B51E0FA308006110F7 /* ScoreViewControoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B41E0FA308006110F7 /* ScoreViewControoller.swift */; };
+		E4EFC0B51E0FA308006110F7 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B41E0FA308006110F7 /* ScoreViewController.swift */; };
 		E4EFC0B71E0FA373006110F7 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EFC0B61E0FA373006110F7 /* ScoreHeaderView.swift */; };
 		E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */; };
 		E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */; };
@@ -614,7 +614,7 @@
 		E4E021F91D9023C700DED99A /* String+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Cube.swift"; sourceTree = "<group>"; };
 		E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMan.swift; sourceTree = "<group>"; };
 		E4EFC0B21E0EB340006110F7 /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
-		E4EFC0B41E0FA308006110F7 /* ScoreViewControoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewControoller.swift; sourceTree = "<group>"; };
+		E4EFC0B41E0FA308006110F7 /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		E4EFC0B61E0FA373006110F7 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
@@ -1670,7 +1670,7 @@
 			isa = PBXGroup;
 			children = (
 				E4DF65FF1D8D961F005CE518 /* Result.storyboard */,
-				E4EFC0B41E0FA308006110F7 /* ScoreViewControoller.swift */,
+				E4EFC0B41E0FA308006110F7 /* ScoreViewController.swift */,
 				E4EFC0B61E0FA373006110F7 /* ScoreHeaderView.swift */,
 				E475DA681E0FFFAE0079FE75 /* ScoreGroupCell.swift */,
 				E475DA691E0FFFAE0079FE75 /* ScoreGroupCell.xib */,
@@ -2548,7 +2548,7 @@
 				E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */,
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
-				E4EFC0B51E0FA308006110F7 /* ScoreViewControoller.swift in Sources */,
+				E4EFC0B51E0FA308006110F7 /* ScoreViewController.swift in Sources */,
 				E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */,
 				E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,

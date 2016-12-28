@@ -28,10 +28,6 @@ class ScoreViewController: UIViewController {
        return scoreGroupWith(user: currentUser(in: self.realm), inRealm: self.realm)
     }()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -46,6 +42,7 @@ class ScoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBarLine.isHidden = false
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

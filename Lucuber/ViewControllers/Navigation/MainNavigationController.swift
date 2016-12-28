@@ -18,11 +18,7 @@ class MainNavigationController: UINavigationController, UIGestureRecognizerDeleg
         navigationBar.tintColor = UIColor.cubeTintColor()
         
         navigationBarLine.isHidden = true
-        
         navigationBar.setBackgroundImage(UIImage(named: "navigationbarBackgroundWhite"), for: .any, barMetrics: .default)
-//        let imageView = UIImageView(image: UIImage(named: "navigationbarBackgroundWhite"))
-//        imageView.frame = CGRect(x: 0 , y: -20, width: UIScreen.main.bounds.width, height: 64)
-//        navigationBar.insertSubview(imageView, at: 0)
         
         interactivePopGestureRecognizer?.delegate = self
         delegate = self
@@ -30,11 +26,20 @@ class MainNavigationController: UINavigationController, UIGestureRecognizerDeleg
     }
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        if (self.viewControllers.count <= 1) {
-            return false
+        if gestureRecognizer == interactivePopGestureRecognizer {
+            if self.viewControllers.count < 2 || self.visibleViewController == self.viewControllers[0] {
+                return false
+            }
         }
+        
         return true
+    }
+    override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+        if animated {
+            interactivePopGestureRecognizer?.isEnabled = false
+        }
+        
+        return super.popToViewController(viewController, animated: false)
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
@@ -43,6 +48,14 @@ class MainNavigationController: UINavigationController, UIGestureRecognizerDeleg
         }
         
         super.pushViewController(viewController, animated: animated)
+    }
+    
+    override func popToRootViewController(animated: Bool) -> [UIViewController]? {
+        if animated {
+            interactivePopGestureRecognizer?.isEnabled = false
+        }
+        
+        return super.popToRootViewController(animated: animated)
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {

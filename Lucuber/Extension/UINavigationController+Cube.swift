@@ -10,9 +10,7 @@ import UIKit
 
 extension UINavigationController {
     
-    /// Find navigationBar's bottom line
     public var navigationBarLine: UIImageView {
-
         return navigationBarLine(view: self.navigationBar) as! UIImageView
     }
     
@@ -23,13 +21,10 @@ extension UINavigationController {
         }
         
         for view in view.subviews {
-            
             if let imageView = navigationBarLine(view: view) {
                 return imageView
             }
         }
-        
         return nil
     }
- 
 }
