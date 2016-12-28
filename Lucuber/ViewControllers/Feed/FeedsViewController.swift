@@ -140,6 +140,8 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBarLine.isHidden = false
+        
         searchBar.sizeToFit()
         tableView.tableHeaderView = searchBar
         
@@ -150,7 +152,6 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer{
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         
         tableView.rowHeight = 300
-        
         
         tableView.register(FeedBaseCell.self, forCellReuseIdentifier: FeedBaseCellIdentifier)
         tableView.register(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)

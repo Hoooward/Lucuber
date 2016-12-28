@@ -341,7 +341,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             strongSelf.popViewController()
         }
         
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         tableView.register(UINib(nibName: masterCellIdentifier, bundle: nil), forCellReuseIdentifier: masterCellIdentifier)
         tableView.register(UINib(nibName: formulasCellIdentifier,bundle: nil), forCellReuseIdentifier: formulasCellIdentifier)

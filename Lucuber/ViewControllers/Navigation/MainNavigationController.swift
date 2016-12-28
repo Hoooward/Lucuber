@@ -9,7 +9,7 @@
 
 import UIKit
 
-class MainNavigationController: UINavigationController, UIGestureRecognizerDelegate {
+class MainNavigationController: UINavigationController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,8 @@ class MainNavigationController: UINavigationController, UIGestureRecognizerDeleg
 //        imageView.frame = CGRect(x: 0 , y: -20, width: UIScreen.main.bounds.width, height: 64)
 //        navigationBar.insertSubview(imageView, at: 0)
         
-        self.interactivePopGestureRecognizer?.delegate =  self
+        interactivePopGestureRecognizer?.delegate = self
+        delegate = self
         
     }
 
@@ -37,10 +38,15 @@ class MainNavigationController: UINavigationController, UIGestureRecognizerDeleg
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        super.pushViewController(viewController, animated: animated)
-        self.interactivePopGestureRecognizer?.isEnabled = false
+        if animated {
+            interactivePopGestureRecognizer?.isEnabled = false
+        }
         
+        super.pushViewController(viewController, animated: animated)
     }
     
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        interactivePopGestureRecognizer?.isEnabled = true
+    }
     
 }
