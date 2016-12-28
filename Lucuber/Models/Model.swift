@@ -1162,7 +1162,7 @@ open class Score: Object {
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     var realTimerString: String {
-        return String(format: "%.2f", timer)
+        return String(format: "%.3f", timer)
     }
 }
 
@@ -1212,7 +1212,7 @@ open class ScoreGroup: Object {
     
     open var realFastestTimerString: String {
         guard let score = fastestTimer else {
-            return "0.00"
+            return "0.000"
         }
         return score.realTimerString
     }
@@ -1231,26 +1231,26 @@ open class ScoreGroup: Object {
     
     open var slowliestTimerString: String {
         guard let score = slowliestTimer else {
-            return "0.00"
+            return "0.000"
         }
         return score.isDNF ? "DNF" : score.timertext
     }
     
     open var realSlowliestTimerString: String {
         guard let score = slowliestTimer else {
-            return "0.00"
+            return "0.000"
         }
         return score.isDNF ? "DNF" : score.realTimerString
     }
     
     open var fiveStepsAverageString: String {
         guard timerList.count >= 5 else {
-            return "0.00"
+            return "0.000"
         }
         
         var timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
         // 拿到前 5 个 score 中的 dnf
-        let frontFiveValidScore = timerListArray[0..<4]
+        let frontFiveValidScore = timerListArray[0..<5]
         
         let dnfList = frontFiveValidScore.filter { $0.isDNF == true }
         
@@ -1268,12 +1268,12 @@ open class ScoreGroup: Object {
     open var tenStepsAverageString: String {
         
         guard timerList.count >= 10 else {
-            return "0.00"
+            return "0.000"
         }
         
         var timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: false).map { $0 }
         // 拿到前 10 个 score 中的 dnf
-        let frontTenValidScore = timerListArray[0..<9]
+        let frontTenValidScore = timerListArray[0..<10]
         
         let dnfList = frontTenValidScore.filter { $0.isDNF == true }
         
@@ -1283,7 +1283,7 @@ open class ScoreGroup: Object {
             return calculateAverageString(array: frontTenValidScore.map { $0 })
             
         default:
-            return "DNF\(dnfList.count)次"
+            return "DNF \(dnfList.count) 次"
         }
         
     }
@@ -1291,7 +1291,7 @@ open class ScoreGroup: Object {
     open var totalAverageString: String {
         
         guard !timerList.isEmpty else {
-           return "0.00"
+           return "0.000"
         }
         let predicate = NSPredicate(format: "isPOP = false AND isDNF = false")
         return calculateAverageString(array: timerList.filter(predicate).map { $0 })
@@ -1316,7 +1316,7 @@ open class ScoreGroup: Object {
     open var excludeFastestAndSlowliestOnAverage: String {
         
         guard timerList.count >= 3 else {
-            return "0.00"
+            return "0.000"
         }
         
         let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
@@ -1349,7 +1349,7 @@ open class ScoreGroup: Object {
     
     private func calculateAverageString(array: [Score]) -> String {
         let total = array.map { $0.timer }.reduce(0) { total, num in total + num } / Double(array.count)
-        return String(format: "%.2f", total)
+        return String(format: "%.3f", total)
     }
     
     
@@ -1380,7 +1380,12 @@ open class ScoreGroup: Object {
         return list
     }
     
-    open var dateSectionString: String {
+    public enum DateStyle {
+        case full
+        case short
+    }
+    
+    open func dateSectionString(with style: DateStyle) -> String {
         
         let timerListArray: [Score] = timerList.sorted(byProperty: "createdUnixTime", ascending: true).map { $0 }
         
@@ -1394,7 +1399,13 @@ open class ScoreGroup: Object {
             let firstString = Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: firstScoreCreatedUnixTime))
             let lastString = Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: lastScoreScretedUnixtime))
             
-            return firstString + " - " + lastString
+            switch style {
+            case .full:
+                return firstString + " - " + lastString
+                
+            case .short:
+                return lastString
+            }
         }
         
         return Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: self.createdUnixTime))

@@ -52,7 +52,7 @@ class MyFormulaViewController: BaseCollectionViewController {
         
         seletedCategory = UserDefaults.getSeletedCategory(mode: uploadMode)
         
-        pushCurrentUserUpdateInformation()
+//        pushCurrentUserUpdateInformation()
       
     }
     

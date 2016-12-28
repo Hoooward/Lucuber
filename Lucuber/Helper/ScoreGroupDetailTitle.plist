@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>还原次数</string>
+	<string>单次最快</string>
+	<string>单次最慢</string>
+	<string>去头尾平均</string>
+	<string>所有平均(去DNF)</string>
+	<string>后5次平均</string>
+	<string>后10次平均</string>
+	<string>DNF</string>
+</array>
+</plist>

@@ -28,6 +28,7 @@ class TimerViewController: UIViewController {
             }
         }
     }
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var refreshButton: UIButton!

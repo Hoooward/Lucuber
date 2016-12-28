@@ -77,7 +77,7 @@ class ScoreHeaderView: UIView {
             categoryLabel.text = "3x3x3"
         }
         
-        dateLabel.text = scoreGroup.dateSectionString
+        dateLabel.text = scoreGroup.dateSectionString(with: .full)
         
         subTimerLabel.text = scoreGroup.totalSubString
     }

@@ -16,12 +16,16 @@ class ScoreGroupCell: UITableViewCell {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var detailButton: UIButton!
     
+    public var showDetailAction: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         let view = UIView()
         view.backgroundColor = UIColor(red: 220/255.0, green: 238/255.0, blue: 252/255.0, alpha: 1)
         selectedBackgroundView = view
+        
+        detailButton.addTarget(self, action: #selector(ScoreGroupCell.showDetail(sender:)), for: .touchUpInside)
     }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -56,7 +60,10 @@ class ScoreGroupCell: UITableViewCell {
         if scoreGroup.timerList.isEmpty {
             detailButton.isEnabled = false
         }
-        
+    }
+    
+    @objc private func showDetail(sender: UIButton) {
+        showDetailAction?()
     }
 
     

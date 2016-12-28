@@ -154,6 +154,12 @@
 		E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
+		E4A008021E13798E00ABA5B5 /* ScoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */; };
+		E4A008051E137D5800ABA5B5 /* ScoreGroupDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A008031E137D5800ABA5B5 /* ScoreGroupDetailCell.swift */; };
+		E4A008061E137D5800ABA5B5 /* ScoreGroupDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A008041E137D5800ABA5B5 /* ScoreGroupDetailCell.xib */; };
+		E4A008081E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */; };
+		E4A0080B1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A008091E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift */; };
+		E4A0080C1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */; };
 		E4A3BA581DE3F874009C0E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */; };
 		E4A3BA5A1DE3F874009C0E78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA591DE3F874009C0E78 /* ViewController.swift */; };
 		E4A3BA5D1DE3F874009C0E78 /* Main1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5B1DE3F874009C0E78 /* Main1.storyboard */; };
@@ -477,6 +483,12 @@
 		E49534F01E0E34800008934D /* good times rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "good times rg.ttf"; sourceTree = "<group>"; };
 		E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
+		E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailViewController.swift; sourceTree = "<group>"; };
+		E4A008031E137D5800ABA5B5 /* ScoreGroupDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGroupDetailCell.swift; sourceTree = "<group>"; };
+		E4A008041E137D5800ABA5B5 /* ScoreGroupDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreGroupDetailCell.xib; sourceTree = "<group>"; };
+		E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScoreGroupDetailTitle.plist; sourceTree = "<group>"; };
+		E4A008091E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGroupDetailTimerCell.swift; sourceTree = "<group>"; };
+		E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreGroupDetailTimerCell.xib; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4A3BA591DE3F874009C0E78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -832,6 +844,7 @@
 				E4EB5A061DAA796C002A5B55 /* KeyboardMan.swift */,
 				E4F38DC51E01BA5200F0DF8A /* CubeMedia.swift */,
 				E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */,
+				E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -988,6 +1001,18 @@
 				E457FE4D1E0E610600AB5F64 /* ScoreDetailView.swift */,
 			);
 			path = ScoreDetailView;
+			sourceTree = "<group>";
+		};
+		E4A008001E13798400ABA5B5 /* ScoreDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */,
+				E4A008031E137D5800ABA5B5 /* ScoreGroupDetailCell.swift */,
+				E4A008041E137D5800ABA5B5 /* ScoreGroupDetailCell.xib */,
+				E4A008091E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift */,
+				E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */,
+			);
+			path = ScoreDetail;
 			sourceTree = "<group>";
 		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
@@ -1601,6 +1626,7 @@
 				E4DF65F91D8D94B1005CE518 /* TabBar */,
 				E4DF65F51D8D94B1005CE518 /* Navigation */,
 				E4DF65F41D8D94B1005CE518 /* Formula */,
+				E4A008001E13798400ABA5B5 /* ScoreDetail */,
 				E4DF65F71D8D94B1005CE518 /* Result */,
 				E4F38D7F1DFF1FC300F0DF8A /* Timer */,
 				E4F38D7B1DFF1FA800F0DF8A /* Setting */,
@@ -2119,10 +2145,12 @@
 				E4CED8631DE862770036A11C /* CategoryPickViewCell.xib in Resources */,
 				E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */,
 				E4CED84D1DE862770036A11C /* FeedMediaCell.xib in Resources */,
+				E4A0080C1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib in Resources */,
 				E4CED85F1DE862770036A11C /* NormalFormulaCell.xib in Resources */,
 				E4F38D771DFD845700F0DF8A /* PhotoCell.xib in Resources */,
 				E4CED84F1DE862770036A11C /* DetailCommentCell.xib in Resources */,
 				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
+				E4A008061E137D5800ABA5B5 /* ScoreGroupDetailCell.xib in Resources */,
 				E4CED86C1DE862770036A11C /* NewFormulaTextCell.xib in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E4CED86E1DE862770036A11C /* NewSectionHeaderView.xib in Resources */,
@@ -2151,6 +2179,7 @@
 				E4F38D811DFF1FD600F0DF8A /* Timer.storyboard in Resources */,
 				E4CED8721DE862770036A11C /* TypePickViewCell.xib in Resources */,
 				E41ECF591DB77374005BEFE4 /* MediaViewCell.xib in Resources */,
+				E4A008081E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist in Resources */,
 				E4CED8791DE862770036A11C /* CommentHeaderView.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
 			);
@@ -2431,6 +2460,7 @@
 				E4CED85A1DE862770036A11C /* CardFormulaCell.swift in Sources */,
 				E4F38D521DFD1E9F00F0DF8A /* LayoutButton.swift in Sources */,
 				E43B6F401DEA9B4000CE1FB5 /* ParseModel.swift in Sources */,
+				E4A0080B1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.swift in Sources */,
 				E41AC7F61DEDC95900CE3123 /* DeatilHeaderCollectionViewLayout.swift in Sources */,
 				E4CED8851DE862770036A11C /* BorderTextField.swift in Sources */,
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
@@ -2483,6 +2513,7 @@
 				E45351EB1DFC1DF70092805B /* ConversationTitleView.swift in Sources */,
 				E4CED8601DE862770036A11C /* NoResultCell.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
+				E4A008021E13798E00ABA5B5 /* ScoreDetailViewController.swift in Sources */,
 				E4F38D6C1DFD342100F0DF8A /* TitleCell.swift in Sources */,
 				E49534901E0CEB6A0008934D /* SearchTrigger.swift in Sources */,
 				E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */,
@@ -2552,6 +2583,7 @@
 				E424A8661DF6CF27008A6AD0 /* FeedURLContainerView.swift in Sources */,
 				E406A43D1D9A99F400B4BD0A /* UIImage+Cube.swift in Sources */,
 				E4CED8901DE862770036A11C /* TwicketSegmentedControl.swift in Sources */,
+				E4A008051E137D5800ABA5B5 /* ScoreGroupDetailCell.swift in Sources */,
 				E4CED8661DE862770036A11C /* FormulaTextViewCell.swift in Sources */,
 				CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */,
 				E4F38DB21E0075FF00F0DF8A /* SubscribeView.swift in Sources */,

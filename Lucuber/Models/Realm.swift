@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 1
+    config.schemaVersion = 2
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config

@@ -118,6 +118,26 @@ extension UIColor {
         return UIColor.white
     }
     
+    // MARK: - ScoreGroup
+    
+    class func scoreGroupFastestLabelTextColor() -> UIColor {
+        return UIColor(red: 241/255.0, green: 90/255.0, blue: 74/255.0, alpha: 1)
+    }
+    
+    class func scoreGroupSlowliestLabelTextColor() -> UIColor {
+        return UIColor(red: 22/255.0, green: 184/255.0, blue: 115/255.0, alpha: 1)
+    }
+    
+    
+    class func scoreGroupDNFLabelTextColor() -> UIColor {
+        return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+    }
+    
+    
+    class func scoreGroupNormalLabelTextColor() -> UIColor {
+        return UIColor.black
+    }
+    
     
 }
 
