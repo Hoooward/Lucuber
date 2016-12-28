@@ -1260,9 +1260,8 @@ open class ScoreGroup: Object {
             return calculateAverageString(array: frontFiveValidScore.map { $0 })
             
         default:
-            return "DNF\(dnfList.count)次"
+            return "DNF \(dnfList.count) 次"
         }
- 
     }
     
     open var tenStepsAverageString: String {
@@ -1319,6 +1318,7 @@ open class ScoreGroup: Object {
             return "0.000"
         }
         
+        /*
         let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
         let dnfList = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true)
         
@@ -1338,47 +1338,49 @@ open class ScoreGroup: Object {
                    dnfIndexs.append(index)
                 }
             }
+            printLog(dnfIndexs)
+            printLog(list)
             
-            dnfIndexs.forEach {
-                list.remove(at: $0)
+            for index in dnfIndexs {
+                printLog(index)
+                list.remove(at: index)
+                
             }
         }
+        return calculateAverageString(array: list)
+         */
+        
+        let dnfPredicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
+        let dnfList = timerList.filter(dnfPredicate).sorted(byProperty: "timer", ascending: true)
+        
+        let predicate = NSPredicate(format: "isDNF == %@", false as CVarArg)
+        let list: [Score] = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true).map { $0 }
+        
+        guard list.count >= 3 else {
+            return "DNF \(dnfList.count) 次"
+        }
+        
         return calculateAverageString(array: list)
         
     }
     
     private func calculateAverageString(array: [Score]) -> String {
+        /*
         let total = array.map { $0.timer }.reduce(0) { total, num in total + num } / Double(array.count)
+         */
+        
+        let timers = array.map { $0.timer }
+        
+        var total: Double = 0
+        
+        for timer in timers {
+            total += timer
+        }
+        
         return String(format: "%.3f", total)
     }
     
-    
-    var validTimerList: [Score] {
-        
-        let predicate = NSPredicate(format: "isDNF == %@", true as CVarArg)
-        let dnfList = timerList.filter(predicate).sorted(byProperty: "timer", ascending: true)
-        var list: [Score] = timerList.map { $0 }
-        
-        if dnfList.isEmpty {
-            return list
-            
-        } else {
-            // 删除所有 DNF 的数据
-            var dnfIndexs = [Int]()
-            
-            dnfList.forEach {
-                if let index = list.index(of: $0) {
-                    dnfIndexs.append(index)
-                }
-            }
-            
-            dnfIndexs.forEach {
-                list.remove(at: $0)
-            }
-        }
-        
-        return list
-    }
+
     
     public enum DateStyle {
         case full

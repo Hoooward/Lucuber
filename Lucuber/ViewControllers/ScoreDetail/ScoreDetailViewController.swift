@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class ScoreDetailViewController: UIViewController {
     
@@ -17,6 +18,7 @@ class ScoreDetailViewController: UIViewController {
         }
     }
     
+    public var realm: Realm = try! Realm()
     public var scoreGroup: ScoreGroup?
     
     fileprivate var timerList: [Score] {
@@ -107,42 +109,38 @@ extension ScoreDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         guard let section = Section(rawValue: section) else {
             fatalError()
         }
         
         switch section {
-        case .top:
-            return "成绩汇总"
-            
-        case .bottom:
-            return "详细数据"
+        case .top: return "成绩汇总"
+        case .bottom: return "详细数据"
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
         
         switch section {
-        case .top:
             
+        case .top:
             let cell: ScoreGroupDetailCell = tableView.dequeueReusableCell(for: indexPath)
             cell.configureCell(with: scoreGroup, title: collectList[indexPath.row])
             return cell
             
         case .bottom:
-            
             let cell: ScoreGroupDetailTimerCell = tableView.dequeueReusableCell(for: indexPath)
             cell.configureCell(with: timerList[indexPath.row])
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError()
         }
@@ -152,8 +150,55 @@ extension ScoreDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return 44
           
         case .bottom:
+            // TODO: - 行高可能需要计算
             return 80
         }
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        guard let score = timerList[safe: indexPath.row] else {
+            return nil
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "删除", handler: { [weak self] action, indexPath in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let score = strongSelf.timerList[indexPath.row]
+            
+            try? strongSelf.realm.write {
+                strongSelf.realm.delete(score)
+            }
+            
+            tableView.reloadData()
+        })
+        
+        let dnfAction = UITableViewRowAction(style: .normal, title: score.isDNF ? "恢复" : "DNF", handler: { [weak self] action, indexPath in 
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let score = strongSelf.timerList[indexPath.row]
+            
+            try? strongSelf.realm.write {
+                score.isDNF = !score.isDNF
+            }
+            
+            tableView.reloadData()
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
+            
+        })
+        
+        dnfAction.backgroundColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+        
+        return [deleteAction, dnfAction]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
 }

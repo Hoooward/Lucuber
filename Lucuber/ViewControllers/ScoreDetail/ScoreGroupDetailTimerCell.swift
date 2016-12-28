@@ -88,13 +88,11 @@ class ScoreGroupDetailTimerCell: UITableViewCell {
         
         timerLabel.text = score.timertext
         
-        indicatorStyle = .normal
+        indicatorStyle = .dnf
         
         guard let scoreGroup = score.atGroup else {
             return
         }
-        
-        
         
         if let fastestScore = scoreGroup.fastestTimer, let slowliestScore = scoreGroup.slowliestTimer {
             
