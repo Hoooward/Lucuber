@@ -81,40 +81,35 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
         return 25
     }
     
-    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        switch editingStyle {
-        case .delete:
+        guard let score = timerList[safe: indexPath.row] else {
+            return nil
+        }
+        
+        let dnfAction = UITableViewRowAction(style: .normal, title: score.isDNF ? "恢复" : "DNF", handler: {[weak self] action, indexPath in
             
-            guard let realm = scoreGroup?.realm else {
+            
+            guard let strongSelf = self, let realm = strongSelf.scoreGroup?.realm else {
                 return
             }
-            
-            let score = timerList[indexPath.row]
+            let score = strongSelf.timerList[indexPath.row]
             try? realm.write { score.isDNF = !score.isDNF }
-            tableView.setEditing(false, animated: false)
             
             tableView.reloadRows(at: [indexPath], with: .right)
             
-            afterChangeScoreToDNF?()
+            strongSelf.afterChangeScoreToDNF?()
             
-        default:
-            break
-        }
+            
+        })
+        
+        return [dnfAction]
     }
-    
-    public func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return timerList.count == 0 ? UITableViewCellEditingStyle.none : UITableViewCellEditingStyle.delete
-    }
-    
     public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return timerList.count != 0 
     }
     
-    public func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        let score = timerList[indexPath.row]
-        return score.isDNF ? "恢复" : "DNF"
-    }
+  
     
     
 }
