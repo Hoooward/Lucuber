@@ -170,6 +170,8 @@
 		E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */; };
 		E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */; };
 		E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */; };
+		E4B367391E1503BB0010385E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4B367381E1503BB0010385E /* Profile.storyboard */; };
+		E4B3673B1E1504DD0010385E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3673A1E1504DD0010385E /* ProfileViewController.swift */; };
 		E4C40DE41E07866100ED46F2 /* FeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */; };
 		E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */; };
 		E4C40DE91E078A7200ED46F2 /* FeedMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */; };
@@ -502,6 +504,8 @@
 		E4B09BA91D8EB5790090671F /* MyFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAB1D8EB58D0090671F /* LibraryFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryFormulaViewController.swift; sourceTree = "<group>"; };
 		E4B09BAD1D8EB5AE0090671F /* BaseFormulaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFormulaLayout.swift; sourceTree = "<group>"; };
+		E4B367381E1503BB0010385E /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		E4B3673A1E1504DD0010385E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderView.swift; sourceTree = "<group>"; };
 		E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
 		E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaView.swift; sourceTree = "<group>"; };
@@ -1068,6 +1072,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		E4B367371E1503A90010385E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E4B367381E1503BB0010385E /* Profile.storyboard */,
+				E4B3673A1E1504DD0010385E /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		E4C40DE71E078A6900ED46F2 /* FeedMedia */ = {
 			isa = PBXGroup;
 			children = (
@@ -1615,6 +1628,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4B367371E1503A90010385E /* Profile */,
 				E49534871E0CDE580008934D /* SearchFeeds */,
 				E49430751DE07F7900A23F02 /* PickImage */,
 				E494306C1DE01DC600A23F02 /* NewFeed */,
@@ -2155,6 +2169,7 @@
 				E4CED86C1DE862770036A11C /* NewFormulaTextCell.xib in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E4CED86E1DE862770036A11C /* NewSectionHeaderView.xib in Resources */,
+				E4B367391E1503BB0010385E /* Profile.storyboard in Resources */,
 				E4CED8611DE862770036A11C /* NoResultCell.xib in Resources */,
 				E4F38D6D1DFD342100F0DF8A /* TitleCell.xib in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
@@ -2409,6 +2424,7 @@
 				E42C829F1DFBD01300D315CF /* ChatLeftImageCell.swift in Sources */,
 				E457FE4E1E0E610600AB5F64 /* ScoreDetailView.swift in Sources */,
 				E42C82A01DFBD01300D315CF /* ChatLeftTextCell.swift in Sources */,
+				E4B3673B1E1504DD0010385E /* ProfileViewController.swift in Sources */,
 				E42C82A11DFBD01300D315CF /* ChatRightBaseCell.swift in Sources */,
 				E42C82A21DFBD01300D315CF /* ChatRightImageCell.swift in Sources */,
 				E42C82A31DFBD01300D315CF /* ChatRightTextCell.swift in Sources */,

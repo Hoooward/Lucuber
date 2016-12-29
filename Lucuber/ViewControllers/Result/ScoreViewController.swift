@@ -145,7 +145,7 @@ extension ScoreViewController: UITableViewDelegate, UITableViewDataSource {
                 try? strongSelf.realm.write {
                     scoreGroup.cascadeDelete(inRealm: strongSelf.realm)
                 }
-                tableView.reloadData()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
                 
             }, cancelAction: {
                 

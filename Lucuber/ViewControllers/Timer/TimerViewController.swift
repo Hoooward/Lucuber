@@ -60,7 +60,7 @@ class TimerViewController: UIViewController {
         
         topBackgroundView.backgroundColor = UIColor.cubeTintColor()
         
-        topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 500).value)
+        topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 480).value)
         view.layoutIfNeeded()
         
         timerControl.afterReadyStartAction = { [weak self] in
@@ -214,19 +214,19 @@ class TimerViewController: UIViewController {
         
         scoreView.animation = "slideRight"
         scoreView.curve = "easeInOut"
-        scoreView.delay = 0.8
+        scoreView.delay = 0.4
         scoreView.duration = 0.8
         scoreView.animate()
         
         scoreDetailView.animation = "slideLeft"
         scoreDetailView.curve = "easeInOut"
-        scoreDetailView.delay = 0.8
+        scoreDetailView.delay = 0.4
         scoreDetailView.duration = 0.8
         scoreDetailView.animate()
         
         timerControl.animation = "zoomIn"
         timerControl.curve = "easeInOut"
-        timerControl.delay = 0.8
+        timerControl.delay = 0.6
         timerControl.duration = 1.0
         timerControl.animate()
         
@@ -235,7 +235,7 @@ class TimerViewController: UIViewController {
         
         bottomContainerView.animation = "fadeInUp"
         bottomContainerView.curve = "easeInOut"
-        bottomContainerView.duration = 1.0
+        bottomContainerView.duration = 0.8
         bottomContainerView.animate()
         
     }
