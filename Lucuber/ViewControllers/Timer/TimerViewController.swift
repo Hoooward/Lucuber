@@ -34,6 +34,11 @@ class TimerViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var topBackgroundView: UIView!
     @IBOutlet weak var topContaninerViewConstarint: NSLayoutConstraint!
+    @IBOutlet weak var bottomContainerConstarint: NSLayoutConstraint!
+    @IBOutlet weak var bottomContainerView: SpringView!
+    
+    private var isFirstAppear: Bool = true
+    
     @IBOutlet weak var timerControl: TimerControlView!
     
     @IBOutlet weak var scoreView: ScoreView!
@@ -227,5 +232,14 @@ class TimerViewController: UIViewController {
         
         timerLabel.text = "00:00:00"
         refreshButton.isEnabled = true
+        
+//        if isFirstAppear {
+            bottomContainerView.animation = "fadeInUp"
+            bottomContainerView.curve = "easeInOut"
+            bottomContainerView.duration = 0.8
+            bottomContainerView.animate()
+            
+            
+//        }
     }
 }

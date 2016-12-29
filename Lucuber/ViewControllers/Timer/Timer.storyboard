@@ -21,6 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLh-Uh-xhp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-BZ-4Yx">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
                                 <subviews>
@@ -37,8 +41,8 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U D F R2 B F' L F' B' D' R' L' B' L' U F U' D' B' D2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v" customClass="SpringLabel" customModule="Spring">
-                                        <rect key="frame" x="50" y="240.33333333333331" width="314" height="54.333333333333314"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
+                                        <rect key="frame" x="50" y="90.333333333333343" width="314" height="106.33333333333334"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -66,7 +70,7 @@
                                     <constraint firstAttribute="bottom" secondItem="qJg-rn-OMo" secondAttribute="bottom" constant="50" id="5eN-kZ-9iT"/>
                                     <constraint firstAttribute="height" constant="500" id="APL-9Z-ul4"/>
                                     <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="30" id="C2O-hD-aRG"/>
-                                    <constraint firstItem="9IN-Qc-Did" firstAttribute="top" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="40" id="CYY-2g-hsb"/>
+                                    <constraint firstItem="9IN-Qc-Did" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="40" id="CYY-2g-hsb"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="FZO-cy-UZ3"/>
                                     <constraint firstAttribute="trailing" secondItem="oid-bx-WAt" secondAttribute="trailing" constant="20" id="Gfl-6S-GO1"/>
                                     <constraint firstItem="VMx-AF-7Jn" firstAttribute="centerX" secondItem="Ua5-BZ-4Yx" secondAttribute="centerX" id="IuZ-Kb-Qba"/>
@@ -74,136 +78,172 @@
                                     <constraint firstAttribute="trailing" secondItem="pv8-Il-z1v" secondAttribute="trailing" constant="50" id="Q5S-wI-w1R"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="top" secondItem="9IN-Qc-Did" secondAttribute="bottom" constant="5" id="STu-2U-C3W"/>
                                     <constraint firstItem="pv8-Il-z1v" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" constant="50" id="gMj-SQ-3Qo"/>
-                                    <constraint firstItem="pv8-Il-z1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="100" id="h45-Pm-Pl5"/>
+                                    <constraint firstItem="pv8-Il-z1v" firstAttribute="top" secondItem="VMx-AF-7Jn" secondAttribute="bottom" constant="40" id="gcp-lU-uUz"/>
                                     <constraint firstItem="VMx-AF-7Jn" firstAttribute="centerY" secondItem="oid-bx-WAt" secondAttribute="centerY" id="ico-CB-pTP"/>
                                     <constraint firstAttribute="trailing" secondItem="qJg-rn-OMo" secondAttribute="trailing" id="sEm-qC-I6g"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjI-gM-Ecv" customClass="ScoreView" customModule="Lucuber" customModuleProvider="target">
-                                <rect key="frame" x="20" y="508" width="120" height="171"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Aw-SC-3fR" userLabel="Bottom Container View" customClass="SpringView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="456" width="414" height="251"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIg-vk-YVl">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="171"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="NIg-vk-YVl" secondAttribute="bottom" id="1kL-Ml-Ig7"/>
-                                    <constraint firstItem="NIg-vk-YVl" firstAttribute="top" secondItem="bjI-gM-Ecv" secondAttribute="top" id="8Z8-er-iBQ"/>
-                                    <constraint firstAttribute="width" constant="120" id="PRK-eI-bX9"/>
-                                    <constraint firstItem="NIg-vk-YVl" firstAttribute="leading" secondItem="bjI-gM-Ecv" secondAttribute="leading" id="Vp9-iy-4NA"/>
-                                    <constraint firstAttribute="trailing" secondItem="NIg-vk-YVl" secondAttribute="trailing" id="ZLX-BY-XVw"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="tableView" destination="NIg-vk-YVl" id="tHQ-V3-O5l"/>
-                                </connections>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnN-gm-mcY" customClass="ScoreDetailView" customModule="Lucuber" customModuleProvider="target">
-                                <rect key="frame" x="244" y="508" width="150" height="129"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="95f-MW-o3y">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="129"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="hI5-iu-zHg">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="k3p-hI-O21"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpc-bG-VMr">
+                                        <rect key="frame" x="0.0" y="40" width="414" height="211"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="R0I-ZH-byT">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="32.333333333333371"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjI-gM-Ecv" customClass="ScoreView" customModule="Lucuber" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="10" width="120" height="171"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-e2-HjC">
-                                                        <rect key="frame" x="0.0" y="9" width="76.666666666666686" height="14.333333333333371"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ua2-8c-jep" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="73.666666666666686" y="9" width="76.333333333333314" height="14.333333333333371"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIg-vk-YVl">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="171"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </tableView>
                                                 </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="bJW-41-xSK">
-                                                <rect key="frame" x="0.0" y="32.333333333333371" width="150" height="32.333333333333258"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="GFy-pP-zqd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="NIg-vk-YVl" secondAttribute="bottom" id="Ut4-dZ-bjU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="NIg-vk-YVl" secondAttribute="trailing" id="osC-tz-iKz"/>
+                                                    <constraint firstItem="NIg-vk-YVl" firstAttribute="top" secondItem="bjI-gM-Ecv" secondAttribute="top" id="qaf-KS-LiU"/>
+                                                    <constraint firstItem="NIg-vk-YVl" firstAttribute="leading" secondItem="bjI-gM-Ecv" secondAttribute="leading" id="znr-aa-XiZ"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="tableView" destination="NIg-vk-YVl" id="tHQ-V3-O5l"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnN-gm-mcY" customClass="ScoreDetailView" customModule="Lucuber" customModuleProvider="target">
+                                                <rect key="frame" x="279" y="10" width="120" height="151"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-Sj-dxQ">
-                                                        <rect key="frame" x="0.0" y="9" width="76.666666666666686" height="14.333333333333258"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5VA-2d-BFJ" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="73.666666666666686" y="9" width="76.333333333333314" height="14.333333333333258"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="95f-MW-o3y">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="151"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="R0I-ZH-byT">
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="37.666666666666629"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-e2-HjC">
+                                                                        <rect key="frame" x="0.0" y="11.666666666666629" width="61.666666666666686" height="14.333333333333371"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ua2-8c-jep" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
+                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666629" width="61.333333333333314" height="14.333333333333371"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="bJW-41-xSK">
+                                                                <rect key="frame" x="0.0" y="37.666666666666629" width="120" height="38"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-Sj-dxQ">
+                                                                        <rect key="frame" x="0.0" y="11.666666666666742" width="61.666666666666686" height="14.333333333333258"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5VA-2d-BFJ" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
+                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666742" width="61.333333333333314" height="14.333333333333258"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="w89-ty-kO5">
+                                                                <rect key="frame" x="0.0" y="75.666666666666629" width="120" height="37.666666666666742"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVG" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVb-ji-HgH">
+                                                                        <rect key="frame" x="0.0" y="11.666666666666742" width="61.666666666666686" height="14.333333333333258"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReJ-BV-Lwc" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
+                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666742" width="61.333333333333314" height="14.333333333333258"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="c2c-CE-o33">
+                                                                <rect key="frame" x="0.0" y="113.33333333333337" width="120" height="37.666666666666629"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DNF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhT-v2-DUh">
+                                                                        <rect key="frame" x="0.0" y="11.666666666666629" width="61.666666666666686" height="14.333333333333371"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="12"/>
+                                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfH-OJ-Pek" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
+                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666629" width="61.333333333333314" height="14.333333333333371"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="w89-ty-kO5">
-                                                <rect key="frame" x="0.0" y="64.666666666666629" width="150" height="32"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVG" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVb-ji-HgH">
-                                                        <rect key="frame" x="0.0" y="8.6666666666667425" width="76.666666666666686" height="14.333333333333258"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReJ-BV-Lwc" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="73.666666666666686" y="8.6666666666667425" width="76.333333333333314" height="14.333333333333258"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="c2c-CE-o33">
-                                                <rect key="frame" x="0.0" y="96.666666666666629" width="150" height="32.333333333333371"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DNF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhT-v2-DUh">
-                                                        <rect key="frame" x="0.0" y="9" width="76.666666666666686" height="14.333333333333371"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="12"/>
-                                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfH-OJ-Pek" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                        <rect key="frame" x="73.666666666666686" y="9" width="76.333333333333314" height="14.333333333333371"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                                        <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="95f-MW-o3y" firstAttribute="top" secondItem="bnN-gm-mcY" secondAttribute="top" id="6IB-fL-SGG"/>
+                                                    <constraint firstAttribute="bottom" secondItem="95f-MW-o3y" secondAttribute="bottom" id="DMD-UZ-elq"/>
+                                                    <constraint firstAttribute="trailing" secondItem="95f-MW-o3y" secondAttribute="trailing" id="KFC-tE-c5J"/>
+                                                    <constraint firstItem="95f-MW-o3y" firstAttribute="leading" secondItem="bnN-gm-mcY" secondAttribute="leading" id="h1X-T9-pYL"/>
+                                                    <constraint firstAttribute="width" constant="120" id="zxx-i8-Lct"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dnfLabel" destination="IfH-OJ-Pek" id="nCl-WP-zbS"/>
+                                                    <outlet property="fastyLabel" destination="Ua2-8c-jep" id="oU1-zm-jkg"/>
+                                                    <outlet property="slowlyLabel" destination="5VA-2d-BFJ" id="8kK-Wn-8Op"/>
+                                                    <outlet property="totalStepsLabel" destination="ReJ-BV-Lwc" id="tcM-ES-lJA"/>
+                                                </connections>
+                                            </view>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="bnN-gm-mcY" firstAttribute="top" secondItem="Kpc-bG-VMr" secondAttribute="top" constant="10" id="KwT-uU-eZ2"/>
+                                            <constraint firstAttribute="bottom" secondItem="bjI-gM-Ecv" secondAttribute="bottom" constant="30" id="SHl-KF-ICR"/>
+                                            <constraint firstItem="bjI-gM-Ecv" firstAttribute="leading" secondItem="Kpc-bG-VMr" secondAttribute="leading" constant="10" id="cob-iQ-Xun"/>
+                                            <constraint firstItem="bjI-gM-Ecv" firstAttribute="top" secondItem="Kpc-bG-VMr" secondAttribute="top" constant="10" id="kop-hl-KcN"/>
+                                            <constraint firstAttribute="bottom" secondItem="bnN-gm-mcY" secondAttribute="bottom" constant="50" id="w60-f3-BPp"/>
+                                            <constraint firstAttribute="trailing" secondItem="bnN-gm-mcY" secondAttribute="trailing" constant="15" id="yQo-lt-DIW"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="95f-MW-o3y" firstAttribute="top" secondItem="bnN-gm-mcY" secondAttribute="top" id="6IB-fL-SGG"/>
-                                    <constraint firstAttribute="bottom" secondItem="95f-MW-o3y" secondAttribute="bottom" id="DMD-UZ-elq"/>
-                                    <constraint firstAttribute="trailing" secondItem="95f-MW-o3y" secondAttribute="trailing" id="KFC-tE-c5J"/>
-                                    <constraint firstAttribute="width" constant="150" id="NqW-xP-rFA"/>
-                                    <constraint firstItem="95f-MW-o3y" firstAttribute="leading" secondItem="bnN-gm-mcY" secondAttribute="leading" id="h1X-T9-pYL"/>
+                                    <constraint firstAttribute="trailing" secondItem="hI5-iu-zHg" secondAttribute="trailing" id="08t-Mu-txE"/>
+                                    <constraint firstItem="Kpc-bG-VMr" firstAttribute="top" secondItem="hI5-iu-zHg" secondAttribute="bottom" constant="-5" id="8lF-3B-qUo"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kpc-bG-VMr" secondAttribute="trailing" id="9Eq-GJ-Z3e"/>
+                                    <constraint firstItem="hI5-iu-zHg" firstAttribute="leading" secondItem="3Aw-SC-3fR" secondAttribute="leading" id="fe5-ad-rzC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Kpc-bG-VMr" secondAttribute="bottom" id="ha4-3A-R4M"/>
+                                    <constraint firstItem="hI5-iu-zHg" firstAttribute="top" secondItem="3Aw-SC-3fR" secondAttribute="top" id="sXa-5n-K20"/>
+                                    <constraint firstItem="Kpc-bG-VMr" firstAttribute="leading" secondItem="3Aw-SC-3fR" secondAttribute="leading" id="ssc-HG-z7d"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="dnfLabel" destination="IfH-OJ-Pek" id="nCl-WP-zbS"/>
-                                    <outlet property="fastyLabel" destination="Ua2-8c-jep" id="oU1-zm-jkg"/>
-                                    <outlet property="slowlyLabel" destination="5VA-2d-BFJ" id="8kK-Wn-8Op"/>
-                                    <outlet property="totalStepsLabel" destination="ReJ-BV-Lwc" id="tcM-ES-lJA"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="cs4-H0-BJc" firstAttribute="top" secondItem="bnN-gm-mcY" secondAttribute="bottom" constant="50" id="2BR-r8-fPF"/>
-                            <constraint firstItem="cs4-H0-BJc" firstAttribute="top" secondItem="bjI-gM-Ecv" secondAttribute="bottom" constant="8" id="2bk-zE-f0m"/>
+                            <constraint firstAttribute="trailing" secondItem="oLh-Uh-xhp" secondAttribute="trailing" id="DsW-cu-mWw"/>
+                            <constraint firstItem="3Aw-SC-3fR" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" id="Eq4-Ur-7ad"/>
                             <constraint firstItem="Ua5-BZ-4Yx" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" id="I9H-Xw-kKh"/>
                             <constraint firstAttribute="trailing" secondItem="Ua5-BZ-4Yx" secondAttribute="trailing" id="NPS-8J-IVo"/>
-                            <constraint firstItem="bjI-gM-Ecv" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="bottom" constant="8" id="NVS-ao-eVs"/>
                             <constraint firstItem="Ua5-BZ-4Yx" firstAttribute="top" secondItem="PrV-DT-zYv" secondAttribute="top" id="Opo-IB-jyG"/>
-                            <constraint firstItem="bjI-gM-Ecv" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" constant="20" id="lwR-Bf-bBb"/>
-                            <constraint firstAttribute="trailing" secondItem="bnN-gm-mcY" secondAttribute="trailing" constant="20" id="oVa-P7-fOj"/>
-                            <constraint firstItem="bnN-gm-mcY" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="bottom" constant="8" id="yeL-3e-VnE"/>
+                            <constraint firstItem="cs4-H0-BJc" firstAttribute="top" secondItem="3Aw-SC-3fR" secondAttribute="bottom" constant="-20" id="YtS-Z2-KiC"/>
+                            <constraint firstAttribute="trailing" secondItem="3Aw-SC-3fR" secondAttribute="trailing" id="aVO-6O-wni"/>
+                            <constraint firstItem="oLh-Uh-xhp" firstAttribute="leading" secondItem="PrV-DT-zYv" secondAttribute="leading" id="bes-tW-l2h"/>
+                            <constraint firstItem="oLh-Uh-xhp" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="top" id="fTh-MB-8mS"/>
+                            <constraint firstItem="3Aw-SC-3fR" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="bottom" constant="-44" id="pwM-3N-Kye"/>
+                            <constraint firstItem="cs4-H0-BJc" firstAttribute="top" secondItem="oLh-Uh-xhp" secondAttribute="bottom" id="xqO-BN-BJH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="三阶" id="2S1-h3-fAq">
@@ -212,6 +252,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomContainerConstarint" destination="pwM-3N-Kye" id="z0x-0g-fOy"/>
+                        <outlet property="bottomContainerView" destination="3Aw-SC-3fR" id="aV0-IY-9G2"/>
                         <outlet property="refreshButton" destination="oid-bx-WAt" id="FU5-Pu-q9R"/>
                         <outlet property="scoreDetailView" destination="bnN-gm-mcY" id="QYb-UK-dkU"/>
                         <outlet property="scoreView" destination="bjI-gM-Ecv" id="S40-o4-GC8"/>
@@ -230,7 +272,7 @@
         <!--计时器-->
         <scene sceneID="KtA-Ru-xPf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="计时器" image="tabbar_time" selectedImage="tabbar_time_sele" id="zAz-NQ-3cl"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -346,6 +388,7 @@
     </scenes>
     <resources>
         <image name="ios-refresh-empty" width="36" height="43"/>
+        <image name="loading" width="414" height="45"/>
         <image name="new_score_group_popover" width="67" height="70"/>
         <image name="skill_bubble" width="55" height="24"/>
         <image name="tabbar_time" width="28" height="30"/>
