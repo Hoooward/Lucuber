@@ -29,7 +29,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     public var formula: Formula! {
         didSet {
-            
             try? realm.write {
                 formula.isNewVersion = false
             }
@@ -149,7 +148,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
 //                        strongSelf.formula.cascadeDelete(inRealm: realm)
 //                    }
 //                }
-                
                 
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 

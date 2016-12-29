@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileHeaderCell" id="gTV-IL-0wX" customClass="ProfileHeaderCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Howard" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-Yc-aiu" userLabel="Avatar Image View">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qAD-bV-mv3" userLabel="Avatar Blur Image View">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="bf5-Yc-aiu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="6gj-Mn-PQv"/>
+                <constraint firstAttribute="trailing" secondItem="qAD-bV-mv3" secondAttribute="trailing" id="Cyc-U7-470"/>
+                <constraint firstAttribute="trailing" secondItem="bf5-Yc-aiu" secondAttribute="trailing" id="QHz-1u-WlF"/>
+                <constraint firstItem="qAD-bV-mv3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Qan-6B-5Du"/>
+                <constraint firstItem="bf5-Yc-aiu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jeJ-Ic-YmT"/>
+                <constraint firstAttribute="bottom" secondItem="qAD-bV-mv3" secondAttribute="bottom" id="lHf-DW-PT4"/>
+                <constraint firstItem="qAD-bV-mv3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="uwJ-u1-aVL"/>
+                <constraint firstAttribute="bottom" secondItem="bf5-Yc-aiu" secondAttribute="bottom" id="zyS-Ds-3Vb"/>
+            </constraints>
+            <size key="customSize" width="450" height="280"/>
+            <connections>
+                <outlet property="avatarBlurImageView" destination="qAD-bV-mv3" id="f3k-WA-T20"/>
+                <outlet property="avatarImageView" destination="bf5-Yc-aiu" id="xQt-Iu-ln2"/>
+            </connections>
+            <point key="canvasLocation" x="62" y="25"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Howard" width="459" height="459"/>
+    </resources>
+</document>

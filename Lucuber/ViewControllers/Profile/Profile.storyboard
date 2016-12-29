@@ -14,7 +14,7 @@
                 <navigationController id="HD5-iu-WB9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我" image="tabbar_setting" selectedImage="tabbar_setting_sele" id="Y6T-Sx-RfZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nfm-6Z-uBS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nfm-6Z-uBS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -38,6 +38,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="adl-EZ-2wn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YOr-12-Adp" customClass="ProfileLayout" customModule="Lucuber" customModuleProvider="target">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="24s-c8-0Pa">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="HyC-gf-LeM" id="Ir7-w2-uXN"/>
+                                    <outlet property="delegate" destination="HyC-gf-LeM" id="noi-sg-Zyr"/>
+                                </connections>
+                            </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top_shadow" translatesAutoresizingMaskIntoConstraints="NO" id="tZv-c1-mcr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <constraints>
@@ -47,9 +71,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="adl-EZ-2wn" secondAttribute="trailing" id="7gD-QF-gd1"/>
+                            <constraint firstItem="YbZ-kF-1gM" firstAttribute="top" secondItem="adl-EZ-2wn" secondAttribute="bottom" id="88E-nu-bcv"/>
+                            <constraint firstItem="adl-EZ-2wn" firstAttribute="leading" secondItem="6mo-RV-Hl0" secondAttribute="leading" id="KvM-Q5-tqW"/>
                             <constraint firstItem="tZv-c1-mcr" firstAttribute="top" secondItem="6mo-RV-Hl0" secondAttribute="top" id="OBg-JS-yTH"/>
                             <constraint firstAttribute="trailing" secondItem="tZv-c1-mcr" secondAttribute="trailing" id="U7Q-NI-Xvg"/>
                             <constraint firstItem="tZv-c1-mcr" firstAttribute="leading" secondItem="6mo-RV-Hl0" secondAttribute="leading" id="Uvl-dE-pdM"/>
+                            <constraint firstItem="adl-EZ-2wn" firstAttribute="top" secondItem="6mo-RV-Hl0" secondAttribute="top" id="wFy-Tj-T4t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tychooo" id="vCO-8h-e38">
@@ -57,6 +85,10 @@
                             <color key="tintColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="adl-EZ-2wn" id="bFk-rs-q1h"/>
+                        <outlet property="topShadowImageView" destination="tZv-c1-mcr" id="uST-Qx-5Ll"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8a-wo-7OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
