@@ -29,10 +29,8 @@ class NewScoreGroupPresentationController: UIPresentationController {
     
     func dismissPresentedViewController() {
         
+        NotificationCenter.default.post(name: .newScoreGroupViewControllerDidDismissNotification, object: nil)
         presentedViewController.dismiss(animated: true, completion: nil)
-        
-        NotificationCenter.default.post(name: .formulaCategoryMenuDidmissNotification, object: nil)
-        
         
     }
     

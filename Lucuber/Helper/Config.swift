@@ -30,8 +30,10 @@ extension Notification.Name {
 
     static let changedConversationNotification = Notification.Name("changedConversationNotification")
 
-    // AppDelegate
     static let applicationDidBecomeActiveNotification = Notification.Name("applicationDidBecomeActive")
+    
+    static let newScoreGroupViewControllerDidDismissNotification = Notification.Name("newScoreGroupViewControllerDidDismiss")
+    
 
 }
 

@@ -10,10 +10,10 @@ import UIKit
 
 class ScoreGroupCell: UITableViewCell {
 
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var fastestLabel: UILabel!
-    @IBOutlet weak var slowliestLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var dateLabel: ScoreTimerLabel!
+    @IBOutlet weak var fastestLabel: ScoreTimerLabel!
+    @IBOutlet weak var slowliestLabel: ScoreTimerLabel!
+    @IBOutlet weak var countLabel: ScoreTimerLabel!
     @IBOutlet weak var detailButton: UIButton!
     
     public var showDetailAction: (() -> Void)?

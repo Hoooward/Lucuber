@@ -59,11 +59,9 @@ class TimerViewController: UIViewController {
         super.viewDidLoad()
         
         topBackgroundView.backgroundColor = UIColor.cubeTintColor()
+        
         topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 500).value)
         view.layoutIfNeeded()
-        
-//        timerLabel.font = UIFont.timerLabelFont()
-//        scramblingLabel.text = Scrambling.shared.refreshScramblingText()
         
         timerControl.afterReadyStartAction = { [weak self] in
             self?.timerLabel.reset()
@@ -79,14 +77,8 @@ class TimerViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(TimerViewController.pasueTimer(sender:)))
         view.addGestureRecognizer(tap)
         
-        UIFont.familyNames.forEach { name in
-            
-            UIFont.fontNames(forFamilyName: name).forEach {
-                printLog($0)
-            }
-            
-            
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(TimerViewController.updateRefreshButton), name: .newScoreGroupViewControllerDidDismissNotification, object: nil)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -101,6 +93,10 @@ class TimerViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Target & Action
@@ -205,6 +201,10 @@ class TimerViewController: UIViewController {
         currentScoreGroup = scoreGroupWith(user: currentUser(in: realm), inRealm: realm).first
     }
     
+    @objc private func updateRefreshButton() {
+        refreshButton.isEnabled = true
+    }
+    
     private func updateUIWithAnimation() {
         
         scramblingLabel.animation = "slideDown"
@@ -214,32 +214,29 @@ class TimerViewController: UIViewController {
         
         scoreView.animation = "slideRight"
         scoreView.curve = "easeInOut"
-        scoreView.delay = 0.4
+        scoreView.delay = 0.8
         scoreView.duration = 0.8
         scoreView.animate()
         
         scoreDetailView.animation = "slideLeft"
         scoreDetailView.curve = "easeInOut"
-        scoreDetailView.delay = 0.4
+        scoreDetailView.delay = 0.8
         scoreDetailView.duration = 0.8
         scoreDetailView.animate()
         
         timerControl.animation = "zoomIn"
         timerControl.curve = "easeInOut"
-        timerControl.delay = 0.6
+        timerControl.delay = 0.8
         timerControl.duration = 1.0
         timerControl.animate()
         
         timerLabel.text = "00:00:00"
         refreshButton.isEnabled = true
         
-//        if isFirstAppear {
-            bottomContainerView.animation = "fadeInUp"
-            bottomContainerView.curve = "easeInOut"
-            bottomContainerView.duration = 0.8
-            bottomContainerView.animate()
-            
-            
-//        }
+        bottomContainerView.animation = "fadeInUp"
+        bottomContainerView.curve = "easeInOut"
+        bottomContainerView.duration = 1.0
+        bottomContainerView.animate()
+        
     }
 }
