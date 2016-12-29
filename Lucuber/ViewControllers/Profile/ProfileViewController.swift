@@ -8,14 +8,66 @@
 
 import UIKit
 import RealmSwift
+import AVOSCloud
 
-class ProfileViewController: UIViewController {
+enum ProfileUser {
+    
+    case discoverUser(AVUser)
+    case userType(RUser)
+    
+    
+    var isMe: Bool {
+        
+        guard
+            let currentUser = AVUser.current(),
+            let currentUserId = currentUser.objectId else {
+           return false
+        }
+        
+        switch self {
+        case .discoverUser(let avUser):
+           return avUser.objectId ?? "" == currentUserId
+            
+        case .userType(let rUser):
+           return rUser.lcObjcetID == currentUserId
+            
+        }
+    }
+}
+
+final class ProfileViewController: UIViewController {
+    
+    public var profileUser: ProfileUser?
+    
+    var profileUserIsMe = true {
+        didSet {
+            if !profileUserIsMe {
+                
+            } else {
+                
+                let settingsBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_settings"), style: .plain, target: self, action: #selector(ProfileViewController.showSettings(sender:)))
+                
+                customNavigationItem.rightBarButtonItem = settingsBarButtonItem
+                // TODO: - 创建 Feed 删除 Feed 的通知
+            }
+        }
+    }
+    
+    @objc private func showSettings(sender: UIBarButtonItem) {
+        
+    }
     
     fileprivate var statusBarShouldLight = false
     fileprivate var noNeedToChangeStatusBar = false
     
     @IBOutlet weak var topShadowImageView: UIImageView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.registerNib(of: ProfileHeaderCell.self)
+            collectionView.registerNib(of: ProfileFooterCell.self)
+            collectionView.alwaysBounceVertical = true
+        }
+    }
     
     fileprivate lazy var customNavigationItem: UINavigationItem = UINavigationItem(title: "Tychooo")
     fileprivate lazy var customNavigationBar: UINavigationBar = {
@@ -49,8 +101,42 @@ class ProfileViewController: UIViewController {
         //TODO: - 清理缓存
         view.addSubview(customNavigationBar)
         
-        collectionView.registerNib(of: ProfileHeaderCell.self)
-        collectionView.registerNib(of: ProfileFooterCell.self)
+      
+        
+
+        
+        if let profileUser = profileUser {
+            
+            switch profileUser {
+                
+            case .discoverUser(let avUser):
+                guard let realm = try? Realm() else {
+                    break
+                }
+                
+                if let user =  userWith(avUser.objectId ?? "", inRealm: realm) {
+                    
+                    self.profileUser = ProfileUser.userType(user)
+                    updateProfileCollectionView()
+                }
+                
+            case .userType(_):
+                break
+            }
+            
+        } else {
+            // 为空的话显示自己
+            guard let realm = try? Realm(), let me = currentUser(in: realm) else {
+                return
+            }
+            
+            profileUser = ProfileUser.userType(me)
+            
+            updateProfileCollectionView()
+            
+        }
+        
+        profileUserIsMe = profileUser?.isMe ?? false
         
         if let profileLayout = collectionView.collectionViewLayout as? ProfileLayout {
             
@@ -78,7 +164,6 @@ class ProfileViewController: UIViewController {
             }
         }
         
-        collectionView.alwaysBounceVertical = true
         automaticallyAdjustsScrollViewInsets = false
         
         if let tabBarController = tabBarController {
@@ -107,6 +192,13 @@ class ProfileViewController: UIViewController {
         }
         
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    func updateProfileCollectionView() {
+        
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.reloadData()
+        collectionView.layoutIfNeeded()
     }
 }
 
