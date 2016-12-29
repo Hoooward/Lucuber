@@ -17,13 +17,14 @@ public class ScoreCell: UITableViewCell {
     
     override public func awakeFromNib() {
         super.awakeFromNib()
-        scoreLabel.font = UIFont.scoreLabelFont()
-        scoreLabel.textColor = UIColor.gray
+        //scoreLabel.font = UIFont.scoreLabelFont()
+        //scoreLabel.textColor = UIColor.gray
     }
     
     public func configreCell(with score: Score) {
     
         scoreLabel.text = score.timertext
-        indicatorImageView.image = UIImage(named: score.isDNF ? "OvalRed" : "OvalBlue")
+        indicatorImageView.image = UIImage(named: score.isDNF ? "OvalGray" : "OvalBlue")
+        scoreLabel.textColor = score.isDNF ? UIColor.scoreGroupDNFLabelTextColor() : UIColor.timerLabelTextColor()
     }
 }

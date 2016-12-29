@@ -1384,7 +1384,7 @@ open class ScoreGroup: Object {
             total += timer
         }
         
-        return String(format: "%.3f", total)
+        return String(format: "%.3f", total / Double(timers.count))
     }
     
 

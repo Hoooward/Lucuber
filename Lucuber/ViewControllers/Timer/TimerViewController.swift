@@ -57,8 +57,8 @@ class TimerViewController: UIViewController {
         topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 500).value)
         view.layoutIfNeeded()
         
-        timerLabel.font = UIFont.timerLabelFont()
-        scramblingLabel.text = Scrambling.shared.refreshScramblingText()
+//        timerLabel.font = UIFont.timerLabelFont()
+//        scramblingLabel.text = Scrambling.shared.refreshScramblingText()
         
         timerControl.afterReadyStartAction = { [weak self] in
             self?.timerLabel.reset()

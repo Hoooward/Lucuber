@@ -40,8 +40,7 @@ class FeedBaseCell: UITableViewCell {
         let height: CGFloat = 10 + 40 + ceil(rect.height) + 4 + 15 + 17 + 15
         return ceil(height)
     }
-    
-    
+
     func configureWithFeed(_ feed: DiscoverFeed, layout: FeedCellLayout, needshowCategory: Bool) {
         
         let defaultLayout = layout.defaultLayout
@@ -259,8 +258,7 @@ class FeedBaseCell: UITableViewCell {
             discussionImageView.isHidden = hasUploadingErrorMessage
         }
     }
-    
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
