@@ -40,6 +40,10 @@
                 <constraint firstItem="ZjV-mp-2Ms" firstAttribute="centerY" secondItem="83f-in-p7g" secondAttribute="centerY" id="lHN-HA-PVu"/>
             </constraints>
             <size key="customSize" width="306" height="50"/>
+            <connections>
+                <outlet property="indicatorTrailingConstraint" destination="6SZ-Mu-2aV" id="oxC-sG-mzT"/>
+                <outlet property="labelLeadingConstraint" destination="MmD-nq-c7o" id="6Bx-ex-Fkl"/>
+            </connections>
             <point key="canvasLocation" x="224" y="333"/>
         </collectionViewCell>
     </objects>

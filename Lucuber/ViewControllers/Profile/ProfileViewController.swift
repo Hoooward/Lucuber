@@ -65,6 +65,40 @@ enum ProfileUser {
         }
         return "没有用户名"
     }
+    
+    public var cubeCategoryMasterCount: Int {
+        switch self {
+            
+        case .discoverUser(let avUser):
+            
+            if let list = avUser.cubeCategoryMasterList() {
+                return list.count
+            }
+            
+        case .userType(let ruser):
+            return ruser.cubeCategoryMasterList.count
+        }
+        
+        return 0
+    }
+    
+    public func cellCubeCategory(atIndexPath indexPath: IndexPath) -> String? {
+        
+        var categoryString: String?
+        
+        switch self {
+        case .discoverUser(let avUser):
+            
+            if let list = avUser.cubeCategoryMasterList() {
+                categoryString = list[indexPath.item]
+            }
+            
+        case .userType(let ruser):
+            categoryString = ruser.cubeCategoryMasterList[indexPath.item].categoryString
+        }
+        
+        return categoryString
+    }
 }
 
 final class ProfileViewController: UIViewController {
@@ -101,6 +135,8 @@ final class ProfileViewController: UIViewController {
             collectionView.registerNib(of: ProfileMasterCell.self)
             collectionView.registerNib(of: ProfileScoreCell.self)
             collectionView.registerNib(of: ProfileFeedsCell.self)
+            collectionView.registerNib(of: CubeCategoryCell.self)
+            collectionView.registerHeaderNibOf(ProfileSectionHeaderReusableView.self)
             collectionView.alwaysBounceVertical = true
         }
     }
@@ -452,7 +488,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.width * profileAvatarAspectRatio)
             
         case .footer:
-            return CGSize(width: collectionView.bounds.width, height: 10 + 24 + 4 + 18 + 10 + 40 + 6)
+            return CGSize(width: collectionView.bounds.width, height: footerCellHeight)
             
         case .master:
             return CGSize(width: collectionView.bounds.width, height: 60)

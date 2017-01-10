@@ -339,6 +339,8 @@ open class Content: Object {
 }
 
 
+// MARK: - User
+
 open class Preferences: Object {
     // 未登录用户在登录成功时, 将其设置为 0.9
     dynamic var dateVersion: String = ""
@@ -363,7 +365,13 @@ open class FormulaMaster: Object {
     open dynamic var atRUser: RUser?
 }
 
-// MARK: - User
+open class CubeCategoryMaster: Object {
+    
+    open dynamic var categoryString = ""
+    open dynamic var atRUser: RUser?
+    
+    
+}
 
 open class RUser: Object {
     
@@ -376,7 +384,11 @@ open class RUser: Object {
     open dynamic var avatorImageURL: String?
     open dynamic var introduction: String?
     
+    // 已掌握的公式
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
+    // 擅长的魔方
+    open let cubeCategoryMasterList = LinkingObjects(fromType: CubeCategoryMaster.self, property: "atRUser")
+    
     open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     open let messages = LinkingObjects(fromType: Message.self, property: "creator")
     open let conversations = LinkingObjects(fromType: Conversation.self, property: "withFriend")

@@ -40,6 +40,10 @@
                 <constraint firstItem="Wha-Bd-LxD" firstAttribute="leading" secondItem="qcP-J3-TEU" secondAttribute="trailing" constant="10" id="zUL-Bt-p5f"/>
             </constraints>
             <size key="customSize" width="306" height="50"/>
+            <connections>
+                <outlet property="indicatorTrailingConstraint" destination="Y4D-GF-wrj" id="eQR-JJ-OIT"/>
+                <outlet property="labelLeadingConstraint" destination="IlX-Z2-NfW" id="KjZ-tj-MwG"/>
+            </connections>
             <point key="canvasLocation" x="-32" y="42"/>
         </collectionViewCell>
     </objects>

@@ -9,10 +9,14 @@
 import UIKit
 
 class ProfileScoreCell: UICollectionViewCell {
-
+    
+    @IBOutlet weak var indicatorTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var labelLeadingConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        labelLeadingConstraint.constant = Config.Profile.leftEdgeInset
+        indicatorTrailingConstraint.constant = Config.Profile.rightEdgeInset
     }
 
 }

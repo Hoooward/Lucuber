@@ -15,6 +15,7 @@ fileprivate let avatorImageURLKey = "avatorImageURL"
 fileprivate let localObjectIDKey = "localObjectID"
 fileprivate let masterListKey = "masterList"
 fileprivate let introdctionKey = "introduction"
+fileprivate let cubeCategoryMasterListKey = "cubeCategoryMasterListKey"
 
 extension AVUser {
     
@@ -50,13 +51,20 @@ extension AVUser {
         setObject(imageUrl, forKey: avatorImageURLKey)
     }
     
-    
     func masterList() -> [String]? {
         return object(forKey: masterListKey) as? [String]
     }
     
     func setMasterList(_ list: [String]) {
         setObject(list, forKey: masterListKey)
+    }
+    
+    func cubeCategoryMasterList() -> [String]? {
+        return object(forKey: cubeCategoryMasterListKey) as? [String]
+    }
+    
+    func setCubeCategoryMasterList(_ list: [String]) {
+        setObject(list, forKey: cubeCategoryMasterListKey)
     }
     
     public static var isLogin: Bool {

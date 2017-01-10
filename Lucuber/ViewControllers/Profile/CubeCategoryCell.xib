@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CubeCategoryCell" id="mQf-0f-5sa" customClass="CubeCategoryCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="99" height="24"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="99" height="24"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skill_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="ztk-8z-N4O" userLabel="Background Image View">
+                        <rect key="frame" x="0.0" y="0.0" width="99" height="24"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3x3x3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csA-or-HyN" userLabel="category Label">
+                        <rect key="frame" x="0.0" y="0.0" width="99" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="csA-or-HyN" secondAttribute="trailing" id="7Lh-zL-Wcy"/>
+                <constraint firstItem="ztk-8z-N4O" firstAttribute="leading" secondItem="mQf-0f-5sa" secondAttribute="leading" id="QTx-e9-ZOO"/>
+                <constraint firstAttribute="bottom" secondItem="ztk-8z-N4O" secondAttribute="bottom" id="akR-uG-fD1"/>
+                <constraint firstItem="ztk-8z-N4O" firstAttribute="top" secondItem="mQf-0f-5sa" secondAttribute="top" id="q6u-4A-RSh"/>
+                <constraint firstItem="csA-or-HyN" firstAttribute="top" secondItem="mQf-0f-5sa" secondAttribute="top" id="tDM-Mx-7nv"/>
+                <constraint firstItem="csA-or-HyN" firstAttribute="leading" secondItem="mQf-0f-5sa" secondAttribute="leading" id="uy3-NI-LdI"/>
+                <constraint firstAttribute="bottom" secondItem="csA-or-HyN" secondAttribute="bottom" id="vcp-12-eay"/>
+                <constraint firstAttribute="trailing" secondItem="ztk-8z-N4O" secondAttribute="trailing" id="z0M-fV-2wI"/>
+            </constraints>
+            <size key="customSize" width="99" height="50"/>
+            <connections>
+                <outlet property="backgroundImageView" destination="ztk-8z-N4O" id="kdH-Ul-wYD"/>
+                <outlet property="categoryLabel" destination="csA-or-HyN" id="FJP-i7-pN6"/>
+                <outlet property="skillLabel" destination="csA-or-HyN" id="w87-ES-24h"/>
+            </connections>
+            <point key="canvasLocation" x="4" y="0.0"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="skill_bubble" width="55" height="24"/>
+    </resources>
+</document>

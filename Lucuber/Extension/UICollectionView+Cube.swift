@@ -21,6 +21,12 @@ extension UICollectionView {
         register(nib, forCellWithReuseIdentifier: T.cube_reuseIdentifier)
     }
     
+    func registerHeaderNibOf<T: UICollectionReusableView>(_: T.Type) where T: Reusable, T: NibLoad {
+        
+        let nib = UINib(nibName: T.cube_nibName, bundle: nil)
+        register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: T.cube_reuseIdentifier)
+    }
+    
     func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T where T: Reusable {
     
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.cube_reuseIdentifier, for: indexPath) as? T else {
@@ -29,4 +35,14 @@ extension UICollectionView {
         
         return cell
     }
+    
+    func dequeueReusableSupplementaryView<T: UICollectionReusableView>(ofKind kind: String, forIndexPath indexPath: IndexPath) -> T where T: Reusable {
+        
+        guard let view = self.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: T.cube_reuseIdentifier, for: indexPath) as? T else {
+            fatalError("Could not dequeue supplementary view with identifier: \(T.cube_reuseIdentifier), kind: \(kind)")
+        }
+        
+        return view
+    }
+    
 }

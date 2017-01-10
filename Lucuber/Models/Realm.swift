@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 2
+    config.schemaVersion = 3
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config
@@ -97,6 +97,20 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
                 realm.add(newRMasterList)
             }
         }
+        
+        let oldCubeCategoryMasterList: [String] = user.cubeCategoryMasterList.map { $0.categoryString }
+        
+        if let newCubeCategoryMasterList = avUser.cubeCategoryMasterList() {
+            
+            if oldCubeCategoryMasterList != newCubeCategoryMasterList {
+                
+                realm.delete(user.cubeCategoryMasterList)
+                
+                let newList = newCubeCategoryMasterList.map { CubeCategoryMaster(value: [$0, user]) }
+                
+                realm.add(newList)
+            }
+        }
     }
     return user
 }
@@ -128,6 +142,12 @@ public func mastersWith(_ rUser: RUser, inRealm realm: Realm) -> Results<Formula
     return realm.objects(FormulaMaster.self).filter(predicate)
 }
 
+public func cubeCategoryMasterWith(_ categoryString: String, atRUser user: RUser, inRealm realm: Realm) -> CubeCategoryMaster? {
+    let predicate = NSPredicate(format: "categoryString = %@", categoryString)
+    let predicate2 = NSPredicate(format: "atRUser = %@", user)
+    return realm.objects(CubeCategoryMaster.self).filter(predicate).filter(predicate2).first
+    
+}
 
 public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
     guard let currentUser = currentUser(in: realm) else { return }
@@ -144,6 +164,22 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
     let localObjectID = formula.localObjectID
     if let _ = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) { return }
     let newMaster = FormulaMaster(value: [localObjectID, currentUser])
+    realm.add(newMaster)
+}
+
+public func deleteCubeCategoryMaster(with categoryString: String, inRealm realm: Realm) {
+    guard let currentUser = currentUser(in: realm) else { return }
+    
+    if let master = cubeCategoryMasterWith(categoryString, atRUser: currentUser, inRealm: realm) {
+        realm.delete(master)
+    }
+}
+
+public func appendCubeCategoryMaster(with categoryString: String, inRealm realm: Realm) {
+    guard let currentUser = currentUser(in: realm) else { return }
+    
+    if let _ = cubeCategoryMasterWith(categoryString, atRUser: currentUser, inRealm: realm) { return }
+    let newMaster = CubeCategoryMaster(value: [categoryString, currentUser])
     realm.add(newMaster)
 }
 
