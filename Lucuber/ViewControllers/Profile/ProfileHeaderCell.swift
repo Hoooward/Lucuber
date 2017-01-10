@@ -73,7 +73,8 @@ class ProfileHeaderCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 self?.avatarImageView.image = image
                 
-                let avatarAvarageColot = 
+                let avatarAvarageColor = image.avarageColor
+                let prettyColot = avatarAvarageColor.cube
                
             }
             

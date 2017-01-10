@@ -8,6 +8,31 @@
 
 import UIKit
 
+public extension UIColor {
+    
+    // 反色
+    public var inverseColor: UIColor {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        return UIColor(red: 1 - red, green: 1 - green, blue: 1 - blue, alpha:alpha)
+    }
+    
+    // 黑白色
+    public var binaryColor: UIColor {
+        var white: CGFloat = 0
+        getWhite(&white, alpha: nil)
+        return white > 0.92 ? UIColor.black : UIColor.white
+    }
+    
+    var profilePrettyColor: UIColor {
+        return binaryColor
+    }
+}
+
 extension UIColor {
     
     class func masterLabelText() -> UIColor {
