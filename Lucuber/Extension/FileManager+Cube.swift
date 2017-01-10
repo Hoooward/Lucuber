@@ -95,7 +95,6 @@ extension FileManager {
         return nil
     }
     
-    
     // MARK: - Image
     
     public class func cubeMessageImageURL(with name: String) -> URL? {

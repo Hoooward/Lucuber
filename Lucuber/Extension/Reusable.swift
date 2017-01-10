@@ -18,7 +18,6 @@ extension UITableViewCell: Reusable {
     }
 }
 
-
 extension UITableViewHeaderFooterView: Reusable {
     
     static var cube_reuseIdentifier: String {

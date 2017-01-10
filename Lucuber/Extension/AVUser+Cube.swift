@@ -16,7 +16,6 @@ fileprivate let localObjectIDKey = "localObjectID"
 fileprivate let masterListKey = "masterList"
 fileprivate let introdctionKey = "introduction"
 
-
 extension AVUser {
     
     func setIntroduction(_ string: String) {

@@ -177,6 +177,15 @@
 		E4B367411E150E3F0010385E /* ProfileLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367401E150E3F0010385E /* ProfileLayout.swift */; };
 		E4B367441E1518E50010385E /* ProfileFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367421E1518E50010385E /* ProfileFooterCell.swift */; };
 		E4B367451E1518E50010385E /* ProfileFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B367431E1518E50010385E /* ProfileFooterCell.xib */; };
+		E4B367481E16314B0010385E /* ProfileSeparationLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367461E16314B0010385E /* ProfileSeparationLineCell.swift */; };
+		E4B367491E16314B0010385E /* ProfileSeparationLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B367471E16314B0010385E /* ProfileSeparationLineCell.xib */; };
+		E4B3674C1E1635380010385E /* ProfileMasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3674A1E1635380010385E /* ProfileMasterCell.swift */; };
+		E4B3674D1E1635380010385E /* ProfileMasterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B3674B1E1635380010385E /* ProfileMasterCell.xib */; };
+		E4B367501E16354F0010385E /* ProfileScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3674E1E16354F0010385E /* ProfileScoreCell.swift */; };
+		E4B367511E16354F0010385E /* ProfileScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B3674F1E16354F0010385E /* ProfileScoreCell.xib */; };
+		E4B367541E1644650010385E /* ProfileFeedsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367521E1644650010385E /* ProfileFeedsCell.swift */; };
+		E4B367551E1644650010385E /* ProfileFeedsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B367531E1644650010385E /* ProfileFeedsCell.xib */; };
+		E4B367581E17D34B0010385E /* ProfileShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367571E17D34B0010385E /* ProfileShareView.swift */; };
 		E4C40DE41E07866100ED46F2 /* FeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */; };
 		E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */; };
 		E4C40DE91E078A7200ED46F2 /* FeedMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */; };
@@ -516,6 +525,15 @@
 		E4B367401E150E3F0010385E /* ProfileLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileLayout.swift; sourceTree = "<group>"; };
 		E4B367421E1518E50010385E /* ProfileFooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFooterCell.swift; sourceTree = "<group>"; };
 		E4B367431E1518E50010385E /* ProfileFooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileFooterCell.xib; sourceTree = "<group>"; };
+		E4B367461E16314B0010385E /* ProfileSeparationLineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSeparationLineCell.swift; sourceTree = "<group>"; };
+		E4B367471E16314B0010385E /* ProfileSeparationLineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSeparationLineCell.xib; sourceTree = "<group>"; };
+		E4B3674A1E1635380010385E /* ProfileMasterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMasterCell.swift; sourceTree = "<group>"; };
+		E4B3674B1E1635380010385E /* ProfileMasterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileMasterCell.xib; sourceTree = "<group>"; };
+		E4B3674E1E16354F0010385E /* ProfileScoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScoreCell.swift; sourceTree = "<group>"; };
+		E4B3674F1E16354F0010385E /* ProfileScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileScoreCell.xib; sourceTree = "<group>"; };
+		E4B367521E1644650010385E /* ProfileFeedsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFeedsCell.swift; sourceTree = "<group>"; };
+		E4B367531E1644650010385E /* ProfileFeedsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileFeedsCell.xib; sourceTree = "<group>"; };
+		E4B367571E17D34B0010385E /* ProfileShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileShareView.swift; sourceTree = "<group>"; };
 		E4C40DE31E07866100ED46F2 /* FeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderView.swift; sourceTree = "<group>"; };
 		E4C40DE51E07866B00ED46F2 /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
 		E4C40DE81E078A7200ED46F2 /* FeedMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedMediaView.swift; sourceTree = "<group>"; };
@@ -1092,8 +1110,24 @@
 				E4B367401E150E3F0010385E /* ProfileLayout.swift */,
 				E4B367421E1518E50010385E /* ProfileFooterCell.swift */,
 				E4B367431E1518E50010385E /* ProfileFooterCell.xib */,
+				E4B367461E16314B0010385E /* ProfileSeparationLineCell.swift */,
+				E4B367471E16314B0010385E /* ProfileSeparationLineCell.xib */,
+				E4B3674A1E1635380010385E /* ProfileMasterCell.swift */,
+				E4B3674B1E1635380010385E /* ProfileMasterCell.xib */,
+				E4B3674E1E16354F0010385E /* ProfileScoreCell.swift */,
+				E4B3674F1E16354F0010385E /* ProfileScoreCell.xib */,
+				E4B367521E1644650010385E /* ProfileFeedsCell.swift */,
+				E4B367531E1644650010385E /* ProfileFeedsCell.xib */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		E4B367561E17D33F0010385E /* ProfileShareView */ = {
+			isa = PBXGroup;
+			children = (
+				E4B367571E17D34B0010385E /* ProfileShareView.swift */,
+			);
+			path = ProfileShareView;
 			sourceTree = "<group>";
 		};
 		E4C40DE71E078A6900ED46F2 /* FeedMedia */ = {
@@ -1107,6 +1141,7 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4B367561E17D33F0010385E /* ProfileShareView */,
 				E4A0080D1E1413EA00ABA5B5 /* TimerLabel */,
 				E49534F21E0E412C0008934D /* ScoreDetailView */,
 				E49534E31E0E2B480008934D /* ScoreView */,
@@ -2179,6 +2214,7 @@
 				E4A0080C1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib in Resources */,
 				E4CED85F1DE862770036A11C /* NormalFormulaCell.xib in Resources */,
 				E4F38D771DFD845700F0DF8A /* PhotoCell.xib in Resources */,
+				E4B367551E1644650010385E /* ProfileFeedsCell.xib in Resources */,
 				E4CED84F1DE862770036A11C /* DetailCommentCell.xib in Resources */,
 				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
 				E4A008061E137D5800ABA5B5 /* ScoreGroupDetailCell.xib in Resources */,
@@ -2195,10 +2231,12 @@
 				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 				E4CED8671DE862770036A11C /* FormulaTextViewCell.xib in Resources */,
 				E4C40DE61E07866B00ED46F2 /* FeedHeaderView.xib in Resources */,
+				E4B367511E16354F0010385E /* ProfileScoreCell.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E4F38D751DFD3C2500F0DF8A /* CameraCell.xib in Resources */,
 				E475DA6B1E0FFFAE0079FE75 /* ScoreGroupCell.xib in Resources */,
 				E42D20C41DEFD2D400E4F637 /* DetailContentCell.xib in Resources */,
+				E4B367491E16314B0010385E /* ProfileSeparationLineCell.xib in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */,
 				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
@@ -2216,6 +2254,7 @@
 				E4A008081E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist in Resources */,
 				E4CED8791DE862770036A11C /* CommentHeaderView.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
+				E4B3674D1E1635380010385E /* ProfileMasterCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2459,6 +2498,7 @@
 				E44D3B511DF6F40F00673FFD /* LoadMoreTableViewCell.swift in Sources */,
 				E4CE8B281DF42A0A00944099 /* FeedAnyImagesCell.swift in Sources */,
 				E4CE8B291DF42A0A00944099 /* FeedBaseCell.swift in Sources */,
+				E4B367541E1644650010385E /* ProfileFeedsCell.swift in Sources */,
 				E4CE8B2A1DF42A0A00944099 /* FeedBiggerImageCell.swift in Sources */,
 				E4CE8B2B1DF42A0A00944099 /* FeedCellLayout.swift in Sources */,
 				E4EFC0B71E0FA373006110F7 /* ScoreHeaderView.swift in Sources */,
@@ -2467,12 +2507,14 @@
 				E4CE8B2D1DF42A0A00944099 /* FeedUploadingErrorContainerView.swift in Sources */,
 				E475DA721E10F9400079FE75 /* NewScoreGroupAnimator.swift in Sources */,
 				E4CE8B2E1DF42A0A00944099 /* FeedMediaCell.swift in Sources */,
+				E4B3674C1E1635380010385E /* ProfileMasterCell.swift in Sources */,
 				E4CE8B2F1DF42A0A00944099 /* FeedMediaCell.xib in Sources */,
 				E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */,
 				E49534E51E0E2B480008934D /* ScoreView.swift in Sources */,
 				E42C82991DFADD5100D315CF /* FeedFormulaContainerView.swift in Sources */,
 				E4F38DC61E01BA5200F0DF8A /* CubeMedia.swift in Sources */,
 				E4CE8B301DF42A0A00944099 /* FeedFormulaView.swift in Sources */,
+				E4B367581E17D34B0010385E /* ProfileShareView.swift in Sources */,
 				E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */,
 				E475DA6A1E0FFFAE0079FE75 /* ScoreGroupCell.swift in Sources */,
 				E4E03C001DEC6EAC0023B3B0 /* RegisterPickNameViewController.swift in Sources */,
@@ -2586,6 +2628,7 @@
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
 				E4EFC0B51E0FA308006110F7 /* ScoreViewController.swift in Sources */,
+				E4B367501E16354F0010385E /* ProfileScoreCell.swift in Sources */,
 				E4CED8911DE862770036A11C /* UIViewShadowExtension.swift in Sources */,
 				E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
@@ -2628,6 +2671,7 @@
 				CC714D9261228F6E13B4F4FA /* CommentViewController+sendMessage.swift in Sources */,
 				CC714DB93638172BC6BA46B9 /* Service.swift in Sources */,
 				CC71484A30B5E743F91AB3C0 /* CommentViewController+collectionView.swift in Sources */,
+				E4B367481E16314B0010385E /* ProfileSeparationLineCell.swift in Sources */,
 				CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */,
 				CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */,
 			);

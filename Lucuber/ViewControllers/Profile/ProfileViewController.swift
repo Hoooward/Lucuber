@@ -15,7 +15,6 @@ enum ProfileUser {
     case discoverUser(AVUser)
     case userType(RUser)
     
-    
     var isMe: Bool {
         
         guard
@@ -65,6 +64,10 @@ final class ProfileViewController: UIViewController {
         didSet {
             collectionView.registerNib(of: ProfileHeaderCell.self)
             collectionView.registerNib(of: ProfileFooterCell.self)
+            collectionView.registerNib(of: ProfileSeparationLineCell.self)
+            collectionView.registerNib(of: ProfileMasterCell.self)
+            collectionView.registerNib(of: ProfileScoreCell.self)
+            collectionView.registerNib(of: ProfileFeedsCell.self)
             collectionView.alwaysBounceVertical = true
         }
     }
@@ -89,6 +92,13 @@ final class ProfileViewController: UIViewController {
         return bar
     }()
     
+    fileprivate lazy var shareView: ProfileShareView = {
+        let rect = CGRect(x: 0, y: 0, width: 120, height: 120)
+        let share = ProfileShareView(frame: rect)
+        //self.view.addSubview(share)
+        return share
+    }()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if statusBarShouldLight {
             return UIStatusBarStyle.lightContent
@@ -96,14 +106,56 @@ final class ProfileViewController: UIViewController {
             return UIStatusBarStyle.default
         }
     }
+    
+    fileprivate lazy var collectionViewWidth: CGFloat = {
+        return self.collectionView.bounds.width
+    }()
+    
+    fileprivate lazy var sectionLeftEdgeInset: CGFloat = {
+        return Config.Profile.leftEdgeInset
+    }()
+    
+    fileprivate lazy var sectionRightEdgeInset: CGFloat = {
+        return Config.Profile.rightEdgeInset
+    }()
+    
+    fileprivate lazy var sectionBottomEdgeInset: CGFloat = {
+        return 0
+    }()
+    
+    fileprivate lazy var introductionText: String = {
+        
+        let introduction: String? = self.profileUser.flatMap({ user in
+            
+            switch user {
+                
+            case .discoverUser(let avUser):
+                if let introduction = avUser.introduction(), !introduction.isEmpty {
+                    return introduction
+                }
+                
+            case .userType(let user):
+                return  user.introduction ?? "还未填写自我介绍"
+            }
+            
+            return nil
+        })
+        
+        return introduction ?? "还未填写自我介绍"
+    }()
+    
+    fileprivate var footerCellHeight: CGFloat {
+        let attributes = [NSFontAttributeName: Config.Profile.introductionFont]
+        let labelWidth = self.collectionViewWidth - (Config.Profile.leftEdgeInset + Config.Profile.rightEdgeInset)
+        let rect = (self.introductionText as NSString).boundingRect(with: CGSize(width: labelWidth, height: CGFloat(FLT_MAX)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
+        return 10 + 24 + 4 + 18 + 10 + ceil(rect.height)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //TODO: - 清理缓存
         view.addSubview(customNavigationBar)
-        
-      
-        
-
+        automaticallyAdjustsScrollViewInsets = false
+        //TODO: - 清理缓存
         
         if let profileUser = profileUser {
             
@@ -164,10 +216,34 @@ final class ProfileViewController: UIViewController {
             }
         }
         
-        automaticallyAdjustsScrollViewInsets = false
+        // Make sure when pan edge screen collectionView not scroll
+        if let gestures = navigationController?.view.gestureRecognizers {
+            for recognizer in gestures {
+                if recognizer.isKind(of: UIScreenEdgePanGestureRecognizer.self) {
+                    collectionView.panGestureRecognizer.require(toFail: recognizer as! UIScreenEdgePanGestureRecognizer)
+                    printLog("Require UIScreenEdgePanGestureRecognizer")
+                    break
+                }
+            }
+        }
         
         if let tabBarController = tabBarController {
             collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.bounds.height, right: 0)
+        }
+        
+        if let profileUser = profileUser {
+            
+            switch profileUser {
+                
+            case .discoverUser(let avUser):
+                customNavigationItem.title = avUser.nickname() ?? "Detail"
+                
+            case .userType(let rUser):
+                customNavigationItem.title = rUser.nickname
+                updateProfileCollectionView()
+                break
+                
+            }
         }
         
     }
@@ -207,10 +283,14 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     enum Section: Int {
         case header = 0
         case footer
+        case master
+        case score
+        case separationLine
+        case feeds
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -224,7 +304,19 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return 1
             
         case .footer:
-            return 4
+            return 1
+            
+        case .master:
+            return 1
+            
+        case .score:
+            return 1
+            
+        case .separationLine:
+            return 1
+            
+        case .feeds:
+            return 1
         }
     }
     
@@ -242,8 +334,24 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .footer:
             let cell: ProfileFooterCell = collectionView.dequeueReusableCell(for: indexPath)
             return cell
+            
+        case .master:
+            let cell: ProfileMasterCell = collectionView.dequeueReusableCell(for: indexPath)
+            return cell
+            
+        case .score:
+            let cell: ProfileScoreCell = collectionView.dequeueReusableCell(for: indexPath)
+            return cell
+            
+        case .separationLine:
+            let cell: ProfileSeparationLineCell = collectionView.dequeueReusableCell(for: indexPath)
+            return cell
+            
+        case .feeds:
+            let cell: ProfileFeedsCell = collectionView.dequeueReusableCell(for: indexPath)
+            return cell
+            
         }
-        
         
     }
     
@@ -259,10 +367,33 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.width * profileAvatarAspectRatio)
             
         case .footer:
-            return CGSize(width: collectionView.bounds.width, height: 100)
+            return CGSize(width: collectionView.bounds.width, height: 10 + 24 + 4 + 18 + 10 + 40 + 6)
+            
+        case .master:
+            return CGSize(width: collectionView.bounds.width, height: 60)
+            
+        case .score:
+            return CGSize(width: collectionView.bounds.width, height: 60)
+            
+        case .separationLine:
+            return CGSize(width: collectionView.bounds.width, height: 1)
+            
+        case .feeds:
+            return CGSize(width: collectionView.bounds.width, height: 60)
         }
     }
     
 }
 
+extension ProfileViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        if shareView.progress >= 1.0 {
+            shareView.shareActionAnimationAndDoFurther {
+                
+            }
+            
+        }
+    }
+}
 

@@ -19,7 +19,6 @@ class FormulaInputViewController: UIViewController {
     
     private var keyButtonDidClicked: (KeyButton) -> ()
     
-    
     private lazy var topKeyboard: UIView = {
         [unowned self] in
         let backgroundView = UIView()
@@ -143,7 +142,6 @@ class FormulaInputViewController: UIViewController {
         let topKeyboardBottom = NSLayoutConstraint(item: topKeyboard, attribute: .bottom, relatedBy: .equal, toItem: bottomKeyboard, attribute: .top, multiplier: 1, constant: 0)
         
         NSLayoutConstraint.activate([topKeyboardTop, topKeyboardLeading, topKeyboardTrailing, topKeyboardBottom])
-        
         
     }
 

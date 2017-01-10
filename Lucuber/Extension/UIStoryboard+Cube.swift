@@ -9,7 +9,6 @@
 import UIKit
 
 protocol SegueHandlerType {
-    
     associatedtype SegueIdentifier: RawRepresentable
 }
 
@@ -25,8 +24,7 @@ extension SegueHandlerType where Self: UIViewController, SegueIdentifier.RawValu
               let segueIdentifier = SegueIdentifier(rawValue: identifier) else {
             fatalError("无效的 Segue Identifier")
         }
-        
         return segueIdentifier
     }
-    
 }
+

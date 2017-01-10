@@ -24,27 +24,20 @@ extension UIViewController {
     }
 }
 
-
 extension UIViewController {
     
-    
     func alertCanNotAccessCameraRoll() {
-        
         DispatchQueue.main.async {
             CubeAlert.alertSorry(message: "设备没有摄像头", inViewController: self)
-           
         }
     }
     
     func alertCanNotOpenCamera() {
         
-        
         DispatchQueue.main.async {
-            
             CubeAlert.confirmOrCancel(title: "抱歉", message: "Lucuber 不能访问您的摄像头.\n你可以更改摄像头访问的权限设置.", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
                 
                 let url = URL(string: UIApplicationOpenSettingsURLString)!
-                
                 
                 if #available(iOS 10, *)  {
                     
@@ -54,17 +47,12 @@ extension UIViewController {
                     
                     UIApplication.shared.openURL(url)
                 }
-
                 
                 }, cancelAction: {
                     
-                    
             })
         }
-        
     }
-    
-    
     
     func alertCanNotOpenPhotoLibrary() {
         
@@ -74,7 +62,6 @@ extension UIViewController {
                 
                 let url = URL(string: UIApplicationOpenSettingsURLString)!
                 
-                
                 if #available(iOS 10, *)  {
                     
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -83,7 +70,6 @@ extension UIViewController {
                     
                     UIApplication.shared.openURL(url)
                 }
-                
                 
                 }, cancelAction: {
                     

@@ -258,6 +258,11 @@ public class Config {
         public static let controlMargin: CGFloat = 25 + 35 + 25 + 40
     }
     
+    public struct Profile {
+        public static let leftEdgeInset: CGFloat = CubeRuler.iPhoneHorizontal(20, 38, 40).value
+        public static let rightEdgeInset: CGFloat = leftEdgeInset
+        public static let introductionFont: UIFont = UIFont.systemFont(ofSize: 14)
+    }
 
 }
 

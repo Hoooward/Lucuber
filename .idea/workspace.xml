@@ -4,6 +4,7 @@
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Model.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Model.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Timer/Timer.storyboard" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Timer/Timer.storyboard" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift" afterPath="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -457,7 +458,7 @@
       <workItem from="1482321283552" duration="3245000" />
       <workItem from="1482825066965" duration="250000" />
       <workItem from="1482983558042" duration="659000" />
-      <workItem from="1482984257169" duration="523000" />
+      <workItem from="1482984257169" duration="972000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -484,7 +485,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109808000" />
+    <option name="totallyTimeSpent" value="110257000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -497,7 +498,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="84" y="23" width="1779" height="1177" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23947668" sideWeight="0.4386318" order="0" side_tool="false" content_ui="combo" />
@@ -506,7 +507,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31428573" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31152073" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38156682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38156682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32626727" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277311" sideWeight="0.5613682" order="3" side_tool="true" content_ui="tabs" />

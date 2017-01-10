@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileScoreCell" id="NFN-R2-9jc" customClass="ProfileScoreCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成绩汇总" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcP-J3-TEU">
+                        <rect key="frame" x="30" y="13" width="225" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="Wha-Bd-LxD" userLabel="Accessory Image View">
+                        <rect key="frame" x="265" y="15" width="11" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="11" id="1aL-LQ-lD1"/>
+                            <constraint firstAttribute="height" constant="20" id="6Ep-lD-aUp"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Wha-Bd-LxD" firstAttribute="centerY" secondItem="qcP-J3-TEU" secondAttribute="centerY" id="4LC-va-2fZ"/>
+                <constraint firstItem="qcP-J3-TEU" firstAttribute="leading" secondItem="NFN-R2-9jc" secondAttribute="leading" constant="30" id="IlX-Z2-NfW"/>
+                <constraint firstAttribute="trailing" secondItem="Wha-Bd-LxD" secondAttribute="trailing" constant="30" id="Y4D-GF-wrj"/>
+                <constraint firstItem="qcP-J3-TEU" firstAttribute="centerY" secondItem="NFN-R2-9jc" secondAttribute="centerY" id="cys-tN-lWC"/>
+                <constraint firstItem="Wha-Bd-LxD" firstAttribute="leading" secondItem="qcP-J3-TEU" secondAttribute="trailing" constant="10" id="zUL-Bt-p5f"/>
+            </constraints>
+            <size key="customSize" width="306" height="50"/>
+            <point key="canvasLocation" x="-32" y="42"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icon_accessory_mini" width="8" height="13"/>
+    </resources>
+</document>

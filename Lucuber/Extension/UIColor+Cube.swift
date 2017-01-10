@@ -11,7 +11,6 @@ import UIKit
 extension UIColor {
     
     class func masterLabelText() -> UIColor {
-        
         return UIColor.lightGray
     }
     
@@ -62,7 +61,6 @@ extension UIColor {
     }
     
     class func addFormulaNotActive() -> UIColor {
-//        return UIColor (red: 0.6667, green: 0.6667, blue: 0.6667, alpha: 1.0 )
         return UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1)
     }
     
@@ -119,7 +117,6 @@ extension UIColor {
     }
     
     // MARK: - ScoreGroup
-    
     class func scoreGroupFastestLabelTextColor() -> UIColor {
         return UIColor(red: 241/255.0, green: 90/255.0, blue: 74/255.0, alpha: 1)
     }
@@ -127,7 +124,6 @@ extension UIColor {
     class func scoreGroupSlowliestLabelTextColor() -> UIColor {
         return UIColor(red: 22/255.0, green: 184/255.0, blue: 115/255.0, alpha: 1)
     }
-    
     
     class func scoreGroupDNFLabelTextColor() -> UIColor {
         return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
@@ -141,7 +137,5 @@ extension UIColor {
     class func timerLabelTextColor() -> UIColor {
         return UIColor(red: 60/255.0, green: 77/255.0, blue: 95/255.0, alpha: 1)
     }
-    
-    
 }
 

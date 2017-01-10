@@ -51,7 +51,6 @@ extension UIFont {
     }
     
     class func customKeyboardKeyTitle() -> UIFont {
-        
         return UIFont(name: "Avenir Next", size: 18)!
     }
     
@@ -67,6 +66,4 @@ extension UIFont {
     public class func scoreLabelFont() -> UIFont {
        return UIFont(name: "Digital-7Mono", size: 12)!
     }
-    
-
 }

@@ -30,9 +30,7 @@ func animate(duration: TimeInterval, animations:@escaping animation){
     UIView.animate(withDuration: duration) {
         animations()
     }
-    
 }
-
 
 func animateWithCompletion(duration: TimeInterval, animations: @escaping animation, completions: @escaping (Bool) -> Void) {
     
@@ -41,11 +39,7 @@ func animateWithCompletion(duration: TimeInterval, animations: @escaping animati
         }, completion: { finished in
             completions(finished)
     })
-    
-    
 }
-
-
 
 func springWithCompletion(duration: TimeInterval, animations: @escaping animation, completions: @escaping (Bool) -> Void) {
     
@@ -54,7 +48,6 @@ func springWithCompletion(duration: TimeInterval, animations: @escaping animatio
         }, completion: { finished in
             completions(finished)
     })
-    
     
 }
 

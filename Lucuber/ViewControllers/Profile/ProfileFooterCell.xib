@@ -48,6 +48,9 @@
                 <constraint firstItem="UQ6-14-zpO" firstAttribute="leading" secondItem="C0P-0p-11P" secondAttribute="leading" id="wy0-Ru-Rub"/>
             </constraints>
             <size key="customSize" width="363" height="219"/>
+            <connections>
+                <outlet property="textView" destination="C0P-0p-11P" id="Ajn-fl-Dz2"/>
+            </connections>
             <point key="canvasLocation" x="33" y="53"/>
         </collectionViewCell>
     </objects>
