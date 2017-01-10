@@ -49,7 +49,11 @@
             </constraints>
             <size key="customSize" width="363" height="219"/>
             <connections>
+                <outlet property="nicknameLabel" destination="6zI-vQ-WK4" id="YRO-uC-gSg"/>
                 <outlet property="textView" destination="C0P-0p-11P" id="Ajn-fl-Dz2"/>
+                <outlet property="textViewLeftConstraint" destination="ODM-Ws-Xya" id="uxj-GS-JNh"/>
+                <outlet property="textViewRightConstraint" destination="eSo-AR-gHF" id="2cL-Cg-baq"/>
+                <outlet property="usernameLabel" destination="UQ6-14-zpO" id="Czy-oI-6Uz"/>
             </connections>
             <point key="canvasLocation" x="33" y="53"/>
         </collectionViewCell>

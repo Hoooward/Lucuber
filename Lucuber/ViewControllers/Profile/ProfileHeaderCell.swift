@@ -33,8 +33,12 @@ class ProfileHeaderCell: UICollectionViewCell {
         }
     }
     
-    public func configureCell(with discoverUser: AVUser) {
-        
+    public func configureWithDiscoverUser(_ discoverUser: AVUser) {
+        updateAvatar(with: discoverUser.avatorImageURL())
+    }
+    
+    public func configureWithRUser(_ ruser: RUser) {
+        updateAvatar(with: ruser.avatorImageURL)
     }
     
     private func blurImage(_ image: UIImage, completion: @escaping (UIImage) -> Void) {
@@ -50,7 +54,11 @@ class ProfileHeaderCell: UICollectionViewCell {
         }
     }
     
-    private func updateAvatar(with avatarURLString: String) {
+    private func updateAvatar(with avatarURLString: String?) {
+        
+        guard let avatarURLString = avatarURLString else {
+            return
+        }
         
         if avatarImageView.image == nil {
             avatarImageView.alpha = 0
@@ -74,14 +82,17 @@ class ProfileHeaderCell: UICollectionViewCell {
                 self?.avatarImageView.image = image
                 
                 let avatarAvarageColor = image.avarageColor
-                let prettyColot = avatarAvarageColor.cube
-               
+                let prettyColor = avatarAvarageColor.profilePrettyColor
+                
+                self?.updatePrettyColorAction?(prettyColor)
+                
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: { [weak self] in
+                    self?.avatarImageView.alpha = 1
+                }, completion: nil)
             }
-            
         })
-        
     }
-
+    
 }
 
 

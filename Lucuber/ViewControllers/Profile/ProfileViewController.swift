@@ -32,6 +32,39 @@ enum ProfileUser {
             
         }
     }
+    
+    var nickname: String {
+        
+        switch self {
+        case .discoverUser(let avUser):
+            if let nickname = avUser.nickname(), !nickname.isEmpty {
+                return nickname
+            }
+            
+        case .userType(let ruser):
+            if !ruser.nickname.isEmpty {
+                return ruser.nickname
+            }
+        }
+        return "没有昵称"
+ 
+    }
+    
+    var username: String {
+        
+        switch self {
+        case .discoverUser(let avUser):
+            if let username = avUser.username, !username.isEmpty {
+                return username
+            }
+            
+        case .userType(let ruser):
+            if !ruser.username.isEmpty {
+                return ruser.username
+            }
+        }
+        return "没有用户名"
+    }
 }
 
 final class ProfileViewController: UIViewController {
@@ -329,10 +362,39 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch section {
         case .header:
             let cell: ProfileHeaderCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            if let profileUser = profileUser {
+                switch profileUser {
+                case .discoverUser(let avUser):
+                    cell.configureWithDiscoverUser(avUser)
+                case .userType(let ruser):
+                    cell.configureWithRUser(ruser)
+                }
+            }
+            
+            cell.updatePrettyColorAction = { [weak self] prettyColor in
+                self?.customNavigationBar.tintColor = prettyColor
+                
+                let textAttributes = [
+                    NSForegroundColorAttributeName: prettyColor,
+                    NSFontAttributeName: UIFont.navigationBarTitle()
+                ]
+                self?.customNavigationBar.titleTextAttributes = textAttributes
+            }
+            
             return cell
             
         case .footer:
             let cell: ProfileFooterCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            if let profileUser = profileUser {
+                cell.configureWithProfileUser(profileUser, introduction: introductionText)
+                
+                cell.tapUsernameAction = { [weak self] username in
+                    //self?.tryShowProfileWithUsername(username)
+                }
+            }
+            
             return cell
             
         case .master:

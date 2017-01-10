@@ -17,10 +17,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Howard" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-Yc-aiu" userLabel="Avatar Image View">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-Yc-aiu" userLabel="Avatar Image View">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qAD-bV-mv3" userLabel="Avatar Blur Image View">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qAD-bV-mv3" userLabel="Avatar Blur Image View">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="280"/>
                     </imageView>
                 </subviews>
@@ -43,7 +43,4 @@
             <point key="canvasLocation" x="62" y="25"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="Howard" width="459" height="459"/>
-    </resources>
 </document>

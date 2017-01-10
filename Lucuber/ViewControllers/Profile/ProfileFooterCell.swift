@@ -7,13 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProfileFooterCell: UICollectionViewCell {
+    
+    public var tapUsernameAction: ((String) -> Void)?
 
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var textView: ChatTextView!
+    @IBOutlet weak var textViewLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textViewRightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        textViewLeftConstraint.constant = Config.Profile.leftEdgeInset
+        textViewRightConstraint.constant = Config.Profile.rightEdgeInset
         
         textView.isScrollEnabled = false
         textView.showsVerticalScrollIndicator = false
@@ -26,6 +36,27 @@ class ProfileFooterCell: UICollectionViewCell {
         textView.linkTextAttributes = [
             NSForegroundColorAttributeName: UIColor.cubeTintColor()
         ]
+    }
+    
+    func configureWithProfileUser(_ profileUser: ProfileUser, introduction: String) {
+        
+        nicknameLabel.text = profileUser.nickname
+        usernameLabel.text = profileUser.username
+        
+        textView.text = introduction
+        
         
     }
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
