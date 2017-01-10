@@ -158,6 +158,27 @@ final class ProfileViewController: UIViewController {
     
     fileprivate lazy var introductionText: String = {
         
+        guard let profileUser = self.profileUser else {
+            return ""
+        }
+        
+        switch profileUser {
+            
+        case .discoverUser(let avUser):
+            if let introduction = avUser.introduction(), !introduction.isEmpty {
+                return introduction
+            }
+            
+        case .userType(let user):
+            if let introduction = user.introduction, !introduction.isEmpty {
+               return introduction
+            }
+        }
+
+        return "还未填写自我介绍"
+        
+        
+        /*
         let introduction: String? = self.profileUser.flatMap({ user in
             
             switch user {
@@ -175,6 +196,7 @@ final class ProfileViewController: UIViewController {
         })
         
         return introduction ?? "还未填写自我介绍"
+         */
     }()
     
     fileprivate var footerCellHeight: CGFloat {
@@ -388,6 +410,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             let cell: ProfileFooterCell = collectionView.dequeueReusableCell(for: indexPath)
             
             if let profileUser = profileUser {
+                printLog(introductionText)
                 cell.configureWithProfileUser(profileUser, introduction: introductionText)
                 
                 cell.tapUsernameAction = { [weak self] username in

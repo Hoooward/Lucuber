@@ -30,22 +30,35 @@ public func creatMeInRealm() -> RUser? {
         return nil
     }
     
-    if let user = userWith(currentUserLcObjectID, inRealm: realm) {
-        return user
-    } else {
+    var user = userWith(currentUserLcObjectID, inRealm: realm)
+    
+    if user == nil {
+        
         let newUser = RUser()
-        newUser.localObjectID = currentUser.localObjectID() ?? ""
-        newUser.lcObjcetID = currentUserLcObjectID
-        newUser.avatorImageURL = currentUser.avatorImageURL() ?? ""
-        newUser.nickname = currentUser.nickname() ?? ""
-        newUser.username = currentUser.username ?? ""
-        newUser.introduction = currentUser.introduction() ?? ""
         
         try? realm.write {
             realm.add(newUser)
         }
-        return newUser
+        user = newUser
+        
     }
+    
+    if let user = user {
+        
+        try? realm.write {
+            
+            user.localObjectID = currentUser.localObjectID() ?? ""
+            user.lcObjcetID = currentUserLcObjectID
+            user.avatorImageURL = currentUser.avatorImageURL() ?? ""
+            user.nickname = currentUser.nickname() ?? ""
+            user.username = currentUser.username ?? ""
+            user.introduction = currentUser.introduction() ?? ""
+        }
+    }
+    
+    return user
+    
+
 }
 
 public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUser? {
