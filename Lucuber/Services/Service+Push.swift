@@ -49,6 +49,33 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
     currentUser.saveEventually()
 }
 
+public func pushNewUserInfoToLeancloud(_ user: RUser, completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
+    
+    guard let me = AVUser.current() else {
+        fatalError()
+    }
+    
+    me.setNickname(user.nickname)
+    me.setMasterList(user.masterList.map { $0.formulaID })
+    me.setIntroduction(user.introduction ?? "")
+    me.setLocalObjcetID(user.localObjectID)
+    me.setAvatorImageURL(user.avatorImageURL ?? "")
+    me.setCubeCategoryMasterList(user.cubeCategoryMasterList.map { $0.categoryString })
+    
+    me.saveInBackground { success, error in
+        
+        if error != nil {
+            failureHandler(Reason.network(error), "上传用户信息失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+    
+    
+}
+
 
 public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLString: String?) -> Void) {
     
@@ -670,6 +697,14 @@ public func pushCurrentUserUpdateInformation() {
     
     if let currentUser = currentUser(in: realm) {
         // 更新用户修改的公式
+       
+        pushNewUserInfoToLeancloud(currentUser, completion: {
+            
+            printLog("上传用户信息成功")
+        }, failureHandler: { reason, errorMessage in
+            defaultFailureHandler(reason, errorMessage)
+            
+        })
         
         let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
         

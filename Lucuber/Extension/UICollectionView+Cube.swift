@@ -27,6 +27,11 @@ extension UICollectionView {
         register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: T.cube_reuseIdentifier)
     }
     
+    func registerFooterClassOf<T: UICollectionReusableView>(_: T.Type) where T: Reusable {
+        
+        register(T.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: T.cube_reuseIdentifier)
+    }
+    
     func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T where T: Reusable {
     
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.cube_reuseIdentifier, for: indexPath) as? T else {

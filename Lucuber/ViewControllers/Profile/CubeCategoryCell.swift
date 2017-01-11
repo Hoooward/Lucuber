@@ -29,6 +29,12 @@ class CubeCategoryCell: UICollectionViewCell {
         }
     }
     
+    public var categoryString: String? {
+        didSet {
+            categoryLabel.text = categoryString
+        }
+        
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         tapped = true

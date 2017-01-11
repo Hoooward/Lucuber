@@ -137,6 +137,7 @@ final class ProfileViewController: UIViewController {
             collectionView.registerNib(of: ProfileFeedsCell.self)
             collectionView.registerNib(of: CubeCategoryCell.self)
             collectionView.registerHeaderNibOf(ProfileSectionHeaderReusableView.self)
+            collectionView.registerFooterClassOf(UICollectionReusableView.self)
             collectionView.alwaysBounceVertical = true
         }
     }
@@ -398,7 +399,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return 1
             
         case .master:
-            return 1
+            return  profileUser?.cubeCategoryMasterCount ?? 0
             
         case .score:
             return 1
@@ -457,7 +458,26 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         case .master:
-            let cell: ProfileMasterCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            let cell: CubeCategoryCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            if let profileUser = profileUser {
+                
+                switch profileUser {
+                case .discoverUser(let avUser):
+                    
+                    if let list = avUser.cubeCategoryMasterList() {
+                        cell.categoryString = list[indexPath.item]
+                    }
+                    
+                case .userType(let ruser):
+                    
+                    if !ruser.cubeCategoryMasterList.isEmpty {
+                        cell.categoryString = ruser.cubeCategoryMasterList[indexPath.item].categoryString
+                    }
+                }
+            }
+            
             return cell
             
         case .score:
@@ -502,6 +522,76 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .feeds:
             return CGSize(width: collectionView.bounds.width, height: 60)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionElementKindSectionHeader {
+            
+            let header: ProfileSectionHeaderReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, forIndexPath: indexPath)
+            
+            guard let section = Section(rawValue: indexPath.section) else {
+                fatalError()
+            }
+            
+            switch section {
+                
+            case .master:
+                header.titleLabel.text = "擅长"
+                
+            default:
+                header.titleLabel.text = ""
+            }
+            
+            if profileUserIsMe {
+                
+                header.tapAction = { [weak self] in
+                    
+                    // TODO: - 传入
+                }
+                
+            } else {
+                
+                header.accessoryImageView.isHidden = true
+            }
+            
+            return header
+            
+        } else {
+            let footer: UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, forIndexPath: indexPath)
+            return footer
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        
+        switch section {
+            
+        case .header:
+            return UIEdgeInsets(top: 0, left: 0, bottom: sectionBottomEdgeInset, right: 0)
+            
+        case .master:
+            return UIEdgeInsets(top: 0, left: sectionLeftEdgeInset, bottom: 15, right: sectionRightEdgeInset)
+            
+        case .footer:
+            return UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+            
+        case .separationLine:
+            return UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+            
+        case .feeds:
+            return UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+            
+        case .score:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            
+        }
+        
     }
     
 }
