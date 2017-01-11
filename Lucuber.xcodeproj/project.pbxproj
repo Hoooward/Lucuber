@@ -260,6 +260,9 @@
 		E4F10FA91E26112E0092A74B /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47BB2C01DEBE4F800CD17FF /* Server.swift */; };
 		E4F10FAA1E26112E0092A74B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A3BA591DE3F874009C0E78 /* ViewController.swift */; };
 		E4F10FAB1E2611380092A74B /* DiscoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B6F411DEA9CB000CE1FB5 /* DiscoverModel.swift */; };
+		E4F10FAE1E262E4B0092A74B /* EditMaster.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F10FAD1E262E4B0092A74B /* EditMaster.storyboard */; };
+		E4F10FB01E262E610092A74B /* EditMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F10FAF1E262E610092A74B /* EditMasterViewController.swift */; };
+		E4F10FB31E2632390092A74B /* BottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F10FB21E2632390092A74B /* BottomButtonView.swift */; };
 		E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */; };
 		E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */; };
 		E4F38D4E1DFD1E0D00F0DF8A /* CateogyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */; };
@@ -606,6 +609,9 @@
 		E4F10F9F1E252CA10092A74B /* CubeCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CubeCategoryCell.xib; sourceTree = "<group>"; };
 		E4F10FA21E2532D00092A74B /* ProfileSectionHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		E4F10FA31E2532D00092A74B /* ProfileSectionHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSectionHeaderReusableView.xib; sourceTree = "<group>"; };
+		E4F10FAD1E262E4B0092A74B /* EditMaster.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditMaster.storyboard; sourceTree = "<group>"; };
+		E4F10FAF1E262E610092A74B /* EditMasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMasterViewController.swift; sourceTree = "<group>"; };
+		E4F10FB21E2632390092A74B /* BottomButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomButtonView.swift; sourceTree = "<group>"; };
 		E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
 		E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogyItemView.swift; sourceTree = "<group>"; };
@@ -1106,6 +1112,7 @@
 		E4CED7941DE862770036A11C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4F10FB11E26322A0092A74B /* BottomButtonView */,
 				E4B367561E17D33F0010385E /* ProfileShareView */,
 				E4A0080D1E1413EA00ABA5B5 /* TimerLabel */,
 				E49534F21E0E412C0008934D /* ScoreDetailView */,
@@ -1643,6 +1650,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4F10FAC1E262E3A0092A74B /* EditMaster */,
 				E4B367371E1503A90010385E /* Profile */,
 				E49534871E0CDE580008934D /* SearchFeeds */,
 				E49430751DE07F7900A23F02 /* PickImage */,
@@ -1746,6 +1754,23 @@
 				CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		E4F10FAC1E262E3A0092A74B /* EditMaster */ = {
+			isa = PBXGroup;
+			children = (
+				E4F10FAD1E262E4B0092A74B /* EditMaster.storyboard */,
+				E4F10FAF1E262E610092A74B /* EditMasterViewController.swift */,
+			);
+			path = EditMaster;
+			sourceTree = "<group>";
+		};
+		E4F10FB11E26322A0092A74B /* BottomButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				E4F10FB21E2632390092A74B /* BottomButtonView.swift */,
+			);
+			path = BottomButtonView;
 			sourceTree = "<group>";
 		};
 		E4F38D441DFD1DB300F0DF8A /* MoreMessageType */ = {
@@ -2162,6 +2187,7 @@
 				E47926621D96E005004D58BF /* CubeType.plist in Resources */,
 				E4B367451E1518E50010385E /* ProfileFooterCell.xib in Resources */,
 				E4CED8701DE862770036A11C /* StarRatingCell.xib in Resources */,
+				E4F10FAE1E262E4B0092A74B /* EditMaster.storyboard in Resources */,
 				E4CED8431DE862770036A11C /* LoadMoreCollectionViewCell.xib in Resources */,
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
@@ -2559,8 +2585,10 @@
 				E4CED8581DE862770036A11C /* DetailSeparatorCell.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
 				E42C82A81DFBD0AE00D315CF /* CommentViewController+Feed.swift in Sources */,
+				E4F10FB31E2632390092A74B /* BottomButtonView.swift in Sources */,
 				E4CED85C1DE862770036A11C /* HeaderReusableView.swift in Sources */,
 				E4CED8711DE862770036A11C /* TypePickViewCell.swift in Sources */,
+				E4F10FB01E262E610092A74B /* EditMasterViewController.swift in Sources */,
 				E4F9F11A1D991E040076C57C /* RegisterCodeViewController.swift in Sources */,
 				E4CED87E1DE862770036A11C /* FormulaSearchBar.swift in Sources */,
 				E41ECF481DB5DAC5005BEFE4 /* UIImageView+Cube.swift in Sources */,
