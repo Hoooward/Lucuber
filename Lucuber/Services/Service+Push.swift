@@ -49,18 +49,18 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
     currentUser.saveEventually()
 }
 
-public func pushNewUserInfoToLeancloud(_ user: RUser, completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
+public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
     
-    guard let me = AVUser.current() else {
+    guard let me = AVUser.current(), let realm = try? Realm(), let meRuser = currentUser(in: realm) else {
         fatalError()
     }
     
-    me.setNickname(user.nickname)
-    me.setMasterList(user.masterList.map { $0.formulaID })
-    me.setIntroduction(user.introduction ?? "")
-    me.setLocalObjcetID(user.localObjectID)
-    me.setAvatorImageURL(user.avatorImageURL ?? "")
-    me.setCubeCategoryMasterList(user.cubeCategoryMasterList.map { $0.categoryString })
+    me.setNickname(meRuser.nickname)
+    me.setMasterList(meRuser.masterList.map { $0.formulaID })
+    me.setIntroduction(meRuser.introduction ?? "")
+    me.setLocalObjcetID(meRuser.localObjectID)
+    me.setAvatorImageURL(meRuser.avatorImageURL ?? "")
+    me.setCubeCategoryMasterList(meRuser.cubeCategoryMasterList.map { $0.categoryString })
     
     me.saveInBackground { success, error in
         
@@ -698,8 +698,7 @@ public func pushCurrentUserUpdateInformation() {
     if let currentUser = currentUser(in: realm) {
         // 更新用户修改的公式
        
-        pushNewUserInfoToLeancloud(currentUser, completion: {
-            
+        pushMyInfoToLeancloud(completion: {
             printLog("上传用户信息成功")
         }, failureHandler: { reason, errorMessage in
             defaultFailureHandler(reason, errorMessage)

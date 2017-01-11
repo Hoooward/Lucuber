@@ -426,6 +426,23 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
 // MARK: - User
 
+public func fetchCubeCategorys(failureHandler: @escaping FailureHandler, completion: (([DiscoverCubeCategory]) -> Void)?) {
+    
+    let query = AVQuery(className: "DiscoverCubeCategory")
+    query.addAscendingOrder("createdAt")
+    
+    query.findObjectsInBackground { result, error in
+        
+        if error != nil {
+            failureHandler(Reason.network(error), "获取所有魔方类型失败")
+        }
+        
+        if let result = result as? [DiscoverCubeCategory] {
+            completion?(result)
+        }
+    }
+}
+
 public func fetchUser(with userObjectID: String, failureHandeler: @escaping FailureHandler, completion: @escaping (AVUser) -> Void ) {
     
     let query = AVQuery(className: "_User")

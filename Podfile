@@ -17,6 +17,7 @@ pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
 pod 'Reveal-SDK', :configurations => ['Debug']
 pod 'Kanna', '~> 2.1.0'
 pod 'MonkeyKing', '~> 1.1.0'
+pod 'pop', '~> 1.0'
 #pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 

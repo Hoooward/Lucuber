@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EditMasterCell" rowHeight="148" id="JU1-QZ-569" customClass="EditMasterCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JU1-QZ-569" id="P1q-3G-kuQ">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03c-qu-9db" userLabel="Skill Label">
+                        <rect key="frame" x="15" y="64" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKj-Nj-5iL" userLabel="Remove Button">
+                        <rect key="frame" x="255" y="49" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="irW-G4-UlU"/>
+                            <constraint firstAttribute="height" constant="50" id="pm6-yg-5KV"/>
+                        </constraints>
+                        <state key="normal" image="icon_remove">
+                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="centerY" secondItem="NKj-Nj-5iL" secondAttribute="centerY" id="LXi-Dd-eek"/>
+                    <constraint firstAttribute="centerY" secondItem="03c-qu-9db" secondAttribute="centerY" id="NlI-kH-Kpr"/>
+                    <constraint firstItem="03c-qu-9db" firstAttribute="leading" secondItem="P1q-3G-kuQ" secondAttribute="leading" constant="15" id="eTG-rN-DvG"/>
+                    <constraint firstAttribute="trailing" secondItem="NKj-Nj-5iL" secondAttribute="trailing" constant="15" id="x4m-rF-pUL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="categoryLabel" destination="03c-qu-9db" id="zTD-Go-crm"/>
+                <outlet property="categoryLabelLeadingConstraint" destination="eTG-rN-DvG" id="b2O-O4-3J3"/>
+                <outlet property="removeButton" destination="NKj-Nj-5iL" id="C4F-mW-U5l"/>
+                <outlet property="removeButtonTrailingConstraint" destination="x4m-rF-pUL" id="USq-Uh-Mwg"/>
+            </connections>
+            <point key="canvasLocation" x="-29" y="232"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_remove" width="20" height="20"/>
+    </resources>
+</document>

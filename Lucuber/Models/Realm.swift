@@ -156,9 +156,12 @@ public func mastersWith(_ rUser: RUser, inRealm realm: Realm) -> Results<Formula
     return realm.objects(FormulaMaster.self).filter(predicate)
 }
 
-public func cubeCategoryMasterWith(_ categoryString: String, atRUser user: RUser, inRealm realm: Realm) -> CubeCategoryMaster? {
+public func myCubeCategoryMasterWith(_ categoryString: String, inRealm realm: Realm) -> CubeCategoryMaster? {
+    guard let me = currentUser(in: realm) else {
+        return nil
+    }
     let predicate = NSPredicate(format: "categoryString = %@", categoryString)
-    let predicate2 = NSPredicate(format: "atRUser = %@", user)
+    let predicate2 = NSPredicate(format: "atRUser = %@", me)
     return realm.objects(CubeCategoryMaster.self).filter(predicate).filter(predicate2).first
     
 }
@@ -182,9 +185,8 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
 }
 
 public func deleteCubeCategoryMaster(with categoryString: String, inRealm realm: Realm) {
-    guard let currentUser = currentUser(in: realm) else { return }
     
-    if let master = cubeCategoryMasterWith(categoryString, atRUser: currentUser, inRealm: realm) {
+    if let master = myCubeCategoryMasterWith(categoryString, inRealm: realm) {
         realm.delete(master)
     }
 }
@@ -192,7 +194,7 @@ public func deleteCubeCategoryMaster(with categoryString: String, inRealm realm:
 public func appendCubeCategoryMaster(with categoryString: String, inRealm realm: Realm) {
     guard let currentUser = currentUser(in: realm) else { return }
     
-    if let _ = cubeCategoryMasterWith(categoryString, atRUser: currentUser, inRealm: realm) { return }
+    if let _ = myCubeCategoryMasterWith(categoryString, inRealm: realm) { return }
     let newMaster = CubeCategoryMaster(value: [categoryString, currentUser])
     realm.add(newMaster)
 }

@@ -88,11 +88,22 @@
                     <connections>
                         <outlet property="collectionView" destination="adl-EZ-2wn" id="bFk-rs-q1h"/>
                         <outlet property="topShadowImageView" destination="tZv-c1-mcr" id="uST-Qx-5Ll"/>
+                        <segue destination="O4q-Fs-nmD" kind="show" identifier="showEditMaster" id="Gnm-YR-O3y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8a-wo-7OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="504.80000000000001" y="150.67466266866569"/>
+        </scene>
+        <!--EditMaster-->
+        <scene sceneID="O4Q-Kl-s8V">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditMaster" id="O4q-Fs-nmD" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Dbg-u7-BGb"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x7n-af-nHO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1160" y="145"/>
         </scene>
     </scenes>
     <resources>

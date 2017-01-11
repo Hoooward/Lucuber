@@ -98,6 +98,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-4/iOS/RevealServer.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ScrollableGraphView/ScrollableGraphView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Spring/Spring.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
@@ -113,4 +114,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/RealmSwift/RealmSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ScrollableGraphView/ScrollableGraphView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Spring/Spring.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

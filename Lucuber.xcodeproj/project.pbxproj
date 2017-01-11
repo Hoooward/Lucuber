@@ -123,6 +123,12 @@
 		E4A0080C1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */; };
 		E4A0080F1E1413F400ABA5B5 /* ScoreTimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0080E1E1413F300ABA5B5 /* ScoreTimerLabel.swift */; };
 		E4A008131E14232F00ABA5B5 /* digital-7 (mono).ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4A008121E14232F00ABA5B5 /* digital-7 (mono).ttf */; };
+		E4A2DBE31E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */; };
+		E4A2DBE51E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */; };
+		E4A2DBE91E265E7500B81025 /* CategorySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE71E265E7500B81025 /* CategorySelectionCell.swift */; };
+		E4A2DBEA1E265E7500B81025 /* CategorySelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DBE81E265E7500B81025 /* CategorySelectionCell.xib */; };
+		E4A2DBEE1E268ACF00B81025 /* CategoryAnnotationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBEC1E268ACF00B81025 /* CategoryAnnotationHeader.swift */; };
+		E4A2DBEF1E268ACF00B81025 /* CategoryAnnotationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DBED1E268ACF00B81025 /* CategoryAnnotationHeader.xib */; };
 		E4A3BA5D1DE3F874009C0E78 /* Main1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5B1DE3F874009C0E78 /* Main1.storyboard */; };
 		E4A3BA621DE3F874009C0E78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */; };
 		E4A3BAA51DE3FA43009C0E78 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */; };
@@ -263,6 +269,8 @@
 		E4F10FAE1E262E4B0092A74B /* EditMaster.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F10FAD1E262E4B0092A74B /* EditMaster.storyboard */; };
 		E4F10FB01E262E610092A74B /* EditMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F10FAF1E262E610092A74B /* EditMasterViewController.swift */; };
 		E4F10FB31E2632390092A74B /* BottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F10FB21E2632390092A74B /* BottomButtonView.swift */; };
+		E4F10FB71E2635470092A74B /* EditMasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F10FB51E2635470092A74B /* EditMasterCell.swift */; };
+		E4F10FB81E2635470092A74B /* EditMasterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F10FB61E2635470092A74B /* EditMasterCell.xib */; };
 		E4F38D4C1DFD1E0D00F0DF8A /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */; };
 		E4F38D4D1DFD1E0D00F0DF8A /* CategoryIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */; };
 		E4F38D4E1DFD1E0D00F0DF8A /* CateogyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */; };
@@ -462,6 +470,12 @@
 		E4A0080A1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreGroupDetailTimerCell.xib; sourceTree = "<group>"; };
 		E4A0080E1E1413F300ABA5B5 /* ScoreTimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreTimerLabel.swift; sourceTree = "<group>"; };
 		E4A008121E14232F00ABA5B5 /* digital-7 (mono).ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "digital-7 (mono).ttf"; sourceTree = "<group>"; };
+		E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSelectCubeCategoryViewController.swift; sourceTree = "<group>"; };
+		E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSelectCubeCategoryLayout.swift; sourceTree = "<group>"; };
+		E4A2DBE71E265E7500B81025 /* CategorySelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectionCell.swift; sourceTree = "<group>"; };
+		E4A2DBE81E265E7500B81025 /* CategorySelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySelectionCell.xib; sourceTree = "<group>"; };
+		E4A2DBEC1E268ACF00B81025 /* CategoryAnnotationHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAnnotationHeader.swift; sourceTree = "<group>"; };
+		E4A2DBED1E268ACF00B81025 /* CategoryAnnotationHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryAnnotationHeader.xib; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4A3BA591DE3F874009C0E78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -612,6 +626,8 @@
 		E4F10FAD1E262E4B0092A74B /* EditMaster.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditMaster.storyboard; sourceTree = "<group>"; };
 		E4F10FAF1E262E610092A74B /* EditMasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMasterViewController.swift; sourceTree = "<group>"; };
 		E4F10FB21E2632390092A74B /* BottomButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomButtonView.swift; sourceTree = "<group>"; };
+		E4F10FB51E2635470092A74B /* EditMasterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMasterCell.swift; sourceTree = "<group>"; };
+		E4F10FB61E2635470092A74B /* EditMasterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditMasterCell.xib; sourceTree = "<group>"; };
 		E4F38D471DFD1E0D00F0DF8A /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		E4F38D491DFD1E0D00F0DF8A /* CategoryIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIndicatorView.swift; sourceTree = "<group>"; };
 		E4F38D4B1DFD1E0D00F0DF8A /* CateogyItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogyItemView.swift; sourceTree = "<group>"; };
@@ -1016,6 +1032,25 @@
 			path = TimerLabel;
 			sourceTree = "<group>";
 		};
+		E4A2DBE61E265E5A00B81025 /* CategorySelectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				E4A2DBE71E265E7500B81025 /* CategorySelectionCell.swift */,
+				E4A2DBE81E265E7500B81025 /* CategorySelectionCell.xib */,
+			);
+			path = CategorySelectionCell;
+			sourceTree = "<group>";
+		};
+		E4A2DBEB1E268AA200B81025 /* CategoryAnnotationHeader */ = {
+			isa = PBXGroup;
+			children = (
+				E4A2DBEC1E268ACF00B81025 /* CategoryAnnotationHeader.swift */,
+				E4A2DBED1E268ACF00B81025 /* CategoryAnnotationHeader.xib */,
+			);
+			name = CategoryAnnotationHeader;
+			path = CategoryAnnotationoHeader;
+			sourceTree = "<group>";
+		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1159,6 +1194,9 @@
 		E4CED79D1DE862770036A11C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E4A2DBEB1E268AA200B81025 /* CategoryAnnotationHeader */,
+				E4A2DBE61E265E5A00B81025 /* CategorySelectionCell */,
+				E4F10FB41E2635300092A74B /* EditMasterCell */,
 				E49534DB1E0E2B000008934D /* ScoreCell */,
 				E4F38D691DFD340C00F0DF8A /* MoreMessageType */,
 				E4CED79E1DE862770036A11C /* CategoryMenuCell */,
@@ -1773,6 +1811,15 @@
 			path = BottomButtonView;
 			sourceTree = "<group>";
 		};
+		E4F10FB41E2635300092A74B /* EditMasterCell */ = {
+			isa = PBXGroup;
+			children = (
+				E4F10FB51E2635470092A74B /* EditMasterCell.swift */,
+				E4F10FB61E2635470092A74B /* EditMasterCell.xib */,
+			);
+			path = EditMasterCell;
+			sourceTree = "<group>";
+		};
 		E4F38D441DFD1DB300F0DF8A /* MoreMessageType */ = {
 			isa = PBXGroup;
 			children = (
@@ -1913,6 +1960,8 @@
 				E4F9F1121D991E040076C57C /* RegisterPickMobileViewController.swift */,
 				E4F9F1131D991E040076C57C /* RegisterPickNameViewController.swift */,
 				E4F9F1161D991E040076C57C /* RegisterMainViewController.swift */,
+				E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */,
+				E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -2206,6 +2255,7 @@
 				E4A0080C1E139A2D00ABA5B5 /* ScoreGroupDetailTimerCell.xib in Resources */,
 				E4CED85F1DE862770036A11C /* NormalFormulaCell.xib in Resources */,
 				E4F38D771DFD845700F0DF8A /* PhotoCell.xib in Resources */,
+				E4A2DBEF1E268ACF00B81025 /* CategoryAnnotationHeader.xib in Resources */,
 				E4B367551E1644650010385E /* ProfileFeedsCell.xib in Resources */,
 				E4CED84F1DE862770036A11C /* DetailCommentCell.xib in Resources */,
 				E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */,
@@ -2237,6 +2287,7 @@
 				E4F10FA51E2532D00092A74B /* ProfileSectionHeaderReusableView.xib in Resources */,
 				E49534DF1E0E2B000008934D /* ScoreCell.xib in Resources */,
 				E41ECF5B1DB77959005BEFE4 /* MediaPreview.storyboard in Resources */,
+				E4A2DBEA1E265E7500B81025 /* CategorySelectionCell.xib in Resources */,
 				E4CED8591DE862770036A11C /* DetailSeparatorCell.xib in Resources */,
 				E4A008131E14232F00ABA5B5 /* digital-7 (mono).ttf in Resources */,
 				E4CED85D1DE862770036A11C /* HeaderReusableView.xib in Resources */,
@@ -2248,6 +2299,7 @@
 				E4CED8791DE862770036A11C /* CommentHeaderView.xib in Resources */,
 				E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */,
 				E4B3674D1E1635380010385E /* ProfileMasterCell.xib in Resources */,
+				E4F10FB81E2635470092A74B /* EditMasterCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2424,6 +2476,7 @@
 				E4F38D851E0002EB00F0DF8A /* UICollectionView+Cube.swift in Sources */,
 				E42C829E1DFBD01300D315CF /* ChatBaseCell.swift in Sources */,
 				E42C829F1DFBD01300D315CF /* ChatLeftImageCell.swift in Sources */,
+				E4A2DBE51E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift in Sources */,
 				E457FE4E1E0E610600AB5F64 /* ScoreDetailView.swift in Sources */,
 				E42C82A01DFBD01300D315CF /* ChatLeftTextCell.swift in Sources */,
 				E4B3673B1E1504DD0010385E /* ProfileViewController.swift in Sources */,
@@ -2556,6 +2609,7 @@
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E41ECF581DB77374005BEFE4 /* MediaViewCell.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
+				E4A2DBE31E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift in Sources */,
 				E475DA701E10F9260079FE75 /* NewScoreGroupPresentationController.swift in Sources */,
 				E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */,
 				E4CED8861DE862770036A11C /* CameraPreviewView.swift in Sources */,
@@ -2572,6 +2626,7 @@
 				E42C82951DF855DA00D315CF /* OpenGraph.swift in Sources */,
 				E4CED88F1DE862770036A11C /* Palette.swift in Sources */,
 				E4CED8681DE862770036A11C /* FormulaNameTextField.swift in Sources */,
+				E4A2DBE91E265E7500B81025 /* CategorySelectionCell.swift in Sources */,
 				E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */,
 				E4CED87B1DE862770036A11C /* CubeAlert.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
@@ -2585,6 +2640,7 @@
 				E4CED8581DE862770036A11C /* DetailSeparatorCell.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
 				E42C82A81DFBD0AE00D315CF /* CommentViewController+Feed.swift in Sources */,
+				E4F10FB71E2635470092A74B /* EditMasterCell.swift in Sources */,
 				E4F10FB31E2632390092A74B /* BottomButtonView.swift in Sources */,
 				E4CED85C1DE862770036A11C /* HeaderReusableView.swift in Sources */,
 				E4CED8711DE862770036A11C /* TypePickViewCell.swift in Sources */,
@@ -2594,6 +2650,7 @@
 				E41ECF481DB5DAC5005BEFE4 /* UIImageView+Cube.swift in Sources */,
 				E42C82971DFADCD300D315CF /* FeedFormulaCell.swift in Sources */,
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
+				E4A2DBEE1E268ACF00B81025 /* CategoryAnnotationHeader.swift in Sources */,
 				E4CED8621DE862770036A11C /* CategoryPickViewCell.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
 				E4CED8531DE862770036A11C /* DetailFormulasCell.swift in Sources */,

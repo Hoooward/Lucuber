@@ -349,7 +349,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        hidesBottomBarWhenPushed = true 
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1.0
         
@@ -360,6 +360,7 @@ final class ProfileViewController: UIViewController {
         }
         
         self.setNeedsStatusBarAppearanceUpdate()
+        updateProfileCollectionView()
     }
     
     func updateProfileCollectionView() {
@@ -367,6 +368,23 @@ final class ProfileViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.reloadData()
         collectionView.layoutIfNeeded()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+            
+        case "showEditMaster":
+            
+            
+            break
+        default:
+            break
+        }
     }
 }
 
@@ -552,6 +570,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 header.tapAction = { [weak self] in
                     
                     // TODO: - 传入
+                    self?.performSegue(withIdentifier: "showEditMaster", sender: nil)
                 }
                 
             } else {

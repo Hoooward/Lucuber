@@ -15,6 +15,7 @@ PODS:
   - MonkeyKing (1.1.0)
   - Navi (1.1.0)
   - PKHUD (3.2.1)
+  - pop (1.0.9)
   - Proposer (1.1.0)
   - Realm (2.1.1):
     - Realm/Headers (= 2.1.1)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - MonkeyKing (~> 1.1.0)
   - Navi (~> 1.1.0)
   - PKHUD (from `https://github.com/toyship/PKHUD.git`)
+  - pop (~> 1.0)
   - Proposer (~> 1.1.0)
   - RealmSwift
   - Reveal-SDK
@@ -66,6 +68,7 @@ SPEC CHECKSUMS:
   MonkeyKing: dc16753cab7ece2d83e61976cd09fc3a7f783f1f
   Navi: 486cdec680956c8f6a1e882c66cbf86d0ad52490
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Proposer: 422c693b1917a461af30e7139b0d05eefe999e16
   Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
   RealmSwift: 749fd955bf8d6471c21d218b9389a47aaeccfe3f
@@ -74,6 +77,6 @@ SPEC CHECKSUMS:
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: b3cf34f4012d42e589fc12a22d5a38443426d7e9
+PODFILE CHECKSUM: 4c3b01c975e84241983b98ecb5535290528e9b60
 
 COCOAPODS: 1.1.1
