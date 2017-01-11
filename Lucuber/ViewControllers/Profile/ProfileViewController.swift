@@ -491,7 +491,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .feeds:
             let cell: ProfileFeedsCell = collectionView.dequeueReusableCell(for: indexPath)
             return cell
-            
         }
         
     }

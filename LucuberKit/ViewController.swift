@@ -15,8 +15,6 @@ import Alamofire
 class ViewController: UIViewController {
 
     @IBAction func logout(_ sender: Any) {
-        service.fetchMessage(with: "5850f7c4128fe1006d92d29d", messageAge: .new)
-        service.sendMessage(text: "就是这个掉")
     }
     var service = ConversationService.shared
     override func viewDidLoad() {
@@ -69,6 +67,7 @@ class ViewController: UIViewController {
     }
     
     
+    /*
     func sendImageMessage() {
         
         let image = UIImage(named: "Howard")!
@@ -99,7 +98,7 @@ class ViewController: UIViewController {
             printLog("文字 Message 推送成功")
         })
     }
-    
+    */
     
 
 }

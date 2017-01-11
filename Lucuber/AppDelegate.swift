@@ -15,6 +15,7 @@ import RealmSwift
 import UserNotifications
 import LucuberTimer
 
+
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -60,11 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverPreferences.registerSubclass()
         DiscoverMessage.registerSubclass()
         DiscoverFeed.registerSubclass()
+        DiscoverCubeCategory.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds
         window?.rootViewController = determineRootViewController()
         window?.makeKeyAndVisible()
+        
+        //pushCubeCategory()
         
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)

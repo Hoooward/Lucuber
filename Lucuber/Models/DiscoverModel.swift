@@ -10,6 +10,15 @@ import UIKit
 import AVOSCloud
 import CoreLocation
 
+public class DiscoverCubeCategory: AVObject, AVSubclassing {
+    
+    public static func parseClassName() -> String {
+        return "DiscoverCubeCategory"
+    }
+    
+    @NSManaged var categoryString: String
+}
+
 public class DiscoverFormula: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {

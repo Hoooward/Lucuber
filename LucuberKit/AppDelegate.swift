@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverContent.registerSubclass()
         DiscoverPreferences.registerSubclass()
         DiscoverMessage.registerSubclass()
+        DiscoverCubeCategory.registerSubclass()
         CustomMessage.registerSubclass()
         
         window = UIWindow()
@@ -32,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         // 注意会重复添加数据
 //        pushBaseFormulaDataToLeanCloud()
+        
+        pushCubeCategory()
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         printLog(path)

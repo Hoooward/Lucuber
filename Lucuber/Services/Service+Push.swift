@@ -840,6 +840,88 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
 
 }
 
+
+public func pushCubeCategory() {
+    
+    let categorys = [
+        "二阶",
+        "三阶",
+        "四阶",
+        "五阶",
+        "六阶",
+        "七阶",
+        "八阶",
+        "九阶",
+        "十一阶",
+        
+        "镜面魔方",
+        "金字塔魔方",
+        "魔粽",
+        "魔球",
+        "五魔方",
+        "菊花五魔方",
+        "亚历山大之星",
+        "直升机魔方",
+        "移棱魔方",
+        "空心魔方",
+        "唯棱魔方",
+        "斜转魔方",
+        "钻石魔方",
+        "齿轮魔方",
+        "Square One",
+        "Super Square One",
+        "Square Two",
+        "魔粽齿轮",
+        "花瓣转角魔方",
+        "六角异形魔方",
+        "路障魔方",
+        "八轴八面魔方",
+        "百慕大三阶",
+        "空心唯棱魔方",
+        "唯角魔方",
+        "魔中魔",
+        "魔刃",
+        "鲁比克360",
+        "魔板",
+        "大师魔板",
+        "魔表",
+        "扭计蛇",
+        "113连体",
+        "Tuttminx",
+        "Futtminx",
+        
+        
+        
+        "3x3x1",
+        "3x3x2",
+        "3x3x4",
+        "3x3x5",
+        "3x3x6",
+        "3x3x7",
+        "3x3x8",
+        "3x3x9",
+        "2x2x1",
+        "2x2x3",
+        "2x2x4",
+        "4x4x5",
+        "4x4x6",
+        "5x5x4",
+        "2x3x4",
+        "3x4x5",
+        ]
+    
+    var cubeCategorys: [DiscoverCubeCategory] = []
+    
+    categorys.forEach { string in
+        
+        let newCategory = DiscoverCubeCategory()
+        newCategory.categoryString = string
+        cubeCategorys.append(newCategory)
+    }
+    
+    AVObject.saveAll(cubeCategorys)
+}
+
 //extension AVQuery {
 //
 //     enum DefaultKey: String {
