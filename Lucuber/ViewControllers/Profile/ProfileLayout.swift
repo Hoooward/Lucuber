@@ -69,6 +69,43 @@ final class ProfileLayout: UICollectionViewFlowLayout {
             }
         }
         
+        var rowCollections = [CGFloat: [UICollectionViewLayoutAttributes]]()
+        
+        for attributes in layoutAttributes! {
+            let centerY = attributes.frame.midY
+            
+            if let rowCollection = rowCollections[centerY] {
+                var rowCollection = rowCollection
+                rowCollection.append(attributes)
+                rowCollections[centerY] = rowCollection
+                
+            } else {
+                rowCollections[centerY] = [attributes]
+            }
+            
+        }
+        
+        for (_, rowCollection) in rowCollections {
+            
+            var previousFrame = CGRect.zero
+            for attributes in rowCollection {
+                var itemFrame = attributes.frame
+                
+                if attributes.representedElementCategory == .cell && attributes.indexPath.section == ProfileViewController.Section.master.rawValue {
+                    if previousFrame.equalTo(CGRect.zero) {
+                        itemFrame.origin.x = Config.Profile.leftEdgeInset
+                    } else {
+                        itemFrame.origin.x = previousFrame.maxX + minimumInteritemSpacing
+                    }
+                    
+                    attributes.frame = itemFrame
+                }
+                
+                previousFrame = itemFrame
+                
+            }
+        }
+        
         return layoutAttributes
     }
     

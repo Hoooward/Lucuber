@@ -36,8 +36,22 @@ public func creatMeInRealm() -> RUser? {
         
         let newUser = RUser()
         
+        let category1 = CubeCategoryMaster(value: ["三阶", newUser])
+        let category2 = CubeCategoryMaster(value: ["四阶", newUser])
+        let category3 = CubeCategoryMaster(value: ["五阶", newUser])
+        let category4 = CubeCategoryMaster(value: ["六阶", newUser])
+        let category5 = CubeCategoryMaster(value: ["无魔方", newUser])
+        let category6 = CubeCategoryMaster(value: ["魔板", newUser])
+        
         try? realm.write {
             realm.add(newUser)
+            
+            realm.add(category1)
+            realm.add(category2)
+            realm.add(category3)
+            realm.add(category4)
+            realm.add(category5)
+            realm.add(category6)
         }
         user = newUser
         

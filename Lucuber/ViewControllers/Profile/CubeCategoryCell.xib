@@ -42,7 +42,6 @@
             <connections>
                 <outlet property="backgroundImageView" destination="ztk-8z-N4O" id="kdH-Ul-wYD"/>
                 <outlet property="categoryLabel" destination="csA-or-HyN" id="FJP-i7-pN6"/>
-                <outlet property="skillLabel" destination="csA-or-HyN" id="w87-ES-24h"/>
             </connections>
             <point key="canvasLocation" x="4" y="0.0"/>
         </collectionViewCell>

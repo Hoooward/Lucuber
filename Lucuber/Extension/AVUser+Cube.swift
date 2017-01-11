@@ -15,7 +15,7 @@ fileprivate let avatorImageURLKey = "avatorImageURL"
 fileprivate let localObjectIDKey = "localObjectID"
 fileprivate let masterListKey = "masterList"
 fileprivate let introdctionKey = "introduction"
-fileprivate let cubeCategoryMasterListKey = "cubeCategoryMasterListKey"
+fileprivate let cubeCategoryMasterListKey = "cubeCategoryMasterList"
 
 extension AVUser {
     

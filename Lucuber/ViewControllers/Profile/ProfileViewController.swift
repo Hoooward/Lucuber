@@ -511,7 +511,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: collectionView.bounds.width, height: footerCellHeight)
             
         case .master:
-            return CGSize(width: collectionView.bounds.width, height: 60)
+            
+            let categoryString = profileUser?.cellCubeCategory(atIndexPath: indexPath) ?? ""
+            
+            let rect = (categoryString as NSString).boundingRect(with: CGSize(width: CGFloat(FLT_MAX), height: CubeCategoryCell.height), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+            
+            return CGSize(width: rect.width + 24, height: CubeCategoryCell.height)
             
         case .score:
             return CGSize(width: collectionView.bounds.width, height: 60)
@@ -592,6 +597,43 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        guard let profileUser = profileUser else {
+            return CGSize.zero
+        }
+        
+        guard let section = Section(rawValue: section) else {
+            fatalError()
+        }
+        
+        let normalHeight: CGFloat = 40
+        
+        if profileUser.isMe {
+            
+            switch section {
+                
+            case .master:
+                return CGSize(width: collectionViewWidth, height: normalHeight)
+      
+            default:
+                return CGSize.zero
+            }
+            
+        } else {
+            
+            switch section {
+                
+            case .master:
+                let height: CGFloat = profileUser.cubeCategoryMasterCount > 0 ? normalHeight : 0
+                return CGSize(width: collectionViewWidth, height: height)
+
+            default:
+                return CGSize.zero
+            }
+        }
     }
     
 }
