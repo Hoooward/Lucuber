@@ -23,6 +23,7 @@ final class EditMasterViewController: UIViewController {
         super.viewDidLoad()
         
         title = "擅长"
+     
         me = currentUser(in: realm)
         
         fetchCubeCategorys(failureHandler: { reason, errorMessage in
@@ -136,8 +137,7 @@ final class EditMasterViewController: UIViewController {
         super.viewWillAppear(animated)
        
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 

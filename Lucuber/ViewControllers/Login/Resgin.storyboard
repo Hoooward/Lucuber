@@ -459,16 +459,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fQf-Nd-nRy">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="KMA-aE-e9b" id="0hV-Lk-iFf"/>
                                     <outlet property="delegate" destination="KMA-aE-e9b" id="DUt-ti-anZ"/>
@@ -516,7 +507,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择你已经可以熟练复原的魔方" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEw-mD-pq1">
-                                        <rect key="frame" x="50" y="26.5" width="275" height="16"/>
+                                        <rect key="frame" x="50" y="26" width="275" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -534,18 +525,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="1NX-aB-zP6" secondAttribute="trailing" id="7Ly-TE-fci"/>
-                            <constraint firstItem="FtF-21-O5c" firstAttribute="top" secondItem="OE6-Eb-Blb" secondAttribute="bottom" id="C1o-4y-WUH"/>
+                            <constraint firstAttribute="bottom" secondItem="Shp-6K-wga" secondAttribute="bottom" id="DqQ-Cy-ceq"/>
                             <constraint firstItem="OE6-Eb-Blb" firstAttribute="leading" secondItem="15P-kd-zrx" secondAttribute="leading" id="GqQ-9d-SfR"/>
                             <constraint firstAttribute="trailing" secondItem="Shp-6K-wga" secondAttribute="trailing" id="Mgp-gU-9pz"/>
                             <constraint firstItem="Q3g-5b-BZp" firstAttribute="leading" secondItem="15P-kd-zrx" secondAttribute="leading" id="PCy-UO-l5Q"/>
                             <constraint firstItem="Shp-6K-wga" firstAttribute="top" secondItem="1NX-aB-zP6" secondAttribute="bottom" id="RgH-vZ-Zoe"/>
                             <constraint firstItem="1NX-aB-zP6" firstAttribute="leading" secondItem="15P-kd-zrx" secondAttribute="leading" id="VGW-DC-cfc"/>
-                            <constraint firstItem="FtF-21-O5c" firstAttribute="top" secondItem="Shp-6K-wga" secondAttribute="bottom" id="Zfl-Z1-98t"/>
                             <constraint firstItem="1NX-aB-zP6" firstAttribute="top" secondItem="15P-kd-zrx" secondAttribute="top" id="hl6-Vn-3zs"/>
                             <constraint firstAttribute="trailing" secondItem="Q3g-5b-BZp" secondAttribute="trailing" id="lDK-Dz-aDJ"/>
                             <constraint firstItem="Shp-6K-wga" firstAttribute="leading" secondItem="15P-kd-zrx" secondAttribute="leading" id="vSX-Na-fUK"/>
                             <constraint firstItem="OE6-Eb-Blb" firstAttribute="bottom" secondItem="Q3g-5b-BZp" secondAttribute="bottom" id="xfK-QQ-9vT"/>
                             <constraint firstAttribute="trailing" secondItem="OE6-Eb-Blb" secondAttribute="trailing" id="xmg-1H-gtz"/>
+                            <constraint firstAttribute="bottom" secondItem="OE6-Eb-Blb" secondAttribute="bottom" id="yn4-Jz-oXY"/>
                         </constraints>
                     </view>
                     <connections>
@@ -563,7 +554,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6fl-js-9hU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Uoq-ef-j8l">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uoq-ef-j8l">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

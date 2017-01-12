@@ -263,6 +263,12 @@ public class Config {
         public static let rightEdgeInset: CGFloat = leftEdgeInset
         public static let introductionFont: UIFont = UIFont.systemFont(ofSize: 14)
     }
+    
+    public struct Settings {
+        public static let userCellAvatarSize: CGFloat = 80
+        public static let introFont: UIFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
+        public static let introInset: CGFloat = 20 + userCellAvatarSize + 20 + 10 + 11 + 20
+    }
 
 }
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsMoreCell" rowHeight="72" id="W4d-4m-DTd" customClass="SettingsMoreCell" customModule="Yep" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W4d-4m-DTd" id="QUj-Iw-jpd">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjs-Je-6d1" userLabel="Annotation Label">
+                        <rect key="frame" x="20" y="25" width="42" height="22"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="rHV-rN-01y" userLabel="Accessory Image View">
+                        <rect key="frame" x="289" y="26" width="11" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="11" id="Am1-tk-qYk"/>
+                            <constraint firstAttribute="height" constant="20" id="nAC-Wc-Gyj"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="centerY" secondItem="Yjs-Je-6d1" secondAttribute="centerY" id="5Ka-wC-o11"/>
+                    <constraint firstAttribute="trailing" secondItem="rHV-rN-01y" secondAttribute="trailing" constant="20" id="8np-R6-JBQ"/>
+                    <constraint firstItem="Yjs-Je-6d1" firstAttribute="leading" secondItem="QUj-Iw-jpd" secondAttribute="leading" constant="20" id="VH0-ys-9Po"/>
+                    <constraint firstItem="rHV-rN-01y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Yjs-Je-6d1" secondAttribute="trailing" constant="10" id="nZz-uE-tml"/>
+                    <constraint firstAttribute="centerY" secondItem="rHV-rN-01y" secondAttribute="centerY" id="yB6-XA-9Tm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="accessoryImageView" destination="rHV-rN-01y" id="Nj6-Hu-WwU"/>
+                <outlet property="annotationLabel" destination="Yjs-Je-6d1" id="TRQ-dI-FJl"/>
+            </connections>
+            <point key="canvasLocation" x="321" y="409"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_accessory_mini" width="8" height="13"/>
+    </resources>
+</document>

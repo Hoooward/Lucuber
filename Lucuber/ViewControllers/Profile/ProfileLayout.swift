@@ -17,7 +17,13 @@ final class ProfileLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
-        let layoutAttributes = super.layoutAttributesForElements(in: rect)
+        guard let _layoutAttirbutes = super.layoutAttributesForElements(in: rect) else {
+            return nil
+        }
+        
+        let layoutAttributes = _layoutAttirbutes.map({
+            $0.copy() as! UICollectionViewLayoutAttributes
+        })
         let contentInset = collectionView!.contentInset
         let contentOffset = collectionView!.contentOffset
         
@@ -27,16 +33,14 @@ final class ProfileLayout: UICollectionViewFlowLayout {
             
             let deltaY = abs(contentOffset.y - minY)
             
-            if let layoutAttributes = layoutAttributes {
-                for attributes in layoutAttributes {
-                    
-                    if attributes.indexPath.section == ProfileViewController.Section.header.rawValue {
-                        var frame = attributes.frame
-                        frame.size.height = max(minY, collectionView!.bounds.width * profileAvatarAspectRatio + deltaY)
-                        frame.origin.y = frame.minY - deltaY
-                        attributes.frame = frame
-                        break
-                    }
+            for attributes in layoutAttributes {
+                
+                if attributes.indexPath.section == ProfileViewController.Section.header.rawValue {
+                    var frame = attributes.frame
+                    frame.size.height = max(minY, collectionView!.bounds.width * profileAvatarAspectRatio + deltaY)
+                    frame.origin.y = frame.minY - deltaY
+                    attributes.frame = frame
+                    break
                 }
             }
             
@@ -49,16 +53,14 @@ final class ProfileLayout: UICollectionViewFlowLayout {
                 
                 let deltaY = abs(contentOffset.y - minY)
                 
-                if let layoutAttributes = layoutAttributes {
-                    for attributes in layoutAttributes {
-                        
-                        if attributes.indexPath.section == ProfileViewController.Section.header.rawValue {
-                            var frame = attributes.frame
-                            frame.origin.y = deltaY - coverHideHeight
-                            attributes.frame = frame
-                            attributes.zIndex = 1000
-                            break
-                        }
+                for attributes in layoutAttributes {
+                    
+                    if attributes.indexPath.section == ProfileViewController.Section.header.rawValue {
+                        var frame = attributes.frame
+                        frame.origin.y = deltaY - coverHideHeight
+                        attributes.frame = frame
+                        attributes.zIndex = 1000
+                        break
                     }
                 }
             }
@@ -71,7 +73,7 @@ final class ProfileLayout: UICollectionViewFlowLayout {
         
         var rowCollections = [CGFloat: [UICollectionViewLayoutAttributes]]()
         
-        for attributes in layoutAttributes! {
+        for attributes in layoutAttributes {
             let centerY = attributes.frame.midY
             
             if let rowCollection = rowCollections[centerY] {

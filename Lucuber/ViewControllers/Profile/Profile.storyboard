@@ -47,16 +47,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="24s-c8-0Pa">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="HyC-gf-LeM" id="Ir7-w2-uXN"/>
                                     <outlet property="delegate" destination="HyC-gf-LeM" id="noi-sg-Zyr"/>
@@ -89,6 +80,7 @@
                         <outlet property="collectionView" destination="adl-EZ-2wn" id="bFk-rs-q1h"/>
                         <outlet property="topShadowImageView" destination="tZv-c1-mcr" id="uST-Qx-5Ll"/>
                         <segue destination="O4q-Fs-nmD" kind="show" identifier="showEditMaster" id="Gnm-YR-O3y"/>
+                        <segue destination="WOX-KZ-04X" kind="show" identifier="showSettingInfo" id="uvq-Ep-CLu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8a-wo-7OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -103,7 +95,15 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7n-af-nHO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1160" y="145"/>
+            <point key="canvasLocation" x="1160" y="97"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="CRN-VS-Zct">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Setting" id="WOX-KZ-04X" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R7L-P1-UmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1142" y="185"/>
         </scene>
     </scenes>
     <resources>

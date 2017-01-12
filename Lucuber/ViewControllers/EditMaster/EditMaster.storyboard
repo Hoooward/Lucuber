@@ -11,7 +11,7 @@
         <!--Edit Master View Controller-->
         <scene sceneID="dPr-AX-9Ch">
             <objects>
-                <viewController storyboardIdentifier="EditMasterViewController" id="3Vh-ll-f3k" customClass="EditMasterViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditMasterViewController" hidesBottomBarWhenPushed="YES" id="3Vh-ll-f3k" customClass="EditMasterViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xbl-yB-jnj"/>
                         <viewControllerLayoutGuide type="bottom" id="214-sb-0X4"/>
@@ -20,9 +20,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SOw-Ii-suP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="SOw-Ii-suP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="3Vh-ll-f3k" id="urA-yQ-8x9"/>
                                     <outlet property="delegate" destination="3Vh-ll-f3k" id="YiR-H7-R7g"/>
@@ -38,13 +38,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Mi7-dQ-0uw" secondAttribute="bottom" id="93y-vc-oSQ"/>
                             <constraint firstAttribute="trailing" secondItem="SOw-Ii-suP" secondAttribute="trailing" id="CeK-cj-svC"/>
                             <constraint firstItem="214-sb-0X4" firstAttribute="top" secondItem="SOw-Ii-suP" secondAttribute="bottom" id="Dwo-co-Ekr"/>
                             <constraint firstItem="SOw-Ii-suP" firstAttribute="top" secondItem="TwO-eb-Qc6" secondAttribute="top" id="K1D-Yx-aFB"/>
                             <constraint firstItem="SOw-Ii-suP" firstAttribute="leading" secondItem="TwO-eb-Qc6" secondAttribute="leading" id="XCc-AK-H9l"/>
                             <constraint firstItem="Mi7-dQ-0uw" firstAttribute="leading" secondItem="TwO-eb-Qc6" secondAttribute="leading" id="bhc-52-JS6"/>
                             <constraint firstAttribute="trailing" secondItem="Mi7-dQ-0uw" secondAttribute="trailing" id="hRG-4C-HaJ"/>
-                            <constraint firstItem="214-sb-0X4" firstAttribute="top" secondItem="Mi7-dQ-0uw" secondAttribute="bottom" id="lrL-aQ-Lvc"/>
                         </constraints>
                     </view>
                     <connections>

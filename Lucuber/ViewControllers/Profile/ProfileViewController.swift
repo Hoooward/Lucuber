@@ -120,7 +120,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func showSettings(sender: UIBarButtonItem) {
-        
+        performSegue(withIdentifier: "showSettingInfo", sender: nil)
     }
     
     fileprivate var statusBarShouldLight = false
@@ -245,6 +245,8 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "个人主页"
         view.addSubview(customNavigationBar)
         automaticallyAdjustsScrollViewInsets = false
         //TODO: - 清理缓存
@@ -349,8 +351,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hidesBottomBarWhenPushed = true 
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
         customNavigationBar.alpha = 1.0
         
         statusBarShouldLight = false
@@ -379,7 +380,6 @@ final class ProfileViewController: UIViewController {
         switch identifier {
             
         case "showEditMaster":
-            
             
             break
         default:
