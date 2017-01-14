@@ -34,6 +34,7 @@ extension Notification.Name {
     
     static let newScoreGroupViewControllerDidDismissNotification = Notification.Name("newScoreGroupViewControllerDidDismiss")
     
+    static let tabbarItemTextEnableDidChangedNotification = Notification.Name("tabbarItemTextEnableDidChanged")
 
 }
 

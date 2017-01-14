@@ -15,7 +15,7 @@ final class SettingViewController: UIViewController {
         didSet {
             settingsTableView.registerNib(of: SettingsUserCell.self)
             settingsTableView.registerNib(of: SettingsMoreCell.self)
-            
+            settingsTableView.registerClass(of: TitleSwitchCell.self)
         }
     }
     
@@ -70,6 +70,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case more
     }
     
+    enum UIRow: Int {
+        case tabBarTitleEnabled
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -83,7 +86,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .user:
             return 1
         case .ui:
-            return 0
+            return 1
         case .more:
             return moreAnnotations.count
         }
@@ -110,7 +113,23 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         case .ui:
-            return UITableViewCell()
+            guard let row = UIRow(rawValue: indexPath.row) else {
+                fatalError()
+            }
+            
+            switch row {
+            case .tabBarTitleEnabled:
+                let cell: TitleSwitchCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.titleLabel.text = "显示 Tab Bar 标题"
+                cell.toggleSwitch.isOn = UserDefaults.tabbarItemTextEnabled() ?? true
+                cell.toggleSwitchStateChangedAction = { on in
+                    
+                    UserDefaults.setTabbarItemTextEnable(enable: on)
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name.tabbarItemTextEnableDidChangedNotification, object: nil)
+                }
+                return cell
+            }
             
         case .more:
             let cell: SettingsMoreCell = tableView.dequeueReusableCell(for: indexPath)

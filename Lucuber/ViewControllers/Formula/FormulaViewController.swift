@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FormulaViewController: UIViewController, SegueHandlerType {
+class FormulaViewController: UIViewController, SegueHandlerType, CanScrollsToTop {
     
     // MARK: - Properties
     
@@ -49,6 +49,13 @@ class FormulaViewController: UIViewController, SegueHandlerType {
         return view
         
     }()
+    
+    var scrollView: UIScrollView? {
+        if let vc = childViewControllers[Int(containerScrollerOffsetX / UIScreen.main.bounds.width)] as? BaseCollectionViewController {
+            return vc.collectionView
+        }
+        return nil
+    }
     
     // MARK: - Life Cycle
    

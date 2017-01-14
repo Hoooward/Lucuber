@@ -39,7 +39,7 @@ struct LayoutCatch {
     }
 }
 
-class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer{
+class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, CanScrollsToTop{
     
     // MARK: - Properties
     
@@ -95,7 +95,7 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer{
     @IBOutlet weak var loadingFeedsIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-    private lazy var refreshControl: UIRefreshControl = {
+    lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(FeedsViewController.tryRefreshOrGetNewFeeds), for: .valueChanged)
         return refreshControl
@@ -129,6 +129,10 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer{
             date = lastFeed.createdAt
         }
         return date ?? Date()
+    }
+    
+    var scrollView: UIScrollView? {
+        return tableView
     }
     
     // MARK: - Life Cycle

@@ -227,6 +227,8 @@
 		E459BC461E2A263C008F4097 /* Bundle+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC451E2A263C008F4097 /* Bundle+Cube.swift */; };
 		E459BC491E2A3F3D008F4097 /* PodHelp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E459BC481E2A3F3D008F4097 /* PodHelp.storyboard */; };
 		E459BC4B1E2A3F4B008F4097 /* PodHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */; };
+		E459BC4E1E2A5CD5008F4097 /* TitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC4D1E2A5CD5008F4097 /* TitleSwitchCell.swift */; };
+		E459BC511E2A648B008F4097 /* CanScrollsToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC501E2A648B008F4097 /* CanScrollsToTop.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
@@ -605,6 +607,8 @@
 		E459BC451E2A263C008F4097 /* Bundle+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Cube.swift"; sourceTree = "<group>"; };
 		E459BC481E2A3F3D008F4097 /* PodHelp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PodHelp.storyboard; sourceTree = "<group>"; };
 		E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodHelpViewController.swift; sourceTree = "<group>"; };
+		E459BC4D1E2A5CD5008F4097 /* TitleSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSwitchCell.swift; sourceTree = "<group>"; };
+		E459BC501E2A648B008F4097 /* CanScrollsToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanScrollsToTop.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1355,6 +1359,7 @@
 		E459BAFE1E27637B008F4097 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E459BC4C1E2A5CC7008F4097 /* TitleSwitchCell */,
 				E459BC401E2A23C0008F4097 /* AboutCell */,
 				E459BC301E28685A008F4097 /* EditProfileColoredTitleCell */,
 				E459BC311E28685A008F4097 /* EditProfileMoreInfoCell */,
@@ -2096,6 +2101,22 @@
 			path = PodHelp;
 			sourceTree = "<group>";
 		};
+		E459BC4C1E2A5CC7008F4097 /* TitleSwitchCell */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC4D1E2A5CD5008F4097 /* TitleSwitchCell.swift */,
+			);
+			path = TitleSwitchCell;
+			sourceTree = "<group>";
+		};
+		E459BC4F1E2A647A008F4097 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC501E2A648B008F4097 /* CanScrollsToTop.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2509,6 +2530,7 @@
 				E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */,
 				E466068A1D8E3513002306D0 /* Helper */,
 				E4F38D561DFD20C400F0DF8A /* Cache */,
+				E459BC4F1E2A647A008F4097 /* Protocol */,
 				E4217F1C1D962BE200E575AB /* Transitions */,
 				E4B09BB21D8FA57A0090671F /* Services */,
 				E4B09B9D1D8E38C30090671F /* Models */,
@@ -3038,6 +3060,7 @@
 				E459BAF61E2762DB008F4097 /* TimerControlView.swift in Sources */,
 				E459BBF11E27637C008F4097 /* PickPhotosCell.swift in Sources */,
 				E459BBD51E27637C008F4097 /* FeedMediaAddCell.swift in Sources */,
+				E459BC511E2A648B008F4097 /* CanScrollsToTop.swift in Sources */,
 				E459BC031E27637C008F4097 /* FormulaTextViewCell.swift in Sources */,
 				E459BBB71E27637C008F4097 /* CategoryAnnotationHeader.swift in Sources */,
 				E459BC1F1E27637C008F4097 /* ScoreGroupCell.swift in Sources */,
@@ -3045,6 +3068,7 @@
 				E459BA5A1E2762DA008F4097 /* ActionSheetView.swift in Sources */,
 				E459BAF41E2762DB008F4097 /* StarRatingView.swift in Sources */,
 				E459BAD51E2762DB008F4097 /* FeedURLContainerView.swift in Sources */,
+				E459BC4E1E2A5CD5008F4097 /* TitleSwitchCell.swift in Sources */,
 				E459BAE81E2762DB008F4097 /* MoreMessageTypeView.swift in Sources */,
 				E459BBBC1E27637C008F4097 /* ChatBaseCell.swift in Sources */,
 				E4DF66081D8D9738005CE518 /* UIColor+Cube.swift in Sources */,

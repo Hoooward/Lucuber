@@ -12,6 +12,19 @@ fileprivate let needUpdateLibraryKey = "needUpdateLibraryKey"
 fileprivate let newUserNickNameKey = "newUserNickName"
 fileprivate let newUserAvatarURLKey = "newUserAvatarURL"
 
+fileprivate let tarbarItemTextEnabledKey = "tarbarItemTextEnabled"
+
+// MARK: - UI
+extension UserDefaults {
+    class func setTabbarItemTextEnable(enable: Bool) {
+        standard.set(enable, forKey: tarbarItemTextEnabledKey)
+    }
+    
+    class func tabbarItemTextEnabled() -> Bool? {
+        return standard.object(forKey: tarbarItemTextEnabledKey) as? Bool
+    }
+}
+
 extension UserDefaults {
     
     class func clearAllUserDefaultes() {
