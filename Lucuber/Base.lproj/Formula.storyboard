@@ -123,7 +123,7 @@
         <scene sceneID="gUB-O9-Owu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUu-an-wGK" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="公式" image="tabbar_gongshi" selectedImage="tabbar_gongshi_sele" id="7md-lu-zpP"/>
+                    <tabBarItem key="tabBarItem" title="公式" image="icon_formula" selectedImage="icon_formula_active" id="7md-lu-zpP"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cJO-O3-HmV">
@@ -141,9 +141,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_formula" width="20" height="20"/>
+        <image name="icon_formula_active" width="20" height="20"/>
         <image name="plus" width="44" height="44"/>
         <image name="popover" width="69" height="271"/>
-        <image name="tabbar_gongshi" width="30" height="30"/>
-        <image name="tabbar_gongshi_sele" width="30" height="30"/>
     </resources>
 </document>

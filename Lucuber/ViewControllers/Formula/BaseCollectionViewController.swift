@@ -105,7 +105,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         indicator.hidesWhenStopped = true
         return indicator
     }()
-
     
     // MARK: - Left Cycle
     
@@ -128,7 +127,7 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         
         collectionView?.addSubview(activityIndicator)
         collectionView?.backgroundColor = UIColor.white
-        
+        collectionView?.alwaysBounceVertical = true
         collectionView?.register(UINib(nibName: cardCellIdentifier, bundle: nil), forCellWithReuseIdentifier: cardCellIdentifier)
         collectionView?.register(UINib(nibName: normalCellIdentifier, bundle: nil), forCellWithReuseIdentifier: normalCellIdentifier)
         collectionView?.register(UINib(nibName: noResultCellIdentifier, bundle: nil), forCellWithReuseIdentifier: noResultCellIdentifier)

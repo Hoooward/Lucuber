@@ -106,7 +106,6 @@ class MainTabbarController: UITabBarController {
             }
             
         } else {
-            // Set Titles
             if let items = tabBar.items {
                 for i in 0..<items.count {
                     let item = items[i]

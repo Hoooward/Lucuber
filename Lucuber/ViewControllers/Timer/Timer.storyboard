@@ -273,11 +273,11 @@
         <scene sceneID="KtA-Ru-xPf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dFP-U9-BET" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="计时器" image="tabbar_time" selectedImage="tabbar_time_sele" id="zAz-NQ-3cl"/>
+                    <tabBarItem key="tabBarItem" title="计时器" image="icon_timer" selectedImage="icon_timer_active" id="zAz-NQ-3cl"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kcv-pK-7yt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcv-pK-7yt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -314,7 +314,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WdS-fu-dvX" id="GAh-tT-5Zs">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skill_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="zMH-nh-a62">
@@ -387,11 +387,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_timer" width="30" height="30"/>
+        <image name="icon_timer_active" width="30" height="30"/>
         <image name="ios-refresh-empty" width="36" height="43"/>
         <image name="loading" width="414" height="45"/>
         <image name="new_score_group_popover" width="67" height="70"/>
         <image name="skill_bubble" width="55" height="24"/>
-        <image name="tabbar_time" width="28" height="30"/>
-        <image name="tabbar_time_sele" width="28" height="30"/>
     </resources>
 </document>

@@ -89,10 +89,10 @@
         <scene sceneID="a90-5j-wwF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QaM-kA-mpr" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="话题" image="icon_feeds_active" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
+                    <tabBarItem key="tabBarItem" title="话题" image="icon_feeds" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="if5-gT-npF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="if5-gT-npF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -107,6 +107,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_feeds" width="30" height="30"/>
         <image name="icon_feeds_active" width="30" height="30"/>
     </resources>
 </document>

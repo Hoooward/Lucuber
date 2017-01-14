@@ -12,7 +12,7 @@
         <scene sceneID="aiC-OS-a5Z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gIz-68-p47" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="成绩" image="tabbar_result" selectedImage="tabbar_result_sele" id="omy-6e-kO8"/>
+                    <tabBarItem key="tabBarItem" title="成绩" image="icon_score" selectedImage="icon_score_active" id="omy-6e-kO8"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3KM-a9-66C">
@@ -59,7 +59,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016/12/21 - 2016/12/26" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="b8K-wu-LNw">
-                                                <rect key="frame" x="20" y="69" width="139" height="15"/>
+                                                <rect key="frame" x="20" y="69" width="139" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -132,19 +132,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最快" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCs-8g-fAi">
-                                                <rect key="frame" x="79" y="0.0" width="79" height="29"/>
+                                                <rect key="frame" x="79" y="0.0" width="78.5" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.53333333333333333" green="0.61176470588235299" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最慢" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugr-FK-g4t">
-                                                <rect key="frame" x="158" y="0.0" width="78" height="29"/>
+                                                <rect key="frame" x="157.5" y="0.0" width="79" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.52941176470588236" green="0.60784313725490191" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="次数" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaD-Rv-EbK">
-                                                <rect key="frame" x="236" y="0.0" width="79" height="29"/>
+                                                <rect key="frame" x="236.5" y="0.0" width="78.5" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.52941176470588236" green="0.60784313725490191" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -239,7 +239,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tabbar_result" width="30" height="27"/>
-        <image name="tabbar_result_sele" width="30" height="26"/>
+        <image name="icon_score" width="20" height="18"/>
+        <image name="icon_score_active" width="20" height="18"/>
     </resources>
 </document>

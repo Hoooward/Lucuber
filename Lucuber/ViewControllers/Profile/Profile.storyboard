@@ -8,11 +8,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--我-->
+        <!--个人主页-->
         <scene sceneID="zVX-Gg-x7e">
             <objects>
                 <navigationController id="HD5-iu-WB9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="tabbar_setting" selectedImage="tabbar_setting_sele" id="Y6T-Sx-RfZ"/>
+                    <tabBarItem key="tabBarItem" title="个人主页" image="icon_me" selectedImage="icon_me_active" id="Y6T-Sx-RfZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nfm-6Z-uBS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -107,9 +107,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_me" width="30" height="30"/>
+        <image name="icon_me_active" width="30" height="30"/>
         <image name="icon_settings" width="30" height="30"/>
-        <image name="tabbar_setting" width="30" height="28"/>
-        <image name="tabbar_setting_sele" width="30" height="28"/>
         <image name="top_shadow" width="375" height="80"/>
     </resources>
 </document>
