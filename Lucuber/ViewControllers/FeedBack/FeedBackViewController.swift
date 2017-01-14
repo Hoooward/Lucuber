@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import DeviceGuru
+import AVOSCloud
 
 final class FeedBackViewController: UIViewController {
     @IBOutlet fileprivate weak var titleLabel: UILabel! {
@@ -49,7 +51,6 @@ final class FeedBackViewController: UIViewController {
     }
     
     fileprivate let keyboardMan = KeyboardMan()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,20 +95,26 @@ final class FeedBackViewController: UIViewController {
         
         feedbackTextView.resignFirstResponder()
         
-        let deviceInfo = (DeviceUtil.hardwareDescription() ?? "nixDevice") + ", " + ProcessInfo().operatingSystemVersionString
-        let feedback = Feedback(content: feedbackTextView.text, deviceInfo: deviceInfo)
+        let deviceInfo = "\(DeviceGuru.hardware())" + ", " + ProcessInfo().operatingSystemVersionString
+        let feedback = DiscoverFeedback()
+        feedback.body = feedbackTextView.text
+        feedback.deviceInfo = deviceInfo
         
-        sendFeedback(feedback, failureHandler: { [weak self] (reason, errorMessage) in
-            let message = errorMessage ?? "Faild to send feedback!"
-            YepAlert.alertSorry(message: message, inViewController: self)
+        pushFeedbackToLeancloud(with: feedback, completion: {
             
-            }, completion: { [weak self] in
-                YepAlert.alert(title: NSLocalizedString("Success", comment: ""), message: NSLocalizedString("Thanks! Your feedback has been recorded!", comment: ""), dismissTitle: String.trans_titleOK, inViewController: self, withDismissAction: {
-                    
-                    SafeDispatch.async { [weak self] in
-                        _ = self?.navigationController?.popViewController(animated: true)
-                    }
-                })
+            CubeAlert.alert(title: "成功", message: "感谢你的反馈!", dismissTitle: "不客气", inViewController: self, dismissAction: { [weak self] in
+                _ = self?.navigationController?.popViewController(animated: true)
+            })
+            
+        }, failureHandler: { reason, errorMessage in
+           CubeAlert.alertSorry(message: errorMessage, inViewController: self)
         })
+        
+    }
+}
+
+extension FeedBackViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        isDirty = !textView.text.isEmpty
     }
 }

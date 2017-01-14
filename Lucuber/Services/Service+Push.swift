@@ -149,6 +149,26 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
     }
     
 }
+public func pushFeedbackToLeancloud(with feedback: DiscoverFeedback, completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
+    
+    guard let me = AVUser.current() else {
+       failureHandler(Reason.other(nil), "没有封路")
+        return
+    }
+    
+    feedback.creator = me
+    feedback.saveInBackground { success, error in
+        
+        if error != nil {
+           failureHandler(Reason.network(error), "发送反馈信息失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+    
+}
 
 
 public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLString: String?) -> Void) {

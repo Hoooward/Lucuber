@@ -277,7 +277,7 @@ public class Config {
     }
     
     public struct Feedback {
-        public static let bottomMargin: CGFloat = Ruler.iPhoneVertical(10, 20, 40, 40).value
+        public static let bottomMargin: CGFloat = CubeRuler.iPhoneVertical(10, 20, 40, 40).value
     }
 }
 

@@ -19,6 +19,16 @@ public class DiscoverCubeCategory: AVObject, AVSubclassing {
     @NSManaged var categoryString: String
 }
 
+public class DiscoverFeedback: AVObject, AVSubclassing {
+    public static func parseClassName() -> String {
+        return "DiscoverFeedback"
+    }
+    
+    @NSManaged var deviceInfo: String
+    @NSManaged var body: String
+    @NSManaged var creator: AVUser
+}
+
 public class DiscoverFormula: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {

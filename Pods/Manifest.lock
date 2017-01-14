@@ -10,6 +10,7 @@ PODS:
     - AVOSCloudIM/_NOARC (= 3.8.0)
   - AVOSCloudIM/_NOARC (3.8.0):
     - AVOSCloud (= 3.8.0)
+  - DeviceGuru (2.0.1)
   - Kanna (2.1.1)
   - Kingfisher (3.2.2)
   - MonkeyKing (1.1.0)
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AVOSCloud
   - AVOSCloudIM
+  - DeviceGuru
   - Kanna (~> 2.1.0)
   - Kingfisher (~> 3.0)
   - MonkeyKing (~> 1.1.0)
@@ -65,6 +67,7 @@ SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   AVOSCloud: ae9804496f51de99c4143fea7f842d6f46a32b4c
   AVOSCloudIM: bea73c50c58c7c5e466e0c7134b4b7d2f02c338a
+  DeviceGuru: cc39d2a070144c9e955edd570b69e220da08f271
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
   MonkeyKing: dc16753cab7ece2d83e61976cd09fc3a7f783f1f
@@ -80,6 +83,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
 
-PODFILE CHECKSUM: c566bd38c48b1c522fa583dfff6333581bf86308
+PODFILE CHECKSUM: e1a2f20f687f25a5258de874061617310640d6a2
 
 COCOAPODS: 1.1.1
