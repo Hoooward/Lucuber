@@ -215,6 +215,13 @@
 		E459BC241E27637C008F4097 /* SettingsMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BBB31E27637C008F4097 /* SettingsMoreCell.xib */; };
 		E459BC251E27637C008F4097 /* SettingsUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BBB51E27637C008F4097 /* SettingsUserCell.swift */; };
 		E459BC261E27637C008F4097 /* SettingsUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BBB61E27637C008F4097 /* SettingsUserCell.xib */; };
+		E459BC341E286873008F4097 /* EditProfileLessInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC321E286873008F4097 /* EditProfileLessInfoCell.swift */; };
+		E459BC351E286873008F4097 /* EditProfileLessInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BC331E286873008F4097 /* EditProfileLessInfoCell.xib */; };
+		E459BC381E28688B008F4097 /* EditProfileMoreInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC361E28688B008F4097 /* EditProfileMoreInfoCell.swift */; };
+		E459BC391E28688B008F4097 /* EditProfileMoreInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BC371E28688B008F4097 /* EditProfileMoreInfoCell.xib */; };
+		E459BC3C1E2868A0008F4097 /* EditProfileColoredTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC3A1E2868A0008F4097 /* EditProfileColoredTitleCell.swift */; };
+		E459BC3D1E2868A0008F4097 /* EditProfileColoredTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BC3B1E2868A0008F4097 /* EditProfileColoredTitleCell.xib */; };
+		E459BC3F1E28694E008F4097 /* Badges.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E459BC3E1E28694E008F4097 /* Badges.xcassets */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
@@ -581,6 +588,13 @@
 		E459BBB31E27637C008F4097 /* SettingsMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsMoreCell.xib; sourceTree = "<group>"; };
 		E459BBB51E27637C008F4097 /* SettingsUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsUserCell.swift; sourceTree = "<group>"; };
 		E459BBB61E27637C008F4097 /* SettingsUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsUserCell.xib; sourceTree = "<group>"; };
+		E459BC321E286873008F4097 /* EditProfileLessInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileLessInfoCell.swift; sourceTree = "<group>"; };
+		E459BC331E286873008F4097 /* EditProfileLessInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileLessInfoCell.xib; sourceTree = "<group>"; };
+		E459BC361E28688B008F4097 /* EditProfileMoreInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileMoreInfoCell.swift; sourceTree = "<group>"; };
+		E459BC371E28688B008F4097 /* EditProfileMoreInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileMoreInfoCell.xib; sourceTree = "<group>"; };
+		E459BC3A1E2868A0008F4097 /* EditProfileColoredTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileColoredTitleCell.swift; sourceTree = "<group>"; };
+		E459BC3B1E2868A0008F4097 /* EditProfileColoredTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileColoredTitleCell.xib; sourceTree = "<group>"; };
+		E459BC3E1E28694E008F4097 /* Badges.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Badges.xcassets; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1331,6 +1345,9 @@
 		E459BAFE1E27637B008F4097 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E459BC301E28685A008F4097 /* EditProfileColoredTitleCell */,
+				E459BC311E28685A008F4097 /* EditProfileMoreInfoCell */,
+				E459BC2F1E28681A008F4097 /* EditProfileLessInfoCell */,
 				E459BAFF1E27637B008F4097 /* CategoryAnnotationoHeader */,
 				E459BB021E27637B008F4097 /* CategoryMenuCell */,
 				E459BB041E27637B008F4097 /* CategorySelectionCell */,
@@ -2023,6 +2040,33 @@
 			path = SettingUserCell;
 			sourceTree = "<group>";
 		};
+		E459BC2F1E28681A008F4097 /* EditProfileLessInfoCell */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC321E286873008F4097 /* EditProfileLessInfoCell.swift */,
+				E459BC331E286873008F4097 /* EditProfileLessInfoCell.xib */,
+			);
+			path = EditProfileLessInfoCell;
+			sourceTree = "<group>";
+		};
+		E459BC301E28685A008F4097 /* EditProfileColoredTitleCell */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC3A1E2868A0008F4097 /* EditProfileColoredTitleCell.swift */,
+				E459BC3B1E2868A0008F4097 /* EditProfileColoredTitleCell.xib */,
+			);
+			path = EditProfileColoredTitleCell;
+			sourceTree = "<group>";
+		};
+		E459BC311E28685A008F4097 /* EditProfileMoreInfoCell */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC361E28688B008F4097 /* EditProfileMoreInfoCell.swift */,
+				E459BC371E28688B008F4097 /* EditProfileMoreInfoCell.xib */,
+			);
+			path = EditProfileMoreInfoCell;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2400,6 +2444,7 @@
 		E4FFAA731D8D29A30039BA8A = {
 			isa = PBXGroup;
 			children = (
+				E459BC3E1E28694E008F4097 /* Badges.xcassets */,
 				E4FFAA911D8D29DE0039BA8A /* Lucuber */,
 				E4F38DC41E01918500F0DF8A /* Lucuber.entitlements */,
 				E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */,
@@ -2680,6 +2725,7 @@
 				E459BC1E1E27637C008F4097 /* ScoreGroupDetailCell.xib in Resources */,
 				E459BBBB1E27637C008F4097 /* CategorySelectionCell.xib in Resources */,
 				E459BBE21E27637C008F4097 /* DetailSeparatorCell.xib in Resources */,
+				E459BC3F1E28694E008F4097 /* Badges.xcassets in Resources */,
 				E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */,
 				E459BBF01E27637C008F4097 /* CameraCell.xib in Resources */,
 				E459BBB81E27637C008F4097 /* CategoryAnnotationHeader.xib in Resources */,
@@ -2692,6 +2738,7 @@
 				E459BACE1E2762DB008F4097 /* FeedHeaderView.xib in Resources */,
 				E459BBEC1E27637C008F4097 /* MediaFormulaViewCell.xib in Resources */,
 				E459BBE81E27637C008F4097 /* NormalFormulaCell.xib in Resources */,
+				E459BC3D1E2868A0008F4097 /* EditProfileColoredTitleCell.xib in Resources */,
 				E459BBD71E27637C008F4097 /* DetailCommentCell.xib in Resources */,
 				E4DF65EB1D8D9353005CE518 /* Feed.storyboard in Resources */,
 				E459BC061E27637C008F4097 /* TypeSelectedCell.xib in Resources */,
@@ -2719,9 +2766,11 @@
 				E459BBC91E27637C008F4097 /* EditMasterCell.xib in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E459BBD41E27637C008F4097 /* LoadMoreTableViewCell.xib in Resources */,
+				E459BC351E286873008F4097 /* EditProfileLessInfoCell.xib in Resources */,
 				E4F38D831DFF20E100F0DF8A /* Setting.storyboard in Resources */,
 				E49430701DE01DEC00A23F02 /* NewFeed.storyboard in Resources */,
 				E48BCD4A1DA8AAD500C4A1B7 /* Comment.storyboard in Resources */,
+				E459BC391E28688B008F4097 /* EditProfileMoreInfoCell.xib in Resources */,
 				E459BBF61E27637C008F4097 /* CategorySeletedCell.xib in Resources */,
 				E459BC201E27637C008F4097 /* ScoreGroupCell.xib in Resources */,
 				E41ECF5B1DB77959005BEFE4 /* MediaPreview.storyboard in Resources */,
@@ -2920,6 +2969,7 @@
 				E459BBCD1E27637C008F4097 /* FeedCellLayout.swift in Sources */,
 				E459BBE91E27637C008F4097 /* NoResultCell.swift in Sources */,
 				E459BC211E27637C008F4097 /* ScoreGroupDetailTimerCell.swift in Sources */,
+				E459BC3C1E2868A0008F4097 /* EditProfileColoredTitleCell.swift in Sources */,
 				E49534861E0BFA950008934D /* FeedsViewController+Views.swift in Sources */,
 				E495348E1E0CEA140008934D /* SearchTransition.swift in Sources */,
 				E459BBDD1E27637C008F4097 /* DetailHeaderView.swift in Sources */,
@@ -2986,6 +3036,7 @@
 				E459BAD41E2762DB008F4097 /* FeedUploadingErrorContainerView.swift in Sources */,
 				E4D577261E0AAE5900A6516F /* FeedsViewController+Formula.swift in Sources */,
 				E4217F211D962C1B00E575AB /* CatogoryMenuPresentationController.swift in Sources */,
+				E459BC381E28688B008F4097 /* EditProfileMoreInfoCell.swift in Sources */,
 				E459BBCC1E27637C008F4097 /* FeedBiggerImageCell.swift in Sources */,
 				E459BAE21E2762DB008F4097 /* BorderTextField.swift in Sources */,
 				E459BBB91E27637C008F4097 /* CateogryMenuCell.swift in Sources */,
@@ -3075,6 +3126,7 @@
 				E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */,
 				E459BBC21E27637C008F4097 /* ChatSectionDateCell.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
+				E459BC341E286873008F4097 /* EditProfileLessInfoCell.swift in Sources */,
 				E4EFC0B51E0FA308006110F7 /* ScoreViewController.swift in Sources */,
 				E459BADA1E2762DB008F4097 /* FormulaSearchBar.swift in Sources */,
 				E459BC071E27637C008F4097 /* AlbumListCell.swift in Sources */,

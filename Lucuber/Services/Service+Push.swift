@@ -49,6 +49,63 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
     currentUser.saveEventually()
 }
 
+
+public func pushMyNicknameToLeancloud(with nickname: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+    
+    guard let me = AVUser.current() else {
+        failureHandler(Reason.other(nil), "没有登录")
+        return
+    }
+    me.setNickname(nickname)
+    me.saveInBackground { success, error in
+        if error != nil {
+            failureHandler(Reason.network(error), "上传用户昵称失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+}
+
+public func pushMyIntroductionToLeancloud(with intro: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+    
+    guard let me = AVUser.current() else {
+        failureHandler(Reason.other(nil), "没有登录")
+        return
+    }
+    me.setIntroduction(intro)
+    me.saveInBackground { success, error in
+        if error != nil {
+            failureHandler(Reason.network(error), "上传用户自我介绍失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+}
+
+public func pushMyAvatarURLStringToLeancloud(with urlString: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+    
+    guard let me = AVUser.current() else {
+        failureHandler(Reason.other(nil), "没有登录")
+        return
+    }
+    
+    me.setAvatorImageURL(urlString)
+    me.saveInBackground { success, error in
+        if error != nil {
+            failureHandler(Reason.network(error), "上传头像链接失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+}
+
+
 public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
     
     guard let me = AVUser.current(), let realm = try? Realm(), let meRuser = currentUser(in: realm) else {
@@ -72,7 +129,6 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
             completion?()
         }
     }
-    
     
 }
 

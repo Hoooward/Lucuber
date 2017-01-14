@@ -20,7 +20,7 @@ public class CubeHUD: NSObject {
     private lazy var containerView: UIView = {
         
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         return view
         
     }()
@@ -83,29 +83,20 @@ public class CubeHUD: NSObject {
                         
                         self.shardInstance.containerView.addSubview(self.shardInstance.activitIndicator)
                         self.shardInstance.activitIndicator.center = self.shardInstance.containerView.center
-//                        self.shardInstance.containerView.addSubview(self.shardInstance.indicatorLabel)
-                        self.shardInstance.indicatorLabel.center = CGPoint(x: self.shardInstance.containerView.center.x, y: self.shardInstance.containerView.center.y + 25)
                         self.shardInstance.activitIndicator.startAnimating()
                         
                         self.shardInstance.activitIndicator.alpha = 0
-                        self.shardInstance.indicatorLabel.alpha = 0
-                        self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
+                        self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.0001, y: 0.0001)
                         
-                        self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
                         
                         springWithCompletion(duration: 0.2, animations: {
                             
                             self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
                             self.shardInstance.activitIndicator.alpha = 1
                             
-                            self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
-                            self.shardInstance.indicatorLabel.alpha = 1
-                            
                             }, completions: { finished in
                                 
                                 self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
-                                
-                                self.shardInstance.indicatorLabel.transform = CGAffineTransform.identity
                                 
                                 if let dismissTimer = self.shardInstance.dismissTimer {
                                     
@@ -128,9 +119,9 @@ public class CubeHUD: NSObject {
             
             if
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-                let _ = appDelegate.window?.rootViewController {
+                let viewController = appDelegate.window?.rootViewController {
                 
-                // TODO: Alert 超时提醒
+                CubeAlert.alertSorry(message: "请求超时, 操作可能未完成", inViewController: viewController)
             }
         }
         

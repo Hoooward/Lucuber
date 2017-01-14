@@ -243,7 +243,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             action()
         })
     }
+    
+    
+    func unregisterThirdPartyPush() {
+        // TODO: 还不确定是不需要删除当前的 AVInstallation
+        
+        DispatchQueue.main.async {
+            self?.clearNotification()
+        }
+    }
 
+    fileprivate func clearNotification() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UIApplication.shared.cancelAllLocalNotifications()
+    }
 
     
 }

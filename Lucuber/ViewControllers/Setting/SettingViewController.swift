@@ -55,7 +55,7 @@ final class SettingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        settingsTableView.reloadData()
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }

@@ -270,6 +270,11 @@ public class Config {
         public static let introInset: CGFloat = 20 + userCellAvatarSize + 20 + 10 + 11 + 20
     }
 
+    public struct EditProfile {
+        public static let avatarSize: CGFloat = 100
+        public static let infoFont = UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight)
+        public static let infoInset: CGFloat = 20 + 20
+    }
 }
 
 extension Config {

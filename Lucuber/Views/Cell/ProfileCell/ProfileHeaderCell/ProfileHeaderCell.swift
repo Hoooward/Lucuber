@@ -43,14 +43,10 @@ class ProfileHeaderCell: UICollectionViewCell {
     
     private func blurImage(_ image: UIImage, completion: @escaping (UIImage) -> Void) {
         
-        if let blurredAvatarImage = blurredAvatarImage {
-            completion(blurredAvatarImage)
-            
-        } else {
-            DispatchQueue.global(qos: .default).async {
-                let blurredImage = image.blurredImage(withRadius: 20, iterations: 20, tintColor: UIColor.black)
-                completion(blurredImage!)
-            }
+    
+        DispatchQueue.global(qos: .default).async {
+            let blurredImage = image.blurredImage(withRadius: 20, iterations: 20, tintColor: UIColor.black)
+            completion(blurredImage!)
         }
     }
     

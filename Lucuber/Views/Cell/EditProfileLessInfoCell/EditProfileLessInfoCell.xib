@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileLessInfoCell" rowHeight="88" id="H2s-nF-alW" customClass="EditProfileLessInfoCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H2s-nF-alW" id="iCY-Yh-xo6">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Annotation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29N-DG-B4M" userLabel="Annotation Label">
+                        <rect key="frame" x="20" y="33" width="88" height="22"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="z7r-vs-fVJ" userLabel="Accessory Image View">
+                        <rect key="frame" x="289" y="34" width="11" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="11" id="Tna-FL-puY"/>
+                            <constraint firstAttribute="height" constant="20" id="ZvN-RI-KPy"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="badge_android" translatesAutoresizingMaskIntoConstraints="NO" id="fbO-0c-djw" userLabel="Badge Image View">
+                        <rect key="frame" x="251" y="29" width="30" height="30"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Info" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3w-Xz-q5W" userLabel="Info Label">
+                        <rect key="frame" x="118" y="33" width="125" height="22"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="z7r-vs-fVJ" secondAttribute="trailing" constant="20" id="65B-up-5jZ"/>
+                    <constraint firstItem="z7r-vs-fVJ" firstAttribute="leading" secondItem="fbO-0c-djw" secondAttribute="trailing" constant="8" id="9ml-CT-hsV"/>
+                    <constraint firstItem="fbO-0c-djw" firstAttribute="centerY" secondItem="z7r-vs-fVJ" secondAttribute="centerY" id="AE0-6E-UNb"/>
+                    <constraint firstAttribute="centerY" secondItem="R3w-Xz-q5W" secondAttribute="centerY" id="TIS-t3-XO5"/>
+                    <constraint firstItem="z7r-vs-fVJ" firstAttribute="leading" secondItem="R3w-Xz-q5W" secondAttribute="trailing" constant="46" id="ULg-H7-xOE"/>
+                    <constraint firstItem="R3w-Xz-q5W" firstAttribute="leading" secondItem="29N-DG-B4M" secondAttribute="trailing" constant="10" id="YIO-Hh-Kp5"/>
+                    <constraint firstAttribute="centerY" secondItem="29N-DG-B4M" secondAttribute="centerY" id="dVH-rX-4GZ"/>
+                    <constraint firstItem="29N-DG-B4M" firstAttribute="leading" secondItem="iCY-Yh-xo6" secondAttribute="leading" constant="20" id="eEO-YL-pp6"/>
+                    <constraint firstAttribute="centerY" secondItem="z7r-vs-fVJ" secondAttribute="centerY" id="tCA-sZ-qNO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="accessoryImageView" destination="z7r-vs-fVJ" id="jml-1k-v4n"/>
+                <outlet property="annotationLabel" destination="29N-DG-B4M" id="Zo6-L9-A6b"/>
+                <outlet property="bageImageView" destination="fbO-0c-djw" id="OKK-5i-s2g"/>
+                <outlet property="infoLabel" destination="R3w-Xz-q5W" id="i4N-rI-o8W"/>
+                <outlet property="infoLabelTrailingConstraint" destination="ULg-H7-xOE" id="dek-V8-xlH"/>
+            </connections>
+            <point key="canvasLocation" x="280" y="354"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="badge_android" width="30" height="30"/>
+        <image name="icon_accessory_mini" width="8" height="13"/>
+    </resources>
+</document>
