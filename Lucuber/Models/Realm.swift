@@ -24,55 +24,15 @@ public func realmConfig() -> Realm.Configuration {
 public func creatMeInRealm() -> RUser? {
     
     guard
-        let realm = try? Realm() ,
-        let currentUser = AVUser.current(),
-        let currentUserLcObjectID = currentUser.objectId else {
+        let realm = try? Realm(),
+        let currentUser = AVUser.current() else {
         return nil
     }
-    
-    var user = userWith(currentUserLcObjectID, inRealm: realm)
-    
-    if user == nil {
-        
-        let newUser = RUser()
-        
-        let category1 = CubeCategoryMaster(value: ["三阶", newUser])
-        let category2 = CubeCategoryMaster(value: ["四阶", newUser])
-        let category3 = CubeCategoryMaster(value: ["五阶", newUser])
-        let category4 = CubeCategoryMaster(value: ["六阶", newUser])
-        let category5 = CubeCategoryMaster(value: ["无魔方", newUser])
-        let category6 = CubeCategoryMaster(value: ["魔板", newUser])
-        
-        try? realm.write {
-            realm.add(newUser)
-            
-            realm.add(category1)
-            realm.add(category2)
-            realm.add(category3)
-            realm.add(category4)
-            realm.add(category5)
-            realm.add(category6)
-        }
-        user = newUser
-        
+    var user: RUser?
+    try? realm.write {
+         user = getOrCreatRUserWith(currentUser, inRealm: realm)
     }
-    
-    if let user = user {
-        
-        try? realm.write {
-            
-            user.localObjectID = currentUser.localObjectID() ?? ""
-            user.lcObjcetID = currentUserLcObjectID
-            user.avatorImageURL = currentUser.avatorImageURL() ?? ""
-            user.nickname = currentUser.nickname() ?? ""
-            user.username = currentUser.username ?? ""
-            user.introduction = currentUser.introduction() ?? ""
-        }
-    }
-    
     return user
-    
-
 }
 
 public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUser? {
@@ -92,6 +52,7 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
     
     if let user = user {
         
+        user.lcObjcetID = avUser.objectId ?? ""
         user.localObjectID = avUser.localObjectID() ?? ""
         user.avatorImageURL = avUser.avatorImageURL()
         user.nickname = avUser.nickname() ?? ""
@@ -128,6 +89,7 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
     }
     return user
 }
+
 
 public func avatarWith(_ urlString: String, inRealm realm: Realm) -> Avatar? {
     let predicate = NSPredicate(format: "avatarUrlString = %@", urlString)

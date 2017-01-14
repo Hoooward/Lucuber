@@ -121,7 +121,7 @@ public class CubeAlert {
         
     }
     
-    @objc func handleTextFieldTextDidChangedNotification(sender: UITextField) {
+    @objc class func handleTextFieldTextDidChangedNotification(sender: UITextField) {
         
         if let text = sender.text, text.utf16.count >= 1 {
             

@@ -41,7 +41,8 @@ class ProfileFooterCell: UICollectionViewCell {
     func configureWithProfileUser(_ profileUser: ProfileUser, introduction: String) {
         
         nicknameLabel.text = profileUser.nickname
-        usernameLabel.text = profileUser.username
+        // TODO: - 暂时不设置用户名
+        usernameLabel.text = ""
         
         textView.text = introduction
         

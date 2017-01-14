@@ -222,6 +222,11 @@
 		E459BC3C1E2868A0008F4097 /* EditProfileColoredTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC3A1E2868A0008F4097 /* EditProfileColoredTitleCell.swift */; };
 		E459BC3D1E2868A0008F4097 /* EditProfileColoredTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BC3B1E2868A0008F4097 /* EditProfileColoredTitleCell.xib */; };
 		E459BC3F1E28694E008F4097 /* Badges.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E459BC3E1E28694E008F4097 /* Badges.xcassets */; };
+		E459BC431E2A23CF008F4097 /* AboutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC411E2A23CF008F4097 /* AboutCell.swift */; };
+		E459BC441E2A23CF008F4097 /* AboutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459BC421E2A23CF008F4097 /* AboutCell.xib */; };
+		E459BC461E2A263C008F4097 /* Bundle+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC451E2A263C008F4097 /* Bundle+Cube.swift */; };
+		E459BC491E2A3F3D008F4097 /* PodHelp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E459BC481E2A3F3D008F4097 /* PodHelp.storyboard */; };
+		E459BC4B1E2A3F4B008F4097 /* PodHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
@@ -595,6 +600,11 @@
 		E459BC3A1E2868A0008F4097 /* EditProfileColoredTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileColoredTitleCell.swift; sourceTree = "<group>"; };
 		E459BC3B1E2868A0008F4097 /* EditProfileColoredTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileColoredTitleCell.xib; sourceTree = "<group>"; };
 		E459BC3E1E28694E008F4097 /* Badges.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Badges.xcassets; sourceTree = "<group>"; };
+		E459BC411E2A23CF008F4097 /* AboutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutCell.swift; sourceTree = "<group>"; };
+		E459BC421E2A23CF008F4097 /* AboutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutCell.xib; sourceTree = "<group>"; };
+		E459BC451E2A263C008F4097 /* Bundle+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Cube.swift"; sourceTree = "<group>"; };
+		E459BC481E2A3F3D008F4097 /* PodHelp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PodHelp.storyboard; sourceTree = "<group>"; };
+		E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodHelpViewController.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1345,6 +1355,7 @@
 		E459BAFE1E27637B008F4097 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E459BC401E2A23C0008F4097 /* AboutCell */,
 				E459BC301E28685A008F4097 /* EditProfileColoredTitleCell */,
 				E459BC311E28685A008F4097 /* EditProfileMoreInfoCell */,
 				E459BC2F1E28681A008F4097 /* EditProfileLessInfoCell */,
@@ -2067,6 +2078,24 @@
 			path = EditProfileMoreInfoCell;
 			sourceTree = "<group>";
 		};
+		E459BC401E2A23C0008F4097 /* AboutCell */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC411E2A23CF008F4097 /* AboutCell.swift */,
+				E459BC421E2A23CF008F4097 /* AboutCell.xib */,
+			);
+			path = AboutCell;
+			sourceTree = "<group>";
+		};
+		E459BC471E2A3F30008F4097 /* PodHelp */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC481E2A3F3D008F4097 /* PodHelp.storyboard */,
+				E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */,
+			);
+			path = PodHelp;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2275,6 +2304,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E459BC471E2A3F30008F4097 /* PodHelp */,
 				E459B9311E27598D008F4097 /* About */,
 				E459B92C1E275929008F4097 /* FeedBack */,
 				E459B9271E275896008F4097 /* EditProfile */,
@@ -2377,6 +2407,7 @@
 				E4F38D841E0002EB00F0DF8A /* UICollectionView+Cube.swift */,
 				E4F38D861E00054C00F0DF8A /* Reusable.swift */,
 				CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */,
+				E459BC451E2A263C008F4097 /* Bundle+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2711,6 +2742,7 @@
 				E459BBE61E27637C008F4097 /* HeaderReusableView.xib in Resources */,
 				E459BBE01E27637C008F4097 /* DetailMasterCell.xib in Resources */,
 				E459B9291E2758D2008F4097 /* EditProfile.storyboard in Resources */,
+				E459BC491E2A3F3D008F4097 /* PodHelp.storyboard in Resources */,
 				E459BC141E27637C008F4097 /* ProfileMasterCell.xib in Resources */,
 				E459BC121E27637C008F4097 /* ProfileHeaderCell.xib in Resources */,
 				E47926621D96E005004D58BF /* CubeType.plist in Resources */,
@@ -2723,6 +2755,7 @@
 				E459BC001E27637C008F4097 /* StarRatingCell.xib in Resources */,
 				E459BBFE1E27637C008F4097 /* NewSectionHeaderView.xib in Resources */,
 				E459BC1E1E27637C008F4097 /* ScoreGroupDetailCell.xib in Resources */,
+				E459BC441E2A23CF008F4097 /* AboutCell.xib in Resources */,
 				E459BBBB1E27637C008F4097 /* CategorySelectionCell.xib in Resources */,
 				E459BBE21E27637C008F4097 /* DetailSeparatorCell.xib in Resources */,
 				E459BC3F1E28694E008F4097 /* Badges.xcassets in Resources */,
@@ -3062,6 +3095,7 @@
 				E459BAFC1E2762DB008F4097 /* MyFormulaVisitorView.swift in Sources */,
 				E459BC131E27637C008F4097 /* ProfileMasterCell.swift in Sources */,
 				E459BAE11E2762DB008F4097 /* BorderButton.swift in Sources */,
+				E459BC431E2A23CF008F4097 /* AboutCell.swift in Sources */,
 				E459BC171E27637C008F4097 /* ProfileSectionHeaderReusableView.swift in Sources */,
 				E459BC0B1E27637C008F4097 /* CubeCategoryCell.swift in Sources */,
 				E459BBBA1E27637C008F4097 /* CategorySelectionCell.swift in Sources */,
@@ -3069,9 +3103,11 @@
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E459BBFD1E27637C008F4097 /* NewSectionHeaderView.swift in Sources */,
 				E459BC151E27637C008F4097 /* ProfileScoreCell.swift in Sources */,
+				E459BC461E2A263C008F4097 /* Bundle+Cube.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
 				E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */,
 				E4F38D5A1DFD20C500F0DF8A /* SendingMessagePool.swift in Sources */,
+				E459BC4B1E2A3F4B008F4097 /* PodHelpViewController.swift in Sources */,
 				E459BBC01E27637C008F4097 /* ChatRightImageCell.swift in Sources */,
 				E459BAE61E2762DB008F4097 /* MessageLoadingProgressView.swift in Sources */,
 				E459BBD21E27637C008F4097 /* FeedURLCell.swift in Sources */,

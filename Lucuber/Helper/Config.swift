@@ -275,6 +275,10 @@ public class Config {
         public static let infoFont = UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight)
         public static let infoInset: CGFloat = 20 + 20
     }
+    
+    public struct Feedback {
+        public static let bottomMargin: CGFloat = Ruler.iPhoneVertical(10, 20, 40, 40).value
+    }
 }
 
 extension Config {

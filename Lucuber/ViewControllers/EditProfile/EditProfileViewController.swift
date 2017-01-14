@@ -15,7 +15,11 @@ import Proposer
 
 final class EditProfileViewController: UIViewController {
     
-    @IBOutlet weak var moblieLabel: UILabel!
+    @IBOutlet weak var moblieLabel: UILabel! {
+        didSet {
+            moblieLabel.textColor = UIColor.cubeTintColor()
+        }
+    }
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -83,6 +87,10 @@ final class EditProfileViewController: UIViewController {
         title = "编辑个人主页"
         
         updateAvatar {}
+        
+        if let me = currentUser(in: realm) {
+            moblieLabel.text = me.username
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -281,22 +289,24 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
                         return
                     }
                     
-                    
                     CubeHUD.showActivityIndicator()
                     
-                    try? strongSelf.realm.write {
-                        me.introduction = newIntroducation
-                    }
-                    
-                    pushMyInfoToLeancloud(completion: {
+                    pushMyIntroductionToLeancloud(with: newIntroducation, failureHandler: {reason, errorMessage in
                         
-                        CubeHUD.hideActivityIndicator()
-                        
-                    }, failureHandler: { reason, errorMessage in
                         defaultFailureHandler(reason, errorMessage)
                         CubeHUD.hideActivityIndicator()
+                        
+                    }, completion: {
+                        
+                        CubeHUD.hideActivityIndicator() 
+                        guard let realm = try? Realm(), let me = currentUser(in: strongSelf.realm) else {
+                            return
+                        }
+                        
+                        try? realm.write {
+                            me.introduction = newIntroducation
+                        }
                     })
-                    
                 }
                 
                 return cell
@@ -359,7 +369,6 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 let nickname = currentUser(in: realm)?.nickname ?? ""
                 
-                
                 CubeAlert.textInput(title: "设置昵称", message: "", placeholder: "可使用字母或文字", oldText: nickname, confirmTitle: "设置", cancelTitle: "取消", inViewController: self, confirmAction: { [weak self] text in
                     
                     
@@ -402,7 +411,14 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 appDelegate.unregisterThirdPartyPush()
                 
+                UserDefaults.clearAllUserDefaultes()
                 
+                cleanRealmAndCaches()
+                AVUser.logOut()
+                
+                NotificationCenter.default.post(name: NSNotification.Name.changeRootViewControllerNotification, object: nil)
+                
+               
             }, cancelAction: {
             })
             
@@ -436,31 +452,32 @@ extension EditProfileViewController: UINavigationControllerDelegate, UIImagePick
                     
                 }, completion: { newAvatarString in
                     
-                    
-                    guard let realm = try? Realm(), let me = currentUser(in: realm) else {
+                    guard let newAvatarString = newAvatarString  else {
+                        self.activityIndicator.stopAnimating()
                         return
                     }
                     
-                    try? realm.write {
-                        me.avatorImageURL = newAvatarString
-                    }
-                    
-                    pushMyInfoToLeancloud(completion: { [weak self] in
+                    pushMyAvatarURLStringToLeancloud(with: newAvatarString, failureHandler: {
+                        reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        self.activityIndicator.stopAnimating()
+                        
+                    }, completion: { [weak self] in
+                        
+                        guard let realm = try? Realm(), let me = currentUser(in: realm) else {
+                            return
+                        }
+                        
+                        try? realm.write {
+                            me.avatorImageURL = newAvatarString
+                        }
                         
                         self?.updateAvatar({ [weak self] in
                             self?.activityIndicator.stopAnimating()
                         })
-                        
-                    }, failureHandler: { reason, errorMessage in
-                        
-                        defaultFailureHandler(reason, errorMessage)
-                        self.activityIndicator.stopAnimating()
                     })
-                    
                 })
             }
-            
         }
-        
     }
 }

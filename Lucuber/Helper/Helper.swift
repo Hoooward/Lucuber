@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RealmSwift
+import Navi
 
 public func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
     
@@ -57,4 +59,26 @@ public let defaultFailureHandler: FailureHandler = { (reason, errorMessage) in
     print("\n***************************** Lucuber Failure *****************************")
     print("Reason: \(reason)")
     if let errorMessage = errorMessage { print("errorMessage: >>>\(errorMessage)<<<\n") }
+}
+
+func cleanRealmAndCaches() {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    
+    try? realm.write {
+        realm.deleteAll()
+    }
+    
+    realm.refresh()
+    printLog("清除 realm 完成")
+    AvatarPod.clear()
+    
+    CubeImageCache.shard.cache.removeAllObjects()
+    printLog("清除图片缓存完成")
+    
+    FileManager.cleanAvatarCaches()
+    FileManager.cleanMessageCaches()
+    
 }

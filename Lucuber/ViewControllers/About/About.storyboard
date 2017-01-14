@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--I-->
+        <!--About View Controller-->
         <scene sceneID="Ehp-Or-JbP">
             <objects>
-                <viewController id="VqX-wu-Hp5" customClass="I" sceneMemberID="viewController">
+                <viewController id="VqX-wu-Hp5" customClass="AboutViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ut9-ef-NIC"/>
                         <viewControllerLayoutGuide type="bottom" id="qJG-9O-E3l"/>
@@ -19,12 +19,80 @@
                     <view key="view" contentMode="scaleToFill" id="Ybx-xp-bJA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by Tychooo Huo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bF-pc-wMn">
+                                <rect key="frame" x="142" y="637" width="91" height="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lucuber_icon_solo" translatesAutoresizingMaskIntoConstraints="NO" id="huj-73-aT1">
+                                <rect key="frame" x="122.5" y="40" width="130" height="122"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lucuber" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5XZ-xe-mKM">
+                                <rect key="frame" x="133" y="181" width="110" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="版本 1.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNM-63-HWA">
+                                <rect key="frame" x="162.5" y="225" width="51" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZMD-Hx-22k">
+                                <rect key="frame" x="0.0" y="322" width="375" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="Cof-sZ-KbF"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="VqX-wu-Hp5" id="Qki-c5-CQD"/>
+                                    <outlet property="delegate" destination="VqX-wu-Hp5" id="x0m-Ov-YPz"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TNM-63-HWA" firstAttribute="centerX" secondItem="5XZ-xe-mKM" secondAttribute="centerX" id="1dD-dP-aK1"/>
+                            <constraint firstItem="6bF-pc-wMn" firstAttribute="centerX" secondItem="Ybx-xp-bJA" secondAttribute="centerX" id="1oW-1Q-V1b"/>
+                            <constraint firstItem="5XZ-xe-mKM" firstAttribute="centerX" secondItem="huj-73-aT1" secondAttribute="centerX" constant="0.5" id="2IJ-Lb-a9U"/>
+                            <constraint firstItem="qJG-9O-E3l" firstAttribute="top" secondItem="6bF-pc-wMn" secondAttribute="bottom" constant="15" id="AFo-LL-jz0"/>
+                            <constraint firstItem="TNM-63-HWA" firstAttribute="top" secondItem="5XZ-xe-mKM" secondAttribute="bottom" constant="8" id="Bbi-7O-dt3"/>
+                            <constraint firstItem="huj-73-aT1" firstAttribute="top" secondItem="ut9-ef-NIC" secondAttribute="bottom" constant="20" id="FXg-gc-3v9"/>
+                            <constraint firstItem="6bF-pc-wMn" firstAttribute="top" secondItem="ZMD-Hx-22k" secondAttribute="bottom" constant="15" id="PRQ-K2-Ftu"/>
+                            <constraint firstItem="ZMD-Hx-22k" firstAttribute="leading" secondItem="Ybx-xp-bJA" secondAttribute="leading" id="Xxc-Qa-USW"/>
+                            <constraint firstItem="5XZ-xe-mKM" firstAttribute="top" secondItem="huj-73-aT1" secondAttribute="bottom" constant="19" id="co0-Yg-9lT"/>
+                            <constraint firstAttribute="trailing" secondItem="ZMD-Hx-22k" secondAttribute="trailing" id="n4m-h9-JPV"/>
+                            <constraint firstItem="huj-73-aT1" firstAttribute="centerX" secondItem="Ybx-xp-bJA" secondAttribute="centerX" id="yj8-2a-JaE"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="aboutTableView" destination="ZMD-Hx-22k" id="8Ee-Z8-Dzn"/>
+                        <outlet property="aboutTableViewHeight" destination="Cof-sZ-KbF" id="c3G-JE-aX2"/>
+                        <outlet property="appLogoImageView" destination="huj-73-aT1" id="6FL-EO-CtD"/>
+                        <outlet property="appLogoTopConstraint" destination="FXg-gc-3v9" id="SS7-z4-iEs"/>
+                        <outlet property="appNameLabel" destination="5XZ-xe-mKM" id="W4C-90-v6O"/>
+                        <outlet property="appNameLabelTopContraint" destination="co0-Yg-9lT" id="FkB-8D-Mu8"/>
+                        <outlet property="appVersionLabel" destination="TNM-63-HWA" id="8bb-RY-Svy"/>
+                        <segue destination="Lcf-J9-Zfa" kind="show" identifier="showPodHelp" id="JNP-6L-GxI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXZ-zR-Xlr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="519" y="-80"/>
+            <point key="canvasLocation" x="517.60000000000002" y="-80.50974512743629"/>
+        </scene>
+        <!--PodHelp-->
+        <scene sceneID="kzZ-8h-vkH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PodHelp" id="Lcf-J9-Zfa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ub-aG-oix" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1200" y="-147"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="lucuber_icon_solo" width="130" height="122"/>
+    </resources>
 </document>

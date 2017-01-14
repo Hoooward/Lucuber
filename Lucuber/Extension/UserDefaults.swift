@@ -12,6 +12,12 @@ fileprivate let needUpdateLibraryKey = "needUpdateLibraryKey"
 fileprivate let newUserNickNameKey = "newUserNickName"
 fileprivate let newUserAvatarURLKey = "newUserAvatarURL"
 
+extension UserDefaults {
+    
+    class func clearAllUserDefaultes() {
+        standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+    }
+}
 
 extension UserDefaults {
     
@@ -59,9 +65,6 @@ extension UserDefaults {
         return standard.string(forKey: dataVersionKey) ?? "1.0"
     }
 }
-
-
-
 
 fileprivate let myFormulaSeletedCategoryKey = "mySeletedCategoryKey"
 fileprivate let libraryFormulaSeletedCategoryKey = "librarySeletedCategoryKey"
@@ -125,8 +128,6 @@ extension UserDefaults {
            return Category.x3x3
         }
     }
-    
-    
     
 }
 

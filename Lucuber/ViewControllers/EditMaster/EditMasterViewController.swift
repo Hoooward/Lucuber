@@ -18,6 +18,8 @@ final class EditMasterViewController: UIViewController {
     fileprivate var me: RUser?
     
     fileprivate var cubeCategarys: [CubeCategoryMaster]?
+    fileprivate var oldSelectedCategorys: [CubeCategoryMaster]?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,7 @@ final class EditMasterViewController: UIViewController {
         title = "擅长"
      
         me = currentUser(in: realm)
+        oldSelectedCategorys = me?.cubeCategoryMasterList.map { $0 }
         
         fetchCubeCategorys(failureHandler: { reason, errorMessage in
             defaultFailureHandler(reason, errorMessage)
@@ -135,9 +138,25 @@ final class EditMasterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        
+        
+        // 每次视图出现, 重置 selectedCategory
+        
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        pushMyInfoToLeancloud(completion: {
+            
+        }, failureHandler: { [weak self] reason, errorMessage in
+            
+            if let nav = self?.navigationController {
+                CubeAlert.alertSorry(message: "设置擅长魔方失败", inViewController: nav)
+            }
+        })
     }
 }
 

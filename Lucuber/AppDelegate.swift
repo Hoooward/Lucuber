@@ -247,9 +247,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func unregisterThirdPartyPush() {
         // TODO: 还不确定是不需要删除当前的 AVInstallation
-        
         DispatchQueue.main.async {
-            self?.clearNotification()
+            self.clearNotification()
         }
     }
 

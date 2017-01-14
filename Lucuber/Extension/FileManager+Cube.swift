@@ -249,7 +249,33 @@ extension FileManager {
         }
     }
     
+    
+    // clear
+    public class func cleanCachesDirectoryAtURL(_ cachesDirectoryURL: URL) {
+        let fileManager = FileManager.default
+        
+        if let fileURLs = (try? fileManager.contentsOfDirectory(at: cachesDirectoryURL, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions())) {
+            for fileURL in fileURLs {
+                do {
+                    try fileManager.removeItem(at: fileURL)
+                } catch let error {
+                    printLog(error)
+                }
+            }
+        }
+    }
    
+    public class func cleanAvatarCaches() {
+        if let avatarCachesURL = cubeAvatarCachesURL() {
+           cleanCachesDirectoryAtURL(avatarCachesURL)
+        }
+    }
+    
+    public class func cleanMessageCaches() {
+        if let messageCachesURL = cubeMessageCachesURL() {
+            cleanCachesDirectoryAtURL(messageCachesURL)
+        }
+    }
 }
 
 

@@ -8,6 +8,30 @@
 
 import UIKit
 import SafariServices
+import MonkeyKing
+
+protocol Shareable {
+}
+
+extension URL: Shareable {
+}
+
+extension UIImage: Shareable {
+}
+
+extension UIViewController {
+    
+    func share< T: Any>(info sessionInfo: MonkeyKing.Info, timelineInfo: MonkeyKing.Info? = nil, defaultActivityItem activityItem: T, description: String? = nil) where T: Shareable {
+        
+        var activityItems: [Any] = [activityItem]
+        if let description = description {
+            activityItems.append(description)
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+}
 
 extension UIViewController {
     

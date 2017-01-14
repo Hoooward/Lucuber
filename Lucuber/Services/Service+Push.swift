@@ -59,7 +59,7 @@ public func pushMyNicknameToLeancloud(with nickname: String, failureHandler: @es
     me.setNickname(nickname)
     me.saveInBackground { success, error in
         if error != nil {
-            failureHandler(Reason.network(error), "上传用户昵称失败")
+            failureHandler(Reason.network(error), "设置用户昵称失败")
         }
         
         if success {
@@ -97,6 +97,24 @@ public func pushMyAvatarURLStringToLeancloud(with urlString: String, failureHand
     me.saveInBackground { success, error in
         if error != nil {
             failureHandler(Reason.network(error), "上传头像链接失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+}
+
+public func pushMyCubeCategoryMasterListToLeancloud(with list: [String], failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+    
+    guard let me = AVUser.current() else {
+        failureHandler(Reason.other(nil), "没有登录")
+        return
+    }
+    me.setCubeCategoryMasterList(list)
+    me.saveInBackground { success, error in
+        if error != nil {
+            failureHandler(Reason.network(error), "上传擅长魔方失败")
         }
         
         if success {
