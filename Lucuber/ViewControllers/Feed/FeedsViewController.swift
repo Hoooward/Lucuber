@@ -139,7 +139,6 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//         navigationController?.view.sendSubview(toBack:(navigationController?.navigationBar)! )
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
@@ -221,6 +220,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
                 
                 strongSelf.isUploadingFeed = false
                 strongSelf.loadingFeedsIndicator.stopAnimating()
+                strongSelf.refreshControl.endRefreshing()
                 
                 let newFeeds = feeds
                 

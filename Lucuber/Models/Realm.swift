@@ -501,6 +501,12 @@ public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
     return realm.objects(Group.self).filter(predicate).first
 }
 
+public func mySubscribeGroupsIDInRealm(realm: Realm) -> [String]? {
+    let predicate = NSPredicate(format: "includeMe = true AND groupType = %d", GroupType.Public.rawValue)
+    let result: [String]? = realm.objects(Group.self).filter(predicate).map { $0.groupID }
+    return result
+}
+
 // MARK: - Conversation
 
 public func feedConversationsInRealm(_ realm: Realm) -> Results<Conversation> {

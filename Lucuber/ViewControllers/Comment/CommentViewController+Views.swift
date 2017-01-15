@@ -129,6 +129,7 @@ extension  CommentViewController {
 
 		manager.toggleSubscribeAction = { [weak self] in
 
+            
 			guard let strongSelf = self else {
 				return
 			}
@@ -141,7 +142,14 @@ extension  CommentViewController {
 			try? strongSelf.realm.write {
                 group.includeMe = !oldincludeMe
 			}
-
+        
+            pushMySubscribeListToLeancloud(failureHandler: { reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                
+            }, completion: {
+                
+            })
 		}
        
         manager.toggleSwitchNotification = { [weak self] switchOn in

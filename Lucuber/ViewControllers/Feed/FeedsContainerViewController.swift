@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 
-class FeedsContainerViewController: UIPageViewController   {
+class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
     
     enum Option: Int {
         case subscribe
@@ -31,6 +31,16 @@ class FeedsContainerViewController: UIPageViewController   {
     
     fileprivate lazy var disposeBag = DisposeBag()
     
+    var scrollView: UIScrollView? {
+        
+        switch currentOption {
+        case .feeds:
+            return feedsViewController.tableView
+        case .subscribe:
+            return subscribesViewController.tableView
+        }
+    }
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
             segmentedControl.removeAllSegments()
@@ -45,7 +55,7 @@ class FeedsContainerViewController: UIPageViewController   {
         }
     }
     
-    fileprivate lazy var feedsViewController: FeedsViewController = {
+     lazy var feedsViewController: FeedsViewController = {
         
         let vc = UIStoryboard(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "FeedsViewController") as! FeedsViewController
         return vc
@@ -61,8 +71,6 @@ class FeedsContainerViewController: UIPageViewController   {
         let item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(FeedsContainerViewController.createNewFeedsAction))
         return item
     }()
-    
-  
     
     var currentOption: Option = .feeds {
         didSet {

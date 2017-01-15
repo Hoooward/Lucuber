@@ -180,23 +180,19 @@ extension MainTabbarController: UITabBarControllerDelegate {
                 
                 guard let scrollView = vc?.scrollView else { return }
                 
-                if let vc = vc as? FeedsViewController {
-                    if self?.hasFirstTapOnTabWhenItIsAtTop ?? false {
-                        if !vc.feeds.isEmpty && !vc.refreshControl.isRefreshing {
-                            scrollView.setContentOffset(CGPoint(x: 0, y: -150), animated: true)
-                            vc.refreshControl.beginRefreshing()
-                            vc.tryRefreshOrGetNewFeeds()
-                            self?.hasFirstTapOnTabWhenItIsAtTop = false
+                if let vc = vc as? FeedsContainerViewController {
+                    if vc.currentOption == .feeds {
+                        let subvc = vc.feedsViewController
+                        if self?.hasFirstTapOnTabWhenItIsAtTop ?? false {
+                            if !subvc.feeds.isEmpty && !subvc.refreshControl.isRefreshing {
+                                scrollView.setContentOffset(CGPoint(x: 0, y: -150), animated: true)
+                                subvc.refreshControl.beginRefreshing()
+                                subvc.tryRefreshOrGetNewFeeds()
+                                self?.hasFirstTapOnTabWhenItIsAtTop = false
+                            }
                         }
                     }
                 }
-                
-//                if let vc = vc as? FormulaViewController {
-//                    if self?.hasFirstTapOnTabWhenItIsAtTop ?? false {
-//                     
-//                    }
-//                }
-           
             })
         }
     }

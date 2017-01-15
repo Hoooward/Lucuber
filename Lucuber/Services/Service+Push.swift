@@ -123,6 +123,33 @@ public func pushMyCubeCategoryMasterListToLeancloud(with list: [String], failure
     }
 }
 
+public func pushMySubscribeListToLeancloud(failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    
+    guard let me = AVUser.current() else {
+        failureHandler(Reason.other(nil), "没有登录")
+        return
+    }
+    
+    if let subscribeList = mySubscribeGroupsIDInRealm(realm: realm) {
+        me.setSubscribeList(subscribeList)
+    }
+    
+    me.saveInBackground { success, error in
+        
+        if error != nil {
+            failureHandler(Reason.network(error), "上传订阅列表失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
+    
+}
 
 public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
     
@@ -136,6 +163,10 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
     me.setLocalObjcetID(meRuser.localObjectID)
     me.setAvatorImageURL(meRuser.avatorImageURL ?? "")
     me.setCubeCategoryMasterList(meRuser.cubeCategoryMasterList.map { $0.categoryString })
+    
+    if let subscribeList = mySubscribeGroupsIDInRealm(realm: realm) {
+        me.setSubscribeList(subscribeList)
+    }
     
     me.saveInBackground { success, error in
         
@@ -541,7 +572,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 public func pushNewMessageNotificationToAPNs(with message: Message) {
 
     let dict: [String: Any] = [
-            "alert": "您关注的话题有新的消息.",
+            "alert": "你订阅的话题有新的消息",
             "type": AppDelegate.RemoteNotificationType.message.rawValue,
             "messageID": message.lcObjectID,
     ]

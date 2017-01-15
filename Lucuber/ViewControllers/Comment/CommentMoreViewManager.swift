@@ -16,6 +16,7 @@ final class CommentMoreViewManager {
     public var toggleSwitchNotification: ((Bool) -> Void)?
     public var toggleSubscribeAction: (() -> Void)?
     public var reportAction: (() -> Void)?
+    
 
     private func makeSubscribeGroupItem() -> ActionSheetView.Item {
         var isSubscribe = false
