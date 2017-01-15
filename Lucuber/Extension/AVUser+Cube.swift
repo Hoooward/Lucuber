@@ -16,6 +16,7 @@ fileprivate let localObjectIDKey = "localObjectID"
 fileprivate let masterListKey = "masterList"
 fileprivate let introdctionKey = "introduction"
 fileprivate let cubeCategoryMasterListKey = "cubeCategoryMasterList"
+fileprivate let subscribesListKey = "subscribesList"
 
 extension AVUser {
     
@@ -65,6 +66,14 @@ extension AVUser {
     
     func setCubeCategoryMasterList(_ list: [String]) {
         setObject(list, forKey: cubeCategoryMasterListKey)
+    }
+    
+    func setSubscribeList(_ list: [String]) {
+        setObject(list, forKey: subscribesListKey)
+    }
+    
+    func subscribeList() -> [String]? {
+        return object(forKey: subscribesListKey) as? [String]
     }
     
     public static var isLogin: Bool {

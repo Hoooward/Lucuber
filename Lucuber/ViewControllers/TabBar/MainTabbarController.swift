@@ -81,7 +81,8 @@ class MainTabbarController: UITabBarController {
         
         self.tabBar.tintColor = UIColor.cubeTintColor()
         
-        
+     
+        NotificationCenter.default.addObserver(self, selector: #selector(MainTabbarController.updateSelectedItem), name: Config.NotificationName.changedLaunchStyle, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(MainTabbarController.updateTabbarStyle), name: NSNotification.Name.tabbarItemTextEnableDidChangedNotification, object: nil)
     }
@@ -91,6 +92,22 @@ class MainTabbarController: UITabBarController {
        updateTabbarStyle()
         
     }
+    
+    func updateSelectedItem() {
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            if appDelegate.lauchStyle == .message {
+                selectedIndex = Tab.feeds.rawValue
+                
+                if let nav = viewControllers?[Tab.feeds.rawValue] as? UINavigationController {
+                    if let vc = nav.topViewController as? FeedsContainerViewController {
+                        vc.currentOption = .subscribe
+                    }
+                }
+            }
+        }
+    }
+    
     func updateTabbarStyle() {
         let noNeedTitle: Bool
         

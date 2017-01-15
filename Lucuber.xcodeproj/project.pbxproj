@@ -2742,6 +2742,9 @@
 						DevelopmentTeam = M8E7Y88Q7R;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 0;
 							};

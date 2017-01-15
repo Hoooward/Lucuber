@@ -612,7 +612,7 @@ public class Message: Object {
     open dynamic var downloadState: Int = MessageDownloadState.noDownload.rawValue
     
     open dynamic var sendState: Int = MessageSendState.notSend.rawValue
-    open dynamic var readed: Bool = true
+    open dynamic var readed: Bool = false
     open dynamic var mediaPlayed: Bool = false
     open dynamic var hidden: Bool = false // 隐藏对方消息, 不再显示
     open dynamic var deletedByCreator: Bool = false

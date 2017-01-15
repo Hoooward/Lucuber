@@ -11,8 +11,8 @@ import UIKit
 fileprivate let needUpdateLibraryKey = "needUpdateLibraryKey"
 fileprivate let newUserNickNameKey = "newUserNickName"
 fileprivate let newUserAvatarURLKey = "newUserAvatarURL"
-
 fileprivate let tarbarItemTextEnabledKey = "tarbarItemTextEnabled"
+fileprivate let isSyncedSubscribeConversationsKey = "isSyncedSubscribeConversations"
 
 // MARK: - UI
 extension UserDefaults {
@@ -68,6 +68,13 @@ extension UserDefaults {
         return standard.bool(forKey: needUpdateLibraryKey)
     }
     
+    class func isSyncedSubscribeConversations() -> Bool {
+       return standard.bool(forKey: isSyncedSubscribeConversationsKey)
+    }
+    
+    class func setIsSyncedSubscribeConversations(_ synced: Bool) {
+        standard.set(synced, forKey: isSyncedSubscribeConversationsKey)
+    }
 }
 
 fileprivate let dataVersionKey = "dateVersioKey"

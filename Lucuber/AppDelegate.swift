@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    enum LaunchStyle {
+        case `default`
+        case message
+    }
     enum RemoteNotificationType: String {
         case message = "message"
 		case bunchMessages = "bunchMessages"
@@ -30,18 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case messageDeleted = "message_deleted"
     }
     
+    var lauchStyle = LaunchStyle.default {
+        didSet {
+           NotificationCenter.default.post(name: Config.NotificationName.changedLaunchStyle, object: nil)
+        }
+    }
+    
     private var remoteNotificationType: RemoteNotificationType? {
         willSet {
-//            if let type = newValue {
-//                switch type {
-//                    
-//                case .Message, .OfficialMessage:
-//                    lauchStyle.value = .Message
-//                    
-//                default:
-//                    break
-//                }
-//            }
+            if let type = newValue {
+                switch type {
+                    
+                case .message, .officialMessage:
+                    lauchStyle = .message
+                    
+                default:
+                    break
+                }
+            }
         }
     }
 
@@ -94,21 +104,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         printLog("进入前台")
 
-
-		if !isFirstLaunch {
-            fetchUnreadMessages() {}
-
-
+		if isFirstLaunch {
+            sync()
+            
         } else {
-
-			// TODO: - 第一次 Launch 可以做一些需要加载的数据
-
-			// 同步我订阅的 Feed ,获取最新的 Conversation 信息
-
-
+            fetchUnreadMessages() {}
         }
 
-        application.applicationIconBadgeNumber = -1
+        clearNotification()
 
         NotificationCenter.default.post(name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
 		isFirstLaunch = false
@@ -117,8 +120,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
 
         printLog("即将进入后台")
-
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        clearNotification()
+        
+        // TODO: - 未来配置 3D Touch
 
     }
 
@@ -126,34 +131,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         printLog("进入后台")
 
         // TODO -: 发送保存草稿的通知
-
     }
 
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func changeRootViewController() {
-        window?.rootViewController = determineRootViewController()
-    }
-    
-    private func determineRootViewController() -> UIViewController {
-        
-        let storyboardName = AVUser.isLogin ? "Main" : "Resgin"
-        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        
-        if AVUser.isLogin {
-            registerForRemoteNotification()
-        }
-        
-        return storyboard.instantiateInitialViewController()!
-    }
     
     
     func applicationDidEnterBackground(_ application: UIApplication) {
        
 //        pushCurrentUserUpdateInformation()
+    }
+    
+    // MARK: - APNs
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        printLog("Fetch back")
+        
+        fetchUnreadMessages() {
+            completionHandler(.newData)
+        }
     }
     
     // 在用户 登录/注册 成功后才申请通知权限
@@ -218,6 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     defaultFailureHandler(reason, errorMessage)
                 }, completion: { messageIds in
                     printLog("下载通知的 Message 完成")
+                    NotificationCenter.default.post(name: Config.NotificationName.changedFeedConversation, object: nil)
                     tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
 					completionHandler(.newData)
                 })
@@ -229,6 +225,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func changeRootViewController() {
+        window?.rootViewController = determineRootViewController()
+    }
+    
+    private func determineRootViewController() -> UIViewController {
+        
+        let storyboardName = AVUser.isLogin ? "Main" : "Resgin"
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        
+        if AVUser.isLogin {
+            registerForRemoteNotification()
+        }
+        
+        return storyboard.instantiateInitialViewController()!
+    }
+    
     private func fetchUnreadMessages(_ action: @escaping () -> Void) {
 
         guard AVUser.isLogin else {
@@ -246,6 +263,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
+    private func sync() {
+        
+        guard AVUser.isLogin else {
+            return
+        }
+        if UserDefaults.isSyncedSubscribeConversations() {
+            printLog("开始同步未读消息")
+            fetchUnreadMessages {
+                printLog("开始同步我的信息")
+                fetchMyInfoAndDoFutherAction {}
+            }
+        } else {
+            printLog("开始同步我的订阅Feeds")
+            fetchSubscribeConversation {
+                printLog("开始同步我的信息")
+                fetchMyInfoAndDoFutherAction {}
+            }
+        }
+    }
     
     func unregisterThirdPartyPush() {
         // TODO: 还不确定是不需要删除当前的 AVInstallation

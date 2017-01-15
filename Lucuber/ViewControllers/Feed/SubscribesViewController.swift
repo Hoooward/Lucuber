@@ -22,7 +22,7 @@ class SubscribesViewController: UIViewController {
     
     fileprivate var haveUnreadMessages = false {
         didSet {
-            tableView.reloadData()
+            reloadTableView()
         }
     }
     
@@ -72,9 +72,9 @@ class SubscribesViewController: UIViewController {
             }
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(SubscribesViewController.reloadTableView), name: Config.NotificationName.newUnreadMessages, object: nil)
         
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(SubscribesViewController.reloadTableView), name: Config.NotificationName.changedFeedConversation, object: nil)
     }
     
     var isFirstAppear = true
@@ -99,10 +99,15 @@ class SubscribesViewController: UIViewController {
         
     }
     
- 
     
     func clearUnread() {
         
+    }
+    
+    @objc fileprivate func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 

@@ -66,7 +66,7 @@ class FeedsContainerViewController: UIPageViewController   {
     
     var currentOption: Option = .feeds {
         didSet {
-            
+            segmentedControl.selectedSegmentIndex = currentOption.rawValue
             switch currentOption {
             case .subscribe:
                 

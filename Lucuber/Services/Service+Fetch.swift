@@ -426,6 +426,61 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
 // MARK: - User
 
+
+public func fetchSubscribeConversation(_ future: (() -> Void)?) {
+    
+    guard let me = AVUser.current() else {
+        return
+    }
+    
+    if let list = me.subscribeList() {
+        
+        let feeds: [DiscoverFeed] = list.map { DiscoverFeed(className: "DiscoverFeed", objectId: $0)}
+        
+        
+        AVObject.fetchAll(inBackground: feeds, block: { result, error in
+            
+            if error != nil {
+                defaultFailureHandler(Reason.network(error), "获取订阅 Feeds 失败")
+            }
+            
+            if let feeds = result as? [DiscoverFeed] {
+                
+                guard let realm = try? Realm() else {
+                    return
+                }
+                
+                for feed in feeds {
+                    
+                    var group = groupWith(feed.objectId!, inRealm: realm)
+                    
+                    if group == nil {
+                        
+                        let newGroup = Group()
+                        
+                        try? realm.write {
+                            newGroup.groupID = feed.objectId!
+                            realm.add(newGroup)
+                        }
+                        group = newGroup
+                    }
+                    
+                    if let group = group {
+                        
+                        try? realm.write {
+                            group.includeMe = true
+                            saveFeedWithDiscoverFeed(feed, group: group, inRealm: realm)
+                        }
+                    }
+                }
+                
+                UserDefaults.setIsSyncedSubscribeConversations(true)
+                future?()
+            }
+        })
+    }
+}
+
 public func fetchCubeCategorys(failureHandler: @escaping FailureHandler, completion: (([DiscoverCubeCategory]) -> Void)?) {
     
     let query = AVQuery(className: "DiscoverCubeCategory")
@@ -457,7 +512,25 @@ public func fetchUser(with userObjectID: String, failureHandeler: @escaping Fail
             completion(user)
         }
     }
+}
+
+public func fetchMyInfoAndDoFutherAction(_ action: (() -> Void)?) {
     
+    guard let realm = try? Realm() else {
+        return
+    }
+    if let me = AVUser.current() {
+        
+        me.fetchInBackground { user, error in
+            
+            if let user = user as? AVUser {
+                
+                _ = getOrCreatRUserWith(user, inRealm: realm)
+                
+                action?()
+            }
+        }
+    }
 }
 
 public enum UploadFormulaMode: String {

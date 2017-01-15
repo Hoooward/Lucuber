@@ -36,9 +36,19 @@ extension Notification.Name {
     
     static let tabbarItemTextEnableDidChangedNotification = Notification.Name("tabbarItemTextEnableDidChanged")
 
+
 }
 
+
+
 public class Config {
+    
+    public struct NotificationName {
+        static let newUnreadMessages = Notification.Name("newUnreadMessages")
+        static let changedLaunchStyle = Notification.Name("changedLaunchStyle")
+        static let changedFeedConversation = Notification.Name("changedFeedConversation")
+
+    }
     
     public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30
     
