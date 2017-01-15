@@ -183,5 +183,13 @@ final class FeedMediaView: UIView {
 			break
 		}
     }
+    
+    func clearImages() {
+        
+        imageView1.image = nil
+        imageView2.image = nil
+        imageView3.image = nil
+        imageView4.image = nil
+    }
 }
 

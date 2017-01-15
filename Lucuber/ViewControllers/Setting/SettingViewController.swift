@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-final class SettingViewController: UIViewController {
+final class SettingViewController: BaseViewController {
     
     @IBOutlet weak var settingsTableView: UITableView! {
         didSet {
@@ -57,7 +57,6 @@ final class SettingViewController: UIViewController {
         super.viewWillAppear(animated)
         settingsTableView.reloadData()
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     

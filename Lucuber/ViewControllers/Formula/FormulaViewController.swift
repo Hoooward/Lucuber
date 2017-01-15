@@ -64,7 +64,6 @@ class FormulaViewController: UIViewController, SegueHandlerType, CanScrollsToTop
 
         automaticallyAdjustsScrollViewInsets = false
         
-        title = "复原大法"
         navigationItem.leftBarButtonItem = layoutBarButtonItem
         navigationItem.rightBarButtonItem = categoryBarButtonItem
         

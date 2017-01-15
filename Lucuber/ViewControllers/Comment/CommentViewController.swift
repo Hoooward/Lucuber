@@ -117,10 +117,9 @@ class CommentViewController: UIViewController {
         return subscribeView
     }()
     
-    lazy var moreViewManager: CommentMoreViewManager = {
-        let manager = self.makeCommentMoreViewManager()
-        return manager
-    }()
+    var moreViewManager: CommentMoreViewManager {
+        return self.makeCommentMoreViewManager()
+    }
 
     lazy var collectionViewWidth: CGFloat = {
         return self.commentCollectionView.bounds.width

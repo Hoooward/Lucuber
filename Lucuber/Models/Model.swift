@@ -491,6 +491,23 @@ public enum MessageMediaType: Int, CustomStringConvertible {
             return "video"
         }
     }
+    
+    
+    public var placeholder: String? {
+        
+        switch self {
+        case .sectionDate:
+            return nil
+        case .text:
+            return nil
+        case .image :
+            return "图片"
+        case .audio:
+            return "声音"
+        case .video:
+            return "视频"
+        }
+    }
 }
 
 enum MessageDownloadState: Int {
@@ -564,7 +581,7 @@ public class Message: Object {
     
     open var nicknameWithtextContent: String {
         if let nickname = creator?.nickname {
-            return nickname + textContent
+            return nickname + ": " + textContent
         } else {
             return textContent
         }
@@ -884,7 +901,7 @@ open class Group: Object {
     
     open dynamic var groupID: String = ""
     open dynamic var groupName: String = ""
-    open dynamic var notificationEnabled: Bool = true
+    open dynamic var notificationEnabled: Bool = false
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
     open dynamic var owner: RUser?
@@ -1043,6 +1060,7 @@ open class Conversation: Object {
     open dynamic var unreadMessageCount: Int = 0
     open dynamic var hasUnreadMessages: Bool = false
     open dynamic var mentionedMe: Bool = false
+   
     open dynamic var lastMentionedMeUnixTime: TimeInterval = Date().timeIntervalSince1970 - 60*60*12
     
     open var latestValidMessage: Message? {

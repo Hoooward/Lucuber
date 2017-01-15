@@ -8,11 +8,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--个人主页-->
+        <!--Navigation Controller-->
         <scene sceneID="zVX-Gg-x7e">
             <objects>
                 <navigationController id="HD5-iu-WB9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="个人主页" image="icon_me" selectedImage="icon_me_active" id="Y6T-Sx-RfZ"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon_me" selectedImage="icon_me_active" id="Y6T-Sx-RfZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nfm-6Z-uBS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -29,17 +29,17 @@
         <!--Tychooo-->
         <scene sceneID="y93-UG-Ie4">
             <objects>
-                <viewController id="HyC-gf-LeM" customClass="ProfileViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="ProfileViewController" storyboardIdentifier="ProfileViewController" id="HyC-gf-LeM" customClass="ProfileViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wdM-Fh-bBh"/>
                         <viewControllerLayoutGuide type="bottom" id="YbZ-kF-1gM"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6mo-RV-Hl0">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="6mo-RV-Hl0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="adl-EZ-2wn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YOr-12-Adp" customClass="ProfileLayout" customModule="Lucuber" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>

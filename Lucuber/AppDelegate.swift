@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = determineRootViewController()
         window?.makeKeyAndVisible()
         
+         customAppearce()
         //pushCubeCategory()
         
         /// 注册通知, 在注册完成时切换控制器。
@@ -258,6 +259,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.cancelAllLocalNotifications()
     }
 
+    fileprivate func customAppearce() {
+        
+        window?.backgroundColor = UIColor.white
+        
+        // Global Tint Color
+        
+        window?.tintColor = UIColor.cubeTintColor()
+        window?.tintAdjustmentMode = .normal
+        
+        // NavigationBar Item Style
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.cubeTintColor()], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.cubeTintColor().withAlphaComponent(0.3)], for: .disabled)
+        
+        // NavigationBar Title Style
+        
+        let shadow: NSShadow = {
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor.lightGray
+            shadow.shadowOffset = CGSize(width: 0, height: 0)
+            return shadow
+        }()
+        let textAttributes: [String: Any] = [
+            NSForegroundColorAttributeName: UIColor.navgationBarTitle(),
+            NSShadowAttributeName: shadow,
+            NSFontAttributeName: UIFont.navigationBarTitle()
+        ]
+        UINavigationBar.appearance().titleTextAttributes = textAttributes
+//        UINavigationBar.appearance().barTintColor = UIColor.white
+        
+        // TabBar
+        
+        UITabBar.appearance().tintColor = UIColor.cubeTintColor()
+        UITabBar.appearance().barTintColor = UIColor.white
+    }
     
 }
 

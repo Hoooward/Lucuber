@@ -229,6 +229,8 @@
 		E459BC4B1E2A3F4B008F4097 /* PodHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */; };
 		E459BC4E1E2A5CD5008F4097 /* TitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC4D1E2A5CD5008F4097 /* TitleSwitchCell.swift */; };
 		E459BC511E2A648B008F4097 /* CanScrollsToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC501E2A648B008F4097 /* CanScrollsToTop.swift */; };
+		E459BC531E2A80C0008F4097 /* ProfileViewController+Prepare.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC521E2A80C0008F4097 /* ProfileViewController+Prepare.swift */; };
+		E459BC561E2A8CF2008F4097 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC551E2A8CF2008F4097 /* BaseViewController.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
@@ -244,6 +246,13 @@
 		E47926631D96E005004D58BF /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = E47926601D96E005004D58BF /* FormulaKeyboard.plist */; };
 		E47BB2CE1DEBF87300CD17FF /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
+		E48846811E2B256F003352F5 /* FeedsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */; };
+		E48846831E2B2633003352F5 /* UISegmentedControl+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */; };
+		E48846851E2B2A86003352F5 /* SubscribesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846841E2B2A86003352F5 /* SubscribesViewController.swift */; };
+		E488468A1E2B3718003352F5 /* SubscribeFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846881E2B3718003352F5 /* SubscribeFeedCell.swift */; };
+		E488468B1E2B3718003352F5 /* SubscribeFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E48846891E2B3718003352F5 /* SubscribeFeedCell.xib */; };
+		E488468E1E2B3723003352F5 /* DeletedSuscribeFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E488468C1E2B3723003352F5 /* DeletedSuscribeFeedCell.swift */; };
+		E488468F1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E488468D1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib */; };
 		E48A74A41D992251006151F4 /* Resgin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48A74A31D992251006151F4 /* Resgin.storyboard */; };
 		E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */; };
 		E48BCD431DA89A1400C4A1B7 /* CGSize+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */; };
@@ -609,6 +618,8 @@
 		E459BC4A1E2A3F4B008F4097 /* PodHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodHelpViewController.swift; sourceTree = "<group>"; };
 		E459BC4D1E2A5CD5008F4097 /* TitleSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSwitchCell.swift; sourceTree = "<group>"; };
 		E459BC501E2A648B008F4097 /* CanScrollsToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanScrollsToTop.swift; sourceTree = "<group>"; };
+		E459BC521E2A80C0008F4097 /* ProfileViewController+Prepare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+Prepare.swift"; sourceTree = "<group>"; };
+		E459BC551E2A8CF2008F4097 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -625,6 +636,13 @@
 		E47926601D96E005004D58BF /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		E47BB2C01DEBE4F800CD17FF /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
+		E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsContainerViewController.swift; sourceTree = "<group>"; };
+		E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Cube.swift"; sourceTree = "<group>"; };
+		E48846841E2B2A86003352F5 /* SubscribesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribesViewController.swift; sourceTree = "<group>"; };
+		E48846881E2B3718003352F5 /* SubscribeFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeFeedCell.swift; sourceTree = "<group>"; };
+		E48846891E2B3718003352F5 /* SubscribeFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeFeedCell.xib; sourceTree = "<group>"; };
+		E488468C1E2B3723003352F5 /* DeletedSuscribeFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletedSuscribeFeedCell.swift; sourceTree = "<group>"; };
+		E488468D1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeletedSuscribeFeedCell.xib; sourceTree = "<group>"; };
 		E48A74A31D992251006151F4 /* Resgin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Resgin.storyboard; sourceTree = "<group>"; };
 		E48BCD401DA897F800C4A1B7 /* CubeRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeRuler.swift; sourceTree = "<group>"; };
 		E48BCD421DA89A1400C4A1B7 /* CGSize+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Cube.swift"; sourceTree = "<group>"; };
@@ -1359,6 +1377,8 @@
 		E459BAFE1E27637B008F4097 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E48846871E2B36F1003352F5 /* DeletedSuscribeFeedCell */,
+				E48846861E2B36C6003352F5 /* SubscribeFeedCell */,
 				E459BC4C1E2A5CC7008F4097 /* TitleSwitchCell */,
 				E459BC401E2A23C0008F4097 /* AboutCell */,
 				E459BC301E28685A008F4097 /* EditProfileColoredTitleCell */,
@@ -2117,6 +2137,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		E459BC541E2A8CDF008F4097 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E459BC551E2A8CF2008F4097 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		E466068A1D8E3513002306D0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2150,6 +2178,24 @@
 				E479262A1D96906C004D58BF /* FormulaInputViewController.swift */,
 			);
 			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		E48846861E2B36C6003352F5 /* SubscribeFeedCell */ = {
+			isa = PBXGroup;
+			children = (
+				E48846881E2B3718003352F5 /* SubscribeFeedCell.swift */,
+				E48846891E2B3718003352F5 /* SubscribeFeedCell.xib */,
+			);
+			path = SubscribeFeedCell;
+			sourceTree = "<group>";
+		};
+		E48846871E2B36F1003352F5 /* DeletedSuscribeFeedCell */ = {
+			isa = PBXGroup;
+			children = (
+				E488468C1E2B3723003352F5 /* DeletedSuscribeFeedCell.swift */,
+				E488468D1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib */,
+			);
+			path = DeletedSuscribeFeedCell;
 			sourceTree = "<group>";
 		};
 		E48BCD461DA8A9FF00C4A1B7 /* Comment */ = {
@@ -2318,6 +2364,7 @@
 				E4B367381E1503BB0010385E /* Profile.storyboard */,
 				E4B3673A1E1504DD0010385E /* ProfileViewController.swift */,
 				E4B367401E150E3F0010385E /* ProfileLayout.swift */,
+				E459BC521E2A80C0008F4097 /* ProfileViewController+Prepare.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2360,6 +2407,8 @@
 				E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */,
 				E49534851E0BFA950008934D /* FeedsViewController+Views.swift */,
 				E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */,
+				E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */,
+				E48846841E2B2A86003352F5 /* SubscribesViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -2429,6 +2478,7 @@
 				E4F38D861E00054C00F0DF8A /* Reusable.swift */,
 				CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */,
 				E459BC451E2A263C008F4097 /* Bundle+Cube.swift */,
+				E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2535,6 +2585,7 @@
 				E4B09BB21D8FA57A0090671F /* Services */,
 				E4B09B9D1D8E38C30090671F /* Models */,
 				E4DF66051D8D9738005CE518 /* Extension */,
+				E459BC541E2A8CDF008F4097 /* Base */,
 				E459B9361E2762D9008F4097 /* Views */,
 				E4DF65F11D8D94B1005CE518 /* ViewControllers */,
 			);
@@ -2773,6 +2824,7 @@
 				E4DF66011D8D961F005CE518 /* Result.storyboard in Resources */,
 				E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */,
 				E495348B1E0CDF540008934D /* SearchFeeds.storyboard in Resources */,
+				E488468B1E2B3718003352F5 /* SubscribeFeedCell.xib in Resources */,
 				E459BBFC1E27637C008F4097 /* TypePickViewCell.xib in Resources */,
 				E459BC001E27637C008F4097 /* StarRatingCell.xib in Resources */,
 				E459BBFE1E27637C008F4097 /* NewSectionHeaderView.xib in Resources */,
@@ -2784,6 +2836,7 @@
 				E435C0251D9EA4020026FA08 /* FormulaDetail.storyboard in Resources */,
 				E459BBF01E27637C008F4097 /* CameraCell.xib in Resources */,
 				E459BBB81E27637C008F4097 /* CategoryAnnotationHeader.xib in Resources */,
+				E488468F1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib in Resources */,
 				E459BBF21E27637C008F4097 /* PickPhotosCell.xib in Resources */,
 				E459BBEA1E27637C008F4097 /* NoResultCell.xib in Resources */,
 				E459BBC71E27637C008F4097 /* LoadMoreCollectionViewCell.xib in Resources */,
@@ -3080,6 +3133,7 @@
 				E459BC1B1E27637C008F4097 /* ScoreCell.swift in Sources */,
 				E459BACB1E2762DB008F4097 /* CommentHeaderView.swift in Sources */,
 				E459BAED1E2762DB008F4097 /* FormulaNameTextField.swift in Sources */,
+				E488468A1E2B3718003352F5 /* SubscribeFeedCell.swift in Sources */,
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
 				E42C829B1DFBA9F700D315CF /* Avatar.swift in Sources */,
 				E475DA741E10FA9A0079FE75 /* NewScoreGroupViewController.swift in Sources */,
@@ -3107,6 +3161,7 @@
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
 				E4DF66091D8D9738005CE518 /* UIFont+Cube.swift in Sources */,
 				E4217F241D962C4B00E575AB /* CategoryMenuController.swift in Sources */,
+				E48846811E2B256F003352F5 /* FeedsContainerViewController.swift in Sources */,
 				E459BBC81E27637C008F4097 /* EditMasterCell.swift in Sources */,
 				E47926261D968CDB004D58BF /* Keyboard.swift in Sources */,
 				E459BBF91E27637C008F4097 /* CategoryPickViewCell.swift in Sources */,
@@ -3124,6 +3179,7 @@
 				E459BC0B1E27637C008F4097 /* CubeCategoryCell.swift in Sources */,
 				E459BBBA1E27637C008F4097 /* CategorySelectionCell.swift in Sources */,
 				E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */,
+				E48846831E2B2633003352F5 /* UISegmentedControl+Cube.swift in Sources */,
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E459BBFD1E27637C008F4097 /* NewSectionHeaderView.swift in Sources */,
 				E459BC151E27637C008F4097 /* ProfileScoreCell.swift in Sources */,
@@ -3143,6 +3199,7 @@
 				E459B91C1E274B0E008F4097 /* SettingViewController.swift in Sources */,
 				E459BBCA1E27637C008F4097 /* FeedAnyImagesCell.swift in Sources */,
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
+				E488468E1E2B3723003352F5 /* DeletedSuscribeFeedCell.swift in Sources */,
 				E459BBDA1E27637C008F4097 /* DetailFormulasCell.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
@@ -3185,6 +3242,7 @@
 				E42C82951DF855DA00D315CF /* OpenGraph.swift in Sources */,
 				E4F38DAF1E00655200F0DF8A /* StockService.swift in Sources */,
 				E459BBC21E27637C008F4097 /* ChatSectionDateCell.swift in Sources */,
+				E459BC561E2A8CF2008F4097 /* BaseViewController.swift in Sources */,
 				E4F38D591DFD20C400F0DF8A /* ImageCache.swift in Sources */,
 				E459BC341E286873008F4097 /* EditProfileLessInfoCell.swift in Sources */,
 				E4EFC0B51E0FA308006110F7 /* ScoreViewController.swift in Sources */,
@@ -3211,11 +3269,13 @@
 				E459BBC41E27637C008F4097 /* ChatTextIndicatorCell.swift in Sources */,
 				E459BAF31E2762DB008F4097 /* ScoreView.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,
+				E48846851E2B2A86003352F5 /* SubscribesViewController.swift in Sources */,
 				E459BBC51E27637C008F4097 /* ChatTextView.swift in Sources */,
 				E4DF660D1D8D9D1B005CE518 /* UINavigationController+Cube.swift in Sources */,
 				E4DF660B1D8D9B03005CE518 /* FormulaViewController.swift in Sources */,
 				E459BADF1E2762DB008F4097 /* KeyButton.swift in Sources */,
 				E43B6F3E1DE9B87200CE1FB5 /* FileManager+Cube.swift in Sources */,
+				E459BC531E2A80C0008F4097 /* ProfileViewController+Prepare.swift in Sources */,
 				E49534C61E0D4E1B0008934D /* TimerViewController.swift in Sources */,
 				E459B92B1E2758E2008F4097 /* EditProfileViewController.swift in Sources */,
 				E459BBBF1E27637C008F4097 /* ChatRightBaseCell.swift in Sources */,

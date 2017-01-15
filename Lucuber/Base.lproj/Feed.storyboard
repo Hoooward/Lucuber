@@ -11,7 +11,7 @@
         <!--Feeds View Controller-->
         <scene sceneID="7LT-Wh-mrP">
             <objects>
-                <viewController id="Cq1-wD-nSm" customClass="FeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedsViewController" automaticallyAdjustsScrollViewInsets="NO" id="Cq1-wD-nSm" customClass="FeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kpV-K9-eTe"/>
                         <viewControllerLayoutGuide type="bottom" id="gi0-eJ-qWW"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dpy-Fs-5VI">
-                                <rect key="frame" x="178" y="184" width="20" height="20"/>
+                                <rect key="frame" x="178" y="140" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,11 +55,72 @@
                         <segue destination="3ev-RH-Kkl" kind="presentation" identifier="ShowNewFeed" id="wke-SS-UkO"/>
                         <segue destination="CjY-iE-cLT" kind="show" identifier="ShowCommentView" id="i0v-l6-Ylw"/>
                         <segue destination="jgc-zj-mhh" kind="show" identifier="ShowSearchFeeds" id="QNd-M7-EBv"/>
+                        <segue destination="PsG-mw-td0" kind="show" identifier="showProfile" id="Qcg-61-02l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epp-Ol-UN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="500" y="654.42278860569718"/>
+            <point key="canvasLocation" x="262" y="645"/>
+        </scene>
+        <!--Feeds Container View Controller-->
+        <scene sceneID="dvK-vp-zd7">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="nBR-sM-1HK" customClass="FeedsContainerViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Ybz-ZF-esw">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="pgm-kK-fOu">
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                            </segments>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="segmentedControl" destination="pgm-kK-fOu" id="8rc-aO-Skp"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-7i-VfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-570" y="1398"/>
+        </scene>
+        <!--Subscribes View Controller-->
+        <scene sceneID="Hsq-tm-SuG">
+            <objects>
+                <viewController storyboardIdentifier="SubscribesViewController" automaticallyAdjustsScrollViewInsets="NO" id="SEZ-0k-lY8" customClass="SubscribesViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ivi-eJ-kSt"/>
+                        <viewControllerLayoutGuide type="bottom" id="1s8-E3-pLR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0vS-MW-XpE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UX5-TC-S8Y">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="SEZ-0k-lY8" id="YEX-JQ-img"/>
+                                    <outlet property="delegate" destination="SEZ-0k-lY8" id="cPv-tj-e7u"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UX5-TC-S8Y" firstAttribute="leading" secondItem="0vS-MW-XpE" secondAttribute="leading" id="4xo-EQ-7qU"/>
+                            <constraint firstAttribute="trailing" secondItem="UX5-TC-S8Y" secondAttribute="trailing" id="OVT-C2-hd3"/>
+                            <constraint firstAttribute="bottom" secondItem="UX5-TC-S8Y" secondAttribute="bottom" id="ZVI-WU-jIe"/>
+                            <constraint firstItem="UX5-TC-S8Y" firstAttribute="top" secondItem="0vS-MW-XpE" secondAttribute="top" id="yuM-8y-obA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="UX5-TC-S8Y" id="bHg-Ok-O17"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C5e-cM-De7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="262" y="1397"/>
         </scene>
         <!--SearchFeeds-->
         <scene sceneID="PqF-Ch-q7C">
@@ -85,11 +146,19 @@
             </objects>
             <point key="canvasLocation" x="1105" y="756"/>
         </scene>
-        <!--话题-->
+        <!--ProfileViewController-->
+        <scene sceneID="2Cu-bm-6Fo">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="PsG-mw-td0" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5qX-d1-V3j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1102" y="819"/>
+        </scene>
+        <!--Main Navigation Controller-->
         <scene sceneID="a90-5j-wwF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QaM-kA-mpr" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="话题" image="icon_feeds" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
+                <navigationController id="QaM-kA-mpr" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="icon_feeds" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="if5-gT-npF">
@@ -98,12 +167,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Cq1-wD-nSm" kind="relationship" relationship="rootViewController" id="AtU-Dw-E1e"/>
+                        <segue destination="nBR-sM-1HK" kind="relationship" relationship="rootViewController" id="PSk-YE-Jpx"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Yy-tx-ffk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-439.19999999999999" y="653.52323838080963"/>
+            <point key="canvasLocation" x="-569" y="646"/>
         </scene>
     </scenes>
     <resources>

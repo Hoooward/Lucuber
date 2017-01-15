@@ -169,6 +169,20 @@ final class ProfileViewController: UIViewController {
         return share
     }()
     
+    func setBackButtonWithTitle() {
+        let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_back"), style: .plain, target: self, action: #selector(ProfileViewController.back(_:)))
+        
+        customNavigationItem.leftBarButtonItem = backBarButtonItem
+    }
+    
+    @objc fileprivate func back(_ sender: AnyObject) {
+        if let presentingViewController = presentingViewController {
+            presentingViewController.dismiss(animated: true, completion: nil)
+        } else {
+            _ = navigationController?.popViewController(animated: true)
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if statusBarShouldLight {
             return UIStatusBarStyle.lightContent
@@ -193,11 +207,9 @@ final class ProfileViewController: UIViewController {
         return 0
     }()
     
-    fileprivate lazy var introductionText: String = {
+    fileprivate  var introductionText: String  {
         
-        guard let profileUser = self.profileUser else {
-            return ""
-        }
+        guard let profileUser = self.profileUser else { return "还未填写自我介绍" }
         
         switch profileUser {
             
@@ -207,34 +219,24 @@ final class ProfileViewController: UIViewController {
             }
             
         case .userType(let user):
+            
+            if user.isMe {
+                guard let realm = try? Realm(), let me = currentUser(in: realm) else {
+                    return "还未填写自我介绍"
+                }
+                
+                if let introduction = me.introduction, !introduction.isEmpty {
+                    return introduction
+                }
+            }
+            
             if let introduction = user.introduction, !introduction.isEmpty {
                return introduction
             }
         }
-
         return "还未填写自我介绍"
         
-        
-        /*
-        let introduction: String? = self.profileUser.flatMap({ user in
-            
-            switch user {
-                
-            case .discoverUser(let avUser):
-                if let introduction = avUser.introduction(), !introduction.isEmpty {
-                    return introduction
-                }
-                
-            case .userType(let user):
-                return  user.introduction ?? "还未填写自我介绍"
-            }
-            
-            return nil
-        })
-        
-        return introduction ?? "还未填写自我介绍"
-         */
-    }()
+    }
     
     fileprivate var footerCellHeight: CGFloat {
         let attributes = [NSFontAttributeName: Config.Profile.introductionFont]
@@ -351,7 +353,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1.0
         
         statusBarShouldLight = false
@@ -362,7 +364,12 @@ final class ProfileViewController: UIViewController {
         
         self.setNeedsStatusBarAppearanceUpdate()
         updateProfileCollectionView()
+        
+//        navigationController?.view.bringSubview(toFront: (navigationController?.navigationBar)!)
+       
     }
+    
+   
     
     func updateProfileCollectionView() {
         
@@ -465,12 +472,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             let cell: ProfileFooterCell = collectionView.dequeueReusableCell(for: indexPath)
             
             if let profileUser = profileUser {
-                printLog(introductionText)
                 cell.configureWithProfileUser(profileUser, introduction: introductionText)
-                
-                cell.tapUsernameAction = { [weak self] username in
-                    //self?.tryShowProfileWithUsername(username)
-                }
             }
             
             return cell

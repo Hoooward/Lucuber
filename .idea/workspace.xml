@@ -3,9 +3,35 @@
   <component name="ChangeListManager">
     <list default="true" id="69108203-ae3e-4be0-af92-e9d643dbbd1b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Lucuber.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/AppDelegate.swift" afterPath="$PROJECT_DIR$/Lucuber/AppDelegate.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Base.lproj/Feed.storyboard" afterPath="$PROJECT_DIR$/Lucuber/Base.lproj/Feed.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Base.lproj/Formula.storyboard" afterPath="$PROJECT_DIR$/Lucuber/Base.lproj/Formula.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Base.lproj/Main.storyboard" afterPath="$PROJECT_DIR$/Lucuber/Base.lproj/Main.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Base.lproj/Result.storyboard" afterPath="$PROJECT_DIR$/Lucuber/Base.lproj/Result.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Extension/UserDefaults.swift" afterPath="$PROJECT_DIR$/Lucuber/Extension/UserDefaults.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Model.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Model.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" afterPath="$PROJECT_DIR$/Lucuber/Models/Realm.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Feed/FeedsViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Feed/FeedsViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Formula/FormulaViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Formula/FormulaViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Navigation/MainNavigationController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Navigation/MainNavigationController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Profile/Profile.storyboard" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Profile/Profile.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Profile/ProfileViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Profile/ProfileViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Setting/SettingViewController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Setting/SettingViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/TabBar/MainTabbarController.swift" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/TabBar/MainTabbarController.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/ViewControllers/Timer/Timer.storyboard" afterPath="$PROJECT_DIR$/Lucuber/ViewControllers/Timer/Timer.storyboard" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift" afterPath="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lucuber/Views/FeedMedia/FeedMediaView.swift" afterPath="$PROJECT_DIR$/Lucuber/Views/FeedMedia/FeedMediaView.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Podfile" afterPath="$PROJECT_DIR$/Podfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Podfile.lock" afterPath="$PROJECT_DIR$/Podfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Manifest.lock" afterPath="$PROJECT_DIR$/Pods/Manifest.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-acknowledgements.markdown" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-acknowledgements.markdown" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-acknowledgements.plist" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-acknowledgements.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-frameworks.sh" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-frameworks.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,28 +53,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FeedsViewController.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Feed/FeedsViewController.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15606">
-              <caret line="868" column="0" lean-forward="false" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FeedBaseCell.swift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="29" column="39" lean-forward="false" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormulaDetailViewController.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/FormulaDetail/FormulaDetailViewController.swift">
+      <file leaf-file-name="SubscribesViewController.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Feed/SubscribesViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -57,10 +63,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="CommentViewController+Views.swift" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="810">
+              <caret line="149" column="43" lean-forward="false" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="CommentViewController+collectionView.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+collectionView.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3654">
+            <state relative-caret-position="18">
               <caret line="205" column="33" lean-forward="false" selection-start-line="205" selection-start-column="33" selection-end-line="205" selection-end-column="33" />
               <folding />
             </state>
@@ -70,7 +86,7 @@
       <file leaf-file-name="StockService.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/Services/StockService.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="828">
+            <state relative-caret-position="18">
               <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding />
             </state>
@@ -80,7 +96,7 @@
       <file leaf-file-name="Service.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
+            <state relative-caret-position="18">
               <caret line="68" column="4" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
               <folding />
             </state>
@@ -97,21 +113,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewFeedViewController.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/NewFeed/NewFeedViewController.swift">
+      <file leaf-file-name="CommentMoreViewManager.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4626">
-              <caret line="262" column="4" lean-forward="false" selection-start-line="262" selection-start-column="4" selection-end-line="262" selection-end-column="4" />
+            <state relative-caret-position="-162">
+              <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentMoreViewManager.swift" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift">
+      <file leaf-file-name="ActionSheetView.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/Views/ActionSheetView/ActionSheetView.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+            <state relative-caret-position="352">
+              <caret line="316" column="13" lean-forward="false" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewFeedViewController.swift" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/NewFeed/NewFeedViewController.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4626">
+              <caret line="262" column="4" lean-forward="false" selection-start-line="262" selection-start-column="4" selection-end-line="262" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -208,9 +234,7 @@
         <option value="$PROJECT_DIR$/Lucuber/Models/DiscoverModel.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/MediaCell/FeedMediaCell.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Views/CommentHeader/FeedHeaderView.swift" />
-        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+FetchMessage.swift" />
-        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+collectionView.swift" />
         <option value="$PROJECT_DIR$/Podfile" />
@@ -219,6 +243,8 @@
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/NewFeed/NewFeedViewController.swift" />
         <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Feed/FeedsViewController.swift" />
         <option value="$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift" />
+        <option value="$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift" />
       </list>
     </option>
   </component>
@@ -230,8 +256,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="84" />
-    <option name="y" value="23" />
+    <option name="x" value="470" />
+    <option name="y" value="917" />
     <option name="width" value="1779" />
     <option name="height" value="1177" />
   </component>
@@ -332,6 +358,108 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ActionSheetView" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ViewControllers" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ViewControllers" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Feed" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ViewControllers" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Comment" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lucuber" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Services" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -459,6 +587,8 @@
       <workItem from="1482825066965" duration="250000" />
       <workItem from="1482983558042" duration="659000" />
       <workItem from="1482984257169" duration="972000" />
+      <workItem from="1484448471571" duration="608000" />
+      <workItem from="1484463743141" duration="420000" />
     </task>
     <task id="LOCAL-00001" summary="格式化部分代码">
       <created>1481571512468</created>
@@ -485,7 +615,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110257000" />
+    <option name="totallyTimeSpent" value="111285000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -497,28 +627,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="84" y="23" width="1779" height="1177" extended-state="0" />
-    <editor active="false" />
+    <frame x="470" y="917" width="1779" height="1177" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23947668" sideWeight="0.4386318" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21103527" sideWeight="0.4386318" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.366879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31428573" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31152073" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38156682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32626727" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277311" sideWeight="0.5613682" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39851484" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.366879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38156682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942238" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39851484" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,20 +696,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Pods/Kingfisher/Sources/KingfisherManager.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="32" column="83" lean-forward="false" selection-start-line="32" selection-start-column="83" selection-end-line="32" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pods/Kingfisher/Sources/ImageDownloader.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="36" column="125" lean-forward="false" selection-start-line="36" selection-start-column="125" selection-end-line="36" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Services/Downloader.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -657,27 +773,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatBaseCell.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatLeftImageCell.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="70" column="74" lean-forward="false" selection-start-line="70" selection-start-column="73" selection-end-line="70" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatRightBaseCell.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatBaseCell.swift" />
+    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatLeftImageCell.swift" />
+    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/ConversationCell/ChatRightBaseCell.swift" />
     <entry file="file://$PROJECT_DIR$/Lucuber/Views/CommentHeader/CommentHeaderView.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -734,13 +832,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/MediaCell/FeedMediaCell.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="52" column="32" lean-forward="true" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/MediaCell/FeedMediaCell.swift" />
     <entry file="file://$PROJECT_DIR$/Lucuber/Extension/UIImage+Cube.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -766,13 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="54" column="12" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7759">
-          <caret line="44" column="27" lean-forward="false" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -853,18 +938,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift" />
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Feed/FeedsViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Cache.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="1849">
+          <caret line="842" column="30" lean-forward="false" selection-start-line="842" selection-start-column="30" selection-end-line="842" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -885,9 +963,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Cache.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/Views/ActionSheetView/ActionSheetView.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="316" column="13" lean-forward="false" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Services/Service.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
+        <state relative-caret-position="18">
           <caret line="68" column="4" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
           <folding />
         </state>
@@ -895,7 +989,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/Services/StockService.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
+        <state relative-caret-position="18">
           <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
@@ -903,8 +997,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+collectionView.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3654">
+        <state relative-caret-position="18">
           <caret line="205" column="33" lean-forward="false" selection-start-line="205" selection-start-column="33" selection-end-line="205" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Feed/SubscribesViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentMoreViewManager.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -917,18 +1027,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Feed/FeedsViewController.swift">
+    <entry file="file://$PROJECT_DIR$/Lucuber/ViewControllers/Comment/CommentViewController+Views.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15606">
-          <caret line="868" column="0" lean-forward="false" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lucuber/Views/Cell/FeedCell/FeedBaseCell.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="39" lean-forward="false" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
+        <state relative-caret-position="810">
+          <caret line="149" column="43" lean-forward="false" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
           <folding />
         </state>
       </provider>

@@ -18,7 +18,7 @@ class MainNavigationController: UINavigationController, UIGestureRecognizerDeleg
         navigationBar.tintColor = UIColor.cubeTintColor()
         
         navigationBarLine.isHidden = true
-        navigationBar.setBackgroundImage(UIImage(named: "navigationbarBackgroundWhite"), for: .any, barMetrics: .default)
+//        navigationBar.setBackgroundImage(UIImage(named: "navigationbarBackgroundWhite"), for: .any, barMetrics: .default)
         
         interactivePopGestureRecognizer?.delegate = self
         delegate = self

@@ -21,7 +21,11 @@ extension UserDefaults {
     }
     
     class func tabbarItemTextEnabled() -> Bool? {
-        return standard.object(forKey: tarbarItemTextEnabledKey) as? Bool
+        if let enable = standard.object(forKey: tarbarItemTextEnabledKey) {
+            return enable as? Bool
+        } else {
+            return true
+        }
     }
 }
 

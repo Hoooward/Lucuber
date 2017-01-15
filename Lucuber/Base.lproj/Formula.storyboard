@@ -51,7 +51,7 @@
             </objects>
             <point key="canvasLocation" x="-522" y="-39"/>
         </scene>
-        <!--Formula View Controller-->
+        <!--复原大法-->
         <scene sceneID="221-VO-LLJ">
             <objects>
                 <viewController id="dX3-HB-lAD" customClass="FormulaViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
@@ -90,7 +90,7 @@
                             <constraint firstAttribute="trailing" secondItem="7mJ-Cr-lKZ" secondAttribute="trailing" constant="20" id="mwD-lg-xTa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Lt6-Qk-mcl"/>
+                    <navigationItem key="navigationItem" title="复原大法" id="Lt6-Qk-mcl"/>
                     <connections>
                         <outlet property="newFormulaButton" destination="7mJ-Cr-lKZ" id="kbw-V4-JHu"/>
                         <outlet property="newFormulaButtonTrailing" destination="mwD-lg-xTa" id="B1L-DB-x30"/>
@@ -119,14 +119,14 @@
             </objects>
             <point key="canvasLocation" x="108" y="766"/>
         </scene>
-        <!--公式-->
+        <!--Main Navigation Controller-->
         <scene sceneID="gUB-O9-Owu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUu-an-wGK" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="公式" image="icon_formula" selectedImage="icon_formula_active" id="7md-lu-zpP"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon_formula" selectedImage="icon_formula_active" id="7md-lu-zpP"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cJO-O3-HmV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cJO-O3-HmV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -141,8 +141,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_formula" width="20" height="20"/>
-        <image name="icon_formula_active" width="20" height="20"/>
+        <image name="icon_formula" width="25" height="25"/>
+        <image name="icon_formula_active" width="25" height="25"/>
         <image name="plus" width="44" height="44"/>
         <image name="popover" width="69" height="271"/>
     </resources>

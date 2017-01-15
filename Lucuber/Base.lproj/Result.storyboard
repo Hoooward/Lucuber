@@ -8,14 +8,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--成绩-->
+        <!--Main Navigation Controller-->
         <scene sceneID="aiC-OS-a5Z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gIz-68-p47" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="成绩" image="icon_score" selectedImage="icon_score_active" id="omy-6e-kO8"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon_score" selectedImage="icon_score_active" id="omy-6e-kO8"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3KM-a9-66C">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3KM-a9-66C">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -239,7 +239,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_score" width="20" height="18"/>
-        <image name="icon_score_active" width="20" height="18"/>
+        <image name="icon_score" width="27" height="23"/>
+        <image name="icon_score_active" width="27" height="24"/>
     </resources>
 </document>

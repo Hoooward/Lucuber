@@ -39,7 +39,7 @@ struct LayoutCatch {
     }
 }
 
-class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, CanScrollsToTop{
+class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, CanScrollsToTop{
     
     // MARK: - Properties
     
@@ -53,6 +53,7 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, Ca
         case comment = "ShowCommentView"
         case showFormulaInfo = "ShowFormulaInfo"
         case showSearchFeeds = "ShowSearchFeeds"
+        case showProfile = "showProfile"
     }
     
     var seletedFeedCategory: FeedCategory?
@@ -138,7 +139,14 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, Ca
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         navigationController?.setNavigationBarHidden(false, animated: false)
+//         navigationController?.view.sendSubview(toBack:(navigationController?.navigationBar)! )
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        recoverOriginalNavigationDelegate()
     }
     
     override func viewDidLoad() {
@@ -163,6 +171,10 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, Ca
         tableView.register(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
         tableView.register(FeedURLCell.self, forCellReuseIdentifier: FeedURLCellIdentifier)
         tableView.register(FeedFormulaCell.self, forCellReuseIdentifier: FeedFormulaCellIdentifier)
+        
+        
+        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
+        tableView.separatorInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationItem.title = "话题"
@@ -267,6 +279,7 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, Ca
             var feedStoryStyle = self.feedSortStyle
             
         }
+        
         fetchDiscoverFeed(with: FeedCategory.text, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
     }
     
@@ -420,6 +433,27 @@ class FeedsViewController: UIViewController, SegueHandlerType, SearchTrigeer, Ca
             
             prepareSearchTransition()
             
+            
+        case .showProfile:
+            
+            let vc = segue.destination as! ProfileViewController
+            
+            if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
+                
+                switch section {
+                case .uploadingFeed:
+                    let discoveredUser = uploadingFeeds[indexPath.row].creator
+                    vc.prepare(with: discoveredUser)
+                case .feed:
+                    let discoveredUser = feeds[indexPath.row].creator
+                     vc.prepare(with: discoveredUser)
+                default:
+                    break
+                }
+            }
+            
+            recoverOriginalNavigationDelegate()
+            
         default:
             break
             
@@ -547,8 +581,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     let indexPath = tableView.indexPath(for: cell) else {
                         return
                 }
-                printLog("点击头像在indexPath: \(indexPath)")
-                strongSelf.performSegue(withIdentifier: "", sender: indexPath)
+                strongSelf.performSegue(withIdentifier: "showProfile", sender: indexPath)
             }
             
             
@@ -558,7 +591,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     let indexPath = tableView.indexPath(for: cell) else {
                         return
                 }
-                printLog("点击Kind在indexPath: \(indexPath)")
                 strongSelf.performSegue(withIdentifier: "", sender: indexPath)
             }
             

@@ -110,9 +110,11 @@ extension  CommentViewController {
 			})
 		}
 
+        /*
 		view.pickLocationAction = { [weak self] in
 			// TODO: - PickLocation
 		}
+         */
 		return view
 	}
 }
@@ -125,94 +127,114 @@ extension  CommentViewController {
 
 		manager.conversation = self.conversation
 
-		manager.toggleSubscribeAction = { [weak self] switchOn in
+		manager.toggleSubscribeAction = { [weak self] in
 
-			if switchOn {
-				if #available(iOS 10.0, *) {
-
-					let notificationCenter = UNUserNotificationCenter.current()
-					notificationCenter.getNotificationSettings(completionHandler: {
-						setting in
-
-						// 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
-						DispatchQueue.main.async {
-							if setting.authorizationStatus != .authorized {
-
-								manager.moreView.hideAndDo(afterHideAction: {
-									CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-								})
-
-							} else {
-
-								if let group = self?.conversation.withGroup {
-
-									subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-										defaultFailureHandler(reason, errorMessage)
-
-									}, completion: {
-
-										if let strongSelf = self {
-											try? strongSelf.realm.write {
-												group.includeMe = true
-											}
-										}
-									})
-								}
-							}
-						}
-					})
-
-				} else {
-					// TODO: - 尚未测试
-					if #available(iOS 9.0, *) {
-						if let setting = UIApplication.shared.currentUserNotificationSettings {
-
-							switch setting.types {
-
-							case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
-
-								if let group = self?.conversation.withGroup {
-
-									subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-										defaultFailureHandler(reason, errorMessage)
-
-									}, completion: {
-
-										if let strongSelf = self {
-											try? strongSelf.realm.write {
-												group.includeMe = true
-											}
-										}
-									})
-								}
-
-							default:
-								manager.moreView.hideAndDo(afterHideAction: {
-									CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-								})
-							}
-						}
-					}
-				}
-
-			} else {
-
-				if let group = self?.conversation.withGroup {
-
-					unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-						defaultFailureHandler(reason, errorMessage)
-
-					}, completion: {
-
-						if let strongSelf = self {
-							try? strongSelf.realm.write {
-								group.includeMe = false
-							}
-						}
-					})
-				}
+			guard let strongSelf = self else {
+				return
 			}
+			guard let group = strongSelf.conversation.withGroup else {
+				return
+			}
+
+			let oldincludeMe: Bool = group.includeMe
+
+			try? strongSelf.realm.write {
+                group.includeMe = !oldincludeMe
+			}
+
 		}
+       
+        manager.toggleSwitchNotification = { [weak self] switchOn in
+            
+            if switchOn {
+                if #available(iOS 10.0, *) {
+                    
+                    let notificationCenter = UNUserNotificationCenter.current()
+                    notificationCenter.getNotificationSettings(completionHandler: {
+                        setting in
+                        
+                        // 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
+                        DispatchQueue.main.async {
+                            if setting.authorizationStatus != .authorized {
+                                
+                                manager.moreView.hideAndDo(afterHideAction: {
+                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+                                })
+                                
+                            } else {
+                                
+                                if let group = self?.conversation.withGroup {
+                                    
+                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                        defaultFailureHandler(reason, errorMessage)
+                                        
+                                    }, completion: {
+                                        
+                                        if let strongSelf = self {
+                                            try? strongSelf.realm.write {
+                                                group.notificationEnabled = true
+                                                group.includeMe = true
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                    })
+                    
+                } else {
+                    // TODO: - 尚未测试
+                    if #available(iOS 9.0, *) {
+                        if let setting = UIApplication.shared.currentUserNotificationSettings {
+                            
+                            switch setting.types {
+                                
+                            case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
+                                
+                                if let group = self?.conversation.withGroup {
+                                    
+                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                        defaultFailureHandler(reason, errorMessage)
+                                        
+                                    }, completion: {
+                                        
+                                        if let strongSelf = self {
+                                            try? strongSelf.realm.write {
+	                                            group.notificationEnabled = true
+                                                group.includeMe = true
+                                            }
+                                        }
+                                    })
+                                }
+                                
+                            default:
+                                manager.moreView.hideAndDo(afterHideAction: {
+                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+                                })
+                            }
+                        }
+                    }
+                }
+                
+            } else {
+                
+                if let group = self?.conversation.withGroup {
+                    
+                    unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        
+                    }, completion: {
+                        
+                        if let strongSelf = self {
+                            try? strongSelf.realm.write {
+	                            group.notificationEnabled = false
+                            }
+                        }
+                    })
+                }
+            }
+        }
+        
 
 		manager.reportAction = { [weak self] in
 			// TODO: - 举报
@@ -338,6 +360,7 @@ extension CommentViewController {
                 
                 if let strongSelf = self {
                     try? strongSelf.realm.write {
+                        group.notificationEnabled = true
                         group.includeMe = true
                     }
                 }

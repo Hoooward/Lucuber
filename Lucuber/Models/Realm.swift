@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 3
+    config.schemaVersion = 5
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config
@@ -502,6 +502,82 @@ public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
 }
 
 // MARK: - Conversation
+
+public func feedConversationsInRealm(_ realm: Realm) -> Results<Conversation> {
+    let predicate = NSPredicate(format: "withGroup != nil AND withGroup.includeMe = true AND withGroup.groupType = %d", GroupType.Public.rawValue)
+    let b = SortDescriptor(property: "hasUnreadMessages", ascending: false)
+    let c = SortDescriptor(property: "updateUnixTime", ascending: false)
+    return realm.objects(Conversation.self).filter(predicate).sorted(by: [b, c])
+}
+
+
+public func countOfUnreadMessagesInRealm(_ realm: Realm, withConversationType conversationType: ConversationType) -> Int {
+    
+    switch conversationType {
+        
+    case .oneToOne:
+        let predicate = NSPredicate(format: "readed = false AND fromFriend != nil AND fromFriend.friendState != %d AND conversation != nil AND conversation.type = %d", UserFriendState.me.rawValue, conversationType.rawValue)
+        return realm.objects(Message.self).filter(predicate).count
+        
+    case .group: // Public for now
+        let predicate = NSPredicate(format: "includeMe = true AND groupType = %d", GroupType.Public.rawValue)
+        let count: Int = realm.objects(Group.self).filter(predicate).map({ $0.conversation }).flatMap({ $0 }).filter({ !$0.isInvalidated }).map({ $0.hasUnreadMessages ? 1 : 0 }).reduce(0, +)
+        
+        return count
+    }
+}
+
+//public func deleteConversation(_ conversation: Conversation, inRealm realm: Realm, needLeaveGroup: Bool = true, afterLeaveGroup: (() -> Void)? = nil) {
+//    
+//    defer {
+//        realm.refresh()
+//    }
+//    
+//    clearMessagesOfConversation(conversation, inRealm: realm, keepHiddenMessages: false)
+//    
+//    // delete conversation from server
+//    
+//    let recipient = conversation.recipient
+//    
+//    if let recipient = recipient, recipient.type == .oneToOne {
+//        deleteConversationWithRecipient(recipient, failureHandler: nil, completion: {
+//            println("deleteConversationWithRecipient \(recipient)")
+//        })
+//    }
+//    
+//    // delete conversation, finally
+//    
+//    if let group = conversation.withGroup {
+//        
+//        if let feed = conversation.withGroup?.withFeed {
+//            
+//            feed.cascadeDeleteInRealm(realm)
+//        }
+//        
+//        let groupID = group.groupID
+//        
+//        if needLeaveGroup {
+//            leaveGroup(groupID: groupID, failureHandler: nil, completion: {
+//                println("leaved group: \(groupID)")
+//                
+//                afterLeaveGroup?()
+//            })
+//            
+//        } else {
+//            println("deleteConversation, not need leave group: \(groupID)")
+//            
+//            if let recipient = recipient, recipient.type == .group {
+//                deleteConversationWithRecipient(recipient, failureHandler: nil, completion: {
+//                    println("deleteConversationWithRecipient \(recipient)")
+//                })
+//            }
+//        }
+//        
+//        realm.delete(group)
+//    }
+//    
+//    realm.delete(conversation)
+//}
 
 public func titleNameOfConversation(_ conversation: Conversation) -> String? {
     

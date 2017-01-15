@@ -24,6 +24,9 @@ PODS:
   - RealmSwift (2.1.1):
     - Realm (= 2.1.1)
   - Reveal-SDK (4)
+  - RxCocoa (3.0.1):
+    - RxSwift (~> 3.0)
+  - RxSwift (3.0.1)
   - ScrollableGraphView (3.1.0)
   - Spring (1.0.3)
   - SwiftyJSON (3.1.3)
@@ -43,6 +46,8 @@ DEPENDENCIES:
   - Proposer (~> 1.1.0)
   - RealmSwift
   - Reveal-SDK
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
   - ScrollableGraphView
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SwiftyJSON
@@ -78,11 +83,13 @@ SPEC CHECKSUMS:
   Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
   RealmSwift: 749fd955bf8d6471c21d218b9389a47aaeccfe3f
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
+  RxCocoa: 15a52fc590dcc700cb4a690a633b5c5184ce3a78
+  RxSwift: af5680055c4ad04480189c52d28385b1029493a6
   ScrollableGraphView: e2c8bedc7bbb643e8ac57b9456070d68355c4e4c
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
 
-PODFILE CHECKSUM: e1a2f20f687f25a5258de874061617310640d6a2
+PODFILE CHECKSUM: 2411bf3be2be851abcfa9b71eb5e533615d559b5
 
 COCOAPODS: 1.1.1

@@ -81,11 +81,16 @@ class MainTabbarController: UITabBarController {
         
         self.tabBar.tintColor = UIColor.cubeTintColor()
         
-        updateTabbarStyle()
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(MainTabbarController.updateTabbarStyle), name: NSNotification.Name.tabbarItemTextEnableDidChangedNotification, object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       updateTabbarStyle()
+        
+    }
     func updateTabbarStyle() {
         let noNeedTitle: Bool
         
