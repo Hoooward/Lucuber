@@ -75,6 +75,7 @@ public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: 
     
     let currentInstallation = AVInstallation.current()
     currentInstallation.addUniqueObject(groupID, forKey: "channels")
+    
     currentInstallation.saveInBackground { success, error in
         
         if error != nil {
@@ -92,17 +93,18 @@ public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler
     
     let currentInstallation = AVInstallation.current()
     
-    if let channles = currentInstallation.channels as? [String] {
+    if let oldChannles = currentInstallation.channels as? [String] {
         
-        var resultChannles = channles
-        if channles.contains(groupID) {
-            if let index = channles.index(of: groupID) {
-                resultChannles.remove(at: index)
+        var newChannles = oldChannles
+        if newChannles.contains(groupID) {
+            if let index = newChannles.index(of: groupID) {
+                newChannles.remove(at: index)
             }
-            currentInstallation.channels = resultChannles
+            currentInstallation.channels = newChannles
             currentInstallation.saveInBackground { success, error in
                 
                 if error != nil {
+                    currentInstallation.channels = oldChannles
                     failureHandler(Reason.network(error), "取消订阅频道失败")
                 }
                 

@@ -88,6 +88,8 @@ class SubscribesViewController: UIViewController {
         }
         
         isFirstAppear = false
+        
+        tableView.setEditing(false, animated: true)
     }
     
     deinit {
@@ -177,13 +179,23 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "取消订阅"
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        guard let group = feedConversations[indexPath.row].withGroup , group.includeMe == true else {
-           return nil
-        }
-        
-        let unSubscribeAction = UITableViewRowAction(style: .destructive, title: "取消订阅", handler: { [weak self] _ in
+        if editingStyle == .delete {
+            guard let group = self.feedConversations[indexPath.row].withGroup else {
+                return
+            }
+            printLog(group)
             
             if group.notificationEnabled {
                 
@@ -191,7 +203,7 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
                     reason, errorMessage in
                     defaultFailureHandler(reason, errorMessage)
                     
-                    tableView.reloadData()
+                    tableView.setEditing(false, animated: true)
                     CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
                     
                 }, completion: {
@@ -215,7 +227,7 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
                         defaultFailureHandler(reason, errorMessage)
-                        tableView.reloadData()
+                        tableView.setEditing(false, animated: true)
                         CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
                         
                     }, completion: {
@@ -229,7 +241,7 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
                             group.includeMe = false
                         }
                         
-                        tableView.reloadData()
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
                     })
                 })
                 
@@ -254,7 +266,7 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
                     defaultFailureHandler(reason, errorMessage)
-                    tableView.reloadData()
+                    tableView.setEditing(false, animated: true)
                     CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
                 }, completion: {
                     
@@ -264,13 +276,21 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
                     try? realm.write {
                         group.includeMe = false
                     }
-                    tableView.reloadData()
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
                 })
             }
-        })
-        
-        return [unSubscribeAction]
+        }
     }
+    
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        
+//        let unSubscribeAction = UITableViewRowAction(style: .destructive, title: "取消订阅", handler: { [weak self] _ in
+//            
+//      
+//        })
+//        
+//        return [unSubscribeAction]
+//    }
 
    
 }

@@ -138,22 +138,14 @@ extension  CommentViewController {
 			}
 
 			let oldincludeMe: Bool = group.includeMe
-
-			try? strongSelf.realm.write {
-                group.includeMe = !oldincludeMe
-			}
-        
             let subscribeFeedID = group.groupID
             
-            
-            var oldSubscribeList = [String]()
+            var newSubscribeList = [String]()
             if let oldMySubscribeList = AVUser.current()?.subscribeList() {
-                oldSubscribeList = oldMySubscribeList
+                newSubscribeList = oldMySubscribeList
             }
             
-            var newSubscribeList = oldSubscribeList
-            
-            if group.includeMe {
+            if !oldincludeMe {
                 if newSubscribeList.contains(subscribeFeedID) {
                     return
                 } else {
@@ -169,16 +161,114 @@ extension  CommentViewController {
                 }
             }
             
-            pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
-                defaultFailureHandler(reason, errorMessage)
-            }, completion: {
+            // 如果之前已经订阅, 并且开启通知
+            if oldincludeMe && group.notificationEnabled {
                 
-            })
-            
+                unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+
+                    manager.moreView.hideAndDo(afterHideAction: {
+                        CubeAlert.alertSorry(message: "关闭通知失败,请检查网络连接", inViewController: self)
+                    })
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                }, completion: {
+                    
+                    pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
+                        manager.moreView.hideAndDo(afterHideAction: {
+                            CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接", inViewController: self)
+                        })
+                        defaultFailureHandler(reason, errorMessage)
+                    }, completion: {
+                        
+                        guard let realm = try? Realm() else {
+                            return
+                        }
+                        
+                        try? realm.write {
+                            group.includeMe = false
+                            group.notificationEnabled = false
+                        }
+                    })
+                })
+                
+            } else {
+                
+                pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                }, completion: {
+                    
+                    guard let realm = try? Realm() else {
+                        return
+                    }
+                    
+                    try? realm.write {
+                        group.includeMe = !oldincludeMe
+                    }
+                })
+            }
+     
 		}
        
         manager.toggleSwitchNotification = { [weak self] switchOn in
             
+            guard let group = self?.conversation.withGroup else {
+                return
+            }
+            
+            let failedAction: () -> Void = {
+                manager.moreView.hideAndDo(afterHideAction: {
+                    CubeAlert.alertSorry(message: "开启通知失败,请检查网络连接", inViewController: self)
+                })
+            }
+            
+            let updateMysubscribeListAction:() -> Void = {
+                
+                guard let realm = try? Realm() else {
+                    return
+                }
+                
+                let subscribeFeedID = group.groupID
+                
+                var oldSubscribeList = [String]()
+                if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                    oldSubscribeList = oldMySubscribeList
+                }
+                var newSubscribeList = oldSubscribeList
+                
+                if switchOn {
+                    if newSubscribeList.contains(subscribeFeedID) {
+                        try? realm.write {
+                            group.notificationEnabled = true
+                            group.includeMe = true
+                        }
+                        return
+                    } else {
+                        newSubscribeList.append(subscribeFeedID)
+                    }
+                } else {
+                    if newSubscribeList.contains(subscribeFeedID) {
+                        if let index = newSubscribeList.index(of: subscribeFeedID) {
+                            newSubscribeList.remove(at: index)
+                        }
+                    } else {
+                        return
+                    }
+                }
+                
+                pushMySubscribeListToLeancloud(with: newSubscribeList, failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                    failedAction()
+                }, completion: {
+                    
+                    try? realm.write {
+                        group.notificationEnabled = true
+                        group.includeMe = true
+                    }
+                })
+            }
+            
+            manager.moreView.hideAndDo(afterHideAction: {
+              
             if switchOn {
                 if #available(iOS 10.0, *) {
                     
@@ -188,26 +278,22 @@ extension  CommentViewController {
                         
                         // 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
                         DispatchQueue.main.async {
+                            
                             if setting.authorizationStatus != .authorized {
                                 manager.moreView.hideAndDo(afterHideAction: { [weak self] in
                                     self?.alertCanNotAccessNotification()
                                 })
                                
                             } else {
-                                if let group = self?.conversation.withGroup {
-                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                                        defaultFailureHandler(reason, errorMessage)
-                                        
-                                    }, completion: {
-                                        
-                                        if let strongSelf = self {
-                                            try? strongSelf.realm.write {
-                                                group.notificationEnabled = true
-                                                group.includeMe = true
-                                            }
-                                        }
-                                    })
-                                }
+                                
+                                subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                    failedAction()
+                                    defaultFailureHandler(reason, errorMessage)
+                                    
+                                }, completion: {
+                                    
+                                    updateMysubscribeListAction()
+                                })
                             }
                         }
                     })
@@ -224,16 +310,11 @@ extension  CommentViewController {
                         if let group = self?.conversation.withGroup {
                             
                             subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                failedAction()
                                 defaultFailureHandler(reason, errorMessage)
                                 
                             }, completion: {
-                                
-                                if let strongSelf = self {
-                                    try? strongSelf.realm.write {
-                                        group.notificationEnabled = true
-                                        group.includeMe = true
-                                    }
-                                }
+                                 updateMysubscribeListAction()
                             })
                         }
                     }
@@ -249,22 +330,25 @@ extension  CommentViewController {
                 
             } else {
                 
-                if let group = self?.conversation.withGroup {
-                    
-                    unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                        defaultFailureHandler(reason, errorMessage)
-                        
-                    }, completion: {
-                        
-                        if let strongSelf = self {
-                            try? strongSelf.realm.write {
-	                            group.notificationEnabled = false
-                            }
-                        }
+                unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                    manager.moreView.hideAndDo(afterHideAction: {
+                        CubeAlert.alertSorry(message: "关闭通知失败,请检查网络连接", inViewController: self)
                     })
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                }, completion: {
+                    
+                    guard let realm = try? Realm() else {
+                        return
+                    }
+                    try? realm.write {
+                        group.notificationEnabled = false
+                    }
+                })
                 }
-            }
+            })
         }
+        
         
 
 		manager.reportAction = {
@@ -387,40 +471,39 @@ extension CommentViewController {
                 return
             }
             
-            try? strongSelf.realm.write {
-                group.includeMe = true
-            }
-            
-            let subscribeFeedID = group.groupID
-            
-            var oldSubscribeList = [String]()
-            if let oldMySubscribeList = AVUser.current()?.subscribeList() {
-                oldSubscribeList = oldMySubscribeList
-            }
-            
-            var newSubscribeList = oldSubscribeList
-            
-            if group.includeMe {
+            let updateMysubscribeListAction:() -> Void = {
+                
+                guard let realm = try? Realm() else {
+                    return
+                }
+                
+                let subscribeFeedID = group.groupID
+                
+                var newSubscribeList = [String]()
+                if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                    newSubscribeList = oldMySubscribeList
+                }
+                
                 if newSubscribeList.contains(subscribeFeedID) {
+                    try? realm.write {
+                        group.includeMe = true
+                    }
                     return
                 } else {
                     newSubscribeList.append(subscribeFeedID)
                 }
-            } else {
-                if newSubscribeList.contains(subscribeFeedID) {
-                    if let index = newSubscribeList.index(of: subscribeFeedID) {
-                        newSubscribeList.remove(at: index)
+                
+                pushMySubscribeListToLeancloud(with: newSubscribeList, failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                }, completion: {
+                    
+                    try? realm.write {
+                        group.notificationEnabled = true
+                        group.includeMe = true
                     }
-                } else {
-                    return
-                }
+                })
             }
             
-            pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
-                defaultFailureHandler(reason, errorMessage)
-            }, completion: {
-                
-            })
             
             if #available(iOS 10.0, *) {
                 
@@ -435,20 +518,13 @@ extension CommentViewController {
                             
                         } else {
                             
-                            if let group = self?.conversation.withGroup {
+                            subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                defaultFailureHandler(reason, errorMessage)
                                 
-                                subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                                    defaultFailureHandler(reason, errorMessage)
-                                    
-                                }, completion: {
-                                    
-                                    if let strongSelf = self {
-                                        try? strongSelf.realm.write {
-                                            group.notificationEnabled = true
-                                        }
-                                    }
-                                })
-                            }
+                            }, completion: {
+                                updateMysubscribeListAction()
+                              
+                            })
                         }
                     }
                 })
@@ -460,20 +536,13 @@ extension CommentViewController {
                     categories: nil
                 )
                 
-                
-                let agreedAction: ProposerAction = { [weak self] in
+                let agreedAction: ProposerAction = {
                     subscribeConversationWithGroupID(group.groupID, failureHandler:{ reason, errorMessage in
                         defaultFailureHandler(reason, errorMessage)
                     }, completion: {
-                        
                         printLog("订阅成功 id: \(group.groupID)")
                         printLog("before isIncludeMe = \(group.includeMe)")
-                        
-                        if let strongSelf = self {
-                            try? strongSelf.realm.write {
-                                group.notificationEnabled = true
-                            }
-                        }
+                        updateMysubscribeListAction()
                     })
                 }
                 

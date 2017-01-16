@@ -135,9 +135,11 @@ public func pushMySubscribeListToLeancloud(with list: [String], failureHandler: 
         failureHandler(Reason.other(nil), "没有登录")
         return
     }
+    let oldSubscribeList = me.subscribeList() ?? [String]()
     me.setSubscribeList(list)
     me.saveInBackground { success, error in
         if error != nil {
+            me.setSubscribeList(oldSubscribeList)
             failureHandler(Reason.network(error), "上传订阅列表失败")
         }
         if success {

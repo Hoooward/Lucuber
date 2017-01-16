@@ -33,6 +33,21 @@ final class CommentMoreViewManager {
         )
     }
     
+    var subscribeGroupItem: ActionSheetView.Item {
+        var isSubscribe = false
+        if let group = self.conversation?.withGroup {
+            isSubscribe = group.includeMe
+        }
+        return ActionSheetView.Item.Default(
+            title: isSubscribe ? "取消订阅" : "订阅",
+            titleColor: UIColor.cubeTintColor(),
+            action: { [weak self] in
+                self?.toggleSubscribeAction?()
+                return true
+            }
+        )
+    }
+    
     private func makeSwitchNotificationItem() -> ActionSheetView.Item {
         var notificationEnabled = false
         if let group = self.conversation?.withGroup {
@@ -63,11 +78,11 @@ final class CommentMoreViewManager {
         
         let notificationItem = self.makeSwitchNotificationItem()
        
-        let subscribeGroupItem = self.makeSubscribeGroupItem()
+//        let subscribeGroupItem = subscribeGroupItem
 
         let view: ActionSheetView = ActionSheetView(items: [
                 notificationItem,
-                subscribeGroupItem,
+                self.subscribeGroupItem,
                 reportItem,
                 cancelItem
         ])

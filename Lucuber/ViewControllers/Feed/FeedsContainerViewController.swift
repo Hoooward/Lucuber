@@ -84,6 +84,7 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
             case .subscribe:
                 
                 setViewControllers([subscribesViewController], direction: .reverse, animated: true, completion: nil)
+                subscribesViewController.tableView.setEditing(false, animated: true)
                 
                 navigationItem.leftBarButtonItem = editSubscribeListButtonItem
                 navigationItem.rightBarButtonItem = nil
