@@ -248,6 +248,12 @@
 		E47C66581E2CE0D200696B5C /* SearchFeedBasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66571E2CE0D200696B5C /* SearchFeedBasicCell.swift */; };
 		E47C665A1E2CEC3E00696B5C /* SearchFeedCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66591E2CEC3E00696B5C /* SearchFeedCellLayout.swift */; };
 		E47C665C1E2D123600696B5C /* SearchFeedNormalImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C665B1E2D123600696B5C /* SearchFeedNormalImagesCell.swift */; };
+		E47C665E1E2D1DE500696B5C /* SearchFeedAnyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C665D1E2D1DE500696B5C /* SearchFeedAnyImagesCell.swift */; };
+		E47C66611E2D207E00696B5C /* FeedImageCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66601E2D207E00696B5C /* FeedImageCellNode.swift */; };
+		E47C66651E2D21B800696B5C /* ASImageNode+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66641E2D21B800696B5C /* ASImageNode+Cube.swift */; };
+		E47C66671E2D269500696B5C /* SearchFeedURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66661E2D269500696B5C /* SearchFeedURLCell.swift */; };
+		E47C666A1E2D273300696B5C /* IconTitleContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66691E2D273300696B5C /* IconTitleContainerView.swift */; };
+		E47C666C1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
 		E48846811E2B256F003352F5 /* FeedsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */; };
 		E48846831E2B2633003352F5 /* UISegmentedControl+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */; };
@@ -641,6 +647,12 @@
 		E47C66571E2CE0D200696B5C /* SearchFeedBasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedBasicCell.swift; sourceTree = "<group>"; };
 		E47C66591E2CEC3E00696B5C /* SearchFeedCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedCellLayout.swift; sourceTree = "<group>"; };
 		E47C665B1E2D123600696B5C /* SearchFeedNormalImagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedNormalImagesCell.swift; sourceTree = "<group>"; };
+		E47C665D1E2D1DE500696B5C /* SearchFeedAnyImagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedAnyImagesCell.swift; sourceTree = "<group>"; };
+		E47C66601E2D207E00696B5C /* FeedImageCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedImageCellNode.swift; sourceTree = "<group>"; };
+		E47C66641E2D21B800696B5C /* ASImageNode+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ASImageNode+Cube.swift"; sourceTree = "<group>"; };
+		E47C66661E2D269500696B5C /* SearchFeedURLCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedURLCell.swift; sourceTree = "<group>"; };
+		E47C66691E2D273300696B5C /* IconTitleContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconTitleContainerView.swift; sourceTree = "<group>"; };
+		E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedFormulaCell.swift; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsContainerViewController.swift; sourceTree = "<group>"; };
 		E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Cube.swift"; sourceTree = "<group>"; };
@@ -905,6 +917,7 @@
 		E459B9361E2762D9008F4097 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E47C66681E2D272500696B5C /* IconTitleContainerView */,
 				E459B9371E2762D9008F4097 /* ActionSheetView */,
 				E459B9391E2762D9008F4097 /* BottomButtonView */,
 				E459B93B1E2762D9008F4097 /* Button */,
@@ -2190,6 +2203,7 @@
 		E47C66511E2CDB9D00696B5C /* SearchFeedCell */ = {
 			isa = PBXGroup;
 			children = (
+				E47C665F1E2D206800696B5C /* FeedImageCellNode */,
 				E47C66521E2CDB9D00696B5C /* SearchFeedAnyImagesCell */,
 				E47C66531E2CDB9D00696B5C /* SearchFeedBasicCell */,
 				E47C66541E2CDB9D00696B5C /* SearchFeedFormulaCell */,
@@ -2203,6 +2217,7 @@
 		E47C66521E2CDB9D00696B5C /* SearchFeedAnyImagesCell */ = {
 			isa = PBXGroup;
 			children = (
+				E47C665D1E2D1DE500696B5C /* SearchFeedAnyImagesCell.swift */,
 			);
 			path = SearchFeedAnyImagesCell;
 			sourceTree = "<group>";
@@ -2218,6 +2233,7 @@
 		E47C66541E2CDB9D00696B5C /* SearchFeedFormulaCell */ = {
 			isa = PBXGroup;
 			children = (
+				E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */,
 			);
 			path = SearchFeedFormulaCell;
 			sourceTree = "<group>";
@@ -2233,8 +2249,25 @@
 		E47C66561E2CDB9D00696B5C /* SearchFeedURLCell */ = {
 			isa = PBXGroup;
 			children = (
+				E47C66661E2D269500696B5C /* SearchFeedURLCell.swift */,
 			);
 			path = SearchFeedURLCell;
+			sourceTree = "<group>";
+		};
+		E47C665F1E2D206800696B5C /* FeedImageCellNode */ = {
+			isa = PBXGroup;
+			children = (
+				E47C66601E2D207E00696B5C /* FeedImageCellNode.swift */,
+			);
+			path = FeedImageCellNode;
+			sourceTree = "<group>";
+		};
+		E47C66681E2D272500696B5C /* IconTitleContainerView */ = {
+			isa = PBXGroup;
+			children = (
+				E47C66691E2D273300696B5C /* IconTitleContainerView.swift */,
+			);
+			path = IconTitleContainerView;
 			sourceTree = "<group>";
 		};
 		E48846861E2B36C6003352F5 /* SubscribeFeedCell */ = {
@@ -2536,6 +2569,7 @@
 				CC714306FB938E052D04E6B7 /* CGImage+Cube.swift */,
 				E459BC451E2A263C008F4097 /* Bundle+Cube.swift */,
 				E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */,
+				E47C66641E2D21B800696B5C /* ASImageNode+Cube.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3142,6 +3176,7 @@
 				E49534861E0BFA950008934D /* FeedsViewController+Views.swift in Sources */,
 				E495348E1E0CEA140008934D /* SearchTransition.swift in Sources */,
 				E459BBDD1E27637C008F4097 /* DetailHeaderView.swift in Sources */,
+				E47C666A1E2D273300696B5C /* IconTitleContainerView.swift in Sources */,
 				E42C829D1DFBCFFA00D315CF /* CommentViewController+Formula.swift in Sources */,
 				E44D3B541DF822B100673FFD /* NewFeedViewController.swift in Sources */,
 				E459BADE1E2762DB008F4097 /* InputAccessoryView.swift in Sources */,
@@ -3168,6 +3203,7 @@
 				E459BA5B1E2762DA008F4097 /* BottomButtonView.swift in Sources */,
 				E459BAE31E2762DB008F4097 /* CameraPreviewView.swift in Sources */,
 				E459BAE51E2762DB008F4097 /* MediaView.swift in Sources */,
+				E47C66611E2D207E00696B5C /* FeedImageCellNode.swift in Sources */,
 				E459BBC61E27637C008F4097 /* LoadMoreCollectionViewCell.swift in Sources */,
 				E459BAEE1E2762DB008F4097 /* ProfileShareView.swift in Sources */,
 				E4F9F1201D991E040076C57C /* RegisterMainViewController.swift in Sources */,
@@ -3214,10 +3250,12 @@
 				E459BAE21E2762DB008F4097 /* BorderTextField.swift in Sources */,
 				E459BBB91E27637C008F4097 /* CateogryMenuCell.swift in Sources */,
 				E459BC091E27637C008F4097 /* PhotoCell.swift in Sources */,
+				E47C665E1E2D1DE500696B5C /* SearchFeedAnyImagesCell.swift in Sources */,
 				E459BBED1E27637C008F4097 /* MediaViewCell.swift in Sources */,
 				E4FF41C91D91605000B64C46 /* Realm.swift in Sources */,
 				E4B09BA31D8E3D340090671F /* Config.swift in Sources */,
 				E459BAF51E2762DB008F4097 /* SubscribeView.swift in Sources */,
+				E47C666C1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift in Sources */,
 				E4F38D661DFD21D100F0DF8A /* Service+Push.swift in Sources */,
 				E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */,
 				E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */,
@@ -3270,6 +3308,7 @@
 				E49534901E0CEB6A0008934D /* SearchTrigger.swift in Sources */,
 				E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */,
 				E459BC0D1E27637C008F4097 /* ProfileFeedsCell.swift in Sources */,
+				E47C66671E2D269500696B5C /* SearchFeedURLCell.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E459BAE41E2762DB008F4097 /* MediaControlView.swift in Sources */,
 				E459BADC1E2762DB008F4097 /* FXBlurView.m in Sources */,
@@ -3312,6 +3351,7 @@
 				E459BADA1E2762DB008F4097 /* FormulaSearchBar.swift in Sources */,
 				E459BC071E27637C008F4097 /* AlbumListCell.swift in Sources */,
 				E4F38DC91E01C91E00F0DF8A /* Message+Cube.swift in Sources */,
+				E47C66651E2D21B800696B5C /* ASImageNode+Cube.swift in Sources */,
 				E48BCD411DA897F800C4A1B7 /* CubeRuler.swift in Sources */,
 				E435C0291D9EA4FC0026FA08 /* DetailLayout.swift in Sources */,
 				E459BAE91E2762DB008F4097 /* NavigationTitleLabel.swift in Sources */,

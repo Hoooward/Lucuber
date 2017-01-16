@@ -44,7 +44,7 @@ public class CubeHUD: NSObject {
     private lazy var activitIndicator: UIActivityIndicatorView = {
         
         let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-        
+        view.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
         return view
         
     }()

@@ -266,6 +266,10 @@ public class Config {
         public static let mediaCollectionViewSize = CGSize(width: UIScreen.main.bounds.width, height: width)
     }
     
+    struct FeedNormalImagesCell {
+        static let imageSize: CGSize = CGSize(width: 80, height: 80)
+    }
+    
     public struct NewFeedFullImage {
         public static let maxSize: CGFloat = 1024
     }

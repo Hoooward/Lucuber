@@ -14,6 +14,9 @@ private let screenHeight: CGFloat = UIScreen.main.bounds.height
 
 final class SearchFeedsViewController: UIViewController, SearchAction {
     
+    
+    static let feedNormalImagesCount: Int = CubeRuler.universalHorizontal(3, 4, 4, 3, 4).value
+    
     var originalNavigationControllerDelegate: UINavigationControllerDelegate?
     var searchTransition: SearchTransition?
     

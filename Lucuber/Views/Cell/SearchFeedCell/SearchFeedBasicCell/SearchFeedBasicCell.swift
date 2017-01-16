@@ -35,6 +35,9 @@ class SearchFeedBasicCell: UITableViewCell {
         return ceil(height)
     }
     
+    func configureCell(with feed: DiscoverFeed, layout: SearchFeedCellLayout, keyword: String?) {
+    }
+    
     lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.frame = CGRect(x: 10, y: 15, width: 30, height: 30)
