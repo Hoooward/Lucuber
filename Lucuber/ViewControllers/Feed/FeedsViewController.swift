@@ -47,7 +47,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     lazy var searchTransition: SearchTransition = {
         return SearchTransition()
     }()
-    
+
     enum SegueIdentifier: String {
         case newFeed = "ShowNewFeed"
         case comment = "ShowCommentView"
@@ -378,7 +378,6 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
             guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
                 return
             }
-            
             vc.beforUploadingFeedAction = beforeUploadingFeedAction
             vc.afterUploadingFeedAction = afterCreatedFeedAction
             vc.getFeedsViewController = getFeedsViewController
@@ -896,7 +895,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
 extension FeedsViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        performSegue(withIdentifier: "ShowSearchFeeds", sender: nil)
+        parent?.performSegue(withIdentifier: "showSearchFeeds", sender: nil)
         return false
     }
 }

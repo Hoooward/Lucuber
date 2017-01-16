@@ -69,7 +69,7 @@
                     <navigationItem key="navigationItem" id="Ybz-ZF-esw">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="pgm-kK-fOu">
-                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <rect key="frame" x="113" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="First"/>
@@ -79,11 +79,22 @@
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="pgm-kK-fOu" id="8rc-aO-Skp"/>
+                        <segue destination="Rgr-eT-XsM" kind="show" identifier="showSearchFeeds" id="2AO-4e-qvl"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-7i-VfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-570" y="1398"/>
+        </scene>
+        <!--SearchFeeds-->
+        <scene sceneID="QEx-yJ-VlU">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SearchFeeds" id="Rgr-eT-XsM" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="5Fx-9K-sId"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Kg-JS-PSe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-570" y="1813"/>
         </scene>
         <!--Subscribes View Controller-->
         <scene sceneID="Hsq-tm-SuG">
@@ -120,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5e-cM-De7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="262" y="1397"/>
+            <point key="canvasLocation" x="262" y="1366"/>
         </scene>
         <!--SearchFeeds-->
         <scene sceneID="PqF-Ch-q7C">

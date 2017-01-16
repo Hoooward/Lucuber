@@ -11,7 +11,12 @@ import RxSwift
 import RxCocoa
 
 
-class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
+class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, SearchTrigeer  {
+    
+    var originalNavigationControllerDelegate: UINavigationControllerDelegate?
+    lazy var searchTransition: SearchTransition = {
+        return SearchTransition()
+    }()
     
     enum Option: Int {
         case subscribe
@@ -136,6 +141,27 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
     func editSubscribeList() {
         let editing = subscribesViewController.tableView.isEditing
         subscribesViewController.tableView.setEditing(!editing, animated: true)
+    }
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+            
+            case "showSearchFeeds":
+            
+            let vc = segue.destination as! SearchFeedsViewController
+            vc.hidesBottomBarWhenPushed = true
+            
+            prepareSearchTransition()
+            
+        default:
+            break
+        }
     }
     
 }
