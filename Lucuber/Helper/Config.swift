@@ -238,6 +238,14 @@ public class Config {
                 NSFontAttributeName: UIFont.feedMessageTextView()
         ]
     }
+    
+   
+    
+    struct SearchFeedNormalImagesCell {
+        static let imageSize: CGSize = CGSize(width: 70, height: 70)
+    }
+    
+    
     public struct FeedDetailCell {
         
         public static let categryButtonAttributies = [NSFontAttributeName: UIFont.feedCategoryButtonTitle()]

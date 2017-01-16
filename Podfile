@@ -22,6 +22,7 @@ pod 'pop', '~> 1.0'
 pod 'TPKeyboardAvoiding'
 pod 'RxSwift',    '~> 3.0'
 pod 'RxCocoa',    '~> 3.0'
+pod 'AsyncDisplayKit'
 #pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 

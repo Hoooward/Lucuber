@@ -1,5 +1,14 @@
 PODS:
   - Alamofire (4.2.0)
+  - AsyncDisplayKit (1.9.92):
+    - AsyncDisplayKit/PINRemoteImage (= 1.9.92)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.9.92)
+  - AsyncDisplayKit/Core (1.9.92):
+    - AsyncDisplayKit/ASDealloc2MainObject
+  - AsyncDisplayKit/PINRemoteImage (1.9.92):
+    - AsyncDisplayKit/Core
+    - PINCache (= 3.0.1-beta)
+    - PINRemoteImage/iOS (= 3.0.0-beta.3)
   - AVOSCloud (3.8.0)
   - AVOSCloudIM (3.8.0):
     - AVOSCloud (= 3.8.0)
@@ -15,6 +24,11 @@ PODS:
   - Kingfisher (3.2.2)
   - MonkeyKing (1.1.0)
   - Navi (1.1.0)
+  - PINCache (3.0.1-beta)
+  - PINRemoteImage/Core (3.0.0-beta.3):
+    - PINCache (>= 3.0.0-beta)
+  - PINRemoteImage/iOS (3.0.0-beta.3):
+    - PINRemoteImage/Core
   - PKHUD (3.2.1)
   - pop (1.0.9)
   - Proposer (1.1.0)
@@ -34,6 +48,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - AsyncDisplayKit
   - AVOSCloud
   - AVOSCloudIM
   - DeviceGuru
@@ -70,6 +85,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AsyncDisplayKit: 49d94f5739669d666ff7cdc3430f43f0b2cfbeaf
   AVOSCloud: ae9804496f51de99c4143fea7f842d6f46a32b4c
   AVOSCloudIM: bea73c50c58c7c5e466e0c7134b4b7d2f02c338a
   DeviceGuru: cc39d2a070144c9e955edd570b69e220da08f271
@@ -77,6 +93,8 @@ SPEC CHECKSUMS:
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
   MonkeyKing: dc16753cab7ece2d83e61976cd09fc3a7f783f1f
   Navi: 486cdec680956c8f6a1e882c66cbf86d0ad52490
+  PINCache: 6911fe422a633e18b3d3ddf2bd4f0e55e36e2892
+  PINRemoteImage: 308731aa6534500e58fc211b9cc2bb7252df25ba
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Proposer: 422c693b1917a461af30e7139b0d05eefe999e16
@@ -90,6 +108,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
 
-PODFILE CHECKSUM: 2411bf3be2be851abcfa9b71eb5e533615d559b5
+PODFILE CHECKSUM: 0666b833a457b963a5f8b7a738d2fe22a83998c3
 
 COCOAPODS: 1.1.1
