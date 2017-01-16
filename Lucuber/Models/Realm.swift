@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 5
+    config.schemaVersion = 6
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config
@@ -60,33 +60,33 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
         user.introduction = avUser.introduction()
         
         let oldMasterList: [String] = user.masterList.map({ $0.formulaID })
-        
         if let newMasterList = avUser.masterList() {
-            
             if oldMasterList != newMasterList {
-                
                 realm.delete(user.masterList)
-                
                 let newRMasterList = newMasterList.map({ FormulaMaster(value: [$0, user]) })
-                
                 realm.add(newRMasterList)
             }
         }
         
         let oldCubeCategoryMasterList: [String] = user.cubeCategoryMasterList.map { $0.categoryString }
-        
         if let newCubeCategoryMasterList = avUser.cubeCategoryMasterList() {
-            
             if oldCubeCategoryMasterList != newCubeCategoryMasterList {
-                
                 realm.delete(user.cubeCategoryMasterList)
-                
                 let newList = newCubeCategoryMasterList.map { CubeCategoryMaster(value: [$0, user]) }
-                
+                realm.add(newList)
+            }
+        }
+        
+        let oldSubscribeList: [String] = user.subscribeList.map { $0.feedID }
+        if let newSubscribeList = avUser.subscribeList() {
+            if oldSubscribeList != newSubscribeList {
+                realm.delete(user.subscribeList)
+                let newList = newSubscribeList.map { SubscribeFeed(value: [$0, user]) }
                 realm.add(newList)
             }
         }
     }
+    
     return user
 }
 

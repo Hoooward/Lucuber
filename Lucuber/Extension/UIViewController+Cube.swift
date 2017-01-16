@@ -59,7 +59,7 @@ extension UIViewController {
     func alertCanNotOpenCamera() {
         
         DispatchQueue.main.async {
-            CubeAlert.confirmOrCancel(title: "抱歉", message: "Lucuber 不能访问您的摄像头.\n你可以更改摄像头访问的权限设置.", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
+            CubeAlert.confirmOrCancel(title: "抱歉", message: "你没有开启 Lucuber 访问摄像头的权限.\n请前往设置修改.", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
                 
                 let url = URL(string: UIApplicationOpenSettingsURLString)!
                 
@@ -82,7 +82,7 @@ extension UIViewController {
         
         DispatchQueue.main.async {
             
-            CubeAlert.confirmOrCancel(title: "抱歉", message: "Lucuber 不能访问您的相册.\n你可以更改相册访问的权限设置", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
+            CubeAlert.confirmOrCancel(title: "", message: "你没有开启 Lucuber 访问相册的权限.\n请前往设置修改", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
                 
                 let url = URL(string: UIApplicationOpenSettingsURLString)!
                 
@@ -99,5 +99,26 @@ extension UIViewController {
                     
             })
         }
+    }
+    
+    func alertCanNotAccessNotification() {
+        
+        CubeAlert.confirmOrCancel(title: "", message: "你没有开启 Lucuber 的通知权限.\n如果希望接受消息提醒,请前往设置修改", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
+            
+            let url = URL(string: UIApplicationOpenSettingsURLString)!
+            
+            if #available(iOS 10, *)  {
+                
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                
+            } else {
+                
+                UIApplication.shared.openURL(url)
+            }
+            
+        }, cancelAction: {
+            
+        })
+       
     }
 }

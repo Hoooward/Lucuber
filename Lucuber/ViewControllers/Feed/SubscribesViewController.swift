@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import AVOSCloud
 
 class SubscribesViewController: UIViewController {
     
@@ -173,9 +174,104 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
         return true
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        guard let group = feedConversations[indexPath.row].withGroup , group.includeMe == true else {
+           return nil
+        }
+        
+        let unSubscribeAction = UITableViewRowAction(style: .destructive, title: "取消订阅", handler: { [weak self] _ in
+            
+            if group.notificationEnabled {
+                
+                unSubscribeConversationWithGroupID(group.groupID, failureHandler: {
+                    reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                    tableView.reloadData()
+                    CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
+                    
+                }, completion: {
+                    
+                    let subscribeFeedID = group.groupID
+                    
+                    var oldSubscribeList = [String]()
+                    if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                        oldSubscribeList = oldMySubscribeList
+                    }
+                    
+                    var newSubscribeList = oldSubscribeList
+                    
+                    if group.includeMe {
+                        if newSubscribeList.contains(subscribeFeedID) {
+                            if let index = newSubscribeList.index(of: subscribeFeedID) {
+                                newSubscribeList.remove(at: index)
+                            }
+                        }
+                    }
+                    
+                    pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        tableView.reloadData()
+                        CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
+                        
+                    }, completion: {
+                        
+                        guard let realm = try? Realm() else {
+                            return
+                        }
+                        
+                        try? realm.write {
+                            group.notificationEnabled = false
+                            group.includeMe = false
+                        }
+                        
+                        tableView.reloadData()
+                    })
+                })
+                
+            } else {
+                
+                let subscribeFeedID = group.groupID
+                
+                var oldSubscribeList = [String]()
+                if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                    oldSubscribeList = oldMySubscribeList
+                }
+                
+                var newSubscribeList = oldSubscribeList
+                
+                if group.includeMe {
+                    if newSubscribeList.contains(subscribeFeedID) {
+                        if let index = newSubscribeList.index(of: subscribeFeedID) {
+                            newSubscribeList.remove(at: index)
+                        }
+                    }
+                }
+                
+                pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                    tableView.reloadData()
+                    CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
+                }, completion: {
+                    
+                    guard let realm = try? Realm() else {
+                        return
+                    }
+                    try? realm.write {
+                        group.includeMe = false
+                    }
+                    tableView.reloadData()
+                })
+            }
+        })
+        
+        return [unSubscribeAction]
+    }
+
    
 }
 

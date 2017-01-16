@@ -143,13 +143,38 @@ extension  CommentViewController {
                 group.includeMe = !oldincludeMe
 			}
         
-            pushMySubscribeListToLeancloud(failureHandler: { reason, errorMessage in
-                
+            let subscribeFeedID = group.groupID
+            
+            
+            var oldSubscribeList = [String]()
+            if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                oldSubscribeList = oldMySubscribeList
+            }
+            
+            var newSubscribeList = oldSubscribeList
+            
+            if group.includeMe {
+                if newSubscribeList.contains(subscribeFeedID) {
+                    return
+                } else {
+                    newSubscribeList.append(subscribeFeedID)
+                }
+            } else {
+                if newSubscribeList.contains(subscribeFeedID) {
+                    if let index = newSubscribeList.index(of: subscribeFeedID) {
+                        newSubscribeList.remove(at: index)
+                    }
+                } else {
+                    return
+                }
+            }
+            
+            pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
                 defaultFailureHandler(reason, errorMessage)
-                
             }, completion: {
                 
             })
+            
 		}
        
         manager.toggleSwitchNotification = { [weak self] switchOn in
@@ -164,15 +189,12 @@ extension  CommentViewController {
                         // 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
                         DispatchQueue.main.async {
                             if setting.authorizationStatus != .authorized {
-                                
-                                manager.moreView.hideAndDo(afterHideAction: {
-                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
+                                manager.moreView.hideAndDo(afterHideAction: { [weak self] in
+                                    self?.alertCanNotAccessNotification()
                                 })
-                                
+                               
                             } else {
-                                
                                 if let group = self?.conversation.withGroup {
-                                    
                                     subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
                                         defaultFailureHandler(reason, errorMessage)
                                         
@@ -191,37 +213,38 @@ extension  CommentViewController {
                     })
                     
                 } else {
-                    // TODO: - 尚未测试
-                    if #available(iOS 9.0, *) {
-                        if let setting = UIApplication.shared.currentUserNotificationSettings {
+                    
+                    let settings = UIUserNotificationSettings(
+                        types: [.alert, .badge, .sound],
+                        categories: nil
+                    )
+                    
+                    let agreedAction: ProposerAction = { [weak self] in
+                        
+                        if let group = self?.conversation.withGroup {
                             
-                            switch setting.types {
+                            subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                defaultFailureHandler(reason, errorMessage)
                                 
-                            case UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound:
+                            }, completion: {
                                 
-                                if let group = self?.conversation.withGroup {
-                                    
-                                    subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-                                        defaultFailureHandler(reason, errorMessage)
-                                        
-                                    }, completion: {
-                                        
-                                        if let strongSelf = self {
-                                            try? strongSelf.realm.write {
-	                                            group.notificationEnabled = true
-                                                group.includeMe = true
-                                            }
-                                        }
-                                    })
+                                if let strongSelf = self {
+                                    try? strongSelf.realm.write {
+                                        group.notificationEnabled = true
+                                        group.includeMe = true
+                                    }
                                 }
-                                
-                            default:
-                                manager.moreView.hideAndDo(afterHideAction: {
-                                    CubeAlert.alertSorry(message: "您尚未开启 Lucuber 的推送权限, 请前往 设置-通知 中做修改.", inViewController: self)
-                                })
-                            }
+                            })
                         }
                     }
+                    
+                    proposeToAccess(.notifications(settings), agreed: {
+                        agreedAction()
+                    }, rejected: { [weak self] in
+                        manager.moreView.hideAndDo(afterHideAction: {
+                            self?.alertCanNotAccessNotification()
+                        })
+                    })
                 }
                 
             } else {
@@ -244,14 +267,13 @@ extension  CommentViewController {
         }
         
 
-		manager.reportAction = { [weak self] in
+		manager.reportAction = {
 			// TODO: - 举报
 		}
 
 		return manager
 	}
 }
-
 
 // MARK: - HeaderView Formula&Feed
 extension CommentViewController {
@@ -357,22 +379,110 @@ extension CommentViewController {
         
         subscribeView.subscribeAction = { [weak self] in
             
-            subscribeConversationWithGroupID(group.groupID, failureHandler:{ reason, errorMessage in
-                
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let group = strongSelf.conversation.withGroup else {
+                return
+            }
+            
+            try? strongSelf.realm.write {
+                group.includeMe = true
+            }
+            
+            let subscribeFeedID = group.groupID
+            
+            var oldSubscribeList = [String]()
+            if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                oldSubscribeList = oldMySubscribeList
+            }
+            
+            var newSubscribeList = oldSubscribeList
+            
+            if group.includeMe {
+                if newSubscribeList.contains(subscribeFeedID) {
+                    return
+                } else {
+                    newSubscribeList.append(subscribeFeedID)
+                }
+            } else {
+                if newSubscribeList.contains(subscribeFeedID) {
+                    if let index = newSubscribeList.index(of: subscribeFeedID) {
+                        newSubscribeList.remove(at: index)
+                    }
+                } else {
+                    return
+                }
+            }
+            
+            pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
                 defaultFailureHandler(reason, errorMessage)
             }, completion: {
                 
-                printLog("订阅成功 id: \(group.groupID)")
-                
-                printLog("before isIncludeMe = \(group.includeMe)")
-                
-                if let strongSelf = self {
-                    try? strongSelf.realm.write {
-                        group.notificationEnabled = true
-                        group.includeMe = true
-                    }
-                }
             })
+            
+            if #available(iOS 10.0, *) {
+                
+                let notificationCenter = UNUserNotificationCenter.current()
+                notificationCenter.getNotificationSettings(completionHandler: {
+                    setting in
+                    
+                    // 系统的回调可能不在主线程, 可能导致下面访问 realm 实例会出错
+                    DispatchQueue.main.async {
+                        if setting.authorizationStatus != .authorized {
+                           self?.alertCanNotAccessNotification()
+                            
+                        } else {
+                            
+                            if let group = self?.conversation.withGroup {
+                                
+                                subscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                    defaultFailureHandler(reason, errorMessage)
+                                    
+                                }, completion: {
+                                    
+                                    if let strongSelf = self {
+                                        try? strongSelf.realm.write {
+                                            group.notificationEnabled = true
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    }
+                })
+                
+            } else {
+                
+                let settings = UIUserNotificationSettings(
+                    types: [.alert, .badge, .sound],
+                    categories: nil
+                )
+                
+                
+                let agreedAction: ProposerAction = { [weak self] in
+                    subscribeConversationWithGroupID(group.groupID, failureHandler:{ reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                    }, completion: {
+                        
+                        printLog("订阅成功 id: \(group.groupID)")
+                        printLog("before isIncludeMe = \(group.includeMe)")
+                        
+                        if let strongSelf = self {
+                            try? strongSelf.realm.write {
+                                group.notificationEnabled = true
+                            }
+                        }
+                    })
+                }
+                
+                proposeToAccess(.notifications(settings), agreed: {
+                    agreedAction()
+                }, rejected: { [weak self] in
+                    self?.alertCanNotAccessNotification()
+                })
+            }
         }
         
         subscribeView.showWithChangeAction = { [weak self] in

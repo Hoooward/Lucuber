@@ -312,7 +312,6 @@ final class ProfileViewController: UIViewController {
             }
         }
         
-        // Make sure when pan edge screen collectionView not scroll
         if let gestures = navigationController?.view.gestureRecognizers {
             for recognizer in gestures {
                 if recognizer.isKind(of: UIScreenEdgePanGestureRecognizer.self) {
@@ -328,25 +327,25 @@ final class ProfileViewController: UIViewController {
         }
         
         if let profileUser = profileUser {
-            
             switch profileUser {
-                
             case .discoverUser(let avUser):
                 customNavigationItem.title = avUser.nickname() ?? "Detail"
                 
             case .userType(let rUser):
                 customNavigationItem.title = rUser.nickname
                 updateProfileCollectionView()
-                break
-                
             }
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileViewController.updateProfileCollectionView), name: Config.NotificationName.newMyInfo, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         statusBarShouldLight = true
         self.setNeedsStatusBarAppearanceUpdate()
     }
@@ -364,15 +363,17 @@ final class ProfileViewController: UIViewController {
         
         self.setNeedsStatusBarAppearanceUpdate()
         updateProfileCollectionView()
-        
-//        navigationController?.view.bringSubview(toFront: (navigationController?.navigationBar)!)
-       
     }
     
-   
-    
     func updateProfileCollectionView() {
-        
+        if let profileUser = profileUser {
+            switch profileUser {
+            case .discoverUser(let avUser):
+                customNavigationItem.title = avUser.nickname() ?? "Detail"
+            case .userType(let rUser):
+                customNavigationItem.title = rUser.nickname
+            }
+        }
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.reloadData()
         collectionView.layoutIfNeeded()

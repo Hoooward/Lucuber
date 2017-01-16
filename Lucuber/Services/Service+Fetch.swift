@@ -437,8 +437,7 @@ public func fetchSubscribeConversation(_ future: (() -> Void)?) {
         
         let feeds: [DiscoverFeed] = list.map { DiscoverFeed(className: "DiscoverFeed", objectId: $0)}
         
-        
-        AVObject.fetchAll(inBackground: feeds, block: { result, error in
+        DiscoverFeed.fetchAll(inBackground: feeds, block: { result, error in
             
             if error != nil {
                 defaultFailureHandler(Reason.network(error), "获取订阅 Feeds 失败")
@@ -450,29 +449,44 @@ public func fetchSubscribeConversation(_ future: (() -> Void)?) {
                     return
                 }
                 
+                realm.beginWrite()
                 for feed in feeds {
                     
-                    var group = groupWith(feed.objectId!, inRealm: realm)
+                    printLog(feed)
+                    let groupID = feed.objectId!
+                    
+                    var group = groupWith(groupID, inRealm: realm)
                     
                     if group == nil {
                         
                         let newGroup = Group()
+                        newGroup.groupID = groupID
                         
-                        try? realm.write {
-                            newGroup.groupID = feed.objectId!
-                            realm.add(newGroup)
-                        }
+                        realm.add(newGroup)
+                        
                         group = newGroup
                     }
                     
-                    if let group = group {
-                        
-                        try? realm.write {
-                            group.includeMe = true
-                            saveFeedWithDiscoverFeed(feed, group: group, inRealm: realm)
-                        }
+                    guard let feedGroup = group else {
+                        return
                     }
+                    
+                    feedGroup.includeMe = true
+                    feedGroup.groupType = GroupType.Public.rawValue
+                    
+                    if feedGroup.conversation == nil {
+                        
+                        let newConversation = Conversation()
+                        
+                        newConversation.type = ConversationType.group.rawValue
+                        newConversation.withGroup = feedGroup
+                        
+                        realm.add(newConversation)
+                    }
+                
+                    saveFeedWithDiscoverFeed(feed, group: feedGroup, inRealm: realm)
                 }
+                try? realm.commitWrite()
                 
                 UserDefaults.setIsSyncedSubscribeConversations(true)
                 future?()
@@ -519,17 +533,26 @@ public func fetchMyInfoAndDoFutherAction(_ action: (() -> Void)?) {
     guard let realm = try? Realm() else {
         return
     }
-    if let me = AVUser.current() {
+    if let meID = AVUser.current()?.objectId {
         
-        me.fetchInBackground { user, error in
-            
-            if let user = user as? AVUser {
+        let query = AVQuery(className: "_User")
+        query.whereKey("objectId", equalTo: meID)
+        
+        query.findObjectsInBackground {
+            users, _ in
+         
+            if let user = users?.first as? AVUser {
                 
-                _ = getOrCreatRUserWith(user, inRealm: realm)
+                try? realm.write {
+                    _ = getOrCreatRUserWith(user, inRealm: realm)
+                }
+                
+                NotificationCenter.default.post(name: Config.NotificationName.newMyInfo, object: nil)
                 
                 action?()
             }
         }
+        
     }
 }
 
@@ -658,12 +681,10 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 }
                 return
             }
-            
         }
     }
     
     if formula == nil {
-        
         let newFormula = Formula()
         newFormula.lcObjectID = discoverFormula.objectId!
         newFormula.localObjectID = discoverFormula.localObjectID
@@ -671,46 +692,12 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         newFormula.isNewVersion = true
         realm.add(newFormula)
         formula = newFormula
-        
     }
     
     if let formula = formula {
         
         if let discoverFormulaCreator = discoverFormula.creator {
-            
-            var user = userWith(discoverFormulaCreator.objectId!, inRealm: realm)
-            
-            if user == nil {
-                let newUser = RUser()
-                newUser.lcObjcetID = discoverFormulaCreator.objectId!
-                
-                realm.add(newUser)
-                user = newUser
-            }
-            
-            if let user = user {
-                
-                user.localObjectID = discoverFormulaCreator.localObjectID() ?? ""
-                user.avatorImageURL = discoverFormulaCreator.avatorImageURL()
-                user.nickname = discoverFormulaCreator.nickname() ?? ""
-                user.username = discoverFormulaCreator.username ?? ""
-                user.introduction = discoverFormulaCreator.introduction() ?? ""
-                
-                let oldMasterList: [String] = user.masterList.map({ $0.formulaID })
-                
-                if let newMasterList = discoverFormulaCreator.masterList() {
-                    
-                    if oldMasterList != newMasterList {
-                       
-                        realm.delete(user.masterList)
-                        
-                        let newRMasterList = newMasterList.map({ FormulaMaster(value: [$0, user]) })
-                        
-                        realm.add(newRMasterList)
-                        
-                    }
-                }
-                
+            if let user = getOrCreatRUserWith(discoverFormulaCreator, inRealm: realm) {
                 formula.creator = user
             }
         }

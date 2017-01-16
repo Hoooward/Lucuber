@@ -151,7 +151,7 @@ class RegisterCodeViewController: UIViewController {
     
     private func getSmsCodeWithPhoneNumber() {
         
-        fetchMobileVerificationCode(phoneNumber: phoneNumber!, failureHandler: { reason, errorMessage in
+        fetchMobileVerificationCode(with: self.loginType!, phoneNumber: phoneNumber!, failureHandler: { reason, errorMessage in
             
             defaultFailureHandler(reason, errorMessage)
             switch reason {
@@ -199,7 +199,7 @@ class RegisterCodeViewController: UIViewController {
         
         CubeHUD.showActivityIndicator()
         
-        signUpOrLogin(with: phoneNumber!, smsCode: code, failureHandler: { reason, errorMessage in
+        signUpOrLogin(with: self.loginType!, phoneNumber: phoneNumber!, smsCode: code, failureHandler: { reason, errorMessage in
             
             CubeHUD.hideActivityIndicator()
             

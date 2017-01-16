@@ -72,6 +72,11 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
         return item
     }()
     
+    fileprivate lazy var editSubscribeListButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(FeedsContainerViewController.editSubscribeList))
+        return item
+    }()
+    
     var currentOption: Option = .feeds {
         didSet {
             segmentedControl.selectedSegmentIndex = currentOption.rawValue
@@ -80,12 +85,13 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
                 
                 setViewControllers([subscribesViewController], direction: .reverse, animated: true, completion: nil)
                 
-                navigationItem.leftBarButtonItem = nil
+                navigationItem.leftBarButtonItem = editSubscribeListButtonItem
                 navigationItem.rightBarButtonItem = nil
                 
             case .feeds:
                 setViewControllers([feedsViewController], direction: .forward, animated: true, completion: nil)
                 
+                navigationItem.leftBarButtonItem = nil
                 navigationItem.rightBarButtonItem = creatNewFeedsButtonItem
             }
         }
@@ -117,17 +123,19 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop   {
     }
     
     
-    
-    
     // MARK: - Target & Action
     func createNewFeedsAction() {
-        
+        feedsViewController.creatNewFeed(UIButton())
     }
     
     func clearUnread() {
         
     }
     
+    func editSubscribeList() {
+        let editing = subscribesViewController.tableView.isEditing
+        subscribesViewController.tableView.setEditing(!editing, animated: true)
+    }
     
 }
 

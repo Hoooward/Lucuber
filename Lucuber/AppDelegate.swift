@@ -81,7 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
          customAppearce()
         //pushCubeCategory()
-        
+    
+        AVUser.current()?.isAuthenticated(withSessionToken: "user-sessionToken-here", callback: { success, error in
+            printLog(success)
+        })
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
    
@@ -232,6 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func changeRootViewController() {
         window?.rootViewController = determineRootViewController()
+        sync()
     }
     
     private func determineRootViewController() -> UIViewController {

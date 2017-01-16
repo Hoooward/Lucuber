@@ -14,6 +14,7 @@ import Kanna
 import Kingfisher
 
 
+// MARK: - Image
 public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
     
     guard !images.isEmpty else {
@@ -40,6 +41,7 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
     completion?(imagesURL)
 }
 
+// MARK: - User
 public func pushToMasterListLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
     
     guard let currentUser = AVUser.current() else {
@@ -56,8 +58,10 @@ public func pushMyNicknameToLeancloud(with nickname: String, failureHandler: @es
         failureHandler(Reason.other(nil), "没有登录")
         return
     }
+
     me.setNickname(nickname)
     me.saveInBackground { success, error in
+        
         if error != nil {
             failureHandler(Reason.network(error), "设置用户昵称失败")
         }
@@ -66,6 +70,7 @@ public func pushMyNicknameToLeancloud(with nickname: String, failureHandler: @es
             completion?()
         }
     }
+
 }
 
 public func pushMyIntroductionToLeancloud(with intro: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
@@ -74,6 +79,7 @@ public func pushMyIntroductionToLeancloud(with intro: String, failureHandler: @e
         failureHandler(Reason.other(nil), "没有登录")
         return
     }
+    
     me.setIntroduction(intro)
     me.saveInBackground { success, error in
         if error != nil {
@@ -123,32 +129,21 @@ public func pushMyCubeCategoryMasterListToLeancloud(with list: [String], failure
     }
 }
 
-public func pushMySubscribeListToLeancloud(failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
-    
-    guard let realm = try? Realm() else {
-        return
-    }
+public func pushMySubscribeListToLeancloud(with list: [String], failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
     
     guard let me = AVUser.current() else {
         failureHandler(Reason.other(nil), "没有登录")
         return
     }
-    
-    if let subscribeList = mySubscribeGroupsIDInRealm(realm: realm) {
-        me.setSubscribeList(subscribeList)
-    }
-    
+    me.setSubscribeList(list)
     me.saveInBackground { success, error in
-        
         if error != nil {
             failureHandler(Reason.network(error), "上传订阅列表失败")
         }
-        
         if success {
             completion?()
         }
     }
-    
 }
 
 public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
@@ -163,23 +158,43 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
     me.setLocalObjcetID(meRuser.localObjectID)
     me.setAvatorImageURL(meRuser.avatorImageURL ?? "")
     me.setCubeCategoryMasterList(meRuser.cubeCategoryMasterList.map { $0.categoryString })
-    
-    if let subscribeList = mySubscribeGroupsIDInRealm(realm: realm) {
-        me.setSubscribeList(subscribeList)
-    }
+    me.setSubscribeList(meRuser.subscribeList.map { $0.feedID })
     
     me.saveInBackground { success, error in
-        
         if error != nil {
             failureHandler(Reason.network(error), "上传用户信息失败")
         }
         
         if success {
+            
             completion?()
         }
     }
     
+    
+//    me.setNickname(meRuser.nickname)
+//    me.setMasterList(meRuser.masterList.map { $0.formulaID })
+//    me.setIntroduction(meRuser.introduction ?? "")
+//    me.setLocalObjcetID(meRuser.localObjectID)
+//    me.setAvatorImageURL(meRuser.avatorImageURL ?? "")
+//    me.setCubeCategoryMasterList(meRuser.cubeCategoryMasterList.map { $0.categoryString })
+//    me.setSubscribeList(meRuser.subscribeList.map { $0.feedID })
+//    
+//    me.saveInBackground { success, error in
+//        
+//        if error != nil {
+//            failureHandler(Reason.network(error), "上传用户信息失败")
+//        }
+//        
+//        if success {
+//            AVUser.changeCurrentUser(me, save: true)
+//            completion?()
+//        }
+//    }
+    
 }
+
+// MARK: - Data
 public func pushFeedbackToLeancloud(with feedback: DiscoverFeedback, completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
     
     guard let me = AVUser.current() else {
@@ -198,9 +213,7 @@ public func pushFeedbackToLeancloud(with feedback: DiscoverFeedback, completion:
             completion?()
         }
     }
-    
 }
-
 
 public func pushDataToLeancloud(with data: Data?, failureHandler: @escaping FailureHandler, completion: @escaping (_ URLString: String?) -> Void) {
     
@@ -269,6 +282,7 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
     
 }
 
+// MARK: - Message
 
 public func resendMessage(message: Message, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
@@ -569,6 +583,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 }
 
 
+// MARK: - APNs
 public func pushNewMessageNotificationToAPNs(with message: Message) {
 
     let dict: [String: Any] = [
@@ -585,6 +600,7 @@ public func pushNewMessageNotificationToAPNs(with message: Message) {
     push.sendInBackground()
 }
 
+// MARK: - Formula
 public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
     
     guard let newDiscoverFormula = parseFormulaToDisvocerModel(with: newFormula) else  {
@@ -823,12 +839,12 @@ public func pushCurrentUserUpdateInformation() {
     if let currentUser = currentUser(in: realm) {
         // 更新用户修改的公式
        
-        pushMyInfoToLeancloud(completion: {
-            printLog("上传用户信息成功")
-        }, failureHandler: { reason, errorMessage in
-            defaultFailureHandler(reason, errorMessage)
-            
-        })
+//        pushMyInfoToLeancloud(completion: {
+//            printLog("上传用户信息成功")
+//        }, failureHandler: { reason, errorMessage in
+//            defaultFailureHandler(reason, errorMessage)
+//            
+//        })
         
         let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
         
@@ -863,7 +879,7 @@ public func pushCurrentUserUpdateInformation() {
 
 }
 
-
+// MARK: - Feed
 
 public enum UploadFeedMode {
     case top
@@ -1271,17 +1287,50 @@ public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHan
 
 
 /// 获取短信验证码
-public func fetchMobileVerificationCode(phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
     
-    AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
-        if success { completion?() }
-        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-    }
+//    switch loginType {
+        
+//    case .login:
+//        AVUser.requestLoginSmsCode(phoneNumber, with: { success, error in
+//            if success { completion?() }
+//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+//        })
+//    case .register:
+//        AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
+//            if success { completion?() }
+//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+//        }
+//        
+//    }
+        AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
+            if success { completion?() }
+            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+        }
 }
 
 
 /// 注册登录
-public func signUpOrLogin(with phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
+public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
+    
+//    switch loginType {
+//    
+//    case .login:
+//        AVUser.logInWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode, block: { user, error in
+//            if let user = user {
+//                printLog(AVUser.current()?.sessionToken)
+//                completion?(user)
+//            }
+//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+//        })
+//    case .register:
+//        
+//        AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
+//     
+//            if let user = user { completion?(user) }
+//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+//        }
+//    }
     
     AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
         

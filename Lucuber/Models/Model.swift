@@ -366,11 +366,13 @@ open class FormulaMaster: Object {
 }
 
 open class CubeCategoryMaster: Object {
-    
     open dynamic var categoryString = ""
     open dynamic var atRUser: RUser?
-    
-    
+}
+
+open class SubscribeFeed: Object {
+    open dynamic var feedID: String = ""
+    open dynamic var atRUser: RUser?
 }
 
 open class RUser: Object {
@@ -384,10 +386,9 @@ open class RUser: Object {
     open dynamic var avatorImageURL: String?
     open dynamic var introduction: String?
     
-    // 已掌握的公式
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
-    // 擅长的魔方
     open let cubeCategoryMasterList = LinkingObjects(fromType: CubeCategoryMaster.self, property: "atRUser")
+    open let subscribeList = LinkingObjects(fromType: SubscribeFeed.self, property: "atRUser")
     
     open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     open let messages = LinkingObjects(fromType: Message.self, property: "creator")

@@ -47,6 +47,7 @@ public class Config {
         static let newUnreadMessages = Notification.Name("newUnreadMessages")
         static let changedLaunchStyle = Notification.Name("changedLaunchStyle")
         static let changedFeedConversation = Notification.Name("changedFeedConversation")
+        static let newMyInfo = Notification.Name("newMyInfo")
 
     }
     
