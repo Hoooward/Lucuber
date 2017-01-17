@@ -291,9 +291,7 @@ extension String {
         }
         return nil
     }
-    
 }
-
 
 extension String {
     
@@ -313,6 +311,28 @@ extension String {
         return randomString
     }
 }
+
+extension String {
+    
+    func keywordSetOfEmphasisTags() -> Set<String> {
+        
+        let text = self
+        let textRange = NSMakeRange(0, (text as NSString).length)
+        
+        let keywordExperssion = try! NSRegularExpression(pattern: "<em>(.+?)</em>", options: [.caseInsensitive])
+        
+        let matchs = keywordExperssion.matches(in: self, options: [], range: textRange)
+        let keywords:[String] = matchs.map({
+            let matchRange = $0.rangeAt(1)
+            let keyword = (text as NSString).substring(with: matchRange)
+            return keyword.lowercased()
+        })
+        
+        let keywordSet = Set(keywords)
+        return keywords
+    }
+}
+
 
 
 
