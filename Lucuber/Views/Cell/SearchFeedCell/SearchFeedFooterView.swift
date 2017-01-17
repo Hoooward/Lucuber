@@ -87,7 +87,7 @@ class SearchFeedFooterView: UIView {
                 
                 promptLabel.isHidden = false
                 promptLabel.textColor = UIColor.darkGray
-                promptLabel.text = "尝试"
+                promptLabel.text = "试试这些"
                 
                 activityIndicatorView.stopAnimating()
                 

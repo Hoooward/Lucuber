@@ -807,14 +807,62 @@ public enum SearchFeedsMode {
 }
 public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?, userID: String?, mode: SearchFeedsMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)? ) {
     
-    let query = AVQuery(className: DiscoverFeed.parseClassName())
+    func creatBasicQuery() -> AVQuery {
+        let query = AVQuery(className: DiscoverFeed.parseClassName())
+        query.limit = 30
+        query.includeKey("withFormula")
+        query.includeKey("withFormula.contents")
+        query.includeKey("withFormula.creator")
+        query.includeKey("creator")
+        query.order(byDescending: "createdAt")
+        return query
+    }
     
+    let bodyQuery = AVQuery(className: DiscoverFeed.parseClassName())
+    bodyQuery.whereKey("body", contains: keyword)
+    
+    let nicknameQuery = AVQuery(className: DiscoverFeed.parseClassName())
+    nicknameQuery.whereKey("creator.nickname", contains: keyword)
+    
+    let formulaCateogyQuery = AVQuery(className: DiscoverFeed.parseClassName())
+    formulaCateogyQuery.whereKey("withFormula.category", contains: keyword)
+    
+    let query = AVQuery.orQuery(withSubqueries: [bodyQuery, nicknameQuery, formulaCateogyQuery])
     query.limit = 30
     query.includeKey("withFormula")
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
     query.order(byDescending: "createdAt")
+    
+    switch mode {
+        
+    case .init:
+        // Do Noting
+        break
+    case .loadMore:
+        query.whereKey("createAt", lessThan: lastFeedCreatDate)
+    }
+
+    query.findObjectsInBackground { newFeeds, error in
+        
+        if error != nil {
+            
+            failureHandler(Reason.network(error), "请求 Feed 失败")
+            
+        } else {
+            
+            if let newFeeds = newFeeds as? [DiscoverFeed] {
+                
+                newFeeds.forEach {
+                    printLog($0)
+                    $0.parseAttachmentsInfo()
+                }
+                
+                completion?(newFeeds)
+            }
+        }
+    }
     
     
 }
