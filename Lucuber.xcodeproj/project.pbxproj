@@ -255,6 +255,7 @@
 		E47C666A1E2D273300696B5C /* IconTitleContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C66691E2D273300696B5C /* IconTitleContainerView.swift */; };
 		E47C666C1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
+		E4881F9C1E2DC4280003BBD8 /* SearchFeedFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4881F9B1E2DC4280003BBD8 /* SearchFeedFooterView.swift */; };
 		E48846811E2B256F003352F5 /* FeedsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */; };
 		E48846831E2B2633003352F5 /* UISegmentedControl+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */; };
 		E48846851E2B2A86003352F5 /* SubscribesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846841E2B2A86003352F5 /* SubscribesViewController.swift */; };
@@ -654,6 +655,7 @@
 		E47C66691E2D273300696B5C /* IconTitleContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconTitleContainerView.swift; sourceTree = "<group>"; };
 		E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedFormulaCell.swift; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
+		E4881F9B1E2DC4280003BBD8 /* SearchFeedFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedFooterView.swift; sourceTree = "<group>"; };
 		E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsContainerViewController.swift; sourceTree = "<group>"; };
 		E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Cube.swift"; sourceTree = "<group>"; };
 		E48846841E2B2A86003352F5 /* SubscribesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribesViewController.swift; sourceTree = "<group>"; };
@@ -2210,6 +2212,7 @@
 				E47C66551E2CDB9D00696B5C /* SearchFeedNormalImageCell */,
 				E47C66561E2CDB9D00696B5C /* SearchFeedURLCell */,
 				E47C66591E2CEC3E00696B5C /* SearchFeedCellLayout.swift */,
+				E4881F9B1E2DC4280003BBD8 /* SearchFeedFooterView.swift */,
 			);
 			path = SearchFeedCell;
 			sourceTree = "<group>";
@@ -3369,6 +3372,7 @@
 				E459BAEA1E2762DB008F4097 /* FeedFormulaView.swift in Sources */,
 				E466068C1D8E3533002306D0 /* Helper.swift in Sources */,
 				E459BAE71E2762DB008F4097 /* MessageToolbar.swift in Sources */,
+				E4881F9C1E2DC4280003BBD8 /* SearchFeedFooterView.swift in Sources */,
 				E459BBC41E27637C008F4097 /* ChatTextIndicatorCell.swift in Sources */,
 				E459BAF31E2762DB008F4097 /* ScoreView.swift in Sources */,
 				E4B09BAC1D8EB58D0090671F /* LibraryFormulaViewController.swift in Sources */,

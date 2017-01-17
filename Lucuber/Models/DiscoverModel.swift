@@ -10,6 +10,16 @@ import UIKit
 import AVOSCloud
 import CoreLocation
 
+public class DiscoverHotKeyword: AVObject, AVSubclassing {
+    
+    public static func parseClassName() -> String {
+        return "DiscoverHotKeyword"
+    }
+    
+    @NSManaged var keyword: String
+
+}
+
 public class DiscoverCubeCategory: AVObject, AVSubclassing {
     
     public static func parseClassName() -> String {

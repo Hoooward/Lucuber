@@ -73,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverFeed.registerSubclass()
         DiscoverCubeCategory.registerSubclass()
         DiscoverFeedback.registerSubclass()
+        DiscoverHotKeyword.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds

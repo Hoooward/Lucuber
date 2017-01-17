@@ -579,6 +579,17 @@ public func updateLibraryDate(failureHandeler: @escaping FailureHandler, complet
     })
 }
 
+public func fetchHotKeyWords(completion: @escaping (([String]) -> Void)) {
+   
+    let query = AVQuery(className: DiscoverHotKeyword.parseClassName())
+    query.findObjectsInBackground({ result, error in
+        
+        if let result = result as? [DiscoverHotKeyword] {
+            completion(result.map { $0.keyword})
+        }
+    })
+}
+
 public func fetchPreferences(failureHandler: @escaping FailureHandler, completion:@escaping ((String) -> Void)){
     
     let query = AVQuery(className: DiscoverPreferences.parseClassName())
