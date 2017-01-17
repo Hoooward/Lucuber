@@ -329,7 +329,47 @@ extension String {
         })
         
         let keywordSet = Set(keywords)
-        return keywords
+        return keywordSet
+    }
+    
+    func highlightWithKeywordSet(_ keyword: String, color: UIColor, baseFont: UIFont, baseColor: UIColor) -> NSAttributedString? {
+        
+        let text = self
+        let textRange = NSMakeRange(0, (self as NSString).length)
+        
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: baseColor, range: textRange)
+        attributedString.addAttribute(NSFontAttributeName, value: baseFont, range: textRange)
+        
+        let highlightTextAttributes: [String: Any] = [
+            NSForegroundColorAttributeName: color
+        ]
+        
+        let highlightExpression = try! NSRegularExpression(pattern: keyword, options: [.caseInsensitive])
+        
+        highlightExpression.enumerateMatches(in: self, options: NSRegularExpression.MatchingOptions(), range: textRange, using: { result, flags, stop in
+            
+            if let result = result {
+                attributedString.addAttributes(highlightTextAttributes, range: result.range)
+            }
+        })
+        
+        
+//        keywordSet.forEach {
+//            if let highlightExpression = try? NSRegularExpression(pattern: $0, options: [.caseInsensitive]) {
+//                
+//                highlightExpression.enumerateMatches(in: text, options: NSRegularExpression.MatchingOptions(), range: textRange, using: {
+//                    result, flags, stop in
+//                    
+//                    if let result = result {
+//                        attributedString.addAttributes(highlightTextAttributes, range: result.range)
+//                    }
+//                })
+//            }
+//            
+//        }
+        return attributedString
     }
 }
 

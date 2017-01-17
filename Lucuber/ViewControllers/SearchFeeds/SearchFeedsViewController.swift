@@ -235,11 +235,17 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
                 
                 strongSelf.feeds = newFeeds
                 
+                /*
                 if Set(oldFeeds.map{ $0.objectId! }) == Set(newFeeds.map{ $0.objectId! }) {
                     wayToUpdate = .none
                 } else {
                     wayToUpdate = .reloadData
                 }
+                 */
+                
+                wayToUpdate = .reloadData
+                
+                
                 
             case .loadMore:
                 
@@ -305,8 +311,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
         
         searchFeedsWithKeyword(searchText, mode: .init)
     }
-
-  
     
     var isFirstAppear = true
     

@@ -49,10 +49,21 @@ class SearchFeedBasicCell: UITableViewCell {
             avatarImageView.image = #imageLiteral(resourceName: "default_avatar_60")
         }
         
-        messageTextView.text = "\u{200B}\(feed.body)"
-        messageTextView.frame = basicLayout.messageTextViewFrame
+        let text = "\u{200B}\(feed.body)"
+        if let keyword = keyword {
+            
+            printLog(keyword)
+//            printLog(keywordSet)
+            if let attributedText = text.highlightWithKeywordSet(keyword, color: UIColor.cubeTintColor(), baseFont: UIFont.feedMessageTextView(), baseColor: UIColor.messageColor()) {
+                messageTextView.attributedText = attributedText
+            } else {
+                messageTextView.text = text
+            }
+        } else {
+            messageTextView.text = text
+        }
         
-     
+        messageTextView.frame = basicLayout.messageTextViewFrame
         
         var _nickname = "未知"
         if let nickname = feed.creator?.nickname() {
