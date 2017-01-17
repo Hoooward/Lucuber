@@ -28,7 +28,7 @@ final class SearchFeedNormalImagesCell: SearchFeedBasicCell {
         node.borderColor = UIColor.cubeBorderColor().cgColor
         node.isUserInteractionEnabled = true
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(SearchFeedNormalImagesCell.tap))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(SearchFeedNormalImagesCell.tap(sender:)))
         node.view.addGestureRecognizer(tap)
         return node
     }
@@ -81,42 +81,67 @@ final class SearchFeedNormalImagesCell: SearchFeedBasicCell {
         
         super.configureCell(with: feed, layout: layout, keyword: keyword)
         
-//        if let attachments = feed.imageAttachments {
-//            
-//            for i in 0..<imageNodes.count {
-//                
-//                if let attachment = attachments[safe: i] {
-//                    
-//                    if attachment.isTemporary {
-//                        imageNodes[i].image = attachment.image
-//                        
-//                    } else {
-//                        imageNodes[i].yep_showActivityIndicatorWhenLoading = true
-//                        imageNodes[i].yep_setImageOfAttachment(attachment, withSize: YepConfig.FeedNormalImagesCell.imageSize)
-//                    }
-//                    
-//                    imageNodes[i].isHidden = false
-//                    
-//                } else {
-//                    imageNodes[i].isHidden = true
-//                }
-//            }
-//        }
-//        
-//        let normalImagesLayout = layout.normalImagesLayout!
-//        imageNode1.frame = normalImagesLayout.imageView1Frame
-//        imageNode2.frame = normalImagesLayout.imageView2Frame
-//        imageNode3.frame = normalImagesLayout.imageView3Frame
-//        if needAllImageNodes {
-//            imageNode4.frame = normalImagesLayout.imageView4Frame
-//        }
+        
+        if let attachment = feed.attachment {
+            
+            switch attachment {
+            case .images(let imageAttachments):
+                
+                
+                for i in 0..<imageNodes.count {
+                    
+                    if let attachment = imageAttachments[safe: i] {
+                        
+                        if attachment.isTemporary {
+                            imageNodes[i].image = attachment.image
+                        } else {
+                            imageNodes[i].showActivityIndicatorWhenLoading = true
+                            imageNodes[i].cube_setImageAtFeedCellWithAttachment(attachment: attachment, withSize: Config.FeedNormalImagesCell.imageSize)
+                        }
+                        
+                        imageNodes[i].isHidden = false
+                    } else {
+                        imageNodes[i].isHidden = true
+                    }
+                    
+                }
+                
+            default:
+                break
+            }
+            
+            let normalImagesLayout = layout.normalImagesLayout!
+            imageNode1.frame = normalImagesLayout.imageView1Frame
+            imageNode2.frame = normalImagesLayout.imageView2Frame
+            imageNode3.frame = normalImagesLayout.imageView3Frame
+            if needAllImageNodes {
+                imageNode4.frame = normalImagesLayout.imageView4Frame
+            }
+        }
     }
-    
     
     // MARK: - Target & Action
-    @objc fileprivate func tap() {
+    @objc fileprivate func tap(sender: UITapGestureRecognizer) {
+        
+        guard let attachments = feed?.imageAttachments else {
+            return
+        }
+        
+        guard let _ = attachments.first else {
+            return
+        }
+        
+        let views = imageNodes.map {$0.view}
+        
+        guard let view = sender.view, let index = views.index(of: view) else {
+            return
+        }
+        
+        let transitionView = imageNodes[index].view
+        let image = imageNodes[index].image
+        let imageAttachments = attachments
+        tapMediaAction?(transitionView, image, imageAttachments, index)
         
     }
-    
     
 }

@@ -86,6 +86,15 @@ final class SearchFeedAnyImagesCell: SearchFeedBasicCell {
     override func configureCell(with feed: DiscoverFeed, layout: SearchFeedCellLayout, keyword: String?) {
         
         super.configureCell(with: feed, layout: layout, keyword: keyword)
+        
+        if let attachment = feed.attachment {
+            if case let .images(imageAttachments) = attachment {
+                self.imageAttachments = imageAttachments
+            }
+        }
+        
+        let anyImagesLayout = layout.anyImagesLayout!
+        mediaCollectionNode.frame = anyImagesLayout.mediaCollectionViewFrame
     }
 }
 
@@ -132,18 +141,7 @@ extension SearchFeedAnyImagesCell: ASCollectionDelegate, ASCollectionDataSource 
         let imageAttachments = self.imageAttachments
         let index = indexPath.item
         tapMediaAction?(transitionView, image, imageAttachments, index)
-        
-//        let references: [Reference?] = (0..<attachments.count).map({
-//            let indexPath = IndexPath(item: $0, section: indexPath.section)
-//            let node = mediaCollectionNode.view.nodeForItem(at: indexPath) as? FeedImageCellNode
-//            
-//            if node?.view.superview == nil {
-//                return nil
-//            } else {
-//                return (node as? Previewable)?.transitionReference
-//            }
-//        })
-//        tapImagesAction?(references, attachments, node.imageNode.image, indexPath.item)
+
     }
     
     

@@ -38,7 +38,36 @@ final class SearchFeedURLCell: SearchFeedBasicCell {
     }
     
     override func configureCell(with feed: DiscoverFeed, layout: SearchFeedCellLayout, keyword: String?) {
-        
         super.configureCell(with: feed, layout: layout, keyword: keyword)
+        
+        
+        if let attachment = feed.attachment {
+            
+            switch attachment {
+                
+            case .URL(let openGraphInfo):
+               
+                
+                feedURLContainerView.titleLabel.text = openGraphInfo.title
+                
+                feedURLContainerView.tapAction = { [weak self] in
+                    self?.tapURLInfoAction?(openGraphInfo.URL)
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        let _URLLayout = layout._URLLayout!
+        feedURLContainerView.frame = _URLLayout.URLContainerViewFrame
     }
 }
+
+
+
+
+
+
+
+

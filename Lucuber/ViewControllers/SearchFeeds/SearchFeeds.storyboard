@@ -30,6 +30,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ylt-Fr-u1N">
                                 <rect key="frame" x="0.0" y="109" width="375" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="D8g-yI-Cf7" id="z9M-dt-jmT"/>
+                                    <outlet property="delegate" destination="D8g-yI-Cf7" id="rre-xH-OM4"/>
+                                </connections>
                             </tableView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bY8-NP-UKF" customClass="HorizontalLineView" customModule="Lucuber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="108" width="375" height="1"/>

@@ -8,6 +8,7 @@
 
 import UIKit
 import AVOSCloud
+import Navi
 
 class SearchFeedBasicCell: UITableViewCell {
     
@@ -36,6 +37,43 @@ class SearchFeedBasicCell: UITableViewCell {
     }
     
     func configureCell(with feed: DiscoverFeed, layout: SearchFeedCellLayout, keyword: String?) {
+        
+        let basicLayout = layout.basicLayout
+        
+        self.feed = feed
+        
+        if let url = feed.creator?.avatorImageURL() {
+            let cubeAvatar = CubeAvatar(avatarUrlString: url, avatarStyle: nanoAvatarStyle)
+            avatarImageView.navi_setAvatar(cubeAvatar, withFadeTransitionDuration: 0.5)
+        } else {
+            avatarImageView.image = #imageLiteral(resourceName: "default_avatar_60")
+        }
+        
+        messageTextView.text = "\u{200B}\(feed.body)"
+        messageTextView.frame = basicLayout.messageTextViewFrame
+        
+     
+        
+        var _nickname = "未知"
+        if let nickname = feed.creator?.nickname() {
+            _nickname = nickname
+        }
+        nicknameLabel.text = _nickname
+        nicknameLabel.frame = basicLayout.nicknameLabelFrameWhen(hasLogo: false, hasCategory: false)
+        
+        avatarImageView.frame = basicLayout.avatarImageViewFrame
+        
+        
+        if let formula = feed.withFormula {
+            let categoryString = formula.category
+            categoryButton.isHidden = false
+            categoryButton.setTitle(categoryString, for: .normal)
+            categoryButton.frame = basicLayout.categoryButtonFrame
+            
+        } else {
+            categoryButton.isHidden = true
+            categoryButton.frame = basicLayout.categoryButtonFrame
+        }
     }
     
     lazy var avatarImageView: UIImageView = {

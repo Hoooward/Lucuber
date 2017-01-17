@@ -14,7 +14,7 @@ final class SearchFeedFormulaCell: SearchFeedBasicCell {
         return ceil(height)
     }
     
-    var tapFormulaInfoAction: ((_ formula: Formula) -> Void)?
+    var tapFormulaInfoAction: ((_ formula: DiscoverFormula) -> Void)?
     
     lazy var feedFormulaContainerView: IconTitleContainerView = {
         let view = IconTitleContainerView(frame: CGRect(x: 0, y: 0, width: 200, height: 150))
@@ -35,7 +35,33 @@ final class SearchFeedFormulaCell: SearchFeedBasicCell {
     }
     
     override func configureCell(with feed: DiscoverFeed, layout: SearchFeedCellLayout, keyword: String?) {
-        
         super.configureCell(with: feed, layout: layout, keyword: keyword)
+        
+        if let attachment = feed.attachment {
+            
+            switch attachment {
+                
+            case .formula(let formula):
+                
+                feedFormulaContainerView.titleLabel.text = formula.name
+                
+                feedFormulaContainerView.tapAction = { [weak self] in
+                    self?.tapFormulaInfoAction?(formula)
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        let _formulaLayout = layout._formulaLayout!
+        
+        feedFormulaContainerView.frame = _formulaLayout.formulaContainerViewFrame
     }
+    
 }
+
+
+
+
+

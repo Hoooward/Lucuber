@@ -827,13 +827,15 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?,
     let formulaCateogyQuery = AVQuery(className: DiscoverFeed.parseClassName())
     formulaCateogyQuery.whereKey("withFormula.category", contains: keyword)
     
-    let query = AVQuery.orQuery(withSubqueries: [bodyQuery, nicknameQuery, formulaCateogyQuery])
+//    let query = AVQuery.orQuery(withSubqueries: [bodyQuery, nicknameQuery, formulaCateogyQuery])
+    let query = AVQuery(className: DiscoverFeed.parseClassName())
     query.limit = 30
     query.includeKey("withFormula")
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
     query.order(byDescending: "createdAt")
+    query.whereKey("body", contains: keyword)
     
     switch mode {
         
