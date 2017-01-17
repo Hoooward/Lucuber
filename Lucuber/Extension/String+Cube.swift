@@ -313,24 +313,7 @@ extension String {
 }
 
 extension String {
-    
-    func keywordSetOfEmphasisTags() -> Set<String> {
-        
-        let text = self
-        let textRange = NSMakeRange(0, (text as NSString).length)
-        
-        let keywordExperssion = try! NSRegularExpression(pattern: "<em>(.+?)</em>", options: [.caseInsensitive])
-        
-        let matchs = keywordExperssion.matches(in: self, options: [], range: textRange)
-        let keywords:[String] = matchs.map({
-            let matchRange = $0.rangeAt(1)
-            let keyword = (text as NSString).substring(with: matchRange)
-            return keyword.lowercased()
-        })
-        
-        let keywordSet = Set(keywords)
-        return keywordSet
-    }
+
     
     func highlightWithKeywordSet(_ keyword: String, color: UIColor, baseFont: UIFont, baseColor: UIColor) -> NSAttributedString? {
         
@@ -355,20 +338,6 @@ extension String {
             }
         })
         
-        
-//        keywordSet.forEach {
-//            if let highlightExpression = try? NSRegularExpression(pattern: $0, options: [.caseInsensitive]) {
-//                
-//                highlightExpression.enumerateMatches(in: text, options: NSRegularExpression.MatchingOptions(), range: textRange, using: {
-//                    result, flags, stop in
-//                    
-//                    if let result = result {
-//                        attributedString.addAttributes(highlightTextAttributes, range: result.range)
-//                    }
-//                })
-//            }
-//            
-//        }
         return attributedString
     }
 }

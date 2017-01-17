@@ -27,7 +27,7 @@ final class SearchFeedFormulaCell: SearchFeedBasicCell {
         
         contentView.addSubview(feedFormulaContainerView)
         
-        feedFormulaContainerView.iconImageView.image = UIImage(named: "icon_link")
+        feedFormulaContainerView.iconImageView.image = UIImage(named: "icon_formulaInfo")
     }
     
     required init?(coder aDecoder: NSCoder) {
