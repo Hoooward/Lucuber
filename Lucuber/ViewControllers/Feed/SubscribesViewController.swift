@@ -57,6 +57,7 @@ class SubscribesViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
         tableView.separatorInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
+        tableView.contentOffset.y = 0
         
         feedConversationsNotificationToken = feedConversations.addNotificationBlock {
             [weak self] (change: RealmCollectionChange) in

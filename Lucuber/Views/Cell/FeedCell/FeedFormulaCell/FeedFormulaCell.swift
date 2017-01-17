@@ -17,7 +17,7 @@ class FeedFormulaCell: FeedBaseCell {
         return ceil(height)
     }
     
-    public var tapFormulaInfoAction: ((DiscoverFormula) -> Void)?
+    public var tapFormulaInfoAction: ((FeedBaseCell?) -> Void)?
     
     lazy var feedFormulaContainerView: FeedFormulaContainerView = {
         let rect = CGRect(x: 0, y: 0, width: 200, height: 150)
@@ -40,7 +40,7 @@ class FeedFormulaCell: FeedBaseCell {
                 feedFormulaContainerView.configureWithDiscoverFormula(formula: formula)
                 
                 feedFormulaContainerView.tapAction = { [weak self] in
-                    self?.tapFormulaInfoAction?(formula)
+                    self?.tapFormulaInfoAction?(self)
                 }
                 
             default:

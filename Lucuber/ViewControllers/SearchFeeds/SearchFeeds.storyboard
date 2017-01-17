@@ -11,7 +11,7 @@
         <!--Search Feeds View Controller-->
         <scene sceneID="1Qf-10-o7o">
             <objects>
-                <viewController id="D8g-yI-Cf7" customClass="SearchFeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchFeedsViewController" id="D8g-yI-Cf7" customClass="SearchFeedsViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XWL-7e-8vM"/>
                         <viewControllerLayoutGuide type="bottom" id="aQ7-VE-1Xf"/>

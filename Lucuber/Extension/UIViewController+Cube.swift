@@ -122,3 +122,29 @@ extension UIViewController {
        
     }
 }
+
+extension UIViewController {
+    
+   
+//    func showMediaPreviewViewControllerWith(_ transitionView: UIView, image: UIImage?, imageAttachments: [ImageAttachment], index: Int) {
+//        
+//        weak var weakSelf = self
+//        
+//        let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+//        
+//        vc.startIndex = index
+//        let frame = transitionView.convert(transitionView.bounds, to: weakSelf?.view)
+//        vc.previewImageViewInitalFrame = frame
+//        vc.bottomPreviewImage = image
+//        
+//        vc.afterDismissAction = { [weak self] in
+//            self?.view.window?.makeKeyAndVisible()
+//        }
+//        
+//        vc.previewMedias = imageAttachments.map { PreviewMedia.attachmentType($0) }
+//        
+//        mediaPreviewWindow.rootViewController = vc
+//        mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+//        mediaPreviewWindow.makeKeyAndVisible()
+//    }
+}

@@ -49,11 +49,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     }()
 
     enum SegueIdentifier: String {
-        case newFeed = "ShowNewFeed"
-        case comment = "ShowCommentView"
-        case showFormulaInfo = "ShowFormulaInfo"
-        case showSearchFeeds = "ShowSearchFeeds"
-        case showProfile = "showProfile"
+        case newFeed = "showNewFeed"
     }
     
     var seletedFeedCategory: FeedCategory?
@@ -113,13 +109,6 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         return view
     }()
     
-    fileprivate let FeedBaseCellIdentifier = "FeedBaseCell"
-    fileprivate let FeedBiggerImageCellIdentifier = "FeedBiggerImageCell"
-    fileprivate let FeedAnyImagesCellIdentifier = "FeedAnyImagesCell"
-    fileprivate let LoadMoreTableViewCellIdentifier = "LoadMoreTableViewCell"
-    fileprivate let FeedURLCellIdentifier = "FeedURLCell"
-    fileprivate let FeedFormulaCellIdentifier = "FeedFormulaCell"
-    
     var isUploadingFeed = false
     
     var lastFeedCreatedDate: Date {
@@ -162,23 +151,134 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         
-        tableView.rowHeight = 300
         
-        tableView.register(FeedBaseCell.self, forCellReuseIdentifier: FeedBaseCellIdentifier)
-        tableView.register(FeedBiggerImageCell.self, forCellReuseIdentifier: FeedBiggerImageCellIdentifier)
-        tableView.register(FeedAnyImagesCell.self, forCellReuseIdentifier: FeedAnyImagesCellIdentifier)
-        tableView.register(UINib(nibName: LoadMoreTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: LoadMoreTableViewCellIdentifier)
-        tableView.register(FeedURLCell.self, forCellReuseIdentifier: FeedURLCellIdentifier)
-        tableView.register(FeedFormulaCell.self, forCellReuseIdentifier: FeedFormulaCellIdentifier)
-        
+        tableView.registerClass(of: FeedBaseCell.self)
+        tableView.registerClass(of: FeedBiggerImageCell.self)
+        tableView.registerClass(of: FeedAnyImagesCell.self)
+        tableView.registerClass(of: FeedURLCell.self)
+        tableView.registerClass(of: FeedFormulaCell.self)
+        tableView.registerNib(of: LoadMoreTableViewCell.self)
+
         
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
         tableView.separatorInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
+        tableView.contentOffset.y = searchBar.frame.height
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationItem.title = "话题"
         
         tableView.contentOffset.y = searchBar.frame.height
+        
+        
+        if let feedsContainerViewController = self.parent as? FeedsContainerViewController {
+            
+            feedsContainerViewController.showProfileViewControllerAction = { [weak self] segue, sender in
+                
+                guard  segue.identifier == "showProfileView" else {
+                    return
+                }
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                let vc = segue.destination as! ProfileViewController
+                
+                if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
+                    
+                    switch section {
+                    case .uploadingFeed:
+                        let discoveredUser = strongSelf.uploadingFeeds[indexPath.row].creator
+                        vc.prepare(with: discoveredUser)
+                    case .feed:
+                        let discoveredUser = strongSelf.feeds[indexPath.row].creator
+                        vc.prepare(with: discoveredUser)
+                    default:
+                        break
+                    }
+                }
+            }
+            
+            feedsContainerViewController.showCommentViewControllerAction = { [weak self] segue, sender in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                let vc = segue.destination as! CommentViewController
+                
+                guard let indexPath = sender as? IndexPath,
+                    let feed = strongSelf.feeds[safe: indexPath.row],
+                    let realm = try? Realm() else {
+                        return
+                }
+                
+                realm.beginWrite()
+                let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+                try? realm.commitWrite()
+                
+                vc.conversation = feedConversation
+                vc.hidesBottomBarWhenPushed = true
+                vc.feed = feed
+                
+                vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+                    
+                    if let strongSelf = self {
+                        
+                        var deletedFeed: DiscoverFeed?
+                        for feed in strongSelf.feeds {
+                            if feed.objectId! == feedLcObjcetID {
+                                deletedFeed = feed
+                                break
+                            }
+                        }
+                        
+                        if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+                            strongSelf.feeds.remove(at: index)
+                            
+                            let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+                            strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+                            
+                            return
+                        }
+                        
+                        delay(1) {
+                            strongSelf.uploadFeed()
+                        }
+                    }
+                }
+            }
+            
+            feedsContainerViewController.showFormulaDetailViewControllerAction = { [weak self] segue, sender in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                let vc = segue.destination as! FormulaDetailViewController
+                
+                guard let indexPath = sender as? IndexPath,
+                    let feed = strongSelf.feeds[safe: indexPath.row],
+                    let realm = try? Realm() else {
+                        return
+                }
+                
+                var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
+                
+                if formula == nil {
+                    realm.beginWrite()
+                    formula = vc.prepareFormulaFrom(feed, inRealm: realm)
+                    try? realm.commitWrite()
+                }
+                
+                guard let resultFormula = formula else {
+                    return
+                }
+                
+                
+                vc.formula = resultFormula
+                vc.previewFormulaStyle = .single
+            }
+        }
         
         uploadFeed()
     }
@@ -297,7 +397,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         newFeedActionSheetView.showInView(view: window)
     }
     
-    // MARK: - PrepareForSegue
+    // MARK: - Segue
     var newFeedViewController: NewFeedViewController?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -381,81 +481,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
             vc.beforUploadingFeedAction = beforeUploadingFeedAction
             vc.afterUploadingFeedAction = afterCreatedFeedAction
             vc.getFeedsViewController = getFeedsViewController
-            
-        case .comment:
-            let vc = segue.destination as! CommentViewController
-            
-            guard let indexPath = sender as? IndexPath,
-                let feed = feeds[safe: indexPath.row],
-                let realm = try? Realm() else {
-                return
-            }
-            
-            realm.beginWrite()
-            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
-            try? realm.commitWrite()
-            
-            vc.conversation = feedConversation
-            vc.hidesBottomBarWhenPushed = true
-            vc.feed = feed
-            
-            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
-                
-                if let strongSelf = self {
-                   
-                    var deletedFeed: DiscoverFeed?
-                    for feed in strongSelf.feeds {
-                        if feed.objectId! == feedLcObjcetID {
-                            deletedFeed = feed
-                            break
-                        }
-                    }
-                    
-                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
-                        strongSelf.feeds.remove(at: index)
-                        
-                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
-                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
-                        
-                        return
-                    }
-                    
-                    delay(1) {
-                        self?.uploadFeed()
-                    }
-                }
-            }
-            
-        case .showSearchFeeds:
-            let vc = segue.destination as! SearchFeedsViewController
-            vc.hidesBottomBarWhenPushed = true
-            
-            prepareSearchTransition()
-            
-            
-        case .showProfile:
-            
-            let vc = segue.destination as! ProfileViewController
-            
-            if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
-                
-                switch section {
-                case .uploadingFeed:
-                    let discoveredUser = uploadingFeeds[indexPath.row].creator
-                    vc.prepare(with: discoveredUser)
-                case .feed:
-                    let discoveredUser = feeds[indexPath.row].creator
-                     vc.prepare(with: discoveredUser)
-                default:
-                    break
-                }
-            }
-            
-            recoverOriginalNavigationDelegate()
-            
-        default:
-            break
-            
+    
         }
     }
 }
@@ -464,7 +490,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
 
 extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    enum Section: Int {
+    public enum Section: Int {
         case uploadingFeed = 0
         case feed
         case loadMore
@@ -505,41 +531,31 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             switch feed.category {
                 
             case .text:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
-                
+                let cell: FeedBaseCell = tableView.dequeueReusableCell(for: indexPath)
                 return cell
                 
             case .url:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: FeedURLCellIdentifier, for: indexPath) as! FeedURLCell
+                let cell: FeedURLCell = tableView.dequeueReusableCell(for: indexPath)
                 return cell
                 
-                
             case .image:
-                
                 if feed.imageAttachmentsCount == 1 {
-                    
-                    let cell = tableView.dequeueReusableCell(withIdentifier: FeedBiggerImageCellIdentifier, for: indexPath) as! FeedBiggerImageCell
+                    let cell: FeedBiggerImageCell = tableView.dequeueReusableCell(for: indexPath)
                     return cell
-                } else {
                     
-                    let cell = tableView.dequeueReusableCell(withIdentifier: FeedAnyImagesCellIdentifier, for: indexPath) as! FeedAnyImagesCell
+                } else {
+                    let cell: FeedAnyImagesCell = tableView.dequeueReusableCell(for: indexPath)
                     return cell
                 }
                 
-                // TODO: - 其他类型的 Cell
             case .formula:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: FeedFormulaCellIdentifier, for: indexPath) as! FeedFormulaCell
+                let cell: FeedFormulaCell = tableView.dequeueReusableCell(for: indexPath)
                 return cell
-                
                 
             default:
-                  let cell = tableView.dequeueReusableCell(withIdentifier: FeedBaseCellIdentifier, for: indexPath) as! FeedBaseCell
+                let cell: FeedBaseCell = tableView.dequeueReusableCell(for: indexPath)
                 return cell
             }
-            
         }
         
         switch section {
@@ -553,7 +569,8 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             return cellForFeed(feed: feed)
             
         case .loadMore:
-            return tableView.dequeueReusableCell(withIdentifier: LoadMoreTableViewCellIdentifier, for: indexPath)
+            let cell: LoadMoreTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            return cell
         }
         
     }
@@ -564,15 +581,11 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError()
         }
         
-        
-        // 设置Cell公共的闭包
         func configureFeedCell(cell: UITableViewCell, withFeed feed: DiscoverFeed) {
             
             guard let cell = cell as? FeedBaseCell else {
                 return
             }
-            
-//            cell.needsShowLocation
             
             cell.tapAvatarAction = { [weak self] cell in
                 guard
@@ -580,7 +593,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     let indexPath = tableView.indexPath(for: cell) else {
                         return
                 }
-                strongSelf.performSegue(withIdentifier: "showProfile", sender: indexPath)
+                strongSelf.parent?.performSegue(withIdentifier: "showProfileView", sender: indexPath)
             }
             
             
@@ -640,7 +653,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.configureWithFeed(feed, layout: layout, needshowCategory: false)
                 
                 cell.tapURLInfoAction = { [weak self] URL in
-                    self?.cube_openURL(URL)
+                    self?.parent?.cube_openURL(URL)
                 }
                 
             case .image:
@@ -654,18 +667,11 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
                     
                     vc.startIndex = index
-                    //                vc.transitionView = transitionView
                     let frame = transitionView.convert(transitionView.bounds, to: self?.view)
                     vc.previewImageViewInitalFrame = frame
                     vc.bottomPreviewImage = image
                     
-                    delay(0) {
-                        //                    transitionView.alpha = 0
-                    }
-                    
                     vc.afterDismissAction = { [weak self] in
-                        
-                        //                    transitionView.alpha = 1
                         self?.view.window?.makeKeyAndVisible()
                     }
                     
@@ -675,6 +681,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
                     mediaPreviewWindow.makeKeyAndVisible()
                     
+
                 }
                 
                 if feed.imageAttachmentsCount == 1 {
@@ -703,57 +710,16 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 cell.configureWithFeed(feed, layout: layout, needshowCategory: true)
 
-                cell.tapFormulaInfoAction = { [weak self] discoverFormula in
-
-                    guard let strongSelf = self, let realm = try? Realm() else {
+                cell.tapFormulaInfoAction = { [weak self] cell in
+                    
+                    guard let cell = cell else {
                         return
                     }
-
-                    let feedId = feed.objectId ?? ""
-                    if let formula = feedWith(feedId, inRealm: realm)?.withFormula {
-                        let detailVC = UIStoryboard(name: "FormulaDetail", bundle: nil).instantiateInitialViewController() as! FormulaDetailViewController
-//
-                        detailVC.formula = formula
-                        detailVC.previewFormulaStyle = .single
-
-                        self?.navigationController?.pushViewController(detailVC, animated: true)
-
-                    } else {
-
-                        let groupId = feed.objectId ?? ""
-                        var group = groupWith(groupId, inRealm: realm)
-
-                        try? realm.write {
-                            if group == nil {
-                                let newGroup = Group()
-                                newGroup.groupID = groupId
-                                newGroup.includeMe = false
-                                realm.add(newGroup)
-                                group = newGroup
-                            }
-                        }
-
-                        guard let feedGroup = group else {
-                            return
-                        }
-
-                        // 首先保存当前的 Feed, 内部会自动保存与 Feed 关联的 Formula
-                        try? realm.write {
-                            saveFeedWithDiscoverFeed(feed, group: feedGroup, inRealm: realm)
-                        }
-//
-                        let feed = feedWith(feedId, inRealm: realm)
-                        if let formula = feed?.withFormula {
-//
-                            let detailVC = UIStoryboard(name: "FormulaDetail", bundle: nil).instantiateInitialViewController() as! FormulaDetailViewController
-//
-                            detailVC.formula = formula
-                            detailVC.previewFormulaStyle = .single
-
-                            self?.navigationController?.pushViewController(detailVC, animated: true)
-//
-                        }
+                    
+                    guard let indexPath = tableView.indexPath(for: cell) else {
+                        return
                     }
+                    self?.parent?.performSegue(withIdentifier: "showFormulaDetail", sender: indexPath)
                 }
                 
             default:
@@ -762,6 +728,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         switch section {
+            
         case .uploadingFeed:
             
             let feed = uploadingFeeds[indexPath.row]
@@ -790,7 +757,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
          
-            break
         case .feed:
             let feed = feeds[indexPath.row]
             configureFeedCell(cell: cell, withFeed: feed)
@@ -847,7 +813,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath , animated: true)
         
-        
         defer {
             tableView.deselectRow(at: indexPath, animated: true)
         }
@@ -857,13 +822,9 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         switch section {
-        case .uploadingFeed:
-            break
         case .feed:
-            
-            cube_performSegue(with: SegueIdentifier.comment, sender: indexPath as AnyObject?)
-            
-        case .loadMore:
+            self.parent?.performSegue(withIdentifier: "showCommentView", sender: indexPath)
+        default:
             break
         }
         
@@ -881,14 +842,11 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .feed:
             
-            
             return true
         default:
             return false
         }
     }
-    
-    // TODO: - Report
     
 }
 

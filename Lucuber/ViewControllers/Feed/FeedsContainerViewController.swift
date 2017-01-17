@@ -9,9 +9,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 
 class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, SearchTrigeer  {
+    
+    public var showProfileViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    public var showCommentViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    public var showFormulaDetailViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
     
     var originalNavigationControllerDelegate: UINavigationControllerDelegate?
     lazy var searchTransition: SearchTransition = {
@@ -63,6 +68,7 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
      lazy var feedsViewController: FeedsViewController = {
         
         let vc = UIStoryboard(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "FeedsViewController") as! FeedsViewController
+ 
         return vc
     }()
     
@@ -70,7 +76,6 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
        let vc = UIStoryboard(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "SubscribesViewController") as! SubscribesViewController
         return vc
     }()
-    
     
     fileprivate lazy var creatNewFeedsButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(FeedsContainerViewController.createNewFeedsAction))
@@ -96,7 +101,7 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
                 
             case .feeds:
                 setViewControllers([feedsViewController], direction: .forward, animated: true, completion: nil)
-                
+         
                 navigationItem.leftBarButtonItem = nil
                 navigationItem.rightBarButtonItem = creatNewFeedsButtonItem
             }
@@ -104,15 +109,13 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
     }
     
     // MARK: - Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBarLine.isHidden = false
         
-        currentOption = .subscribe
+        currentOption = .feeds
         segmentedControl.selectedSegmentIndex = currentOption.rawValue
-        
         
         segmentedControl.rx.value
             .map({ Option(rawValue: $0) })
@@ -122,21 +125,14 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
         
         self.dataSource = self
         self.delegate = self
-        
-        if traitCollection.forceTouchCapability == .available {
-//            registerForPreviewing(with: self, sourceView: view)
-        }
     }
-    
     
     // MARK: - Target & Action
     func createNewFeedsAction() {
         feedsViewController.creatNewFeed(UIButton())
     }
     
-    func clearUnread() {
-        
-    }
+    func clearUnread() { }
     
     func editSubscribeList() {
         let editing = subscribesViewController.tableView.isEditing
@@ -152,12 +148,25 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
         
         switch identifier {
             
-            case "showSearchFeeds":
-            
+        case "showSearchFeeds":
             let vc = segue.destination as! SearchFeedsViewController
             vc.hidesBottomBarWhenPushed = true
             
             prepareSearchTransition()
+            
+        case "showProfileView":
+            showProfileViewControllerAction?(segue, sender)
+            
+            recoverOriginalNavigationDelegate()
+            
+        case "showCommentView":
+            showCommentViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
+            
+        case "showFormulaDetail":
+            showFormulaDetailViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
+            
             
         default:
             break

@@ -29,7 +29,7 @@
                                 </connections>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dpy-Fs-5VI">
-                                <rect key="frame" x="178" y="140" width="20" height="20"/>
+                                <rect key="frame" x="178" y="184" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,6 +49,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="loadingFeedsIndicator" destination="dpy-Fs-5VI" id="HOE-6v-MWC"/>
                         <outlet property="tableView" destination="OFL-Bc-Ig8" id="gpS-ln-rWL"/>
@@ -60,7 +61,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epp-Ol-UN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="262" y="645"/>
+            <point key="canvasLocation" x="230" y="1290"/>
         </scene>
         <!--Feeds Container View Controller-->
         <scene sceneID="dvK-vp-zd7">
@@ -80,21 +81,57 @@
                     <connections>
                         <outlet property="segmentedControl" destination="pgm-kK-fOu" id="8rc-aO-Skp"/>
                         <segue destination="Rgr-eT-XsM" kind="show" identifier="showSearchFeeds" id="2AO-4e-qvl"/>
+                        <segue destination="qec-rf-G6V" kind="show" identifier="showProfileView" id="A1F-z1-784"/>
+                        <segue destination="noM-lZ-wfp" kind="show" identifier="showCommentView" id="Y4e-25-uSg"/>
+                        <segue destination="MWM-kt-ts8" kind="show" identifier="showFormulaDetail" id="dBs-ac-v2o"/>
+                        <segue destination="Uau-kr-8BE" kind="show" identifier="showMediaPreview" id="eA5-XQ-lhX"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-7i-VfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-570" y="1398"/>
+            <point key="canvasLocation" x="231" y="645"/>
         </scene>
-        <!--SearchFeeds-->
+        <!--SearchFeedsViewController-->
         <scene sceneID="QEx-yJ-VlU">
             <objects>
-                <viewControllerPlaceholder storyboardName="SearchFeeds" id="Rgr-eT-XsM" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="SearchFeeds" referencedIdentifier="SearchFeedsViewController" id="Rgr-eT-XsM" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="5Fx-9K-sId"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Kg-JS-PSe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-570" y="1813"/>
+            <point key="canvasLocation" x="1039" y="584"/>
+        </scene>
+        <!--ProfileViewController-->
+        <scene sceneID="QAW-hk-VYw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="qec-rf-G6V" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bmc-iS-XIi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1009" y="513"/>
+        </scene>
+        <!--FormulaDetailViewController-->
+        <scene sceneID="kWY-mn-BV7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FormulaDetail" referencedIdentifier="FormulaDetailViewController" id="MWM-kt-ts8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tf-vJ-7f9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1034" y="706"/>
+        </scene>
+        <!--MediaPreviewViewController-->
+        <scene sceneID="NNT-le-lgr">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MediaPreview" referencedIdentifier="MediaPreviewViewController" id="Uau-kr-8BE" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WSt-Ov-oUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1038" y="645"/>
+        </scene>
+        <!--CommentViewController-->
+        <scene sceneID="NLF-gg-qTy">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" referencedIdentifier="CommentViewController" id="noM-lZ-wfp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rr0-ln-832" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1017" y="756"/>
         </scene>
         <!--Subscribes View Controller-->
         <scene sceneID="Hsq-tm-SuG">
@@ -131,15 +168,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5e-cM-De7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="262" y="1366"/>
+            <point key="canvasLocation" x="-570" y="1290"/>
         </scene>
-        <!--SearchFeeds-->
+        <!--SearchFeedsViewController-->
         <scene sceneID="PqF-Ch-q7C">
             <objects>
-                <viewControllerPlaceholder storyboardName="SearchFeeds" id="jgc-zj-mhh" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="SearchFeeds" referencedIdentifier="SearchFeedsViewController" id="jgc-zj-mhh" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adS-7Q-FXy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1124" y="556"/>
+            <point key="canvasLocation" x="978" y="1209"/>
         </scene>
         <!--NewFeed-->
         <scene sceneID="qUM-Kf-JSe">
@@ -147,15 +184,15 @@
                 <viewControllerPlaceholder storyboardName="NewFeed" id="3ev-RH-Kkl" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X4N-XD-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1103" y="658"/>
+            <point key="canvasLocation" x="889" y="1370"/>
         </scene>
-        <!--Comment-->
+        <!--CommentViewController-->
         <scene sceneID="vCU-Ld-1el">
             <objects>
-                <viewControllerPlaceholder storyboardName="Comment" id="CjY-iE-cLT" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Comment" referencedIdentifier="CommentViewController" id="CjY-iE-cLT" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y5g-DY-fb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1105" y="756"/>
+            <point key="canvasLocation" x="963" y="1256"/>
         </scene>
         <!--ProfileViewController-->
         <scene sceneID="2Cu-bm-6Fo">
@@ -163,7 +200,7 @@
                 <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="PsG-mw-td0" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qX-d1-V3j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1102" y="819"/>
+            <point key="canvasLocation" x="948" y="1316"/>
         </scene>
         <!--Main Navigation Controller-->
         <scene sceneID="a90-5j-wwF">

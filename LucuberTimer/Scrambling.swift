@@ -18,8 +18,12 @@ public class Scrambling {
     let scramblingStep: Int = 20
     
     var randomInt: Int {
-        return Int(arc4random())
+        let diceFaceCount: UInt32 = 100
+        let randomRoll = Int(arc4random_uniform(diceFaceCount)) + 1
+        return randomRoll
     }
+    
+
     
     public func refreshScramblingText() -> String {
         

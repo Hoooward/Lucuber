@@ -164,6 +164,7 @@ final class ProfileViewController: UIViewController {
         bar.tintAdjustmentMode = .normal
         bar.alpha = 0
         bar.setItems([self.customNavigationItem], animated: false)
+        bar.backgroundColor = UIColor.clear
         bar.isTranslucent = true
         bar.shadowImage = UIImage()
         bar.barStyle = UIBarStyle.blackTranslucent
@@ -356,6 +357,7 @@ final class ProfileViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        printLog("个人主页控制器已释放" )
     }
     
     override func viewDidAppear(_ animated: Bool) {
