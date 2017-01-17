@@ -14,7 +14,7 @@ final class SearchFeedFormulaCell: SearchFeedBasicCell {
         return ceil(height)
     }
     
-    var tapFormulaInfoAction: ((_ URL: URL) -> Void)?
+    var tapFormulaInfoAction: ((_ formula: Formula) -> Void)?
     
     lazy var feedFormulaContainerView: IconTitleContainerView = {
         let view = IconTitleContainerView(frame: CGRect(x: 0, y: 0, width: 200, height: 150))

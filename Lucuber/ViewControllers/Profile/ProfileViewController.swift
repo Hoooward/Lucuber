@@ -15,6 +15,20 @@ enum ProfileUser {
     case discoverUser(AVUser)
     case userType(RUser)
     
+    
+    var userID: String {
+        switch self {
+        case .discoverUser(let avUser):
+            if let objectId = avUser.objectId {
+                return objectId
+            }
+            
+        case .userType(let ruser):
+            return ruser.lcObjcetID
+        }
+        
+        return ""
+    }
     var isMe: Bool {
         
         guard

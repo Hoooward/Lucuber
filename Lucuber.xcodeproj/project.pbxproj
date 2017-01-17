@@ -256,6 +256,7 @@
 		E47C666C1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */; };
 		E480BB951DA1E5110080098A /* Array+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E480BB941DA1E5110080098A /* Array+Cube.swift */; };
 		E4881F9C1E2DC4280003BBD8 /* SearchFeedFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4881F9B1E2DC4280003BBD8 /* SearchFeedFooterView.swift */; };
+		E4881F9E1E2DCD7F0003BBD8 /* CancelableTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4881F9D1E2DCD7F0003BBD8 /* CancelableTask.swift */; };
 		E48846811E2B256F003352F5 /* FeedsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */; };
 		E48846831E2B2633003352F5 /* UISegmentedControl+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */; };
 		E48846851E2B2A86003352F5 /* SubscribesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48846841E2B2A86003352F5 /* SubscribesViewController.swift */; };
@@ -656,6 +657,7 @@
 		E47C666B1E2D2B1A00696B5C /* SearchFeedFormulaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedFormulaCell.swift; sourceTree = "<group>"; };
 		E480BB941DA1E5110080098A /* Array+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Cube.swift"; sourceTree = "<group>"; };
 		E4881F9B1E2DC4280003BBD8 /* SearchFeedFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFeedFooterView.swift; sourceTree = "<group>"; };
+		E4881F9D1E2DCD7F0003BBD8 /* CancelableTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableTask.swift; sourceTree = "<group>"; };
 		E48846801E2B256F003352F5 /* FeedsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsContainerViewController.swift; sourceTree = "<group>"; };
 		E48846821E2B2633003352F5 /* UISegmentedControl+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Cube.swift"; sourceTree = "<group>"; };
 		E48846841E2B2A86003352F5 /* SubscribesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribesViewController.swift; sourceTree = "<group>"; };
@@ -2181,6 +2183,7 @@
 				E4F38DC51E01BA5200F0DF8A /* CubeMedia.swift */,
 				E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */,
 				E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */,
+				E4881F9D1E2DCD7F0003BBD8 /* CancelableTask.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3286,6 +3289,7 @@
 				E4207A331D93E1CB003CF073 /* UIViewController+Cube.swift in Sources */,
 				E459BBFD1E27637C008F4097 /* NewSectionHeaderView.swift in Sources */,
 				E459BC151E27637C008F4097 /* ProfileScoreCell.swift in Sources */,
+				E4881F9E1E2DCD7F0003BBD8 /* CancelableTask.swift in Sources */,
 				E459BC461E2A263C008F4097 /* Bundle+Cube.swift in Sources */,
 				E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */,
 				E4011F341DB277BE00EEBBCF /* Date+Cube.swift in Sources */,

@@ -801,11 +801,30 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
     }
 }
 
+public enum SearchFeedsMode {
+    case `init`
+    case loadMore
+}
+public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?, userID: String?, mode: SearchFeedsMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)? ) {
+    
+    let query = AVQuery(className: DiscoverFeed.parseClassName())
+    
+    query.limit = 30
+    query.includeKey("withFormula")
+    query.includeKey("withFormula.contents")
+    query.includeKey("withFormula.creator")
+    query.includeKey("creator")
+    query.order(byDescending: "createdAt")
+    
+    
+}
+
+
 internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
                                                                                                                            
     let query = AVQuery(className: DiscoverFeed.parseClassName())
     
-    query.limit = 20
+    query.limit = 30
     query.includeKey("withFormula")
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
