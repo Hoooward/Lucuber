@@ -122,14 +122,23 @@ extension FeedsViewController {
                     vc.editType = NewFormulaViewController.EditType.newAttchment
                     vc.view.alpha = 1
                     
+                    var formula: Formula!
                     try? realm.write {
-                        vc.formula = Formula.new(inRealm: realm)
+                        formula = Formula.new(inRealm: realm)
                     }
+                    vc.formula = formula
                     vc.realm = realm
                     
                     vc.beforUploadingFeedAction = beforeUploadingFeedAction
                     vc.afterUploadingFeedAction = afterCreatedFeedAction
                     vc.getFeedsViewController = getFeedsViewController
+                    
+                    vc.savedNewFormulaDraft = {
+                        // 暂时不处理草稿, 直接将取消的 Formula 删除
+                        try? realm.write {
+                            formula.cascadeDelete(inRealm: realm)
+                        }
+                    }
                     
                     strongSelf.present(navigationVC, animated: true, completion: nil)
                     

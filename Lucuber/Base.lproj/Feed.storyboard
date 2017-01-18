@@ -162,16 +162,25 @@
                                     <outlet property="delegate" destination="SEZ-0k-lY8" id="cPv-tj-e7u"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="没有订阅话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lL-VY-CJq">
+                                <rect key="frame" x="135.5" y="80" width="104" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UX5-TC-S8Y" firstAttribute="leading" secondItem="0vS-MW-XpE" secondAttribute="leading" id="4xo-EQ-7qU"/>
+                            <constraint firstItem="7lL-VY-CJq" firstAttribute="centerX" secondItem="0vS-MW-XpE" secondAttribute="centerX" id="8u2-7o-0PW"/>
                             <constraint firstAttribute="trailing" secondItem="UX5-TC-S8Y" secondAttribute="trailing" id="OVT-C2-hd3"/>
                             <constraint firstAttribute="bottom" secondItem="UX5-TC-S8Y" secondAttribute="bottom" id="ZVI-WU-jIe"/>
+                            <constraint firstItem="7lL-VY-CJq" firstAttribute="top" secondItem="ivi-eJ-kSt" secondAttribute="bottom" constant="60" id="ty1-Pd-3x8"/>
                             <constraint firstItem="UX5-TC-S8Y" firstAttribute="top" secondItem="0vS-MW-XpE" secondAttribute="top" id="yuM-8y-obA"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="noSubscribeListLabel" destination="7lL-VY-CJq" id="pxF-Hx-UEt"/>
                         <outlet property="tableView" destination="UX5-TC-S8Y" id="bHg-Ok-O17"/>
                     </connections>
                 </viewController>

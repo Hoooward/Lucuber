@@ -34,8 +34,6 @@ class LoadMoreTableViewCell: UITableViewCell {
         }
     }
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         

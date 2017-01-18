@@ -305,6 +305,7 @@
 		E4B367391E1503BB0010385E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4B367381E1503BB0010385E /* Profile.storyboard */; };
 		E4B3673B1E1504DD0010385E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3673A1E1504DD0010385E /* ProfileViewController.swift */; };
 		E4B367411E150E3F0010385E /* ProfileLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367401E150E3F0010385E /* ProfileLayout.swift */; };
+		E4C780A51E2FD61500450466 /* SubscribeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C780A41E2FD61500450466 /* SubscribeFooterView.swift */; };
 		E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */; };
 		E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E4D577261E0AAE5900A6516F /* FeedsViewController+Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */; };
@@ -716,6 +717,7 @@
 		E4B367381E1503BB0010385E /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E4B3673A1E1504DD0010385E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E4B367401E150E3F0010385E /* ProfileLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileLayout.swift; sourceTree = "<group>"; };
+		E4C780A41E2FD61500450466 /* SubscribeFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeFooterView.swift; sourceTree = "<group>"; };
 		E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentMoreViewManager.swift; sourceTree = "<group>"; };
 		E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedsViewController+Formula.swift"; sourceTree = "<group>"; };
 		E4DAFE071DEB2AF4008A8702 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -924,6 +926,7 @@
 		E459B9361E2762D9008F4097 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4C780A31E2FD5D600450466 /* SubscribeFooterView */,
 				E47C66681E2D272500696B5C /* IconTitleContainerView */,
 				E459B9371E2762D9008F4097 /* ActionSheetView */,
 				E459B9391E2762D9008F4097 /* BottomButtonView */,
@@ -2468,6 +2471,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		E4C780A31E2FD5D600450466 /* SubscribeFooterView */ = {
+			isa = PBXGroup;
+			children = (
+				E4C780A41E2FD61500450466 /* SubscribeFooterView.swift */,
+			);
+			path = SubscribeFooterView;
+			sourceTree = "<group>";
+		};
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3190,6 +3201,7 @@
 				E44D3B541DF822B100673FFD /* NewFeedViewController.swift in Sources */,
 				E459BADE1E2762DB008F4097 /* InputAccessoryView.swift in Sources */,
 				E459BBD81E27637C008F4097 /* DetailContentCell.swift in Sources */,
+				E4C780A51E2FD61500450466 /* SubscribeFooterView.swift in Sources */,
 				E49534891E0CDE660008934D /* SearchFeedsViewController.swift in Sources */,
 				E475DA721E10F9400079FE75 /* NewScoreGroupAnimator.swift in Sources */,
 				E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */,

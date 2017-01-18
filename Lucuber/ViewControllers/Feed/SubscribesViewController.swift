@@ -20,6 +20,16 @@ class SubscribesViewController: UIViewController {
     }
     
     var realm = try! Realm()
+    @IBOutlet weak var noSubscribeListLabel: UILabel! {
+        didSet {
+           noSubscribeListLabel.textColor = UIColor.lightGray
+        }
+    }
+    
+    
+    fileprivate var noSubscribeList: Bool {
+        return self.feedConversations.count == 0
+    }
     
     fileprivate var haveUnreadMessages = false {
         didSet {
@@ -63,6 +73,7 @@ class SubscribesViewController: UIViewController {
             [weak self] (change: RealmCollectionChange) in
             let predicate = NSPredicate(format: "hasUnreadMessages = true")
             self?.unreadFeedConversations = self?.feedConversations.filter(predicate)
+            self?.updateFooterView()
         }
         
         if let gestures = navigationController?.view.gestureRecognizers {
@@ -103,15 +114,17 @@ class SubscribesViewController: UIViewController {
         
     }
     
-    
     func clearUnread() {
         
     }
     
     @objc fileprivate func reloadTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
+        updateFooterView()
+    }
+    
+    fileprivate func updateFooterView() {
+        noSubscribeListLabel.isHidden = !noSubscribeList
     }
 }
 
@@ -283,16 +296,6 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        
-//        let unSubscribeAction = UITableViewRowAction(style: .destructive, title: "取消订阅", handler: { [weak self] _ in
-//            
-//      
-//        })
-//        
-//        return [unSubscribeAction]
-//    }
-
    
 }
 
