@@ -319,6 +319,16 @@ class CommentViewController: UIViewController {
 
         tryShowSubscribeView()
         commentCollectionView.contentInset = UIEdgeInsets(top: 64 + 60 + 20, left: 0, bottom: 44, right: 0)
+        
+        // 优先处理侧滑，而不是 scrollView 的上下滚动，避免出现你想侧滑返回的时候，结果触发了 scrollView 的上下滚动
+        if let gestures = navigationController?.view.gestureRecognizers {
+            for recognizer in gestures {
+                if recognizer.isKind(of: UIScreenEdgePanGestureRecognizer.self) {
+                    commentCollectionView.panGestureRecognizer.require(toFail: recognizer as! UIScreenEdgePanGestureRecognizer)
+                    break
+                }
+            }
+        }
 
     }
 
@@ -414,6 +424,10 @@ class CommentViewController: UIViewController {
                 }
             }
             
+            if let vc = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
+              vc.recoverOriginalNavigationDelegate()
+            }
+            
         case "showFormulaDetail":
             let vc = segue.destination as! FormulaDetailViewController
             
@@ -433,6 +447,10 @@ class CommentViewController: UIViewController {
             }
             vc.formula = resultFormula
             vc.previewFormulaStyle = .single
+            
+            if let vc = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
+                vc.recoverOriginalNavigationDelegate()
+            }
             
         default:
             break
