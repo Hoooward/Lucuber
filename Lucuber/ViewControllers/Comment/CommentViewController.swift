@@ -217,6 +217,11 @@ class CommentViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.handelApplicationDidBecomeActive(notification:)), name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
 
+
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.didRecieveMenuWillHideNotification(_:)), name: Notification.Name.UIMenuControllerWillHideMenu, object: nil)
+
         realm = try! Realm()
 
         lastUpdateMessagesCount = messages.count
@@ -314,7 +319,7 @@ class CommentViewController: UIViewController {
 
         tryShowSubscribeView()
         commentCollectionView.contentInset = UIEdgeInsets(top: 64 + 60 + 20, left: 0, bottom: 44, right: 0)
-        print(commentCollectionView.contentInset)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -435,6 +440,39 @@ class CommentViewController: UIViewController {
     }
         
     // MARK: - Action & Target
+    
+    @objc fileprivate func didRecieveMenuWillShowNotification(_ notification: Notification) {
+        
+        guard let menu = notification.object as? UIMenuController, let selectedIndexPathForMenu = seletedIndexPathForMenu, let cell = commentCollectionView.cellForItem(at: selectedIndexPathForMenu) as? ChatBaseCell else {
+            return
+        }
+        
+        var bubbleFrame = CGRect.zero
+
+        if let cell = cell as? ChatLeftTextCell {
+            bubbleFrame = cell.convert(cell.textContentTextView.frame, to: view)
+        } else if let cell = cell as? ChatRightTextCell {
+            bubbleFrame = cell.convert(cell.textContentTextView.frame, to: view)
+        } else if let cell = cell as? ChatLeftImageCell {
+            bubbleFrame = cell.convert(cell.messageImageView.frame, to: view)
+        } else if let cell = cell as? ChatRightImageCell {
+            bubbleFrame = cell.convert(cell.messageImageView.frame, to: view)
+        }
+        
+
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        menu.setTargetRect(bubbleFrame, in: view)
+        menu.setMenuVisible(true, animated: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        
+    }
+    
+    @objc fileprivate func didRecieveMenuWillHideNotification(_ notification: Notification) {
+        
+        seletedIndexPathForMenu = nil
+    }
+    
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 
         guard

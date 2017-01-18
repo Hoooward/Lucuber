@@ -450,6 +450,7 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         
         seletedIndexPathForMenu = indexPath
@@ -462,16 +463,11 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             let isMy = message.creator?.isMe ?? false
             
-            var menuItems = [UIMenuItem]()
-            let backMenuItem = UIMenuItem(title: "撤回", action: #selector(ChatBaseCell.deleteMessage(object:)))
-            let copyMenuItem = UIMenuItem(title: "复制", action: #selector(NSObject.copy))
             if isMy {
-                menuItems = [backMenuItem, copyMenuItem]
+                UIMenuController.shared.menuItems = [UIMenuItem(title: "撤回", action: #selector(ChatBaseCell.deleteMessage(object:)))]
             } else {
-                menuItems = [copyMenuItem]
+                UIMenuController.shared.menuItems = nil
             }
-            
-            UIMenuController.shared.menuItems = menuItems
             
             return true
         }
@@ -482,11 +478,11 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         
         if let _ = commentCollectionView.cellForItem(at: indexPath) as? ChatLeftTextCell {
-            if action == #selector(NSObject.copy) {
+            if action == #selector(UIResponder.copy(_:)) {
                 return true
             }
         } else if let _ = commentCollectionView.cellForItem(at: indexPath) as? ChatRightTextCell {
-            if action == #selector(NSObject.copy) {
+            if action == #selector(UIResponder.copy(_:)) {
                 return true
             }
         }
@@ -500,11 +496,11 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         
         if let cell = commentCollectionView.cellForItem(at: indexPath) as? ChatLeftTextCell {
-            if action == #selector(NSObject.copy) {
+            if action == #selector(UIResponder.copy(_:)) {
                 UIPasteboard.general.string = cell.textContentTextView.text
             }
         } else if let cell = commentCollectionView.cellForItem(at: indexPath) as? ChatRightTextCell {
-            if action == #selector(NSObject.copy) {
+            if action == #selector(UIResponder.copy(_:)) {
                 UIPasteboard.general.string = cell.textContentTextView.text
             }
         }

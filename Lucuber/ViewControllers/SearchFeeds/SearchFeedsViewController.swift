@@ -363,6 +363,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
     
     deinit {
         printLog("\(self)" + "已经释放")
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc fileprivate func didRecieveMenuWillShowNotification(_ notification: Notification) {
@@ -816,9 +817,7 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
-        defer {
-            selectedIndexPathForMenu = indexPath
-        }
+        selectedIndexPathForMenu = indexPath
         
         guard let _ = tableView.cellForRow(at: indexPath) as? SearchFeedBasicCell else {
             return false
@@ -828,7 +827,7 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         
-        if action == #selector(NSObject.copy) {
+        if action == #selector(UIResponder.copy(_:)) {
             return true
         }
         
@@ -841,7 +840,7 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
             return
         }
         
-        if action == #selector(NSObject.copy) {
+        if action == #selector(UIResponder.copy(_:)) {
             UIPasteboard.general.string = cell.messageTextView.text
         }
     }

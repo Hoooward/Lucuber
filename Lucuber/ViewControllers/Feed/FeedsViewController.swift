@@ -41,8 +41,6 @@ struct LayoutCatch {
 
 class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, CanScrollsToTop{
     
-    // MARK: - Properties
-    
     var originalNavigationControllerDelegate: UINavigationControllerDelegate?
     lazy var searchTransition: SearchTransition = {
         return SearchTransition()
@@ -53,6 +51,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     }
     
     var seletedFeedCategory: FeedCategory?
+    fileprivate var selectedIndexPathForMenu: IndexPath?
     
     var needShowCategory: Bool {
         return (seletedFeedCategory == nil) ? true : false
@@ -262,7 +261,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
                 vc.previewFormulaStyle = .single
             }
             
-            feedsContainerViewController.showFormulaFeedsViewControllerAction = { [weak self] segue, sender in
+            feedsContainerViewController.showFormulaFeedsViewControllerAction = { segue, sender in
                 let vc = segue.destination as! FeedsViewController
                 vc.seletedFeedCategory = .formula
             }
@@ -315,6 +314,9 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         
         tableView.contentOffset.y = searchBar.frame.height
         
+        NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillHideNotification(_:)), name: Notification.Name.UIMenuControllerWillHideMenu, object: nil)
        
         
         uploadFeed()
@@ -324,6 +326,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         printLog("\(self)" + "已经释放")
     }
     
+    // MARK: - Target & Action
     
     fileprivate var canLoadMore: Bool = false
     
@@ -424,7 +427,30 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         fetchDiscoverFeed(with: seletedFeedCategory, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
     }
     
-    // MARK: - Target & Action
+  
+    
+    @objc fileprivate func didRecieveMenuWillShowNotification(_ notification: Notification) {
+        
+        guard let menu = notification.object as? UIMenuController, let selectedIndexPathForMenu = selectedIndexPathForMenu, let cell = tableView.cellForRow(at: selectedIndexPathForMenu) as? FeedBaseCell else {
+            return
+        }
+        
+        let bubbleFrame = cell.convert(cell.messageTextView.frame, to: view)
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        menu.setTargetRect(bubbleFrame, in: view)
+        menu.setMenuVisible(true, animated: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        
+        tableView.deselectRow(at: selectedIndexPathForMenu, animated: true)
+    }
+    
+    @objc fileprivate func didRecieveMenuWillHideNotification(_ notification: Notification) {
+        
+        selectedIndexPathForMenu = nil
+    }
+    
     func tryRefreshOrGetNewFeeds() {
         delay(1.5) {
             self.uploadFeed()
@@ -886,6 +912,36 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             return true
         default:
             return false
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        selectedIndexPathForMenu = indexPath
+        
+        guard let _ = tableView.cellForRow(at: indexPath) as? FeedBaseCell else {
+            return false
+        }
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        
+        if action == #selector(UIResponder.copy(_:)) {
+            return true
+        }
+        
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? FeedBaseCell else {
+            return
+        }
+        
+        if action == #selector(UIResponder.copy(_:)) {
+            UIPasteboard.general.string = cell.messageTextView.text
         }
     }
     
