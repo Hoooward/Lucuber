@@ -19,17 +19,22 @@ class FeedTextView: UITextView {
     var touchesCancelledAction: (() -> Void)?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, with: event)
         touchesBeganAction?()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //        super.touchesEnded(touches, withEvent: event)
+        super.touchesEnded(touches, with: event)
         touchesEndedAction?()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
-        //        super.touchesCancelled(touches, withEvent: event)
+        super.touchesCancelled(touches, with: event)
         touchesCancelledAction?()
+    }
+    
+    override func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        
+        // 
     }
 }

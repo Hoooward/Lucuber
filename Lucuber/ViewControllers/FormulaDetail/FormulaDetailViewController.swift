@@ -377,7 +377,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         headerView.frame.size = CGSize(width: UIScreen.main.bounds.width, height: headerView.headerHeight )
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

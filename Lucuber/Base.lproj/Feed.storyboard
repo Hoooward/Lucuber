@@ -70,7 +70,7 @@
                     <navigationItem key="navigationItem" id="Ybz-ZF-esw">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="pgm-kK-fOu">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="First"/>
@@ -85,6 +85,7 @@
                         <segue destination="noM-lZ-wfp" kind="show" identifier="showCommentView" id="Y4e-25-uSg"/>
                         <segue destination="MWM-kt-ts8" kind="show" identifier="showFormulaDetail" id="dBs-ac-v2o"/>
                         <segue destination="Uau-kr-8BE" kind="show" identifier="showMediaPreview" id="eA5-XQ-lhX"/>
+                        <segue destination="POf-ev-u6b" kind="show" identifier="showFormulaFeeds" id="GCv-Rh-ufU"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2e-7i-VfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -132,6 +133,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rr0-ln-832" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1017" y="756"/>
+        </scene>
+        <!--FeedsViewController-->
+        <scene sceneID="b4K-80-IRD">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="FeedsViewController" id="POf-ev-u6b" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yre-d8-0iY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="994" y="811"/>
         </scene>
         <!--Subscribes View Controller-->
         <scene sceneID="Hsq-tm-SuG">

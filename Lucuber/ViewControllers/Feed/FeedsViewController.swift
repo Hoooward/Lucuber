@@ -99,6 +99,30 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
         
     }()
     
+    fileprivate lazy var formulaTextTitleView: UIView = {
+        
+        let titleLabel = UILabel()
+        
+        let textAttributes = [
+            NSForegroundColorAttributeName: UIColor.white,
+            NSFontAttributeName: UIFont.systemFont(ofSize: 18)
+        ]
+        
+        let titleAttr = NSMutableAttributedString(string: "公式", attributes:textAttributes)
+        
+        titleLabel.attributedText = titleAttr
+        titleLabel.textAlignment = NSTextAlignment.center
+        titleLabel.backgroundColor = UIColor.cubeTintColor()
+        titleLabel.sizeToFit()
+        
+        titleLabel.bounds = titleLabel.frame.insetBy(dx: -25.0, dy: -4.0)
+        
+        titleLabel.layer.cornerRadius = titleLabel.frame.size.height/2.0
+        titleLabel.layer.masksToBounds = true
+        
+        return titleLabel
+    }()
+    
     private lazy var searchBar: UISearchBar = {
         let searchBar = self.makeSearchBar()
         return searchBar
@@ -129,48 +153,9 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        recoverOriginalNavigationDelegate()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        navigationController?.navigationBarLine.isHidden = false
-        
-        searchBar.sizeToFit()
-        tableView.tableHeaderView = searchBar
-        
-        tableView.addSubview(refreshControl)
-        
-        tableView.backgroundColor = UIColor.white
-        tableView.tableFooterView = UIView()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-        
-        
-        tableView.registerClass(of: FeedBaseCell.self)
-        tableView.registerClass(of: FeedBiggerImageCell.self)
-        tableView.registerClass(of: FeedAnyImagesCell.self)
-        tableView.registerClass(of: FeedURLCell.self)
-        tableView.registerClass(of: FeedFormulaCell.self)
-        tableView.registerNib(of: LoadMoreTableViewCell.self)
-
-        
-        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
-        tableView.separatorInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
-        tableView.contentOffset.y = searchBar.frame.height
-        
-        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
-        navigationItem.title = "话题"
-        
-        tableView.contentOffset.y = searchBar.frame.height
-        
-        
-        if let feedsContainerViewController = self.parent as? FeedsContainerViewController {
+        //有
+        if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
             
             feedsContainerViewController.showProfileViewControllerAction = { [weak self] segue, sender in
                 
@@ -273,14 +258,70 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
                 guard let resultFormula = formula else {
                     return
                 }
-                
-                
                 vc.formula = resultFormula
                 vc.previewFormulaStyle = .single
             }
+            
+            feedsContainerViewController.showFormulaFeedsViewControllerAction = { [weak self] segue, sender in
+                let vc = segue.destination as! FeedsViewController
+                vc.seletedFeedCategory = .formula
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        recoverOriginalNavigationDelegate()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.navigationBarLine.isHidden = false
+        
+        searchBar.sizeToFit()
+        tableView.tableHeaderView = searchBar
+        
+        tableView.addSubview(refreshControl)
+        
+        tableView.backgroundColor = UIColor.white
+        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        
+        
+        tableView.registerClass(of: FeedBaseCell.self)
+        tableView.registerClass(of: FeedBiggerImageCell.self)
+        tableView.registerClass(of: FeedAnyImagesCell.self)
+        tableView.registerClass(of: FeedURLCell.self)
+        tableView.registerClass(of: FeedFormulaCell.self)
+        tableView.registerNib(of: LoadMoreTableViewCell.self)
+        
+        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
+        tableView.separatorInset = UIEdgeInsets(top: 64, left: 0, bottom: 44, right: 0)
+        tableView.contentOffset.y = searchBar.frame.height
+        
+        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
+        navigationItem.title = "话题"
+        
+        searchBar.placeholder = "搜索话题"
+        
+        
+        if seletedFeedCategory != nil {
+            navigationItem.titleView = formulaTextTitleView
+            navigationItem.rightBarButtonItem = nil
+            tableView.tableHeaderView = UIView()
         }
         
+        tableView.contentOffset.y = searchBar.frame.height
+        
+       
+        
         uploadFeed()
+    }
+    
+    deinit {
+        printLog("\(self)" + "已经释放")
     }
     
     
@@ -376,11 +417,11 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
             
         } else {
             // 设定排序
-            var feedStoryStyle = self.feedSortStyle
+//            var feedStoryStyle = self.feedSortStyle
             
         }
         
-        fetchDiscoverFeed(with: FeedCategory.text, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
+        fetchDiscoverFeed(with: seletedFeedCategory, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
     }
     
     // MARK: - Target & Action
@@ -593,7 +634,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     let indexPath = tableView.indexPath(for: cell) else {
                         return
                 }
-                strongSelf.parent?.performSegue(withIdentifier: "showProfileView", sender: indexPath)
+                strongSelf.navigationController?.viewControllers[0].performSegue(withIdentifier: "showProfileView", sender: indexPath)
             }
             
             
@@ -603,7 +644,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     let indexPath = tableView.indexPath(for: cell) else {
                         return
                 }
-                strongSelf.performSegue(withIdentifier: "", sender: indexPath)
+                strongSelf.navigationController?.viewControllers[0].performSegue(withIdentifier: "showFormulaFeeds", sender: indexPath)
             }
             
             cell.touchesBeganAction = { [weak self] cell in
@@ -708,7 +749,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 guard let cell = cell as? FeedFormulaCell else {
                     return
                 }
-                cell.configureWithFeed(feed, layout: layout, needshowCategory: true)
+                cell.configureWithFeed(feed, layout: layout, needshowCategory: needShowCategory)
 
                 cell.tapFormulaInfoAction = { [weak self] cell in
                     
@@ -719,7 +760,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     guard let indexPath = tableView.indexPath(for: cell) else {
                         return
                     }
-                    self?.parent?.performSegue(withIdentifier: "showFormulaDetail", sender: indexPath)
+                    self?.navigationController?.viewControllers[0].performSegue(withIdentifier: "showFormulaDetail", sender: indexPath)
                 }
                 
             default:
@@ -823,7 +864,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .feed:
-            self.parent?.performSegue(withIdentifier: "showCommentView", sender: indexPath)
+            navigationController?.viewControllers[0].performSegue(withIdentifier: "showCommentView", sender: indexPath)
         default:
             break
         }
@@ -853,7 +894,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
 extension FeedsViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        parent?.performSegue(withIdentifier: "showSearchFeeds", sender: nil)
+        navigationController?.viewControllers[0].performSegue(withIdentifier: "showSearchFeeds", sender: nil)
         return false
     }
 }

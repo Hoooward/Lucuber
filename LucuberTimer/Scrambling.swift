@@ -23,7 +23,6 @@ public class Scrambling {
         return randomRoll
     }
     
-
     
     public func refreshScramblingText() -> String {
         

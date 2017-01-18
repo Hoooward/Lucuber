@@ -17,6 +17,7 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
     public var showProfileViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
     public var showCommentViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
     public var showFormulaDetailViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    public var showFormulaFeedsViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
     
     var originalNavigationControllerDelegate: UINavigationControllerDelegate?
     lazy var searchTransition: SearchTransition = {
@@ -167,6 +168,9 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
             showFormulaDetailViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
             
+        case "showFormulaFeeds":
+            showFormulaFeedsViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
             
         default:
             break

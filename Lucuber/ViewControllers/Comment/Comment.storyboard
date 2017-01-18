@@ -70,11 +70,29 @@
                         <outlet property="commentCollectionView" destination="Tb1-iS-vQ8" id="mRX-01-LW1"/>
                         <outlet property="messageToolbar" destination="ted-2d-pyQ" id="Pic-Fn-eUW"/>
                         <outlet property="messageToolbarBottomConstraints" destination="sGf-cH-PBl" id="wWT-Sm-X5r"/>
+                        <segue destination="ZVF-9y-lUo" kind="show" identifier="showProfileView" id="Ypg-3S-8b3"/>
+                        <segue destination="d3L-e0-KAn" kind="show" identifier="showFormulaDetail" id="hAw-jp-gwU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUd-oc-epC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-263.19999999999999" y="193.85307346326837"/>
+        </scene>
+        <!--ProfileViewController-->
+        <scene sceneID="wL3-3g-qAb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="ZVF-9y-lUo" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gOn-UN-RnF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="397" y="166"/>
+        </scene>
+        <!--FormulaDetailViewController-->
+        <scene sceneID="HKD-BN-XHk">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FormulaDetail" referencedIdentifier="FormulaDetailViewController" id="d3L-e0-KAn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YdK-Pd-Txf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="433" y="233"/>
         </scene>
     </scenes>
 </document>

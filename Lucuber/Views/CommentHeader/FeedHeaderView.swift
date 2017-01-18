@@ -135,7 +135,8 @@ class FeedHeaderView: UIView {
 
     var tapUrlInfoAction: ((URL) -> Void)?
     var tapFormulaInfoAction: ((DiscoverFormula) -> Void)?
-    var tapImagesAction: ((_ transitionViews: [UIView?], _ attachments: [ImageAttachment], _ image: UIImage?, _ index: Int) -> Void)?
+//    var tapImagesAction: ((_ transitionViews: [UIView?], _ attachments: [ImageAttachment], _ image: UIImage?, _ index: Int) -> Void)?
+    var tapImagesAction: tapMediaActionTypealias = nil
 
     var tapAvatarAction: (() -> Void)?
     var foldAction: (() -> Void)?
@@ -390,16 +391,15 @@ extension FeedHeaderView: UICollectionViewDelegate, UICollectionViewDataSource, 
 
         let cell = collectionView.cellForItem(at: indexPath) as! FeedMediaCell
         
-        let transitionViews: [UIView?] = (0..<imageAttachments.count).map {
-            
-            let indexPath = IndexPath(row: $0, section: indexPath.section)
-            let cell = collectionView.cellForItem(at: indexPath) as? FeedMediaCell
-            
-            return cell?.imageView
-        }
+//        let transitionViews: [UIView?] = (0..<imageAttachments.count).map {
+//            
+//            let indexPath = IndexPath(row: $0, section: indexPath.section)
+//            let cell = collectionView.cellForItem(at: indexPath) as? FeedMediaCell
+//            
+//            return cell?.imageView
+//        }
         
-        tapImagesAction?(transitionViews, imageAttachments, cell.imageView.image, indexPath.item)
-        
+        tapImagesAction?(cell, cell.imageView.image ,imageAttachments, indexPath.item)
     }
 }
 

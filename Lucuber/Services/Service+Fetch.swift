@@ -869,9 +869,20 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?,
 }
 
 
-internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
+internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
                                                                                                                            
     let query = AVQuery(className: DiscoverFeed.parseClassName())
+    
+    if let kind = kind {
+        switch kind {
+            
+        case .formula:
+            query.whereKey("categoryString", equalTo: FeedCategory.formula.rawValue)
+            
+        default:
+            break
+        }
+    }
     
     query.limit = 30
     query.includeKey("withFormula")
@@ -880,35 +891,8 @@ internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSort
     query.includeKey("creator")
     query.order(byDescending: "createdAt")
     
-    switch kind {
-        
-    case .text:
-        break
-        
-    case .image:
-        break
-        
-    case .url:
-        break
-        
-    case .audio:
-        break
-        
-    case .location:
-        break
-        
-    case .video:
-        break
-        
-    case .formula:
-        query.whereKey("categoryString", equalTo: FeedCategory.formula.rawValue)
-        
-    case .record:
-        query.whereKey("categoryString", equalTo: FeedCategory.record.rawValue)
-        
-    default:
-        break
-    }
+    
+   
     
     switch uploadingFeedMode {
         
@@ -930,6 +914,7 @@ internal func fetchDiscoverFeed(with kind: FeedCategory, feedSortStyle: FeedSort
             if let newFeeds = newFeeds as? [DiscoverFeed] {
  
                 newFeeds.forEach {
+                    printLog($0)
                     $0.parseAttachmentsInfo()
                 }
                 

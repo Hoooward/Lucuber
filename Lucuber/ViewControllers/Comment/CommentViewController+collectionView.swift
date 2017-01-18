@@ -266,17 +266,18 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                 }
 
                 cell.tapAvatarAction  = { [weak self] user in
-                    // TODO: - 显示用户
-//                    self?.performSegue(withIdentifier: "", sender: nil)
+                    self?.performSegue(withIdentifier: "showProfileView", sender: user)
                 }
 
                 cell.deleteMessageAction = { [weak self] in
                     self?.deleteMessage(at: indexPath, withMessage: message)
                 }
 
+                // TODO: - 举报
+                /*
                 cell.reportMessageAction = { [weak self] in
-                    // TODO: - 举报
                 }
+                 */
             }
 
             if message.isfromMe {
@@ -358,7 +359,6 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
                         }
 
                         cell.tapFeedAction = { [weak self] feed in
-                            // TODO: - showConversationWithFeed
                             self?.showConversationWithFeed(feed: feed)
                         }
                     }
@@ -458,20 +458,18 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             return false
         }
         
-        var title = ""
         if let message = messages[safe: (displayedMessagesRange.location + indexPath.item)] {
             
             let isMy = message.creator?.isMe ?? false
             
+            var menuItems = [UIMenuItem]()
+            let backMenuItem = UIMenuItem(title: "撤回", action: #selector(ChatBaseCell.deleteMessage(object:)))
+            let copyMenuItem = UIMenuItem(title: "复制", action: #selector(NSObject.copy))
             if isMy {
-                title = "撤回"
+                menuItems = [backMenuItem, copyMenuItem]
             } else {
-                title = "隐藏"
+                menuItems = [copyMenuItem]
             }
-            
-            let menuItems = [
-                UIMenuItem(title: title, action: #selector(ChatBaseCell.deleteMessage(object:)))
-            ]
             
             UIMenuController.shared.menuItems = menuItems
             
@@ -511,8 +509,5 @@ extension CommentViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
         }
     }
-    
-
-
 
 }

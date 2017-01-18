@@ -387,9 +387,8 @@ extension CommentViewController {
 
         feedHeaderView.feed = feed
 
-
 		feedHeaderView.tapAvatarAction = { [weak self] in
-			// TODO: - 点击头像
+           self?.performSegue(withIdentifier: "showProfileView", sender: nil)
         }
 
         feedHeaderView.foldAction = { [weak self] in
@@ -420,12 +419,33 @@ extension CommentViewController {
             }
         }
 
-        feedHeaderView.tapImagesAction = { [weak self] transitionViews, attachments, image, index in
-            // TODO: - 执行 previewImage
+        feedHeaderView.tapImagesAction = { [weak self] transitionView, image, attachments, index in
+            
+            let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+            
+            vc.startIndex = index
+            let frame = transitionView.convert(transitionView.bounds, to: self?.view)
+            vc.previewImageViewInitalFrame = frame
+            vc.bottomPreviewImage = image
+            
+            vc.afterDismissAction = { [weak self] in
+                self?.view.window?.makeKeyAndVisible()
+            }
+            
+            vc.previewMedias = attachments.map { PreviewMedia.attachmentType($0) }
+            
+            mediaPreviewWindow.rootViewController = vc
+            mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+            mediaPreviewWindow.makeKeyAndVisible()
+            
         }
 
         feedHeaderView.tapUrlInfoAction = { [weak self] url in
             self?.cube_openURL(url)
+        }
+        
+        feedHeaderView.tapFormulaInfoAction = { [weak self] _ in
+            self?.performSegue(withIdentifier: "showFormulaDetail", sender: nil)
         }
 
         feedHeaderView.translatesAutoresizingMaskIntoConstraints = false
@@ -452,7 +472,7 @@ extension CommentViewController {
     
     func tryShowSubscribeView() {
         
-        guard let group = conversation.withGroup else {
+        guard let group = conversation.withGroup, !group.includeMe else {
             return
         }
 

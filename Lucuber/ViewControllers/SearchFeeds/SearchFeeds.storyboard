@@ -62,11 +62,38 @@
                         <outlet property="searchBarBottomLineView" destination="bY8-NP-UKF" id="kz0-AU-hkZ"/>
                         <outlet property="searchBarTopConstraint" destination="unb-Pi-TFn" id="Nb9-dx-TQI"/>
                         <outlet property="tableView" destination="ylt-Fr-u1N" id="7eS-lF-awl"/>
+                        <segue destination="gMj-tW-j7T" kind="show" identifier="showProfileView" id="BnI-RQ-qTh"/>
+                        <segue destination="wjU-Ka-zOs" kind="show" identifier="showCommentView" id="zte-fe-fdA"/>
+                        <segue destination="3mY-TA-0cn" kind="show" identifier="showFormulaDetail" id="gBN-YA-B6R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YgV-6g-hss" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-239.19999999999999" y="-64.31784107946028"/>
+            <point key="canvasLocation" x="-514" y="-68"/>
+        </scene>
+        <!--ProfileViewController-->
+        <scene sceneID="es4-gg-UmG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="gMj-tW-j7T" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G0r-D9-KBe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="210" y="-166"/>
+        </scene>
+        <!--CommentViewController-->
+        <scene sceneID="TGD-xT-0iO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" referencedIdentifier="CommentViewController" id="wjU-Ka-zOs" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5jx-el-N7v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="230" y="-70"/>
+        </scene>
+        <!--FormulaDetailViewController-->
+        <scene sceneID="uLP-CC-Jz4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FormulaDetail" referencedIdentifier="FormulaDetailViewController" id="3mY-TA-0cn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AFb-ZK-ZN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="249" y="27"/>
         </scene>
     </scenes>
 </document>

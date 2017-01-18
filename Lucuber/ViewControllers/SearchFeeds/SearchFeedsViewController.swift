@@ -88,7 +88,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            
             tableView.backgroundColor = UIColor.white
             tableView.tableFooterView = UIView()
             tableView.separatorStyle = .singleLine
@@ -140,7 +139,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
         }
     }
     
-    
     fileprivate struct LayoutPool {
         
         fileprivate var feedCellLayoutHash = [String: SearchFeedCellLayout]()
@@ -167,7 +165,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
             if !key.isEmpty {
                 feedCellLayoutHash[key] = layout
             }
-            
         }
         
         fileprivate mutating func heightOfFeed(_ feed: DiscoverFeed) -> CGFloat {
@@ -178,8 +175,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
     }
     
     fileprivate static var layoutPool = LayoutPool()
-    
-
     
     fileprivate var isFetchingFeeds = false
     fileprivate var canLoadMore: Bool = false
@@ -244,8 +239,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
                  */
                 
                 wayToUpdate = .reloadData
-                
-                
                 
             case .loadMore:
                 
@@ -314,6 +307,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
     
     var isFirstAppear = true
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -338,31 +332,9 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
         NotificationCenter.default.addObserver(self, selector: #selector(SearchFeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SearchFeedsViewController.didRecieveMenuWillHideNotification(_:)), name: Notification.Name.UIMenuControllerWillHideMenu, object: nil)
-        
     
     }
     
-    @objc fileprivate func didRecieveMenuWillShowNotification(_ notification: Notification) {
-        
-        guard let menu = notification.object as? UIMenuController, let selectedIndexPathForMenu = selectedIndexPathForMenu, let cell = tableView.cellForRow(at: selectedIndexPathForMenu) as? SearchFeedBasicCell else {
-            return
-        }
-        
-        let bubbleFrame = cell.convert(cell.messageTextView.frame, to: view)
-        
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
-        menu.setTargetRect(bubbleFrame, in: view)
-        menu.setMenuVisible(true, animated: true)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchFeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
-        
-        tableView.deselectRow(at: selectedIndexPathForMenu, animated: true)
-    }
-    
-    @objc fileprivate func didRecieveMenuWillHideNotification(_ notification: Notification) {
-        
-        selectedIndexPathForMenu = nil
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -387,6 +359,122 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
         moveUpsearchBar()
         
         isFirstAppear = false
+    }
+    
+    deinit {
+        printLog("\(self)" + "已经释放")
+    }
+    
+    @objc fileprivate func didRecieveMenuWillShowNotification(_ notification: Notification) {
+        
+        guard let menu = notification.object as? UIMenuController, let selectedIndexPathForMenu = selectedIndexPathForMenu, let cell = tableView.cellForRow(at: selectedIndexPathForMenu) as? SearchFeedBasicCell else {
+            return
+        }
+        
+        let bubbleFrame = cell.convert(cell.messageTextView.frame, to: view)
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        menu.setTargetRect(bubbleFrame, in: view)
+        menu.setMenuVisible(true, animated: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
+        
+        tableView.deselectRow(at: selectedIndexPathForMenu, animated: true)
+    }
+    
+    @objc fileprivate func didRecieveMenuWillHideNotification(_ notification: Notification) {
+        
+        selectedIndexPathForMenu = nil
+    }
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+            
+        case "showProfileView":
+            
+            let vc = segue.destination as! ProfileViewController
+            
+            if let indexPath = sender as? IndexPath {
+                
+                let discoveredUser = feeds[indexPath.row].creator
+                vc.prepare(with: discoveredUser)
+            }
+            
+        case "showCommentView":
+            
+            let vc = segue.destination as! CommentViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let feed = feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
+                    return
+            }
+            
+            realm.beginWrite()
+            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+            try? realm.commitWrite()
+            
+            vc.conversation = feedConversation
+            vc.hidesBottomBarWhenPushed = true
+            vc.feed = feed
+            
+            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+                
+                if let strongSelf = self {
+                    
+                    var deletedFeed: DiscoverFeed?
+                    for feed in strongSelf.feeds {
+                        if feed.objectId! == feedLcObjcetID {
+                            deletedFeed = feed
+                            break
+                        }
+                    }
+                    
+                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+                        strongSelf.feeds.remove(at: index)
+                        
+                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+                        
+                        return
+                    }
+                }
+            }
+            
+        case "showFormulaDetail":
+            
+            let vc = segue.destination as! FormulaDetailViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let feed = feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
+                    return
+            }
+            
+            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
+            
+            if formula == nil {
+                realm.beginWrite()
+                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
+                try? realm.commitWrite()
+            }
+            
+            guard let resultFormula = formula else {
+                return
+            }
+            
+            vc.formula = resultFormula
+            vc.previewFormulaStyle = .single
+            
+        default:
+            break
+        }
     }
 }
 
@@ -441,6 +529,7 @@ extension SearchFeedsViewController: UISearchBarDelegate {
     
 }
 
+// MARK: TableView Delegate & DataSource
 extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
     fileprivate enum Section: Int {
@@ -530,8 +619,39 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 if let indexPath = tableView.indexPath(for: cell) {
                     self?.hideKeyboard()
-                    self?.performSegue(withIdentifier: "", sender: indexPath)
+                    self?.performSegue(withIdentifier: "showProfileView", sender: indexPath)
                 }
+            }
+            
+            cell.touchesBeganAction = { [weak self] cell in
+                guard
+                    let strongSelf = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                strongSelf.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                
+            }
+            
+            cell.touchesEndedAction = { [weak self] cell in
+                guard
+                    let _ = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                delay(0.03) {
+                    [weak self] in
+                    self?.tableView(tableView, didSelectRowAt: indexPath)
+                }
+            }
+            
+            cell.touchesCancelledAction = { [weak self] cell in
+                guard
+                    let _ = self,
+                    let indexPath = tableView.indexPath(for: cell) else {
+                        return
+                }
+                self?.tableView.deselectRow(at: indexPath, animated: true)
             }
             
             let layout = SearchFeedsViewController.layoutPool.feedCellLayoutOfFeed(feed)
@@ -562,15 +682,35 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 cell.configureCell(with: feed, layout: layout, keyword: keyword)
                 
-                cell.tapFormulaInfoAction = { [weak self] formula in
-                    // TODO:  push formulaDetail
+                cell.tapFormulaInfoAction = { [weak self] cell in
+                    guard
+                        let cell = cell,
+                        let indexPath = tableView.indexPath(for: cell) else {
+                            return
+                    }
+                    self?.performSegue(withIdentifier: "showFormulaDetail", sender: indexPath)
                 }
-                
                 
             case .image:
                 
                 let tapImagesAction: tapMediaActionTypealias = { [weak self] transitionView, image, imageAttachments, index in
                     
+                    let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
+                    
+                    vc.startIndex = index
+                    let frame = transitionView.convert(transitionView.bounds, to: self?.view)
+                    vc.previewImageViewInitalFrame = frame
+                    vc.bottomPreviewImage = image
+                    
+                    vc.afterDismissAction = { [weak self] in
+                        self?.view.window?.makeKeyAndVisible()
+                    }
+                    
+                    vc.previewMedias = imageAttachments.map { PreviewMedia.attachmentType($0) }
+                    
+                    mediaPreviewWindow.rootViewController = vc
+                    mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
+                    mediaPreviewWindow.makeKeyAndVisible()
                 }
                 
                 if feed.imageAttachmentsCount <= SearchFeedsViewController.feedNormalImagesCount {
@@ -667,7 +807,7 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
         switch section {
             
         case .feed:
-//            performSegue(withIdentifier: "showConversation", sender: indexPath)
+            performSegue(withIdentifier: "showCommentView", sender: indexPath)
             break
             
         case .loadMore:
@@ -704,20 +844,5 @@ extension SearchFeedsViewController: UITableViewDelegate, UITableViewDataSource 
         if action == #selector(NSObject.copy) {
             UIPasteboard.general.string = cell.messageTextView.text
         }
-        
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

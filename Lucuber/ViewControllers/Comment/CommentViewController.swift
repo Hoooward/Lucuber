@@ -203,7 +203,7 @@ class CommentViewController: UIViewController {
     }
 
     deinit {
-        printLog("对话视图已成功释放")
+        printLog("\(self)" + "已经释放")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -386,7 +386,54 @@ class CommentViewController: UIViewController {
             tryScrollToBottom()
         }
     }
-
+    
+    // MARK: - Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        switch identifier {
+            
+        case "showProfileView":
+            let vc = segue.destination as! ProfileViewController
+            
+            if let user = sender as? RUser {
+                // message user
+                vc.prepare(withUser: user)
+                
+            } else {
+                // headerView User
+                if let creator = feed?.creator {
+                    vc.prepare(with: creator)
+                }
+            }
+            
+        case "showFormulaDetail":
+            let vc = segue.destination as! FormulaDetailViewController
+            
+            guard let feed = feed, let realm = try? Realm() else {
+                return
+            }
+            
+            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
+            if formula == nil {
+                realm.beginWrite()
+                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
+                try? realm.commitWrite()
+            }
+            
+            guard let resultFormula = formula else {
+                return
+            }
+            vc.formula = resultFormula
+            vc.previewFormulaStyle = .single
+            
+        default:
+            break
+        }
+    }
+        
     // MARK: - Action & Target
     @objc private func handelNewMessaageIDsReceviedNotification(notification: Notification) {
 
