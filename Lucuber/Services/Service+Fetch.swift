@@ -805,30 +805,31 @@ public enum SearchFeedsMode {
     case `init`
     case loadMore
 }
-public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?, userID: String?, mode: SearchFeedsMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)? ) {
+
+public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: FeedCategory?, profileUser: ProfileUser?, mode: SearchFeedsMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)? ) {
     
-    func creatBasicQuery() -> AVQuery {
-        let query = AVQuery(className: DiscoverFeed.parseClassName())
-        query.limit = 30
-        query.includeKey("withFormula")
-        query.includeKey("withFormula.contents")
-        query.includeKey("withFormula.creator")
-        query.includeKey("creator")
-        query.order(byDescending: "createdAt")
-        return query
-    }
-    
-    let bodyQuery = AVQuery(className: DiscoverFeed.parseClassName())
-    bodyQuery.whereKey("body", contains: keyword)
-    
-    let nicknameQuery = AVQuery(className: DiscoverFeed.parseClassName())
-    nicknameQuery.whereKey("creator.nickname", contains: keyword)
-    
-    let formulaCateogyQuery = AVQuery(className: DiscoverFeed.parseClassName())
-    formulaCateogyQuery.whereKey("withFormula.category", contains: keyword)
+//    func creatBasicQuery() -> AVQuery {
+//        let query = AVQuery(className: DiscoverFeed.parseClassName())
+//        query.limit = 30
+//        query.includeKey("withFormula")
+//        query.includeKey("withFormula.contents")
+//        query.includeKey("withFormula.creator")
+//        query.includeKey("creator")
+//        query.order(byDescending: "createdAt")
+//        return query
+//    }
+//    
+//    let bodyQuery = AVQuery(className: DiscoverFeed.parseClassName())
+//    bodyQuery.whereKey("body", contains: keyword)
+//    
+//    let nicknameQuery = AVQuery(className: DiscoverFeed.parseClassName())
+//    nicknameQuery.whereKey("creator.nickname", contains: keyword)
+//    
+//    let formulaCateogyQuery = AVQuery(className: DiscoverFeed.parseClassName())
+//    formulaCateogyQuery.whereKey("withFormula.category", contains: keyword)
     
     let query = AVQuery(className: DiscoverFeed.parseClassName())
-    query.limit = 30
+    query.limit = 20
     query.includeKey("withFormula")
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
@@ -842,7 +843,28 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?,
         // Do Noting
         break
     case .loadMore:
-        query.whereKey("createAt", lessThan: lastFeedCreatDate)
+        query.whereKey("createdAt", lessThan: lastFeedCreatDate)
+    }
+    
+    
+    if let profileUser = profileUser {
+        switch profileUser {
+        case .discoverUser(let discoverUser):
+            query.whereKey("creator", equalTo: discoverUser)
+            
+        case .userType(let rUser):
+            let user = AVUser.init(objectId: rUser.lcObjcetID)
+            query.whereKey("creator", equalTo: user)
+        }
+    }
+    
+    if let category = category {
+        switch category {
+        case .formula:
+            query.whereKey("categoryString", equalTo: category.rawValue)
+        default:
+            break
+        }
     }
 
     query.findObjectsInBackground { newFeeds, error in
@@ -856,7 +878,7 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?,
             if let newFeeds = newFeeds as? [DiscoverFeed] {
                 
                 newFeeds.forEach {
-                    printLog($0)
+//                    printLog($0)
                     $0.parseAttachmentsInfo()
                 }
                 
@@ -866,6 +888,58 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: Category?,
     }
     
     
+}
+
+internal func fetchDiscoverFeedFromUser(_ profileUser: ProfileUser?, category: FeedCategory?, limitCount: Int, failureHandler: FailureHandler?, completion: (([DiscoverFeed]) -> Void)?) {
+    guard let profileUser = profileUser else {
+        return
+    }
+    
+    var user: AVUser!
+    
+    switch profileUser {
+    case .discoverUser(let discoverUser):
+        user = discoverUser
+        
+    case .userType(let rUser):
+        user = AVUser.init(objectId: rUser.lcObjcetID)
+    }
+    
+    let query = AVQuery(className: DiscoverFeed.parseClassName())
+    query.limit = limitCount
+    query.includeKey("withFormula")
+    query.includeKey("withFormula.contents")
+    query.includeKey("withFormula.creator")
+    query.includeKey("creator")
+    query.whereKey("creator", equalTo: user)
+    query.order(byDescending: "createdAt")
+    
+    if let category = category {
+        switch category {
+        case .formula:
+            query.whereKey("categoryString", equalTo: category.rawValue)
+        default:
+            break
+        }
+    }
+    
+    query.findObjectsInBackground { newFeeds, error in
+        
+        if error != nil {
+            failureHandler?(Reason.network(error), "请求 Feed 失败")
+            
+        } else {
+            if let newFeeds = newFeeds as? [DiscoverFeed] {
+                
+                newFeeds.forEach {
+                    //                    printLog($0)
+                    $0.parseAttachmentsInfo()
+                }
+                
+                completion?(newFeeds)
+            }
+        }
+    }
 }
 
 

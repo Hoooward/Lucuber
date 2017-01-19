@@ -48,6 +48,9 @@ public class Config {
         static let changedLaunchStyle = Notification.Name("changedLaunchStyle")
         static let changedFeedConversation = Notification.Name("changedFeedConversation")
         static let newMyInfo = Notification.Name("newMyInfo")
+        static let createdFeed = Notification.Name("createdFeed")
+        static let deletedFeed = Notification.Name("deletedFeed")
+
 
     }
     

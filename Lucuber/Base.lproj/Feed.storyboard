@@ -132,7 +132,7 @@
                 <viewControllerPlaceholder storyboardName="Comment" referencedIdentifier="CommentViewController" id="noM-lZ-wfp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rr0-ln-832" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1017" y="756"/>
+            <point key="canvasLocation" x="1017" y="771"/>
         </scene>
         <!--FeedsViewController-->
         <scene sceneID="b4K-80-IRD">
@@ -140,7 +140,7 @@
                 <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="FeedsViewController" id="POf-ev-u6b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yre-d8-0iY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="811"/>
+            <point key="canvasLocation" x="1005" y="843"/>
         </scene>
         <!--Subscribes View Controller-->
         <scene sceneID="Hsq-tm-SuG">
@@ -163,7 +163,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="没有订阅话题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lL-VY-CJq">
-                                <rect key="frame" x="135.5" y="80" width="104" height="20.5"/>
+                                <rect key="frame" x="136" y="80" width="104" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -227,7 +227,7 @@
                     <tabBarItem key="tabBarItem" title="" image="icon_feeds" selectedImage="icon_feeds_active" id="Fk4-Fw-IlC"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="if5-gT-npF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="if5-gT-npF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

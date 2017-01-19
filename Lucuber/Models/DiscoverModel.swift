@@ -122,7 +122,7 @@ public protocol OpenGraphInfoType {
 }
 
 public struct ImageAttachment {
-    //后面可以尝试将小头像以二进制序列方式存储
+    
     public let metadata: String?
     public let URLString: String
     

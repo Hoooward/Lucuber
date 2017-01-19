@@ -65,7 +65,8 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         }
     }
     // 显示某人所有的Feed
-    public var profileUser: RUser?
+    public var profileUser: ProfileUser?
+    var hideRightBarItem: Bool = false
     var perparedFeedsCount = 0
     
     var hideRightbarItem: Bool = false
@@ -149,120 +150,131 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: false)
         
-        //有
-        if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
+        let showProfileViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
             
-            feedsContainerViewController.showProfileViewControllerAction = { [weak self] segue, sender in
+            guard  segue.identifier == "showProfileView" else {
+                return
+            }
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let vc = segue.destination as! ProfileViewController
+            
+            if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
                 
-                guard  segue.identifier == "showProfileView" else {
-                    return
+                switch section {
+                case .uploadingFeed:
+                    let discoveredUser = strongSelf.uploadingFeeds[indexPath.row].creator
+                    vc.prepare(with: discoveredUser)
+                case .feed:
+                    let discoveredUser = strongSelf.feeds[indexPath.row].creator
+                    vc.prepare(with: discoveredUser)
+                default:
+                    break
                 }
-                
-                guard let strongSelf = self else {
+            }
+        }
+        
+        let showCommentViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let vc = segue.destination as! CommentViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let feed = strongSelf.feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
                     return
-                }
+            }
+            
+            realm.beginWrite()
+            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+            try? realm.commitWrite()
+            
+            vc.conversation = feedConversation
+            vc.hidesBottomBarWhenPushed = true
+            vc.feed = feed
+            
+            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
                 
-                let vc = segue.destination as! ProfileViewController
-                
-                if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
+                if let strongSelf = self {
                     
-                    switch section {
-                    case .uploadingFeed:
-                        let discoveredUser = strongSelf.uploadingFeeds[indexPath.row].creator
-                        vc.prepare(with: discoveredUser)
-                    case .feed:
-                        let discoveredUser = strongSelf.feeds[indexPath.row].creator
-                        vc.prepare(with: discoveredUser)
-                    default:
-                        break
+                    var deletedFeed: DiscoverFeed?
+                    for feed in strongSelf.feeds {
+                        if feed.objectId! == feedLcObjcetID {
+                            deletedFeed = feed
+                            break
+                        }
+                    }
+                    
+                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+                        strongSelf.feeds.remove(at: index)
+                        
+                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+                        
+                        return
+                    }
+                    
+                    delay(1) {
+                        strongSelf.uploadFeed()
                     }
                 }
             }
+        }
+        
+        let showFormulaDetailViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
+            guard let strongSelf = self else {
+                return
+            }
             
-            feedsContainerViewController.showCommentViewControllerAction = { [weak self] segue, sender in
-                
-                guard let strongSelf = self else {
+            let vc = segue.destination as! FormulaDetailViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let feed = strongSelf.feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
                     return
-                }
-                
-                let vc = segue.destination as! CommentViewController
-                
-                guard let indexPath = sender as? IndexPath,
-                    let feed = strongSelf.feeds[safe: indexPath.row],
-                    let realm = try? Realm() else {
-                        return
-                }
-                
+            }
+            
+            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
+            
+            if formula == nil {
                 realm.beginWrite()
-                let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
                 try? realm.commitWrite()
-                
-                vc.conversation = feedConversation
-                vc.hidesBottomBarWhenPushed = true
-                vc.feed = feed
-                
-                vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
-                    
-                    if let strongSelf = self {
-                        
-                        var deletedFeed: DiscoverFeed?
-                        for feed in strongSelf.feeds {
-                            if feed.objectId! == feedLcObjcetID {
-                                deletedFeed = feed
-                                break
-                            }
-                        }
-                        
-                        if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
-                            strongSelf.feeds.remove(at: index)
-                            
-                            let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
-                            strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
-                            
-                            return
-                        }
-                        
-                        delay(1) {
-                            strongSelf.uploadFeed()
-                        }
-                    }
-                }
             }
             
-            feedsContainerViewController.showFormulaDetailViewControllerAction = { [weak self] segue, sender in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                let vc = segue.destination as! FormulaDetailViewController
-                
-                guard let indexPath = sender as? IndexPath,
-                    let feed = strongSelf.feeds[safe: indexPath.row],
-                    let realm = try? Realm() else {
-                        return
-                }
-                
-                var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
-                
-                if formula == nil {
-                    realm.beginWrite()
-                    formula = vc.prepareFormulaFrom(feed, inRealm: realm)
-                    try? realm.commitWrite()
-                }
-                
-                guard let resultFormula = formula else {
-                    return
-                }
-                vc.formula = resultFormula
-                vc.previewFormulaStyle = .single
+            guard let resultFormula = formula else {
+                return
             }
+            vc.formula = resultFormula
+            vc.previewFormulaStyle = .single
+        }
+        
+    
+        let showFormulaFeedsViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
+            let vc = segue.destination as! FeedsViewController
+            vc.seletedFeedCategory = .formula
+            vc.profileUser = self?.profileUser
             
-            feedsContainerViewController.showFormulaFeedsViewControllerAction = { segue, sender in
-                let vc = segue.destination as! FeedsViewController
-                vc.seletedFeedCategory = .formula
-            }
+        }
+        if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
+            feedsContainerViewController.showProfileViewControllerAction = showProfileViewControllerAction
+            feedsContainerViewController.showCommentViewControllerAction = showCommentViewControllerAction
+            feedsContainerViewController.showFormulaDetailViewControllerAction = showFormulaDetailViewControllerAction
+            feedsContainerViewController.showFormulaFeedsViewControllerAction = showFormulaFeedsViewControllerAction
+        }
+        
+        if let profileViewController = self.navigationController?.viewControllers[0] as? ProfileViewController {
+            profileViewController.showProfileViewControllerAction = showProfileViewControllerAction
+            profileViewController.showCommentViewControllerAction = showCommentViewControllerAction
+            profileViewController.showFormulaDetailViewControllerAction = showFormulaDetailViewControllerAction
+            profileViewController.showFormulaFeedsViewControllerAction = showFormulaFeedsViewControllerAction
         }
     }
     
@@ -310,6 +322,19 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
             tableView.tableHeaderView = UIView()
         }
         
+        if profileUser != nil {
+            searchBar.placeholder = "搜索当前用户的话题"
+        }
+        
+        if hideRightBarItem {
+            if profileUser?.isMe ?? false {
+                navigationItem.rightBarButtonItem = nil
+                
+            } else {
+            
+            }
+        }
+        
         tableView.contentOffset.y = searchBar.frame.height
         
         NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
@@ -317,7 +342,12 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillHideNotification(_:)), name: Notification.Name.UIMenuControllerWillHideMenu, object: nil)
        
         
-        uploadFeed()
+
+        
+        if feeds.isEmpty {
+            uploadFeed()
+        }
+        
     }
     
     deinit {
@@ -326,7 +356,7 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     
     // MARK: - Target & Action
     
-    fileprivate var canLoadMore: Bool = false
+    fileprivate var canLoadMore: Bool = true
     
     fileprivate func uploadFeed(mode: UploadFeedMode = .top, finish: (() -> Void)? = nil) {
         
@@ -419,22 +449,17 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
                 
                 finish?()
             }
-            
         }
         
-        if let  _ = profileUser {
-            // 获取当前用户的Feed
-            
+        if let profileUser = profileUser {
+            fetchDiscoverFeedFromUser(profileUser, category: seletedFeedCategory, limitCount: 20, failureHandler: failureHandler, completion: completion)
+         
         } else {
             // 设定排序
-//            var feedStoryStyle = self.feedSortStyle
-            
+            fetchDiscoverFeed(with: seletedFeedCategory, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
         }
         
-        fetchDiscoverFeed(with: seletedFeedCategory, feedSortStyle: self.feedSortStyle, uploadingFeedMode: mode, lastFeedCreatDate: self.lastFeedCreatedDate, failureHandler: failureHandler, completion: completion)
     }
-    
-  
     
     @objc fileprivate func didRecieveMenuWillShowNotification(_ notification: Notification) {
         
@@ -474,13 +499,110 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     // MARK: - Segue
     
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        
-//        let identifier = segueIdentifier(for: segue)
+//        guard let identifier = segue.identifier else {
+//            return
+//        }
 //        
+//        switch identifier {
+//            
+//        case "showProfieView":
+//            
+//            let vc = segue.destination as! ProfileViewController
+//            
+//            if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
+//                
+//                switch section {
+//                case .uploadingFeed:
+//                    let discoveredUser = uploadingFeeds[indexPath.row].creator
+//                    vc.prepare(with: discoveredUser)
+//                case .feed:
+//                    let discoveredUser = feeds[indexPath.row].creator
+//                    vc.prepare(with: discoveredUser)
+//                default:
+//                    break
+//                }
+//            }
+//            
+//            
+//        case "showCommentView":
+//            
+//            let vc = segue.destination as! CommentViewController
+//            
+//            guard let indexPath = sender as? IndexPath,
+//                let feed = feeds[safe: indexPath.row],
+//                let realm = try? Realm() else {
+//                    return
+//            }
+//            
+//            realm.beginWrite()
+//            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+//            try? realm.commitWrite()
+//            
+//            vc.conversation = feedConversation
+//            vc.hidesBottomBarWhenPushed = true
+//            vc.feed = feed
+//            
+//            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+//                
+//                if let strongSelf = self {
+//                    
+//                    var deletedFeed: DiscoverFeed?
+//                    for feed in strongSelf.feeds {
+//                        if feed.objectId! == feedLcObjcetID {
+//                            deletedFeed = feed
+//                            break
+//                        }
+//                    }
+//                    
+//                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+//                        strongSelf.feeds.remove(at: index)
+//                        
+//                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+//                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+//                        
+//                        return
+//                    }
+//                    
+//                    delay(1) {
+//                        strongSelf.uploadFeed()
+//                    }
+//                }
+//            }
+//            
+//            
+//        case "showFormulaDetail":
+//            
+//            let vc = segue.destination as! FormulaDetailViewController
+//                
+//            guard let indexPath = sender as? IndexPath,
+//                let feed = feeds[safe: indexPath.row],
+//                let realm = try? Realm() else {
+//                    return
+//            }
+//                
+//            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
+//                
+//            if formula == nil {
+//                realm.beginWrite()
+//                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
+//                try? realm.commitWrite()
+//            }
+//                
+//            guard let resultFormula = formula else {
+//                return
+//            }
+//            vc.formula = resultFormula
+//            vc.previewFormulaStyle = .single
+//
+//        default:
+//            break
+//        }
+
 //        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
 //            [weak self] feed, newFeedViewController in
-//            
+//
 //            self?.newFeedViewController = newFeedViewController
 //            
 //            DispatchQueue.main.async {
@@ -514,7 +636,7 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
 //                feed.parseAttachmentsInfo()
 //                
 //                strongSelf.tableView.customScrollsToTop()
-//                
+//
 //                strongSelf.tableView.beginUpdates()
 //                
 //                var animation: UITableViewRowAnimation = .automatic
@@ -557,7 +679,7 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
 //            vc.getFeedsViewController = getFeedsViewController
 //    
 //        }
-//    }
+    }
 }
 
 // MARK: - TableView Delegaate&DataSource

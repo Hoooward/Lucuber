@@ -233,6 +233,7 @@
 		E459BC561E2A8CF2008F4097 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC551E2A8CF2008F4097 /* BaseViewController.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
 		E45FC05C1E3090DC0012A0A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */; };
+		E45FC05E1E30B7680012A0A7 /* CanShowFeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FC05D1E30B7680012A0A7 /* CanShowFeedsViewController.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
@@ -634,6 +635,7 @@
 		E459BC551E2A8CF2008F4097 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
 		E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Lucuber/Assets.xcassets; sourceTree = "<group>"; };
+		E45FC05D1E30B7680012A0A7 /* CanShowFeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanShowFeedsViewController.swift; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -2162,6 +2164,7 @@
 			isa = PBXGroup;
 			children = (
 				E459BC501E2A648B008F4097 /* CanScrollsToTop.swift */,
+				E45FC05D1E30B7680012A0A7 /* CanShowFeedsViewController.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3234,6 +3237,7 @@
 				E459BBB71E27637C008F4097 /* CategoryAnnotationHeader.swift in Sources */,
 				E459BC1F1E27637C008F4097 /* ScoreGroupCell.swift in Sources */,
 				E459BC111E27637C008F4097 /* ProfileHeaderCell.swift in Sources */,
+				E45FC05E1E30B7680012A0A7 /* CanShowFeedsViewController.swift in Sources */,
 				E459BA5A1E2762DA008F4097 /* ActionSheetView.swift in Sources */,
 				E459BAF41E2762DB008F4097 /* StarRatingView.swift in Sources */,
 				E459BAD51E2762DB008F4097 /* FeedURLContainerView.swift in Sources */,

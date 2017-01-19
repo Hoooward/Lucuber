@@ -8,13 +8,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Main Navigation Controller-->
         <scene sceneID="zVX-Gg-x7e">
             <objects>
-                <navigationController id="HD5-iu-WB9" sceneMemberID="viewController">
+                <navigationController id="HD5-iu-WB9" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="icon_me" selectedImage="icon_me_active" id="Y6T-Sx-RfZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nfm-6Z-uBS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nfm-6Z-uBS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -34,12 +34,12 @@
                         <viewControllerLayoutGuide type="top" id="wdM-Fh-bBh"/>
                         <viewControllerLayoutGuide type="bottom" id="YbZ-kF-1gM"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="6mo-RV-Hl0">
+                    <view key="view" contentMode="scaleToFill" id="6mo-RV-Hl0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="adl-EZ-2wn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YOr-12-Adp" customClass="ProfileLayout" customModule="Lucuber" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
@@ -81,6 +81,13 @@
                         <outlet property="topShadowImageView" destination="tZv-c1-mcr" id="uST-Qx-5Ll"/>
                         <segue destination="O4q-Fs-nmD" kind="show" identifier="showEditMaster" id="Gnm-YR-O3y"/>
                         <segue destination="WOX-KZ-04X" kind="show" identifier="showSettingInfo" id="uvq-Ep-CLu"/>
+                        <segue destination="wsL-Fr-PQK" kind="show" identifier="showFeedsView" id="xtW-6A-Qn0"/>
+                        <segue destination="kxy-zg-HCf" kind="show" identifier="showProfileView" id="ACF-KB-PHn"/>
+                        <segue destination="GqS-uM-uXw" kind="show" identifier="showSearchFeeds" id="hR7-5J-Dl1"/>
+                        <segue destination="tTI-x3-l7g" kind="show" identifier="showFormulaDetail" id="9fj-6w-71W"/>
+                        <segue destination="BwL-Cf-frl" kind="show" identifier="showCommentView" id="JgB-pW-DUa"/>
+                        <segue destination="a9J-ti-zaY" kind="show" identifier="showFormulaFeeds" id="8cy-dW-zqO"/>
+                        <segue destination="H2S-eY-kld" kind="show" identifier="showSearchFeeds" id="45J-nf-PhI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8a-wo-7OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -95,7 +102,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7n-af-nHO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1160" y="97"/>
+            <point key="canvasLocation" x="1259" y="-22"/>
         </scene>
         <!--Setting-->
         <scene sceneID="CRN-VS-Zct">
@@ -103,7 +110,67 @@
                 <viewControllerPlaceholder storyboardName="Setting" id="WOX-KZ-04X" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7L-P1-UmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1142" y="185"/>
+            <point key="canvasLocation" x="1242" y="31"/>
+        </scene>
+        <!--FeedsViewController-->
+        <scene sceneID="J76-Yj-pLI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="FeedsViewController" id="wsL-Fr-PQK" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8iA-C5-DEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1258" y="187"/>
+        </scene>
+        <!--SearchFeedsViewController-->
+        <scene sceneID="dcf-4o-RMQ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SearchFeeds" referencedIdentifier="SearchFeedsViewController" id="GqS-uM-uXw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="avI-lK-HGk"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1w0-0I-Ukg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1291" y="287"/>
+        </scene>
+        <!--ProfileViewController-->
+        <scene sceneID="IYN-Ih-u5F">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="kxy-zg-HCf" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h1A-cl-sUU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1261" y="239"/>
+        </scene>
+        <!--FormulaDetailViewController-->
+        <scene sceneID="ke6-h2-FSj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FormulaDetail" referencedIdentifier="FormulaDetailViewController" id="tTI-x3-l7g" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wKt-XT-cYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1297" y="347"/>
+        </scene>
+        <!--CommentViewController-->
+        <scene sceneID="jhP-h1-N6n">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" referencedIdentifier="CommentViewController" id="BwL-Cf-frl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yZE-UW-wd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1276" y="426"/>
+        </scene>
+        <!--FeedsViewController-->
+        <scene sceneID="5t3-uc-iDX">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Feed" referencedIdentifier="FeedsViewController" id="a9J-ti-zaY" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pRW-2u-qMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1258" y="150"/>
+        </scene>
+        <!--SearchFeedsViewController-->
+        <scene sceneID="ZE5-Lg-hsV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SearchFeeds" referencedIdentifier="SearchFeedsViewController" id="H2S-eY-kld" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="rbE-ZI-rfK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WNL-u3-ra5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1258" y="543"/>
         </scene>
     </scenes>
     <resources>

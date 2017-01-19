@@ -14,7 +14,7 @@ private let screenHeight: CGFloat = UIScreen.main.bounds.height
 
 final class SearchFeedsViewController: UIViewController, SearchAction {
     
-    var formulaCateogry: Category?
+    var feedCateogry: FeedCategory?
     var profileUser: ProfileUser?
     
     static let feedNormalImagesCount: Int = CubeRuler.universalHorizontal(3, 4, 4, 3, 4).value
@@ -50,7 +50,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
                     searchFeedsFooterView.style = .noResults
                     
                 } else {
-                    if formulaCateogry != nil || profileUser != nil {
+                    if feedCateogry != nil || profileUser != nil {
                         searchFeedsFooterView.style = .empty
                     } else {
                         searchFeedsFooterView.style = .keywords
@@ -200,7 +200,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
         
         let lastFeedCreatedDate = feeds.last?.createdAt ?? Date()
         
-        fetchDiscoverFeedWithKeyword(keyword, category: formulaCateogry, userID: profileUser?.userID, mode: mode, lastFeedCreatDate: lastFeedCreatedDate, failureHandler: failureHandler, completion: { [weak self] feeds in
+        fetchDiscoverFeedWithKeyword(keyword, category: feedCateogry, profileUser: profileUser, mode: mode, lastFeedCreatDate: lastFeedCreatedDate, failureHandler: failureHandler, completion: { [weak self] feeds in
             
             let originalFeedsCount = feeds.count
             let validFeeds = feeds.flatMap({$0})
@@ -313,12 +313,12 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
         
         searchBar.placeholder = "搜索话题"
         
-        if formulaCateogry != nil {
-            searchBar.placeholder = "搜索公式类型的话题"
+        if feedCateogry != nil {
+            searchBar.placeholder = "搜索包含公式的话题"
         }
         
         if profileUser != nil {
-            searchBar.placeholder = "搜索用户的话题"
+            searchBar.placeholder = "搜索当前用户的话题"
         }
         
         feeds = []

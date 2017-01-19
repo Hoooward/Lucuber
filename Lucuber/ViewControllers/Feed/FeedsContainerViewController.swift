@@ -12,12 +12,12 @@ import RxCocoa
 import RealmSwift
 
 
-class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, SearchTrigeer  {
+class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, SearchTrigeer, CanShowFeedsViewController  {
     
-    public var showProfileViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
-    public var showCommentViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
-    public var showFormulaDetailViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
-    public var showFormulaFeedsViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showProfileViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showCommentViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showFormulaDetailViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showFormulaFeedsViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
     
     var originalNavigationControllerDelegate: UINavigationControllerDelegate?
     lazy var searchTransition: SearchTransition = {
@@ -165,19 +165,21 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
             showProfileViewControllerAction?(segue, sender)
             
             recoverOriginalNavigationDelegate()
+
+            printLog(navigationController?.delegate)
             
         case "showCommentView":
             showCommentViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
-            
+           printLog(navigationController?.delegate) 
         case "showFormulaDetail":
             showFormulaDetailViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
-            
+           printLog(navigationController?.delegate) 
         case "showFormulaFeeds":
             showFormulaFeedsViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
-            
+           printLog(navigationController?.delegate) 
         default:
             break
         }

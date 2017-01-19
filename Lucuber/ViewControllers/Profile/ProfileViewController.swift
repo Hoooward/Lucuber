@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-enum ProfileUser {
+public enum ProfileUser {
     
     case discoverUser(AVUser)
     case userType(RUser)
@@ -115,9 +115,22 @@ enum ProfileUser {
     }
 }
 
-final class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController, CanShowFeedsViewController, SearchTrigeer {
+    
+    var showProfileViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showCommentViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showFormulaDetailViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    var showFormulaFeedsViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)?
+    
+    var originalNavigationControllerDelegate: UINavigationControllerDelegate?
+    lazy var searchTransition: SearchTransition = {
+        return SearchTransition()
+    }()
     
     public var profileUser: ProfileUser?
+    
+    fileprivate var feeds: [DiscoverFeed]?
+    fileprivate var feedAttachments: [ImageAttachment?]?
     
     var profileUserIsMe = true {
         didSet {
@@ -128,14 +141,13 @@ final class ProfileViewController: UIViewController {
                 let settingsBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_settings"), style: .plain, target: self, action: #selector(ProfileViewController.showSettings(sender:)))
                 
                 customNavigationItem.rightBarButtonItem = settingsBarButtonItem
-                // TODO: - 创建 Feed 删除 Feed 的通知
+                NotificationCenter.default.addObserver(self, selector: #selector(ProfileViewController.createdFeed(_:)), name: Config.NotificationName.createdFeed, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(ProfileViewController.deletedFeed(_:)), name: Config.NotificationName.deletedFeed, object: nil)
             }
         }
     }
     
-    @objc private func showSettings(sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "showSettingInfo", sender: nil)
-    }
+  
     
     fileprivate var statusBarShouldLight = false
     fileprivate var noNeedToChangeStatusBar = false
@@ -362,12 +374,17 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+       
+        
         statusBarShouldLight = true
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
+        
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1.0
         
@@ -395,6 +412,60 @@ final class ProfileViewController: UIViewController {
         collectionView.layoutIfNeeded()
     }
     
+    
+    @objc fileprivate func createdFeed(_ sender: Notification) {
+        
+        guard feeds != nil else {
+            return
+        }
+        
+        let feed = sender.object as! DiscoverFeed
+        feeds!.insert(feed, at: 0)
+        
+        updateFeedAttachmentsAfterUpdateFeeds()
+    }
+    
+    @objc fileprivate func deletedFeed(_ sender: Notification) {
+        
+        guard feeds != nil else {
+            return
+        }
+        
+        let feedID = sender.object as! String
+        var indexOfDeletedFeed: Int?
+        for (index, feed) in feeds!.enumerated() {
+            if feed.objectId! == feedID {
+                indexOfDeletedFeed = index
+                break
+            }
+        }
+        guard let index = indexOfDeletedFeed else {
+            return
+        }
+        feeds!.remove(at: index)
+        
+        updateFeedAttachmentsAfterUpdateFeeds()
+    }
+    
+    fileprivate func updateFeedAttachmentsAfterUpdateFeeds() {
+        
+        feedAttachments = feeds!.map({ feed -> ImageAttachment? in
+            if let attachment = feed.attachment {
+                if case let .images(attachments) = attachment {
+                    return attachments.first
+                }
+            }
+            return nil
+        })
+        
+        updateProfileCollectionView()
+    }
+    
+    @objc private func showSettings(sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showSettingInfo", sender: nil)
+    }
+    
+    // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let identifier = segue.identifier else {
@@ -404,8 +475,43 @@ final class ProfileViewController: UIViewController {
         switch identifier {
             
         case "showEditMaster":
-            
             break
+            
+        case "showSearchFeeds":
+            
+            let vc = segue.destination as! SearchFeedsViewController
+            vc.hidesBottomBarWhenPushed = true
+            
+            vc.profileUser = profileUser
+            prepareSearchTransition()
+            
+            vc.originalNavigationControllerDelegate = self.originalNavigationControllerDelegate
+            
+        case "showFeedsView":
+            
+            let vc = segue.destination as! FeedsViewController
+            if
+                let info = sender as? [String: Any],
+                let profileUser = info["profileUser"] as? ProfileUser,
+                let feeds = info["feeds"] as? [DiscoverFeed] {
+                vc.profileUser = profileUser
+                vc.feeds = feeds
+            }
+            vc.hideRightBarItem = true
+            
+        case "showProfileView":
+            showProfileViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
+            
+        case "showCommentView":
+            showCommentViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
+        case "showFormulaDetail":
+            showFormulaDetailViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
+        case "showFormulaFeeds":
+            showFormulaFeedsViewControllerAction?(segue, sender)
+            recoverOriginalNavigationDelegate()
         default:
             break
         }
@@ -527,6 +633,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .feeds:
             let cell: ProfileFeedsCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            cell.configureWithProfileUser(profileUser, feedAttachments: feedAttachments, completion: { [weak self] feeds, feedAttachments in
+                self?.feeds = feeds
+                self?.feedAttachments = feedAttachments
+            })
+            
             return cell
         }
         
@@ -671,6 +783,30 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return CGSize.zero
             }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError()
+        }
+        switch section {
+            
+        case .feeds:
+            guard let profileUser = profileUser else {
+                break
+            }
+            
+            let info: [String: Any] = [
+                "profileUser": profileUser,
+                "feeds": feeds ?? [],
+                ]
+            self.performSegue(withIdentifier: "showFeedsView", sender: info)
+            
+        default:
+            break
+        }
+        
+        
     }
     
 }

@@ -182,14 +182,14 @@ extension MoreMessageTypeView: UITableViewDelegate, UITableViewDataSource {
     enum Row: Int {
         case pickPhoto = 0
         case photoLibrary
-        case location
+//        case location
         case cancel
         
         var title: String {
             switch self {
             case .pickPhoto: return ""
             case .photoLibrary: return "相册"
-            case .location: return "位置"
+//            case .location: return "位置"
             case .cancel: return "取消"
             }
         }
@@ -200,7 +200,7 @@ extension MoreMessageTypeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -348,10 +348,10 @@ extension MoreMessageTypeView: UITableViewDelegate, UITableViewDataSource {
                 })
             }
 
-        case .location:
-            hideAndDo(action: { [weak self] in
-                self?.pickLocationAction?()
-            })
+//        case .location:
+//            hideAndDo(action: { [weak self] in
+//                self?.pickLocationAction?()
+//            })
 
         case .cancel:
             hide()
