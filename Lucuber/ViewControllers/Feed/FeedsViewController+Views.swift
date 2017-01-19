@@ -22,15 +22,119 @@ extension FeedsViewController {
     
     func makeFeedActionSheetView() -> ActionSheetView {
         
+        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
+            [weak self] feed, newFeedViewController in
+            
+            self?.newFeedViewController = newFeedViewController
+            
+            DispatchQueue.main.async {
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.tableView.customScrollsToTop()
+                strongSelf.tableView.beginUpdates()
+                
+                strongSelf.uploadingFeeds.insert(feed, at: 0)
+                
+                let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
+                strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                
+                printLog("已刷新")
+                strongSelf.tableView.endUpdates()
+            }
+        }
+        
+        let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
+            [weak self] feed in
+            
+            self?.newFeedViewController = nil
+            
+            DispatchQueue.main.async {
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                feed.parseAttachmentsInfo()
+                
+                strongSelf.tableView.customScrollsToTop()
+                
+                strongSelf.tableView.beginUpdates()
+                
+                var animation: UITableViewRowAnimation = .automatic
+                
+                if !strongSelf.uploadingFeeds.isEmpty {
+                    
+                    strongSelf.uploadingFeeds = []
+                    
+                    let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
+                    
+                    strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+                    
+                    animation = .none
+                }
+                
+                strongSelf.feeds.insert(feed, at: 0)
+                
+                let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
+                strongSelf.tableView.insertRows(at: [indexPath], with: animation)
+                
+                strongSelf.tableView.endUpdates()
+                
+            }
+            
+            // TODO: - joinGroup
+            /*
+            let oldincludeMe: Bool = group.includeMe
+            let subscribeFeedID = group.groupID
+            
+            var newSubscribeList = [String]()
+            if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+                newSubscribeList = oldMySubscribeList
+            }
+            
+            if !oldincludeMe {
+                if newSubscribeList.contains(subscribeFeedID) {
+                    return
+                } else {
+                    newSubscribeList.append(subscribeFeedID)
+                }
+            } else {
+                if newSubscribeList.contains(subscribeFeedID) {
+                    if let index = newSubscribeList.index(of: subscribeFeedID) {
+                        newSubscribeList.remove(at: index)
+                    }
+                } else {
+                    return
+                }
+            } snm\.
+            */
+            
+        }
+        
+        let getFeedsViewController: () -> FeedsViewController? = {
+            [weak self] in
+            return self
+        }
+        
+
         let view = ActionSheetView(items: [
             .Option(
                 title: "文字和图片",
                 titleColor: UIColor.cubeTintColor(),
                 action: { [weak self] in
+                    
                     guard let strongSelf = self else { return }
                     
-                    //                    strongSelf.newFeedAttachmentType = .media
-                    strongSelf.cube_performSegue(with: .newFeed, sender: nil)
+                    let navigationVC = UIStoryboard(name: "NewFeed", bundle: nil).instantiateInitialViewController() as! UINavigationController
+                    let vc = navigationVC.viewControllers.first as! NewFeedViewController
+                    
+                    vc.beforUploadingFeedAction = beforeUploadingFeedAction
+                    vc.afterUploadingFeedAction = afterCreatedFeedAction
+                    vc.getFeedsViewController = getFeedsViewController
+                    
+                    strongSelf.present(navigationVC, animated: true, completion: nil)
                 }
             ),
             
@@ -39,77 +143,6 @@ extension FeedsViewController {
                 titleColor: UIColor.cubeTintColor(),
                 action: { [weak self] in
                     guard let strongSelf = self else { return }
-                    
-                    let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
-                        [weak self] feed, newFeedViewController in
-                        
-                        self?.newFeedViewController = newFeedViewController
-                        
-                        DispatchQueue.main.async {
-                            
-                            guard let strongSelf = self else {
-                                return
-                            }
-                            strongSelf.tableView.customScrollsToTop()
-                            strongSelf.tableView.beginUpdates()
-                            
-                            strongSelf.uploadingFeeds.insert(feed, at: 0)
-                            
-                            let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
-                            strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                            
-                            printLog("已刷新")
-                            strongSelf.tableView.endUpdates()
-                        }
-                    }
-                    
-                    let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
-                        [weak self] feed in
-                        
-                        self?.newFeedViewController = nil
-                        
-                        DispatchQueue.main.async {
-                            
-                            guard let strongSelf = self else {
-                                return
-                            }
-                            
-                            feed.parseAttachmentsInfo()
-                            
-                            strongSelf.tableView.customScrollsToTop()
-                            
-                            strongSelf.tableView.beginUpdates()
-                            
-                            var animation: UITableViewRowAnimation = .automatic
-                            
-                            if !strongSelf.uploadingFeeds.isEmpty {
-                                
-                                strongSelf.uploadingFeeds = []
-                                
-                                let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
-                                
-                                strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
-                                
-                                animation = .none
-                            }
-                            
-                            strongSelf.feeds.insert(feed, at: 0)
-                            
-                            let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
-                            strongSelf.tableView.insertRows(at: [indexPath], with: animation)
-                            
-                            strongSelf.tableView.endUpdates()
-                            
-                        }
-                        
-                        // TODO: - joinGroup
-                    }
-                    
-                    let getFeedsViewController: () -> FeedsViewController? = {
-                        [weak self] in
-                        return self
-                    }
-                    
                     
                     let navigationVC = UIStoryboard(name: "NewFormula", bundle: nil).instantiateInitialViewController() as! UINavigationController
                     let vc = navigationVC.viewControllers.first as! NewFormulaViewController

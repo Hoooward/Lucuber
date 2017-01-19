@@ -335,7 +335,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
     
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -406,6 +405,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
                 let discoveredUser = feeds[indexPath.row].creator
                 vc.prepare(with: discoveredUser)
             }
+             prepareOriginalNavigationControllerDelegate()
             
         case "showCommentView":
             
@@ -447,6 +447,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
                     }
                 }
             }
+             prepareOriginalNavigationControllerDelegate()
             
         case "showFormulaDetail":
             
@@ -472,6 +473,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
             
             vc.formula = resultFormula
             vc.previewFormulaStyle = .single
+            prepareOriginalNavigationControllerDelegate()
             
         default:
             break

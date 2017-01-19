@@ -232,6 +232,7 @@
 		E459BC531E2A80C0008F4097 /* ProfileViewController+Prepare.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC521E2A80C0008F4097 /* ProfileViewController+Prepare.swift */; };
 		E459BC561E2A8CF2008F4097 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BC551E2A8CF2008F4097 /* BaseViewController.swift */; };
 		E459DF1D1DB32A5A00A0E1E0 /* UIScrollView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */; };
+		E45FC05C1E3090DC0012A0A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
@@ -285,8 +286,6 @@
 		E49534C61E0D4E1B0008934D /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534C51E0D4E1B0008934D /* TimerViewController.swift */; };
 		E49534D21E0E1EB30008934D /* UIColor+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534D11E0E1EB30008934D /* UIColor+Cube.swift */; };
 		E49534EC1E0E2C000008934D /* TimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49534EB1E0E2C000008934D /* TimerLabel.swift */; };
-		E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
-		E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */; };
 		E49FBCE31DE1891300BA9B49 /* AlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */; };
 		E4A008021E13798E00ABA5B5 /* ScoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */; };
 		E4A008081E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */; };
@@ -634,6 +633,7 @@
 		E459BC521E2A80C0008F4097 /* ProfileViewController+Prepare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+Prepare.swift"; sourceTree = "<group>"; };
 		E459BC551E2A8CF2008F4097 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E459DF1C1DB32A5900A0E1E0 /* UIScrollView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Cube.swift"; sourceTree = "<group>"; };
+		E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Lucuber/Assets.xcassets; sourceTree = "<group>"; };
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -691,7 +691,6 @@
 		E49534C51E0D4E1B0008934D /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		E49534D11E0E1EB30008934D /* UIColor+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Cube.swift"; sourceTree = "<group>"; };
 		E49534EB1E0E2C000008934D /* TimerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabel.swift; sourceTree = "<group>"; };
-		E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Lucuber/Assets.xcassets; sourceTree = "<group>"; };
 		E49FBCE21DE1891300BA9B49 /* AlbumListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListController.swift; sourceTree = "<group>"; };
 		E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailViewController.swift; sourceTree = "<group>"; };
 		E4A008071E138F7700ABA5B5 /* ScoreGroupDetailTitle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScoreGroupDetailTitle.plist; sourceTree = "<group>"; };
@@ -2660,8 +2659,8 @@
 				E459BC3E1E28694E008F4097 /* Badges.xcassets */,
 				E4FFAA911D8D29DE0039BA8A /* Lucuber */,
 				E4F38DC41E01918500F0DF8A /* Lucuber.entitlements */,
-				E49C44CB1DEC8A590043FCF0 /* Assets.xcassets */,
 				E4FFAA961D8D29DE0039BA8A /* Main.storyboard */,
+				E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */,
 				E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
 				E4A3BA561DE3F874009C0E78 /* LucuberKit */,
@@ -2911,7 +2910,6 @@
 				E4A3BAA51DE3FA43009C0E78 /* FormulasData.json in Resources */,
 				E4A3BA621DE3F874009C0E78 /* LaunchScreen.storyboard in Resources */,
 				E4A3BA5D1DE3F874009C0E78 /* Main1.storyboard in Resources */,
-				E49C44CD1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2951,6 +2949,7 @@
 				E459BBF01E27637C008F4097 /* CameraCell.xib in Resources */,
 				E459BBB81E27637C008F4097 /* CategoryAnnotationHeader.xib in Resources */,
 				E488468F1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib in Resources */,
+				E45FC05C1E3090DC0012A0A7 /* Assets.xcassets in Resources */,
 				E459BBF21E27637C008F4097 /* PickPhotosCell.xib in Resources */,
 				E459BBEA1E27637C008F4097 /* NoResultCell.xib in Resources */,
 				E459BBC71E27637C008F4097 /* LoadMoreCollectionViewCell.xib in Resources */,
@@ -2982,7 +2981,6 @@
 				E459BBFA1E27637C008F4097 /* CategoryPickViewCell.xib in Resources */,
 				E459BC041E27637C008F4097 /* FormulaTextViewCell.xib in Resources */,
 				E459BBF41E27637C008F4097 /* TitleCell.xib in Resources */,
-				E49C44CC1DEC8A590043FCF0 /* Assets.xcassets in Resources */,
 				E459BC0C1E27637C008F4097 /* CubeCategoryCell.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E459BBC91E27637C008F4097 /* EditMasterCell.xib in Resources */,

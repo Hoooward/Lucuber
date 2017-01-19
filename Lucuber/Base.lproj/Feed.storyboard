@@ -53,10 +53,10 @@
                     <connections>
                         <outlet property="loadingFeedsIndicator" destination="dpy-Fs-5VI" id="HOE-6v-MWC"/>
                         <outlet property="tableView" destination="OFL-Bc-Ig8" id="gpS-ln-rWL"/>
-                        <segue destination="3ev-RH-Kkl" kind="presentation" identifier="ShowNewFeed" id="wke-SS-UkO"/>
                         <segue destination="CjY-iE-cLT" kind="show" identifier="ShowCommentView" id="i0v-l6-Ylw"/>
                         <segue destination="jgc-zj-mhh" kind="show" identifier="ShowSearchFeeds" id="QNd-M7-EBv"/>
                         <segue destination="PsG-mw-td0" kind="show" identifier="showProfile" id="Qcg-61-02l"/>
+                        <segue destination="3ev-RH-Kkl" kind="presentation" identifier="ShowNewFeed" id="ag2-Xx-bBd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epp-Ol-UN7" userLabel="First Responder" sceneMemberID="firstResponder"/>

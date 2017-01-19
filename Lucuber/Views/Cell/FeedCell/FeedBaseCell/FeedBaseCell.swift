@@ -234,7 +234,7 @@ class FeedBaseCell: UITableViewCell {
     
     lazy var discussionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "icon-chatbubble")
+        imageView.image = UIImage(named: "icon_discussion")
         return imageView
     }()
     

@@ -875,24 +875,19 @@ internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSor
     
     if let kind = kind {
         switch kind {
-            
         case .formula:
             query.whereKey("categoryString", equalTo: FeedCategory.formula.rawValue)
-            
         default:
             break
         }
     }
     
-    query.limit = 30
+    query.limit = 20
     query.includeKey("withFormula")
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
     query.order(byDescending: "createdAt")
-    
-    
-   
     
     switch uploadingFeedMode {
         
@@ -900,7 +895,7 @@ internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSor
         // Do Noting
         break
     case .loadMore:
-        query.whereKey("createAt", lessThan: lastFeedCreatDate)
+        query.whereKey("createdAt", lessThan: lastFeedCreatDate)
     }
     
     query.findObjectsInBackground { newFeeds, error in
@@ -914,7 +909,7 @@ internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSor
             if let newFeeds = newFeeds as? [DiscoverFeed] {
  
                 newFeeds.forEach {
-                    printLog($0)
+//                    printLog($0)
                     $0.parseAttachmentsInfo()
                 }
                 

@@ -111,7 +111,8 @@ struct FeedCellLayout {
         let messageCountLabelWidth: CGFloat = 30
         let messageConuntLabelFrame = CGRect(x: screenWidth - messageCountLabelWidth - 39 - 8, y: leftBottomLabelOriginY, width: messageCountLabelWidth, height: 19)
         
-        let discussionImageViewFrame = CGRect(x: screenWidth - 24 - 15, y: leftBottomLabelOriginY - 1, width: 24, height: 20)
+        let discussionImageViewFrame = CGRect(x: screenWidth - 24 - 15, y: leftBottomLabelOriginY - 1, width: 30, height: 19)
+        
         
         let defaultLayout = FeedCellLayout.DefaultLayout(
             avatarImageViewFrame: avatarImageViewFrame,

@@ -128,6 +128,10 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
         self.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     // MARK: - Target & Action
     func createNewFeedsAction() {
         feedsViewController.creatNewFeed(UIButton())
@@ -154,6 +158,8 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
             vc.hidesBottomBarWhenPushed = true
             
             prepareSearchTransition()
+            
+            vc.originalNavigationControllerDelegate = self.originalNavigationControllerDelegate
             
         case "showProfileView":
             showProfileViewControllerAction?(segue, sender)

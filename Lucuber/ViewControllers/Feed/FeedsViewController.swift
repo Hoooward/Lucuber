@@ -39,17 +39,15 @@ struct LayoutCatch {
     }
 }
 
-class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, CanScrollsToTop{
+class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
+    
+    var newFeedViewController: NewFeedViewController?
     
     var originalNavigationControllerDelegate: UINavigationControllerDelegate?
     lazy var searchTransition: SearchTransition = {
         return SearchTransition()
     }()
 
-    enum SegueIdentifier: String {
-        case newFeed = "showNewFeed"
-    }
-    
     var seletedFeedCategory: FeedCategory?
     fileprivate var selectedIndexPathForMenu: IndexPath?
     
@@ -151,7 +149,7 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+//        navigationController?.setNavigationBarHidden(false, animated: false)
         
         //有
         if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
@@ -343,6 +341,13 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
             loadingFeedsIndicator.startAnimating()
         }
         
+        switch mode {
+        case .top:
+            canLoadMore = true
+        case .loadMore:
+            break
+        }
+        
         let failureHandler: FailureHandler  = { reason, errorMessage in
             defaultFailureHandler(reason, errorMessage)
             
@@ -361,6 +366,8 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
                 guard let strongSelf = self else {
                     return
                 }
+                
+                strongSelf.canLoadMore = feeds.count == 20
                 
                 strongSelf.isUploadingFeed = false
                 strongSelf.loadingFeedsIndicator.stopAnimating()
@@ -465,92 +472,92 @@ class FeedsViewController: BaseViewController, SegueHandlerType, SearchTrigeer, 
     }
     
     // MARK: - Segue
-    var newFeedViewController: NewFeedViewController?
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let identifier = segueIdentifier(for: segue)
-        
-        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
-            [weak self] feed, newFeedViewController in
-            
-            self?.newFeedViewController = newFeedViewController
-            
-            DispatchQueue.main.async {
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                strongSelf.tableView.customScrollsToTop()
-                strongSelf.tableView.beginUpdates()
-                
-                strongSelf.uploadingFeeds.insert(feed, at: 0)
-                
-                let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
-                strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                
-                strongSelf.tableView.endUpdates()
-            }
-        }
-        
-        let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
-            [weak self] feed in
-            
-            self?.newFeedViewController = nil
-            
-            DispatchQueue.main.async {
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                feed.parseAttachmentsInfo()
-                
-                strongSelf.tableView.customScrollsToTop()
-                
-                strongSelf.tableView.beginUpdates()
-                
-                var animation: UITableViewRowAnimation = .automatic
-                
-                if !strongSelf.uploadingFeeds.isEmpty {
-                    
-                    strongSelf.uploadingFeeds = []
-                    
-                    let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
-                    
-                    strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
-                    
-                    animation = .none
-                }
-                
-                strongSelf.feeds.insert(feed, at: 0)
-                
-                let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
-                strongSelf.tableView.insertRows(at: [indexPath], with: animation)
-                
-                strongSelf.tableView.endUpdates()
-            }
-            
-            // TODO: - joinGroup
-        }
-        
-        let getFeedsViewController: () -> FeedsViewController? = {
-            [weak self] in
-            return self
-        }
-        
-        switch identifier {
-            
-        case .newFeed:
-            guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
-                return
-            }
-            vc.beforUploadingFeedAction = beforeUploadingFeedAction
-            vc.afterUploadingFeedAction = afterCreatedFeedAction
-            vc.getFeedsViewController = getFeedsViewController
     
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        
+//        let identifier = segueIdentifier(for: segue)
+//        
+//        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
+//            [weak self] feed, newFeedViewController in
+//            
+//            self?.newFeedViewController = newFeedViewController
+//            
+//            DispatchQueue.main.async {
+//                
+//                guard let strongSelf = self else {
+//                    return
+//                }
+//                strongSelf.tableView.customScrollsToTop()
+//                strongSelf.tableView.beginUpdates()
+//                
+//                strongSelf.uploadingFeeds.insert(feed, at: 0)
+//                
+//                let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
+//                strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+//                
+//                strongSelf.tableView.endUpdates()
+//            }
+//        }
+//        
+//        let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
+//            [weak self] feed in
+//            
+//            self?.newFeedViewController = nil
+//            
+//            DispatchQueue.main.async {
+//                
+//                guard let strongSelf = self else {
+//                    return
+//                }
+//                
+//                feed.parseAttachmentsInfo()
+//                
+//                strongSelf.tableView.customScrollsToTop()
+//                
+//                strongSelf.tableView.beginUpdates()
+//                
+//                var animation: UITableViewRowAnimation = .automatic
+//                
+//                if !strongSelf.uploadingFeeds.isEmpty {
+//                    
+//                    strongSelf.uploadingFeeds = []
+//                    
+//                    let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
+//                    
+//                    strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+//                    
+//                    animation = .none
+//                }
+//                
+//                strongSelf.feeds.insert(feed, at: 0)
+//                
+//                let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
+//                strongSelf.tableView.insertRows(at: [indexPath], with: animation)
+//                
+//                strongSelf.tableView.endUpdates()
+//            }
+//            
+//            // TODO: - joinGroup
+//        }
+//        
+//        let getFeedsViewController: () -> FeedsViewController? = {
+//            [weak self] in
+//            return self
+//        }
+//        
+//        switch identifier {
+//            
+//        case .newFeed:
+//            guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
+//                return
+//            }
+//            vc.beforUploadingFeedAction = beforeUploadingFeedAction
+//            vc.afterUploadingFeedAction = afterCreatedFeedAction
+//            vc.getFeedsViewController = getFeedsViewController
+//    
+//        }
+//    }
 }
 
 // MARK: - TableView Delegaate&DataSource
