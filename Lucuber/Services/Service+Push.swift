@@ -602,6 +602,9 @@ public func pushNewMessageNotificationToAPNs(with message: Message) {
 }
 
 // MARK: - Formula
+
+
+
 public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
     
     guard let newDiscoverFormula = parseFormulaToDisvocerModel(with: newFormula) else  {
@@ -887,6 +890,28 @@ public enum UploadFeedMode {
     case loadMore
 }
 
+public func pushDeleteFeedInfoToLeancloud(with feedID: String?, failureHandler: FailureHandler?, completion: @escaping (DiscoverFeed) -> Void) {
+    
+    guard let feedID = feedID else {
+        failureHandler?(Reason.other(nil), " 删除FeedID 为空")
+        return
+    }
+    
+    let feed = DiscoverFeed(objectId: feedID )
+    feed.deleted = true
+    feed.saveInBackground({ success, error in
+        
+        if error != nil {
+            failureHandler?(Reason.network(error), "删除Feed失败")
+        }
+        
+        if success {
+            completion(feed)
+        }
+    })
+    
+}
+
 public func openGraphWithURL(_ URL: URL, failureHandler: FailureHandler?, completion: @escaping (OpenGraph) -> Void) {
     
     Alamofire.request(URL.absoluteString).responseString { (response) in
@@ -982,6 +1007,79 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
 }
 
 
+
+
+
+// MARK: - Register
+public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
+    
+    let query = AVQuery(className: "_User")
+    query.whereKey("mobilePhoneNumber", equalTo: mobile)
+    
+    query.findObjectsInBackground { users, error in
+        
+        switch checkType {
+            
+        case .register:
+            
+            if let resultUsers = users {
+                
+                if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
+                    
+                    failureHandler(Reason.noSuccess, "您输入的手机号码已经注册, 请返回登录")
+                    
+                } else { completion() }
+                
+            } else { completion() }
+            
+            if error != nil {
+                
+                failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
+            }
+            
+            
+        case .login:
+            
+            if let resultUsers = users {
+               
+                if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
+                    completion()
+                    
+                } else {
+                   
+                    failureHandler(Reason.noSuccess, "您输入的手机号码尚未注册, 请返回注册")
+                }
+            }
+            if error != nil {
+                
+                failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
+            }
+        }
+    }
+}
+
+
+/// 获取短信验证码
+public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
+    AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
+        if success { completion?() }
+        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+    }
+}
+
+
+/// 注册登录
+public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
+    
+    
+    AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
+        
+        if let user = user { completion?(user) }
+        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+    }
+}
+
+
 public func pushCubeCategory() {
     
     let categorys = [
@@ -1063,341 +1161,7 @@ public func pushCubeCategory() {
     AVObject.saveAll(cubeCategorys)
 }
 
-//extension AVQuery {
-//
-//     enum DefaultKey: String {
-//        case updatedTime = "updatedAt"
-//        case creatTime = "createdAt"
-//    }
-//
-//    class func getFormula(mode: UploadFormulaMode) -> AVQuery {
-//
-//        switch mode {
-//
-//        case .my:
-//
-//            let query = AVQuery(className: DiscoverFormula.parseClassName())
-//            query.addAscendingOrder("name")
-//            query.whereKey("creator", equalTo: AVUser.current()!)
-//            
-//            query.limit = 1000
-//            return query
-//            
-//        case .library:
-//            
-//            let query = AVQuery(className: DiscoverFormula.parseClassName())
-//            query.whereKey("isLibrary", equalTo: NSNumber(booleanLiteral: true))
-//            query.addAscendingOrder("serialNumber")
-//            query.limit = 1000
-//            return query
-//            
-//        }
-//    }
-//    
-// 
-//    
-//}
 
-//func fetchFormulaWithMode(uploadingFormulaMode: UploadFormulaMode,
-//                                 category: Category,
-//                                 completion: (([Formula]) -> Void)?,
-//                                 failureHandler: ((NSError?) -> Void)?) {
-//    
-//    switch uploadingFormulaMode {
-//        
-//    case .my :
-//        
-//        let query = AVQuery.getFormula(mode: uploadingFormulaMode)
-//        
-//        printLog("-> 开始获取我的公式")
-//        query.findObjectsInBackground { formulas, error in
-//            
-//            if error != nil {
-//                
-//                failureHandler?(error as? NSError)
-//                let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
-////                completion?(result)
-//                printLog("更新我的公式失败， 使用 Realm 中的我的公式")
-// 
-//            }
-//            
-//            if let formulas = formulas as? [Formula] {
-//                
-//                /// 将 Result 过滤一下, 只使用符合 category 的 formula
-//                completion?(formulas.filter{ $0.category == category })
-//                
-//                /// 删除 Library 中 Formula 对应的 content
-//                deleteMyFormulasRContentAtRealm()
-//                
-//                /// 更新数据库中的 Formula
-////                saveUploadFormulasAtRealm(formulas: formulas, mode: uploadingFormulaMode, isCreatNewFormula: false)
-//                
-//                printLog("-> 成功更新我的公式")
-//                
-//            }
-//        }
-//        
-//    case .library:
-//        
-//        // 公式库, 如果Realm中没有数据, 则尝试从网络加载, 否则不需要从网络加载
-//        let result = getFormulsFormRealmWithMode(mode: uploadingFormulaMode, category: category)
-//        
-//        if result.isEmpty {
-//            
-//            
-//            failureHandler?(nil)
-//            NotificationCenter.default.post(name: Notification.Name.updateFormulasLibraryNotification, object: nil)
-//            
-//        } else {
-//            
-////            completion?(result)
-//        }
-//        
-//    }
-//
-//}
-
-
-//public func fetchLibraryFormulaFormLeanCloudAndSaveToRealm(completion: (() -> Void)?, failureHandler: ((NSError) -> Void)?) {
-//    
-//    
-//    let query = AVQuery.getFormula(mode: .library)
-//    
-//    query.findObjectsInBackground { formulas, error in
-//        
-//        if error != nil {
-//            
-//            failureHandler?(error as! NSError)
-//        }
-//        
-//        if let formulas = formulas as? [Formula] {
-//            
-//            if let user = AVUser.current() {
-//                
-//                user.setNeedUpdateLibrary(need: false)
-//                user.saveEventually { successed, error in
-//                    
-//                    if successed {
-//                        printLog("更新 currentUser 的 needUploadLibrary 属性为 false")
-//                        
-//                    } else {
-//                        printLog("更新 currentUser 的 needUploadLibrary 属性失败")
-//                    }
-//                }
-//            }
-//            
-//            deleteLibraryFormalsRContentAtRealm()
-//            
-////            saveUploadFormulasAtRealm(formulas: formulas, mode: .library, isCreatNewFormula: false)
-//            
-//            completion?()
-//            
-//        }
-//    }
-//    
-//}
-
-
-//internal func saveNewFormulaToRealmAndPushToLeanCloud(newFormula: Formula,
-//                                                      completion: (() -> Void)?,
-//                                                      failureHandler: ((NSError) -> Void)? ) {
-//    
-//    if let user = AVUser.current() {
-//        
-//        newFormula.creatUser = user
-//        newFormula.creatUserID = user.objectId!
-//        
-//        let acl = AVACL()
-//        acl.setPublicReadAccess(true)
-//        acl.setWriteAccess(true, for: AVUser.current()!)
-//        newFormula.acl = acl
-//        
-//        
-//        newFormula.saveEventually({ (success, error) in
-//            if error  == nil {
-//                printLog("新公式保存到 LeanCloud 成功")
-//            } else {
-//                printLog("新公式保存到 LeanCloud 失败")
-//            }
-//        })
-//        
-//        saveUploadFormulasAtRealm(formulas: [newFormula], mode: nil, isCreatNewFormula: true)
-//        
-//        
-//        completion?()
-//        
-//        
-//    } else {
-//        
-//        let error = NSError(domain: "没有登录用户", code: 0, userInfo: nil)
-//        failureHandler?(error)
-//    }
-//    
-//    
-//    
-//}
-
-// MARK: - Register
-
-public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
-    
-    let query = AVQuery(className: "_User")
-    query.whereKey("mobilePhoneNumber", equalTo: mobile)
-    
-    query.findObjectsInBackground { users, error in
-        
-        switch checkType {
-            
-        case .register:
-            
-            if let resultUsers = users {
-                
-                if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
-                    
-                    failureHandler(Reason.noSuccess, "您输入的手机号码已经注册, 请返回登录")
-                    
-                } else { completion() }
-                
-            } else { completion() }
-            
-            if error != nil {
-                
-                failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
-            }
-            
-            
-        case .login:
-            
-            if let resultUsers = users {
-               
-                if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
-                    completion()
-                    
-                } else {
-                   
-                    failureHandler(Reason.noSuccess, "您输入的手机号码尚未注册, 请返回注册")
-                }
-            }
-            if error != nil {
-                
-                failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
-            }
-        }
-    }
-}
-
-
-/// 获取短信验证码
-public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
-    
-//    switch loginType {
-        
-//    case .login:
-//        AVUser.requestLoginSmsCode(phoneNumber, with: { success, error in
-//            if success { completion?() }
-//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-//        })
-//    case .register:
-//        AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
-//            if success { completion?() }
-//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-//        }
-//        
-//    }
-        AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
-            if success { completion?() }
-            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-        }
-}
-
-
-/// 注册登录
-public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
-    
-//    switch loginType {
-//    
-//    case .login:
-//        AVUser.logInWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode, block: { user, error in
-//            if let user = user {
-//                printLog(AVUser.current()?.sessionToken)
-//                completion?(user)
-//            }
-//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-//        })
-//    case .register:
-//        
-//        AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
-//     
-//            if let user = user { completion?(user) }
-//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-//        }
-//    }
-    
-    AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
-        
-        if let user = user { completion?(user) }
-        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-    }
-}
-
-
-/// Logout
-public func logout() {
-    AVUser.logOut()
-}
-
-
-// Message
-
-
-//
-//func convertToLeanCloudMessageAndSend(message: Message, failureHandler: (() -> Void)?, completion: ((Bool) -> Void)? ) {
-//    
-//    let discoverMessage = parseMessageToDisvocerModel(with: message)
-//    
-//    discoverMessage.saveInBackground {
-//        successed, error in
-//        
-//        if error != nil {
-//            // 标记发送失败
-//            guard let realm = try? Realm() else {
-//                failureHandler?()
-//                return
-//            }
-//            
-//            try? realm.write {
-//                message.sendStateInt = MessageSendState.failed.rawValue
-//            }
-//            
-//            failureHandler?()
-//            
-//        }
-//        
-//        if successed {
-//            printLog("发送成功")
-//            
-//            guard let realm = try? Realm() else {
-//                
-//                failureHandler?()
-//                return
-//            }
-//            
-//            try? realm.write {
-//                message.sendStateInt = MessageSendState.successed.rawValue
-//                message.messageID = leanCloudMessage.objectId!
-//            }
-//            
-//            completion?(successed)
-//        }
-//        
-//        // 通知 Cell 更改发送状态提示.
-//        NotificationCenter.default.post(name: Notification.Name.updateMessageStatesNotification, object: nil)
-//        
-//    }
-//    
-//}
-
-// Feed
 
 
 

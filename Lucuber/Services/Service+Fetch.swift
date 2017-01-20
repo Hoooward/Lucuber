@@ -835,6 +835,7 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: FeedCatego
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
     query.order(byDescending: "createdAt")
+   query.whereKey("deleted", notEqualTo: true)
     query.whereKey("body", contains: keyword)
     
     switch mode {
@@ -911,6 +912,7 @@ internal func fetchDiscoverFeedFromUser(_ profileUser: ProfileUser?, category: F
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
+    query.whereKey("deleted", notEqualTo: true)
     query.whereKey("creator", equalTo: user)
     query.order(byDescending: "createdAt")
     
@@ -961,6 +963,7 @@ internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSor
     query.includeKey("withFormula.contents")
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
+    query.whereKey("deleted", notEqualTo: true)
     query.order(byDescending: "createdAt")
     
     switch uploadingFeedMode {
@@ -1026,7 +1029,7 @@ public func saveFeedWithDiscoverFeed(_ feedData: DiscoverFeed, group: Group, inR
     }
     
     feed.categoryString = feedData.categoryString
-    feed.deleted = false
+    feed.deleted = feedData.deleted
     
     feed.group = group
     group.withFeed = feed

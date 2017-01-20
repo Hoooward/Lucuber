@@ -124,14 +124,16 @@ class SubscribesViewController: UIViewController {
                 vc.feed = ConversationFeed.feedType(feed)
             }
             
-            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+            vc.afterDeletedFeedAction = { [weak self] _ in
                 
 //                if let strongSelf = self {
 //                    
 //                    var deletedFeed: DiscoverFeed?
-//                    for feed in strongSelf.feeds {
-//                        if feed.objectId! == feedLcObjcetID {
-//                            deletedFeed = feed
+//                    var indexOfDeletedFeed: Int?
+//                    var feeds = strongSelf.feedConversations.map { $0.withGroup?.withFeed }.flatMap({$0})
+//                    for (index, feed) in feeds!.enumerated() {
+//                        if feed.lcObjectID == feedLcObjcetID {
+//                            indexOfDeletedFeed = index
 //                            break
 //                        }
 //                    }

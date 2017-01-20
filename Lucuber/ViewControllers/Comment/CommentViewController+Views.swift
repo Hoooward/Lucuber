@@ -126,8 +126,9 @@ extension  CommentViewController {
 		let manager = CommentMoreViewManager()
 
 		manager.conversation = self.conversation
+        manager.feed = self.feed
 
-		manager.toggleSubscribeAction = { [weak self] in
+		manager.toggleSubscribeOrDeleteFeedAction = { [weak self] in
 
             
 			guard let strongSelf = self else {
@@ -136,77 +137,120 @@ extension  CommentViewController {
 			guard let group = strongSelf.conversation.withGroup else {
 				return
 			}
-
-			let oldincludeMe: Bool = group.includeMe
-            let subscribeFeedID = group.groupID
             
-            var newSubscribeList = [String]()
-            if let oldMySubscribeList = AVUser.current()?.subscribeList() {
-                newSubscribeList = oldMySubscribeList
-            }
             
-            if !oldincludeMe {
-                if newSubscribeList.contains(subscribeFeedID) {
-                    return
-                } else {
-                    newSubscribeList.append(subscribeFeedID)
-                }
-            } else {
-                if newSubscribeList.contains(subscribeFeedID) {
-                    if let index = newSubscribeList.index(of: subscribeFeedID) {
-                        newSubscribeList.remove(at: index)
-                    }
-                } else {
-                    return
-                }
-            }
-            
-            // 如果之前已经订阅, 并且开启通知
-            if oldincludeMe && group.notificationEnabled {
+            // 先删除 Feed, 之后再取消订阅
+            if strongSelf.feed?.isMyFeed ?? false {
                 
-                unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
-
-                    manager.moreView.hideAndDo(afterHideAction: {
-                        CubeAlert.alertSorry(message: "关闭通知失败,请检查网络连接", inViewController: self)
+                CubeAlert.confirmOrCancel(title: "确定要删除此话题吗?", message: "此话题将从服务器删除, 不可撤销!", confirmTitle: "删除", cancelTitles: "取消", inViewController: self, confirmAction: {
+                    // 删除 Feed
+                    pushDeleteFeedInfoToLeancloud(with: strongSelf.feed?.feedID, failureHandler: { reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        manager.moreView.hideAndDo(afterHideAction: {
+                            CubeAlert.alertSorry(message: "删除话题失败,请检查网络连接", inViewController: self)
+                        })
+                        
+                    }, completion: { feed in
+                        
+                        func updateMyInfoFutherAction() {
+                            updateMySubscribeInfoAndPushToLeancloud(with: group, failureHandler: { reason, errorMessage in
+                                defaultFailureHandler(reason, errorMessage)
+                                
+                            }, completion: {
+                                
+                                guard let realm = try? Realm() else {
+                                    return
+                                }
+                                
+                                try? realm.write {
+                                    group.includeMe = false
+                                    group.withFeed?.deleted = true
+                                    group.notificationEnabled = false
+                                }
+                                
+//                                NotificationCenter.default.post(name: Config.NotificationName.deletedFeed, object: feed.objectId ?? "")
+//                                NotificationCenter.default.post(name: Config.NotificationName.changedFeedConversation, object: nil)
+                                strongSelf.afterDeletedFeedAction?(feed.objectId ?? "")
+                                
+                                _ = strongSelf.navigationController?.popViewController(animated: true)
+                            })
+                        }
+                        
+                        if group.notificationEnabled {
+                            // 取消通知
+                            unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                                defaultFailureHandler(reason, errorMessage)
+                                
+                            }, completion: {
+                                updateMyInfoFutherAction()
+                            })
+                        } else {
+                            // 更新订阅列表
+                            updateMyInfoFutherAction()
+                        }
                     })
-                    defaultFailureHandler(reason, errorMessage)
                     
-                }, completion: {
+                }, cancelAction: {
                     
-                    pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
+                 
+                })
+                
+            } else {
+                // 仅仅是更新订阅列表
+                let oldincludeMe: Bool = group.includeMe
+                
+                // 如果之前已经订阅, 并且开启通知, 先关闭通知
+                if  oldincludeMe && group.notificationEnabled {
+                    unSubscribeConversationWithGroupID(group.groupID, failureHandler: { reason, errorMessage in
+                        
                         manager.moreView.hideAndDo(afterHideAction: {
                             CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接", inViewController: self)
                         })
                         defaultFailureHandler(reason, errorMessage)
+                        
+                    }, completion: {
+                        
+                        updateMySubscribeInfoAndPushToLeancloud(with: group, failureHandler: { reason, errorMessage in
+                            manager.moreView.hideAndDo(afterHideAction: {
+                                CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接", inViewController: self)
+                            })
+                            defaultFailureHandler(reason, errorMessage)
+                            
+                        }, completion: {
+                            
+                            guard let realm = try? Realm() else {
+                                return
+                            }
+                            
+                            try? realm.write {
+                                group.includeMe = false
+                                group.notificationEnabled = false
+                            }
+
+                        })
+                    })
+                    
+                } else {
+                   // 如果之前没有订阅, 仅订阅, 不开启通知
+                    
+                    updateMySubscribeInfoAndPushToLeancloud(with: group, failureHandler: {reason, errorMessage in
+                        defaultFailureHandler(reason, errorMessage)
+                        manager.moreView.hideAndDo(afterHideAction: {
+                            CubeAlert.alertSorry(message: "订阅失败,请检查网络连接", inViewController: self)
+                        })
+                        defaultFailureHandler(reason, errorMessage)
+ 
                     }, completion: {
                         
                         guard let realm = try? Realm() else {
                             return
                         }
-                        
                         try? realm.write {
-                            group.includeMe = false
-                            group.notificationEnabled = false
+                            group.includeMe = !group.includeMe
                         }
                     })
-                })
-                
-            } else {
-                
-                pushMySubscribeListToLeancloud(with: newSubscribeList,failureHandler: { reason, errorMessage in
-                    defaultFailureHandler(reason, errorMessage)
-                }, completion: {
-                    
-                    guard let realm = try? Realm() else {
-                        return
-                    }
-                    
-                    try? realm.write {
-                        group.includeMe = !oldincludeMe
-                    }
-                })
+                }
             }
-     
 		}
        
         manager.toggleSwitchNotification = { [weak self] switchOn in

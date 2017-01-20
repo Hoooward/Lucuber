@@ -25,7 +25,6 @@ public class DiscoverCubeCategory: AVObject, AVSubclassing {
     public static func parseClassName() -> String {
         return "DiscoverCubeCategory"
     }
-    
     @NSManaged var categoryString: String
 }
 
@@ -180,6 +179,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     @NSManaged var allowComment: Bool
     @NSManaged var creator: AVUser?
     @NSManaged var messagesCount: Int
+//    @NSManaged var deletedByCreator: Bool
     
     @NSManaged var body: String
     @NSManaged var categoryString: String

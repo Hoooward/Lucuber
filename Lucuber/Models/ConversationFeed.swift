@@ -8,13 +8,36 @@
 
 import Foundation
 import RealmSwift
-//import CoreLocation
-
+import AVOSCloud
 
 enum ConversationFeed {
     
     case discoveredFeedType(DiscoverFeed)
     case feedType(Feed)
+    
+    
+    var isMyFeed: Bool {
+        switch self {
+        case .discoveredFeedType(let discoverFeed):
+            guard
+                let feedCreator = discoverFeed.creator,
+                let feedCreatorID = feedCreator.objectId,
+                let me = AVUser.current(),
+                let meID = me.objectId else {
+                return false
+            }
+            return feedCreatorID == meID
+            
+        case .feedType(let feed):
+            guard
+                let feedCreator = feed.creator,
+                let me = AVUser.current(),
+                let meID = me.objectId else {
+                return false
+            }
+            return feedCreator.lcObjcetID == meID
+        }
+    }
     
     var feedID: String? {
         switch self {
@@ -93,12 +116,9 @@ enum ConversationFeed {
                     guard let realm = try? Realm() else {
                         return nil
                     }
-                   
                     if let formula = formulaWith(objectID: formulaInfo.localObjectID, inRealm: realm) {
                         return formula
                     }
-                    
-                   
                     realm.beginWrite()
                     let formula = convertDiscoverFormulaToFormula(discoverFormula: formulaInfo, uploadMode: .library, withFeed: Feed(), inRealm: realm, completion: nil)
                     try? realm.commitWrite()

@@ -289,7 +289,8 @@ class FeedHeaderView: UIView {
         // 设置约束
         timeLabelTopConstraint.constant = CGFloat(feed.hasAttachments ? (15 + 80 + 15) : 15)
         
-        self.imageAttachments = feed.imageAttachments
+       
+        
 
         messageLabelTrailingConstraint.constant = CGFloat(feed.hasAttachments ? 15 : 60)
 
@@ -323,7 +324,7 @@ class FeedHeaderView: UIView {
             }
             
         case .image:
-            
+            self.imageAttachments = feed.imageAttachments
             mediaCollectionView.isHidden = false
             attachmentContainerView.isHidden = true
             
@@ -336,6 +337,10 @@ class FeedHeaderView: UIView {
             attachmentContainerHeightConstraint.constant = 80
             
             if let formula = feed.formulaInfo {
+                
+                let imageAttachments = [ImageAttachment(metadata: nil, URLString: formula.imageURL, image: nil)]
+                self.imageAttachments = imageAttachments
+                
                 feedFormulaContainerView.configureWithDiscoverFormula(formula: formula)
             }
             

@@ -12,22 +12,36 @@ import AVOSCloud
 final class CommentMoreViewManager {
     
     var conversation: Conversation?
+    var feed: ConversationFeed?
     
     public var toggleSwitchNotification: ((Bool) -> Void)?
-    public var toggleSubscribeAction: (() -> Void)?
+    public var toggleSubscribeOrDeleteFeedAction: (() -> Void)?
     public var reportAction: (() -> Void)?
     
 
     private func makeSubscribeGroupItem() -> ActionSheetView.Item {
         var isSubscribe = false
+        
         if let group = self.conversation?.withGroup {
             isSubscribe = group.includeMe
         }
+        
+        var title = ""
+        if let feed = feed {
+            if feed.isMyFeed {
+                title = "删除"
+            } else if isSubscribe {
+                title = "取消订阅"
+            } else {
+                title = "订阅"
+            }
+        }
+        
         return ActionSheetView.Item.Default(
-            title: isSubscribe ? "取消订阅" : "订阅",
+            title: title,
             titleColor: UIColor.cubeTintColor(),
             action: { [weak self] in
-                self?.toggleSubscribeAction?()
+                self?.toggleSubscribeOrDeleteFeedAction?()
                 return true
             }
         )
@@ -35,14 +49,27 @@ final class CommentMoreViewManager {
     
     var subscribeGroupItem: ActionSheetView.Item {
         var isSubscribe = false
+        
         if let group = self.conversation?.withGroup {
             isSubscribe = group.includeMe
         }
+        
+        var title = ""
+        if let feed = feed {
+            if feed.isMyFeed {
+                title = "删除"
+            } else if isSubscribe {
+                title = "取消订阅"
+            } else {
+                title = "订阅"
+            }
+        }
+        
         return ActionSheetView.Item.Default(
-            title: isSubscribe ? "取消订阅" : "订阅",
+            title: title,
             titleColor: UIColor.cubeTintColor(),
             action: { [weak self] in
-                self?.toggleSubscribeAction?()
+                self?.toggleSubscribeOrDeleteFeedAction?()
                 return true
             }
         )

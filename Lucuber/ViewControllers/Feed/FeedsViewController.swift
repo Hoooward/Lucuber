@@ -342,6 +342,8 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillHideNotification(_:)), name: Notification.Name.UIMenuControllerWillHideMenu, object: nil)
        
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.deletedFeed(sender:)), name: Config.NotificationName.deletedFeed, object: nil)
 
         
         if feeds.isEmpty {
@@ -352,9 +354,33 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     
     deinit {
         printLog("\(self)" + "已经释放")
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Target & Action
+    
+    @objc fileprivate func deletedFeed(sender: Notification) {
+        
+        guard !feeds.isEmpty else {
+            return
+        }
+        
+        let feedID = sender.object as! String
+        var indexOfDeletedFeed: Int?
+        for (index, feed) in feeds.enumerated() {
+            if feed.objectId! == feedID {
+                indexOfDeletedFeed = index
+                break
+            }
+        }
+        guard let index = indexOfDeletedFeed else {
+            return
+        }
+        feeds.remove(at: index)
+        
+        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
     
     fileprivate var canLoadMore: Bool = true
     

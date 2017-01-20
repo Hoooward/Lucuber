@@ -324,7 +324,8 @@ class NewFeedViewController: UIViewController {
                     self?.afterUploadingFeedAction?(newFeed)
                     
                     CubeHUD.hideActivityIndicator()
-//                     NSNotificationCenter.defaultCenter().postNotificationName(YepConfig.Notification.createdFeed, object: Box<DiscoveredFeed>(feed))
+                    
+                    NotificationCenter.default.post(name: Config.NotificationName.createdFeed, object: newFeed)
                     
                     if !category.needBackgroundUpload {
                         self?.dismiss(animated: true, completion: nil)

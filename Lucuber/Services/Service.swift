@@ -70,6 +70,51 @@ public func userNotificationStateIsAuthorized() -> Bool {
     return isAuthorized
 }
 
+public func updateMySubscribeInfoAndPushToLeancloud(with group: Group, failureHandler: @escaping FailureHandler, completion: (() -> Void)?) {
+    
+    let oldincludeMe: Bool = group.includeMe
+    let subscribeFeedID = group.groupID
+    
+    var newSubscribeList = [String]()
+    if let oldMySubscribeList = AVUser.current()?.subscribeList() {
+        newSubscribeList = oldMySubscribeList
+    }
+    
+    if !oldincludeMe {
+        if newSubscribeList.contains(subscribeFeedID) {
+            
+        } else {
+            newSubscribeList.append(subscribeFeedID)
+        }
+    } else {
+        if newSubscribeList.contains(subscribeFeedID) {
+            if let index = newSubscribeList.index(of: subscribeFeedID) {
+                newSubscribeList.remove(at: index)
+            }
+        } else {
+            
+        }
+    }
+    
+    pushMySubscribeListToLeancloud(with: newSubscribeList, failureHandler: failureHandler, completion: completion)
+}
+
+
+public func subscribeOrUnsubscribeConverationWithGroup(_ group: Group, subscribe: Bool, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
+   
+//    let oldIncludeMe = group.includeMe
+//    let oldNotificationEnabled = group.notificationEnabled
+//    let subscribeFeedID = group.groupID
+   
+//    if oldNotificationEnabled
+    
+//    if !oldIncludeMe {
+//        subscribeConversationWithGroupID(subscribeFeedID, failureHandler: failureHandler, completion: completion)
+//    } else {
+//        unSubscribeConversationWithGroupID(subscribeFeedID, failureHandler: failureHandler, completion: completion)
+//    }
+}
+
 public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
     
     
@@ -79,7 +124,7 @@ public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: 
     currentInstallation.saveInBackground { success, error in
         
         if error != nil {
-            failureHandler(Reason.network(error), "订阅该频道失败")
+            failureHandler(Reason.network(error), "开启话题通知失败,请检查网络连接")
         }
         
         if success {
@@ -90,6 +135,7 @@ public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: 
 }
 
 public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
+    
     
     let currentInstallation = AVInstallation.current()
     
@@ -105,7 +151,7 @@ public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler
                 
                 if error != nil {
                     currentInstallation.channels = oldChannles
-                    failureHandler(Reason.network(error), "取消订阅频道失败")
+                    failureHandler(Reason.network(error), "关闭话题通知失败,请检查网络连接")
                 }
                 
                 if success {
