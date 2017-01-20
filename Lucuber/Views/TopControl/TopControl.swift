@@ -47,6 +47,7 @@ class TopControl: UIView {
     
     private func makeUI(_ childViewControllers: [UIViewController]) {
         
+//        backgroundColor = UIColor.white
         let buttonHeight: CGFloat = Config.TopControl.height
         var buttonX: CGFloat = 0
         
