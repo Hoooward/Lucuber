@@ -152,6 +152,9 @@ extension  CommentViewController {
                         
                     }, completion: { feed in
                         
+                        // 发送通知给订阅者, 告知 feed 已经删除
+                        pushDeletedFeedNotificationToAPNs(with: feed)
+                        
                         func updateMyInfoFutherAction() {
                             updateMySubscribeInfoAndPushToLeancloud(with: group, failureHandler: { reason, errorMessage in
                                 defaultFailureHandler(reason, errorMessage)

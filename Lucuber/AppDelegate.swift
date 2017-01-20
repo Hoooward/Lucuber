@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case officialMessage = "official_message"
         case friendRequest = "friend_request"
         case messageDeleted = "message_deleted"
+        case feedDeleted = "feedDeleted"
     }
     
     var lauchStyle = LaunchStyle.default {
@@ -223,7 +224,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
             }
 
+        case .messageDeleted:
+            defer {
+                completionHandler(UIBackgroundFetchResult.noData)
+            }
+            
             break
+            
+        case .feedDeleted:
+            
+            if let feedId = userInfo["feedID"] as? String {
+                
+                guard let realm = try? Realm() else { return }
+                if let feed = feedWith(feedId, inRealm: realm) {
+                    try? realm.write {
+                        feed.deleted = true
+                    }
+                }
+                
+                unSubscribeConversationWithGroupID(feedId, failureHandler: { _, _ in
+                    
+                }, completion: {
+                    if let feed = feedWith(feedId, inRealm: realm) {
+                        try? realm.write {
+                            feed.group?.notificationEnabled = false
+                        }
+                    }
+                    NotificationCenter.default.post(name: Config.NotificationName.deletedFeed, object: feedId)
+                    completionHandler(.newData)
+                })
+               
+                
+            }
+            
         default:
             break
         }
@@ -296,6 +329,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     fileprivate func clearNotification() {
+        if  UIApplication.shared.applicationIconBadgeNumber != 0 {
+            let installation = AVInstallation.current()
+            installation.badge = 0
+            installation.saveEventually()
+        }
         UIApplication.shared.applicationIconBadgeNumber = 0
         UIApplication.shared.cancelAllLocalNotifications()
     }

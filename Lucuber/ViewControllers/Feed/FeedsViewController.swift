@@ -340,8 +340,6 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillShowNotification(_:)), name: Notification.Name.UIMenuControllerWillShowMenu, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.didRecieveMenuWillHideNotification(_:)), name: Notification.Name.UIMenuControllerWillHideMenu, object: nil)
-       
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(FeedsViewController.deletedFeed(sender:)), name: Config.NotificationName.deletedFeed, object: nil)
 

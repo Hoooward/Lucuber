@@ -585,12 +585,43 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 
 
 // MARK: - APNs
-public func pushNewMessageNotificationToAPNs(with message: Message) {
 
+public func pushDeletedFeedNotificationToAPNs(with feed: DiscoverFeed) {
+    
+    let channel = feed.objectId ?? ""
+    AVPush.setProductionMode(false)
+    
     let dict: [String: Any] = [
-            "alert": "你订阅的话题有新的消息",
+        "type": AppDelegate.RemoteNotificationType.feedDeleted.rawValue,
+        "feedID": channel,
+        "content-available" : 1
+    ]
+    let push = AVPush()
+    push.setChannel(channel)
+    
+    push.setData(dict)
+    push.sendInBackground()
+}
+
+public func pushNewMessageNotificationToAPNs(with message: Message) {
+    
+//    var alertString = "你订阅的话题有新的消息"
+    
+    let creatorNickname = message.creator?.nickname ?? ""
+    var messageBody = message.textContent
+
+    if messageBody.characters.count > 20 {
+        let endOfDomain = messageBody.index(messageBody.startIndex, offsetBy: 17)
+        let rangeOfDomain = messageBody.startIndex ..< endOfDomain
+        messageBody = messageBody[rangeOfDomain]
+    }
+    
+    let dict: [String: Any] = [
+            "alert": "\(creatorNickname)" + ": " + "\(messageBody)",
             "type": AppDelegate.RemoteNotificationType.message.rawValue,
             "messageID": message.lcObjectID,
+            "badge": "Increment",
+            "sound": "default"
     ]
 
     AVPush.setProductionMode(false)
@@ -906,6 +937,7 @@ public func pushDeleteFeedInfoToLeancloud(with feedID: String?, failureHandler: 
         }
         
         if success {
+            
             completion(feed)
         }
     })

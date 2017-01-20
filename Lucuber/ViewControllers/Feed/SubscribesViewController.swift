@@ -88,6 +88,8 @@ class SubscribesViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(SubscribesViewController.reloadTableView), name: Config.NotificationName.newUnreadMessages, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SubscribesViewController.reloadTableView), name: Config.NotificationName.changedFeedConversation, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SubscribesViewController.reloadTableView), name: Config.NotificationName.deletedFeed, object: nil)
     }
     
     var isFirstAppear = true
@@ -154,6 +156,8 @@ class SubscribesViewController: UIViewController {
         if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
             feedsContainerViewController.showCommentViewControllerAction = showCommentViewControllerAction
         }
+        
+        updateFooterView()
     }
     
     deinit {
