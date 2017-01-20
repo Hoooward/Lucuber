@@ -24,7 +24,7 @@ class ChatRightBaseCell: ChatBaseCell {
     
     override var inGroup: Bool {
         willSet {
-            dotImageView.isHidden = newValue ? true : false
+//            dotImageView.isHidden = newValue ? true : false
         }
     }
     
@@ -91,9 +91,9 @@ class ChatRightBaseCell: ChatBaseCell {
     
     func tryUpdateMessageState() {
         
-        guard !inGroup else {
-            return
-        }
+//        guard !inGroup else {
+//            return
+//        }
         
         if let message = message {
             if !message.isInvalidated {

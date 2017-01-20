@@ -338,7 +338,7 @@ public func resendMessage(message: Message, failureHandler: @escaping FailureHan
             
         case .image:
             
-            let filePath = FileManager.cubeMessageImageURL(with: message.localThumbnailName)?.path ?? ""
+            let filePath = FileManager.cubeMessageImageURL(with: message.localAttachmentName)?.path ?? ""
             var fileData = Data()
             if let image = UIImage(contentsOfFile: filePath) {
                fileData = UIImageJPEGRepresentation(image, 0.95)!
@@ -348,7 +348,6 @@ public func resendMessage(message: Message, failureHandler: @escaping FailureHan
         default:
             break
         }
-        
     
     }
 }
@@ -510,6 +509,8 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
             message.sendState = MessageSendState.failed.rawValue
         }
         
+        NotificationCenter.default.post(name: NSNotification.Name.updateMessageStatesNotification, object: nil)
+        
     }, completion: completion)
     
 }
@@ -614,6 +615,14 @@ public func pushNewMessageNotificationToAPNs(with message: Message) {
         let endOfDomain = messageBody.index(messageBody.startIndex, offsetBy: 17)
         let rangeOfDomain = messageBody.startIndex ..< endOfDomain
         messageBody = messageBody[rangeOfDomain]
+    }
+    
+    // 暂时只处理图片
+    switch message.mediaType {
+    case MessageMediaType.image.rawValue:
+        messageBody = "图片"
+    default:
+        break
     }
     
     let dict: [String: Any] = [
