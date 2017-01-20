@@ -338,6 +338,10 @@ class CommentViewController: UIViewController {
 
         tryFetchMessages()
         commentCollectionViewHasBeenMovedToBottomOnece = true
+        
+        delay(0.1) { [weak self] in
+            self?.batchMarkMessgesAsreaded()
+        }
 
         if isFirstAppear {
 
@@ -563,8 +567,25 @@ class CommentViewController: UIViewController {
     func batchMarkMessgesAsreaded() {
         DispatchQueue.main.async {
             [weak self] in
-            guard let _ = self else {
+            guard let strongSelf = self else {
                 return
+            }
+            
+            
+            let predicate = NSPredicate(format: "readed = false")
+            let filteredMessages = strongSelf.messages.filter(predicate)
+            
+            printLog("filteredMessages.count: \(filteredMessages.count)")
+            printLog("conversation.unreadMessagesCount: \(strongSelf.conversation.unreadMessageCount)")
+            filteredMessages.forEach { message in
+                let _ = try? strongSelf.realm.write {
+                    message.readed = true
+                }
+            }
+            
+             try? strongSelf.realm.write {
+                strongSelf.conversation.unreadMessageCount = 0
+                strongSelf.conversation.hasUnreadMessages = false
             }
         }
     }
