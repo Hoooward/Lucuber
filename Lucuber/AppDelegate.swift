@@ -366,7 +366,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSFontAttributeName: UIFont.navigationBarTitle()
         ]
         UINavigationBar.appearance().titleTextAttributes = textAttributes
-//        UINavigationBar.appearance().barTintColor = UIColor.white
+        UINavigationBar.appearance().barTintColor = UIColor.white
         
         // TabBar
         

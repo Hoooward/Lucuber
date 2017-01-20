@@ -47,7 +47,7 @@ class TopControl: UIView {
     
     private func makeUI(_ childViewControllers: [UIViewController]) {
         
-//        backgroundColor = UIColor.white
+        backgroundView.backgroundColor = UIColor(red: 254/255.0, green: 254/255.0, blue: 254/255.0, alpha: 1)
         let buttonHeight: CGFloat = Config.TopControl.height
         var buttonX: CGFloat = 0
         
@@ -74,7 +74,8 @@ class TopControl: UIView {
             }
         }
         
-        backgroundView.image = UIImage(named: "navigationbarBackgroundWhite")
+//        backgroundView.image = UIImage(named: "navigationbarBackgroundWhite")
+        backgroundView.backgroundColor = UIColor(red: 254/255.0, green: 254/255.0, blue: 254/255.0, alpha: 1)
         
         self.insertSubview(backgroundView, at: 0)
         self.addSubview(indicaterView)
