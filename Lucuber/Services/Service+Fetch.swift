@@ -604,7 +604,6 @@ public func fetchPreferences(failureHandler: @escaping FailureHandler, completio
 }
 
 // MARK: - Formula
-
 public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
     
     
@@ -673,7 +672,7 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
     
 }
 
-public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, withFeed feed: Feed?, inRealm realm: Realm, completion: ((Formula) -> Void)?) {
+@discardableResult public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, withFeed feed: Feed?, inRealm realm: Realm, completion: ((Formula) -> Void)?) -> Formula? {
     
     // 尝试从数据库中查找是否已经有存在的 Formula
     var formula = formulaWith(objectID: discoverFormula.localObjectID, inRealm: realm)
@@ -690,7 +689,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
                 if let formula = formula {
                     realm.delete(formula)
                 }
-                return
+                return nil
             }
         }
     }
@@ -799,6 +798,7 @@ public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, up
         
         completion?(formula)
     }
+    return formula
 }
 
 public enum SearchFeedsMode {

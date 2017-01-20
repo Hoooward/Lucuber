@@ -121,6 +121,8 @@ public protocol OpenGraphInfoType {
     var thumbnailImageURLString: String { get }
 }
 
+
+
 public struct ImageAttachment {
     
     public let metadata: String?
@@ -137,7 +139,6 @@ public struct ImageAttachment {
         self.image = image
         self.URLString = URLString
     }
-
     
     public var thumbnailImageData: Data? {
         guard let metadata = metadata else {
@@ -166,6 +167,8 @@ public struct ImageAttachment {
     }
     
 }
+
+
 
 open class DiscoverFeed: AVObject, AVSubclassing {
     

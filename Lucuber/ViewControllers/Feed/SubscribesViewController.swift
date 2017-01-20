@@ -102,6 +102,56 @@ class SubscribesViewController: UIViewController {
         isFirstAppear = false
         
         tableView.setEditing(false, animated: true)
+        
+        
+        let showCommentViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let vc = segue.destination as! CommentViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let conversation = strongSelf.feedConversations[safe: indexPath.row],
+                let realm = try? Realm() else {
+                    return
+            }
+            
+            vc.conversation = conversation
+            vc.hidesBottomBarWhenPushed = true
+            if let feed = conversation.withGroup?.withFeed {
+                vc.feed = ConversationFeed.feedType(feed)
+            }
+            
+            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+                
+//                if let strongSelf = self {
+//                    
+//                    var deletedFeed: DiscoverFeed?
+//                    for feed in strongSelf.feeds {
+//                        if feed.objectId! == feedLcObjcetID {
+//                            deletedFeed = feed
+//                            break
+//                        }
+//                    }
+//                    
+//                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+//                        strongSelf.feeds.remove(at: index)
+//                        
+//                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+//                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+//                        
+//                        return
+//                    }
+//                 
+//                }
+            }
+        }
+        
+        if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
+            feedsContainerViewController.showCommentViewControllerAction = showCommentViewControllerAction
+        }
     }
     
     deinit {
@@ -187,6 +237,11 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
             
              cell.configureCell(with: conversation)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.navigationController?.viewControllers[0].performSegue(withIdentifier: "showCommentView", sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

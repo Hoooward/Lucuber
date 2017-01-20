@@ -166,20 +166,17 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
             
             recoverOriginalNavigationDelegate()
 
-            printLog(navigationController?.delegate)
             
         case "showCommentView":
+            printLog(showCommentViewControllerAction)
             showCommentViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
-           printLog(navigationController?.delegate) 
         case "showFormulaDetail":
             showFormulaDetailViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
-           printLog(navigationController?.delegate) 
         case "showFormulaFeeds":
             showFormulaFeedsViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
-           printLog(navigationController?.delegate) 
         default:
             break
         }

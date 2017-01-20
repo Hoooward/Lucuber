@@ -11,6 +11,7 @@ import RealmSwift
 import AVOSCloud
 
 
+
 public func parseMessageToDisvocerModel(with message: Message) -> DiscoverMessage {
     
     let discoverMessage = DiscoverMessage()
@@ -74,6 +75,7 @@ public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFor
     newDiscoverFormula.name = newFormula.name
     newDiscoverFormula.imageName = newFormula.imageName
     newDiscoverFormula.localImage = newFormula.pickedLocalImage
+    newDiscoverFormula.imageURL = newFormula.imageURL
     
     var discoverContents: [DiscoverContent] = []
     

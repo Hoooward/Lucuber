@@ -5,7 +5,7 @@
 
 import UIKit
 
-extension  CommentViewController {
+extension CommentViewController {
 
     func send(text: String) {
 
@@ -27,7 +27,7 @@ extension  CommentViewController {
 
                 CubeAlert.alertSorry(message: "发送消息失败!\n 请点击消息重新尝试.", inViewController: self)
 
-            }, completion: { [weak self] success in
+            }, completion: { success in
 
                 printLog("向朋友发送消息成功")
 
@@ -58,7 +58,7 @@ extension  CommentViewController {
 
                 CubeAlert.alertSorry(message: "发送消息失败!\n 请点击消息重新尝试.", inViewController: self)
 
-            }, completion: { [weak self] success in
+            }, completion: {  success in
                 printLog("向群组发送消息成功")
 
             })

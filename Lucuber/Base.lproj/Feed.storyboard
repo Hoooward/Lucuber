@@ -8,6 +8,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--CommentViewController-->
+        <scene sceneID="q8T-00-k3k">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comment" referencedIdentifier="CommentViewController" id="6Ld-fr-nhh" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uJk-l3-U6u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-231" y="1289"/>
+        </scene>
         <!--Feeds View Controller-->
         <scene sceneID="7LT-Wh-mrP">
             <objects>
@@ -182,11 +190,12 @@
                     <connections>
                         <outlet property="noSubscribeListLabel" destination="7lL-VY-CJq" id="pxF-Hx-UEt"/>
                         <outlet property="tableView" destination="UX5-TC-S8Y" id="bHg-Ok-O17"/>
+                        <segue destination="6Ld-fr-nhh" kind="show" identifier="showCommentView" id="L7Q-5c-kMA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5e-cM-De7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-570" y="1290"/>
+            <point key="canvasLocation" x="-770" y="1290"/>
         </scene>
         <!--SearchFeedsViewController-->
         <scene sceneID="PqF-Ch-q7C">

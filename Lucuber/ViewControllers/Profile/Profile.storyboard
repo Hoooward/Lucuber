@@ -14,7 +14,7 @@
                 <navigationController id="HD5-iu-WB9" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="icon_me" selectedImage="icon_me_active" id="Y6T-Sx-RfZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nfm-6Z-uBS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nfm-6Z-uBS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -37,7 +37,6 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
             }
         }
     }
-    
     completion?(imagesURL)
 }
 

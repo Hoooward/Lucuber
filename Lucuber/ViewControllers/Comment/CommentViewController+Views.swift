@@ -377,7 +377,7 @@ extension CommentViewController {
         }
     }
 
-    func makeFeedHeaderView(with feed: DiscoverFeed?) {
+    func makeFeedHeaderView(with feed: ConversationFeed?) {
 
 		guard let feed = feed else {
 			return

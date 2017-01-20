@@ -36,7 +36,7 @@ class FeedHeaderView: UIView {
     @IBOutlet weak var timeLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var timeLabel: UILabel!
 
-    var feed: DiscoverFeed? {
+    var feed: ConversationFeed? {
         willSet {
             if let feed = newValue {
                 configureWithFeed(feed: feed)
@@ -278,7 +278,7 @@ class FeedHeaderView: UIView {
         messageTextViewHeightConstraint.constant = ceil(rect.height)
     }
     
-    func configureWithFeed(feed: DiscoverFeed) {
+    func configureWithFeed(feed: ConversationFeed) {
         
         let message = feed.body
         messageLabel.text = message
@@ -289,28 +289,21 @@ class FeedHeaderView: UIView {
         // 设置约束
         timeLabelTopConstraint.constant = CGFloat(feed.hasAttachments ? (15 + 80 + 15) : 15)
         
-        if let imageAttachments = feed.imageAttachments {
-            self.imageAttachments = imageAttachments
-        }
+        self.imageAttachments = feed.imageAttachments
 
         messageLabelTrailingConstraint.constant = CGFloat(feed.hasAttachments ? 15 : 60)
 
         // 设置头像
         if let creator = feed.creator {
-            let userAvatar = CubeAvatar(avatarUrlString: creator.avatorImageURL() ?? "", avatarStyle: nanoAvatarStyle)
+            let userAvatar = CubeAvatar(avatarUrlString: creator.avatorImageURL ?? "", avatarStyle: nanoAvatarStyle)
             avatarImageView.navi_setAvatar(userAvatar, withFadeTransitionDuration: 0.5)
             
-            nicknameLabel.text = creator.nickname() ?? ""
+            nicknameLabel.text = creator.nickname
         }
         
-        if let createdAt = feed.createdAt {
-            let date = Date(timeIntervalSince1970: createdAt.timeIntervalSince1970)
-            timeLabel.text = date.timeAgo
-        } else {
-            timeLabel.text = ""
-        }
+        timeLabel.text = feed.timeString
         
-        switch feed.category {
+        switch feed.category! {
             
         case .text:
             

@@ -53,15 +53,7 @@ extension CommentViewController {
         guard let formluaConversation = formulaGroup.conversation else {
             return nil
         }
-        
-        if let group = group {
-            
-            // 去查找本地 Realm 中的 RFormula
-//            if let formula = formulaWith(objectID: groupID, inRealm: realm) {
-//                formula.group = group
-//                group.withFormula = formula
-//            }
-        }
+  
         
         return formluaConversation
         

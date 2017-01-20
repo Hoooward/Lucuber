@@ -423,7 +423,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
             
             vc.conversation = feedConversation
             vc.hidesBottomBarWhenPushed = true
-            vc.feed = feed
+            vc.feed = ConversationFeed.discoveredFeedType(feed)
             
             vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
                 

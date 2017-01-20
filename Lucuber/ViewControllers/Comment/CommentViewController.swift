@@ -15,7 +15,7 @@ import UserNotifications
 class CommentViewController: UIViewController {
  
     var formula: Formula?
-    var feed: DiscoverFeed?
+    var feed: ConversationFeed?
 
     var conversation: Conversation!
     var realm: Realm!
@@ -27,6 +27,7 @@ class CommentViewController: UIViewController {
     var seletedIndexPathForMenu: IndexPath?
 
     lazy var messages: Results<Message> = {
+//        printLog(self.conversation)
         return messagesWith(self.conversation, inRealm: self.realm)
     }()
 
@@ -420,7 +421,7 @@ class CommentViewController: UIViewController {
             } else {
                 // headerView User
                 if let creator = feed?.creator {
-                    vc.prepare(with: creator)
+                    vc.prepare(withUser: creator)
                 }
             }
             
@@ -431,21 +432,24 @@ class CommentViewController: UIViewController {
         case "showFormulaDetail":
             let vc = segue.destination as! FormulaDetailViewController
             
-            guard let feed = feed, let realm = try? Realm() else {
+            guard let feed = feed else {
                 return
             }
             
-            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
-            if formula == nil {
-                realm.beginWrite()
-                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
-                try? realm.commitWrite()
-            }
+//            var formula = feedWith(feed.feedID!, inRealm: realm)?.withFormula
+//            if formula == nil {
+//                realm.beginWrite()
+//                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
+//                try? realm.commitWrite()
+//            }
             
-            guard let resultFormula = formula else {
-                return
-            }
-            vc.formula = resultFormula
+//            guard let resultFormula = formula else {
+//                return
+//            }
+            
+            
+          
+            vc.formula = feed.RFormula
             vc.previewFormulaStyle = .single
             
             if let vc = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {

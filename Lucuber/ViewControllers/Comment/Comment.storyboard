@@ -49,7 +49,7 @@
                                 <items/>
                             </toolbar>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EJP-Cy-LJ4">
-                                <rect key="frame" x="177.5" y="140" width="20" height="20"/>
+                                <rect key="frame" x="178" y="140" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,7 +84,7 @@
                 <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileViewController" id="ZVF-9y-lUo" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gOn-UN-RnF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="397" y="166"/>
+            <point key="canvasLocation" x="182" y="61"/>
         </scene>
         <!--FormulaDetailViewController-->
         <scene sceneID="HKD-BN-XHk">
@@ -92,7 +92,7 @@
                 <viewControllerPlaceholder storyboardName="FormulaDetail" referencedIdentifier="FormulaDetailViewController" id="d3L-e0-KAn" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YdK-Pd-Txf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="433" y="233"/>
+            <point key="canvasLocation" x="205" y="214"/>
         </scene>
     </scenes>
 </document>
