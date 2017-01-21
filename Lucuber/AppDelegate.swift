@@ -62,9 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         printLog(path)
         
         Realm.Configuration.defaultConfiguration = realmConfig()
-        
         AVOSCloud.setAllLogsEnabled(false)
-
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         
         DiscoverFormula.registerSubclass()
@@ -82,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = determineRootViewController()
         window?.makeKeyAndVisible()
         
-         customAppearce()
+        customAppearce()
         //pushCubeCategory()
     
         AVUser.current()?.isAuthenticated(withSessionToken: "user-sessionToken-here", callback: { success, error in
@@ -95,7 +93,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = creatMeInRealm()
 
         if AVUser.isLogin {
-
             if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
                 remoteNotificationType = RemoteNotificationType(rawValue: type)
             }
@@ -103,55 +100,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-
-
+    
 	private var isFirstLaunch: Bool = true
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-
         printLog("进入前台")
 
 		if isFirstLaunch {
             sync()
-            
         } else {
             fetchUnreadMessages() {}
         }
 
         clearNotification()
-
         NotificationCenter.default.post(name: Notification.Name.applicationDidBecomeActiveNotification, object: nil)
 		isFirstLaunch = false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-
         printLog("即将进入后台")
         
         clearNotification()
-        
-        // TODO: - 未来配置 3D Touch
-
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         printLog("进入后台")
-
-        // TODO -: 发送保存草稿的通知
     }
-
-    
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-       
-//        pushCurrentUserUpdateInformation()
     }
     
     // MARK: - APNs
-    
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
         printLog("Fetch back")
-        
         fetchUnreadMessages() {
             completionHandler(.newData)
         }
@@ -180,7 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             })
         }
-        
         // TODO: - iOS 10 以下的版本
     }
     
@@ -190,7 +170,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.setDeviceTokenFrom(deviceToken)
         installation.setObject(AVUser.current(), forKey: "creator")
         installation.saveInBackground()
-        
     }
     
     
@@ -219,7 +198,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     defaultFailureHandler(reason, errorMessage)
                 }, completion: { [weak self] messageIds in
                     printLog("下载通知的 Message 完成")
-//                    self?.clearNotification()
                     NotificationCenter.default.post(name: Config.NotificationName.changedFeedConversation, object: nil)
                     tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
 					completionHandler(.newData)
@@ -230,7 +208,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defer {
                 completionHandler(UIBackgroundFetchResult.noData)
             }
-            
             break
             
         case .feedDeleted:
@@ -243,7 +220,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         feed.deleted = true
                     }
                 }
-                
                 unSubscribeConversationWithGroupID(feedId, failureHandler: { _, _ in
                     
                 }, completion: {
@@ -255,8 +231,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     NotificationCenter.default.post(name: Config.NotificationName.deletedFeed, object: feedId)
                     completionHandler(.newData)
                 })
-               
-                
             }
             
         default:
@@ -264,11 +238,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
+    // MARK: Target & Action
     func changeRootViewController() {
         window?.rootViewController = determineRootViewController()
         sync()
@@ -344,17 +318,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.backgroundColor = UIColor.white
         
-        // Global Tint Color
-        
         window?.tintColor = UIColor.cubeTintColor()
         window?.tintAdjustmentMode = .normal
         
-        // NavigationBar Item Style
-        
         UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.cubeTintColor()], for: .normal)
         UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.cubeTintColor().withAlphaComponent(0.3)], for: .disabled)
-        
-        // NavigationBar Title Style
         
         let shadow: NSShadow = {
             let shadow = NSShadow()
@@ -370,44 +338,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = textAttributes
         UINavigationBar.appearance().barTintColor = UIColor.white
         
-        // TabBar
-        
         UITabBar.appearance().tintColor = UIColor.cubeTintColor()
         UITabBar.appearance().barTintColor = UIColor.white
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

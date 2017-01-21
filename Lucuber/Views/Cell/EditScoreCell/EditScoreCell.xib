@@ -10,57 +10,41 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EditScoreCell" rowHeight="148" id="HVg-jN-iKz" customClass="EditScoreCell" customModule="Lucuber" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EditScoreCell" rowHeight="138" id="HVg-jN-iKz" customClass="EditScoreCell" customModule="Lucuber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HVg-jN-iKz" id="Agu-Xf-0SX">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="137.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="JqB-1b-Djb" userLabel="Skill Label">
-                        <rect key="frame" x="15" y="64" width="42" height="21"/>
+                        <rect key="frame" x="15" y="58.5" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eF-Uq-2EA" userLabel="Remove Button">
-                        <rect key="frame" x="265" y="49" width="50" height="50"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="50" id="gJQ-g3-Gxp"/>
-                            <constraint firstAttribute="width" constant="50" id="yWO-MP-UtI"/>
-                        </constraints>
-                        <state key="normal" image="icon_remove">
-                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Yv-Tb-ywS">
-                        <rect key="frame" x="208" y="63" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="/秒" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="45W-VA-XKf">
+                        <rect key="frame" x="98" y="58" width="207" height="22"/>
+                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="centerY" secondItem="8eF-Uq-2EA" secondAttribute="centerY" id="239-Dd-MqF"/>
                     <constraint firstItem="JqB-1b-Djb" firstAttribute="leading" secondItem="Agu-Xf-0SX" secondAttribute="leading" constant="15" id="6eL-Re-7PS"/>
-                    <constraint firstItem="8eF-Uq-2EA" firstAttribute="leading" secondItem="6Yv-Tb-ywS" secondAttribute="trailing" constant="15" id="F0A-9P-j8D"/>
-                    <constraint firstItem="6Yv-Tb-ywS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JqB-1b-Djb" secondAttribute="trailing" constant="50" id="UPm-QC-jEO"/>
-                    <constraint firstItem="6Yv-Tb-ywS" firstAttribute="centerY" secondItem="8eF-Uq-2EA" secondAttribute="centerY" id="ZOa-7o-16f"/>
+                    <constraint firstItem="45W-VA-XKf" firstAttribute="leading" secondItem="JqB-1b-Djb" secondAttribute="trailing" constant="41" id="760-US-v9T"/>
+                    <constraint firstItem="45W-VA-XKf" firstAttribute="centerY" secondItem="JqB-1b-Djb" secondAttribute="centerY" id="aJt-T0-Es8"/>
                     <constraint firstAttribute="centerY" secondItem="JqB-1b-Djb" secondAttribute="centerY" id="qZR-nr-VyN"/>
-                    <constraint firstAttribute="trailing" secondItem="8eF-Uq-2EA" secondAttribute="trailing" constant="5" id="sch-om-5BK"/>
+                    <constraint firstAttribute="trailing" secondItem="45W-VA-XKf" secondAttribute="trailing" constant="15" id="wCQ-aL-TyN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="categoryLabel" destination="JqB-1b-Djb" id="Aif-1H-dLz"/>
                 <outlet property="categoryLabelLeadingConstraint" destination="6eL-Re-7PS" id="qjt-F5-BMS"/>
-                <outlet property="deletedButton" destination="8eF-Uq-2EA" id="lzO-p6-GSI"/>
-                <outlet property="deletedButtonTrailingConstraint" destination="sch-om-5BK" id="9Gg-HE-x9i"/>
-                <outlet property="scoreLabel" destination="6Yv-Tb-ywS" id="s7w-ag-w7h"/>
+                <outlet property="scoreTextField" destination="45W-VA-XKf" id="qcy-Cn-LMC"/>
+                <outlet property="scoreTextFieldTrailingConstraint" destination="wCQ-aL-TyN" id="FKX-MA-K1a"/>
             </connections>
-            <point key="canvasLocation" x="-392" y="174"/>
+            <point key="canvasLocation" x="-527" y="115"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="icon_remove" width="20" height="20"/>
-    </resources>
 </document>

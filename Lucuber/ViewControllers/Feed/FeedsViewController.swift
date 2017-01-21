@@ -815,7 +815,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 strongSelf.navigationController?.viewControllers[0].performSegue(withIdentifier: "showProfileView", sender: indexPath)
             }
             
-            
             cell.tapCategoryAction = { [weak self] cell in
                 guard
                     let strongSelf = self,

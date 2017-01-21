@@ -8,73 +8,137 @@
 
 import UIKit
 import RealmSwift
-
-//typealias UserCubeScore = (String, String)
+import TPKeyboardAvoiding
 
 final class EditScoreViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bottomButtonView: BottomButtonView!
+    @IBOutlet weak var tableView: TPKeyboardAvoidingTableView! {
+        didSet {
+            tableView.keyboardDismissMode = .onDrag
+            tableView.registerNib(of: EditScoreCell.self)
+        }
+    }
     
+    @IBOutlet weak var avtivityIndicator: UIActivityIndicatorView!
     fileprivate var realm: Realm = try! Realm()
     fileprivate var me: RUser?
     
-    var scores: [CubeScores]?
-    var oldScores: [CubeScores]?
+    var oldScores: Set<CubeScores> = []
     
-    fileprivate var cubeCategarys: [CubeCategoryMaster]?
+    fileprivate var newScores: [CubeScores]? {
+        didSet {
+            guard let newScores = newScores else {
+                return
+            }
+            
+            let newCategorys = newScores.map {$0.categoryString}
+            
+            for score in oldScores {
+                let categoryString = score.categoryString
+                if newCategorys.contains(categoryString) {
+                    if let index = newCategorys.index(of: categoryString) {
+                        newScores[index].scoreTimerString = score.scoreTimerString
+                    }
+                } 
+            }
+            
+            tableView.reloadData()
+        }
+    }
+    
+    fileprivate lazy var saveBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(EditScoreViewController.save))
+        return item
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "成绩"
+        navigationItem.rightBarButtonItem = saveBarButtonItem
+        saveBarButtonItem.isEnabled = false
         
         me = currentUser(in: realm)
-        oldScores = me?.cubeScoresList.map { $0 }
         
-        fetchCubeCategorys(failureHandler: { reason, errorMessage in
+        me?.cubeScoresList.forEach {
+            if !oldScores.contains($0) {
+                oldScores.insert($0)
+            }
+        }
+        
+        avtivityIndicator.startAnimating()
+        fetchCubeCategorys(failureHandler: {[weak self] reason, errorMessage in
+            self?.avtivityIndicator.stopAnimating()
             defaultFailureHandler(reason, errorMessage)
+            
+            CubeAlert.alertSorry(message: "获取魔方列表失败,请检查网络连接", inViewController: self)
+            
         }, completion: { [weak self] results in
             
-            self?.cubeCategarys = results.map {
-                let cube = CubeCategoryMaster()
-                cube.atRUser = self?.me
-                cube.categoryString = $0.categoryString
-                return cube
+            self?.avtivityIndicator.stopAnimating()
+            self?.newScores = results.map {
+                let score = CubeScores()
+                score.atRUser = self?.me
+                score.categoryString = $0.categoryString
+                score.scoreTimerString = ""
+                return score
             }
+            
         })
-        var contentInset = tableView.contentInset
-        contentInset.bottom = bottomButtonView.frame.height
-        tableView.contentInset = contentInset
         
         tableView.rowHeight = 60
         var separatorInset = tableView.separatorInset
         separatorInset.left = CubeRuler.iPhoneHorizontal(15, 20, 25).value
         tableView.separatorInset = separatorInset
-        
-        tableView.registerNib(of: EditScoreCell.self)
-        
-        bottomButtonView.title = "添加新成绩"
-        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 每次视图出现, 重置 selectedCategory
         navigationController?.navigationBarLine.isHidden = false
-        navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    deinit {
+        printLog("\(self) 已经释放")
+    }
+    
+    @objc fileprivate func save() {
         
-        pushMyInfoToLeancloud(completion: {
+        guard let newScores = newScores else {
+           return
+        }
+        
+        let flatScores = newScores.filter({ $0.scoreTimerString != "" })
+        
+        var flatScoreResult = [CubeScores]()
+        
+        flatScores.forEach {
+            let score = CubeScores()
+            score.categoryString = $0.categoryString
+            score.scoreTimerString = $0.scoreTimerString
+            score.atRUser = me
+            flatScoreResult.append(score)
+        }
+       
+        printLog(flatScoreResult)
+        try? realm.write {
+            if let oldScores = me?.cubeScoresList {
+                realm.delete(oldScores)
+            }
+        }
+        try? realm.write {
+            realm.add(flatScoreResult)
+        }
+        
+        pushMyInfoToLeancloud(completion: { [weak self] in
+            
+            self?.saveBarButtonItem.isEnabled = false
             
         }, failureHandler: { [weak self] reason, errorMessage in
             
             if let nav = self?.navigationController {
-                CubeAlert.alertSorry(message: "设置擅长魔方失败", inViewController: nav)
+                CubeAlert.alertSorry(message: "", inViewController: nav)
             }
         })
     }
@@ -83,50 +147,46 @@ final class EditScoreViewController: UIViewController {
 
 extension EditScoreViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let me = me {
-            return me.cubeScoresList.count
-        }
-        return 0
+
+        return newScores?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: EditScoreCell = tableView.dequeueReusableCell(for: indexPath)
         
-        var score: CubeScores?
-        
-        if let me = me {
-            score = me.cubeScoresList[indexPath.row]
+        if let newScores = newScores {
+            cell.cubeScores = newScores[indexPath.row]
         }
-        
-        cell.cubeScores = score
-        
-        cell.deleteScoreAction = { [weak self] cell, score in
+
+        cell.scoreTextFiledDidBeginEditingAction = { [weak self] in
+            self?.saveBarButtonItem.isEnabled = false
+        }
+        cell.scoreTextFiledDidEndEditingAction = { [weak self] text, cell in
             
-            if let me = self?.me {
-                let rowToDelete: Int? = me.cubeScoresList.index(of: score)
-                
-                try? self?.realm.write {
-                    self?.realm.delete(score)
-                    
-                    cell.cubeScores = nil
+            self?.saveBarButtonItem.isEnabled = true
+            
+            if let indexPath = tableView.indexPath(for: cell) {
+                if let newScores = self?.newScores {
+                    newScores[indexPath.row].scoreTimerString = text
                 }
-                
-                if let rowToDelete = rowToDelete {
-                    
-                    let indexPathToDelete = IndexPath(row: rowToDelete, section: 0)
-                    self?.tableView.deleteRows(at: [indexPathToDelete], with: .automatic)
-                }
-               self?.tableView.reloadData()
             }
-            
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+ 
+        guard let cell = tableView.cellForRow(at: indexPath) as? EditScoreCell else {
+            return
+        }
+        
+        cell.scoreTextField.becomeFirstResponder()
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "填写复原魔方的「SUB」时间，即「在 x 秒以内复原」。"
     }
 }
 

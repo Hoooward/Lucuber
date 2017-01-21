@@ -1154,9 +1154,8 @@ public func pushCubeCategory() {
         "斜转魔方",
         "钻石魔方",
         "齿轮魔方",
-        "Square One",
         "Super Square One",
-        "Square Two",
+        "Super Square Two",
         "魔粽齿轮",
         "花瓣转角魔方",
         "六角异形魔方",
@@ -1176,6 +1175,11 @@ public func pushCubeCategory() {
         "Tuttminx",
         "Futtminx",
         
+        "三阶单手",
+        "三阶脚拧",
+        "三阶盲拧",
+        "四阶盲拧",
+        "五阶盲拧",
         
         
         "3x3x1",

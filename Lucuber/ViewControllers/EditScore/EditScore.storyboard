@@ -20,37 +20,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yaf-Pf-GFJ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yaf-Pf-GFJ" customClass="TPKeyboardAvoidingTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="LpM-gz-zzb" id="faG-OK-jrS"/>
+                                    <outlet property="delegate" destination="LpM-gz-zzb" id="V6w-lO-XzH"/>
+                                </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nid-wn-oan" customClass="BottomButtonView" customModule="Lucuber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Rli-EI-bcj"/>
-                                </constraints>
-                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZQn-p7-vzF">
+                                <rect key="frame" x="177.5" y="140" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ZQn-p7-vzF" firstAttribute="centerX" secondItem="gCh-Gj-wu3" secondAttribute="centerX" id="3eu-L1-yfF"/>
                             <constraint firstAttribute="trailing" secondItem="Yaf-Pf-GFJ" secondAttribute="trailing" id="C36-bQ-bba"/>
-                            <constraint firstItem="Nid-wn-oan" firstAttribute="leading" secondItem="gCh-Gj-wu3" secondAttribute="leading" id="EtM-wR-5dI"/>
                             <constraint firstItem="Yaf-Pf-GFJ" firstAttribute="top" secondItem="gCh-Gj-wu3" secondAttribute="top" id="G03-hM-d0K"/>
                             <constraint firstItem="cmc-KP-FNc" firstAttribute="top" secondItem="Yaf-Pf-GFJ" secondAttribute="bottom" id="XRY-m3-Avu"/>
-                            <constraint firstAttribute="trailing" secondItem="Nid-wn-oan" secondAttribute="trailing" id="bhu-Ip-lfi"/>
                             <constraint firstItem="Yaf-Pf-GFJ" firstAttribute="leading" secondItem="gCh-Gj-wu3" secondAttribute="leading" id="bjB-8Q-uS3"/>
-                            <constraint firstAttribute="bottom" secondItem="Nid-wn-oan" secondAttribute="bottom" id="qGq-Ri-pAn"/>
+                            <constraint firstItem="ZQn-p7-vzF" firstAttribute="top" secondItem="JPv-cr-iBY" secondAttribute="bottom" constant="120" id="hJh-RJ-Rpp"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomButtonView" destination="Nid-wn-oan" id="hSy-1B-61G"/>
+                        <outlet property="avtivityIndicator" destination="ZQn-p7-vzF" id="ikv-pV-sT2"/>
                         <outlet property="tableView" destination="Yaf-Pf-GFJ" id="aw6-B6-db6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pFH-60-1Jw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188" y="188"/>
+            <point key="canvasLocation" x="-442" y="170"/>
         </scene>
     </scenes>
 </document>
