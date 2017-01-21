@@ -37,7 +37,8 @@ class CubeCategoryCell: UICollectionViewCell {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        tapped = true
+        // TODO: - 需要点击动画时再取消注释
+//        tapped = true
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

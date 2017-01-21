@@ -81,10 +81,9 @@ public enum ProfileUser {
     }
     
     public var cubeCategoryMasterCount: Int {
+        
         switch self {
-            
         case .discoverUser(let avUser):
-            
             if let list = avUser.cubeCategoryMasterList() {
                 return list.count
             }
@@ -92,7 +91,20 @@ public enum ProfileUser {
         case .userType(let ruser):
             return ruser.cubeCategoryMasterList.count
         }
+        return 0
+    }
+    
+    public var cubeScoresCount: Int {
         
+        switch self {
+        case .discoverUser(let avUser):
+            if let list = avUser.cubeScoresList() {
+                return list.count
+            }
+            
+        case .userType(let ruser):
+            return ruser.cubeScoresList.count
+        }
         return 0
     }
     
@@ -112,6 +124,31 @@ public enum ProfileUser {
         }
         
         return categoryString
+    }
+    
+    public func cellCubeScore(atIndexPath indexPath: IndexPath) -> CubeScores? {
+        
+        var cubeScores: CubeScores?
+        
+        switch self {
+        case .discoverUser(let avUser):
+            if let list = avUser.cubeScoresList() {
+                if let key = Array(list.keys)[safe: indexPath.item] {
+                    let scores = CubeScores()
+                    scores.categoryString = key
+                    scores.scoreTimerString = list[key] ?? ""
+                    cubeScores = scores
+                }
+            }
+            
+        case .userType(let ruser):
+            
+            if !ruser.cubeScoresList.isEmpty {
+                cubeScores = ruser.cubeScoresList[indexPath.item]
+            }
+        }
+        
+        return cubeScores
     }
 }
 
@@ -377,9 +414,7 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
        
-        
         statusBarShouldLight = true
         self.setNeedsStatusBarAppearanceUpdate()
     }
@@ -387,7 +422,6 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
-        
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1.0
         
@@ -414,7 +448,6 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
         collectionView.reloadData()
         collectionView.layoutIfNeeded()
     }
-    
     
     @objc fileprivate func createdFeed(_ sender: Notification) {
         
@@ -554,7 +587,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return  profileUser?.cubeCategoryMasterCount ?? 0
             
         case .score:
-            return 7
+            return  profileUser?.cubeScoresCount ?? 0
             
         case .separationLine:
             return 0
@@ -636,6 +669,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .score:
             let cell: ProfileScoreCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            if let profileUser = profileUser {
+                cell.scores = profileUser.cellCubeScore(atIndexPath: indexPath)
+            }
             return cell
             
         case .separationLine2:
@@ -710,16 +747,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 
                 if profileUserIsMe {
                     header.tapAction = { [weak self] in
-                        // TODO: - 传入
                         self?.performSegue(withIdentifier: "showEditMaster", sender: nil)
                     }
-                    
                 } else {
                     header.accessoryImageView.isHidden = true
                 }
                 
                 return header
             case .score:
+                
                 header.titleLabel.text = "成绩"
                 
                 if profileUserIsMe {
@@ -731,6 +767,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 }
                 
                 return header
+                
             default:
                 header.titleLabel.text = ""
             }
@@ -738,6 +775,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return header
             
         } else {
+            
             let footer: UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, forIndexPath: indexPath)
             return footer
         }
@@ -810,6 +848,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 let height: CGFloat = profileUser.cubeCategoryMasterCount > 0 ? normalHeight : 0
                 return CGSize(width: collectionViewWidth, height: height)
 
+            case .score:
+                let height: CGFloat = profileUser.cubeScoresCount > 0 ? normalHeight : 0
+                return CGSize(width: collectionViewWidth, height: height)
+                
             default:
                 return CGSize.zero
             }
