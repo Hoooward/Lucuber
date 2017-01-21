@@ -398,8 +398,14 @@ extension  CommentViewController {
         
         
 
-		manager.reportAction = {
-			// TODO: - 举报
+		manager.reportAction = { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if let feed = strongSelf.feed {
+                self?.report(.feed(feedID: feed.feedID ?? ""))
+            }
 		}
 
 		return manager

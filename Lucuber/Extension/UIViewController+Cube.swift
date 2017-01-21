@@ -19,6 +19,7 @@ extension URL: Shareable {
 extension UIImage: Shareable {
 }
 
+
 extension UIViewController {
     
     func share< T: Any>(info sessionInfo: MonkeyKing.Info, timelineInfo: MonkeyKing.Info? = nil, defaultActivityItem activityItem: T, description: String? = nil) where T: Shareable {
@@ -33,6 +34,75 @@ extension UIViewController {
     }
 }
 
+// MARK: - Report
+
+extension UIViewController {
+    
+    enum ReportObject {
+        case user(ProfileUser)
+        case feed(feedID: String)
+        case message(messageID: String)
+    }
+    
+    func report(_ object: ReportObject) {
+        
+        let reportWithReason: (ReportReason) -> Void = { [weak self] reason in
+            
+            // 暂时仅实现 Feed 的举报
+            switch object {
+                
+            case .feed(let feedID):
+                
+                reportFeedWithFeedID(feedID, forReason: reason, failureHandler: { reason, errorMessage in
+                    CubeAlert.alertSorry(message: "上传举报信息失败, 请检查网络连接", inViewController: self)
+                }, completion: {
+                })
+                
+            default:
+                break
+            }
+            
+        }
+        
+        let reportAlertController = UIAlertController(title: "举报原因", message: nil, preferredStyle: .actionSheet)
+        
+        let pornoReasonAction: UIAlertAction = UIAlertAction(title: ReportReason.porno.describe, style: .default, handler: { _ in
+            reportWithReason(.porno)
+        })
+        
+        reportAlertController.addAction(pornoReasonAction)
+        
+        let advertistingReasonAction: UIAlertAction = UIAlertAction(title: ReportReason.advertising.describe, style: .default, handler: { _ in
+            reportWithReason(.advertising)
+        })
+        
+        reportAlertController.addAction(advertistingReasonAction)
+        
+        let scamsReasonAction: UIAlertAction = UIAlertAction(title: ReportReason.scams.describe, style: .default) { _ in
+            reportWithReason(.scams)
+        }
+        reportAlertController.addAction(scamsReasonAction)
+        
+        let otherReasonAction: UIAlertAction = UIAlertAction(title: ReportReason.other("").describe, style: .default, handler: { [weak self] _  in
+            
+            CubeAlert.textInput(title: "其他原因", message: nil, placeholder: nil, oldText: nil, confirmTitle: "提交", cancelTitle: "取消", inViewController: self, confirmAction: { text in
+                reportWithReason(.other(text))
+            }, cancelAction: nil)
+        })
+        
+        reportAlertController.addAction(otherReasonAction)
+        
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "取消", style: .cancel) { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        reportAlertController.addAction(cancelAction)
+        
+        self.present(reportAlertController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - URL
 extension UIViewController {
     
     func cube_openURL(_ URL: URL) {
@@ -48,6 +118,7 @@ extension UIViewController {
     }
 }
 
+// MARK: - Alert
 extension UIViewController {
     
     func alertCanNotAccessCameraRoll() {

@@ -8,8 +8,72 @@ import RealmSwift
 import AVOSCloud
 import UserNotifications
 
-// MARK: - Message
+// MARK: - Report
 
+public enum ReportReason {
+    
+    case porno
+    case advertising
+    case scams
+    case other(String)
+    
+    var type: Int {
+        switch self {
+        case .porno:
+            return 0
+        case .advertising:
+            return 1
+        case .scams:
+            return 2
+        case .other:
+            return 3
+        }
+    }
+    
+    var describe: String {
+        switch self {
+        case .porno:
+            return "色情"
+        case .advertising:
+            return "广告"
+        case .scams:
+            return "诈骗"
+        case .other:
+            return "其他"
+        }
+    }
+}
+
+public func reportFeedWithFeedID(_ feedID: String, forReason reason: ReportReason, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
+    
+    let discoverReport = DiscoverReport()
+    discoverReport.feedID = feedID
+    
+    var typeString = ""
+    
+    switch reason {
+    case .porno, .advertising, .scams:
+        typeString = reason.describe
+        
+    case .other(let content):
+        typeString = content
+    }
+    
+    discoverReport.typeString = typeString
+    
+    discoverReport.saveInBackground({ success, error in
+        
+        if error != nil {
+           failureHandler(Reason.network(error), "上传举报信息失败")
+        }
+        
+        if success {
+            completion()
+        }
+    })
+}
+
+// MARK: - Message
 public func deleteMessageFromServer(messageID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
 
 
@@ -35,21 +99,10 @@ public func deleteMessageFromServer(messageID: String, failureHandler: @escaping
     }
 }
 
+// MARK: - APNs
 public func userNotificationStateIsAuthorized() -> Bool {
     
     var isAuthorized = false
-//    
-//    if let settings = UIApplication.shared.currentUserNotificationSettings {
-//        
-//        switch settings.types {
-//        case UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound:
-//            isAuthorized = true
-//        default:
-//            isAuthorized = false
-//        }
-//    }
-//    
-    // TODO: - 仅处理了 iOS10
     if #available(iOS 10.0, *) {
         let notificationCenter = UNUserNotificationCenter.current()
         
@@ -100,20 +153,6 @@ public func updateMySubscribeInfoAndPushToLeancloud(with group: Group, failureHa
 }
 
 
-public func subscribeOrUnsubscribeConverationWithGroup(_ group: Group, subscribe: Bool, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
-   
-//    let oldIncludeMe = group.includeMe
-//    let oldNotificationEnabled = group.notificationEnabled
-//    let subscribeFeedID = group.groupID
-   
-//    if oldNotificationEnabled
-    
-//    if !oldIncludeMe {
-//        subscribeConversationWithGroupID(subscribeFeedID, failureHandler: failureHandler, completion: completion)
-//    } else {
-//        unSubscribeConversationWithGroupID(subscribeFeedID, failureHandler: failureHandler, completion: completion)
-//    }
-}
 
 public func subscribeConversationWithGroupID(_ groupID: String, failureHandler: @escaping FailureHandler, completion: @escaping () -> Void) {
     

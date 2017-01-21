@@ -10,6 +10,18 @@ import UIKit
 import AVOSCloud
 import CoreLocation
 
+public class DiscoverReport: AVObject, AVSubclassing {
+    
+    public static func parseClassName() -> String {
+        return "DiscoverReport"
+    }
+    
+    @NSManaged var feedID: String
+    @NSManaged var userID: String
+    @NSManaged var messageID: String
+    @NSManaged var typeString: String
+}
+
 public class DiscoverHotKeyword: AVObject, AVSubclassing {
     
     public static func parseClassName() -> String {
