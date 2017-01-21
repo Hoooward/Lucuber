@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 6
+    config.schemaVersion = 7
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config
@@ -82,6 +82,18 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
             if oldSubscribeList != newSubscribeList {
                 realm.delete(user.subscribeList)
                 let newList = newSubscribeList.map { SubscribeFeed(value: [$0, user]) }
+                realm.add(newList)
+            }
+        }
+        
+        var oldCubeScoresList = [String: String]()
+        user.cubeScoresList.forEach({
+            oldCubeScoresList[$0.categoryString] = $0.scoreTimerString
+        })
+        if let newCubeScoresList = avUser.cubeScoresList() {
+            if oldCubeScoresList != newCubeScoresList {
+                realm.delete(user.cubeScoresList)
+                let newList = newCubeScoresList.map { CubeScores(value: [$0.key, $0.value, user]) }
                 realm.add(newList)
             }
         }

@@ -375,6 +375,12 @@ open class SubscribeFeed: Object {
     open dynamic var atRUser: RUser?
 }
 
+open class CubeScores: Object {
+    open dynamic var categoryString: String = ""
+    open dynamic var scoreTimerString: String = ""
+    open dynamic var atRUser: RUser?
+}
+
 open class RUser: Object {
     
 //    open dynamic var friendState: String = ""
@@ -389,6 +395,7 @@ open class RUser: Object {
     open let masterList = LinkingObjects(fromType: FormulaMaster.self, property: "atRUser")
     open let cubeCategoryMasterList = LinkingObjects(fromType: CubeCategoryMaster.self, property: "atRUser")
     open let subscribeList = LinkingObjects(fromType: SubscribeFeed.self, property: "atRUser")
+    open let cubeScoresList = LinkingObjects(fromType: CubeScores.self, property: "atRUser")
     
     open let createdFeeds = LinkingObjects(fromType: Feed.self, property: "creator")
     open let messages = LinkingObjects(fromType: Message.self, property: "creator")

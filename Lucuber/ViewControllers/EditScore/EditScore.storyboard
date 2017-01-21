@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LpM-gz-zzb">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Edit Score View Controller-->
+        <scene sceneID="prZ-3B-6Ll">
+            <objects>
+                <viewController storyboardIdentifier="EditMasterViewController" hidesBottomBarWhenPushed="YES" id="LpM-gz-zzb" customClass="EditScoreViewController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JPv-cr-iBY"/>
+                        <viewControllerLayoutGuide type="bottom" id="cmc-KP-FNc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gCh-Gj-wu3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yaf-Pf-GFJ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nid-wn-oan" customClass="BottomButtonView" customModule="Lucuber" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Rli-EI-bcj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Yaf-Pf-GFJ" secondAttribute="trailing" id="C36-bQ-bba"/>
+                            <constraint firstItem="Nid-wn-oan" firstAttribute="leading" secondItem="gCh-Gj-wu3" secondAttribute="leading" id="EtM-wR-5dI"/>
+                            <constraint firstItem="Yaf-Pf-GFJ" firstAttribute="top" secondItem="gCh-Gj-wu3" secondAttribute="top" id="G03-hM-d0K"/>
+                            <constraint firstItem="cmc-KP-FNc" firstAttribute="top" secondItem="Yaf-Pf-GFJ" secondAttribute="bottom" id="XRY-m3-Avu"/>
+                            <constraint firstAttribute="trailing" secondItem="Nid-wn-oan" secondAttribute="trailing" id="bhu-Ip-lfi"/>
+                            <constraint firstItem="Yaf-Pf-GFJ" firstAttribute="leading" secondItem="gCh-Gj-wu3" secondAttribute="leading" id="bjB-8Q-uS3"/>
+                            <constraint firstAttribute="bottom" secondItem="Nid-wn-oan" secondAttribute="bottom" id="qGq-Ri-pAn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomButtonView" destination="Nid-wn-oan" id="hSy-1B-61G"/>
+                        <outlet property="tableView" destination="Yaf-Pf-GFJ" id="aw6-B6-db6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pFH-60-1Jw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-188" y="188"/>
+        </scene>
+    </scenes>
+</document>

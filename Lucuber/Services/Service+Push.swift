@@ -161,6 +161,12 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
     me.setCubeCategoryMasterList(meRuser.cubeCategoryMasterList.map { $0.categoryString })
     me.setSubscribeList(meRuser.subscribeList.map { $0.feedID })
     
+    var cubeScoresList = [String: String]()
+    meRuser.cubeScoresList.forEach({
+        cubeScoresList[$0.categoryString] = $0.scoreTimerString
+    })
+    me.setCubeScoresList(cubeScoresList)
+    
     me.saveInBackground { success, error in
         if error != nil {
             failureHandler(Reason.network(error), "上传用户信息失败")

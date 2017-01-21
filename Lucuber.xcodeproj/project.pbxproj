@@ -308,6 +308,10 @@
 		E4B367411E150E3F0010385E /* ProfileLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B367401E150E3F0010385E /* ProfileLayout.swift */; };
 		E4C780A51E2FD61500450466 /* SubscribeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C780A41E2FD61500450466 /* SubscribeFooterView.swift */; };
 		E4C814B71E0904B300ADA69C /* CommentMoreViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */; };
+		E4CA9A241E33396E0047620F /* EditScore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4CA9A231E33396E0047620F /* EditScore.storyboard */; };
+		E4CA9A261E3339A10047620F /* EditScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CA9A251E3339A10047620F /* EditScoreViewController.swift */; };
+		E4CA9A2A1E333C370047620F /* EditScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CA9A281E333C370047620F /* EditScoreCell.swift */; };
+		E4CA9A2B1E333C370047620F /* EditScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CA9A291E333C370047620F /* EditScoreCell.xib */; };
 		E4CE8B271DF429CA00944099 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ECF2B1DB5C903005BEFE4 /* FeedsViewController.swift */; };
 		E4D577261E0AAE5900A6516F /* FeedsViewController+Formula.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */; };
 		E4DAFE081DEB2AF4008A8702 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DAFE071DEB2AF4008A8702 /* Model.swift */; };
@@ -722,6 +726,10 @@
 		E4B367401E150E3F0010385E /* ProfileLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileLayout.swift; sourceTree = "<group>"; };
 		E4C780A41E2FD61500450466 /* SubscribeFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeFooterView.swift; sourceTree = "<group>"; };
 		E4C814B61E0904B300ADA69C /* CommentMoreViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentMoreViewManager.swift; sourceTree = "<group>"; };
+		E4CA9A231E33396E0047620F /* EditScore.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditScore.storyboard; sourceTree = "<group>"; };
+		E4CA9A251E3339A10047620F /* EditScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditScoreViewController.swift; sourceTree = "<group>"; };
+		E4CA9A281E333C370047620F /* EditScoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditScoreCell.swift; sourceTree = "<group>"; };
+		E4CA9A291E333C370047620F /* EditScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditScoreCell.xib; sourceTree = "<group>"; };
 		E4D577251E0AAE5900A6516F /* FeedsViewController+Formula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedsViewController+Formula.swift"; sourceTree = "<group>"; };
 		E4DAFE071DEB2AF4008A8702 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E4DF65E51D8D92D6005CE518 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Formula.storyboard; sourceTree = "<group>"; };
@@ -1409,6 +1417,7 @@
 		E459BAFE1E27637B008F4097 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E4CA9A271E333C250047620F /* EditScoreCell */,
 				E47C66511E2CDB9D00696B5C /* SearchFeedCell */,
 				E48846871E2B36F1003352F5 /* DeletedSuscribeFeedCell */,
 				E48846861E2B36C6003352F5 /* SubscribeFeedCell */,
@@ -2484,9 +2493,28 @@
 			path = SubscribeFooterView;
 			sourceTree = "<group>";
 		};
+		E4CA9A221E3339580047620F /* EditScore */ = {
+			isa = PBXGroup;
+			children = (
+				E4CA9A231E33396E0047620F /* EditScore.storyboard */,
+				E4CA9A251E3339A10047620F /* EditScoreViewController.swift */,
+			);
+			path = EditScore;
+			sourceTree = "<group>";
+		};
+		E4CA9A271E333C250047620F /* EditScoreCell */ = {
+			isa = PBXGroup;
+			children = (
+				E4CA9A281E333C370047620F /* EditScoreCell.swift */,
+				E4CA9A291E333C370047620F /* EditScoreCell.xib */,
+			);
+			path = EditScoreCell;
+			sourceTree = "<group>";
+		};
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4CA9A221E3339580047620F /* EditScore */,
 				E459BC471E2A3F30008F4097 /* PodHelp */,
 				E459B9311E27598D008F4097 /* About */,
 				E459B92C1E275929008F4097 /* FeedBack */,
@@ -2971,10 +2999,12 @@
 				E459BC061E27637C008F4097 /* TypeSelectedCell.xib in Resources */,
 				E4B367391E1503BB0010385E /* Profile.storyboard in Resources */,
 				E459BBD91E27637C008F4097 /* DetailContentCell.xib in Resources */,
+				E4CA9A2B1E333C370047620F /* EditScoreCell.xib in Resources */,
 				E459BC021E27637C008F4097 /* NewFormulaTextCell.xib in Resources */,
 				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
 				E459B92E1E275937008F4097 /* FeedBack.storyboard in Resources */,
 				E459BC0E1E27637C008F4097 /* ProfileFeedsCell.xib in Resources */,
+				E4CA9A241E33396E0047620F /* EditScore.storyboard in Resources */,
 				E459BBEE1E27637C008F4097 /* MediaViewCell.xib in Resources */,
 				E459BC261E27637C008F4097 /* SettingsUserCell.xib in Resources */,
 				E459BC1C1E27637C008F4097 /* ScoreCell.xib in Resources */,
@@ -3345,6 +3375,7 @@
 				E444833D1E068206008311F5 /* CommentViewController+Cache.swift in Sources */,
 				E459BAF71E2762DB008F4097 /* ScoreTimerLabel.swift in Sources */,
 				E459BADD1E2762DB008F4097 /* HorizontalLineView.swift in Sources */,
+				E4CA9A2A1E333C370047620F /* EditScoreCell.swift in Sources */,
 				E43B6F421DEA9CB000CE1FB5 /* DiscoverModel.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
 				E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */,
@@ -3425,6 +3456,7 @@
 				CC71484A30B5E743F91AB3C0 /* CommentViewController+CollectionView.swift in Sources */,
 				CC714DD4AB84FEF2913CC421 /* CommentViewController+Conversation.swift in Sources */,
 				CC7146D44A27F3621183FD8B /* CGImage+Cube.swift in Sources */,
+				E4CA9A261E3339A10047620F /* EditScoreViewController.swift in Sources */,
 				E459BBC11E27637C008F4097 /* ChatRightTextCell.swift in Sources */,
 				E459BBDE1E27637C008F4097 /* HeaderViewCell.swift in Sources */,
 			);

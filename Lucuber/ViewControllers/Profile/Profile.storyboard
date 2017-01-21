@@ -14,7 +14,7 @@
                 <navigationController id="HD5-iu-WB9" customClass="MainNavigationController" customModule="Lucuber" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="icon_me" selectedImage="icon_me_active" id="Y6T-Sx-RfZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nfm-6Z-uBS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nfm-6Z-uBS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -88,6 +88,7 @@
                         <segue destination="BwL-Cf-frl" kind="show" identifier="showCommentView" id="JgB-pW-DUa"/>
                         <segue destination="a9J-ti-zaY" kind="show" identifier="showFormulaFeeds" id="8cy-dW-zqO"/>
                         <segue destination="H2S-eY-kld" kind="show" identifier="showSearchFeeds" id="45J-nf-PhI"/>
+                        <segue destination="S4J-8R-fgl" kind="show" identifier="showEditScore" id="SGy-eJ-GPQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8a-wo-7OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -102,7 +103,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7n-af-nHO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1259" y="-22"/>
+            <point key="canvasLocation" x="1214" y="-22"/>
         </scene>
         <!--Setting-->
         <scene sceneID="CRN-VS-Zct">
@@ -110,7 +111,15 @@
                 <viewControllerPlaceholder storyboardName="Setting" id="WOX-KZ-04X" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7L-P1-UmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1242" y="31"/>
+            <point key="canvasLocation" x="1197" y="34"/>
+        </scene>
+        <!--EditScore-->
+        <scene sceneID="T80-K6-hEH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditScore" id="S4J-8R-fgl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZHJ-IS-OPf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1188" y="92"/>
         </scene>
         <!--FeedsViewController-->
         <scene sceneID="J76-Yj-pLI">
@@ -170,7 +179,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WNL-u3-ra5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1258" y="543"/>
+            <point key="canvasLocation" x="1296" y="388"/>
         </scene>
     </scenes>
     <resources>

@@ -18,8 +18,14 @@ class ProfileScoreCell: UICollectionViewCell {
     @IBOutlet weak var scoreTimerLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         categoryLabelLeadingConstraint.constant = Config.Profile.leftEdgeInset
         accessoryImageViewtrailingConstraint.constant = Config.Profile.rightEdgeInset
+        accessoryImageView.tintColor = UIColor.lightGray
+        
+        categoryLabel.textColor = UIColor.gray
+        scoreTimerLabel.textColor = UIColor.gray
+        accessoryImageView.isHidden = true
     }
 
 }

@@ -524,13 +524,14 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case header = 0
         case footer
         case master
-        case score
         case separationLine
+        case score
+        case separationLine2
         case feeds
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 6
+        return 7
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -550,12 +551,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return  profileUser?.cubeCategoryMasterCount ?? 0
             
         case .score:
-            return 4
+            return 7
             
         case .separationLine:
-            return 1
+            return 0
             
         case .feeds:
+            return 1
+            
+        case .separationLine2:
             return 1
         }
     }
@@ -623,11 +627,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             return cell
             
+        case .separationLine:
+            let cell: ProfileSeparationLineCell = collectionView.dequeueReusableCell(for: indexPath)
+            return cell
+            
         case .score:
             let cell: ProfileScoreCell = collectionView.dequeueReusableCell(for: indexPath)
             return cell
             
-        case .separationLine:
+        case .separationLine2:
             let cell: ProfileSeparationLineCell = collectionView.dequeueReusableCell(for: indexPath)
             return cell
             
@@ -640,6 +648,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             })
             
             return cell
+            
         }
         
     }
@@ -666,10 +675,13 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             return CGSize(width: rect.width + 24, height: CubeCategoryCell.height)
             
+        case .separationLine:
+            return CGSize(width: collectionView.bounds.width, height: 1)
+            
         case .score:
             return CGSize(width: collectionView.bounds.width, height: 40)
             
-        case .separationLine:
+        case .separationLine2:
             return CGSize(width: collectionView.bounds.width, height: 1)
             
         case .feeds:
@@ -690,11 +702,11 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             switch section {
                 
             case .master:
+                
                 header.titleLabel.text = "擅长"
                 
                 if profileUserIsMe {
                     header.tapAction = { [weak self] in
-                        
                         // TODO: - 传入
                         self?.performSegue(withIdentifier: "showEditMaster", sender: nil)
                     }
@@ -703,14 +715,22 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                     header.accessoryImageView.isHidden = true
                 }
                 
+                return header
             case .score:
                 header.titleLabel.text = "成绩"
-                header.accessoryImageView.isHidden = true
+                
+                if profileUserIsMe {
+                    header.tapAction = { [weak self] in
+                        self?.performSegue(withIdentifier: "showEditScore", sender: nil)
+                    }
+                } else {
+                    header.accessoryImageView.isHidden = true
+                }
+                
+                return header
             default:
                 header.titleLabel.text = ""
             }
-            
-  
             
             return header
             
@@ -718,7 +738,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             let footer: UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, forIndexPath: indexPath)
             return footer
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -732,23 +751,26 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .header:
             return UIEdgeInsets(top: 0, left: 0, bottom: sectionBottomEdgeInset, right: 0)
             
-        case .master:
-            return UIEdgeInsets(top: 0, left: sectionLeftEdgeInset, bottom: 15, right: sectionRightEdgeInset)
-            
         case .footer:
             return UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
             
+        case .master:
+            return UIEdgeInsets(top: 0, left: sectionLeftEdgeInset, bottom: 15, right: sectionRightEdgeInset)
+            
         case .separationLine:
-            return UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+            return UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+            
+        case .score:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+            
+            
+        case .separationLine2:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             
         case .feeds:
             return UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
             
-        case .score:
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

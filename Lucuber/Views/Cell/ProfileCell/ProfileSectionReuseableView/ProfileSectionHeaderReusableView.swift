@@ -18,6 +18,12 @@ class ProfileSectionHeaderReusableView: UICollectionReusableView {
     
     var tapAction: (() -> Void)?
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        accessoryImageView.isHidden = false
+        tapAction = nil
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

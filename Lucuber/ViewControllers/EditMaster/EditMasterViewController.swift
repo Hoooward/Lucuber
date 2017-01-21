@@ -139,7 +139,6 @@ final class EditMasterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         // 每次视图出现, 重置 selectedCategory
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
