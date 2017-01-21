@@ -478,7 +478,7 @@ class CommentViewController: UIViewController {
         if let cell = cell as? ChatLeftTextCell {
             bubbleFrame = cell.convert(cell.textContentTextView.frame, to: view)
         } else if let cell = cell as? ChatRightTextCell {
-            bubbleFrame = cell.convert(cell.textContentTextView.frame, to: view)
+            bubbleFrame = cell.convert(cell.textContainerView.frame, to: view)
         } else if let cell = cell as? ChatLeftImageCell {
             bubbleFrame = cell.convert(cell.messageImageView.frame, to: view)
         } else if let cell = cell as? ChatRightImageCell {
