@@ -11,7 +11,7 @@ import Photos
 
 class MoreMessageTypeView: UIView {
     
-    let totalHeight: CGFloat = 100 + 60 * 3
+    let totalHeight: CGFloat = 100 + 60 * 2
     
     fileprivate var containerView: UIView = {
         let view = UIView()
