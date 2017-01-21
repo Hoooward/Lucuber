@@ -103,7 +103,7 @@ class MessageToolbar: UIToolbar {
                 messageTextView.isHidden = false
                 voiceRecordButton.isHidden = true
                 
-                micButton.setImage(UIImage(named: "item_mic"), for: .normal)
+//                micButton.setImage(UIImage(named: "item_mic"), for: .normal)
                 moreButton.setImage(UIImage(named: "item_more"), for: .normal)
                 
                 micButton.tintColor = UIColor.messageToolbarColor()
@@ -164,7 +164,7 @@ class MessageToolbar: UIToolbar {
     
     lazy var micButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "item_mic"), for: .normal)
+//        button.setImage(UIImage(named: "item_mic"), for: .normal)
         button.tintColor = UIColor.messageToolbarColor()
         button.tintAdjustmentMode = .normal
         button.addTarget(self, action: #selector(MessageToolbar.toggleRecordVoice), for: .touchUpInside)
@@ -264,7 +264,8 @@ class MessageToolbar: UIToolbar {
         
         messageTextViewHeightConstraint.priority = UILayoutPriorityDefaultHigh
         
-        let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[micButton(48)][messageTextView][moreButton(==micButton)]|", options: [], metrics: nil, views: viewDictionary)
+//        let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[micButton(48)][messageTextView][moreButton(==micButton)]|", options: [], metrics: nil, views: viewDictionary)
+        let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[micButton(12)][messageTextView][moreButton(48)]|", options: [], metrics: nil, views: viewDictionary)
         
         
         NSLayoutConstraint.activate(constraintsV1)

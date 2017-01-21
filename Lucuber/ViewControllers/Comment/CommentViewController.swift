@@ -575,6 +575,7 @@ class CommentViewController: UIViewController {
             let predicate = NSPredicate(format: "readed = false")
             let filteredMessages = strongSelf.messages.filter(predicate)
             
+            // 未来如果需要针对不同的 Conversation 重置推送角标, 需要在这里上传 Leancloud
             printLog("filteredMessages.count: \(filteredMessages.count)")
             printLog("conversation.unreadMessagesCount: \(strongSelf.conversation.unreadMessageCount)")
             filteredMessages.forEach { message in

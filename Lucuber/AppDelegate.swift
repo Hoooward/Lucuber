@@ -216,8 +216,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 				fetchMessageWithMessageLcID(messageId, failureHandler: { reason, errorMessage in
                     defaultFailureHandler(reason, errorMessage)
-                }, completion: { messageIds in
+                }, completion: { [weak self] messageIds in
                     printLog("下载通知的 Message 完成")
+//                    self?.clearNotification()
                     NotificationCenter.default.post(name: Config.NotificationName.changedFeedConversation, object: nil)
                     tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
 					completionHandler(.newData)
