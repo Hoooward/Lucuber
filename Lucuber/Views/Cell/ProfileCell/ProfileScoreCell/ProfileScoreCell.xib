@@ -17,34 +17,45 @@
                 <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成绩汇总" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcP-J3-TEU">
-                        <rect key="frame" x="30" y="13" width="225" height="24"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="Wha-Bd-LxD" userLabel="Accessory Image View">
+                        <rect key="frame" x="268" y="18.5" width="8" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="1aL-LQ-lD1"/>
+                            <constraint firstAttribute="height" constant="13" id="6Ep-lD-aUp"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="三阶" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="a83-rR-3n3" userLabel="Name Label">
+                        <rect key="frame" x="38" y="16" width="31" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_mini" translatesAutoresizingMaskIntoConstraints="NO" id="Wha-Bd-LxD" userLabel="Accessory Image View">
-                        <rect key="frame" x="265" y="15" width="11" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="11" id="1aL-LQ-lD1"/>
-                            <constraint firstAttribute="height" constant="20" id="6Ep-lD-aUp"/>
-                        </constraints>
-                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17.937" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="vrW-TI-L4B">
+                        <rect key="frame" x="211" y="17" width="42" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="Wha-Bd-LxD" firstAttribute="centerY" secondItem="qcP-J3-TEU" secondAttribute="centerY" id="4LC-va-2fZ"/>
-                <constraint firstItem="qcP-J3-TEU" firstAttribute="leading" secondItem="NFN-R2-9jc" secondAttribute="leading" constant="30" id="IlX-Z2-NfW"/>
+                <constraint firstItem="Wha-Bd-LxD" firstAttribute="leading" secondItem="vrW-TI-L4B" secondAttribute="trailing" constant="15" id="TTi-AN-WpB"/>
+                <constraint firstItem="vrW-TI-L4B" firstAttribute="centerY" secondItem="a83-rR-3n3" secondAttribute="centerY" id="X0c-1G-3XT"/>
                 <constraint firstAttribute="trailing" secondItem="Wha-Bd-LxD" secondAttribute="trailing" constant="30" id="Y4D-GF-wrj"/>
-                <constraint firstItem="qcP-J3-TEU" firstAttribute="centerY" secondItem="NFN-R2-9jc" secondAttribute="centerY" id="cys-tN-lWC"/>
-                <constraint firstItem="Wha-Bd-LxD" firstAttribute="leading" secondItem="qcP-J3-TEU" secondAttribute="trailing" constant="10" id="zUL-Bt-p5f"/>
+                <constraint firstItem="Wha-Bd-LxD" firstAttribute="centerY" secondItem="vrW-TI-L4B" secondAttribute="centerY" id="fwH-kk-R8e"/>
+                <constraint firstItem="vrW-TI-L4B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="a83-rR-3n3" secondAttribute="trailing" constant="50" id="oOu-M3-ALI"/>
+                <constraint firstItem="a83-rR-3n3" firstAttribute="centerY" secondItem="NFN-R2-9jc" secondAttribute="centerY" id="pre-MU-M7A"/>
+                <constraint firstItem="a83-rR-3n3" firstAttribute="leading" secondItem="NFN-R2-9jc" secondAttribute="leading" constant="38" id="soh-GG-Z2a"/>
             </constraints>
             <size key="customSize" width="306" height="50"/>
             <connections>
-                <outlet property="indicatorTrailingConstraint" destination="Y4D-GF-wrj" id="eQR-JJ-OIT"/>
-                <outlet property="labelLeadingConstraint" destination="IlX-Z2-NfW" id="KjZ-tj-MwG"/>
+                <outlet property="accessoryImageView" destination="Wha-Bd-LxD" id="JSX-wE-lcN"/>
+                <outlet property="accessoryImageViewtrailingConstraint" destination="Y4D-GF-wrj" id="ujA-5v-eyx"/>
+                <outlet property="categoryLabel" destination="a83-rR-3n3" id="Q8J-lJ-M3A"/>
+                <outlet property="categoryLabelLeadingConstraint" destination="soh-GG-Z2a" id="Dj0-2C-oYz"/>
+                <outlet property="scoreTimerLabel" destination="vrW-TI-L4B" id="Vv8-Dd-3VO"/>
             </connections>
-            <point key="canvasLocation" x="-32" y="42"/>
+            <point key="canvasLocation" x="-146" y="-7"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -10,13 +10,16 @@ import UIKit
 
 class ProfileScoreCell: UICollectionViewCell {
     
-    @IBOutlet weak var indicatorTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var labelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var categoryLabel: UILabel!
     
+    @IBOutlet weak var categoryLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var accessoryImageView: UIImageView!
+    @IBOutlet weak var accessoryImageViewtrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scoreTimerLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        labelLeadingConstraint.constant = Config.Profile.leftEdgeInset
-        indicatorTrailingConstraint.constant = Config.Profile.rightEdgeInset
+        categoryLabelLeadingConstraint.constant = Config.Profile.leftEdgeInset
+        accessoryImageViewtrailingConstraint.constant = Config.Profile.rightEdgeInset
     }
 
 }

@@ -550,7 +550,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return  profileUser?.cubeCategoryMasterCount ?? 0
             
         case .score:
-            return 1
+            return 4
             
         case .separationLine:
             return 1
@@ -667,13 +667,13 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: rect.width + 24, height: CubeCategoryCell.height)
             
         case .score:
-            return CGSize(width: collectionView.bounds.width, height: 60)
+            return CGSize(width: collectionView.bounds.width, height: 40)
             
         case .separationLine:
             return CGSize(width: collectionView.bounds.width, height: 1)
             
         case .feeds:
-            return CGSize(width: collectionView.bounds.width, height: 60)
+            return CGSize(width: collectionView.bounds.width, height: 40)
         }
     }
     
@@ -692,22 +692,25 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             case .master:
                 header.titleLabel.text = "擅长"
                 
+                if profileUserIsMe {
+                    header.tapAction = { [weak self] in
+                        
+                        // TODO: - 传入
+                        self?.performSegue(withIdentifier: "showEditMaster", sender: nil)
+                    }
+                    
+                } else {
+                    header.accessoryImageView.isHidden = true
+                }
+                
+            case .score:
+                header.titleLabel.text = "成绩"
+                header.accessoryImageView.isHidden = true
             default:
                 header.titleLabel.text = ""
             }
             
-            if profileUserIsMe {
-                
-                header.tapAction = { [weak self] in
-                    
-                    // TODO: - 传入
-                    self?.performSegue(withIdentifier: "showEditMaster", sender: nil)
-                }
-                
-            } else {
-                
-                header.accessoryImageView.isHidden = true
-            }
+  
             
             return header
             
@@ -766,7 +769,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 
             case .master:
                 return CGSize(width: collectionViewWidth, height: normalHeight)
-      
+                
+            case .score:
+                return CGSize(width: collectionViewWidth, height: normalHeight)
+                
             default:
                 return CGSize.zero
             }
