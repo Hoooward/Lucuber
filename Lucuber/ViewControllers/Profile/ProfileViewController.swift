@@ -289,8 +289,11 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
                     break
                 }
                 
-                if let user =  userWith(avUser.objectId ?? "", inRealm: realm) {
-                    
+                var user: RUser?
+                try? realm.write {
+                    user = getOrCreatRUserWith(avUser, inRealm: realm)
+                }
+                if let user = user {
                     self.profileUser = ProfileUser.userType(user)
                     updateProfileCollectionView()
                 }

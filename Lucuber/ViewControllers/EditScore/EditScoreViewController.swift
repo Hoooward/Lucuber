@@ -121,7 +121,6 @@ final class EditScoreViewController: UIViewController {
             flatScoreResult.append(score)
         }
        
-        printLog(flatScoreResult)
         try? realm.write {
             if let oldScores = me?.cubeScoresList {
                 realm.delete(oldScores)

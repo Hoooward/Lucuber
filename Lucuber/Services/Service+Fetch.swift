@@ -426,7 +426,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
 // MARK: - User
 
-
 public func fetchSubscribeConversation(_ future: (() -> Void)?) {
     
     guard let me = AVUser.current() else {

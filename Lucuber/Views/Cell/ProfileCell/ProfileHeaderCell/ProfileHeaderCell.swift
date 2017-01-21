@@ -55,6 +55,7 @@ class ProfileHeaderCell: UICollectionViewCell {
         guard let avatarURLString = avatarURLString else {
             return
         }
+        printLog(avatarURLString)
         
         if avatarImageView.image == nil {
             avatarImageView.alpha = 0
