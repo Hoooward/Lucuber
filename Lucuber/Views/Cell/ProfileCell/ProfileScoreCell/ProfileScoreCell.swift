@@ -31,8 +31,8 @@ class ProfileScoreCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        categoryLabelLeadingConstraint.constant = Config.Profile.leftEdgeInset
-        scoreTimerLabelTrailingConstraint.constant = Config.Profile.rightEdgeInset
+        categoryLabelLeadingConstraint.constant = Config.Profile.leftEdgeInset + 2
+        scoreTimerLabelTrailingConstraint.constant = Config.Profile.rightEdgeInset + 10
         
         categoryLabel.textColor = UIColor.gray
         scoreTimerLabel.textColor = UIColor.gray

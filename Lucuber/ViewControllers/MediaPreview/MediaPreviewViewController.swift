@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MonkeyKing
 
 let mediaPreviewWindow = UIWindow(frame: UIScreen.main.bounds)
 
@@ -266,6 +266,142 @@ class MediaPreviewViewController: UIViewController {
 
     fileprivate func prepareForShare(with cell: MediaViewCell, previewMedia: PreviewMedia) {
         // 设置分享的动作
+        
+        switch previewMedia {
+            
+        case .message(let message):
+            
+            switch message.mediaType {
+            case MessageMediaType.image.rawValue:
+                
+                mediaControlView.type = .image
+                
+                if let imageFileURL = FileManager.cubeMessageImageURL(with: message.localAttachmentName), let image = UIImage(contentsOfFile: imageFileURL.path) {
+                    
+                    mediaControlView.shareAction = { [weak self] in
+                        
+                        let info = MonkeyKing.Info(
+                            title: nil,
+                            description: nil,
+                            thumbnail: nil,
+                            media: .image(image)
+                        )
+                        
+                        let sessionMessage = MonkeyKing.Message.weChat(.session(info: info))
+                        
+                        let weChatSessionActivity = WeChatActivity(
+                            type: .session,
+                            message: sessionMessage,
+                            completionHandler: { success in
+                                printLog("发送到微信好友 \(success)")
+                        })
+                        
+                        let timelineMessage = MonkeyKing.Message.weChat(.timeline(info: info))
+                        
+                        let weChatTimelineActivity = WeChatActivity(
+                            type: .timeline,
+                            message: timelineMessage,
+                            completionHandler: { success in
+                               printLog("发送到微信朋友圈 \(success)")
+                        }
+                        )
+                        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
+                        activityViewController.excludedActivityTypes = [UIActivityType.message, UIActivityType.mail]
+                        
+                        self?.present(activityViewController, animated: true, completion: nil)
+                    
+                    }
+                }
+                
+                
+            default:
+                break
+            }
+            
+            
+        case .localImage(let image):
+            
+            mediaControlView.type = .image
+            
+            mediaControlView.shareAction = { [weak self] in
+                
+                let info = MonkeyKing.Info(
+                    title: nil,
+                    description: nil,
+                    thumbnail: nil,
+                    media: .image(image)
+                )
+                
+                let sessionMessage = MonkeyKing.Message.weChat(.session(info: info))
+                
+                let weChatSessionActivity = WeChatActivity(
+                    type: .session,
+                    message: sessionMessage,
+                    completionHandler: { success in
+                        printLog("发送到微信好友 \(success)")
+                })
+                
+                let timelineMessage = MonkeyKing.Message.weChat(.timeline(info: info))
+                
+                let weChatTimelineActivity = WeChatActivity(
+                    type: .timeline,
+                    message: timelineMessage,
+                    completionHandler: { success in
+                        printLog("发送到微信朋友圈 \(success)")
+                }
+                )
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
+                activityViewController.excludedActivityTypes = [UIActivityType.message, UIActivityType.mail]
+                
+                self?.present(activityViewController, animated: true, completion: nil)
+                
+            }
+
+        case .attachmentType(let _):
+            
+            mediaControlView.type = .image 
+            
+            mediaControlView.shareAction = { [weak self] in
+                
+                guard let image = cell.mediaView.image else {
+                    return
+                }
+                
+                let info = MonkeyKing.Info(
+                    title: nil,
+                    description: nil,
+                    thumbnail: nil,
+                    media: .image(image)
+                )
+                
+                let sessionMessage = MonkeyKing.Message.weChat(.session(info: info))
+                
+                let weChatSessionActivity = WeChatActivity(
+                    type: .session,
+                    message: sessionMessage,
+                    completionHandler: { success in
+                        printLog("发送到微信好友 \(success)")
+                })
+                
+                let timelineMessage = MonkeyKing.Message.weChat(.timeline(info: info))
+                
+                let weChatTimelineActivity = WeChatActivity(
+                    type: .timeline,
+                    message: timelineMessage,
+                    completionHandler: { success in
+                        printLog("发送到微信朋友圈 \(success)")
+                }
+                )
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
+                activityViewController.excludedActivityTypes = [UIActivityType.message, UIActivityType.mail]
+                
+                self?.present(activityViewController, animated: true, completion: nil)
+                
+            }
+            
+        default:
+            break
+        }
     }
 }
 extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

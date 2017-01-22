@@ -237,6 +237,8 @@
 		E45FC0601E310F0F0012A0A7 /* ConversationFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FC05F1E310F0F0012A0A7 /* ConversationFeed.swift */; };
 		E46047A81E039C2300B6D501 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46047A71E039C2200B6D501 /* Downloader.swift */; };
 		E466068C1D8E3533002306D0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466068B1D8E3533002306D0 /* Helper.swift */; };
+		E467AF481E34642000947295 /* WeChatActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467AF471E34642000947295 /* WeChatActivity.swift */; };
+		E467AF4A1E3466BC00947295 /* Activitles.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E467AF491E3466BC00947295 /* Activitles.xcassets */; };
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E475DA701E10F9260079FE75 /* NewScoreGroupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */; };
 		E475DA721E10F9400079FE75 /* NewScoreGroupAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */; };
@@ -645,6 +647,8 @@
 		E46047A71E039C2200B6D501 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		E46047B21E03BECA00B6D501 /* Lucuber-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lucuber-Bridging-Header.h"; sourceTree = "<group>"; };
 		E466068B1D8E3533002306D0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		E467AF471E34642000947295 /* WeChatActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeChatActivity.swift; sourceTree = "<group>"; };
+		E467AF491E3466BC00947295 /* Activitles.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Activitles.xcassets; sourceTree = "<group>"; };
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupPresentationController.swift; sourceTree = "<group>"; };
 		E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupAnimator.swift; sourceTree = "<group>"; };
@@ -2207,6 +2211,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		E467AF461E34641100947295 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				E467AF471E34642000947295 /* WeChatActivity.swift */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
 		E475DA6E1E10F5CD0079FE75 /* NewScoreGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -2690,10 +2702,11 @@
 		E4FFAA731D8D29A30039BA8A = {
 			isa = PBXGroup;
 			children = (
-				E459BC3E1E28694E008F4097 /* Badges.xcassets */,
+				E467AF491E3466BC00947295 /* Activitles.xcassets */,
 				E4FFAA911D8D29DE0039BA8A /* Lucuber */,
 				E4F38DC41E01918500F0DF8A /* Lucuber.entitlements */,
 				E4FFAA961D8D29DE0039BA8A /* Main.storyboard */,
+				E459BC3E1E28694E008F4097 /* Badges.xcassets */,
 				E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */,
 				E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
@@ -2722,6 +2735,7 @@
 			isa = PBXGroup;
 			children = (
 				E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */,
+				E467AF461E34641100947295 /* Activities */,
 				E466068A1D8E3513002306D0 /* Helper */,
 				E4F38D561DFD20C400F0DF8A /* Cache */,
 				E459BC4F1E2A647A008F4097 /* Protocol */,
@@ -2985,6 +2999,7 @@
 				E488468F1E2B3723003352F5 /* DeletedSuscribeFeedCell.xib in Resources */,
 				E45FC05C1E3090DC0012A0A7 /* Assets.xcassets in Resources */,
 				E459BBF21E27637C008F4097 /* PickPhotosCell.xib in Resources */,
+				E467AF4A1E3466BC00947295 /* Activitles.xcassets in Resources */,
 				E459BBEA1E27637C008F4097 /* NoResultCell.xib in Resources */,
 				E459BBC71E27637C008F4097 /* LoadMoreCollectionViewCell.xib in Resources */,
 				E459BC1A1E27637C008F4097 /* ProfileSeparationLineCell.xib in Resources */,
@@ -3361,6 +3376,7 @@
 				E4B09BAA1D8EB5790090671F /* MyFormulaViewController.swift in Sources */,
 				E488468E1E2B3723003352F5 /* DeletedSuscribeFeedCell.swift in Sources */,
 				E459BBDA1E27637C008F4097 /* DetailFormulasCell.swift in Sources */,
+				E467AF481E34642000947295 /* WeChatActivity.swift in Sources */,
 				E4DF660F1D8DA04E005CE518 /* UIStoryboard+Cube.swift in Sources */,
 				E41ECF5D1DB77976005BEFE4 /* MediaPreviewViewController.swift in Sources */,
 				E4A008021E13798E00ABA5B5 /* ScoreDetailViewController.swift in Sources */,

@@ -36,9 +36,7 @@ extension Notification.Name {
     
     static let tabbarItemTextEnableDidChangedNotification = Notification.Name("tabbarItemTextEnableDidChanged")
 
-
 }
-
 
 
 public class Config {
@@ -50,8 +48,6 @@ public class Config {
         static let newMyInfo = Notification.Name("newMyInfo")
         static let createdFeed = Notification.Name("createdFeed")
         static let deletedFeed = Notification.Name("deletedFeed")
-
-
     }
     
     public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30
@@ -87,6 +83,21 @@ public class Config {
     
     public class func chatTextGapBetweenWallAndContentLabel() -> CGFloat {
         return 50
+    }
+    
+    struct SocialNetwork {
+        
+        struct WeChat {
+            static let appID = "wx0092d68f06f284aa"
+            
+            static let sessionType = "com.Catch-Inc.Yep.WeChat.Session"
+            static let sessionTitle = "朋友"
+            static let sessionImage = UIImage(named: "wechat_session")!
+            
+            static let timelineType = "com.Catch-Inc.Yep.WeChat.Timeline"
+            static let timelineTitle = "朋友圈"
+            static let timelineImage = UIImage(named: "wechat_timeline")!
+        }
     }
     
     public struct ErrorCode {

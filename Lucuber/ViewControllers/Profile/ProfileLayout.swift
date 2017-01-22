@@ -14,7 +14,6 @@ final class ProfileLayout: UICollectionViewFlowLayout {
     public var scrollUpAction: ((CGFloat) -> Void)?
     let topBarHeight: CGFloat = 64
     
-    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
         guard let _layoutAttirbutes = super.layoutAttributesForElements(in: rect) else {
@@ -58,6 +57,7 @@ final class ProfileLayout: UICollectionViewFlowLayout {
                     if attributes.indexPath.section == ProfileViewController.Section.header.rawValue {
                         var frame = attributes.frame
                         frame.origin.y = deltaY - coverHideHeight
+                        printLog(frame)
                         attributes.frame = frame
                         attributes.zIndex = 1000
                         break

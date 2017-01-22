@@ -281,7 +281,6 @@ class NewFormulaViewController: UIViewController {
             // 清除空的 content
             try? realm.write {
                 formula.cleanBlankContent(inRealm: realm)
-                
                 if self.isNeedRepush {
                     formula.isPushed = false
                 }

@@ -112,8 +112,8 @@ class SubscribesViewController: UIViewController {
             let vc = segue.destination as! CommentViewController
             
             guard let indexPath = sender as? IndexPath,
-                let conversation = strongSelf.feedConversations[safe: indexPath.row],
-                let realm = try? Realm() else {
+                let conversation = strongSelf.feedConversations[safe: indexPath.row]
+                else {
                     return
             }
             
@@ -123,7 +123,7 @@ class SubscribesViewController: UIViewController {
                 vc.feed = ConversationFeed.feedType(feed)
             }
             
-            vc.afterDeletedFeedAction = { [weak self] _ in
+            vc.afterDeletedFeedAction = {  _ in
                 
 //                if let strongSelf = self {
 //                    

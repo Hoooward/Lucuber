@@ -14,6 +14,7 @@ import PKHUD
 import RealmSwift
 import UserNotifications
 import LucuberTimer
+import MonkeyKing
 
 
 @UIApplicationMain
@@ -64,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = realmConfig()
         AVOSCloud.setAllLogsEnabled(false)
         AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
+        
+//        MonkeyKing.registerAccount(MonkeyKing.Account.weChat(appID: "wx0092d68f06f284aa", appKey: "77f319fcf7e6c6e62c5209752370f63d"))
         
         DiscoverFormula.registerSubclass()
         DiscoverContent.registerSubclass()
@@ -125,6 +128,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         printLog("进入后台")
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        if MonkeyKing.handleOpenURL(url) {
+            return true
+        }
+        return false
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
