@@ -68,6 +68,7 @@ func fetchMyScoresAndFutherAction(_ action: (()-> Void)?) {
         if error != nil {
             defaultFailureHandler(Reason.network(error), "下载我的还原记录失败")
         }
+        
         if let result = result as? [DiscoverScore] {
             
             guard let realm = try? Realm() else {
