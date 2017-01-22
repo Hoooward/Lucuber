@@ -143,7 +143,11 @@ extension ScoreViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let scoreGroup = scoreGroups[indexPath.row]
                 try? strongSelf.realm.write {
-                    scoreGroup.cascadeDelete(inRealm: strongSelf.realm)
+                    scoreGroup.isDeleteByCreator = true
+                    scoreGroup.timerList.forEach({
+                        $0.isDeleteByCreator = true
+                        $0.isPushed = false
+                    })
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 

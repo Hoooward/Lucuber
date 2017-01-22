@@ -71,6 +71,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     enum UIRow: Int {
         case tabBarTitleEnabled
+        case dateBackup
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -85,7 +86,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .user:
             return 1
         case .ui:
-            return 1
+            return 2
         case .more:
             return moreAnnotations.count
         }
@@ -127,6 +128,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     NotificationCenter.default.post(name: NSNotification.Name.tabbarItemTextEnableDidChangedNotification, object: nil)
                 }
+                return cell
+                
+            case .dateBackup:
+                
+                let cell: SettingsMoreCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.annotationLabel.text = "数据备份"
                 return cell
             }
             

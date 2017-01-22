@@ -177,9 +177,11 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                         
                         try? strongSelf.realm.write {
                             strongSelf.formula.deletedByCreator = true
+                            strongSelf.formula.isPushed = false
                             strongSelf.formula.contents.forEach {
                                 $0.deleteByCreator = true
                             }
+                            
                         }
                         
                         deleteEmptyRCategory(with: UploadFormulaMode.my, inRealm: strongSelf.realm)

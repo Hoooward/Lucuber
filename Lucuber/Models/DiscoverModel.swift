@@ -18,17 +18,21 @@ func pushMyScoreToLeancloudAndFutherAction(_ action: (()-> Void)? ) {
         return
     }
     
-    let scores = scoresWithRUser(me, inRealm: realm)
+    let scores = unPushedScoreWithRUser(me, inRealm: realm)
    
+    if scores.isEmpty {
+        action?()
+        return
+    }
     var discoverScores: [DiscoverScore] = []
     
     for score in scores {
         
         var discoverScore: DiscoverScore
         if !score.lcObjectId.isEmpty {
-             discoverScore = DiscoverScore(objectId: score.lcObjectId)
+            discoverScore = DiscoverScore(objectId: score.lcObjectId)
         } else {
-           discoverScore = DiscoverScore()
+            discoverScore = DiscoverScore()
         }
         
         discoverScore.atGroup = score.atGroup?.localObjectId ?? ""
@@ -52,6 +56,18 @@ func pushMyScoreToLeancloudAndFutherAction(_ action: (()-> Void)? ) {
     AVObject.saveAll(inBackground: discoverScores, block: { success, error in
         if success {
             printLog(discoverScores)
+            
+            guard let realm = try? Realm() else {
+                return
+            }
+            for (index, discoverScore) in discoverScores.enumerated() {
+                
+                let score = scores[index]
+                try? realm.write {
+                    score.lcObjectId = discoverScore.objectId ?? ""
+                    score.isPushed = true
+                }
+            }
         }
     })
 }
@@ -93,6 +109,26 @@ public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRe
     
     var score = scoreWith(discoverScore.localObjectID, inRealm: realm)
     
+    let deleted = discoverScore.isDeleteByCreator
+    
+    if deleted {
+        if let score = score {
+            realm.delete(score)
+        }
+        return
+    }
+    
+    var group = scoreGroupWith(discoverScore.atGroup, inRealm: realm)
+    
+    let groupDeleted = discoverScore.atGroupIsDeleteByCreator
+    
+    if groupDeleted {
+        if let group = group {
+            group.cascadeDelete(inRealm: realm)
+        }
+        return
+    }
+    
     if score == nil {
         let newScore = Score()
         newScore.localObjectId = Score.randomLocalObjectID()
@@ -101,8 +137,8 @@ public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRe
         score = newScore
     }
     
+    
     if let score = score {
-       
         let user = getOrCreatRUserWith(discoverScore.creator, inRealm: realm)
         
         score.creator = user
@@ -116,12 +152,12 @@ public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRe
         score.scramblingText = discoverScore.scramblingText
         score.createdUnixTime = discoverScore.createdUnixTime
         
-        var group = scoreGroupWith(discoverScore.atGroup, inRealm: realm)
+        
         if group == nil {
             let newGroup = ScoreGroup()
             newGroup.localObjectId = discoverScore.atGroup
-            
             realm.add(newGroup)
+            
             group = newGroup
         }
         
@@ -133,6 +169,7 @@ public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRe
             score.atGroup = group
         }
     }
+    
     completion?()
 }
 

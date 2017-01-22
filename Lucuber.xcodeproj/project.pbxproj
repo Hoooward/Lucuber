@@ -296,6 +296,8 @@
 		E4A008131E14232F00ABA5B5 /* digital-7 (mono).ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4A008121E14232F00ABA5B5 /* digital-7 (mono).ttf */; };
 		E4A2DBE31E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */; };
 		E4A2DBE51E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */; };
+		E4A2DEEF1E35062900CA4CBC /* BackUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEEE1E35062900CA4CBC /* BackUp.storyboard */; };
+		E4A2DEF11E35063600CA4CBC /* BackUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DEF01E35063600CA4CBC /* BackUpViewController.swift */; };
 		E4A3BA5D1DE3F874009C0E78 /* Main1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA5B1DE3F874009C0E78 /* Main1.storyboard */; };
 		E4A3BA621DE3F874009C0E78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BA601DE3F874009C0E78 /* LaunchScreen.storyboard */; };
 		E4A3BAA51DE3FA43009C0E78 /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E4A3BAA21DE3FA43009C0E78 /* FormulasData.json */; };
@@ -709,6 +711,8 @@
 		E4A008121E14232F00ABA5B5 /* digital-7 (mono).ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "digital-7 (mono).ttf"; sourceTree = "<group>"; };
 		E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSelectCubeCategoryViewController.swift; sourceTree = "<group>"; };
 		E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSelectCubeCategoryLayout.swift; sourceTree = "<group>"; };
+		E4A2DEEE1E35062900CA4CBC /* BackUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BackUp.storyboard; sourceTree = "<group>"; };
+		E4A2DEF01E35063600CA4CBC /* BackUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackUpViewController.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A3BA571DE3F874009C0E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4A3BA591DE3F874009C0E78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -2434,6 +2438,15 @@
 			path = ScoreDetail;
 			sourceTree = "<group>";
 		};
+		E4A2DEED1E35061E00CA4CBC /* BackUp */ = {
+			isa = PBXGroup;
+			children = (
+				E4A2DEEE1E35062900CA4CBC /* BackUp.storyboard */,
+				E4A2DEF01E35063600CA4CBC /* BackUpViewController.swift */,
+			);
+			path = BackUp;
+			sourceTree = "<group>";
+		};
 		E4A3BA561DE3F874009C0E78 /* LucuberKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2526,6 +2539,7 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4A2DEED1E35061E00CA4CBC /* BackUp */,
 				E4CA9A221E3339580047620F /* EditScore */,
 				E459BC471E2A3F30008F4097 /* PodHelp */,
 				E459B9311E27598D008F4097 /* About */,
@@ -3035,6 +3049,7 @@
 				E459BC0C1E27637C008F4097 /* CubeCategoryCell.xib in Resources */,
 				E47926611D96E005004D58BF /* CubeCategory.plist in Resources */,
 				E459BBC91E27637C008F4097 /* EditMasterCell.xib in Resources */,
+				E4A2DEEF1E35062900CA4CBC /* BackUp.storyboard in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E459BBD41E27637C008F4097 /* LoadMoreTableViewCell.xib in Resources */,
 				E459BC351E286873008F4097 /* EditProfileLessInfoCell.xib in Resources */,
@@ -3238,6 +3253,7 @@
 				E459BACD1E2762DB008F4097 /* FeedHeaderView.swift in Sources */,
 				E42C829C1DFBCFFA00D315CF /* CommentViewController.swift in Sources */,
 				E47C665A1E2CEC3E00696B5C /* SearchFeedCellLayout.swift in Sources */,
+				E4A2DEF11E35063600CA4CBC /* BackUpViewController.swift in Sources */,
 				E459BBCD1E27637C008F4097 /* FeedCellLayout.swift in Sources */,
 				E459BBE91E27637C008F4097 /* NoResultCell.swift in Sources */,
 				E459BC211E27637C008F4097 /* ScoreGroupDetailTimerCell.swift in Sources */,

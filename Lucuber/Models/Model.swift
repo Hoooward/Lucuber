@@ -1196,6 +1196,7 @@ open class Score: Object {
     open dynamic var scramblingText: String = ""
     open dynamic var atGroup: ScoreGroup?
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
+    open dynamic var isPushed: Bool = false
     
     var realTimerString: String {
         return String(format: "%.3f", timer)
@@ -1210,7 +1211,11 @@ open class ScoreGroup: Object {
     open dynamic var creator: RUser?
     open dynamic var isDeleteByCreator: Bool = false
     
-    open let timerList = LinkingObjects(fromType: Score.self, property: "atGroup")
+    open let _timerList = LinkingObjects(fromType: Score.self, property: "atGroup")
+    
+    var timerList: Results<Score> {
+        return self._timerList.filter(NSPredicate(format: "isDeleteByCreator == %@", false as CVarArg))
+    }
     
     open dynamic var createdUnixTime: TimeInterval = Date().timeIntervalSince1970
     
@@ -1221,9 +1226,11 @@ open class ScoreGroup: Object {
         realm.delete(self)
     }
     
+    
     open var popCount: Int {
         let predicate = NSPredicate(format: "isPOP == %@", true as CVarArg)
         let list = timerList.filter(predicate)
+
         return list.isEmpty ? 0 : list.count
     }
     
@@ -1460,7 +1467,7 @@ open class ScoreGroup: Object {
 // MARK: - Group
 
 public func scoreGroupWith(_ localObjectId: String, inRealm realm: Realm) -> ScoreGroup? {
-    let predicate = NSPredicate(format: "localObjectId = %@", localObjectId)
+    let predicate = NSPredicate(format: "localObjectId == %@", localObjectId)
     return realm.objects(ScoreGroup.self).filter(predicate).first
 }
 
@@ -1468,7 +1475,8 @@ public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreG
     guard let user = user else { fatalError() }
     
     let predicate = NSPredicate(format: "creator == %@", user)
-    let result = realm.objects(ScoreGroup.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
+    let predicate2 = NSPredicate(format: " isDeleteByCreator == %@", false as CVarArg)
+    let result = realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
     
     if result.first == nil {
         try? realm.write {
@@ -1479,7 +1487,7 @@ public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreG
             realm.add(newGroup)
         }
     }
-    return realm.objects(ScoreGroup.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: false)
+    return realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
 }
 
 

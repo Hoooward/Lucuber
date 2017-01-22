@@ -94,7 +94,10 @@ extension ScoreView: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             let score = strongSelf.timerList[indexPath.row]
-            try? realm.write { score.isDNF = !score.isDNF }
+            try? realm.write {
+                score.isDNF = !score.isDNF
+                score.isPushed = false
+            }
             
             tableView.reloadRows(at: [indexPath], with: .right)
             

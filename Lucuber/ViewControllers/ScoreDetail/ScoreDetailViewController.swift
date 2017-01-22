@@ -170,7 +170,9 @@ extension ScoreDetailViewController: UITableViewDelegate, UITableViewDataSource 
             let score = strongSelf.timerList[indexPath.row]
             
             try? strongSelf.realm.write {
-                strongSelf.realm.delete(score)
+//                strongSelf.realm.delete(score)
+                score.isDeleteByCreator = true
+                score.isPushed = false
             }
             
             tableView.reloadData()
@@ -185,6 +187,7 @@ extension ScoreDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             try? strongSelf.realm.write {
                 score.isDNF = !score.isDNF
+                score.isPushed = false
             }
             
             tableView.reloadData()

@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 8
+    config.schemaVersion = 9
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config
@@ -554,6 +554,13 @@ public func scoresWithRUser(_ user: RUser, inRealm realm: Realm) -> Results<Scor
     let predicate = NSPredicate(format: "creator == %@", user)
     return realm.objects(Score.self).filter(predicate)
 }
+
+public func unPushedScoreWithRUser(_ user: RUser, inRealm realm: Realm) -> Results<Score> {
+    let predicate = NSPredicate(format: "creator == %@", user)
+    let predicate2 = NSPredicate(format: "isPushed == %@", false as CVarArg)
+    return realm.objects(Score.self).filter(predicate).filter(predicate2)
+}
+
 
 
 
