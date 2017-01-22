@@ -271,7 +271,6 @@ extension DetailHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFl
     
 }
 
-
 extension DetailHeaderView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -281,7 +281,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                 
         })
         
-        
         switch uploadMode {
             
         case .my:
@@ -299,53 +298,20 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         return .default
     }
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
+        configureHeaderView()
         
-        headerView.configView(with: formula, withUploadMode: self.uploadMode, withPreviewStyle: self.previewFormulaStyle)
-        
-        headerView.updateNavigationBar = { [weak self] formula in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.titleView.nameLabel.text = formula.name
-            strongSelf.titleView.stateInfoLabel.text = formula.type.sectionText
-        }
-        
-        headerView.updateCurrentShowFormula  = { [weak self] formula in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.formula = formula
-       
-            // 重新计算 contentCell 高度
-            let indexPath = IndexPath(row: 0, section: Section.formulas.rawValue)
-            
-            strongSelf.tableView.beginUpdates()
-            strongSelf.tableView.reloadSections(IndexSet(indexPath), with: .none)
-            strongSelf.tableView.reloadSections(IndexSet(strongSelf.commentCellIndexPath), with: .none)
-            strongSelf.tableView.endUpdates()
-        }
-        
-        
-        
-        
-        headerView.afterDeleteFormulaDataIsEmpty = { [weak self] in
-            
-            guard let strongSelf = self else {
-                return
-            }
-            
-            strongSelf.popViewController()
-        }
-        
+//        NotificationCenter.default.addObserver(self, selector: #selector(FormulaDetailViewController.configureHeaderView), name: Config.NotificationName.updateMyFormulas, object: nil)
         
         tableView.register(UINib(nibName: masterCellIdentifier, bundle: nil), forCellReuseIdentifier: masterCellIdentifier)
         tableView.register(UINib(nibName: formulasCellIdentifier,bundle: nil), forCellReuseIdentifier: formulasCellIdentifier)
         tableView.register(UINib(nibName: separatorCellIdentifier,bundle: nil), forCellReuseIdentifier: separatorCellIdentifier)
         tableView.register(UINib(nibName: detailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailCommentCellIdentifier)
         tableView.register(UINib(nibName: detailContentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailContentCellIdentifier)
-        
         
         
         tableView.separatorStyle = .none
@@ -384,14 +350,52 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         navigationController?.setNavigationBarHidden(true, animated: true)
         customNavigationBar.alpha = 1
         self.setNeedsStatusBarAppearanceUpdate()
-        
     }
     
     deinit {
         printLog("\(self) 正确释放了")
+        NotificationCenter.default.removeObserver(self)
     }
     
+    
     // MARK: - Action & Target
+    @objc fileprivate func configureHeaderView() {
+        
+        headerView.configView(with: formula, withUploadMode: self.uploadMode, withPreviewStyle: self.previewFormulaStyle)
+        
+        headerView.updateNavigationBar = { [weak self] formula in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.titleView.nameLabel.text = formula.name
+            strongSelf.titleView.stateInfoLabel.text = formula.type.sectionText
+        }
+        
+        headerView.updateCurrentShowFormula  = { [weak self] formula in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.formula = formula
+            
+            // 重新计算 contentCell 高度
+            let indexPath = IndexPath(row: 0, section: Section.formulas.rawValue)
+            
+            strongSelf.tableView.beginUpdates()
+            strongSelf.tableView.reloadSections(IndexSet(indexPath), with: .none)
+            strongSelf.tableView.reloadSections(IndexSet(strongSelf.commentCellIndexPath), with: .none)
+            strongSelf.tableView.endUpdates()
+        }
+        
+        headerView.afterDeleteFormulaDataIsEmpty = { [weak self] in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.popViewController()
+        }
+    }
+    
     
     func popViewController() {
         _ = navigationController?.popViewController(animated: true)
@@ -410,20 +414,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         switch segueIdentifier(for: segue) {
             
         case .comment: break
-//            let vc = segue.destination as! CommentViewController
-//            
-//            if let formula = sender as? Formula, let realm = try? Realm() {
-//                
-//                vc.formula = formula
-//                
-//                realm.beginWrite()
-//                let formulaConversation = vc.prepareConversation(withFromula: formula, inRealm: realm)
-//                try? realm.commitWrite()
-//                
-//                vc.conversation = formulaConversation
-//            
-//            }
-            
             
         case .edit:
             
@@ -460,13 +450,17 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-            
-        case .separator: return 1
-        case .formulas: return 1
-        case .separatorTwo: return 1
-        case .master: return 1
+        case .separator:
+            return 1
+        case .formulas:
+            return 1
+        case .separatorTwo:
+            return 1
+        case .master:
+           return previewFormulaStyle == .single ? 0 : 1
         case .comment:
-            return formula.isBelongToFeed ? 1 : 0
+//            return formula.isBelongToFeed ? 1 : 0
+            return 0
         }
     }
     
@@ -540,7 +534,6 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             headerView.updateFormulaContentCell = { formula in
                 cell.configCell(with: formula)
             }
-            
             
         case .master:
             

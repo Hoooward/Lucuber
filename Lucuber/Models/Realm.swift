@@ -14,7 +14,7 @@ let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
-    config.schemaVersion = 7
+    config.schemaVersion = 8
     config.migrationBlock = { migration, oldSchemaVersion in
     }
     return config
@@ -262,24 +262,26 @@ func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm r
         let predicate = NSPredicate(format: "creator = %@", currentUser)
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
         let predicate3 = NSPredicate(format: "deletedByCreator == %@", false as CVarArg)
+        let predicate4 = NSPredicate(format: "isFeedAttachment == %@", false as CVarArg)
         
         if case .all = category {
-            return realm.objects(Formula.self).filter(predicate).filter(predicate3).sorted(byProperty: "createdUnixTime", ascending: false)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate3).filter(predicate4).sorted(byProperty: "createdUnixTime", ascending: false)
             
         } else {
-            return realm.objects(Formula.self).filter(predicate).filter(predicate2).filter(predicate3).sorted(byProperty: "createdUnixTime", ascending: false)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate2).filter(predicate3).filter(predicate4).sorted(byProperty: "createdUnixTime", ascending: false)
         }
             
     case .library:
         
         let predicate = NSPredicate(format: "isLibrary == true")
         let predicate2 = NSPredicate(format: "categoryString == %@", category.rawValue)
+        let predicate3 = NSPredicate(format: "isFeedAttachment == %@", false as CVarArg)
         
         if case .all = category {
-            return realm.objects(Formula.self).filter(predicate).sorted(byProperty: "createdUnixTime", ascending: true)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate3).sorted(byProperty: "createdUnixTime", ascending: true)
             
         } else {
-            return realm.objects(Formula.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: true)
+            return realm.objects(Formula.self).filter(predicate).filter(predicate2).filter(predicate3).sorted(byProperty: "createdUnixTime", ascending: true)
         }
     }
 }
@@ -344,29 +346,6 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
     return nil
 }
 
-
-//public func decodeJSON(data: NSData) -> JSONDictionary? {
-//    
-//    if data.length > 0 {
-//        guard let result = try? JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions()) else {
-//            return JSONDictionary()
-//        }
-//        
-//        if let dictionary = result as? JSONDictionary {
-//            return dictionary
-//        } else if let array = result as? [JSONDictionary] {
-//            return ["data": array]
-//        } else {
-//            return JSONDictionary()
-//        }
-//    } else {
-//        return JSONDictionary()
-//    }
-//}
-//
-//public func encodeJSON(dict: JSONDictionary) -> NSData? {
-//    return dict.count > 0 ? (try? JSONSerialization.dataWithJSONObject(dict, options: JSONSerialization.WritingOptions())) as NSData : nil
-//}
 
 public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
 
@@ -528,7 +507,6 @@ public func feedConversationsInRealm(_ realm: Realm) -> Results<Conversation> {
     return realm.objects(Conversation.self).filter(predicate).sorted(by: [b, c])
 }
 
-
 public func countOfUnreadMessagesInRealm(_ realm: Realm, withConversationType conversationType: ConversationType) -> Int {
     
     switch conversationType {
@@ -544,58 +522,6 @@ public func countOfUnreadMessagesInRealm(_ realm: Realm, withConversationType co
         return count
     }
 }
-
-//public func deleteConversation(_ conversation: Conversation, inRealm realm: Realm, needLeaveGroup: Bool = true, afterLeaveGroup: (() -> Void)? = nil) {
-//    
-//    defer {
-//        realm.refresh()
-//    }
-//    
-//    clearMessagesOfConversation(conversation, inRealm: realm, keepHiddenMessages: false)
-//    
-//    // delete conversation from server
-//    
-//    let recipient = conversation.recipient
-//    
-//    if let recipient = recipient, recipient.type == .oneToOne {
-//        deleteConversationWithRecipient(recipient, failureHandler: nil, completion: {
-//            println("deleteConversationWithRecipient \(recipient)")
-//        })
-//    }
-//    
-//    // delete conversation, finally
-//    
-//    if let group = conversation.withGroup {
-//        
-//        if let feed = conversation.withGroup?.withFeed {
-//            
-//            feed.cascadeDeleteInRealm(realm)
-//        }
-//        
-//        let groupID = group.groupID
-//        
-//        if needLeaveGroup {
-//            leaveGroup(groupID: groupID, failureHandler: nil, completion: {
-//                println("leaved group: \(groupID)")
-//                
-//                afterLeaveGroup?()
-//            })
-//            
-//        } else {
-//            println("deleteConversation, not need leave group: \(groupID)")
-//            
-//            if let recipient = recipient, recipient.type == .group {
-//                deleteConversationWithRecipient(recipient, failureHandler: nil, completion: {
-//                    println("deleteConversationWithRecipient \(recipient)")
-//                })
-//            }
-//        }
-//        
-//        realm.delete(group)
-//    }
-//    
-//    realm.delete(conversation)
-//}
 
 public func titleNameOfConversation(_ conversation: Conversation) -> String? {
     
@@ -615,6 +541,18 @@ public func titleNameOfConversation(_ conversation: Conversation) -> String? {
         }
     }
     return nil
+}
+
+// MARK: - Scores
+
+public func scoreWith(_ localObjectID: String, inRealm realm: Realm) -> Score? {
+   let predicate = NSPredicate(format: "localObjectId == %@", localObjectID)
+     return realm.objects(Score.self).filter(predicate).first
+}
+
+public func scoresWithRUser(_ user: RUser, inRealm realm: Realm) -> Results<Score> {
+    let predicate = NSPredicate(format: "creator == %@", user)
+    return realm.objects(Score.self).filter(predicate)
 }
 
 

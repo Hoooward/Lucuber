@@ -13,9 +13,12 @@ fileprivate let newUserNickNameKey = "newUserNickName"
 fileprivate let newUserAvatarURLKey = "newUserAvatarURL"
 fileprivate let tarbarItemTextEnabledKey = "tarbarItemTextEnabled"
 fileprivate let isSyncedSubscribeConversationsKey = "isSyncedSubscribeConversations"
+fileprivate let isNeedUploadDeletedFormulaInfoKey = "isNeedUploadDeletedFormulaInfo"
+fileprivate let isSyncedMyFormulasKey = "setIsSyncedMyFormulas"
 
 // MARK: - UI
 extension UserDefaults {
+    
     class func setTabbarItemTextEnable(enable: Bool) {
         standard.set(enable, forKey: tarbarItemTextEnabledKey)
     }
@@ -74,6 +77,22 @@ extension UserDefaults {
     
     class func setIsSyncedSubscribeConversations(_ synced: Bool) {
         standard.set(synced, forKey: isSyncedSubscribeConversationsKey)
+    }
+    
+    class func isNeedUploadDeletedFormulaInfo() -> Bool {
+        return standard.bool(forKey: isNeedUploadDeletedFormulaInfoKey)
+    }
+    
+    class func setIsNeedUploadDeletedFormulaInfo(_ synced: Bool) {
+        standard.set(synced, forKey: isNeedUploadDeletedFormulaInfoKey)
+    }
+    
+    class func isSyncedMyFormulas() -> Bool {
+        return standard.bool(forKey: isSyncedMyFormulasKey)
+    }
+    
+    class func setIsSyncedMyFormulas(_ synced: Bool) {
+        standard.set(synced, forKey: isSyncedMyFormulasKey)
     }
 }
 

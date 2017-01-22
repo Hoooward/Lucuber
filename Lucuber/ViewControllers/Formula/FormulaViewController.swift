@@ -359,14 +359,3 @@ extension FormulaViewController: UIScrollViewDelegate {
     
 }
 
-
-
-
-
-
-
-
-
-
-
-

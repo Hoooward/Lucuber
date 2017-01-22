@@ -188,6 +188,7 @@ public func fetchMessageFromLeancloud(with query: AVQuery, messageAge: MessageAg
         }
     }
 }
+
 func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: ((_ newSectionMessageIDs: [String]) -> Void)?) {
 
     if  !discoverMessage.localObjectID.isEmpty {
@@ -551,13 +552,57 @@ public func fetchMyInfoAndDoFutherAction(_ action: (() -> Void)?) {
                 action?()
             }
         }
-        
     }
 }
 
-public enum UploadFormulaMode: String {
-    case my = "My"
-    case library = "Library"
+public func fetchMyFormulasAndDoFutherAction(_ action: (() -> Void)?) {
+    
+    fetchDiscoverFormula(with: .my, categoty: nil, failureHandler: { reason, errorMessage in
+        defaultFailureHandler(reason, errorMessage)
+    }, completion: { _ in
+        
+//        UserDefaults.setIsSyncedMyFormulas(true)
+        NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
+        action?()
+    })
+}
+
+public func fetchNeedUpdateLibraryFormulasAndDoFutherAction(_ action: (() -> Void)?) {
+    let currentVersion = UserDefaults.dataVersion()
+    
+    fetchPreferences(failureHandler: {reason, errorMessage in
+        defaultFailureHandler(reason, errorMessage)
+        
+    }, completion: { newVersion in
+        
+        if currentVersion == newVersion {
+            action?()
+            return
+        }
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let viewController = appDelegate.window?.rootViewController {
+            
+            CubeAlert.confirmOrCancel(title: "公式库有更新", message: "是否需要现在更新? 不会消耗太多流量哦哦~", confirmTitle: "恩, 就是现在", cancelTitles: "取消", inViewController: viewController, confirmAction: {
+                
+                updateLibraryDate(failureHandeler: {
+                    reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                }, completion: {
+                    
+                    UserDefaults.setDataVersion(newVersion)
+                    NotificationCenter.default.post(name: Config.NotificationName.updateLibraryFormulas, object: nil)
+                    
+                })
+                
+            }, cancelAction: {
+                
+            })
+        }
+        
+        action?()
+    })
 }
 
 
@@ -603,12 +648,18 @@ public func fetchPreferences(failureHandler: @escaping FailureHandler, completio
 }
 
 // MARK: - Formula
+public enum UploadFormulaMode: String {
+    case my = "My"
+    case library = "Library"
+}
+
 public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
     
     
     let query = AVQuery(className: DiscoverFormula.parseClassName())
     query.includeKey("creator")
     query.includeKey("contents")
+    query.whereKey("isFeedAttachment", notEqualTo: true)
     query.limit = 1000
     
     switch uploadMode {
@@ -664,20 +715,15 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
             try? realm.commitWrite()
             
             completion?(newFormulas)
-            
         }
-        
     }
-    
 }
 
 @discardableResult public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, withFeed feed: Feed?, inRealm realm: Realm, completion: ((Formula) -> Void)?) -> Formula? {
     
-    // 尝试从数据库中查找是否已经有存在的 Formula
     var formula = formulaWith(objectID: discoverFormula.localObjectID, inRealm: realm)
     
     let deleted = discoverFormula.deletedByCreator
-    
     if deleted {
         if
             let discoverFormulaCreatorID = discoverFormula.creator?.objectId,
@@ -692,7 +738,7 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
             }
         }
     }
-    
+ 
     if formula == nil {
         let newFormula = Formula()
         newFormula.lcObjectID = discoverFormula.objectId!
@@ -733,39 +779,16 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
         }
         
         // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
-        
         formula.imageURL = discoverFormula.imageURL
-        
         
         for discoverContent in discoverFormula.contents {
             
             var content = contentWith(discoverContent.localObjectID, inRealm: realm)
             
             if discoverContent.deletedByCreator {
-                
-//                if
-//                    let currentUserID = AVUser.current()?.objectId ,
-//                    let discoverContentCreaterID = discoverContent.creator.objectId {
-//                    
-//                    if currentUserID == discoverContentCreaterID {
-//                        
-//                        if let content = content {
-//                            realm.delete(content)
-//                        }
-//                    }
-//                }
-//                
-//                if discoverFormula.isLibrary {
-//                    if let content = content {
-//                        realm.delete(content)
-//                        content = nil
-//                    }
-//                }
-                
                 if let content = content {
                     realm.delete(content)
                 }
-                
                 continue
             }
             
@@ -800,32 +823,13 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
     return formula
 }
 
+// MARK: - Feed
 public enum SearchFeedsMode {
     case `init`
     case loadMore
 }
 
 public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: FeedCategory?, profileUser: ProfileUser?, mode: SearchFeedsMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)? ) {
-    
-//    func creatBasicQuery() -> AVQuery {
-//        let query = AVQuery(className: DiscoverFeed.parseClassName())
-//        query.limit = 30
-//        query.includeKey("withFormula")
-//        query.includeKey("withFormula.contents")
-//        query.includeKey("withFormula.creator")
-//        query.includeKey("creator")
-//        query.order(byDescending: "createdAt")
-//        return query
-//    }
-//    
-//    let bodyQuery = AVQuery(className: DiscoverFeed.parseClassName())
-//    bodyQuery.whereKey("body", contains: keyword)
-//    
-//    let nicknameQuery = AVQuery(className: DiscoverFeed.parseClassName())
-//    nicknameQuery.whereKey("creator.nickname", contains: keyword)
-//    
-//    let formulaCateogyQuery = AVQuery(className: DiscoverFeed.parseClassName())
-//    formulaCateogyQuery.whereKey("withFormula.category", contains: keyword)
     
     let query = AVQuery(className: DiscoverFeed.parseClassName())
     query.limit = 20
@@ -834,7 +838,7 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: FeedCatego
     query.includeKey("withFormula.creator")
     query.includeKey("creator")
     query.order(byDescending: "createdAt")
-   query.whereKey("deleted", notEqualTo: true)
+    query.whereKey("deleted", notEqualTo: true)
     query.whereKey("body", contains: keyword)
     
     switch mode {
@@ -878,7 +882,6 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: FeedCatego
             if let newFeeds = newFeeds as? [DiscoverFeed] {
                 
                 newFeeds.forEach {
-//                    printLog($0)
                     $0.parseAttachmentsInfo()
                 }
                 
@@ -886,8 +889,6 @@ public func fetchDiscoverFeedWithKeyword(_ keyword: String, category: FeedCatego
             }
         }
     }
-    
-    
 }
 
 internal func fetchDiscoverFeedFromUser(_ profileUser: ProfileUser?, category: FeedCategory?, limitCount: Int, failureHandler: FailureHandler?, completion: (([DiscoverFeed]) -> Void)?) {
@@ -933,7 +934,6 @@ internal func fetchDiscoverFeedFromUser(_ profileUser: ProfileUser?, category: F
             if let newFeeds = newFeeds as? [DiscoverFeed] {
                 
                 newFeeds.forEach {
-                    //                    printLog($0)
                     $0.parseAttachmentsInfo()
                 }
                 
@@ -942,7 +942,6 @@ internal func fetchDiscoverFeedFromUser(_ profileUser: ProfileUser?, category: F
         }
     }
 }
-
 
 internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSortStyle, uploadingFeedMode: UploadFeedMode, lastFeedCreatDate: Date, failureHandler: @escaping FailureHandler, completion: (([DiscoverFeed]) -> Void)?) {
                                                                                                                            

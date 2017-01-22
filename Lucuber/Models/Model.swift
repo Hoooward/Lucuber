@@ -180,6 +180,7 @@ open class Formula: Object {
     
     open dynamic var isNewVersion: Bool = false
     open dynamic var isPushed: Bool = false
+    open dynamic var isFeedAttachment: Bool = false
 
     // 仅存在关联一个 Feed 的可能
     open let withFeed = LinkingObjects(fromType: Feed.self, property: "withFormula")
@@ -332,10 +333,7 @@ open class Content: Object {
         }
         return height
         
-        
     }
-
-    
 }
 
 

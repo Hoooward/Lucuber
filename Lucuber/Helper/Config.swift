@@ -48,6 +48,9 @@ public class Config {
         static let newMyInfo = Notification.Name("newMyInfo")
         static let createdFeed = Notification.Name("createdFeed")
         static let deletedFeed = Notification.Name("deletedFeed")
+        static let updateMyFormulas = Notification.Name("updateMyFormulas")
+        static let updateLibraryFormulas = Notification.Name("updateLibraryFormulas")
+        static let updateMyScores = Notification.Name("updateMyScores")
     }
     
     public static let forcedHideActivityIndicatorTimeInterval: TimeInterval = 30

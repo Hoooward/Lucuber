@@ -77,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverFeedback.registerSubclass()
         DiscoverHotKeyword.registerSubclass()
         DiscoverReport.registerSubclass()
+        DiscoverScore.registerSubclass()
         
         window = UIWindow()
         window?.frame = UIScreen.main.bounds
@@ -112,7 +113,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if isFirstLaunch {
             sync()
         } else {
-            fetchUnreadMessages() {}
+            fetchUnreadMessages() {
+                pushMyFormulasInfoToLeancloudAndFutherAction {}
+            }
         }
 
         clearNotification()
@@ -293,19 +296,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard AVUser.isLogin else {
             return
         }
-        if UserDefaults.isSyncedSubscribeConversations() {
-            printLog("开始同步未读消息")
-            fetchUnreadMessages {
-                printLog("开始同步我的信息")
-                fetchMyInfoAndDoFutherAction {}
-            }
-        } else {
-            printLog("开始同步我的订阅Feeds")
-            fetchSubscribeConversation {
-                printLog("开始同步我的信息")
-                fetchMyInfoAndDoFutherAction {}
+        
+        let moreSync = {
+            fetchMyInfoAndDoFutherAction {
+                fetchNeedUpdateLibraryFormulasAndDoFutherAction {}
+//                if !UserDefaults.isSyncedMyFormulas() {
+                    fetchMyFormulasAndDoFutherAction {}
+//                }
             }
         }
+        
+        if UserDefaults.isSyncedSubscribeConversations() {
+            fetchUnreadMessages {
+                moreSync()
+            }
+            
+        } else {
+            
+            fetchSubscribeConversation {
+                moreSync()
+            }
+        }
+        
+//        pushMyFormulasInfoToLeancloudAndFutherAction {}
     }
     
     func unregisterThirdPartyPush() {

@@ -285,7 +285,6 @@ class NewFormulaViewController: UIViewController {
                     formula.isPushed = false
                 }
             }
-            // 暂时存储本地图片, 待应用进入后台后再统一 push
             if let image = formula.pickedLocalImage {
                 
                 let resizeImage = image.resizeTo(targetSize: CGSize(width: 600, height: 600), quality: CGInterpolationQuality.medium)!
@@ -306,6 +305,22 @@ class NewFormulaViewController: UIViewController {
     func next(_ sender: UIBarButtonItem) {
         
         view.endEditing(true)
+        
+        try? realm.write {
+            formula.cleanBlankContent(inRealm: realm)
+            if self.isNeedRepush {
+                formula.isPushed = false
+            }
+        }
+        if let image = formula.pickedLocalImage {
+            
+            let resizeImage = image.resizeTo(targetSize: CGSize(width: 600, height: 600), quality: CGInterpolationQuality.medium)!
+            
+            if let imageData = UIImagePNGRepresentation(resizeImage) {
+                
+                _ = FileManager.saveFormulaLocalImageData(imageData, withLocalObjectID: formula.localObjectID)
+            }
+        }
         
         if self.formula.isReadyToPush {
       

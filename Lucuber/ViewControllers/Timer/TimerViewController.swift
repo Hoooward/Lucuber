@@ -116,6 +116,8 @@ class TimerViewController: UIViewController {
             newScore.timertext = timerLabel.text ?? "00:00:00"
             newScore.atGroup = currentScoreGroup
             newScore.scramblingText = scramblingLabel.text ?? ""
+            newScore.creator = currentUser(in: realm)
+            newScore.category = currentScoreGroup?.category ?? ""
          
             realm.add(newScore)
             

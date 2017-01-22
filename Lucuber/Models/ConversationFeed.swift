@@ -15,7 +15,6 @@ enum ConversationFeed {
     case discoveredFeedType(DiscoverFeed)
     case feedType(Feed)
     
-    
     var isMyFeed: Bool {
         switch self {
         case .discoveredFeedType(let discoverFeed):

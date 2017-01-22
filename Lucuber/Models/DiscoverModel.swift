@@ -9,6 +9,166 @@
 import UIKit
 import AVOSCloud
 import CoreLocation
+import RealmSwift
+
+
+func pushMyScoreToLeancloudAndFutherAction(_ action: (()-> Void)? ) {
+    
+    guard let realm = try? Realm(), let me = currentUser(in: realm) else {
+        return
+    }
+    
+    let scores = scoresWithRUser(me, inRealm: realm)
+   
+    var discoverScores: [DiscoverScore] = []
+    
+    for score in scores {
+        
+        var discoverScore: DiscoverScore
+        if !score.lcObjectId.isEmpty {
+             discoverScore = DiscoverScore(objectId: score.lcObjectId)
+        } else {
+           discoverScore = DiscoverScore()
+        }
+        
+        discoverScore.atGroup = score.atGroup?.localObjectId ?? ""
+        discoverScore.localObjectID = score.localObjectId
+        discoverScore.timer = score.timer
+        discoverScore.timertext = score.timertext
+        discoverScore.creator = AVUser.current()
+        discoverScore.isDNF = score.isDNF
+        discoverScore.isPOP = score.isPOP
+        discoverScore.isDeleteByCreator = score.isDeleteByCreator
+        discoverScore.scramblingText = score.scramblingText
+        discoverScore.createdUnixTime = score.createdUnixTime
+        discoverScore.atGroupCategory = score.atGroup?.category ?? ""
+        discoverScore.atGroupcreatedUnixTime = score.atGroup?.createdUnixTime ?? Date().timeIntervalSince1970
+        discoverScore.atGroupIsDeleteByCreator = score.atGroup?.isDeleteByCreator ?? false
+        
+        
+        discoverScores.append(discoverScore)
+    }
+    
+    AVObject.saveAll(inBackground: discoverScores, block: { success, error in
+        if success {
+            printLog(discoverScores)
+        }
+    })
+}
+
+func fetchMyScoresAndFutherAction(_ action: (()-> Void)?) {
+    
+    let query = AVQuery(className: "DiscoverScore")
+    query.limit = 1000
+    query.whereKey("creator", equalTo: AVUser.current() ?? AVUser())
+    query.order(byDescending: "createdUnixTime")
+    
+    query.findObjectsInBackground({ result, error in
+        
+        if error != nil {
+            defaultFailureHandler(Reason.network(error), "下载我的还原记录失败")
+        }
+        
+        if let result = result as? [DiscoverScore] {
+            
+            guard let realm = try? Realm() else {
+                return
+            }
+            
+            realm.beginWrite()
+            for score in result {
+                convertDiscoverScoreToRScore(with: score, inRealm: realm,completion: {
+                })
+            }
+            try? realm.commitWrite()
+            
+            NotificationCenter.default.post(name: Config.NotificationName.updateMyScores, object: nil)
+        }
+        
+    })
+    
+}
+
+public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRealm realm: Realm, completion: (() -> Void)?) {
+    
+    var score = scoreWith(discoverScore.localObjectID, inRealm: realm)
+    
+    if score == nil {
+        let newScore = Score()
+        newScore.localObjectId = Score.randomLocalObjectID()
+        
+        realm.add(newScore)
+        score = newScore
+    }
+    
+    if let score = score {
+       
+        let user = getOrCreatRUserWith(discoverScore.creator, inRealm: realm)
+        
+        score.creator = user
+        
+        score.lcObjectId = discoverScore.objectId ?? ""
+        score.timertext = discoverScore.timertext
+        score.timer = discoverScore.timer
+        score.isPOP = discoverScore.isPOP
+        score.isDNF = discoverScore.isDNF
+        score.isDeleteByCreator = discoverScore.isDeleteByCreator
+        score.scramblingText = discoverScore.scramblingText
+        score.createdUnixTime = discoverScore.createdUnixTime
+        
+        var group = scoreGroupWith(discoverScore.atGroup, inRealm: realm)
+        if group == nil {
+            let newGroup = ScoreGroup()
+            newGroup.localObjectId = discoverScore.atGroup
+            
+            realm.add(newGroup)
+            group = newGroup
+        }
+        
+        if let group = group {
+            group.createdUnixTime = discoverScore.atGroupcreatedUnixTime
+            group.category = discoverScore.atGroupCategory
+            group.creator = user
+            group.isDeleteByCreator = discoverScore.atGroupIsDeleteByCreator
+            score.atGroup = group
+        }
+    }
+    completion?()
+}
+
+
+public class DiscoverScore: AVObject, AVSubclassing {
+    public static func parseClassName() -> String {
+        return "DiscoverScore"
+    }
+    @NSManaged var localObjectID: String
+    @NSManaged var timertext: String
+    @NSManaged var timer: Double
+    @NSManaged var creator: AVUser?
+    @NSManaged var isPOP: Bool
+    @NSManaged var isDNF: Bool
+    @NSManaged var isDeleteByCreator: Bool
+    @NSManaged var scramblingText: String
+    @NSManaged var atGroup: String
+    @NSManaged var createdUnixTime: Double
+    @NSManaged var atGroupCategory: String
+    @NSManaged var atGroupcreatedUnixTime: Double
+    @NSManaged var atGroupIsDeleteByCreator: Bool
+    
+    
+}
+
+//public class DiscoverScoreGroup: AVObject, AVSubclassing {
+//    public static func parseClassName() -> String {
+//        return "DiscoverScoreGroup"
+//    }
+//    
+//    @NSManaged var localObjectID: String
+//    @NSManaged var category: String
+//    @NSManaged var creator: AVUser
+//    @NSManaged var isDeleteByCreator: Bool
+//    @NSManaged var createdUnixTime: Double
+//}
 
 public class DiscoverReport: AVObject, AVSubclassing {
     
@@ -85,6 +245,8 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     @NSManaged var type: String
     
     @NSManaged var deletedByCreator: Bool
+    
+    @NSManaged var isFeedAttachment: Bool
     
 }
 

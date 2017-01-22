@@ -125,6 +125,9 @@ class NewFeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        if let formula = attachmentFormula {
+//            formulaView.configViewWith(formula: formula)
+//        }
         
         switch attachment {
         case .normal:
@@ -270,7 +273,6 @@ class NewFeedViewController: UIViewController {
             return
         }
     
-        
         if !again {
             uploadState = .uploading
             
@@ -465,22 +467,26 @@ class NewFeedViewController: UIViewController {
       
         case .formula:
             
+            // 这个公式信息已经被本地 Realm 存储. 直接创建新实例
             guard let attachmentFormula = attachmentFormula else {
                 break
             }
             
-            pushFormulaToLeancloud(with: attachmentFormula, failureHandler: {
+            pushFeedFormulaAttachmentToLeancloud(with: attachmentFormula, failureHandler: {
+                
                 reason, errorMessage in
                 
                 defaultFailureHandler(reason, errorMessage)
                 
                 self.uploadState = .failed(message: "上传公式失败")
-                
+
             }, completion: { newDiscoverFormula in
                 
                 category = .formula
                 tryCreateFeed(newDiscoverFormula)
+                
             })
+           
             
         default:
             break

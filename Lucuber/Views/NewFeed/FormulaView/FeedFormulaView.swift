@@ -14,7 +14,6 @@ class FeedFormulaView: UIView {
  
     var formula: Formula? {
         didSet {
-            
             if let formula = formula {
                 nameLabel.text = formula.name
             }
@@ -42,6 +41,29 @@ class FeedFormulaView: UIView {
     }
     
     func configViewWith(formula: Formula?) {
+        
+        guard let formula = formula else {
+            return
+        }
+        
+        nameLabel.text = formula.name
+        
+        indicatorView.configureWithCategory(category: formula.categoryString)
+        let contents:[Content] = formula.contents.map { $0 }
+        let flatResult = contents.filter({ $0.deleteByCreator == false })
+
+        countLabel.text = "\(flatResult.count)个公式"
+        
+        if let firstContent = flatResult.first {
+            contentLabel.text = firstContent.text
+        }
+        
+        if let image = formula.pickedLocalImage {
+            imageView.image = image
+        } else {
+            imageView.image = nil
+            imageView.backgroundColor = UIColor.lightGray
+        }
         
     }
     

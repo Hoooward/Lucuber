@@ -13,7 +13,7 @@ extension FormulaDetailViewController {
     
     func prepareFormulaFrom(_ feed: DiscoverFeed, inRealm realm: Realm) ->  Formula? {
         
-         let groupID = feed.objectId!
+        let groupID = feed.objectId!
         
         var group = groupWith(groupID, inRealm: realm)
         

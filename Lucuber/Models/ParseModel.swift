@@ -76,6 +76,7 @@ public func parseFormulaToDisvocerModel(with newFormula: Formula) -> DiscoverFor
     newDiscoverFormula.imageName = newFormula.imageName
     newDiscoverFormula.localImage = newFormula.pickedLocalImage
     newDiscoverFormula.imageURL = newFormula.imageURL
+    newDiscoverFormula.isFeedAttachment = newFormula.isFeedAttachment
     
     var discoverContents: [DiscoverContent] = []
     

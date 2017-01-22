@@ -59,8 +59,6 @@ class BaseCollectionViewController: UICollectionViewController, SegueHandlerType
         return formulas
     }
     
-    
-    
     /// 缓存进入搜索模式前的UserMode
     fileprivate var cacheBeforeSearchUserMode: FormulaUserMode?
     

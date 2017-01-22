@@ -8,8 +8,11 @@ import RealmSwift
 import AVOSCloud
 import UserNotifications
 
-// MARK: - Report
 
+// MARK: - User
+
+
+// MARK: - Report
 public enum ReportReason {
     
     case porno
@@ -148,7 +151,6 @@ public func updateMySubscribeInfoAndPushToLeancloud(with group: Group, failureHa
             
         }
     }
-    
     pushMySubscribeListToLeancloud(with: newSubscribeList, failureHandler: failureHandler, completion: completion)
 }
 
@@ -197,10 +199,8 @@ public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler
                     printLog("订阅取消成功")
                     completion()
                 }
-                
             }
         }
-        
     }
 }
 

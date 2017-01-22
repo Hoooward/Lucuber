@@ -41,13 +41,24 @@ public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion
 }
 
 // MARK: - User
-public func pushToMasterListLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: ((Error?) -> Void)?) {
+
+public func pushToMasterListLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: FailureHandler?) {
     
-    guard let currentUser = AVUser.current() else {
+    guard let me = AVUser.current() else {
+        failureHandler?(Reason.other(nil), "没有登录")
         return
     }
-    currentUser.setMasterList(masterList)
-    currentUser.saveEventually()
+    me.setMasterList(masterList)
+    me.saveInBackground { success, error in
+        
+        if error != nil {
+            failureHandler?(Reason.network(error), "更新掌握列表失败")
+        }
+        
+        if success {
+            completion?()
+        }
+    }
 }
 
 
@@ -649,6 +660,52 @@ public func pushNewMessageNotificationToAPNs(with message: Message) {
 
 // MARK: - Formula
 
+public func pushFeedFormulaAttachmentToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    
+    realm.beginWrite()
+    let formula = Formula()
+    formula.localObjectID = Formula.randomLocalObjectID()
+    formula.name = newFormula.name
+    formula.imageName = newFormula.imageName
+    formula.imageURL = newFormula.imageURL
+    formula.favorate = newFormula.favorate
+    formula.categoryString = newFormula.categoryString
+    formula.typeString = newFormula.typeString
+    formula.creator = newFormula.creator
+    formula.rating = newFormula.rating
+    formula.deletedByCreator = newFormula.deletedByCreator
+    formula.isLibrary = newFormula.isLibrary
+    formula.isPushed = newFormula.isPushed
+    formula.isNewVersion = newFormula.isNewVersion
+    formula.pickedLocalImage = newFormula.pickedLocalImage
+    
+    // 标记为 Feed 的附件
+    formula.isFeedAttachment = true
+    
+    realm.add(formula)
+    
+    for content in newFormula.contents {
+        
+        let newContent = Content()
+        newContent.localObjectID = Content.randomLocalObjectID()
+        newContent.text = content.text
+        newContent.rotation = content.rotation
+        newContent.indicatorImageName = content.indicatorImageName
+        newContent.atFormula = formula
+        newContent.atFomurlaLocalObjectID = formula.localObjectID
+        newContent.deleteByCreator = content.deleteByCreator
+        newContent.creator = content.creator
+        newContent.isPushed = content.isPushed
+        realm.add(newContent)
+    }
+    
+    try? realm.commitWrite()
+    pushFormulaToLeancloud(with: formula, failureHandler: failureHandler, completion: completion)
+}
 
 
 public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
@@ -674,9 +731,12 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                 
                 if success {
                     
-                    guard let realm = newFormula.realm else {
-                        failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
-                        return }
+                    guard let realm = try? Realm() else {
+                        return
+                    }
+//                    guard let realm = newFormula.realm else {
+//                        failureHandler(Reason.other(nil), "上传成功, 但以无法找到 newFormula 对应的 realm")
+//                        return }
                     
                     try? realm.write {
                         
@@ -770,7 +830,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
     
 }
 
-public func pushCurrentUserUpdateInformation() {
+public func pushMyFormulasInfoToLeancloudAndFutherAction(_ action: (() -> Void)?) {
     
     guard let realm = try? Realm() else {
         return
@@ -826,12 +886,10 @@ public func pushCurrentUserUpdateInformation() {
                         }
                         nextMission()
                     }
-                    
                 })
             }
         }
     }
-    
     
     func pushDeletedByCreatorContentInformation() {
         
@@ -857,8 +915,8 @@ public func pushCurrentUserUpdateInformation() {
                 }
             } else {
                 
-                HUD.flash(.label("上传新公式成功"), delay: 2.0)
-                NotificationCenter.default.post(name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
+//                HUD.flash(.label("上传我的公式信息成功"), delay: 2.0)
+                NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
             }
             
             if !discoverContents.isEmpty {
@@ -867,7 +925,7 @@ public func pushCurrentUserUpdateInformation() {
                     
                     if error != nil {
                         defaultFailureHandler(Reason.network(error), "删除公式Content推送失败")
-                        HUD.flash(.label("上传新公式失败"), delay: 2.0)
+//                        HUD.flash(.label("上传我的公式信息失败"), delay: 2.0)
                     }
                     
                     if success {
@@ -876,37 +934,37 @@ public func pushCurrentUserUpdateInformation() {
                         try? realm.write {
                             realm.delete(deletedContents)
                         }
-                        HUD.flash(.label("上传新公式成功"), delay: 2.0)
-                        NotificationCenter.default.post(name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
+//                        HUD.flash(.label("上传我的公式信息成功"), delay: 2.0)
+                        NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
                     }
                 })
             }
         }
         
     }
-    HUD.show(.label("正在上传新公式数据"))
     
     if let currentUser = currentUser(in: realm) {
-        // 更新用户修改的公式
-       
-//        pushMyInfoToLeancloud(completion: {
-//            printLog("上传用户信息成功")
-//        }, failureHandler: { reason, errorMessage in
-//            defaultFailureHandler(reason, errorMessage)
-//            
-//        })
+        
+//        var needUpdate = false
+        let list: [String] = currentUser.masterList.map({$0.formulaID})
+        if !list.isEmpty {
+            pushToMasterListLeancloud(with: list, completion: {
+                printLog("上传掌握列表成功")
+            }, failureHandler: nil)
+        }
         
         let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
+        
         
         if !unPusheFormula.isEmpty {
             
             for formula in unPusheFormula {
-                
+//                HUD.show(.label("正在上传我的公式信息"))
                 pushFormulaToLeancloud(with: formula, failureHandler: {
                     reason, errorMessage in
                     
                     defaultFailureHandler(reason, errorMessage)
-                    HUD.flash(.label("上传新公式失败"), delay: 2.0)
+//                    HUD.flash(.label("上传我的公式信息失败"), delay: 2.0)
                     
                 }, completion: {
                     _ in
@@ -914,9 +972,6 @@ public func pushCurrentUserUpdateInformation() {
                     pushDeletedByCreatorFormulaInfomation {
                         pushDeletedByCreatorContentInformation()
                     }
-                    
-//                    NotificationCenter.default.post(name: NSNotification.Name.afterUploadUserInformationNotification, object: nil)
-//                    printLog("更新公式信息到Leancloud成功")
                 })
             }
         } else {
@@ -1052,10 +1107,6 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
     }
 
 }
-
-
-
-
 
 // MARK: - Register
 public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
