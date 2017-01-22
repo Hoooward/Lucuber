@@ -188,28 +188,6 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
             completion?()
         }
     }
-    
-    
-//    me.setNickname(meRuser.nickname)
-//    me.setMasterList(meRuser.masterList.map { $0.formulaID })
-//    me.setIntroduction(meRuser.introduction ?? "")
-//    me.setLocalObjcetID(meRuser.localObjectID)
-//    me.setAvatorImageURL(meRuser.avatorImageURL ?? "")
-//    me.setCubeCategoryMasterList(meRuser.cubeCategoryMasterList.map { $0.categoryString })
-//    me.setSubscribeList(meRuser.subscribeList.map { $0.feedID })
-//    
-//    me.saveInBackground { success, error in
-//        
-//        if error != nil {
-//            failureHandler(Reason.network(error), "上传用户信息失败")
-//        }
-//        
-//        if success {
-//            AVUser.changeCurrentUser(me, save: true)
-//            completion?()
-//        }
-//    }
-    
 }
 
 // MARK: - Data
@@ -261,7 +239,6 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
     
     let files = datas.map { AVFile(data: $0) }
     
-    
     var URLs: [String] = []
     
     let uploadFileGroup = DispatchGroup()
@@ -273,8 +250,6 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
         file.saveInBackground { success, error in
            
             if error != nil {
-                
-//                failureHandler(Reason.network(error), "上传图片失败")
                 uploadFileGroup.leave()
             }
             
@@ -368,7 +343,6 @@ public func resendMessage(message: Message, failureHandler: @escaping FailureHan
     
     }
 }
-
 
 public func pushMessageImage(atPath filePath: String?, orFileData fileData: Data?, metaData: Data?, toRecipient recipientID: String, recipientType: String, afterCreatedMessage: @escaping (Message) -> Void, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
@@ -745,6 +719,7 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
                             for index in 0..<newDiscoverFormula.contents.count {
                                 if let lcObjectID = newDiscoverFormula.contents[index].objectId {
                                     newFormula.contents[index].lcObjectID = lcObjectID
+                                    newFormula.contents[index].isPushed = true
                                 }
                             }
                         }
@@ -830,160 +805,6 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
     
 }
 
-public func pushMyFormulasInfoToLeancloudAndFutherAction(_ action: (() -> Void)?) {
-    
-    guard let realm = try? Realm() else {
-        return
-    }
-    
-    func pushDeletedByCreatorFormulaInfomation(nextMission: @escaping () -> Void) {
-        // Leancloud 断标记删除的内容
-        if let currentUser = currentUser(in: realm) {
-            
-            let deletedFormula = deleteByCreatorFormula(with: currentUser, inRealm: realm)
-            var discoverFormulas = [DiscoverFormula]()
-            
-            // 如果不为空, 转换模型
-            if !deletedFormula.isEmpty {
-                
-                for formula in deletedFormula {
-                    
-                    if formula.lcObjectID == "" {
-                        
-                        try? realm.write {
-                            realm.delete(formula)
-                        }
-                        
-                    } else {
-                        
-                        let discoverFormula = DiscoverFormula(className: "DiscoverFormula", objectId: formula.lcObjectID)
-                        
-                        discoverFormula.setValue(true, forKey: "deletedByCreator")
-                        
-                        discoverFormulas.append(discoverFormula)
-                    }
-                }
-                
-            // 如果为空执行下一个任务
-            } else {
-                nextMission()
-            }
-            
-            if !discoverFormulas.isEmpty {
-                
-                AVObject.saveAll(inBackground: discoverFormulas, block: { success, error in
-                    
-                    
-                    if error != nil {
-                        defaultFailureHandler(Reason.network(error), "删除公式推送失败")
-                        nextMission()
-                    }
-                    
-                    if success {
-                        printLog("删除公式推送成功, 共删除 \(discoverFormulas.count) 个公式")
-                        try? realm.write {
-                            realm.delete(deletedFormula)
-                        }
-                        nextMission()
-                    }
-                })
-            }
-        }
-    }
-    
-    func pushDeletedByCreatorContentInformation() {
-        
-        if let currentUser = currentUser(in: realm) {
-            let deletedContents = deleteByCreatorRContent(with: currentUser, inRealm: realm)
-            
-            var discoverContents = [DiscoverContent]()
-            if !deletedContents.isEmpty {
-                
-                for content in deletedContents {
-                    
-                    if content.lcObjectID == "" {
-                        try? realm.write {
-                            realm.delete(content)
-                        }
-                        
-                    } else {
-                        
-                        let discoverContent = DiscoverContent(className: "DiscoverContent", objectId: content.lcObjectID)
-                        discoverContent.setValue(true, forKey: "deletedByCreator")
-                        discoverContents.append(discoverContent)
-                    }
-                }
-            } else {
-                
-//                HUD.flash(.label("上传我的公式信息成功"), delay: 2.0)
-                NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
-            }
-            
-            if !discoverContents.isEmpty {
-                
-                AVObject.saveAll(inBackground: discoverContents, block: { success, error in
-                    
-                    if error != nil {
-                        defaultFailureHandler(Reason.network(error), "删除公式Content推送失败")
-//                        HUD.flash(.label("上传我的公式信息失败"), delay: 2.0)
-                    }
-                    
-                    if success {
-                        
-                        printLog("删除公式Content信息推送成功, 共删除 \(discoverContents.count) 个Content")
-                        try? realm.write {
-                            realm.delete(deletedContents)
-                        }
-//                        HUD.flash(.label("上传我的公式信息成功"), delay: 2.0)
-                        NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
-                    }
-                })
-            }
-        }
-        
-    }
-    
-    if let currentUser = currentUser(in: realm) {
-        
-//        var needUpdate = false
-        let list: [String] = currentUser.masterList.map({$0.formulaID})
-        if !list.isEmpty {
-            pushToMasterListLeancloud(with: list, completion: {
-                printLog("上传掌握列表成功")
-            }, failureHandler: nil)
-        }
-        
-        let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
-        
-        
-        if !unPusheFormula.isEmpty {
-            
-            for formula in unPusheFormula {
-//                HUD.show(.label("正在上传我的公式信息"))
-                pushFormulaToLeancloud(with: formula, failureHandler: {
-                    reason, errorMessage in
-                    
-                    defaultFailureHandler(reason, errorMessage)
-//                    HUD.flash(.label("上传我的公式信息失败"), delay: 2.0)
-                    
-                }, completion: {
-                    _ in
-                    
-                    pushDeletedByCreatorFormulaInfomation {
-                        pushDeletedByCreatorContentInformation()
-                    }
-                })
-            }
-        } else {
-            
-            pushDeletedByCreatorFormulaInfomation {
-                pushDeletedByCreatorContentInformation()
-            }
-        }
-    }
-
-}
-
 // MARK: - Feed
 
 public enum UploadFeedMode {
@@ -1041,9 +862,7 @@ public func openGraphWithURL(_ URL: URL, failureHandler: FailureHandler?, comple
             
             return
         }
-        
     }
-    
 }
 
 public typealias JSONDictionary = [String: Any]
@@ -1156,6 +975,45 @@ public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHan
     }
 }
 
+// MARK: - Score
+func pushMyScoreToLeancloud(with score: Score, failureHandler: FailureHandler?, completion: ((DiscoverScore) -> Void)?) {
+    
+    
+    var discoverScore: DiscoverScore = DiscoverScore()
+    
+    if !score.lcObjectId.isEmpty {
+        discoverScore = DiscoverScore(objectId: score.lcObjectId)
+    } else {
+        discoverScore = DiscoverScore()
+    }
+    
+    discoverScore.atGroup = score.atGroup?.localObjectId ?? ""
+    discoverScore.localObjectID = score.localObjectId
+    discoverScore.timer = score.timer
+    discoverScore.timertext = score.timertext
+    discoverScore.creator = AVUser.current()
+    discoverScore.isDNF = score.isDNF
+    discoverScore.isPOP = score.isPOP
+    discoverScore.isDeleteByCreator = score.isDeleteByCreator
+    discoverScore.scramblingText = score.scramblingText
+    discoverScore.createdUnixTime = score.createdUnixTime
+    discoverScore.atGroupCategory = score.atGroup?.category ?? ""
+    discoverScore.atGroupcreatedUnixTime = score.atGroup?.createdUnixTime ?? Date().timeIntervalSince1970
+    discoverScore.atGroupIsDeleteByCreator = score.atGroup?.isDeleteByCreator ?? false
+    
+    
+    discoverScore.saveInBackground { success, error in
+        
+        if error != nil {
+            failureHandler?(Reason.network(error), "上传 Score 失败")
+        }
+        
+        if success {
+            completion?(discoverScore)
+        }
+    }
+}
+
 
 /// 获取短信验证码
 public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
@@ -1165,10 +1023,8 @@ public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: 
     }
 }
 
-
 /// 注册登录
 public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
-    
     
     AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
         
@@ -1262,25 +1118,3 @@ public func pushCubeCategory() {
     
     AVObject.saveAll(cubeCategorys)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

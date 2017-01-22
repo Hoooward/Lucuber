@@ -50,10 +50,16 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBarLine.isHidden = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ScoreViewController.updateTableView), name: Config.NotificationName.updateMyScores, object: nil)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -72,6 +78,10 @@ class ScoreViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @objc fileprivate func updateTableView() {
+       tableView.reloadData()
     }
 }
 

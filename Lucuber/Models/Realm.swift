@@ -195,9 +195,9 @@ public func unPushedFormula(with currentUser: RUser, inRealm realm: Realm) -> Re
     
     let predicate = NSPredicate(format: "creator = %@", currentUser)
     let predicate2 = NSPredicate(format: "isPushed = %@", false as CVarArg)
-    let predicate3 = NSPredicate(format: "deletedByCreator = %@", false as CVarArg)
+//    let predicate3 = NSPredicate(format: "deletedByCreator = %@", false as CVarArg)
     
-    return realm.objects(Formula.self).filter(predicate).filter(predicate2).filter(predicate3)
+    return realm.objects(Formula.self).filter(predicate).filter(predicate2)
 }
 
 public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory> {

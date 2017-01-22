@@ -11,9 +11,7 @@ import RealmSwift
 import AVOSCloud
 import PKHUD
 
-
 // MARK: - Message
-
 public enum MessageAge: String {
     case old = "old"
     case new = "new"
@@ -528,84 +526,6 @@ public func fetchUser(with userObjectID: String, failureHandeler: @escaping Fail
     }
 }
 
-public func fetchMyInfoAndDoFutherAction(_ action: (() -> Void)?) {
-    
-    guard let realm = try? Realm() else {
-        return
-    }
-    if let meID = AVUser.current()?.objectId {
-        
-        let query = AVQuery(className: "_User")
-        query.whereKey("objectId", equalTo: meID)
-        
-        query.findObjectsInBackground {
-            users, _ in
-         
-            if let user = users?.first as? AVUser {
-                
-                try? realm.write {
-                    _ = getOrCreatRUserWith(user, inRealm: realm)
-                }
-                
-                NotificationCenter.default.post(name: Config.NotificationName.newMyInfo, object: nil)
-                
-                action?()
-            }
-        }
-    }
-}
-
-public func fetchMyFormulasAndDoFutherAction(_ action: (() -> Void)?) {
-    
-    fetchDiscoverFormula(with: .my, categoty: nil, failureHandler: { reason, errorMessage in
-        defaultFailureHandler(reason, errorMessage)
-    }, completion: { _ in
-        
-//        UserDefaults.setIsSyncedMyFormulas(true)
-        NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
-        action?()
-    })
-}
-
-public func fetchNeedUpdateLibraryFormulasAndDoFutherAction(_ action: (() -> Void)?) {
-    let currentVersion = UserDefaults.dataVersion()
-    
-    fetchPreferences(failureHandler: {reason, errorMessage in
-        defaultFailureHandler(reason, errorMessage)
-        
-    }, completion: { newVersion in
-        
-        if currentVersion == newVersion {
-            action?()
-            return
-        }
-        
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let viewController = appDelegate.window?.rootViewController {
-            
-            CubeAlert.confirmOrCancel(title: "公式库有更新", message: "是否需要现在更新? 不会消耗太多流量哦哦~", confirmTitle: "恩, 就是现在", cancelTitles: "取消", inViewController: viewController, confirmAction: {
-                
-                updateLibraryDate(failureHandeler: {
-                    reason, errorMessage in
-                    defaultFailureHandler(reason, errorMessage)
-                    
-                }, completion: {
-                    
-                    UserDefaults.setDataVersion(newVersion)
-                    NotificationCenter.default.post(name: Config.NotificationName.updateLibraryFormulas, object: nil)
-                    
-                })
-                
-            }, cancelAction: {
-                
-            })
-        }
-        
-        action?()
-    })
-}
-
-
 public func updateLibraryDate(failureHandeler: @escaping FailureHandler, completion: (() -> Void)?) {
     
     HUD.show(.label("更新公式库..."))
@@ -723,7 +643,10 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
     
     var formula = formulaWith(objectID: discoverFormula.localObjectID, inRealm: realm)
     
+
+    
     let deleted = discoverFormula.deletedByCreator
+    
     if deleted {
         if
             let discoverFormulaCreatorID = discoverFormula.creator?.objectId,
@@ -780,7 +703,7 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
         
         // 如果 discoverFormula 有 imageURL , 用户自己上传了 Image
         formula.imageURL = discoverFormula.imageURL
-        
+        // 先判断是否需要删除 content
         for discoverContent in discoverFormula.contents {
             
             var content = contentWith(discoverContent.localObjectID, inRealm: realm)
@@ -805,6 +728,7 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
                 
                 content.creator = formula.creator
                 content.atFormula = formula
+                printLog(formula)
                 content.atFomurlaLocalObjectID = discoverContent.atFormulaLocalObjectID
                 
                 content.rotation = discoverContent.rotation
@@ -1088,128 +1012,101 @@ public func saveFeedWithDiscoverFeed(_ feedData: DiscoverFeed, group: Group, inR
     }
 }
 
-
-//public func convertDiscoverMessageToMessage(discoverMessage: DiscoverMessage, messageAge: MessageAge, inRealm realm: Realm, completion: (([String]) -> Void)?) {
-//    
-//    // 暂时使用同一线程的 Realm, 因为 Message 的 lcObjcetID 来自远端, 所以可能需要使用一个独立的线程
-//    
-//    guard let messageID = discoverMessage.objectId else {
-//        return
-//    }
-//    
-//    var message = messageWith(messageID, inRealm: realm)
-//    
-//    let deleted = discoverMessage.deletedByCreator
-//    
-//    if deleted {
-//        if
-//            let discoverMessageCreatorID = discoverMessage.creator.objectId,
-//            let currentUserID = AVUser.current()?.objectId {
-//            
-//            if discoverMessageCreatorID == currentUserID {
-//                
-//                if let message = message {
-//                    realm.delete(message)
-//                }
-//            }
-//            
-//        }
-//    }
-//    
-//    if message == nil {
-//        
-//        let newMessage = Message()
-//        newMessage.lcObjectID = discoverMessage.objectId!
-//        newMessage.localObjectID = discoverMessage.localObjectID
-//        
-//        newMessage.textContent = discoverMessage.textContent
-//        newMessage.mediaTypeInt = discoverMessage.mediaTypeInt
-//        
-//        newMessage.sendStateInt = MessageSendState.read.rawValue
-//        
-//        newMessage.createdUnixTime = (discoverMessage.createdAt?.timeIntervalSince1970)!
-//        
-//        if case .new = messageAge {
-//           
-//            if let latestMessage = realm.objects(Message.self).sorted(byProperty: "createdUnixTime", ascending: true).last {
-//                if newMessage.createdUnixTime < latestMessage.createdUnixTime {
-//                    // 只考虑最近的消息，过了可能混乱的时机就不再考虑
-//                    if abs(newMessage.createdUnixTime - latestMessage.createdUnixTime) < 60 {
-//                        printLog("xbefore newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
-//                        newMessage.createdUnixTime = latestMessage.createdUnixTime + 0.00005
-//                        printLog("xadjust newMessage.createdUnixTime: \(newMessage.createdUnixTime)")
-//                    }
-//                }
-//            }
-//        }
-//        
-//        realm.add(newMessage)
-//        message = newMessage
-//    }
-//    
-//    if let message = message {
-//        
-//        let sender = appendRUser(with: discoverMessage.creator, inRealm: realm)
-//        
-//        
-//        message.creator = sender
-//        message.recipientID = discoverMessage.recipientID
-//        message.recipientType = discoverMessage.recipientType
-//        
-//        var senderFormGroup: Group? = nil
-//        
-//        if discoverMessage.recipientType == "group" {
-//            
-//            senderFormGroup = groupWith(discoverMessage.recipientID, inRealm: realm)
-//            
-//            if senderFormGroup == nil {
-//                
-//                let newGroup = Group()
-//                newGroup.groupID = discoverMessage.recipientID
-//                newGroup.incloudMe = true
-//                
-//                realm.add(newGroup)
-//                
-//                senderFormGroup = newGroup
-//            }
-//        }
-//        
-//        var conversation: Conversation?
-//        
-//        var conversationWithUser: RUser?
-//        
-//        if let senderFormGroup = senderFormGroup {
-//            
-//            conversation = senderFormGroup.conversation
-//            
-//        } else {
-//           
-//            
-//        }
-//        
-//        
-//    }
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// MARK: - Score
+public func fetchDiscoverScores(failureHandler: FailureHandler?, completion: (() -> Void)?) {
+    
+    let query = AVQuery(className: "DiscoverScore")
+    query.limit = 1000
+    query.whereKey("creator", equalTo: AVUser.current() ?? AVUser())
+    query.order(byDescending: "createdUnixTime")
+    query.findObjectsInBackground({ result, error in
+        
+        if error != nil {
+            failureHandler?(Reason.network(error), "下载我的还原记录失败")
+        }
+        
+        if let result = result as? [DiscoverScore] {
+            
+            guard let realm = try? Realm() else {
+                return
+            }
+            
+            realm.beginWrite()
+            for score in result {
+                convertDiscoverScoreToRScore(with: score, inRealm: realm,completion: {
+                })
+            }
+            try? realm.commitWrite()
+            
+            completion?()
+        }
+    })
+    
+}
+public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRealm realm: Realm, completion: (() -> Void)?) {
+    
+    var score = scoreWith(discoverScore.localObjectID, inRealm: realm)
+    
+    let deleted = discoverScore.isDeleteByCreator
+    
+    if deleted {
+        if let score = score {
+            realm.delete(score)
+        }
+        return
+    }
+    
+    var group = scoreGroupWith(discoverScore.atGroup, inRealm: realm)
+    
+    let groupDeleted = discoverScore.atGroupIsDeleteByCreator
+    
+    if groupDeleted {
+        if let group = group {
+            group.cascadeDelete(inRealm: realm)
+        }
+        return
+    }
+    
+    if score == nil {
+        let newScore = Score()
+        newScore.localObjectId = Score.randomLocalObjectID()
+        
+        realm.add(newScore)
+        score = newScore
+    }
+    
+    
+    if let score = score {
+        let user = getOrCreatRUserWith(discoverScore.creator, inRealm: realm)
+        
+        score.creator = user
+        
+        score.lcObjectId = discoverScore.objectId ?? ""
+        score.timertext = discoverScore.timertext
+        score.timer = discoverScore.timer
+        score.isPOP = discoverScore.isPOP
+        score.isDNF = discoverScore.isDNF
+        score.isDeleteByCreator = discoverScore.isDeleteByCreator
+        score.scramblingText = discoverScore.scramblingText
+        score.createdUnixTime = discoverScore.createdUnixTime
+        
+        
+        if group == nil {
+            let newGroup = ScoreGroup()
+            newGroup.localObjectId = discoverScore.atGroup
+            realm.add(newGroup)
+            
+            group = newGroup
+        }
+        
+        if let group = group {
+            group.createdUnixTime = discoverScore.atGroupcreatedUnixTime
+            group.category = discoverScore.atGroupCategory
+            group.creator = user
+            group.isDeleteByCreator = discoverScore.atGroupIsDeleteByCreator
+            score.atGroup = group
+        }
+    }
+    
+    completion?()
+}

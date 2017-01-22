@@ -357,7 +357,7 @@ class MediaPreviewViewController: UIViewController {
                 
             }
 
-        case .attachmentType(let _):
+        case .attachmentType(_):
             
             mediaControlView.type = .image 
             

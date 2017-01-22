@@ -67,10 +67,20 @@ class ScoreDetailViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_back"), style: .plain, target: self, action: #selector(ScoreDetailViewController.popViewController(sender:)))
         
         view.backgroundColor = UIColor.white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ScoreDetailViewController.updateTableView), name: Config.NotificationName.updateMyScores, object: nil)
     }
     
-    @objc func popViewController(sender: UIBarButtonItem) {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc fileprivate func popViewController(sender: UIBarButtonItem) {
         _ = navigationController?.popViewController(animated: true)
+    }
+    
+    @objc fileprivate func updateTableView() {
+        tableView.reloadData()
     }
     
     @IBAction func sharedScoreGroup(_ sender: UIBarButtonItem) {

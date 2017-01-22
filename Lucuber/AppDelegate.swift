@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case `default`
         case message
     }
+    
     enum RemoteNotificationType: String {
         case message = "message"
 		case bunchMessages = "bunchMessages"
@@ -63,10 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         printLog(path)
         
         Realm.Configuration.defaultConfiguration = realmConfig()
-        AVOSCloud.setAllLogsEnabled(false)
-        AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         
-//        MonkeyKing.registerAccount(MonkeyKing.Account.weChat(appID: "wx0092d68f06f284aa", appKey: "77f319fcf7e6c6e62c5209752370f63d"))
+        AVOSCloud.setAllLogsEnabled(false)
+        
+        AVOSCloud.setApplicationId("SpFbe0lY0xU6TV6GgnCCLWP7-gzGzoHsz", clientKey: "rMx2fpwx245YMLuWrGstWYbt")
         
         DiscoverFormula.registerSubclass()
         DiscoverContent.registerSubclass()
@@ -86,15 +87,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         customAppearce()
         //pushCubeCategory()
+        
+        _ = creatMeInRealm()
     
-        AVUser.current()?.isAuthenticated(withSessionToken: "user-sessionToken-here", callback: { success, error in
-            printLog(success)
-        })
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
-   
-
-        _ = creatMeInRealm()
+  
 
         if AVUser.isLogin {
             if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
@@ -113,8 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if isFirstLaunch {
             sync()
         } else {
-            fetchUnreadMessages() {
-                pushMyFormulasInfoToLeancloudAndFutherAction {}
+            fetchUnreadMessages {
+                pushNewFormulaAndScoreToLeancloudAndFutherAction {}
             }
         }
 
@@ -179,7 +177,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
         let installation = AVInstallation.current()
         installation.setDeviceTokenFrom(deviceToken)
         installation.setObject(AVUser.current(), forKey: "creator")
@@ -257,12 +254,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: Target & Action
-    func changeRootViewController() {
+    @objc fileprivate func changeRootViewController() {
         window?.rootViewController = determineRootViewController()
         sync()
     }
     
-    private func determineRootViewController() -> UIViewController {
+    fileprivate func determineRootViewController() -> UIViewController {
         
         let storyboardName = AVUser.isLogin ? "Main" : "Resgin"
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
@@ -274,7 +271,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return storyboard.instantiateInitialViewController()!
     }
     
-    private func fetchUnreadMessages(_ action: @escaping () -> Void) {
+    fileprivate func fetchUnreadMessages(_ action: @escaping () -> Void) {
 
         guard AVUser.isLogin else {
             action()
@@ -291,22 +288,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
-    private func sync() {
-        
+    fileprivate func sync() {
+        // 第一次启动程序
         guard AVUser.isLogin else {
             return
         }
         
         let moreSync = {
+            // 同步我的信息
             fetchMyInfoAndDoFutherAction {
-                fetchNeedUpdateLibraryFormulasAndDoFutherAction {}
-//                if !UserDefaults.isSyncedMyFormulas() {
-                    fetchMyFormulasAndDoFutherAction {}
-//                }
+                // 判断是否需要更新 FormulaLibrary
+                fetchNeedUpdateLibraryFormulasAndDoFutherAction {
+                    
+                    if !UserDefaults.isSyncedMyFormulas() {
+                        fetchMyFormulasAndDoFutherAction {}
+                    }
+                    
+                    if !UserDefaults.isSyncedMyScores() {
+                        fetchMyScoresAndFutherAction {}
+                    }
+                }
+                
+                pushNewFormulaAndScoreToLeancloudAndFutherAction {}
             }
         }
         
         if UserDefaults.isSyncedSubscribeConversations() {
+            
             fetchUnreadMessages {
                 moreSync()
             }
@@ -317,11 +325,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 moreSync()
             }
         }
-        
-//        pushMyFormulasInfoToLeancloudAndFutherAction {}
     }
     
-    func unregisterThirdPartyPush() {
+    fileprivate func unregisterThirdPartyPush() {
         // TODO: 还不确定是不需要删除当前的 AVInstallation
         DispatchQueue.main.async {
             self.clearNotification()

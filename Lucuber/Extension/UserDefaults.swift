@@ -15,6 +15,7 @@ fileprivate let tarbarItemTextEnabledKey = "tarbarItemTextEnabled"
 fileprivate let isSyncedSubscribeConversationsKey = "isSyncedSubscribeConversations"
 fileprivate let isNeedUploadDeletedFormulaInfoKey = "isNeedUploadDeletedFormulaInfo"
 fileprivate let isSyncedMyFormulasKey = "setIsSyncedMyFormulas"
+fileprivate let isSyncedMyScoresKey = "isSyncedMyScores"
 
 // MARK: - UI
 extension UserDefaults {
@@ -93,6 +94,14 @@ extension UserDefaults {
     
     class func setIsSyncedMyFormulas(_ synced: Bool) {
         standard.set(synced, forKey: isSyncedMyFormulasKey)
+    }
+    
+    class func isSyncedMyScores() -> Bool {
+        return standard.bool(forKey: isSyncedMyScoresKey)
+    }
+    
+    class func setIsSyncedMyScores(_ synced: Bool) {
+        standard.set(synced, forKey: isSyncedMyScoresKey)
     }
 }
 

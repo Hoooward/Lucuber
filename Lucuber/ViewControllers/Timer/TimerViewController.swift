@@ -79,6 +79,8 @@ class TimerViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(TimerViewController.updateRefreshButton), name: .newScoreGroupViewControllerDidDismissNotification, object: nil)
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(TimerViewController.updateUI), name: Config.NotificationName.updateMyScores, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +102,11 @@ class TimerViewController: UIViewController {
     }
     
     // MARK: - Target & Action
+    @objc fileprivate func updateUI() {
+        scoreView.tableView.reloadData()
+        scoreDetailView.updateUI()
+    }
+    
     func pasueTimer(sender: UIGestureRecognizer) {
         
         if timerLabel.isCounting {

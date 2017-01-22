@@ -8,9 +8,193 @@ import RealmSwift
 import AVOSCloud
 import UserNotifications
 
-
 // MARK: - User
+public func fetchMyInfoAndDoFutherAction(_ action: (() -> Void)?) {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    if let meID = AVUser.current()?.objectId {
+        
+        let query = AVQuery(className: "_User")
+        query.whereKey("objectId", equalTo: meID)
+        
+        query.findObjectsInBackground {
+            users, error in
+            
+            if error != nil {
+                printLog("更新本地当前用户失败")
+                action?()
+            }
+            
+            if let user = users?.first as? AVUser {
+                
+                try? realm.write {
+                    _ = getOrCreatRUserWith(user, inRealm: realm)
+                }
+                
+                NotificationCenter.default.post(name: Config.NotificationName.newMyInfo, object: nil)
+                
+                action?()
+            }
+        }
+    }
+}
 
+// MARK: - Formula
+public func fetchMyFormulasAndDoFutherAction(_ action: (() -> Void)?) {
+    
+    fetchDiscoverFormula(with: .my, categoty: nil, failureHandler: { reason, errorMessage in
+        defaultFailureHandler(reason, errorMessage)
+        action?()
+    }, completion: { _ in
+        
+        UserDefaults.setIsSyncedMyFormulas(true)
+        NotificationCenter.default.post(name: Config.NotificationName.updateMyFormulas, object: nil)
+        action?()
+    })
+}
+
+// MARK: - Score
+public func fetchMyScoresAndFutherAction(_ action: (()-> Void)?) {
+    
+    fetchDiscoverScores(failureHandler: { reason, errorMessage in
+        defaultFailureHandler(reason, errorMessage)
+        action?()
+    }, completion: {
+        
+        UserDefaults.setIsSyncedMyScores(true)
+        NotificationCenter.default.post(name: Config.NotificationName.updateMyScores, object: nil)
+        action?()
+    })
+    
+}
+
+public func fetchNeedUpdateLibraryFormulasAndDoFutherAction(_ action: (() -> Void)?) {
+    let currentVersion = UserDefaults.dataVersion()
+    
+    fetchPreferences(failureHandler: {reason, errorMessage in
+        defaultFailureHandler(reason, errorMessage)
+        action?()
+    }, completion: { newVersion in
+        
+        if currentVersion == newVersion {
+            action?()
+            return
+        }
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let viewController = appDelegate.window?.rootViewController {
+            
+            CubeAlert.confirmOrCancel(title: "公式库有更新", message: "是否需要现在更新? 不会消耗太多流量哦哦~", confirmTitle: "恩, 就是现在", cancelTitles: "取消", inViewController: viewController, confirmAction: {
+                
+                updateLibraryDate(failureHandeler: {
+                    reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                    
+                }, completion: {
+                    
+                    UserDefaults.setDataVersion(newVersion)
+                    NotificationCenter.default.post(name: Config.NotificationName.updateLibraryFormulas, object: nil)
+                    
+                })
+                
+            }, cancelAction: {
+                
+            })
+        }
+        
+        action?()
+    })
+}
+
+public func pushNewFormulaAndScoreToLeancloudAndFutherAction(_ action: (() -> Void)?) {
+    
+    guard let realm = try? Realm() else {
+        return
+    }
+    
+    if let currentUser = currentUser(in: realm) {
+        
+        let updateMyInformationGroup = DispatchGroup()
+        
+        let list: [String] = currentUser.masterList.map({$0.formulaID})
+        
+        if !list.isEmpty {
+            
+            updateMyInformationGroup.enter()
+            printLog("开始上传掌握公式列表")
+            
+            pushToMasterListLeancloud(with: list, completion: {
+                updateMyInformationGroup.leave()
+                printLog("上传掌握公式列表成功")
+                
+            }, failureHandler: { _, _ in
+                printLog("上传掌握公式列表失败")
+                updateMyInformationGroup.leave()
+            })
+        }
+        
+        let unPusheFormula = unPushedFormula(with: currentUser, inRealm: realm)
+        
+        if !unPusheFormula.isEmpty {
+            
+            for formula in unPusheFormula {
+                
+                updateMyInformationGroup.enter()
+                printLog("开始上传需要更新的 Formula, 名称: \(formula.name)")
+                
+                pushFormulaToLeancloud(with: formula, failureHandler: {
+                    _, _ in
+                    printLog("上传需要更新的 Formula, 名称: \(formula.name) 失败")
+                    updateMyInformationGroup.leave()
+                    
+                }, completion: {
+                    _ in
+                    
+                    printLog("上传需要更新的 Formula, 名称: \(formula.name) 成功")
+                    updateMyInformationGroup.leave()
+                    
+                    try? realm.write {
+                        formula.isPushed = true
+                        formula.contents.forEach { $0.isPushed = true }
+                    }
+                })
+            }
+        }
+        
+        let unPushedScore = unPushedScoreWithRUser(currentUser, inRealm: realm)
+        
+        if !unPushedScore.isEmpty {
+            
+            for score in unPushedScore {
+                updateMyInformationGroup.enter()
+                printLog("开始上传复原成绩 Score , 名称: \(score.timer)")
+                
+                pushMyScoreToLeancloud(with: score, failureHandler: {_, _ in
+                    printLog("开始上传复原成绩 Score , 名称: \(score.timer) 失败")
+                    updateMyInformationGroup.leave()
+                }, completion: { discoverScore in
+                    printLog("开始上传复原成绩 Score , 名称: \(score.timer) 成功")
+                    updateMyInformationGroup.leave()
+                    
+                    try? realm.write {
+                        score.lcObjectId = discoverScore.objectId ?? ""
+                        score.isPushed = true
+                    }
+                })
+            }
+        }
+        
+        updateMyInformationGroup.notify(queue: DispatchQueue.main, execute: {
+            printLog("上传所有新数据 Formula & Score 完成")
+            action?()
+        })
+        
+    } else {
+        action?()
+    }
+}
 
 // MARK: - Report
 public enum ReportReason {
@@ -203,6 +387,3 @@ public func unSubscribeConversationWithGroupID(_ groupID: String, failureHandler
         }
     }
 }
-
-
-
