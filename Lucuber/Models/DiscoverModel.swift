@@ -195,18 +195,6 @@ public class DiscoverScore: AVObject, AVSubclassing {
     
 }
 
-//public class DiscoverScoreGroup: AVObject, AVSubclassing {
-//    public static func parseClassName() -> String {
-//        return "DiscoverScoreGroup"
-//    }
-//    
-//    @NSManaged var localObjectID: String
-//    @NSManaged var category: String
-//    @NSManaged var creator: AVUser
-//    @NSManaged var isDeleteByCreator: Bool
-//    @NSManaged var createdUnixTime: Double
-//}
-
 public class DiscoverReport: AVObject, AVSubclassing {
     
     public static func parseClassName() -> String {

@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import AVOSCloud
+import Kingfisher
 
 public enum ProfileUser {
     
@@ -315,7 +316,16 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
         navigationItem.title = "个人主页"
         view.addSubview(customNavigationBar)
         automaticallyAdjustsScrollViewInsets = false
-        //TODO: - 清理缓存
+        
+        ImageCache.default.calculateDiskCacheSize(completion:  { size in
+            
+            let cacheSize = Double(size)/1000000
+            printLog("Kingfisher.ImageCache cacheSize: \(cacheSize) MB")
+            
+            if cacheSize > 300 {
+                ImageCache.default.cleanExpiredDiskCache()
+            }
+        })
         
         if let profileUser = profileUser {
             
