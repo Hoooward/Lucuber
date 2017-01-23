@@ -19,7 +19,7 @@ import MonkeyKing
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private var remoteNotificationType: RemoteNotificationType? {
+    fileprivate var remoteNotificationType: RemoteNotificationType? {
         willSet {
             if let type = newValue {
                 switch type {
@@ -87,19 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         customAppearce()
-        //pushCubeCategory()
+//        pushCubeCategory()
 //        pushBaseFormulaDataToLeanCloud()
         
         _ = creatMeInRealm()
     
-        /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
 
+        /*
         if AVUser.isLogin {
-            if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
+            if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] , let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
                 remoteNotificationType = RemoteNotificationType(rawValue: type)
             }
         }
+         */
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
 
         return true
     }
@@ -158,8 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 10, *) {
             let notificationCenter = UNUserNotificationCenter.current()
             
-            //notificationCenter.delegate = self
-        
             notificationCenter.requestAuthorization(options: [UNAuthorizationOptions.alert, UNAuthorizationOptions.badge, UNAuthorizationOptions.sound], completionHandler: {
                 success, error in
                 
@@ -175,7 +176,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             })
         } else {
-            // TODO: - iOS 10 以下的版本
             let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound
                 , .alert], categories: nil)
             UIApplication.shared.registerUserNotificationSettings(notificationSettings)
@@ -191,7 +191,118 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.saveInBackground()
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let userInfo = notification.request.content.userInfo
+        
+        guard AVUser.isLogin, let type = userInfo["type"] as? String, let remoteNotificationType = RemoteNotificationType(rawValue: type) else {
+            return
+        }
+        
+        switch remoteNotificationType {
+            
+        case .message:
+            
+            if let messageId = userInfo["messageID"] as? String {
+                
+                fetchMessageWithMessageLcID(messageId, failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                }, completion: { messageIds in
+                    printLog("下载通知的 Message 完成")
+                    NotificationCenter.default.post(name: Config.NotificationName.changedFeedConversation, object: nil)
+                    tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
+                })
+            }
+            
+        case .feedDeleted:
+            
+            if let feedId = userInfo["feedID"] as? String {
+                
+                guard let realm = try? Realm() else { return }
+                if let feed = feedWith(feedId, inRealm: realm) {
+                    try? realm.write {
+                        feed.deleted = true
+                    }
+                }
+                unSubscribeConversationWithGroupID(feedId, failureHandler: { _, _ in
+                    
+                }, completion: {
+                    if let feed = feedWith(feedId, inRealm: realm) {
+                        try? realm.write {
+                            feed.group?.notificationEnabled = false
+                        }
+                    }
+                    NotificationCenter.default.post(name: Config.NotificationName.deletedFeed, object: feedId)
+                })
+            }
+            
+        default:
+            break
+        }
+
+    }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        
+        guard AVUser.isLogin, let type = userInfo["type"] as? String, let remoteNotificationType = RemoteNotificationType(rawValue: type) else {
+            completionHandler()
+            return
+        }
+        
+        defer {
+            if UIApplication.shared.applicationState != .active {
+                self.remoteNotificationType = remoteNotificationType
+            }
+        }
+        
+        switch remoteNotificationType {
+            
+        case .message:
+            
+            if let messageId = userInfo["messageID"] as? String {
+                
+                fetchMessageWithMessageLcID(messageId, failureHandler: { reason, errorMessage in
+                    defaultFailureHandler(reason, errorMessage)
+                }, completion: { messageIds in
+                    printLog("下载通知的 Message 完成")
+                    NotificationCenter.default.post(name: Config.NotificationName.changedFeedConversation, object: nil)
+                    tryPostNewMessageReceivedNotification(withMessageIDs: messageIds, messageAge: .new)
+                    completionHandler()
+                })
+            }
+      
+        case .feedDeleted:
+            
+            if let feedId = userInfo["feedID"] as? String {
+                
+                guard let realm = try? Realm() else { return }
+                if let feed = feedWith(feedId, inRealm: realm) {
+                    try? realm.write {
+                        feed.deleted = true
+                    }
+                }
+                unSubscribeConversationWithGroupID(feedId, failureHandler: { _, _ in
+                    
+                }, completion: {
+                    if let feed = feedWith(feedId, inRealm: realm) {
+                        try? realm.write {
+                            feed.group?.notificationEnabled = false
+                        }
+                    }
+                    NotificationCenter.default.post(name: Config.NotificationName.deletedFeed, object: feedId)
+                    completionHandler()
+                })
+            }
+            
+        default:
+            break
+        }
+        
+    }
+    
+    /// < iOS 10 接受删除 Feed 的通知
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         guard AVUser.isLogin, let type = userInfo["type"] as? String, let remoteNotificationType = RemoteNotificationType(rawValue: type) else {
@@ -307,8 +418,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 同步我的信息
             fetchMyInfoAndDoFutherAction {
                 // 判断是否需要更新 FormulaLibrary
-                
-                
                 pushNewFormulaAndScoreToLeancloudAndFutherAction {
                     
                     if !UserDefaults.isSyncedMyFormulas() {
@@ -349,7 +458,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             installation.saveEventually()
         }
         UIApplication.shared.applicationIconBadgeNumber = 0
-        UIApplication.shared.cancelAllLocalNotifications()
+        
+//        UIApplication.shared.cancelAllLocalNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 
     fileprivate func customAppearce() {

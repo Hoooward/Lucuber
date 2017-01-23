@@ -71,7 +71,6 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     enum UIRow: Int {
         case tabBarTitleEnabled
-        case dateBackup
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -86,7 +85,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .user:
             return 1
         case .ui:
-            return 2
+            return 1
         case .more:
             return moreAnnotations.count
         }
@@ -129,12 +128,6 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                     NotificationCenter.default.post(name: NSNotification.Name.tabbarItemTextEnableDidChangedNotification, object: nil)
                 }
                 return cell
-                
-            case .dateBackup:
-                
-                let cell: SettingsMoreCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.annotationLabel.text = "数据备份"
-                return cell
             }
             
         case .more:
@@ -147,20 +140,21 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        guard let realm = try? Realm() else {
+            return 0
+        }
+        
+        guard let me = currentUser(in: realm) else {
+            return 0
+        }
+ 
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError("Invalide section!")
         }
         
         switch section {
+            
         case .user:
-            
-            guard let realm = try? Realm() else {
-                return 0
-            }
-            
-            guard let me = currentUser(in: realm) else {
-                return 0
-            }
             
             let tableViewWidth = settingsTableView.bounds.width
             let introLabelMaxWidth = tableViewWidth - Config.Settings.introInset

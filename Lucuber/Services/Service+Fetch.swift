@@ -66,28 +66,57 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: @escaping (
 // 不使用公共的 fetchMessageFromLeancloud 方法, 避免服务器端查询表, 减少延迟
 func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureHandler, completion: @escaping ( [String]) -> Void) {
 
-    let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageLcID)
+//    let discoverMessage = DiscoverMessage(className: "DiscoverMessage", objectId: messageLcID)
     
-    discoverMessage.fetchInBackground { message, error in
+    let query = DiscoverMessage.query()
+    query.includeKey("creator")
+    
+    query.getObjectInBackground(withId: messageLcID, block: { result , error in
         
-        if let message = message as? DiscoverMessage {
-
+        if let message = result as? DiscoverMessage {
+            
             guard let realm = try? Realm() else {
                 return
             }
-
+            
+            
+            
             var newMessageIDs = [String]()
             realm.beginWrite()
-
+            
             convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: .new, inRealm: realm, completion: { messageIDs in
                 newMessageIDs.append(contentsOf: messageIDs)
             })
-
+            
             try? realm.commitWrite()
-
-			completion(newMessageIDs)
+            
+            completion(newMessageIDs)
         }
-    }
+        
+    })
+    
+//    discoverMessage.fetchInBackground { message, error in
+//        
+//        if let message = message as? DiscoverMessage {
+//
+//            guard let realm = try? Realm() else {
+//                return
+//            }
+//
+//            
+//        
+//            var newMessageIDs = [String]()
+//            realm.beginWrite()
+//
+//            convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: .new, inRealm: realm, completion: { messageIDs in
+//                newMessageIDs.append(contentsOf: messageIDs)
+//            })
+//
+//            try? realm.commitWrite()
+//
+//			completion(newMessageIDs)
+//        }
+//    }
 }
 
 
@@ -247,6 +276,8 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
             
             if let messageCreatorUserID = discoverMessage.creator.objectId {
 
+                _ = getOrCreatRUserWith(discoverMessage.creator, inRealm: realm)
+                
                 var sender = userWith(messageCreatorUserID, inRealm: realm)
 
                 if sender == nil {
@@ -931,7 +962,6 @@ public func saveFeedWithDiscoverFeed(_ feedData: DiscoverFeed, group: Group, inR
         newFeed.updatedUnixTime = feedData.updatedAt?.timeIntervalSince1970 ?? 0
         newFeed.creator = getOrCreatRUserWith(feedData.creator, inRealm: realm)
         newFeed.body = feedData.body
-        
         realm.add(newFeed)
         
         _feed = newFeed

@@ -450,7 +450,7 @@ public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMe
         if let prevMessage = messages[safe: (index - 1)] {
             
             // TODO: - 两个消息时间相差多少秒, 创建 DataSection, 10 为测试值, 正常 180 秒
-            if message.createdUnixTime - prevMessage.createdUnixTime > 10 {
+            if message.createdUnixTime - prevMessage.createdUnixTime > 180 {
                 
                 let sectionDateMessageCreatedUnixTime = message.createdUnixTime - 0.00005
                 let sectionDateMessageID = "sectionDate-\(sectionDateMessageCreatedUnixTime)"

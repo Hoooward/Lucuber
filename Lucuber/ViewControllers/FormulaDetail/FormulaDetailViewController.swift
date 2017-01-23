@@ -41,8 +41,10 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     public var uploadMode: UploadFormulaMode = .library
     
-    fileprivate lazy var headerView: DetailHeaderView = DetailHeaderView()
+//    fileprivate lazy var headerView: DetailHeaderView = DetailHeaderView()
     
+    
+    @IBOutlet weak var headerView: DetailHeaderView!
     fileprivate lazy var commentCellIndexPath: IndexPath = IndexPath(item: 0, section: Section.comment.rawValue)
     
     fileprivate var lastSeletedFormulaContentCellHeight: CGFloat = 0
@@ -304,7 +306,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableHeaderView = headerView
+//        tableView.tableHeaderView = headerView
         configureHeaderView()
         
         view.addSubview(customNavigationBar)

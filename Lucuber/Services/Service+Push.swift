@@ -585,7 +585,9 @@ public func pushDeletedFeedNotificationToAPNs(with feed: DiscoverFeed) {
     let dict: [String: Any] = [
         "type": AppDelegate.RemoteNotificationType.feedDeleted.rawValue,
         "feedID": channel,
-        "content-available" : 1
+        "content-available" : 1,
+//        "sound" : "",
+//        "priority": 5
     ]
     let push = AVPush()
     push.setChannel(channel)
