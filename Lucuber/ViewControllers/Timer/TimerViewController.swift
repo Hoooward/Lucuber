@@ -54,10 +54,10 @@ class TimerViewController: UIViewController {
         }
     }
 
+
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         topBackgroundView.backgroundColor = UIColor.cubeTintColor()
         
         topContaninerViewConstarint.constant = CGFloat(CubeRuler.iPhoneVertical(350, 380, 470, 480).value)
@@ -159,6 +159,10 @@ class TimerViewController: UIViewController {
         }
     }
     
+    func refreshGroup() {
+        refreshGroupAction(UIButton())
+    }
+    
     @IBAction func refreshGroupAction(_ sender: UIButton) {
         
         sender.isEnabled = false
@@ -171,7 +175,7 @@ class TimerViewController: UIViewController {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         let presentedWidth = screenWidth - 100
-        let presentedHeight = screenHeight - 400
+        let presentedHeight = screenHeight - 300
         
         self.newScoreGroupAnimator.presentedFrame = CGRect(x: (screenWidth - presentedWidth) * 0.5, y: (screenHeight - presentedHeight) * 0.5, width: presentedWidth, height: presentedHeight)
         newScoreGroupVC.transitioningDelegate = self.newScoreGroupAnimator

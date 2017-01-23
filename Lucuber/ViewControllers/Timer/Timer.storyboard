@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dFP-U9-BET">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dFP-U9-BET">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLh-Uh-xhp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-BZ-4Yx">
@@ -41,24 +41,24 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U D F R2 B F' L F' B' D' R' L' B' L' U F U' D' B' D2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-Il-z1v" customClass="SpringLabel" customModule="Spring">
-                                        <rect key="frame" x="50" y="90.333333333333343" width="314" height="106.33333333333334"/>
+                                        <rect key="frame" x="50" y="100.00000000000001" width="314" height="106.33333333333336"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oid-bx-WAt">
-                                        <rect key="frame" x="377.33333333333326" y="30" width="16.666666666666686" height="20"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oid-bx-WAt">
+                                        <rect key="frame" x="364" y="30" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="VqX-VN-WJY"/>
-                                            <constraint firstAttribute="width" secondItem="oid-bx-WAt" secondAttribute="height" multiplier="36:43" id="o8G-vK-Ygd"/>
+                                            <constraint firstAttribute="height" constant="40" id="VqX-VN-WJY"/>
+                                            <constraint firstAttribute="width" constant="40" id="ngz-Cu-IIO"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="ios-refresh-empty"/>
+                                        <state key="normal" image="ios-refresh-empty"/>
                                         <connections>
                                             <action selector="refreshGroupAction:" destination="09v-jz-Feu" eventType="touchUpInside" id="DNU-dC-4GS"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="三阶" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMx-AF-7Jn">
-                                        <rect key="frame" x="190.33333333333337" y="30.000000000000004" width="34.666666666666657" height="20.333333333333339"/>
+                                        <rect key="frame" x="190.33333333333337" y="39.666666666666657" width="34.666666666666657" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -72,7 +72,7 @@
                                     <constraint firstAttribute="trailing" secondItem="9IN-Qc-Did" secondAttribute="trailing" constant="30" id="C2O-hD-aRG"/>
                                     <constraint firstItem="9IN-Qc-Did" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pv8-Il-z1v" secondAttribute="bottom" constant="40" id="CYY-2g-hsb"/>
                                     <constraint firstItem="qJg-rn-OMo" firstAttribute="leading" secondItem="Ua5-BZ-4Yx" secondAttribute="leading" id="FZO-cy-UZ3"/>
-                                    <constraint firstAttribute="trailing" secondItem="oid-bx-WAt" secondAttribute="trailing" constant="20" id="Gfl-6S-GO1"/>
+                                    <constraint firstAttribute="trailing" secondItem="oid-bx-WAt" secondAttribute="trailing" constant="10" id="Gfl-6S-GO1"/>
                                     <constraint firstItem="VMx-AF-7Jn" firstAttribute="centerX" secondItem="Ua5-BZ-4Yx" secondAttribute="centerX" id="IuZ-Kb-Qba"/>
                                     <constraint firstItem="oid-bx-WAt" firstAttribute="top" secondItem="Ua5-BZ-4Yx" secondAttribute="top" constant="30" id="MXy-sj-bnp"/>
                                     <constraint firstAttribute="trailing" secondItem="pv8-Il-z1v" secondAttribute="trailing" constant="50" id="Q5S-wI-w1R"/>
@@ -84,7 +84,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Aw-SC-3fR" userLabel="Bottom Container View" customClass="SpringView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="456" width="414" height="251"/>
+                                <rect key="frame" x="0.0" y="456" width="414" height="300"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="hI5-iu-zHg">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -93,13 +93,13 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpc-bG-VMr">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="211"/>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="260"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjI-gM-Ecv" customClass="ScoreView" customModule="Lucuber" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="10" width="120" height="171"/>
+                                                <rect key="frame" x="10" y="10" width="120" height="220"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NIg-vk-YVl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="171"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="220"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
                                                 </subviews>
@@ -116,22 +116,22 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnN-gm-mcY" customClass="ScoreDetailView" customModule="Lucuber" customModuleProvider="target">
-                                                <rect key="frame" x="279" y="10" width="120" height="151"/>
+                                                <rect key="frame" x="279" y="10" width="120" height="200"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="95f-MW-o3y">
-                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="151"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="200"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="R0I-ZH-byT">
-                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="37.666666666666629"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-e2-HjC">
-                                                                        <rect key="frame" x="0.0" y="11.666666666666629" width="61.666666666666686" height="14.333333333333371"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="61.666666666666686" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ua2-8c-jep" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666629" width="61.333333333333314" height="14.333333333333371"/>
+                                                                        <rect key="frame" x="58.666666666666686" y="18" width="61.333333333333314" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                         <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -139,16 +139,16 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="bJW-41-xSK">
-                                                                <rect key="frame" x="0.0" y="37.666666666666629" width="120" height="38"/>
+                                                                <rect key="frame" x="0.0" y="50" width="120" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-Sj-dxQ">
-                                                                        <rect key="frame" x="0.0" y="11.666666666666742" width="61.666666666666686" height="14.333333333333258"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="61.666666666666686" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5VA-2d-BFJ" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666742" width="61.333333333333314" height="14.333333333333258"/>
+                                                                        <rect key="frame" x="58.666666666666686" y="18" width="61.333333333333314" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                         <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -156,16 +156,16 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="w89-ty-kO5">
-                                                                <rect key="frame" x="0.0" y="75.666666666666629" width="120" height="37.666666666666742"/>
+                                                                <rect key="frame" x="0.0" y="100" width="120" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVG" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVb-ji-HgH">
-                                                                        <rect key="frame" x="0.0" y="11.666666666666742" width="61.666666666666686" height="14.333333333333258"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="61.666666666666686" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:12:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReJ-BV-Lwc" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666742" width="61.333333333333314" height="14.333333333333258"/>
+                                                                        <rect key="frame" x="58.666666666666686" y="18" width="61.333333333333314" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                         <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -173,16 +173,16 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="c2c-CE-o33">
-                                                                <rect key="frame" x="0.0" y="113.33333333333337" width="120" height="37.666666666666629"/>
+                                                                <rect key="frame" x="0.0" y="150" width="120" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DNF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhT-v2-DUh">
-                                                                        <rect key="frame" x="0.0" y="11.666666666666629" width="61.666666666666686" height="14.333333333333371"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="61.666666666666686" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="12"/>
                                                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfH-OJ-Pek" customClass="ScoreTimerLabel" customModule="Lucuber" customModuleProvider="target">
-                                                                        <rect key="frame" x="58.666666666666686" y="11.666666666666629" width="61.333333333333314" height="14.333333333333371"/>
+                                                                        <rect key="frame" x="58.666666666666686" y="18" width="61.333333333333314" height="14.333333333333371"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                         <color key="textColor" red="0.0" green="0.17254900000000001" blue="0.20392199999999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -276,8 +276,8 @@
                     <tabBarItem key="tabBarItem" title="" image="icon_timer" selectedImage="icon_timer_active" id="zAz-NQ-3cl"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kcv-pK-7yt">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcv-pK-7yt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.1960784314" green="0.65490196079999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -314,7 +314,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WdS-fu-dvX" id="GAh-tT-5Zs">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skill_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="zMH-nh-a62">
@@ -389,7 +389,7 @@
     <resources>
         <image name="icon_timer" width="23" height="23"/>
         <image name="icon_timer_active" width="23" height="23"/>
-        <image name="ios-refresh-empty" width="36" height="43"/>
+        <image name="ios-refresh-empty" width="17" height="20"/>
         <image name="loading" width="414" height="45"/>
         <image name="new_score_group_popover" width="67" height="70"/>
         <image name="skill_bubble" width="55" height="24"/>
