@@ -2,7 +2,8 @@
  use_frameworks!
 
 target 'Lucuber' do
-
+    
+pod 'SwiftyJSON'
 pod 'ScrollableGraphView'
 pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
 pod 'DeviceGuru'
@@ -27,19 +28,19 @@ pod 'AsyncDisplayKit'
 #pod 'TwicketSegmentedControl'
 
 end
-
-target 'LucuberKit' do
-
-pod 'SwiftyJSON'
-pod 'AVOSCloud'
-pod 'RealmSwift'
-pod 'Kingfisher', '~> 3.0'
-pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
-pod 'AVOSCloudIM'
-pod 'Proposer', '~> 1.1.0'
-pod 'Navi', '~> 1.1.0'
-pod 'Kanna', '~> 2.1.0'
-pod 'Alamofire', '~> 4.0'
+#
+#target 'LucuberKit' do
+#
+#pod 'SwiftyJSON'
+#pod 'AVOSCloud'
+#pod 'RealmSwift'
+#pod 'Kingfisher', '~> 3.0'
+#pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
+#pod 'AVOSCloudIM'
+#pod 'Proposer', '~> 1.1.0'
+#pod 'Navi', '~> 1.1.0'
+#pod 'Kanna', '~> 2.1.0'
+#pod 'Alamofire', '~> 4.0'
 
 end
 target 'LucuberTimer' do 

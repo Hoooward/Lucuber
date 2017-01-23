@@ -353,6 +353,7 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
             guard let realm = try? Realm(), let me = currentUser(in: realm) else {
                 return
             }
+            printLog(me)
             
             profileUser = ProfileUser.userType(me)
             

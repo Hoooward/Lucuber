@@ -32,6 +32,7 @@ public func creatMeInRealm() -> RUser? {
     try? realm.write {
          user = getOrCreatRUserWith(currentUser, inRealm: realm)
     }
+    printLog(#function)
     return user
 }
 

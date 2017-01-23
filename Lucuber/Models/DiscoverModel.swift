@@ -11,23 +11,27 @@ import AVOSCloud
 import CoreLocation
 import RealmSwift
 
-
-
-
 public class DiscoverScore: AVObject, AVSubclassing {
+    
     public static func parseClassName() -> String {
         return "DiscoverScore"
     }
+    
     @NSManaged var localObjectID: String
+    
     @NSManaged var timertext: String
     @NSManaged var timer: Double
+    @NSManaged var scramblingText: String
+    
     @NSManaged var creator: AVUser?
+    
     @NSManaged var isPOP: Bool
     @NSManaged var isDNF: Bool
     @NSManaged var isDeleteByCreator: Bool
-    @NSManaged var scramblingText: String
-    @NSManaged var atGroup: String
+    
     @NSManaged var createdUnixTime: Double
+    
+    @NSManaged var atGroup: String
     @NSManaged var atGroupCategory: String
     @NSManaged var atGroupcreatedUnixTime: Double
     @NSManaged var atGroupIsDeleteByCreator: Bool
@@ -54,7 +58,6 @@ public class DiscoverHotKeyword: AVObject, AVSubclassing {
     }
     
     @NSManaged var keyword: String
-
 }
 
 public class DiscoverCubeCategory: AVObject, AVSubclassing {
@@ -115,7 +118,6 @@ public class DiscoverFormula: AVObject, AVSubclassing {
     
 }
 
-
 public class DiscoverMessage: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
@@ -158,8 +160,6 @@ public protocol OpenGraphInfoType {
     var infoDescription: String { get }
     var thumbnailImageURLString: String { get }
 }
-
-
 
 public struct ImageAttachment {
     
@@ -205,8 +205,6 @@ public struct ImageAttachment {
     }
     
 }
-
-
 
 open class DiscoverFeed: AVObject, AVSubclassing {
     
@@ -373,7 +371,7 @@ open class DiscoverFeed: AVObject, AVSubclassing {
     }
     
 }
-// MARK: - FeedHeaderView
+
 extension DiscoverFeed {
 
     var hasAttachments: Bool {

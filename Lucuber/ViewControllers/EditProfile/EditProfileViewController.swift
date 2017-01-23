@@ -415,8 +415,6 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 cleanRealmAndCaches()
                 AVUser.logOut()
-                printLog( AVUser.current())
-               
                
                 NotificationCenter.default.post(name: NSNotification.Name.changeRootViewControllerNotification, object: nil)
                 

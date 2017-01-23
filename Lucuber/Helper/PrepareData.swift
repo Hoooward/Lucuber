@@ -1,15 +1,14 @@
-
 //
 //  PrepareData.swift
 //  Lucuber
 //
-//  Created by Tychooo on 16/11/21.
-//  Copyright © 2016年 Tychooo. All rights reserved.
+//  Created by Tychooo on 17/1/23.
+//  Copyright © 2017年 Tychooo. All rights reserved.
 //
 
-import UIKit
-import AVOSCloud
+import Foundation
 import SwiftyJSON
+import AVOSCloud
 
 class FormulaManager {
     
@@ -23,7 +22,6 @@ class FormulaManager {
     var PLLs = [DiscoverFormula]()
     var Alls = [[DiscoverFormula]]()
     
-    // 将二维数组 Alls 转换为一维数组
     func parseAllFormulas() -> [DiscoverFormula] {
         
         var formulas: [DiscoverFormula] = []
@@ -33,7 +31,6 @@ class FormulaManager {
         }
         return formulas
     }
-
     
     func loadNewFormulasFormJSON() {
         //        let formulaFile = AVFile.init(URL: "http://ac-spfbe0ly.clouddn.com/Z4qcIcQinEQBBSHIuzqwLEE.json")
@@ -161,7 +158,7 @@ public func pushCubeCategory() {
         "八阶",
         "九阶",
         "十一阶",
-      
+        
         "镜面魔方",
         "金字塔魔方",
         "魔粽",
@@ -198,8 +195,6 @@ public func pushCubeCategory() {
         "Tuttminx",
         "Futtminx",
         
-        
-        
         "3x3x1",
         "3x3x2",
         "3x3x4",
@@ -216,7 +211,7 @@ public func pushCubeCategory() {
         "5x5x4",
         "2x3x4",
         "3x4x5",
-    ]
+        ]
     
     var cubeCategorys: [DiscoverCubeCategory] = []
     
@@ -235,16 +230,9 @@ internal func pushBaseFormulaDataToLeanCloud() {
     FormulaManager.shardManager().loadNewFormulasFormJSON()
     let formulaDatas = FormulaManager.shardManager().parseAllFormulas()
     
-    
     print("共 \(formulaDatas.count) 个公式.")
-    var adminUser = AVUser()
-    let query = AVQuery(className: "_User")
-    
-    
-//    if let user = query.getObjectWithId("583d4df4128fe1006ac638d6") as? AVUser {
-//        adminUser = user
-//    }
-    
+//    var adminUser = AVUser()
+//    let query = AVQuery(className: "_User")
     
     formulaDatas.forEach {
         
@@ -253,7 +241,7 @@ internal func pushBaseFormulaDataToLeanCloud() {
         acl.setWriteAccess(true, for: AVRole(name: "Administrator"))
         
         $0.acl = acl
-//        $0.creator = adminUser
+        //        $0.creator = adminUser
         
     }
     
@@ -263,42 +251,13 @@ internal func pushBaseFormulaDataToLeanCloud() {
             contents.append($0)
         }
     }
-    
-    
-    
-    
+   
     printLog("共(\(contents.count) 个 contents)")
-    
     AVObject.saveAll(contents)
-    
     AVObject.saveAll(formulaDatas)
-    
 }
 
-
-
 extension AVUser {
-    
-    /// 登录管理员账户
-    class func loginAdministrator() {
-        let user = AVUser()
-        user.username = "admain"
-        user.password = "h1Y2775852"
-        
-        
-        AVUser.logInWithUsername(inBackground: "admain", password: "h1Y2775852") { (user, error) in
-            
-            if error != nil {
-                
-                printLog(error)
-                
-            } else {
-                
-                print("登录管理员账户成功 -> \(user?.username)")
-            }
-        }
-    }
-    
     /// 成为管理员
     class func tobeAdministratorRole(user: AVUser) {
         
@@ -318,5 +277,3 @@ extension AVUser {
     }
     
 }
-
-

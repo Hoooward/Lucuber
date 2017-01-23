@@ -13,7 +13,6 @@ import Alamofire
 import Kanna
 import Kingfisher
 
-
 // MARK: - Image
 public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
     
@@ -930,6 +929,11 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
 // MARK: - Register
 public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHandler: @escaping FailureHandler, completion: @escaping (() -> Void)) {
     
+    if mobile == Config.AppStoreTestAccount.username {
+        completion()
+        return
+    }
+    
     let query = AVQuery(className: "_User")
     query.whereKey("mobilePhoneNumber", equalTo: mobile)
     
@@ -956,6 +960,7 @@ public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHan
             
             
         case .login:
+            
             
             if let resultUsers = users {
                
@@ -1017,104 +1022,44 @@ func pushMyScoreToLeancloud(with score: Score, failureHandler: FailureHandler?, 
 
 /// 获取短信验证码
 public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
-    AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
-        if success { completion?() }
-        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+    
+    if phoneNumber == Config.AppStoreTestAccount.username {
+        completion?()
+        return
+    } else {
+        AVOSCloud.requestSmsCode(withPhoneNumber: phoneNumber) { success, error in
+            if success { completion?() }
+            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+        }
     }
 }
 
 /// 注册登录
 public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
     
-    AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
+    if phoneNumber == Config.AppStoreTestAccount.username {
         
-        if let user = user { completion?(user) }
-        if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+//        let user = AVUser()
+//        user.username = Config.AppStoreTestAccount.username
+//        user.password = Config.AppStoreTestAccount.password
+//        user.signUpInBackground({ success, error in
+//            if success { completion?(user) }
+//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+//        })
+        AVUser.logInWithUsername(inBackground: Config.AppStoreTestAccount.username, password: Config.AppStoreTestAccount.password, block: {
+            user, error in
+            
+            printLog(user)
+            if let user = user { completion?(user) }
+            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+        })
+        
+    } else {
+        AVUser.signUpOrLoginWithMobilePhoneNumber(inBackground: phoneNumber, smsCode: smsCode) { user, error in
+            
+            if let user = user { completion?(user) }
+            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+        }
     }
 }
 
-
-public func pushCubeCategory() {
-    
-    let categorys = [
-        "二阶",
-        "三阶",
-        "四阶",
-        "五阶",
-        "六阶",
-        "七阶",
-        "八阶",
-        "九阶",
-        "十一阶",
-        
-        "镜面魔方",
-        "金字塔魔方",
-        "魔粽",
-        "魔球",
-        "五魔方",
-        "菊花五魔方",
-        "亚历山大之星",
-        "直升机魔方",
-        "移棱魔方",
-        "空心魔方",
-        "唯棱魔方",
-        "斜转魔方",
-        "钻石魔方",
-        "齿轮魔方",
-        "Super Square One",
-        "Super Square Two",
-        "魔粽齿轮",
-        "花瓣转角魔方",
-        "六角异形魔方",
-        "路障魔方",
-        "八轴八面魔方",
-        "百慕大三阶",
-        "空心唯棱魔方",
-        "唯角魔方",
-        "魔中魔",
-        "魔刃",
-        "鲁比克360",
-        "魔板",
-        "大师魔板",
-        "魔表",
-        "扭计蛇",
-        "113连体",
-        "Tuttminx",
-        "Futtminx",
-        
-        "三阶单手",
-        "三阶脚拧",
-        "三阶盲拧",
-        "四阶盲拧",
-        "五阶盲拧",
-        
-        
-        "3x3x1",
-        "3x3x2",
-        "3x3x4",
-        "3x3x5",
-        "3x3x6",
-        "3x3x7",
-        "3x3x8",
-        "3x3x9",
-        "2x2x1",
-        "2x2x3",
-        "2x2x4",
-        "4x4x5",
-        "4x4x6",
-        "5x5x4",
-        "2x3x4",
-        "3x4x5",
-        ]
-    
-    var cubeCategorys: [DiscoverCubeCategory] = []
-    
-    categorys.forEach { string in
-        
-        let newCategory = DiscoverCubeCategory()
-        newCategory.categoryString = string
-        cubeCategorys.append(newCategory)
-    }
-    
-    AVObject.saveAll(cubeCategorys)
-}

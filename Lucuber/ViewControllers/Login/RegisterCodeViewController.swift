@@ -224,17 +224,19 @@ class RegisterCodeViewController: UIViewController {
             
             CubeHUD.hideActivityIndicator()
             
-            
             switch self.loginType! {
                 
             case .login:
                 
-                if let me = creatMeInRealm() {
-                    printLog(me)
-                    NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
-                } else {
-                    fatalError("崩了, 创建用户失败")
+                guard let realm = try? Realm() else {
+                   break
                 }
+                
+                try? realm.write {
+                    _ = getOrCreatRUserWith(user, inRealm: realm)
+                }
+                
+                NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
                 
             case .register:
                 

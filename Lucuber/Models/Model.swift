@@ -36,7 +36,6 @@ public enum Category: String {
     case x7x7 = "七阶"
     case x8x8 = "八阶"
     case x9x9 = "九阶"
-    case x10x10 = "十阶"
     case x11x11 = "十一阶"
     case Other = "其他"
     case SquareOne = "Square One"
@@ -58,7 +57,6 @@ public enum Category: String {
         case .x7x7: return 6
         case .x8x8: return 7
         case .x9x9: return 8
-        case .x10x10: return 9
         case .x11x11: return 10
         case .SquareOne: return 11
         case .Megaminx: return 12
@@ -81,7 +79,6 @@ public enum Category: String {
         case .x7x7: return "7x7x7"
         case .x8x8: return "8x8x8"
         case .x9x9: return "9x9x9"
-        case .x10x10: return "10x10x10"
         case .x11x11: return "11x11x11"
         case .SquareOne: return "SquareOne"
         case .Megaminx: return "Megaminx"

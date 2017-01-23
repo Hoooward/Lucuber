@@ -52,7 +52,10 @@ class ProfileHeaderCell: UICollectionViewCell {
     
     private func updateAvatar(with avatarURLString: String?) {
         
-        guard let avatarURLString = avatarURLString else {
+        guard let avatarURLString = avatarURLString  else {
+            return
+        }
+        if avatarURLString.isEmpty {
             return
         }
         printLog(avatarURLString)

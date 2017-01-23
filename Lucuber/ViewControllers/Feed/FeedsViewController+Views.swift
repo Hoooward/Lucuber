@@ -178,14 +178,14 @@ extension FeedsViewController {
                 }
             ),
             
-            .Option(
-                title: "复原成绩",
-                titleColor: UIColor.cubeTintColor(),
-                action: { [weak self] in
-                    guard let _ = self else { return }
-                    
-                }
-            ),
+//            .Option(
+//                title: "复原成绩",
+//                titleColor: UIColor.cubeTintColor(),
+//                action: { [weak self] in
+//                    guard let _ = self else { return }
+//                    
+//                }
+//            ),
             .Cancel
             
             ]

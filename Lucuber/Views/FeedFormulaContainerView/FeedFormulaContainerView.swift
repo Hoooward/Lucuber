@@ -145,7 +145,7 @@ public class FeedFormulaContainerView: UIView {
             NSLayoutConstraint.activate(constraintsV)
         }
         
-        let imageWidth: CGFloat = compressionMode ? 60 : 70
+        let imageWidth: CGFloat = compressionMode ? 50 : 70
         let thumbnailImageViewLeftConstant: CGFloat = compressionMode ? 12 : 15
         do {
             

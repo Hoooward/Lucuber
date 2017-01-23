@@ -58,7 +58,7 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: @escaping (
         
     } else {
         
-        return
+        completion([String]())
     }
 
 }
@@ -728,7 +728,6 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
                 
                 content.creator = formula.creator
                 content.atFormula = formula
-                printLog(formula)
                 content.atFomurlaLocalObjectID = discoverContent.atFormulaLocalObjectID
                 
                 content.rotation = discoverContent.rotation

@@ -304,8 +304,10 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        tableView.tableHeaderView = headerView
         configureHeaderView()
+        
+        view.addSubview(customNavigationBar)
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(FormulaDetailViewController.configureHeaderView), name: Config.NotificationName.updateMyFormulas, object: nil)
         
@@ -318,10 +320,9 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.white
-        tableView.tableHeaderView = headerView
+       
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        view.addSubview(customNavigationBar)
+      
         view.backgroundColor = UIColor.white
         
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
@@ -396,6 +397,7 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             
             strongSelf.popViewController()
         }
+         headerView.frame.size = CGSize(width: UIScreen.main.bounds.width, height: headerView.headerHeight )
     }
     
     

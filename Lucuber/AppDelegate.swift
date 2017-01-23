@@ -80,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DiscoverReport.registerSubclass()
         DiscoverScore.registerSubclass()
         
+        
         window = UIWindow()
         window?.frame = UIScreen.main.bounds
         window?.rootViewController = determineRootViewController()
@@ -87,12 +88,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         customAppearce()
         //pushCubeCategory()
+//        pushBaseFormulaDataToLeanCloud()
         
         _ = creatMeInRealm()
     
         /// 注册通知, 在注册完成时切换控制器。
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.changeRootViewController), name: Notification.Name.changeRootViewControllerNotification, object: nil)
-  
 
         if AVUser.isLogin {
             if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? UILocalNotification, let userInfo = notification.userInfo, let type = userInfo["type"] as? String {
@@ -113,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             fetchUnreadMessages {
                 pushNewFormulaAndScoreToLeancloudAndFutherAction {}
+                fetchNeedUpdateLibraryFormulasAndDoFutherAction {}
             }
         }
 
@@ -172,8 +174,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
             })
+        } else {
+            // TODO: - iOS 10 以下的版本
+            let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound
+                , .alert], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+            UIApplication.shared.registerForRemoteNotifications()
+
         }
-        // TODO: - iOS 10 以下的版本
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -281,6 +289,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         fetchUnreadMessage(failureHandler: {
             reason, errorMessage in
             defaultFailureHandler(reason, errorMessage)
+            action()
         }, completion: { newMessageIds in
             tryPostNewMessageReceivedNotification(withMessageIDs: newMessageIds, messageAge: .new)
 
@@ -298,18 +307,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 同步我的信息
             fetchMyInfoAndDoFutherAction {
                 // 判断是否需要更新 FormulaLibrary
-                fetchNeedUpdateLibraryFormulasAndDoFutherAction {
+                
+                
+                pushNewFormulaAndScoreToLeancloudAndFutherAction {
                     
                     if !UserDefaults.isSyncedMyFormulas() {
                         fetchMyFormulasAndDoFutherAction {}
                     }
-                    
                     if !UserDefaults.isSyncedMyScores() {
                         fetchMyScoresAndFutherAction {}
                     }
                 }
-                
-                pushNewFormulaAndScoreToLeancloudAndFutherAction {}
             }
         }
         
@@ -327,7 +335,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    fileprivate func unregisterThirdPartyPush() {
+    func unregisterThirdPartyPush() {
         // TODO: 还不确定是不需要删除当前的 AVInstallation
         DispatchQueue.main.async {
             self.clearNotification()

@@ -39,6 +39,11 @@ extension Notification.Name {
 
 public class Config {
     
+    public struct AppStoreTestAccount {
+        static let username: String = "13780432288"
+        static let password: String = "888888"
+    }
+    
     public struct NotificationName {
         static let newUnreadMessages = Notification.Name("newUnreadMessages")
         static let changedLaunchStyle = Notification.Name("changedLaunchStyle")

@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Navi
+import Kingfisher
 
 public func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
     
@@ -74,6 +75,7 @@ func cleanRealmAndCaches() {
     realm.refresh()
     printLog("清除 realm 完成")
     AvatarPod.clear()
+    
     
     CubeImageCache.shard.cache.removeAllObjects()
     printLog("清除图片缓存完成")

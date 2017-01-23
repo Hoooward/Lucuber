@@ -16,7 +16,6 @@
 		<string>Rubik&apos;s Clock</string>
 		<string>8x8x8</string>
 		<string>9x9x9</string>
-		<string>10x10x10</string>
 		<string>11x11x11</string>
 		<string>Other</string>
 	</array>
@@ -34,7 +33,6 @@
 		<string>魔表</string>
 		<string>八阶</string>
 		<string>九阶</string>
-		<string>十阶</string>
 		<string>十一阶</string>
 		<string>其他</string>
 	</array>
