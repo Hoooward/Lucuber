@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6fl-js-9hU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6fl-js-9hU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -67,13 +67,13 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="世界像魔方一样变化无穷，" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ha2-oa-Bfc">
-                                <rect key="frame" x="84" y="496" width="208" height="21"/>
+                                <rect key="frame" x="84" y="503" width="208" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人生要像魔方一样五彩缤纷。" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jz7-Y9-eBh">
-                                <rect key="frame" x="75" y="534" width="226" height="21"/>
+                                <rect key="frame" x="75" y="541" width="226" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -128,7 +128,7 @@
                             <constraint firstItem="DG8-oT-1qK" firstAttribute="top" secondItem="y3h-WK-ECm" secondAttribute="top" id="q9O-pY-GVK"/>
                             <constraint firstItem="jz7-Y9-eBh" firstAttribute="centerX" secondItem="JDL-qa-PqE" secondAttribute="centerX" id="s6B-Zb-Fdp"/>
                             <constraint firstItem="xwJ-K5-VAo" firstAttribute="leading" secondItem="JDL-qa-PqE" secondAttribute="leading" id="vgR-5E-Xhi"/>
-                            <constraint firstItem="xwJ-K5-VAo" firstAttribute="top" secondItem="jz7-Y9-eBh" secondAttribute="bottom" constant="52" id="yJh-01-lqw"/>
+                            <constraint firstItem="xwJ-K5-VAo" firstAttribute="top" secondItem="jz7-Y9-eBh" secondAttribute="bottom" constant="45" id="yJh-01-lqw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2Lr-Qk-W2Q"/>
@@ -136,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bUJ-5Y-0g9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="508.69565217391306"/>
+            <point key="canvasLocation" x="735" y="498"/>
         </scene>
         <!--Register Pick Name View Controller-->
         <scene sceneID="bPc-uF-6q2">
@@ -565,7 +565,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDd-sH-Mrd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="178" y="509"/>
+            <point key="canvasLocation" x="-26" y="509"/>
         </scene>
     </scenes>
     <resources>
@@ -577,6 +577,6 @@
         <image name="searchbar_textfield_background" width="359" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AOg-k4-MYi"/>
+        <segue reference="rX9-c7-cwM"/>
     </inferredMetricsTieBreakers>
 </document>

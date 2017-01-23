@@ -242,7 +242,6 @@
 		E47298251D91184100FBBFBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47298241D91184100FBBFBF /* UserDefaults.swift */; };
 		E475DA701E10F9260079FE75 /* NewScoreGroupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */; };
 		E475DA721E10F9400079FE75 /* NewScoreGroupAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */; };
-		E475DA741E10FA9A0079FE75 /* NewScoreGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475DA731E10FA9A0079FE75 /* NewScoreGroupViewController.swift */; };
 		E479261A1D967E32004D58BF /* NewFormulaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926191D967E32004D58BF /* NewFormulaViewController.swift */; };
 		E47926261D968CDB004D58BF /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47926251D968CDB004D58BF /* Keyboard.swift */; };
 		E479262B1D96906C004D58BF /* FormulaInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E479262A1D96906C004D58BF /* FormulaInputViewController.swift */; };
@@ -291,8 +290,6 @@
 		E4A008021E13798E00ABA5B5 /* ScoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */; };
 		E4A2DBE31E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */; };
 		E4A2DBE51E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */; };
-		E4A2DEEF1E35062900CA4CBC /* BackUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEEE1E35062900CA4CBC /* BackUp.storyboard */; };
-		E4A2DEF11E35063600CA4CBC /* BackUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DEF01E35063600CA4CBC /* BackUpViewController.swift */; };
 		E4A2DEF31E35FAD900CA4CBC /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DEF21E35FAD900CA4CBC /* PrepareData.swift */; };
 		E4A2DEFD1E35FC0C00CA4CBC /* CubeCategory.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEF71E35FC0C00CA4CBC /* CubeCategory.plist */; };
 		E4A2DEFE1E35FC0C00CA4CBC /* CubeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEF81E35FC0C00CA4CBC /* CubeType.plist */; };
@@ -300,6 +297,7 @@
 		E4A2DF001E35FC0C00CA4CBC /* FormulaKeyboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEFA1E35FC0C00CA4CBC /* FormulaKeyboard.plist */; };
 		E4A2DF011E35FC0C00CA4CBC /* FormulasData.json in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEFB1E35FC0C00CA4CBC /* FormulasData.json */; };
 		E4A2DF021E35FC0C00CA4CBC /* ScoreGroupDetailTitle.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4A2DEFC1E35FC0C00CA4CBC /* ScoreGroupDetailTitle.plist */; };
+		E4A2DF051E36473800CA4CBC /* NewScoreGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2DF041E36473800CA4CBC /* NewScoreGroupViewController.swift */; };
 		E4B09BA11D8E3C590090671F /* UIView+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA01D8E3C590090671F /* UIView+Cube.swift */; };
 		E4B09BA31D8E3D340090671F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA21D8E3D340090671F /* Config.swift */; };
 		E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B09BA71D8EB52A0090671F /* BaseCollectionViewController.swift */; };
@@ -648,7 +646,6 @@
 		E47298241D91184100FBBFBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E475DA6F1E10F9260079FE75 /* NewScoreGroupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupPresentationController.swift; sourceTree = "<group>"; };
 		E475DA711E10F9400079FE75 /* NewScoreGroupAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupAnimator.swift; sourceTree = "<group>"; };
-		E475DA731E10FA9A0079FE75 /* NewScoreGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupViewController.swift; sourceTree = "<group>"; };
 		E47926191D967E32004D58BF /* NewFormulaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFormulaViewController.swift; sourceTree = "<group>"; };
 		E47926251D968CDB004D58BF /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		E479262A1D96906C004D58BF /* FormulaInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaInputViewController.swift; sourceTree = "<group>"; };
@@ -699,8 +696,6 @@
 		E4A008011E13798E00ABA5B5 /* ScoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDetailViewController.swift; sourceTree = "<group>"; };
 		E4A2DBE21E26587100B81025 /* RegisterSelectCubeCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSelectCubeCategoryViewController.swift; sourceTree = "<group>"; };
 		E4A2DBE41E265AA700B81025 /* RegisterSelectCubeCategoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSelectCubeCategoryLayout.swift; sourceTree = "<group>"; };
-		E4A2DEEE1E35062900CA4CBC /* BackUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BackUp.storyboard; sourceTree = "<group>"; };
-		E4A2DEF01E35063600CA4CBC /* BackUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackUpViewController.swift; sourceTree = "<group>"; };
 		E4A2DEF21E35FAD900CA4CBC /* PrepareData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareData.swift; sourceTree = "<group>"; };
 		E4A2DEF71E35FC0C00CA4CBC /* CubeCategory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeCategory.plist; sourceTree = "<group>"; };
 		E4A2DEF81E35FC0C00CA4CBC /* CubeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CubeType.plist; sourceTree = "<group>"; };
@@ -708,6 +703,7 @@
 		E4A2DEFA1E35FC0C00CA4CBC /* FormulaKeyboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FormulaKeyboard.plist; sourceTree = "<group>"; };
 		E4A2DEFB1E35FC0C00CA4CBC /* FormulasData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FormulasData.json; sourceTree = "<group>"; };
 		E4A2DEFC1E35FC0C00CA4CBC /* ScoreGroupDetailTitle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScoreGroupDetailTitle.plist; sourceTree = "<group>"; };
+		E4A2DF041E36473800CA4CBC /* NewScoreGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewScoreGroupViewController.swift; sourceTree = "<group>"; };
 		E4A3BA551DE3F874009C0E78 /* LucuberKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LucuberKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A3BA681DE3F874009C0E78 /* LucuberKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucuberKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B09BA01D8E3C590090671F /* UIView+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Cube.swift"; sourceTree = "<group>"; };
@@ -2415,15 +2411,6 @@
 			path = ScoreDetail;
 			sourceTree = "<group>";
 		};
-		E4A2DEED1E35061E00CA4CBC /* BackUp */ = {
-			isa = PBXGroup;
-			children = (
-				E4A2DEEE1E35062900CA4CBC /* BackUp.storyboard */,
-				E4A2DEF01E35063600CA4CBC /* BackUpViewController.swift */,
-			);
-			path = BackUp;
-			sourceTree = "<group>";
-		};
 		E4A2DEF61E35FC0C00CA4CBC /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -2435,6 +2422,15 @@
 				E4A2DEFC1E35FC0C00CA4CBC /* ScoreGroupDetailTitle.plist */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		E4A2DF031E36473800CA4CBC /* NewScoreGroup */ = {
+			isa = PBXGroup;
+			children = (
+				E4A2DF041E36473800CA4CBC /* NewScoreGroupViewController.swift */,
+			);
+			name = NewScoreGroup;
+			path = Setting/NewScoreGroup;
 			sourceTree = "<group>";
 		};
 		E4B09B9D1D8E38C30090671F /* Models */ = {
@@ -2504,7 +2500,6 @@
 		E4DF65F11D8D94B1005CE518 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E4A2DEED1E35061E00CA4CBC /* BackUp */,
 				E4CA9A221E3339580047620F /* EditScore */,
 				E459BC471E2A3F30008F4097 /* PodHelp */,
 				E459B9311E27598D008F4097 /* About */,
@@ -2529,6 +2524,7 @@
 				E4A008001E13798400ABA5B5 /* ScoreDetail */,
 				E4DF65F71D8D94B1005CE518 /* Result */,
 				E4F38D7F1DFF1FC300F0DF8A /* Timer */,
+				E4A2DF031E36473800CA4CBC /* NewScoreGroup */,
 				E4F38D7B1DFF1FA800F0DF8A /* Setting */,
 			);
 			path = ViewControllers;
@@ -2650,7 +2646,6 @@
 			children = (
 				E4F38D801DFF1FD600F0DF8A /* Timer.storyboard */,
 				E49534C51E0D4E1B0008934D /* TimerViewController.swift */,
-				E475DA731E10FA9A0079FE75 /* NewScoreGroupViewController.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -3013,7 +3008,6 @@
 				E459BBF41E27637C008F4097 /* TitleCell.xib in Resources */,
 				E459BC0C1E27637C008F4097 /* CubeCategoryCell.xib in Resources */,
 				E459BBC91E27637C008F4097 /* EditMasterCell.xib in Resources */,
-				E4A2DEEF1E35062900CA4CBC /* BackUp.storyboard in Resources */,
 				E4217F2A1D96655100E575AB /* NewFormula.storyboard in Resources */,
 				E459BBD41E27637C008F4097 /* LoadMoreTableViewCell.xib in Resources */,
 				E459BC351E286873008F4097 /* EditProfileLessInfoCell.xib in Resources */,
@@ -3210,7 +3204,6 @@
 				E459BACD1E2762DB008F4097 /* FeedHeaderView.swift in Sources */,
 				E42C829C1DFBCFFA00D315CF /* CommentViewController.swift in Sources */,
 				E47C665A1E2CEC3E00696B5C /* SearchFeedCellLayout.swift in Sources */,
-				E4A2DEF11E35063600CA4CBC /* BackUpViewController.swift in Sources */,
 				E459BBCD1E27637C008F4097 /* FeedCellLayout.swift in Sources */,
 				E459BBE91E27637C008F4097 /* NoResultCell.swift in Sources */,
 				E459BC211E27637C008F4097 /* ScoreGroupDetailTimerCell.swift in Sources */,
@@ -3280,7 +3273,6 @@
 				E488468A1E2B3718003352F5 /* SubscribeFeedCell.swift in Sources */,
 				E4EB5A071DAA796C002A5B55 /* KeyboardMan.swift in Sources */,
 				E42C829B1DFBA9F700D315CF /* Avatar.swift in Sources */,
-				E475DA741E10FA9A0079FE75 /* NewScoreGroupViewController.swift in Sources */,
 				E4DF65FD1D8D94B1005CE518 /* MainNavigationController.swift in Sources */,
 				E459B9331E27599C008F4097 /* AboutViewController.swift in Sources */,
 				E459BBE71E27637C008F4097 /* NormalFormulaCell.swift in Sources */,
@@ -3364,6 +3356,7 @@
 				E444833D1E068206008311F5 /* CommentViewController+Cache.swift in Sources */,
 				E459BAF71E2762DB008F4097 /* ScoreTimerLabel.swift in Sources */,
 				E459BADD1E2762DB008F4097 /* HorizontalLineView.swift in Sources */,
+				E4A2DF051E36473800CA4CBC /* NewScoreGroupViewController.swift in Sources */,
 				E4CA9A2A1E333C370047620F /* EditScoreCell.swift in Sources */,
 				E43B6F421DEA9CB000CE1FB5 /* DiscoverModel.swift in Sources */,
 				E4B09BAE1D8EB5AE0090671F /* BaseFormulaLayout.swift in Sources */,
