@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11CE6FB4D5761449D983BD9E /* Pods_LucuberKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334ED53D389A550452728B65 /* Pods_LucuberKit.framework */; };
 		811852247AE594D478B3A18F /* Pods_LucuberTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBCEF9AD7CFAA163A508A761 /* Pods_LucuberTimer.framework */; };
 		AEDADC652FF4F04010934AF3 /* Pods_Lucuber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */; };
 		CC71432B058BC5E62B193CF3 /* CommentViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC714E2B9BAC1F669D947798 /* CommentViewController+ImagePicker.swift */; };
@@ -403,12 +402,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1BDF5C2626D80270F6F2E746 /* Pods-LucuberKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit.release.xcconfig"; sourceTree = "<group>"; };
 		1CF905E62884DE2553E08B52 /* Pods-LucuberTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberTimer/Pods-LucuberTimer.release.xcconfig"; sourceTree = "<group>"; };
 		334ED53D389A550452728B65 /* Pods_LucuberKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LucuberKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5944A1EAC5D1E37A4BFA2836 /* Pods-LucuberTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberTimer/Pods-LucuberTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		5DFFBE25D11B7149AEDB1BCC /* Pods_Lucuber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lucuber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucuberKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit.debug.xcconfig"; sourceTree = "<group>"; };
 		87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.debug.xcconfig"; sourceTree = "<group>"; };
 		98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lucuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber.release.xcconfig"; sourceTree = "<group>"; };
 		CBCEF9AD7CFAA163A508A761 /* Pods_LucuberTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LucuberTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -787,7 +784,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11CE6FB4D5761449D983BD9E /* Pods_LucuberKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,8 +812,6 @@
 			children = (
 				87A4499BD0E073A452EB2B00 /* Pods-Lucuber.debug.xcconfig */,
 				98D2FFE53F9A0660ECC95B86 /* Pods-Lucuber.release.xcconfig */,
-				7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */,
-				1BDF5C2626D80270F6F2E746 /* Pods-LucuberKit.release.xcconfig */,
 				5944A1EAC5D1E37A4BFA2836 /* Pods-LucuberTimer.debug.xcconfig */,
 				1CF905E62884DE2553E08B52 /* Pods-LucuberTimer.release.xcconfig */,
 			);
@@ -2780,12 +2774,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4A3BA731DE3F874009C0E78 /* Build configuration list for PBXNativeTarget "LucuberKit" */;
 			buildPhases = (
-				2CA4AC82FE6E3F10DE00468F /* [CP] Check Pods Manifest.lock */,
 				E4A3BA511DE3F874009C0E78 /* Sources */,
 				E4A3BA521DE3F874009C0E78 /* Frameworks */,
 				E4A3BA531DE3F874009C0E78 /* Resources */,
-				7FB737B74073EBCC44F72CB3 /* [CP] Embed Pods Frameworks */,
-				4FA7880102069C264B798D9E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3048,21 +3039,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CA4AC82FE6E3F10DE00468F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		47509323E1359E29F7629C42 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3076,36 +3052,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lucuber/Pods-Lucuber-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4FA7880102069C264B798D9E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7FB737B74073EBCC44F72CB3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LucuberKit/Pods-LucuberKit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8BEEBBA090A9D721AF96522C /* [CP] Check Pods Manifest.lock */ = {
@@ -3603,7 +3549,6 @@
 		};
 		E4A3BA6F1DE3F874009C0E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E06FF6A3C2FB901D58B9272 /* Pods-LucuberKit.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3619,7 +3564,6 @@
 		};
 		E4A3BA701DE3F874009C0E78 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BDF5C2626D80270F6F2E746 /* Pods-LucuberKit.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

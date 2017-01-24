@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import MonkeyKing
+import AutoReview
 
 protocol Shareable {
 }
@@ -31,6 +32,35 @@ extension UIViewController {
         
         let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
+    }
+}
+
+//MARK: - Review
+
+extension UIViewController {
+    
+    func remindUserToReview() {
+        
+        let remindAction: ()->() = { [weak self] in
+            
+            guard self?.view.window != nil else {
+                return
+            }
+            
+            let info = AutoReview.Info(
+                appID: "1197999540",
+                title: "评论 Lucuber",
+                message: "请在 AppStore 留下你对 Lucuber 的评价, 感谢!",
+                doNotRemindMeInThisVersionTitle: "不再提示",
+                maybeNextTimeTitle: "下次再说",
+                confirmTitle: NSLocalizedString("Review now", comment: "")
+            )
+            self?.autoreview_tryReviewApp(withInfo: info)
+        }
+        
+        delay(3) {
+           remindAction()
+        }
     }
 }
 

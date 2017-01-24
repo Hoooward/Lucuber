@@ -363,7 +363,10 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
                 
             }, completion: { [weak self] avUser in
                
-                let newMe =  getOrCreatRUserWith(avUser, inRealm: realm)
+                var newMe: RUser?
+                try? realm.write {
+                    newMe =  getOrCreatRUserWith(avUser, inRealm: realm)
+                }
                 if let newMe = newMe {
                     self?.profileUser = ProfileUser.userType(newMe)
                     self?.updateProfileCollectionView()
@@ -425,6 +428,10 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(ProfileViewController.updateProfileCollectionView), name: Config.NotificationName.newMyInfo, object: nil)
+        
+        if profileUserIsMe {
+            remindUserToReview()
+        }
     }
     
     deinit {

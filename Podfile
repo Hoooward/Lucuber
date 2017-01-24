@@ -24,6 +24,7 @@ pod 'TPKeyboardAvoiding'
 pod 'RxSwift',    '~> 3.0'
 pod 'RxCocoa',    '~> 3.0'
 pod 'AsyncDisplayKit'
+pod 'AutoReview', '~> 1.0.0'
 #pod 'Ruler', '~> 1.0.0'
 #pod 'TwicketSegmentedControl'
 
@@ -42,7 +43,6 @@ end
 #pod 'Kanna', '~> 2.1.0'
 #pod 'Alamofire', '~> 4.0'
 
-end
 target 'LucuberTimer' do 
 
 pod 'RealmSwift'
