@@ -23,6 +23,7 @@ class FeedMediaCell: UICollectionViewCell {
         imageView.layer.borderWidth = 1.0 / UIScreen.main.scale
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleAspectFill
         contentView.backgroundColor = UIColor.clear
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FeedMediaCell.deleteImage(sender:)))

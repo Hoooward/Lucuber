@@ -349,16 +349,26 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
             }
             
         } else {
-            // 为空的话显示自己
-            guard let realm = try? Realm(), let me = currentUser(in: realm) else {
+            
+            guard let realm = try? Realm(), let oldMe = currentUser(in: realm) else {
                 return
             }
-            printLog(me)
             
-            profileUser = ProfileUser.userType(me)
-            
-            updateProfileCollectionView()
-            
+            // 显示 My 时, 需要更新用户 Info
+            fetchUser(with: oldMe.lcObjcetID, failureHandeler: { [weak self] reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                self?.profileUser = ProfileUser.userType(oldMe)
+                self?.updateProfileCollectionView()
+                
+            }, completion: { [weak self] avUser in
+               
+                let newMe =  getOrCreatRUserWith(avUser, inRealm: realm)
+                if let newMe = newMe {
+                    self?.profileUser = ProfileUser.userType(newMe)
+                    self?.updateProfileCollectionView()
+                }
+            })
         }
         
         profileUserIsMe = profileUser?.isMe ?? false

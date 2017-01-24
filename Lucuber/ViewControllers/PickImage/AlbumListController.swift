@@ -80,6 +80,7 @@ final class AlbumListController: UITableViewController {
 //                let _ = navigationController?.popToViewController(destVC, animated: true)
 //            }
 //        }
+        _ = navigationController?.popViewController(animated: true)
     }
     
     func  fetchAlbumIdentifier() -> String? {
