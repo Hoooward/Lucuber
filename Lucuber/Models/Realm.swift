@@ -561,28 +561,3 @@ public func unPushedScoreWithRUser(_ user: RUser, inRealm realm: Realm) -> Resul
     let predicate2 = NSPredicate(format: "isPushed == %@", false as CVarArg)
     return realm.objects(Score.self).filter(predicate).filter(predicate2)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

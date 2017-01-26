@@ -610,8 +610,6 @@ public class Message: Object {
     
     open dynamic var mediaMetaData: MediaMetaData?
     
-    //  public dynamic var socialWork: MessageSocialWork? github
-    
     open dynamic var downloadState: Int = MessageDownloadState.noDownload.rawValue
     
     open dynamic var sendState: Int = MessageSendState.notSend.rawValue

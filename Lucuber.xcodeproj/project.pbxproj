@@ -2338,7 +2338,7 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		E49534A41E0D05A40008934D /* l */ = {
+		E49534A41E0D05A40008934D /* LucuberTimer */ = {
 			isa = PBXGroup;
 			children = (
 				E49534A51E0D05A40008934D /* LucuberTimer.h */,
@@ -2347,7 +2347,6 @@
 				E49534CB1E0E1EAD0008934D /* Views */,
 				E49534B01E0D06940008934D /* Scrambling.swift */,
 			);
-			name = l;
 			path = LucuberTimer;
 			sourceTree = "<group>";
 		};
@@ -2666,7 +2665,7 @@
 				E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */,
 				E4FFAA941D8D29DE0039BA8A /* l.storyboard */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
-				E49534A41E0D05A40008934D /* l */,
+				E49534A41E0D05A40008934D /* LucuberTimer */,
 				E49534B71E0D19B50008934D /* LucuberTimerTests */,
 				E4FFAA7D1D8D29A30039BA8A /* Products */,
 				3F921722F0F6519457AE2EF2 /* Pods */,

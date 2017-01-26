@@ -36,7 +36,6 @@ public class DiscoverScore: AVObject, AVSubclassing {
     @NSManaged var atGroupcreatedUnixTime: Double
     @NSManaged var atGroupIsDeleteByCreator: Bool
     
-    
 }
 
 public class DiscoverReport: AVObject, AVSubclassing {
@@ -369,7 +368,6 @@ open class DiscoverFeed: AVObject, AVSubclassing {
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
     }
-    
 }
 
 extension DiscoverFeed {
