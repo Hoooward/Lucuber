@@ -1,5 +1,5 @@
 # Lucuber
-![](http://7xrfzx.com1.z0.glb.clouddn.com/lucuber_icon_solo.pdf)
+![](http://7xrfzx.com1.z0.glb.clouddn.com/Lucuber%20icon.png)
 
 你不仅可以在 Lucuber 中收藏查阅你的复原公式， 还可以与其他魔友交流分享经验。全新的计时器更能帮助你记录成绩提升的点点滴滴。
 ## 简介
