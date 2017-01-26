@@ -70,7 +70,6 @@
 		E459BAD91E2762DB008F4097 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BA0F1E2762DA008F4097 /* DetailTitleView.swift */; };
 		E459BADA1E2762DB008F4097 /* FormulaSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BA111E2762DA008F4097 /* FormulaSearchBar.swift */; };
 		E459BADB1E2762DB008F4097 /* FormulaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BA131E2762DA008F4097 /* FormulaTextView.swift */; };
-		E459BADC1E2762DB008F4097 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = E459BA161E2762DA008F4097 /* FXBlurView.m */; };
 		E459BADD1E2762DB008F4097 /* HorizontalLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BA181E2762DA008F4097 /* HorizontalLineView.swift */; };
 		E459BADE1E2762DB008F4097 /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BA1B1E2762DA008F4097 /* InputAccessoryView.swift */; };
 		E459BADF1E2762DB008F4097 /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459BA1D1E2762DA008F4097 /* KeyButton.swift */; };
@@ -352,7 +351,7 @@
 		E4FF41C91D91605000B64C46 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41C81D91605000B64C46 /* Realm.swift */; };
 		E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */; };
 		E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */; };
-		E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */; };
+		E4FFAA9C1D8D29DE0039BA8A /* l.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA941D8D29DE0039BA8A /* l.storyboard */; };
 		E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA961D8D29DE0039BA8A /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -469,8 +468,6 @@
 		E459BA0F1E2762DA008F4097 /* DetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
 		E459BA111E2762DA008F4097 /* FormulaSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaSearchBar.swift; sourceTree = "<group>"; };
 		E459BA131E2762DA008F4097 /* FormulaTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormulaTextView.swift; sourceTree = "<group>"; };
-		E459BA151E2762DA008F4097 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
-		E459BA161E2762DA008F4097 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		E459BA181E2762DA008F4097 /* HorizontalLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLineView.swift; sourceTree = "<group>"; };
 		E459BA1B1E2762DA008F4097 /* InputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 		E459BA1D1E2762DA008F4097 /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
@@ -758,7 +755,7 @@
 		E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Cube.swift"; sourceTree = "<group>"; };
 		E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E4FFAA951D8D29DE0039BA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E4FFAA951D8D29DE0039BA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/l.storyboard; sourceTree = "<group>"; };
 		E4FFAA971D8D29DE0039BA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E4FFAA981D8D29DE0039BA8A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Lucuber/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -933,7 +930,6 @@
 				E459BA0E1E2762DA008F4097 /* FormulaDetailTitleView */,
 				E459BA101E2762DA008F4097 /* FormulaSearchBar */,
 				E459BA121E2762DA008F4097 /* FormulaTextView */,
-				E459BA141E2762DA008F4097 /* FXBlurView */,
 				E459BA171E2762DA008F4097 /* HorizontalLineView */,
 				E459BA191E2762DA008F4097 /* Keyboard */,
 				E459BA201E2762DA008F4097 /* Login */,
@@ -1118,15 +1114,6 @@
 				E459BA131E2762DA008F4097 /* FormulaTextView.swift */,
 			);
 			path = FormulaTextView;
-			sourceTree = "<group>";
-		};
-		E459BA141E2762DA008F4097 /* FXBlurView */ = {
-			isa = PBXGroup;
-			children = (
-				E459BA151E2762DA008F4097 /* FXBlurView.h */,
-				E459BA161E2762DA008F4097 /* FXBlurView.m */,
-			);
-			path = FXBlurView;
 			sourceTree = "<group>";
 		};
 		E459BA171E2762DA008F4097 /* HorizontalLineView */ = {
@@ -2351,7 +2338,7 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		E49534A41E0D05A40008934D /* LucuberTimer */ = {
+		E49534A41E0D05A40008934D /* l */ = {
 			isa = PBXGroup;
 			children = (
 				E49534A51E0D05A40008934D /* LucuberTimer.h */,
@@ -2360,6 +2347,7 @@
 				E49534CB1E0E1EAD0008934D /* Views */,
 				E49534B01E0D06940008934D /* Scrambling.swift */,
 			);
+			name = l;
 			path = LucuberTimer;
 			sourceTree = "<group>";
 		};
@@ -2676,9 +2664,9 @@
 				E459BC3E1E28694E008F4097 /* Badges.xcassets */,
 				E467AF491E3466BC00947295 /* Activitles.xcassets */,
 				E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */,
-				E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */,
+				E4FFAA941D8D29DE0039BA8A /* l.storyboard */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
-				E49534A41E0D05A40008934D /* LucuberTimer */,
+				E49534A41E0D05A40008934D /* l */,
 				E49534B71E0D19B50008934D /* LucuberTimerTests */,
 				E4FFAA7D1D8D29A30039BA8A /* Products */,
 				3F921722F0F6519457AE2EF2 /* Pods */,
@@ -2862,7 +2850,7 @@
 					E4FFAA7B1D8D29A30039BA8A = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = M8E7Y88Q7R;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2981,7 +2969,7 @@
 				E459BBD91E27637C008F4097 /* DetailContentCell.xib in Resources */,
 				E4CA9A2B1E333C370047620F /* EditScoreCell.xib in Resources */,
 				E459BC021E27637C008F4097 /* NewFormulaTextCell.xib in Resources */,
-				E4FFAA9C1D8D29DE0039BA8A /* LaunchScreen.storyboard in Resources */,
+				E4FFAA9C1D8D29DE0039BA8A /* l.storyboard in Resources */,
 				E459B92E1E275937008F4097 /* FeedBack.storyboard in Resources */,
 				E459BC0E1E27637C008F4097 /* ProfileFeedsCell.xib in Resources */,
 				E4CA9A241E33396E0047620F /* EditScore.storyboard in Resources */,
@@ -3297,7 +3285,6 @@
 				E47C66671E2D269500696B5C /* SearchFeedURLCell.swift in Sources */,
 				E4B09BA81D8EB52A0090671F /* BaseCollectionViewController.swift in Sources */,
 				E459BAE41E2762DB008F4097 /* MediaControlView.swift in Sources */,
-				E459BADC1E2762DB008F4097 /* FXBlurView.m in Sources */,
 				E4DF65FE1D8D94B1005CE518 /* MainTabbarController.swift in Sources */,
 				E444833D1E068206008311F5 /* CommentViewController+Cache.swift in Sources */,
 				E459BAF71E2762DB008F4097 /* ScoreTimerLabel.swift in Sources */,
@@ -3443,12 +3430,12 @@
 			name = Result.storyboard;
 			sourceTree = "<group>";
 		};
-		E4FFAA941D8D29DE0039BA8A /* LaunchScreen.storyboard */ = {
+		E4FFAA941D8D29DE0039BA8A /* l.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				E4FFAA951D8D29DE0039BA8A /* Base */,
 			);
-			name = LaunchScreen.storyboard;
+			name = l.storyboard;
 			path = Lucuber;
 			sourceTree = "<group>";
 		};
@@ -3633,6 +3620,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Huo YunLong (9D8WT3D2P7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -3684,6 +3672,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Huo YunLong (M8E7Y88Q7R)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -3714,15 +3703,16 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Lucuber/Lucuber.entitlements;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Lucuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd04d326-81e1-4398-b6cf-a12fc9db8dae";
-				PROVISIONING_PROFILE_SPECIFIER = LucuberDevice;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Helper/Lucuber-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3736,15 +3726,16 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Lucuber/Lucuber.entitlements;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = M8E7Y88Q7R;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Lucuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tychooo.Lucuber.Lucuber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd04d326-81e1-4398-b6cf-a12fc9db8dae";
-				PROVISIONING_PROFILE_SPECIFIER = LucuberDevice;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lucuber/Helper/Lucuber-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

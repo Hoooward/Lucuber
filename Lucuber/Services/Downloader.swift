@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import ImageIO
+import FXBlurView
 
 class CubeDownloader: NSObject {
     

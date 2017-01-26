@@ -11,16 +11,8 @@ PODS:
     - PINRemoteImage/iOS (= 3.0.0-beta.3)
   - AutoReview (1.0.0)
   - AVOSCloud (3.8.0)
-  - AVOSCloudIM (3.8.0):
-    - AVOSCloud (= 3.8.0)
-    - AVOSCloudIM/_ARC (= 3.8.0)
-    - AVOSCloudIM/_NOARC (= 3.8.0)
-  - AVOSCloudIM/_ARC (3.8.0):
-    - AVOSCloud (= 3.8.0)
-    - AVOSCloudIM/_NOARC (= 3.8.0)
-  - AVOSCloudIM/_NOARC (3.8.0):
-    - AVOSCloud (= 3.8.0)
   - DeviceGuru (2.0.1)
+  - FXBlurView (1.6.4)
   - Kanna (2.1.1)
   - Kingfisher (3.2.2)
   - MonkeyKing (1.1.0)
@@ -38,7 +30,6 @@ PODS:
   - Realm/Headers (2.1.1)
   - RealmSwift (2.1.1):
     - Realm (= 2.1.1)
-  - Reveal-SDK (4)
   - RxCocoa (3.0.1):
     - RxSwift (~> 3.0)
   - RxSwift (3.0.1)
@@ -52,8 +43,8 @@ DEPENDENCIES:
   - AsyncDisplayKit
   - AutoReview (~> 1.0.0)
   - AVOSCloud
-  - AVOSCloudIM
   - DeviceGuru
+  - FXBlurView
   - Kanna (~> 2.1.0)
   - Kingfisher (~> 3.0)
   - MonkeyKing (~> 1.1.0)
@@ -62,7 +53,6 @@ DEPENDENCIES:
   - pop (~> 1.0)
   - Proposer (~> 1.1.0)
   - RealmSwift
-  - Reveal-SDK
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
   - ScrollableGraphView
@@ -90,8 +80,8 @@ SPEC CHECKSUMS:
   AsyncDisplayKit: 49d94f5739669d666ff7cdc3430f43f0b2cfbeaf
   AutoReview: 6dd11897fe97eda0dca3a6aafc13eeeca453620a
   AVOSCloud: ae9804496f51de99c4143fea7f842d6f46a32b4c
-  AVOSCloudIM: bea73c50c58c7c5e466e0c7134b4b7d2f02c338a
   DeviceGuru: cc39d2a070144c9e955edd570b69e220da08f271
+  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
   MonkeyKing: dc16753cab7ece2d83e61976cd09fc3a7f783f1f
@@ -103,7 +93,6 @@ SPEC CHECKSUMS:
   Proposer: 422c693b1917a461af30e7139b0d05eefe999e16
   Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
   RealmSwift: 749fd955bf8d6471c21d218b9389a47aaeccfe3f
-  Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   RxCocoa: 15a52fc590dcc700cb4a690a633b5c5184ce3a78
   RxSwift: af5680055c4ad04480189c52d28385b1029493a6
   ScrollableGraphView: e2c8bedc7bbb643e8ac57b9456070d68355c4e4c
@@ -111,6 +100,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
 
-PODFILE CHECKSUM: 3a3fa15b88bacf2796c0dff0dbb6758757b5e068
+PODFILE CHECKSUM: 9406700adf9669395c750b330d5d85423d76bb1f
 
 COCOAPODS: 1.1.1

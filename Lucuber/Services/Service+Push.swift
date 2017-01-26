@@ -580,7 +580,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 public func pushDeletedFeedNotificationToAPNs(with feed: DiscoverFeed) {
     
     let channel = feed.objectId ?? ""
-    AVPush.setProductionMode(false)
+//    AVPush.setProductionMode(false)
     
     let dict: [String: Any] = [
         "type": AppDelegate.RemoteNotificationType.feedDeleted.rawValue,
@@ -625,7 +625,7 @@ public func pushNewMessageNotificationToAPNs(with message: Message) {
             "sound": "default"
     ]
 
-    AVPush.setProductionMode(false)
+//    AVPush.setProductionMode(false)
     let push = AVPush()
     push.setChannel(message.recipientID)
 

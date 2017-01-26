@@ -85,11 +85,11 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/AVOSCloudIM/AVOSCloudIM.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AsyncDisplayKit/AsyncDisplayKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AutoReview/AutoReview.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceGuru/DeviceGuru.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FXBlurView/FXBlurView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Kanna/Kanna.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Kingfisher/Kingfisher.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MonkeyKing/MonkeyKing.framework"
@@ -100,7 +100,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Proposer/Proposer.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RealmSwift/RealmSwift.framework"
-  install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-4/iOS/RevealServer.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxCocoa/RxCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift/RxSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ScrollableGraphView/ScrollableGraphView.framework"
@@ -111,11 +110,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/AVOSCloudIM/AVOSCloudIM.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AsyncDisplayKit/AsyncDisplayKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AutoReview/AutoReview.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceGuru/DeviceGuru.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FXBlurView/FXBlurView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Kanna/Kanna.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Kingfisher/Kingfisher.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MonkeyKing/MonkeyKing.framework"

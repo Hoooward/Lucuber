@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Tychooo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol CanShowFeedsViewController: class {
     var showProfileViewControllerAction: ((UIStoryboardSegue, Any?) -> Void)? {get set}

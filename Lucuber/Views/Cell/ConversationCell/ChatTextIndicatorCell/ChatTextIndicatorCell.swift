@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Tychooo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class ChatTextIndicatorCell: UICollectionViewCell {
     

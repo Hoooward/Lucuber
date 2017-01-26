@@ -82,10 +82,6 @@ class ScoreDetailViewController: UIViewController {
     @objc fileprivate func updateTableView() {
         tableView.reloadData()
     }
-    
-    @IBAction func sharedScoreGroup(_ sender: UIBarButtonItem) {
-        printLog("")
-    }
  
 }
 

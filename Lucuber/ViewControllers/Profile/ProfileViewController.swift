@@ -354,13 +354,16 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
                 return
             }
             
+            profileUser = ProfileUser.userType(oldMe)
+            updateProfileCollectionView()
+            
             // 显示 My 时, 需要更新用户 Info
-            fetchUser(with: oldMe.lcObjcetID, failureHandeler: { [weak self] reason, errorMessage in
+            fetchUser(with: oldMe.lcObjcetID, failureHandeler: { reason, errorMessage in
                 
                 defaultFailureHandler(reason, errorMessage)
-                self?.profileUser = ProfileUser.userType(oldMe)
-                self?.updateProfileCollectionView()
-                
+//                self?.profileUser = ProfileUser.userType(oldMe)
+//                self?.updateProfileCollectionView()
+//                self?.profileUserIsMe = true
             }, completion: { [weak self] avUser in
                
                 var newMe: RUser?
@@ -370,6 +373,7 @@ final class ProfileViewController: UIViewController, CanShowFeedsViewController,
                 if let newMe = newMe {
                     self?.profileUser = ProfileUser.userType(newMe)
                     self?.updateProfileCollectionView()
+                    self?.profileUserIsMe = true
                 }
             })
         }

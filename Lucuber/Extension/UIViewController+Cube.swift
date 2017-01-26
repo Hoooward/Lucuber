@@ -53,14 +53,13 @@ extension UIViewController {
                 message: "请在 AppStore 留下你对 Lucuber 的评价, 感谢!",
                 doNotRemindMeInThisVersionTitle: "不再提示",
                 maybeNextTimeTitle: "下次再说",
-                confirmTitle: NSLocalizedString("Review now", comment: "")
+                confirmTitle: "去评论"
             )
             self?.autoreview_tryReviewApp(withInfo: info)
         }
         
-        delay(3) {
-           remindAction()
-        }
+        delay(3, clouser: remindAction)
+      
     }
 }
 
