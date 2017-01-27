@@ -43,6 +43,7 @@
 		E444833D1E068206008311F5 /* CommentViewController+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444833C1E068206008311F5 /* CommentViewController+Cache.swift */; };
 		E44D3B531DF6F69D00673FFD /* URL+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D3B521DF6F69D00673FFD /* URL+Cube.swift */; };
 		E44D3B541DF822B100673FFD /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494306D1DE01DDB00A23F02 /* NewFeedViewController.swift */; };
+		E459316E1E3A4E480085F49B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E459316C1E3A4E480085F49B /* LaunchScreen.storyboard */; };
 		E459B91C1E274B0E008F4097 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459B91B1E274B0E008F4097 /* SettingViewController.swift */; };
 		E459B9291E2758D2008F4097 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E459B9281E2758D2008F4097 /* EditProfile.storyboard */; };
 		E459B92B1E2758E2008F4097 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E459B92A1E2758E2008F4097 /* EditProfileViewController.swift */; };
@@ -351,7 +352,6 @@
 		E4FF41C91D91605000B64C46 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41C81D91605000B64C46 /* Realm.swift */; };
 		E4FF41CB1D9161BF00B64C46 /* AVUser+Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */; };
 		E4FFAA9A1D8D29DE0039BA8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */; };
-		E4FFAA9C1D8D29DE0039BA8A /* l.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA941D8D29DE0039BA8A /* l.storyboard */; };
 		E4FFAA9D1D8D29DE0039BA8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FFAA961D8D29DE0039BA8A /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -441,6 +441,7 @@
 		E444833A1E0680E9008311F5 /* CommentViewController+Views.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Views.swift"; sourceTree = "<group>"; };
 		E444833C1E068206008311F5 /* CommentViewController+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentViewController+Cache.swift"; sourceTree = "<group>"; };
 		E44D3B521DF6F69D00673FFD /* URL+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Cube.swift"; sourceTree = "<group>"; };
+		E459316D1E3A4E480085F49B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Lucuber/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E459B91B1E274B0E008F4097 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		E459B9281E2758D2008F4097 /* EditProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
 		E459B92A1E2758E2008F4097 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -755,7 +756,6 @@
 		E4FF41CA1D9161BF00B64C46 /* AVUser+Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVUser+Cube.swift"; sourceTree = "<group>"; };
 		E4FFAA7C1D8D29A30039BA8A /* Lucuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FFAA921D8D29DE0039BA8A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E4FFAA951D8D29DE0039BA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/l.storyboard; sourceTree = "<group>"; };
 		E4FFAA971D8D29DE0039BA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E4FFAA981D8D29DE0039BA8A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Lucuber/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2663,7 +2663,7 @@
 				E459BC3E1E28694E008F4097 /* Badges.xcassets */,
 				E467AF491E3466BC00947295 /* Activitles.xcassets */,
 				E45FC05B1E3090DC0012A0A7 /* Assets.xcassets */,
-				E4FFAA941D8D29DE0039BA8A /* l.storyboard */,
+				E459316C1E3A4E480085F49B /* LaunchScreen.storyboard */,
 				E4FFAA981D8D29DE0039BA8A /* Info.plist */,
 				E49534A41E0D05A40008934D /* LucuberTimer */,
 				E49534B71E0D19B50008934D /* LucuberTimerTests */,
@@ -2968,7 +2968,6 @@
 				E459BBD91E27637C008F4097 /* DetailContentCell.xib in Resources */,
 				E4CA9A2B1E333C370047620F /* EditScoreCell.xib in Resources */,
 				E459BC021E27637C008F4097 /* NewFormulaTextCell.xib in Resources */,
-				E4FFAA9C1D8D29DE0039BA8A /* l.storyboard in Resources */,
 				E459B92E1E275937008F4097 /* FeedBack.storyboard in Resources */,
 				E459BC0E1E27637C008F4097 /* ProfileFeedsCell.xib in Resources */,
 				E4CA9A241E33396E0047620F /* EditScore.storyboard in Resources */,
@@ -2979,6 +2978,7 @@
 				E459BBF81E27637C008F4097 /* NameTextViewCell.xib in Resources */,
 				E459BACC1E2762DB008F4097 /* CommentHeaderView.xib in Resources */,
 				E459BC221E27637C008F4097 /* ScoreGroupDetailTimerCell.xib in Resources */,
+				E459316E1E3A4E480085F49B /* LaunchScreen.storyboard in Resources */,
 				E459BC161E27637C008F4097 /* ProfileScoreCell.xib in Resources */,
 				E459BBD01E27637C008F4097 /* FeedMediaCell.xib in Resources */,
 				E459BBFA1E27637C008F4097 /* CategoryPickViewCell.xib in Resources */,
@@ -3403,6 +3403,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E459316C1E3A4E480085F49B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E459316D1E3A4E480085F49B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		E4DF65E41D8D92D6005CE518 /* Formula.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3427,15 +3435,6 @@
 				E4DF66001D8D961F005CE518 /* Base */,
 			);
 			name = Result.storyboard;
-			sourceTree = "<group>";
-		};
-		E4FFAA941D8D29DE0039BA8A /* l.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4FFAA951D8D29DE0039BA8A /* Base */,
-			);
-			name = l.storyboard;
-			path = Lucuber;
 			sourceTree = "<group>";
 		};
 		E4FFAA961D8D29DE0039BA8A /* Main.storyboard */ = {
