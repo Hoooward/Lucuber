@@ -8,9 +8,7 @@
 
 import UIKit
 
-
 public class CubeAlert {
-    
     
     class func alert(title: String, message: String?, dismissTitle: String, inViewController viewController: UIViewController?, dismissAction: (() -> Void)?) {
         
@@ -156,7 +154,3 @@ public class CubeAlert {
     }
     
 }
-
-
-
-

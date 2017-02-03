@@ -21,8 +21,6 @@ fileprivate let defaultAlbumIdentifier = "com.Lucuber.photoPicker"
 
 final class AlbumListController: UITableViewController {
     
-    // MARK: - Properties
-    
     var pickedImageSet = Set<PHAsset>()
     var pickedImages = [PHAsset]()
     var completion: ((_ images: [UIImage], _ imageAssets: [PHAsset]) -> Void)?
@@ -40,11 +38,6 @@ final class AlbumListController: UITableViewController {
     }()
     
     // MARK: - Life Cycle
-    
-    deinit {
-        printLog("AlbumList 死喽")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -143,8 +136,6 @@ final class AlbumListController: UITableViewController {
             result.enumerateObjects({
                 album, index, stop in
                 
-//                if let album = collection! {
-                
                     guard album.localizedTitle != "最近删除" else {
                         return
                     }
@@ -177,10 +168,9 @@ final class AlbumListController: UITableViewController {
                             list.append(ab)
                             
                         })
-                    }
+                }
             })
         }
-        
         
         return list
     }
@@ -202,14 +192,10 @@ final class AlbumListController: UITableViewController {
             
             imageResultHandler(result)
         })
-    
     }
-    
-    
 }
 
 // MARK: - TableView Delegate & DataSource
-
 extension AlbumListController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -256,8 +242,6 @@ extension AlbumListController {
         pickPhotoVC.delegate = self
         
         navigationController?.pushViewController(pickPhotoVC, animated: true)
-        
-        
     }
 }
 
@@ -266,18 +250,3 @@ extension AlbumListController: ReturnPickedPhotosDelegate {
         pickedImages.append(contentsOf: imageAssets)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

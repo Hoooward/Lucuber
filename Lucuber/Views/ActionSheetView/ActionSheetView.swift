@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 final private class ActionSheetOptionCell: UITableViewCell {
     
     class var reuseIdentifier: String {
@@ -54,7 +53,6 @@ final private class ActionSheetOptionCell: UITableViewCell {
 }
 
 // MARK: - ActionSheetDefaultCell
-
 final private class ActionSheetDefaultCell: UITableViewCell {
     
     class var reuseIdentifier: String {
@@ -98,7 +96,6 @@ final private class ActionSheetDefaultCell: UITableViewCell {
 }
 
 // MARK: - ACtionSheetDetailCell
-
 final private class ActionSheetDetailCell: UITableViewCell {
     
     class var reuseIdentifier: String {
@@ -121,11 +118,9 @@ final private class ActionSheetDetailCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 // MARK: - ActionSheetSwitchCell 
-
 final private class ActionSheetSwitchCell: UITableViewCell {
     
     class var reuseIdentifier: String {
@@ -168,10 +163,10 @@ final private class ActionSheetSwitchCell: UITableViewCell {
         
         NSLayoutConstraint.activate([centerY, trailing])
     }
-    
 }
 
 
+// MARK: - ActionSheetSubtitleSwitchCell
 final private class ActionSheetSubtitleSwitchCell: UITableViewCell {
     
     class var reuseIdentifier: String {
@@ -205,7 +200,6 @@ final private class ActionSheetSubtitleSwitchCell: UITableViewCell {
         label.textColor = UIColor.lightGray
         return label
     }()
-    
     
     lazy var checkedSwitch: UISwitch = {
         let s = UISwitch()
@@ -254,6 +248,7 @@ final private class ActionSheetSubtitleSwitchCell: UITableViewCell {
     }
 }
 
+// MARK: - ActionSheetCheckCell
 final private class ActionSheetCheckCell: UITableViewCell {
     
     class var reuseIdentifier: String {
@@ -310,6 +305,7 @@ final private class ActionSheetCheckCell: UITableViewCell {
     }
 }
 
+// MARK: - ActionSheetView
 final class ActionSheetView: UIView{
     
     enum Item {
@@ -413,7 +409,6 @@ final class ActionSheetView: UIView{
         NSLayoutConstraint.activate(containerViewConstraintsH)
         NSLayoutConstraint.activate(containerViewConstraintsV)
         
-        // layout for tableView
         
         let tableViewConstraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: viewsDictionary)
         
@@ -426,7 +421,6 @@ final class ActionSheetView: UIView{
         NSLayoutConstraint.activate(tableViewConstraintsH)
         NSLayoutConstraint.activate([tableViewBottomConstraint, tableViewHeightConstraint])
     }
-    
     
     func showInView(view: UIView) {
         
@@ -492,7 +486,6 @@ final class ActionSheetView: UIView{
 
 
 // MARK: - UIGestureRecognizerDelegate
-
 extension ActionSheetView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -505,8 +498,6 @@ extension ActionSheetView: UIGestureRecognizerDelegate {
 }
 
 // MARK: - UITableViewDataSource&Delegate
-
-
 extension ActionSheetView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -581,9 +572,7 @@ extension ActionSheetView: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         }
-        
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -629,38 +618,3 @@ extension ActionSheetView: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -64,11 +64,9 @@ class MediaPreviewViewController: UIViewController {
     @IBOutlet weak var mediasCollectionView: UICollectionView!
     @IBOutlet weak var mediaControlView: MediaControlView!
 
-
     fileprivate let mediaViewCellIdentifier = "MediaViewCell"
+    
     // MARK: - Life Cycle
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -265,7 +263,6 @@ class MediaPreviewViewController: UIViewController {
 
 
     fileprivate func prepareForShare(with cell: MediaViewCell, previewMedia: PreviewMedia) {
-        // 设置分享的动作
         
         switch previewMedia {
             
@@ -309,10 +306,8 @@ class MediaPreviewViewController: UIViewController {
                         activityViewController.excludedActivityTypes = [UIActivityType.message, UIActivityType.mail]
                         
                         self?.present(activityViewController, animated: true, completion: nil)
-                    
                     }
                 }
-                
                 
             default:
                 break
@@ -404,6 +399,7 @@ class MediaPreviewViewController: UIViewController {
         }
     }
 }
+
 extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -482,7 +478,6 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
                 [weak self] in
                 self?.dismissPreview()
             }
-            
         }
     }
     
@@ -490,11 +485,9 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
         return UIScreen.main.bounds.size
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    
 }
 
 extension MediaPreviewViewController: UIScrollViewDelegate {
@@ -520,7 +513,6 @@ extension MediaPreviewViewController: UIScrollViewDelegate {
             switch attachment {
             case .attachmentType(_):
                 
-                
                 bottomPreviewImageView.image = image
                 
                 let previewImageWidth = image.size.width
@@ -532,7 +524,6 @@ extension MediaPreviewViewController: UIScrollViewDelegate {
                 let frame = CGRect(x: 0, y: (UIScreen.main.bounds.height - previewImageViewHeight) * 0.5, width: previewImageViewWidth, height: previewImageViewHeight)
                 
                 bottomPreviewImageView.frame = frame
-                
                 
             case .localImage(let image):
                 
@@ -553,29 +544,4 @@ extension MediaPreviewViewController: UIScrollViewDelegate {
             
         }
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

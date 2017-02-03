@@ -384,6 +384,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
                         createdNewConversation = true
                     }
+                    
 
                     if let conversation = conversation {
 

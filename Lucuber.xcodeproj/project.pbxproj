@@ -734,6 +734,10 @@
 		E4EFC0B41E0FA308006110F7 /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		E4F10FAD1E262E4B0092A74B /* EditMaster.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditMaster.storyboard; sourceTree = "<group>"; };
 		E4F10FAF1E262E610092A74B /* EditMasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMasterViewController.swift; sourceTree = "<group>"; };
+		E4F1117E1E3B11500034F55F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Feed.strings"; sourceTree = "<group>"; };
+		E4F1117F1E3B11500034F55F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Formula.strings"; sourceTree = "<group>"; };
+		E4F111801E3B11550034F55F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		E4F111811E3B11550034F55F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Lucuber/zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E4F38D571DFD20C400F0DF8A /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		E4F38D581DFD20C400F0DF8A /* SendingMessagePool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingMessagePool.swift; sourceTree = "<group>"; };
 		E4F38D631DFD21D100F0DF8A /* Service+Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Service+Fetch.swift"; sourceTree = "<group>"; };
@@ -3407,6 +3411,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E459316D1E3A4E480085F49B /* Base */,
+				E4F111811E3B11550034F55F /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -3415,6 +3420,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E4DF65E51D8D92D6005CE518 /* Base */,
+				E4F1117F1E3B11500034F55F /* zh-Hans */,
 			);
 			name = Formula.storyboard;
 			path = ../..;
@@ -3424,6 +3430,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E4DF65EA1D8D9353005CE518 /* Base */,
+				E4F1117E1E3B11500034F55F /* zh-Hans */,
 			);
 			name = Feed.storyboard;
 			path = ../..;
@@ -3441,6 +3448,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E4FFAA971D8D29DE0039BA8A /* Base */,
+				E4F111801E3B11550034F55F /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			path = Lucuber;
@@ -3600,6 +3608,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3652,6 +3661,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

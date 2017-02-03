@@ -241,7 +241,6 @@ public class TimerLabel: UILabel {
                 countingToTimeAction? (timeLeft, timerType, self)
                 
                 if timeDiff >= timerUserValue {
-                    // 暂停
                     timeToShow = date1970.addingTimeInterval(0)
                     startCountDate = nil
                     timerEnded = true
@@ -336,7 +335,6 @@ public class TimerLabel: UILabel {
     public func reset() {
         status = .reset
     }
-    
 }
 
 extension TimerLabel {
@@ -388,20 +386,3 @@ extension TimerLabel {
         return 0
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

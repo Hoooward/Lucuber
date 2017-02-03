@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "没有订阅话题"; ObjectID = "7lL-VY-CJq"; */
+"7lL-VY-CJq.text" = "没有订阅话题";
+
+/* Class = "UISegmentedControl"; pgm-kK-fOu.segmentTitles[0] = "First"; ObjectID = "pgm-kK-fOu"; */
+"pgm-kK-fOu.segmentTitles[0]" = "First";
+
+/* Class = "UISegmentedControl"; pgm-kK-fOu.segmentTitles[1] = "Second"; ObjectID = "pgm-kK-fOu"; */
+"pgm-kK-fOu.segmentTitles[1]" = "Second";

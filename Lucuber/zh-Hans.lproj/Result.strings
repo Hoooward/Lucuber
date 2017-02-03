@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "3x3x3"; ObjectID = "KeX-7f-EhX"; */
+"KeX-7f-EhX.text" = "3x3x3";
+
+/* Class = "UILabel"; text = "次数"; ObjectID = "VaD-Rv-EbK"; */
+"VaD-Rv-EbK.text" = "次数";
+
+/* Class = "UILabel"; text = "最快"; ObjectID = "XCs-8g-fAi"; */
+"XCs-8g-fAi.text" = "最快";
+
+/* Class = "UILabel"; text = "2016/12/21 - 2016/12/26"; ObjectID = "b8K-wu-LNw"; */
+"b8K-wu-LNw.text" = "2016/12/21 - 2016/12/26";
+
+/* Class = "UILabel"; text = "15.63"; ObjectID = "cY3-TB-WZK"; */
+"cY3-TB-WZK.text" = "15.63";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "d7i-6V-pS6"; */
+"d7i-6V-pS6.title" = "Title";
+
+/* Class = "UILabel"; text = "日期 ▾"; ObjectID = "uc5-fq-3sj"; */
+"uc5-fq-3sj.text" = "日期 ▾";
+
+/* Class = "UILabel"; text = "最慢"; ObjectID = "ugr-FK-g4t"; */
+"ugr-FK-g4t.text" = "最慢";

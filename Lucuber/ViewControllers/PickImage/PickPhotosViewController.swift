@@ -18,7 +18,6 @@ protocol ReturnPickedPhotosDelegate: class {
 
 class PickPhotosViewController: UICollectionViewController {
 
-    // MARK: - Properties
     /*
      参考: http://kayosite.com/ios-development-and-detail-of-photo-framework-part-two.html
      */
@@ -30,7 +29,6 @@ class PickPhotosViewController: UICollectionViewController {
     
     var images: PHFetchResult<PHAsset>? {
         didSet {
-            
             collectionView?.reloadData()
             guard let images = images else { return }
             
@@ -46,15 +44,9 @@ class PickPhotosViewController: UICollectionViewController {
     
     var imageLimit = 0
     
-    deinit {
-        printLog("\(self)正确牺牲了")
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         title = "选取图片" + "(" + "\(imageLimit + pickedImages.count )" + "/4" + ")"
         
         collectionView?.backgroundColor = UIColor.white
@@ -81,9 +73,6 @@ class PickPhotosViewController: UICollectionViewController {
             images = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
         }
         
-       
-        
-        
         guard var vcStack = navigationController?.viewControllers else { return }
         
         if !vcStack.isEmpty {
@@ -95,9 +84,7 @@ class PickPhotosViewController: UICollectionViewController {
                 album = vcStack[1] as? AlbumListController
             }
         }
-        
 //        navigationController?.interactivePopGestureRecognizer?.delegate = self
-
     }
     
     @objc private func back() {
@@ -151,7 +138,6 @@ class PickPhotosViewController: UICollectionViewController {
             })
             
         }
-        
 //        delegate?.returnSeletedImages(images, imageAssets: pickedImages)
         
         if let vcStack = navigationController?.viewControllers {
@@ -169,10 +155,7 @@ class PickPhotosViewController: UICollectionViewController {
             }
         }
         
-        
     }
-
-
 }
 
 extension PickPhotosViewController {
@@ -204,7 +187,6 @@ extension PickPhotosViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
         if let imageAsset = images?[indexPath.item]  {
             if pickedImageSet.contains(imageAsset) {
                 pickedImageSet.remove(imageAsset)
@@ -230,18 +212,5 @@ extension PickPhotosViewController {
             
             cell.pickedImageView.isHidden = !pickedImageSet.contains(imageAsset)
         }
-        
- 
     }
-    
 }
-
-
-
-
-
-
-
-
-
-

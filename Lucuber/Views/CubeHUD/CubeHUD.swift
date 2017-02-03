@@ -10,30 +10,22 @@ import UIKit
 
 public class CubeHUD: NSObject {
     
-    // MARK: Properties
-    
     static let shardInstance = CubeHUD()
     
     var isShowing = false
     var dismissTimer: Timer?
     
     private lazy var containerView: UIView = {
-        
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         return view
-        
     }()
     
     private lazy var indicatorLabel: UILabel = {
-        
         let label = UILabel()
-        
         label.text = "正在加载..."
         return label
-        
     }()
-    
     
     var indicatorText: String = " " {
         willSet {
@@ -42,14 +34,10 @@ public class CubeHUD: NSObject {
     }
     
     private lazy var activitIndicator: UIActivityIndicatorView = {
-        
         let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         view.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
         return view
-        
     }()
-    
-    // MARK: Action & Target
     
     class func showActivityIndicator() {
         
@@ -79,33 +67,32 @@ public class CubeHUD: NSObject {
                     
                     self.shardInstance.containerView.alpha = 1
                     
+                }, completions: { finished in
+                    
+                    self.shardInstance.containerView.addSubview(self.shardInstance.activitIndicator)
+                    self.shardInstance.activitIndicator.center = self.shardInstance.containerView.center
+                    self.shardInstance.activitIndicator.startAnimating()
+                    
+                    self.shardInstance.activitIndicator.alpha = 0
+                    self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.0001, y: 0.0001)
+                    
+                    
+                    springWithCompletion(duration: 0.2, animations: {
+                        
+                        self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
+                        self.shardInstance.activitIndicator.alpha = 1
+                        
                     }, completions: { finished in
                         
-                        self.shardInstance.containerView.addSubview(self.shardInstance.activitIndicator)
-                        self.shardInstance.activitIndicator.center = self.shardInstance.containerView.center
-                        self.shardInstance.activitIndicator.startAnimating()
+                        self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
                         
-                        self.shardInstance.activitIndicator.alpha = 0
-                        self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 0.0001, y: 0.0001)
-                        
-                        
-                        springWithCompletion(duration: 0.2, animations: {
+                        if let dismissTimer = self.shardInstance.dismissTimer {
                             
-                            self.shardInstance.activitIndicator.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
-                            self.shardInstance.activitIndicator.alpha = 1
-                            
-                            }, completions: { finished in
-                                
-                                self.shardInstance.activitIndicator.transform = CGAffineTransform.identity
-                                
-                                if let dismissTimer = self.shardInstance.dismissTimer {
-                                    
-                                    dismissTimer.invalidate()
-                                }
-                                
-                                self.shardInstance.dismissTimer = Timer(timeInterval: Config.forcedHideActivityIndicatorTimeInterval, target: self, selector: #selector(CubeHUD.forcedHideActivityIndicator), userInfo: nil, repeats: false)
-                        })
+                            dismissTimer.invalidate()
+                        }
                         
+                        self.shardInstance.dismissTimer = Timer(timeInterval: Config.forcedHideActivityIndicatorTimeInterval, target: self, selector: #selector(CubeHUD.forcedHideActivityIndicator), userInfo: nil, repeats: false)
+                    })
                 })
                 
             }
@@ -114,24 +101,16 @@ public class CubeHUD: NSObject {
     }
     
     class func forcedHideActivityIndicator() {
-        
         hideActivityIndicator {
-            
-            if
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                 let viewController = appDelegate.window?.rootViewController {
-                
                 CubeAlert.alertSorry(message: "请求超时, 操作可能未完成", inViewController: viewController)
             }
         }
-        
     }
     
     class func hideActivityIndicator() {
-        
-        hideActivityIndicator {
-            
-        }
+        hideActivityIndicator {}
     }
     
     class func hideActivityIndicator(completion: @escaping () -> Void ){
@@ -154,91 +133,24 @@ public class CubeHUD: NSObject {
                     self.shardInstance.indicatorLabel.transform = CGAffineTransform.init(scaleX: 0.00001, y: 0.00001)
                     self.shardInstance.indicatorLabel.alpha = 0
                     
+                }, completions: { finished in
+                    
+                    self.shardInstance.activitIndicator.removeFromSuperview()
+                    self.shardInstance.indicatorLabel.removeFromSuperview()
+                    
+                    springWithCompletion(duration: 0.1, animations: {
+                        
+                        self.shardInstance.containerView.alpha = 0
+                        
                     }, completions: { finished in
                         
-                        self.shardInstance.activitIndicator.removeFromSuperview()
-                        self.shardInstance.indicatorLabel.removeFromSuperview()
+                        self.shardInstance.containerView.removeFromSuperview()
                         
-                        springWithCompletion(duration: 0.1, animations: {
-                            
-                            self.shardInstance.containerView.alpha = 0
-                            
-                            }, completions: { finished in
-                                
-                                self.shardInstance.containerView.removeFromSuperview()
-                                
-                                completion()
-                                
-                        })
+                        completion()
+                        
+                    })
                 })
             }
         }
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
