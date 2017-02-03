@@ -67,7 +67,6 @@ public func fetchMyScoresAndFutherAction(_ action: (()-> Void)?) {
         NotificationCenter.default.post(name: Config.NotificationName.updateMyScores, object: nil)
         action?()
     })
-    
 }
 
 public func fetchNeedUpdateLibraryFormulasAndDoFutherAction(_ action: (() -> Void)?) {

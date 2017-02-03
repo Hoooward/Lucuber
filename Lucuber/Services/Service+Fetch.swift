@@ -60,7 +60,6 @@ func fetchUnreadMessage(failureHandler: FailureHandler?, completion: @escaping (
         
         completion([String]())
     }
-
 }
 
 // 不使用公共的 fetchMessageFromLeancloud 方法, 避免服务器端查询表, 减少延迟
@@ -79,8 +78,6 @@ func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureH
                 return
             }
             
-            
-            
             var newMessageIDs = [String]()
             realm.beginWrite()
             
@@ -92,33 +89,8 @@ func fetchMessageWithMessageLcID(_ messageLcID: String, failureHandler: FailureH
             
             completion(newMessageIDs)
         }
-        
     })
-    
-//    discoverMessage.fetchInBackground { message, error in
-//        
-//        if let message = message as? DiscoverMessage {
-//
-//            guard let realm = try? Realm() else {
-//                return
-//            }
-//
-//            
-//        
-//            var newMessageIDs = [String]()
-//            realm.beginWrite()
-//
-//            convertDiscoverMessageToRealmMessage(discoverMessage: message, messageAge: .new, inRealm: realm, completion: { messageIDs in
-//                newMessageIDs.append(contentsOf: messageIDs)
-//            })
-//
-//            try? realm.commitWrite()
-//
-//			completion(newMessageIDs)
-//        }
-//    }
 }
-
 
 func fetchMessage(withRecipientID recipientID: String?, messageAge: MessageAge, lastMessage: Message?, firstMessage: Message?, failureHandler: @escaping FailureHandler, completion: ((_ messagesID: [String]) -> Void)?) {
     
@@ -272,8 +244,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
 
         if let message = message {
             
-            
-            
             if let messageCreatorUserID = discoverMessage.creator.objectId {
 
                 _ = getOrCreatRUserWith(discoverMessage.creator, inRealm: realm)
@@ -360,7 +330,6 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
                                 })
                             }
                         }
-
                         // 上面这段代码暂时无用
                     }
 
@@ -454,9 +423,7 @@ func convertDiscoverMessageToRealmMessage(discoverMessage: DiscoverMessage, mess
     }
 }
 
-
 // MARK: - User
-
 public func fetchSubscribeConversation(_ future: (() -> Void)?) {
     
     guard let me = AVUser.current() else {
@@ -482,7 +449,7 @@ public func fetchSubscribeConversation(_ future: (() -> Void)?) {
                 realm.beginWrite()
                 for feed in feeds {
                     
-                    printLog(feed)
+//                    printLog(feed)
                     let groupID = feed.objectId!
                     
                     var group = groupWith(groupID, inRealm: realm)
@@ -607,7 +574,6 @@ public enum UploadFormulaMode: String {
 
 public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: Category?, failureHandler: @escaping FailureHandler, completion: (([Formula]) -> Void)?) {
     
-    
     let query = AVQuery(className: DiscoverFormula.parseClassName())
     query.includeKey("creator")
     query.includeKey("contents")
@@ -674,8 +640,6 @@ public func fetchDiscoverFormula(with uploadMode: UploadFormulaMode, categoty: C
 @discardableResult public func convertDiscoverFormulaToFormula(discoverFormula: DiscoverFormula, uploadMode: UploadFormulaMode, withFeed feed: Feed?, inRealm realm: Realm, completion: ((Formula) -> Void)?) -> Formula? {
     
     var formula = formulaWith(objectID: discoverFormula.localObjectID, inRealm: realm)
-    
-
     
     let deleted = discoverFormula.deletedByCreator
     
@@ -947,7 +911,6 @@ internal func fetchDiscoverFeed(with kind: FeedCategory?, feedSortStyle: FeedSor
             }
         }
     }
-    
 }
 
 public func saveFeedWithDiscoverFeed(_ feedData: DiscoverFeed, group: Group, inRealm realm: Realm) {
@@ -1071,8 +1034,8 @@ public func fetchDiscoverScores(failureHandler: FailureHandler?, completion: (()
             completion?()
         }
     })
-    
 }
+
 public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRealm realm: Realm, completion: (() -> Void)?) {
     
     var score = scoreWith(discoverScore.localObjectID, inRealm: realm)
@@ -1104,7 +1067,6 @@ public func convertDiscoverScoreToRScore(with discoverScore: DiscoverScore, inRe
         realm.add(newScore)
         score = newScore
     }
-    
     
     if let score = score {
         let user = getOrCreatRUserWith(discoverScore.creator, inRealm: realm)

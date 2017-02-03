@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import AVOSCloud
 
-let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS.utility, attributes: DispatchQueue.Attributes.concurrent)
+//let realmQueue = DispatchQueue(label: "com.Lucuber.realmQueue", qos: DispatchQoS.utility, attributes: DispatchQueue.Attributes.concurrent)
 
 public func realmConfig() -> Realm.Configuration {
     var config = Realm.Configuration()
@@ -45,7 +45,6 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
     if user == nil {
         let newUser = RUser()
         newUser.lcObjcetID = avUser.objectId!
-        
         // TODO: - 标记陌生人
         realm.add(newUser)
         user = newUser
@@ -103,7 +102,6 @@ public func getOrCreatRUserWith(_ avUser: AVUser?, inRealm realm: Realm) -> RUse
     return user
 }
 
-
 public func avatarWith(_ urlString: String, inRealm realm: Realm) -> Avatar? {
     let predicate = NSPredicate(format: "avatarUrlString = %@", urlString)
     return realm.objects(Avatar.self).filter(predicate).first
@@ -118,7 +116,6 @@ public func currentUser(in realm: Realm) -> RUser? {
     guard let avUser = AVUser.current(), let avUserObjectID = avUser.objectId else { return nil }
     return userWith(avUserObjectID, inRealm: realm)
 }
-
 
 public func masterWith(_ localObjectID: String, atRUser user: RUser, inRealm realm: Realm) -> FormulaMaster? {
     let predicate = NSPredicate(format: "formulaID = %@", localObjectID)
@@ -138,12 +135,10 @@ public func myCubeCategoryMasterWith(_ categoryString: String, inRealm realm: Re
     let predicate = NSPredicate(format: "categoryString = %@", categoryString)
     let predicate2 = NSPredicate(format: "atRUser = %@", me)
     return realm.objects(CubeCategoryMaster.self).filter(predicate).filter(predicate2).first
-    
 }
 
 public func deleteMaster(with formula: Formula, inRealm realm: Realm) {
     guard let currentUser = currentUser(in: realm) else { return }
-    
     let localObjectID = formula.localObjectID
     if let master = masterWith(localObjectID, atRUser: currentUser, inRealm: realm) {
         realm.delete(master)
@@ -160,7 +155,6 @@ public func appendMaster(with formula: Formula, inRealm realm: Realm) {
 }
 
 public func deleteCubeCategoryMaster(with categoryString: String, inRealm realm: Realm) {
-    
     if let master = myCubeCategoryMasterWith(categoryString, inRealm: realm) {
         realm.delete(master)
     }
@@ -175,50 +169,37 @@ public func appendCubeCategoryMaster(with categoryString: String, inRealm realm:
 }
 
 // MARK: - Formula
-
 public func deleteByCreatorFormula(with currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
-    
     let predicate = NSPredicate(format: "creator = %@", currentUser)
     let predicate2 = NSPredicate(format: "deletedByCreator = %@", true as CVarArg)
-    
     return realm.objects(Formula.self).filter(predicate).filter(predicate2)
 }
 
 public func deleteByCreatorRContent(with currentUser: RUser, inRealm realm: Realm) -> Results<Content> {
-    
     let predicate = NSPredicate(format: "creator = %@", currentUser)
     let predicate2 = NSPredicate(format: "deleteByCreator = %@", true as CVarArg)
-    
     return realm.objects(Content.self).filter(predicate).filter(predicate2)
 }
 
 public func unPushedFormula(with currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
-    
     let predicate = NSPredicate(format: "creator = %@", currentUser)
     let predicate2 = NSPredicate(format: "isPushed = %@", false as CVarArg)
 //    let predicate3 = NSPredicate(format: "deletedByCreator = %@", false as CVarArg)
-    
     return realm.objects(Formula.self).filter(predicate).filter(predicate2)
 }
 
 public func categorysWith(_ uploadMode: UploadFormulaMode, inRealm realm: Realm) -> Results<RCategory> {
-    
     let predicate = NSPredicate(format: "uploadMode = %@", uploadMode.rawValue)
-    
     return realm.objects(RCategory.self).filter(predicate)
 }
 
 public func contentWith(_ objectID: String, inRealm realm: Realm) -> Content? {
-    
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
-    
     return realm.objects(Content.self).filter(predicate).first
 }
 
 public func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> Results<Content>? {
-    
     let predicate = NSPredicate(format: "atFormulaLocalObjectID = %@", atFormulaObjectID)
-    
     return realm.objects(Content.self).filter(predicate)
 }
 
@@ -228,16 +209,12 @@ func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, inRe
 }
 
 func formulaWith(objectID: String , inRealm realm: Realm) -> Formula? {
-    
     let predicate = NSPredicate(format: "localObjectID = %@", objectID)
-    
     return realm.objects(Formula.self).filter(predicate).first
 }
 
 func formulaWith(localObjectID: String , inRealm realm: Realm) -> Results<Formula> {
-    
     let predicate = NSPredicate(format: "localObjectID = %@", localObjectID)
-    
     return realm.objects(Formula.self).filter(predicate)
 }
 
@@ -247,9 +224,7 @@ func formulaCollectionWith(objectID: String, inRealm realm: Realm) -> Results<Fo
 }
 
 func formulasWith(_ uploadMode: UploadFormulaMode, category: Category, type: Type, inRealm realm: Realm) -> Results<Formula>{
-    
     let predicate = NSPredicate(format: "typeString = %@", type.rawValue)
-    
     return formulasWith(uploadMode, category: category, inRealm: realm).filter(predicate)
 }
 
@@ -320,7 +295,6 @@ public func deleteEmptyRCategory(with uploadMode: UploadFormulaMode, inRealm rea
 }
 
 // MARK: - Message
-
 public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGFloat)? {
     
     guard !message.isInvalidated else { return nil }
@@ -346,7 +320,6 @@ public func imageMetaOfMessage(message: Message) -> (width: CGFloat, height: CGF
 
     return nil
 }
-
 
 public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
 
@@ -449,7 +422,6 @@ public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMe
         
         if let prevMessage = messages[safe: (index - 1)] {
             
-            // TODO: - 两个消息时间相差多少秒, 创建 DataSection, 10 为测试值, 正常 180 秒
             if message.createdUnixTime - prevMessage.createdUnixTime > 180 {
                 
                 let sectionDateMessageCreatedUnixTime = message.createdUnixTime - 0.00005
@@ -479,7 +451,6 @@ public func tryCreatDateSectionMessage(with conversation: Conversation, beforeMe
 }
 
 // MARK: - Feed
-
 public func feedWith(_ lcObjcetID: String, inRealm realm: Realm) -> Feed? {
     let predicate = NSPredicate(format: "lcObjectID = %@", lcObjcetID)
     return realm.objects(Feed.self).filter(predicate).first
@@ -487,9 +458,7 @@ public func feedWith(_ lcObjcetID: String, inRealm realm: Realm) -> Feed? {
 
 // MARK: - Group
 public func groupWith(_ groupID: String, inRealm realm: Realm) -> Group? {
-    
     let predicate = NSPredicate(format: "groupID = %@" , groupID)
-    
     return realm.objects(Group.self).filter(predicate).first
 }
 
@@ -500,7 +469,6 @@ public func mySubscribeGroupsIDInRealm(realm: Realm) -> [String]? {
 }
 
 // MARK: - Conversation
-
 public func feedConversationsInRealm(_ realm: Realm) -> Results<Conversation> {
     let predicate = NSPredicate(format: "withGroup != nil AND withGroup.includeMe = true AND withGroup.groupType = %d", GroupType.Public.rawValue)
     let b = SortDescriptor(property: "hasUnreadMessages", ascending: false)
@@ -545,7 +513,6 @@ public func titleNameOfConversation(_ conversation: Conversation) -> String? {
 }
 
 // MARK: - Scores
-
 public func scoreWith(_ localObjectID: String, inRealm realm: Realm) -> Score? {
    let predicate = NSPredicate(format: "localObjectId == %@", localObjectID)
      return realm.objects(Score.self).filter(predicate).first
@@ -560,4 +527,49 @@ public func unPushedScoreWithRUser(_ user: RUser, inRealm realm: Realm) -> Resul
     let predicate = NSPredicate(format: "creator == %@", user)
     let predicate2 = NSPredicate(format: "isPushed == %@", false as CVarArg)
     return realm.objects(Score.self).filter(predicate).filter(predicate2)
+}
+
+// MARK: - scoreGroup
+public func scoreGroupWith(_ localObjectId: String, inRealm realm: Realm) -> ScoreGroup? {
+    let predicate = NSPredicate(format: "localObjectId == %@", localObjectId)
+    return realm.objects(ScoreGroup.self).filter(predicate).first
+}
+
+public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreGroup> {
+    guard let user = user else { fatalError() }
+    
+    let predicate = NSPredicate(format: "creator == %@", user)
+    let predicate2 = NSPredicate(format: " isDeleteByCreator == %@", false as CVarArg)
+    let result = realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
+    
+    if result.first == nil {
+        try? realm.write {
+            let newGroup = ScoreGroup()
+            newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
+            newGroup.category = "三阶"
+            newGroup.creator = currentUser(in: realm)
+            realm.add(newGroup)
+        }
+    }
+    return realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
+}
+
+
+public func getOrCreatedMyLastScoreGroup(inRealm realm: Realm) -> ScoreGroup {
+    
+    var group = scoreGroupWith(user: currentUser(in: realm), inRealm: realm).first
+    
+    if group == nil {
+        
+        try? realm.write {
+            let newGroup = ScoreGroup()
+            newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
+            newGroup.category = "三阶"
+            newGroup.creator = currentUser(in: realm)
+            realm.add(newGroup)
+            
+            group = newGroup
+        }
+    }
+    return group!
 }

@@ -13,34 +13,7 @@ import Alamofire
 import Kanna
 import Kingfisher
 
-// MARK: - Image
-public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
-    
-    guard !images.isEmpty else {
-        return
-    }
-    
-    var imagesURL = [String]()
-    images.forEach { image in
-        
-        if let data = UIImageJPEGRepresentation(image, quality) {
-            let uploadFile = AVFile(data: data)
-            
-            var error: NSError?
-            if uploadFile.save(&error) {
-                if let url = uploadFile.url {
-                    imagesURL.append(url)
-                }
-            } else {
-                failureHandler?(error)
-            }
-        }
-    }
-    completion?(imagesURL)
-}
-
 // MARK: - User
-
 public func pushToMasterListLeancloud(with masterList: [String], completion: (() -> Void)?, failureHandler: FailureHandler?) {
     
     guard let me = AVUser.current() else {
@@ -60,7 +33,6 @@ public func pushToMasterListLeancloud(with masterList: [String], completion: (()
     }
 }
 
-
 public func pushMyNicknameToLeancloud(with nickname: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
     
     guard let me = AVUser.current() else {
@@ -79,7 +51,6 @@ public func pushMyNicknameToLeancloud(with nickname: String, failureHandler: @es
             completion?()
         }
     }
-
 }
 
 public func pushMyIntroductionToLeancloud(with intro: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
@@ -189,6 +160,32 @@ public func pushMyInfoToLeancloud(completion: (() -> Void)?, failureHandler: @es
     }
 }
 
+// MARK: - Image
+public func pushToLeancloud(with images: [UIImage], quality: CGFloat, completion: (([String]) -> Void)?, failureHandler: ((NSError?) -> Void)?) {
+    
+    guard !images.isEmpty else {
+        return
+    }
+    
+    var imagesURL = [String]()
+    images.forEach { image in
+        
+        if let data = UIImageJPEGRepresentation(image, quality) {
+            let uploadFile = AVFile(data: data)
+            
+            var error: NSError?
+            if uploadFile.save(&error) {
+                if let url = uploadFile.url {
+                    imagesURL.append(url)
+                }
+            } else {
+                failureHandler?(error)
+            }
+        }
+    }
+    completion?(imagesURL)
+}
+
 // MARK: - Data
 public func pushFeedbackToLeancloud(with feedback: DiscoverFeedback, completion: (() -> Void)?, failureHandler: @escaping FailureHandler) {
     
@@ -275,7 +272,6 @@ public func pushDatasToLeancloud(with datas: [Data]?, failureHandler: @escaping 
 }
 
 // MARK: - Message
-
 public func resendMessage(message: Message, failureHandler: @escaping FailureHandler, completion: @escaping (Bool) -> Void) {
     
     var recipientID: String?
@@ -339,7 +335,6 @@ public func resendMessage(message: Message, failureHandler: @escaping FailureHan
         default:
             break
         }
-    
     }
 }
 
@@ -382,12 +377,10 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     message.downloadState = MessageDownloadState.downloaded.rawValue
     message.readed = true
     
-    
     // 添加到 Realm
     try? realm.write {
         realm.add(message)
     }
-    
     
     if let me = currentUser(in: realm) {
         try? realm.write {
@@ -467,10 +460,8 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
             message.recipientID = recipientID
             message.recipientType = recipientType
             
-            
             // 发送通知, Convertaion 有新的
         }
-        
     }
     
     // TODO: - 处理 Location
@@ -481,12 +472,7 @@ public func createAndPushMessage(with mediaType: MessageMediaType, atFilePath fi
     
     afterCreatedMessage(message)
     
-    
     // TODO: - 音效处理
-    
-    
-    // push 到远端
-    
     
     pushMessageToLeancloud(with: message, atFilePath: filePath, orFileData: fileData, metaData: metaData, toRecipient: recipientID, recipientType: recipientType, failureHandler: {
         reason, errorMessage in
@@ -526,13 +512,13 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
                 message.lcObjectID = discoverMessage.objectId ?? ""
                 message.sendState = MessageSendState.successed.rawValue
 
+                /*
+                 重新设置服务器端的创建时间会导致与push 之前创建的 SectionDate Cell 时间
+                if let createdAt = discoverMessage.createdAt {
+                    message.createdUnixTime = createdAt.timeIntervalSince1970
 
-                // 重新设置服务器端的创建时间会导致与push 之前创建的 SectionDate Cell 时间
-
-//                if let createdAt = discoverMessage.createdAt {
-//                    message.createdUnixTime = createdAt.timeIntervalSince1970
-//
-//                }
+                }
+                 */
             }
             NotificationCenter.default.post(name: Notification.Name.updateMessageStatesNotification, object: nil)
             
@@ -575,66 +561,7 @@ public func pushMessageToLeancloud(with message: Message, atFilePath filePath: S
 }
 
 
-// MARK: - APNs
-
-public func pushDeletedFeedNotificationToAPNs(with feed: DiscoverFeed) {
-    
-    let channel = feed.objectId ?? ""
-//    AVPush.setProductionMode(false)
-    
-    let dict: [String: Any] = [
-        "type": AppDelegate.RemoteNotificationType.feedDeleted.rawValue,
-        "feedID": channel,
-        "content-available" : 1,
-//        "sound" : "",
-//        "priority": 5
-    ]
-    let push = AVPush()
-    push.setChannel(channel)
-    
-    push.setData(dict)
-    push.sendInBackground()
-}
-
-public func pushNewMessageNotificationToAPNs(with message: Message) {
-    
-//    var alertString = "你订阅的话题有新的消息"
-    
-    let creatorNickname = message.creator?.nickname ?? ""
-    var messageBody = message.textContent
-
-    if messageBody.characters.count > 20 {
-        let endOfDomain = messageBody.index(messageBody.startIndex, offsetBy: 17)
-        let rangeOfDomain = messageBody.startIndex ..< endOfDomain
-        messageBody = messageBody[rangeOfDomain]
-    }
-    
-    // 暂时只处理图片
-    switch message.mediaType {
-    case MessageMediaType.image.rawValue:
-        messageBody = "图片"
-    default:
-        break
-    }
-    
-    let dict: [String: Any] = [
-            "alert": "\(creatorNickname)" + ": " + "\(messageBody)",
-            "type": AppDelegate.RemoteNotificationType.message.rawValue,
-            "messageID": message.lcObjectID,
-            "badge": "Increment",
-            "sound": "default"
-    ]
-
-//    AVPush.setProductionMode(false)
-    let push = AVPush()
-    push.setChannel(message.recipientID)
-
-    push.setData(dict)
-    push.sendInBackground()
-}
-
 // MARK: - Formula
-
 public func pushFeedFormulaAttachmentToLeancloud(with newFormula: Formula, failureHandler: @escaping FailureHandler , completion: ((DiscoverFormula) -> Void)?) {
     
     guard let realm = try? Realm() else {
@@ -753,7 +680,6 @@ public func pushFormulaToLeancloud(with newFormula: Formula, failureHandler: @es
             newResizeImage = image
             newImageData = UIImagePNGRepresentation(newResizeImage!)
         }
-        
     }
     
     // 有新图片, 先上传图片
@@ -833,7 +759,6 @@ public func pushDeleteFeedInfoToLeancloud(with feedID: String?, failureHandler: 
             completion(feed)
         }
     })
-    
 }
 
 public func openGraphWithURL(_ URL: URL, failureHandler: FailureHandler?, completion: @escaping (OpenGraph) -> Void) {
@@ -925,7 +850,6 @@ public func createFeedWithCategory(_ category: FeedCategory, message: String, at
             completion?(newDiscoverFeed)
         }
     }
-
 }
 
 // MARK: - Register
@@ -963,7 +887,6 @@ public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHan
             
         case .login:
             
-            
             if let resultUsers = users {
                
                 if let user = resultUsers.first as? AVUser, let _ = user.nickname() {
@@ -974,6 +897,7 @@ public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHan
                     failureHandler(Reason.noSuccess, "您输入的手机号码尚未注册, 请返回注册")
                 }
             }
+            
             if error != nil {
                 
                 failureHandler(Reason.network(error), "网络请求失败, 请稍后再试")
@@ -984,7 +908,6 @@ public func fetchValidateMobile(mobile: String, checkType: LoginType, failureHan
 
 // MARK: - Score
 func pushMyScoreToLeancloud(with score: Score, failureHandler: FailureHandler?, completion: ((DiscoverScore) -> Void)?) {
-    
     
     var discoverScore: DiscoverScore = DiscoverScore()
     
@@ -1008,7 +931,6 @@ func pushMyScoreToLeancloud(with score: Score, failureHandler: FailureHandler?, 
     discoverScore.atGroupcreatedUnixTime = score.atGroup?.createdUnixTime ?? Date().timeIntervalSince1970
     discoverScore.atGroupIsDeleteByCreator = score.atGroup?.isDeleteByCreator ?? false
     
-    
     discoverScore.saveInBackground { success, error in
         
         if error != nil {
@@ -1021,8 +943,62 @@ func pushMyScoreToLeancloud(with score: Score, failureHandler: FailureHandler?, 
     }
 }
 
+// MARK: - APNs
+public func pushDeletedFeedNotificationToAPNs(with feed: DiscoverFeed) {
+    
+    let channel = feed.objectId ?? ""
+    //    AVPush.setProductionMode(false)
+    
+    let dict: [String: Any] = [
+        "type": AppDelegate.RemoteNotificationType.feedDeleted.rawValue,
+        "feedID": channel,
+        "content-available" : 1,
+        //        "sound" : "",
+        //        "priority": 5
+    ]
+    let push = AVPush()
+    push.setChannel(channel)
+    
+    push.setData(dict)
+    push.sendInBackground()
+}
 
-/// 获取短信验证码
+public func pushNewMessageNotificationToAPNs(with message: Message) {
+    
+    let creatorNickname = message.creator?.nickname ?? ""
+    var messageBody = message.textContent
+    
+    if messageBody.characters.count > 20 {
+        let endOfDomain = messageBody.index(messageBody.startIndex, offsetBy: 17)
+        let rangeOfDomain = messageBody.startIndex ..< endOfDomain
+        messageBody = messageBody[rangeOfDomain]
+    }
+    
+    // 暂时只处理图片
+    switch message.mediaType {
+    case MessageMediaType.image.rawValue:
+        messageBody = "图片"
+    default:
+        break
+    }
+    
+    let dict: [String: Any] = [
+        "alert": "\(creatorNickname)" + ": " + "\(messageBody)",
+        "type": AppDelegate.RemoteNotificationType.message.rawValue,
+        "messageID": message.lcObjectID,
+        "badge": "Increment",
+        "sound": "default"
+    ]
+    
+    //    AVPush.setProductionMode(false)
+    let push = AVPush()
+    push.setChannel(message.recipientID)
+    
+    push.setData(dict)
+    push.sendInBackground()
+}
+
+// MARK: - Login
 public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: String, failureHandler: @escaping FailureHandler, completion: (() -> Void)? ) {
     
     if phoneNumber == Config.AppStoreTestAccount.username {
@@ -1036,18 +1012,21 @@ public func fetchMobileVerificationCode(with loginType: LoginType, phoneNumber: 
     }
 }
 
-/// 注册登录
 public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCode: String,  failureHandler: @escaping FailureHandler, completion: ((AVUser) -> Void)? ) {
     
     if phoneNumber == Config.AppStoreTestAccount.username {
         
-//        let user = AVUser()
-//        user.username = Config.AppStoreTestAccount.username
-//        user.password = Config.AppStoreTestAccount.password
-//        user.signUpInBackground({ success, error in
-//            if success { completion?(user) }
-//            if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
-//        })
+        /*
+         测试用户
+         let user = AVUser()
+         user.username = Config.AppStoreTestAccount.username
+         user.password = Config.AppStoreTestAccount.password
+         user.signUpInBackground({ success, error in
+         if success { completion?(user) }
+         if error != nil { failureHandler(Reason.other(error as? NSError), nil) }
+         })
+         */
+        
         AVUser.logInWithUsername(inBackground: Config.AppStoreTestAccount.username, password: Config.AppStoreTestAccount.password, block: {
             user, error in
             
@@ -1064,4 +1043,3 @@ public func signUpOrLogin(with loginType: LoginType, phoneNumber: String, smsCod
         }
     }
 }
-

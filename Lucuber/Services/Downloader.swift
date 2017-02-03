@@ -120,7 +120,6 @@ class CubeDownloader: NSObject {
                     
                     }
                 }
-                
             }
         }
 
@@ -191,9 +190,8 @@ class CubeDownloader: NSObject {
 
         }
     }
-
     
-     func finishDownloadTask(_ downloadTask: URLSessionDataTask) {
+    func finishDownloadTask(_ downloadTask: URLSessionDataTask) {
         
         for i in 0..<progressContainer.count {
             
@@ -217,66 +215,64 @@ class CubeDownloader: NSObject {
             }
         }
     }
-
-
+    
+    
 }
 
 extension CubeDownloader: URLSessionDelegate {
-
-
-
+    
 }
 
 extension CubeDownloader: URLSessionDataDelegate {
-
+    
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void) {
-
+        
         completionHandler(.allow)
         for progressReporter in progressContainer {
-
+            
             for i in 0..<progressReporter.tasks.count {
-
+                
                 if dataTask == progressReporter.tasks[i].downloadTask {
                     progressReporter.tasks[i].progress.totalUnitCount = response.expectedContentLength
                     progressReporter.reportProgress?(progressReporter.totalProgress, nil)
-
+                    
                     return
                 }
             }
         }
     }
-
+    
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-
+        
         for progressReporter in progressContainer {
-
+            
             for i in 0..<progressReporter.tasks.count {
-
+                
                 if dataTask == progressReporter.tasks[i].downloadTask {
-
+                    
                     let didReceiveDataBytes = Int64((data as NSData).length)
                     progressReporter.tasks[i].progress.completedUnitCount += didReceiveDataBytes
                     progressReporter.tasks[i].tempData.append(data)
-
+                    
                     let progress = progressReporter.tasks[i].progress
                     let final = progress.completedUnitCount == progress.totalUnitCount
-
+                    
                     let imageSource = progressReporter.tasks[i].imageSource
                     let data = progressReporter.tasks[i].tempData
-
+                    
                     CGImageSourceUpdateData(imageSource, data as CFData, final)
-
+                    
                     var transitionImage: UIImage?
-
+                    
                     if let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) {
-
+                        
                         let image = UIImage(cgImage: cgImage.extendedCanvasCGImage)
-
+                        
                         if progressReporter.totalProgress < 1 {
                             let blurPercent = CGFloat(1 - progressReporter.totalProgress)
                             let radius = 5 * blurPercent
                             let iterations = UInt(10 * blurPercent)
-
+                            
                             if let blurredImage = image.blurredImage(withRadius: radius, iterations: iterations, tintColor: UIColor.clear) {
                                 if let imageTransform = progressReporter.tasks[i].imageTransform {
                                     transitionImage = imageTransform(blurredImage)
@@ -284,18 +280,16 @@ extension CubeDownloader: URLSessionDataDelegate {
                             }
                         }
                     }
-
+                    
                     progressReporter.reportProgress?(progressReporter.totalProgress, transitionImage)
-
+                    
                     if final {
-
+                        
                         finishDownloadTask(dataTask)
                     }
                 }
             }
         }
     }
-
-
 }
 

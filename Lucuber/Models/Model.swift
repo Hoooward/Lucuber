@@ -149,7 +149,6 @@ open class RCategory: Object {
 }
 
 // MARK: - Formula
-
 open class Formula: Object {
     
     override open static func primaryKey() -> String? {
@@ -335,7 +334,6 @@ open class Content: Object {
 
 
 // MARK: - User
-
 open class Preferences: Object {
     // 未登录用户在登录成功时, 将其设置为 0.9
     dynamic var dateVersion: String = ""
@@ -544,7 +542,7 @@ enum MessageSendState: Int, CustomStringConvertible {
 
 // MARK: - Message
 
-public class Message: Object {
+open class Message: Object {
     
     //    public dynamic var openGraphDetected: Bool = false
     //    public dynamic var openGraphInfo: OpenGraphInfo?
@@ -698,7 +696,6 @@ open class MediaMetaData: Object {
 }
 
 // MARK: - Feed
-
 public enum FeedSortStyle: String {
     
     case distance = "distance"
@@ -796,8 +793,6 @@ public enum FeedCategory: String {
 //}
 
 open class Attachment: Object {
-    
-    //dynamic var kind: String = ""
     open dynamic var metadata: String = ""
     open dynamic var URLString: String = ""
 }
@@ -810,11 +805,9 @@ open class FeedAudio: Object {
 }
 
 open class FeedLocation: Object {
-    
     //    public dynamic var name: String = ""
     //    public dynamic var coordinate: Coordinate?
 }
-
 
 open class OpenGraphInfo: Object {
     
@@ -887,9 +880,7 @@ open class Feed: Object {
         }
         
         realm.delete(self)
-        
     }
-    
 }
 
 public enum GroupType: Int {
@@ -1458,54 +1449,3 @@ open class ScoreGroup: Object {
         return Config.timeSectionFormatter().string(from: Date(timeIntervalSince1970: self.createdUnixTime))
     }
 }
-
-// MARK: - Group
-
-public func scoreGroupWith(_ localObjectId: String, inRealm realm: Realm) -> ScoreGroup? {
-    let predicate = NSPredicate(format: "localObjectId == %@", localObjectId)
-    return realm.objects(ScoreGroup.self).filter(predicate).first
-}
-
-public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreGroup> {
-    guard let user = user else { fatalError() }
-    
-    let predicate = NSPredicate(format: "creator == %@", user)
-    let predicate2 = NSPredicate(format: " isDeleteByCreator == %@", false as CVarArg)
-    let result = realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
-    
-    if result.first == nil {
-        try? realm.write {
-            let newGroup = ScoreGroup()
-            newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
-            newGroup.category = "三阶"
-            newGroup.creator = currentUser(in: realm)
-            realm.add(newGroup)
-        }
-    }
-    return realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
-}
-
-
-public func getOrCreatedMyLastScoreGroup(inRealm realm: Realm) -> ScoreGroup {
-    
-    var group = scoreGroupWith(user: currentUser(in: realm), inRealm: realm).first
-    
-    if group == nil {
-        
-        try? realm.write {
-            let newGroup = ScoreGroup()
-            newGroup.localObjectId = ScoreGroup.randomLocalObjectID()
-            newGroup.category = "三阶"
-            newGroup.creator = currentUser(in: realm)
-            realm.add(newGroup)
-            
-            group = newGroup
-        }
-    }
-    
-    return group!
-}
-
-
-
-
