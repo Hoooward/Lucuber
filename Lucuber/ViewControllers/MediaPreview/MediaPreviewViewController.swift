@@ -32,7 +32,6 @@ class MediaPreviewViewController: UIViewController {
             currentIndex = startIndex
         }
     }
-
     // 为 true 时, 在 dismiss 动画时, 不更新 frame
     var isConversationDismissStyle: Bool = false
 
@@ -137,22 +136,18 @@ class MediaPreviewViewController: UIViewController {
 
             self?.mediasCollectionView.alpha = 1
 
-
             UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
                 [weak self] in
-
                 self?.mediaControlView.alpha = 1
 
             }, completion: { _ in })
 
             UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
                 [weak self] in
-
                 self?.topPreviewImageView.alpha = 0
                 self?.bottomPreviewImageView.alpha = 0
 
             }, completion: { _ in
-
                 self?.showFinished = true
             })
         })
@@ -187,9 +182,7 @@ class MediaPreviewViewController: UIViewController {
                 guard let previewMedia = self?.previewMedias[index] else {
                     return
                 }
-
-
-                // TODO: - 设置分享 actino
+                
                 self?.prepareForShare(with: cell, previewMedia: previewMedia)
             }
         }
@@ -243,7 +236,6 @@ class MediaPreviewViewController: UIViewController {
             frame.origin.x += CGFloat(offsetIndex) * frame.width + CGFloat(offsetIndex) * 4
         }
 
-
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
             [weak self] in
 
@@ -254,13 +246,12 @@ class MediaPreviewViewController: UIViewController {
 
             self?.topPreviewImageView.frame = frame
             self?.bottomPreviewImageView.frame = frame
-
-        }, completion: { _ in
-            finishDismissAction()
+            
+            }, completion: { _ in
+                finishDismissAction()
         }
         )
     }
-
 
     fileprivate func prepareForShare(with cell: MediaViewCell, previewMedia: PreviewMedia) {
         
@@ -313,7 +304,6 @@ class MediaPreviewViewController: UIViewController {
                 break
             }
             
-            
         case .localImage(let image):
             
             mediaControlView.type = .image
@@ -349,7 +339,6 @@ class MediaPreviewViewController: UIViewController {
                 activityViewController.excludedActivityTypes = [UIActivityType.message, UIActivityType.mail]
                 
                 self?.present(activityViewController, animated: true, completion: nil)
-                
             }
 
         case .attachmentType(_):
@@ -391,7 +380,6 @@ class MediaPreviewViewController: UIViewController {
                 activityViewController.excludedActivityTypes = [UIActivityType.message, UIActivityType.mail]
                 
                 self?.present(activityViewController, animated: true, completion: nil)
-                
             }
             
         default:
@@ -409,7 +397,6 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return previewMedias.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
