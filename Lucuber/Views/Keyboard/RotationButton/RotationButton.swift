@@ -114,7 +114,6 @@ class RotationButton: UIButton {
             
             POPAnimation()
         }
-        
     }
     
     func POPAnimation() {
@@ -140,30 +139,5 @@ class RotationButton: UIButton {
 //        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
-
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-

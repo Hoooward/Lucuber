@@ -306,7 +306,6 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         tableView.registerClass(of: FeedFormulaCell.self)
         tableView.registerNib(of: LoadMoreTableViewCell.self)
         
-
         tableView.contentOffset.y = searchBar.frame.height
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
@@ -1105,5 +1104,3 @@ extension FeedsViewController: UISearchBarDelegate {
         return false
     }
 }
-
-

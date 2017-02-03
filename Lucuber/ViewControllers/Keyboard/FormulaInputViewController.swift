@@ -145,8 +145,7 @@ class FormulaInputViewController: UIViewController {
         
     }
 
-    
-    // MARK: - Action & Target 
+    // MARK: - Action & Target
     func keyButtonDidClick(button: KeyButton) {
         
         switch button.item!.type {
@@ -161,8 +160,4 @@ class FormulaInputViewController: UIViewController {
         
     }
 
-    
-    
-    
-    
 }

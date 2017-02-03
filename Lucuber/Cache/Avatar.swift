@@ -17,14 +17,11 @@ let nanoAvatarStyle: AvatarStyle = .roundedRectangle(size: CGSize(width: 40, hei
 let picoAvatarStyle: AvatarStyle = .roundedRectangle(size: CGSize(width: 30, height: 30), cornerRadius: 15, borderWidth: 0)
 
 struct CubeAvatar {
-    
     let avatarUrlString: String
     let avatarStyle: AvatarStyle
-    
 }
 
 extension CubeAvatar: Navi.Avatar {
-
     
     var url: URL? {
         return URL(string: avatarUrlString)
@@ -33,7 +30,6 @@ extension CubeAvatar: Navi.Avatar {
     var style: AvatarStyle {
         return avatarStyle
     }
-    
     
     var placeholderImage: UIImage? {
         
@@ -65,7 +61,6 @@ extension CubeAvatar: Navi.Avatar {
         return nil
     }
     
-    
     var localStyledImage: UIImage? {
         
         switch style {
@@ -90,7 +85,6 @@ extension CubeAvatar: Navi.Avatar {
         
         return nil
     }
-    
     
     func save(originalImage: UIImage, styledImage: UIImage) {
         
@@ -123,7 +117,6 @@ extension CubeAvatar: Navi.Avatar {
             try? realm.write {
                 avatar.avatarFileName = avatarFileName
             }
-            
         }
         
         switch style {
@@ -155,23 +148,5 @@ extension CubeAvatar: Navi.Avatar {
         default:
             break
         }
-        
     }
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

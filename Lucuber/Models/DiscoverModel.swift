@@ -205,7 +205,7 @@ public struct ImageAttachment {
     
 }
 
-open class DiscoverFeed: AVObject, AVSubclassing {
+public class DiscoverFeed: AVObject, AVSubclassing {
     
     public class func parseClassName() -> String {
         return "DiscoverFeed"
@@ -397,7 +397,7 @@ extension DiscoverFeed {
     }
 }
 
-open class DiscoverContent: AVObject, AVSubclassing {
+public class DiscoverContent: AVObject, AVSubclassing {
     public class func parseClassName() -> String {
         return "DiscoverContent"
     }

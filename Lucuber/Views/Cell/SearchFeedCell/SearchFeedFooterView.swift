@@ -244,13 +244,3 @@ extension SearchFeedFooterView: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
-
-
-
-
-
-
-
-
-
-

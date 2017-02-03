@@ -74,7 +74,6 @@ struct SearchFeedCellLayout {
     }
     var _URLLayout: URLLayout?
     
-    
     struct FormulaLayout {
         let formulaContainerViewFrame: CGRect
     }
@@ -114,7 +113,6 @@ struct SearchFeedCellLayout {
         }
         
         self.height = height
-        
         
         let avatarImageViewFrame = CGRect(x: 10, y: 15, width: 30, height: 30)
         let nicknameLabelFrame: CGRect
@@ -202,28 +200,8 @@ struct SearchFeedCellLayout {
                 self.anyImagesLayout = anyImagesLayout
             }
            
-            
         default:
             break
         }
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

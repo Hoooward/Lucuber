@@ -37,27 +37,6 @@ final class SearchFeedAnyImagesCell: SearchFeedBasicCell {
         node.dataSource = self
         node.delegate = self
         
-//        let backgroundView = TouchClosuresView(frame: node.view.bounds)
-//        backgroundView.touchesBeganAction = { [weak self] in
-//            if let strongSelf = self {
-//                strongSelf.touchesBeganAction?(strongSelf)
-//            }
-//        }
-//        backgroundView.touchesEndedAction = { [weak self] in
-//            if let strongSelf = self {
-//                if strongSelf.isEditing {
-//                    return
-//                }
-//                strongSelf.touchesEndedAction?(strongSelf)
-//            }
-//        }
-//        backgroundView.touchesCancelledAction = { [weak self] in
-//            if let strongSelf = self {
-//                strongSelf.touchesCancelledAction?(strongSelf)
-//            }
-//        }
-//        node.view.backgroundView = backgroundView
-        
         return node
     }()
     
@@ -104,7 +83,6 @@ extension SearchFeedAnyImagesCell: ASCollectionDelegate, ASCollectionDataSource 
         return 1
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageAttachments.count
     }
@@ -127,11 +105,7 @@ extension SearchFeedAnyImagesCell: ASCollectionDelegate, ASCollectionDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        
-//        guard let firstAttachment = imageAttachments.first, !firstAttachment.isTemporary else {
-//            return
-//        }
-        
+
         guard let node = mediaCollectionNode.view.nodeForItem(at: indexPath) as? FeedImageCellNode else {
             return
         }
@@ -143,6 +117,4 @@ extension SearchFeedAnyImagesCell: ASCollectionDelegate, ASCollectionDataSource 
         tapMediaAction?(transitionView, image, imageAttachments, index)
 
     }
-    
-    
 }

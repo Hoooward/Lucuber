@@ -225,5 +225,4 @@ enum ConversationFeed {
             return timeString
         }
     }
-
 }

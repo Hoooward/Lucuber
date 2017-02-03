@@ -9,7 +9,6 @@
 import UIKit
 import Kingfisher
 
-
 private var activityIndicatorKey: Void?
 private var showActivityIndicatorWhenLoadingKey: Void?
 
@@ -59,7 +58,6 @@ extension UIImageView {
 }
 
 private var imageAttachmentURLKey: Void?
-
 extension UIImageView {
     
     fileprivate var imageAttachmentURL: NSURL? {
@@ -77,12 +75,10 @@ extension UIImageView {
             
             }, completionHandler: { (image, error, cacheType, imageURL) in
         })
-     
     }
 }
 
 // MARK: - Feed
-
 extension UIImageView {
     
     public func cube_setImageAtFeedCellWithAttachment(attachment: ImageAttachment, withSize size: CGSize?) {
@@ -128,9 +124,7 @@ extension UIImageView {
 }
 
 // MARK: - Formula
-
 extension UIImageView {
-    
     
     public func cube_setImageAtFormulaCell(with URLString: String, size: CGSize?) {
         guard let URL = NSURL(string: URLString) else {
@@ -176,7 +170,6 @@ extension UIImageView {
 }
 
 // MARK: - Message
-
 private var messageImageAssociatedKey: Void?
 extension UIImageView {
     
@@ -188,13 +181,11 @@ extension UIImageView {
         objc_setAssociatedObject(self, &messageImageAssociatedKey, messageMapImageKey, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
-    
     public func cube_setImage(with message: Message , size: CGSize, direction: MessageImageBubbleDirection, completion: @escaping (Double, UIImage?) -> Void) {
         
         let imageKey = message.imageKey
         
         cube_setMessageImageKey(messageMapImageKey: imageKey)
-        
         
         CubeImageCache.shard.imageOfMessage(message: message, withSize: size, direction: direction, completion: {
             [weak self] progress, image in
@@ -209,18 +200,3 @@ extension UIImageView {
         
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

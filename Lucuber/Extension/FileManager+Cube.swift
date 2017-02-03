@@ -79,7 +79,6 @@ extension FileManager {
     }
     
     // MARK: - Message
-    
     public class func cubeMessageCachesURL() -> URL? {
         
         let fileManager = FileManager.default
@@ -96,7 +95,6 @@ extension FileManager {
     }
     
     // MARK: - Image
-    
     public class func cubeMessageImageURL(with name: String) -> URL? {
         
         if let messageCachesURL = cubeMessageCachesURL() {
@@ -129,7 +127,6 @@ extension FileManager {
     }
     
     // MARK: - Audio
-    
     public class func cubeMessageAudioURL(with name: String) -> URL? {
         if let messageCachesURL = cubeMessageCachesURL() {
             return messageCachesURL.appendingPathComponent("\(name).\(FileExtension.m4a.rawValue)")
@@ -162,7 +159,6 @@ extension FileManager {
     }
     
     // MARK: - Video
-    
     public class func cubeMessageVideoURL(with name: String) -> URL? {
         
         if let messageCachesURL = cubeMessageCachesURL() {
@@ -203,7 +199,6 @@ extension FileManager {
     }
     
     // MARK: - Formula
-    
     public class func cubeFormulaLocailImageCachesURL() -> URL? {
         
         let fileManager = FileManager.default
@@ -249,8 +244,7 @@ extension FileManager {
         }
     }
     
-    
-    // clear
+    // MARK: - clear
     public class func cleanCachesDirectoryAtURL(_ cachesDirectoryURL: URL) {
         let fileManager = FileManager.default
         
@@ -277,24 +271,3 @@ extension FileManager {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
