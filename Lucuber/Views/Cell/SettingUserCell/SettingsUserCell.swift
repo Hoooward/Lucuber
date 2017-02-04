@@ -33,13 +33,17 @@ class SettingsUserCell: UITableViewCell {
         nameLabel.text = user.nickname.isEmpty ? "没有昵称": user.nickname
         introLabel.text = user.introduction ?? "没有自我介绍"
         
-        if let avatarURLString = user.avatorImageURL {
+        if let avatarURLString = user.avatorImageURL, !avatarURLString.isEmpty {
             
             let avatarSize: CGFloat = 80
             let avatarStyle: AvatarStyle = AvatarStyle.roundedRectangle(size: CGSize(width: avatarSize, height: avatarSize), cornerRadius: avatarSize * 0.5, borderWidth: 0)
             let avatar = CubeAvatar(avatarUrlString: avatarURLString, avatarStyle: avatarStyle)
             avatarImageView.navi_setAvatar(avatar, withFadeTransitionDuration: 0.0)
             
+        } else {
+            
+            avatarImageView.image = UIImage(named: "default_avatar_60")
         }
+       
     }
 }

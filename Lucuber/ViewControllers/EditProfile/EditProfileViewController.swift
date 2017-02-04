@@ -109,13 +109,18 @@ final class EditProfileViewController: UIViewController {
             return
         }
         
-        if let avatarURLString = me.avatorImageURL {
+        if let avatarURLString = me.avatorImageURL, !avatarURLString.isEmpty {
+            
             let avatarSize = Config.EditProfile.avatarSize
             let size = CGSize(width: avatarSize, height: avatarSize)
             let avatarStyle: AvatarStyle = AvatarStyle.roundedRectangle(size: size, cornerRadius: avatarSize * 0.5, borderWidth: 0)
             let avatar = CubeAvatar(avatarUrlString: avatarURLString, avatarStyle: avatarStyle)
             avatarImageView.navi_setAvatar(avatar, withFadeTransitionDuration: 0.0)
             completion()
+            
+        } else {
+            
+            avatarImageView.image = UIImage(named: "default_avatar_60")
         }
     }
     
