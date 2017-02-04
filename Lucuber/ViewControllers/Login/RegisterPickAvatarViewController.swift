@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import AVOSCloud
 import Photos
+import Proposer
 
 class RegisterPickAvatarViewController: UIViewController {
     
@@ -36,9 +37,12 @@ class RegisterPickAvatarViewController: UIViewController {
         case Captured
     }
 
-    fileprivate var avatar = UIImage() {
+    fileprivate var avatar: UIImage? {
         willSet {
-            avatarImageView.image = newValue
+            guard let image = newValue else {
+                return
+            }
+            avatarImageView.image = image
         }
     }
     
@@ -92,52 +96,73 @@ class RegisterPickAvatarViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         guard PHPhotoLibrary.authorizationStatus() != .authorized else {
             return
         }
-        
-        PHPhotoLibrary.requestAuthorization { status in
+
+        PHPhotoLibrary.requestAuthorization {status in
             
             if status == PHAuthorizationStatus.authorized {
                 printLog("授权成功")
+                DispatchQueue.main.async { [weak self] in
+                    self?.openCameraButton.isHidden = false
+                }
             } else {
                 printLog("授权失败")
+                DispatchQueue.main.async { [weak self] in
+                    self?.pickAvatarState = .Captured
+                    self?.openCameraButton.isHidden = true
+                }
             }
-            
         }
     }
     
-    
     // MARK: - Target & Action
     func next(_ barButton: UIBarButtonItem) {
-        CubeHUD.showActivityIndicator()
         
-        let image = avatar.largestCenteredSquareImage().resizeTo(targetSize: Config.Avatar.maxSize)
-        
-        let imageData = UIImageJPEGRepresentation(image, 0.9)
-        
-        pushDataToLeancloud(with: imageData, failureHandler: {
-            reason, errorMessage in
+        if let avatar = avatar {
+            CubeHUD.showActivityIndicator()
             
-            defaultFailureHandler(reason, errorMessage)
-            CubeHUD.hideActivityIndicator()
-            CubeAlert.alertSorry(message: "上传头像失败, 请检查网络连接或稍后再试", inViewController: self)
+            let image = avatar.largestCenteredSquareImage().resizeTo(targetSize: Config.Avatar.maxSize)
             
-        }, completion: { URLString in
+            let imageData = UIImageJPEGRepresentation(image, 0.9)
             
+            pushDataToLeancloud(with: imageData, failureHandler: {
+                reason, errorMessage in
+                
+                defaultFailureHandler(reason, errorMessage)
+                CubeHUD.hideActivityIndicator()
+                CubeAlert.alertSorry(message: "上传头像失败, 请检查网络连接或稍后再试", inViewController: self)
+                
+            }, completion: { URLString in
+                
+                UserDefaults.setNewUser(avatarURL: URLString ?? "")
+                
+                
+                if let currentUser = AVUser.current() {
+                    currentUser.setAvatorImageURL(URLString ?? "")
+                    currentUser.setNickname(self.nickName!)
+                    currentUser.setLocalObjcetID(RUser.randomLocalObjectID())
+                    currentUser.saveInBackground()
+                }
+                
+                CubeHUD.hideActivityIndicator()
+                
+                if let me = creatMeInRealm() {
+                    printLog(me)
+                    NotificationCenter.default.post(name: Notification.Name.changeRootViewControllerNotification, object: nil)
+                } else {
+                    fatalError("崩了, 新建用户失败喽")
+                }
+            })
             
-            UserDefaults.setNewUser(avatarURL: URLString ?? "")
-            
-            
+        } else {
+           
             if let currentUser = AVUser.current() {
-                currentUser.setAvatorImageURL(URLString ?? "")
                 currentUser.setNickname(self.nickName!)
                 currentUser.setLocalObjcetID(RUser.randomLocalObjectID())
                 currentUser.saveInBackground()
             }
-            
-            CubeHUD.hideActivityIndicator()
             
             if let me = creatMeInRealm() {
                 printLog(me)
@@ -145,10 +170,7 @@ class RegisterPickAvatarViewController: UIViewController {
             } else {
                 fatalError("崩了, 新建用户失败喽")
             }
-            
-            
-            
-        })
+        }
     }
     
     func openPhotoLibraryPicker() {

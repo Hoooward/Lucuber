@@ -30,8 +30,8 @@ class SettingsUserCell: UITableViewCell {
 
     public func configureCell(with user: RUser) {
         
-        nameLabel.text = user.nickname
-        introLabel.text = user.introduction
+        nameLabel.text = user.nickname.isEmpty ? "没有昵称": user.nickname
+        introLabel.text = user.introduction ?? "没有自我介绍"
         
         if let avatarURLString = user.avatorImageURL {
             
@@ -39,19 +39,7 @@ class SettingsUserCell: UITableViewCell {
             let avatarStyle: AvatarStyle = AvatarStyle.roundedRectangle(size: CGSize(width: avatarSize, height: avatarSize), cornerRadius: avatarSize * 0.5, borderWidth: 0)
             let avatar = CubeAvatar(avatarUrlString: avatarURLString, avatarStyle: avatarStyle)
             avatarImageView.navi_setAvatar(avatar, withFadeTransitionDuration: 0.0)
+            
         }
- 
-        
     }
- 
-    
 }
-
-
-
-
-
-
-
-
-
