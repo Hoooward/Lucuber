@@ -49,8 +49,9 @@ extension UIViewController {
             
             let info = AutoReview.Info(
                 appID: "1197999540",
-                title: "评论 Lucuber",
-                message: "请在 AppStore 留下你对 Lucuber 的评价, 感谢!",
+                initialExponentialBackoff: 1,
+                title: "评价 Lucuber",
+                message: "希望你能在 AppStore 留下对 Lucuber 的评价/n你的支持是我最大的动力/n感谢！",
                 doNotRemindMeInThisVersionTitle: "不再提示",
                 maybeNextTimeTitle: "下次再说",
                 confirmTitle: "去评论"
