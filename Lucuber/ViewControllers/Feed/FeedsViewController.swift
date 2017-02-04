@@ -737,7 +737,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let section = Section(rawValue: indexPath.section) else {
@@ -1004,7 +1003,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
       
     }
     
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         guard let section = Section(rawValue: indexPath.section) else {
@@ -1064,7 +1062,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             return false
         }
     }
-    
     
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
         selectedIndexPathForMenu = indexPath
