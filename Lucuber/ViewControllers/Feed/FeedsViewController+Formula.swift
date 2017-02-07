@@ -12,8 +12,6 @@ import RealmSwift
 extension FeedsViewController {
     
     func prepareFeedWithFormula(for Feed: DiscoverFeed, inRealm realm: Realm) {
-        
-        
     }
 }
 

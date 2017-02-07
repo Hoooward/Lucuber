@@ -230,7 +230,6 @@ class MediaPreviewViewController: UIViewController {
 
         var frame = self.previewImageViewInitalFrame ?? CGRect.zero
 
-
         if currentIndex != startIndex && !isConversationDismissStyle {
             let offsetIndex = currentIndex - startIndex
             frame.origin.x += CGFloat(offsetIndex) * frame.width + CGFloat(offsetIndex) * 4
@@ -388,6 +387,7 @@ class MediaPreviewViewController: UIViewController {
     }
 }
 
+//MARK: - CollectionView Delegate & DateSource
 extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -477,6 +477,7 @@ extension MediaPreviewViewController: UICollectionViewDelegate, UICollectionView
     }
 }
 
+// MARK: - ScrollView Delegate
 extension MediaPreviewViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -528,7 +529,6 @@ extension MediaPreviewViewController: UIScrollViewDelegate {
             default:
                 break
             }
-            
         }
     }
 }

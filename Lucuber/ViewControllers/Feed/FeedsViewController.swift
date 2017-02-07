@@ -39,7 +39,7 @@ struct LayoutCatch {
     }
 }
 
-class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
+class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop {
     
     var newFeedViewController: NewFeedViewController?
     
@@ -255,7 +255,6 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
             vc.formula = resultFormula
             vc.previewFormulaStyle = .single
         }
-        
     
         let showFormulaFeedsViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
             let vc = segue.destination as! FeedsViewController
@@ -263,6 +262,7 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
             vc.profileUser = self?.profileUser
             
         }
+        
         if let feedsContainerViewController = self.navigationController?.viewControllers[0] as? FeedsContainerViewController {
             feedsContainerViewController.showProfileViewControllerAction = showProfileViewControllerAction
             feedsContainerViewController.showCommentViewControllerAction = showCommentViewControllerAction
@@ -280,7 +280,6 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         recoverOriginalNavigationDelegate()
     }
     
@@ -298,7 +297,6 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         
-        
         tableView.registerClass(of: FeedBaseCell.self)
         tableView.registerClass(of: FeedBiggerImageCell.self)
         tableView.registerClass(of: FeedAnyImagesCell.self)
@@ -309,10 +307,9 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
         tableView.contentOffset.y = searchBar.frame.height
         
         navigationController?.navigationBar.tintColor = UIColor.cubeTintColor()
+        
         navigationItem.title = "话题"
-        
         searchBar.placeholder = "搜索话题"
-        
         
         if seletedFeedCategory != nil {
             navigationItem.titleView = formulaTextTitleView
@@ -354,24 +351,24 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     }
     
     // MARK: - Target & Action
-    
     @objc fileprivate func deletedFeed(sender: Notification) {
         
-        guard !feeds.isEmpty else {
-            return
-        }
+        guard !feeds.isEmpty else { return }
         
         let feedID = sender.object as! String
         var indexOfDeletedFeed: Int?
+        
         for (index, feed) in feeds.enumerated() {
             if feed.objectId! == feedID {
                 indexOfDeletedFeed = index
                 break
             }
         }
+        
         guard let index = indexOfDeletedFeed else {
             return
         }
+        
         feeds.remove(at: index)
         
         let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
@@ -379,7 +376,6 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     }
     
     fileprivate var canLoadMore: Bool = true
-    
     fileprivate func uploadFeed(mode: UploadFeedMode = .top, finish: (() -> Void)? = nil) {
         
         if isUploadingFeed {
@@ -519,193 +515,192 @@ class FeedsViewController: BaseViewController, SearchTrigeer, CanScrollsToTop{
     }
     
     // MARK: - Segue
-    
-    
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        
-//        guard let identifier = segue.identifier else {
-//            return
-//        }
-//        
-//        switch identifier {
-//            
-//        case "showProfieView":
-//            
-//            let vc = segue.destination as! ProfileViewController
-//            
-//            if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
-//                
-//                switch section {
-//                case .uploadingFeed:
-//                    let discoveredUser = uploadingFeeds[indexPath.row].creator
-//                    vc.prepare(with: discoveredUser)
-//                case .feed:
-//                    let discoveredUser = feeds[indexPath.row].creator
-//                    vc.prepare(with: discoveredUser)
-//                default:
-//                    break
-//                }
-//            }
-//            
-//            
-//        case "showCommentView":
-//            
-//            let vc = segue.destination as! CommentViewController
-//            
-//            guard let indexPath = sender as? IndexPath,
-//                let feed = feeds[safe: indexPath.row],
-//                let realm = try? Realm() else {
-//                    return
-//            }
-//            
-//            realm.beginWrite()
-//            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
-//            try? realm.commitWrite()
-//            
-//            vc.conversation = feedConversation
-//            vc.hidesBottomBarWhenPushed = true
-//            vc.feed = feed
-//            
-//            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
-//                
-//                if let strongSelf = self {
-//                    
-//                    var deletedFeed: DiscoverFeed?
-//                    for feed in strongSelf.feeds {
-//                        if feed.objectId! == feedLcObjcetID {
-//                            deletedFeed = feed
-//                            break
-//                        }
-//                    }
-//                    
-//                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
-//                        strongSelf.feeds.remove(at: index)
-//                        
-//                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
-//                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
-//                        
-//                        return
-//                    }
-//                    
-//                    delay(1) {
-//                        strongSelf.uploadFeed()
-//                    }
-//                }
-//            }
-//            
-//            
-//        case "showFormulaDetail":
-//            
-//            let vc = segue.destination as! FormulaDetailViewController
-//                
-//            guard let indexPath = sender as? IndexPath,
-//                let feed = feeds[safe: indexPath.row],
-//                let realm = try? Realm() else {
-//                    return
-//            }
-//                
-//            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
-//                
-//            if formula == nil {
-//                realm.beginWrite()
-//                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
-//                try? realm.commitWrite()
-//            }
-//                
-//            guard let resultFormula = formula else {
-//                return
-//            }
-//            vc.formula = resultFormula
-//            vc.previewFormulaStyle = .single
-//
-//        default:
-//            break
-//        }
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+            
+        case "showProfieView":
+            
+            let vc = segue.destination as! ProfileViewController
+            
+            if let indexPath = sender as? IndexPath, let section = Section(rawValue: indexPath.section) {
+                
+                switch section {
+                case .uploadingFeed:
+                    let discoveredUser = uploadingFeeds[indexPath.row].creator
+                    vc.prepare(with: discoveredUser)
+                case .feed:
+                    let discoveredUser = feeds[indexPath.row].creator
+                    vc.prepare(with: discoveredUser)
+                default:
+                    break
+                }
+            }
+            
+            
+        case "showCommentView":
+            
+            let vc = segue.destination as! CommentViewController
+            
+            guard let indexPath = sender as? IndexPath,
+                let feed = feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
+                    return
+            }
+            
+            realm.beginWrite()
+            let feedConversation = vc.prepareConversation(for: feed, inRealm: realm)
+            try? realm.commitWrite()
+            
+            vc.conversation = feedConversation
+            vc.hidesBottomBarWhenPushed = true
+            vc.feed = feed
+            
+            vc.afterDeletedFeedAction = { [weak self] feedLcObjcetID in
+                
+                if let strongSelf = self {
+                    
+                    var deletedFeed: DiscoverFeed?
+                    for feed in strongSelf.feeds {
+                        if feed.objectId! == feedLcObjcetID {
+                            deletedFeed = feed
+                            break
+                        }
+                    }
+                    
+                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+                        strongSelf.feeds.remove(at: index)
+                        
+                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+                        
+                        return
+                    }
+                    
+                    delay(1) {
+                        strongSelf.uploadFeed()
+                    }
+                }
+            }
+            
+            
+        case "showFormulaDetail":
+            
+            let vc = segue.destination as! FormulaDetailViewController
+                
+            guard let indexPath = sender as? IndexPath,
+                let feed = feeds[safe: indexPath.row],
+                let realm = try? Realm() else {
+                    return
+            }
+                
+            var formula = feedWith(feed.objectId!, inRealm: realm)?.withFormula
+                
+            if formula == nil {
+                realm.beginWrite()
+                formula = vc.prepareFormulaFrom(feed, inRealm: realm)
+                try? realm.commitWrite()
+            }
+                
+            guard let resultFormula = formula else {
+                return
+            }
+            vc.formula = resultFormula
+            vc.previewFormulaStyle = .single
 
-//        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
-//            [weak self] feed, newFeedViewController in
-//
-//            self?.newFeedViewController = newFeedViewController
-//            
-//            DispatchQueue.main.async {
-//                
-//                guard let strongSelf = self else {
-//                    return
-//                }
-//                strongSelf.tableView.customScrollsToTop()
-//                strongSelf.tableView.beginUpdates()
-//                
-//                strongSelf.uploadingFeeds.insert(feed, at: 0)
-//                
-//                let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
-//                strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-//                
-//                strongSelf.tableView.endUpdates()
-//            }
-//        }
-//        
-//        let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
-//            [weak self] feed in
-//            
-//            self?.newFeedViewController = nil
-//            
-//            DispatchQueue.main.async {
-//                
-//                guard let strongSelf = self else {
-//                    return
-//                }
-//                
-//                feed.parseAttachmentsInfo()
-//                
-//                strongSelf.tableView.customScrollsToTop()
-//
-//                strongSelf.tableView.beginUpdates()
-//                
-//                var animation: UITableViewRowAnimation = .automatic
-//                
-//                if !strongSelf.uploadingFeeds.isEmpty {
-//                    
-//                    strongSelf.uploadingFeeds = []
-//                    
-//                    let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
-//                    
-//                    strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
-//                    
-//                    animation = .none
-//                }
-//                
-//                strongSelf.feeds.insert(feed, at: 0)
-//                
-//                let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
-//                strongSelf.tableView.insertRows(at: [indexPath], with: animation)
-//                
-//                strongSelf.tableView.endUpdates()
-//            }
-//            
-//            // TODO: - joinGroup
-//        }
-//        
-//        let getFeedsViewController: () -> FeedsViewController? = {
-//            [weak self] in
-//            return self
-//        }
-//        
-//        switch identifier {
-//            
-//        case .newFeed:
-//            guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
-//                return
-//            }
-//            vc.beforUploadingFeedAction = beforeUploadingFeedAction
-//            vc.afterUploadingFeedAction = afterCreatedFeedAction
-//            vc.getFeedsViewController = getFeedsViewController
-//    
-//        }
+        default:
+            break
+        }
+
+        let beforeUploadingFeedAction: (DiscoverFeed, NewFeedViewController) -> Void = {
+            [weak self] feed, newFeedViewController in
+
+            self?.newFeedViewController = newFeedViewController
+            
+            DispatchQueue.main.async {
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.tableView.customScrollsToTop()
+                strongSelf.tableView.beginUpdates()
+                
+                strongSelf.uploadingFeeds.insert(feed, at: 0)
+                
+                let indexPath = IndexPath(row: 0, section: Section.uploadingFeed.rawValue)
+                strongSelf.tableView.insertRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                
+                strongSelf.tableView.endUpdates()
+            }
+        }
+        
+        let afterCreatedFeedAction: (DiscoverFeed)-> Void = {
+            [weak self] feed in
+            
+            self?.newFeedViewController = nil
+            
+            DispatchQueue.main.async {
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                feed.parseAttachmentsInfo()
+                
+                strongSelf.tableView.customScrollsToTop()
+
+                strongSelf.tableView.beginUpdates()
+                
+                var animation: UITableViewRowAnimation = .automatic
+                
+                if !strongSelf.uploadingFeeds.isEmpty {
+                    
+                    strongSelf.uploadingFeeds = []
+                    
+                    let indexSet = IndexSet(integer: Section.uploadingFeed.rawValue)
+                    
+                    strongSelf.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+                    
+                    animation = .none
+                }
+                
+                strongSelf.feeds.insert(feed, at: 0)
+                
+                let indexPath = IndexPath(row: 0, section: Section.feed.rawValue)
+                strongSelf.tableView.insertRows(at: [indexPath], with: animation)
+                
+                strongSelf.tableView.endUpdates()
+            }
+            
+            // TODO: - joinGroup
+        }
+        
+        let getFeedsViewController: () -> FeedsViewController? = {
+            [weak self] in
+            return self
+        }
+        
+        switch identifier {
+            
+        case .newFeed:
+            guard let nvc = segue.destination as? UINavigationController, let vc = nvc.topViewController as? NewFeedViewController else {
+                return
+            }
+            vc.beforUploadingFeedAction = beforeUploadingFeedAction
+            vc.afterUploadingFeedAction = afterCreatedFeedAction
+            vc.getFeedsViewController = getFeedsViewController
+    
+        }
     }
+ */
 }
 
-// MARK: - TableView Delegaate&DataSource
-
+// MARK: - TableView Delegate & DataSource
 extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
     
     public enum Section: Int {
@@ -896,7 +891,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     mediaPreviewWindow.rootViewController = vc
                     mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
                     mediaPreviewWindow.makeKeyAndVisible()
-                    
 
                 }
                 
@@ -918,7 +912,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.tapMediaAction = tapMediaAction
                 }
                 
-
             case .formula:
 
                 guard let cell = cell as? FeedFormulaCell else {
@@ -940,6 +933,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 
             default:
                 break
+                
             }
         }
         
@@ -974,6 +968,7 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             }
          
         case .feed:
+            
             let feed = feeds[indexPath.row]
             configureFeedCell(cell: cell, withFeed: feed)
             
@@ -1000,7 +995,6 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.isLoading = false
             })
         }
-      
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -1022,10 +1016,10 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
         case .loadMore:
             return 60
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath , animated: true)
         
         defer {
@@ -1056,8 +1050,8 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             return false
             
         case .feed:
-            
             return true
+            
         default:
             return false
         }
@@ -1091,11 +1085,10 @@ extension FeedsViewController: UITableViewDelegate, UITableViewDataSource {
             UIPasteboard.general.string = cell.messageTextView.text
         }
     }
-    
 }
 
+// MARK: - SearchBar Delegate
 extension FeedsViewController: UISearchBarDelegate {
-    
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         navigationController?.viewControllers[0].performSegue(withIdentifier: "showSearchFeeds", sender: nil)
         return false

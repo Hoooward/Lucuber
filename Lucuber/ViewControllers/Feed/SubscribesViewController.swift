@@ -26,7 +26,6 @@ class SubscribesViewController: UIViewController {
         }
     }
     
-    
     fileprivate var noSubscribeList: Bool {
         return self.feedConversations.count == 0
     }
@@ -102,7 +101,6 @@ class SubscribesViewController: UIViewController {
         
         tableView.setEditing(false, animated: true)
         
-        
         let showCommentViewControllerAction: (UIStoryboardSegue, Any?) -> Void = { [weak self] segue, sender in
             
             guard let strongSelf = self else {
@@ -125,28 +123,30 @@ class SubscribesViewController: UIViewController {
             
             vc.afterDeletedFeedAction = {  _ in
                 
-//                if let strongSelf = self {
-//                    
-//                    var deletedFeed: DiscoverFeed?
-//                    var indexOfDeletedFeed: Int?
-//                    var feeds = strongSelf.feedConversations.map { $0.withGroup?.withFeed }.flatMap({$0})
-//                    for (index, feed) in feeds!.enumerated() {
-//                        if feed.lcObjectID == feedLcObjcetID {
-//                            indexOfDeletedFeed = index
-//                            break
-//                        }
-//                    }
-//                    
-//                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
-//                        strongSelf.feeds.remove(at: index)
-//                        
-//                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
-//                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
-//                        
-//                        return
-//                    }
-//                 
-//                }
+                /*
+                if let strongSelf = self {
+                    
+                    var deletedFeed: DiscoverFeed?
+                    var indexOfDeletedFeed: Int?
+                    var feeds = strongSelf.feedConversations.map { $0.withGroup?.withFeed }.flatMap({$0})
+                    for (index, feed) in feeds!.enumerated() {
+                        if feed.lcObjectID == feedLcObjcetID {
+                            indexOfDeletedFeed = index
+                            break
+                        }
+                    }
+                    
+                    if let deletedFeed = deletedFeed, let index = strongSelf.feeds.index(of: deletedFeed) {
+                        strongSelf.feeds.remove(at: index)
+                        
+                        let indexPath = IndexPath(row: index, section: Section.feed.rawValue)
+                        strongSelf.tableView.deleteRows(at: [indexPath], with: .none)
+                        
+                        return
+                    }
+                 
+                }
+                */
             }
         }
         
@@ -158,18 +158,12 @@ class SubscribesViewController: UIViewController {
     }
     
     deinit {
-        
         NotificationCenter.default.removeObserver(self)
-        
         tableView?.delegate = nil
-        
         feedConversationsNotificationToken?.stop()
-        
     }
     
-    func clearUnread() {
-        
-    }
+    func clearUnread() { }
     
     @objc fileprivate func reloadTableView() {
         self.tableView.reloadData()
@@ -181,6 +175,7 @@ class SubscribesViewController: UIViewController {
     }
 }
 
+// MARK: - TableView Delegate & DataSource
 extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -251,11 +246,9 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
-    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.delete
     }
-    
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "取消订阅"
@@ -340,6 +333,7 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
                     defaultFailureHandler(reason, errorMessage)
                     tableView.setEditing(false, animated: true)
                     CubeAlert.alertSorry(message: "取消订阅失败,请检查网络连接.", inViewController: self)
+                    
                 }, completion: {
                     
                     guard let realm = try? Realm() else {
@@ -353,24 +347,4 @@ extension SubscribesViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
-   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -66,10 +66,8 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
         }
     }
     
-     lazy var feedsViewController: FeedsViewController = {
-        
+    lazy var feedsViewController: FeedsViewController = {
         let vc = UIStoryboard(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "FeedsViewController") as! FeedsViewController
- 
         return vc
     }()
     
@@ -123,7 +121,6 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
             .subscribe(onNext: { [weak self] in self?.currentOption = $0 ?? .subscribe })
             .addDisposableTo(disposeBag)
         
-        
         self.dataSource = self
         self.delegate = self
     }
@@ -132,6 +129,7 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
+    
     // MARK: - Target & Action
     func createNewFeedsAction() {
         feedsViewController.creatNewFeed(UIButton())
@@ -163,20 +161,21 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
             
         case "showProfileView":
             showProfileViewControllerAction?(segue, sender)
-            
             recoverOriginalNavigationDelegate()
-
             
         case "showCommentView":
-            printLog(showCommentViewControllerAction)
+//            printLog(showCommentViewControllerAction)
             showCommentViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
+            
         case "showFormulaDetail":
             showFormulaDetailViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
+            
         case "showFormulaFeeds":
             showFormulaFeedsViewControllerAction?(segue, sender)
             recoverOriginalNavigationDelegate()
+            
         default:
             break
         }
@@ -184,6 +183,7 @@ class FeedsContainerViewController: UIPageViewController, CanScrollsToTop, Searc
     
 }
 
+//MARK: - PageViewController Delegate & DataSource
 extension FeedsContainerViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -206,16 +206,14 @@ extension FeedsContainerViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        guard completed else {
-            return
-        }
+        guard completed else { return }
         
         if previousViewControllers.first == subscribesViewController {
             currentOption = .feeds
         } else if previousViewControllers.first == feedsViewController {
             currentOption = .subscribe
         }
+        
         segmentedControl.selectedSegmentIndex = currentOption.rawValue
     }
 }
-

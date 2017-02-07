@@ -117,9 +117,9 @@ extension FeedsViewController {
             [weak self] in
             return self
         }
-        
 
         let view = ActionSheetView(items: [
+            
             .Option(
                 title: "文字和图片",
                 titleColor: UIColor.cubeTintColor(),
@@ -178,16 +178,18 @@ extension FeedsViewController {
                 }
             ),
             
-//            .Option(
-//                title: "复原成绩",
-//                titleColor: UIColor.cubeTintColor(),
-//                action: { [weak self] in
-//                    guard let _ = self else { return }
-//                    
-//                }
-//            ),
-            .Cancel
+            /*
+            .Option(
+                title: "复原成绩",
+                titleColor: UIColor.cubeTintColor(),
+                action: { [weak self] in
+                    guard let _ = self else { return }
+                    
+                }
+            ),
+             */
             
+            .Cancel
             ]
         )
         return view
