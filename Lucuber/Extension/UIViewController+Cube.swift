@@ -11,15 +11,11 @@ import SafariServices
 import MonkeyKing
 import AutoReview
 
-protocol Shareable {
-}
+protocol Shareable { }
 
-extension URL: Shareable {
-}
+extension URL: Shareable { }
 
-extension UIImage: Shareable {
-}
-
+extension UIImage: Shareable { }
 
 extension UIViewController {
     
@@ -36,7 +32,6 @@ extension UIViewController {
 }
 
 //MARK: - Review
-
 extension UIViewController {
     
     func remindUserToReview() {
@@ -60,12 +55,10 @@ extension UIViewController {
         }
         
         delay(3, clouser: remindAction)
-      
     }
 }
 
 // MARK: - Report
-
 extension UIViewController {
     
     enum ReportObject {
@@ -91,7 +84,6 @@ extension UIViewController {
             default:
                 break
             }
-            
         }
         
         let reportAlertController = UIAlertController(title: "举报原因", message: nil, preferredStyle: .actionSheet)
@@ -121,7 +113,6 @@ extension UIViewController {
         })
         
         reportAlertController.addAction(otherReasonAction)
-        
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "取消", style: .cancel) { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
@@ -204,48 +195,24 @@ extension UIViewController {
     
     func alertCanNotAccessNotification() {
         
-        CubeAlert.confirmOrCancel(title: "", message: "你没有开启 Lucuber 的通知权限.\n如果希望接受消息提醒,请前往设置修改", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
+        DispatchQueue.main.async {
             
-            let url = URL(string: UIApplicationOpenSettingsURLString)!
-            
-            if #available(iOS 10, *)  {
+            CubeAlert.confirmOrCancel(title: "", message: "你没有开启 Lucuber 的通知权限.\n如果希望接受消息提醒,请前往设置修改", confirmTitle: "前往设置", cancelTitles: "取消", inViewController: self, confirmAction: {
                 
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                let url = URL(string: UIApplicationOpenSettingsURLString)!
                 
-            } else {
+                if #available(iOS 10, *)  {
+                    
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    
+                } else {
+                    
+                    UIApplication.shared.openURL(url)
+                }
                 
-                UIApplication.shared.openURL(url)
-            }
-            
-        }, cancelAction: {
-            
-        })
-       
+            }, cancelAction: {
+                
+            })
+        }
     }
-}
-
-extension UIViewController {
-    
-   
-//    func showMediaPreviewViewControllerWith(_ transitionView: UIView, image: UIImage?, imageAttachments: [ImageAttachment], index: Int) {
-//        
-//        weak var weakSelf = self
-//        
-//        let vc = UIStoryboard(name: "MediaPreview", bundle: nil).instantiateViewController(withIdentifier: "MediaPreviewViewController") as! MediaPreviewViewController
-//        
-//        vc.startIndex = index
-//        let frame = transitionView.convert(transitionView.bounds, to: weakSelf?.view)
-//        vc.previewImageViewInitalFrame = frame
-//        vc.bottomPreviewImage = image
-//        
-//        vc.afterDismissAction = { [weak self] in
-//            self?.view.window?.makeKeyAndVisible()
-//        }
-//        
-//        vc.previewMedias = imageAttachments.map { PreviewMedia.attachmentType($0) }
-//        
-//        mediaPreviewWindow.rootViewController = vc
-//        mediaPreviewWindow.windowLevel = UIWindowLevelAlert - 1
-//        mediaPreviewWindow.makeKeyAndVisible()
-//    }
 }

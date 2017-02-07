@@ -108,7 +108,6 @@ class NewFeedViewController: UIViewController {
         return imagePicker
     }()
     
-    
     @IBOutlet weak var formulaView: FeedFormulaView!
     @IBOutlet weak var mediaCollectionView: UICollectionView!
     @IBOutlet weak var mediaCollectionViewHeightConstraint: NSLayoutConstraint!
@@ -131,13 +130,11 @@ class NewFeedViewController: UIViewController {
         
         switch attachment {
         case .normal:
-            
             title = "新话题"
             mediaCollectionView.isHidden = false
             formulaView.isHidden = true
             
         case .formula:
-            
             title = "创建公式(2/2)"
             mediaCollectionView.isHidden = true
             formulaView.isHidden = false
@@ -177,10 +174,10 @@ class NewFeedViewController: UIViewController {
     }
     
     deinit {
+        printLog("\(self)" + "已正确释放")
     }
     
     // MARK: -  Action & Target
-    
     func tryMakeUploadingFeed() -> DiscoverFeed? {
         
         guard let currentAVUser = AVUser.current(), let realm = try? Realm(), let _ = currentUser(in: realm) else {
@@ -263,8 +260,7 @@ class NewFeedViewController: UIViewController {
         post(again: false)
     }
     
-    
-     func post(again: Bool) {
+    func post(again: Bool) {
         
         let messageLength = messageTextView.text.characters.count
         
@@ -272,7 +268,7 @@ class NewFeedViewController: UIViewController {
             CubeAlert.alertSorry(message: "发表的内容太长喽, 建议在 300 个字以内.", inViewController: self)
             return
         }
-    
+        
         if !again {
             uploadState = .uploading
             
@@ -300,7 +296,7 @@ class NewFeedViewController: UIViewController {
                 [weak self] in
                 
                 if let openGraph = openGraph, openGraph.isValid {
-                   
+                    
                     category = .url
                     
                     let URLInfo: JSONDictionary = [
@@ -309,7 +305,7 @@ class NewFeedViewController: UIViewController {
                         "title": (openGraph.title ?? "").truncateForFeed,
                         "description": (openGraph.description ?? "").truncateForFeed,
                         "image_url": openGraph.previewImageURLString ?? "",
-                    ]
+                        ]
                     
                     attachments = URLInfo 
                 }
@@ -332,23 +328,19 @@ class NewFeedViewController: UIViewController {
                     if !category.needBackgroundUpload {
                         self?.dismiss(animated: true, completion: nil)
                     }
-                    
 //                    syncGroupsAndDoFurtherAction {}
-                    
                 })
             }
             
-            
             guard category.needParseOpenGraph,
                 let firstURL = message.opengraph_embeddedURLs.first else {
-                doCreateFeed()
-                return
+                    doCreateFeed()
+                    return
             }
             
             let parseOpenGraphGroup = DispatchGroup()
             
             parseOpenGraphGroup.enter()
-            
             
             openGraphWithURL(firstURL, failureHandler: {
                 reason, errorMessage in
@@ -364,12 +356,10 @@ class NewFeedViewController: UIViewController {
                 parseOpenGraphGroup.leave()
             })
             
-            
             parseOpenGraphGroup.notify(queue: DispatchQueue.main, execute: {
                 
                 doCreateFeed()
             })
-            
         }
         
         switch attachment {
@@ -399,9 +389,7 @@ class NewFeedViewController: UIViewController {
                 let fixedSize = CGSize(width: fixedImageWidth, height: fixedImageHeight)
                 
                 if let image = image.resizeTo(targetSize: fixedSize, quality: CGInterpolationQuality.high), let imageData = UIImageJPEGRepresentation(image, 0.95) {
-                    
                     imagesData.append(imageData)
-                    
                 }
             }
             
@@ -436,7 +424,7 @@ class NewFeedViewController: UIViewController {
                 
                 if let strongSelf = self {
                     
-                   let bigger = (strongSelf.mediaImages.count == 1)
+                    let bigger = (strongSelf.mediaImages.count == 1)
                     
                     for i in 0..<strongSelf.mediaImages.count {
                         
@@ -461,10 +449,9 @@ class NewFeedViewController: UIViewController {
                         
                         ImageCache.default.store(image, original: originalData, forKey: originalKey, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: nil)
                     }
-                    
                 }
             })
-      
+            
         case .formula:
             
             // 这个公式信息已经被本地 Realm 存储. 直接创建新实例
@@ -479,19 +466,18 @@ class NewFeedViewController: UIViewController {
                 defaultFailureHandler(reason, errorMessage)
                 
                 self.uploadState = .failed(message: "上传公式失败")
-
+                
             }, completion: { newDiscoverFormula in
                 
                 category = .formula
                 tryCreateFeed(newDiscoverFormula)
                 
             })
-           
             
         default:
             break
+            
         }
-        
     }
     
     @IBAction func dismiss(_ sender: Any) {
@@ -504,21 +490,20 @@ class NewFeedViewController: UIViewController {
     }
     
     // MARK: -  Segue
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPickPhotoView" {
             
             if let vc = segue.destination as? PickPhotosViewController {
                 vc.delegate = self
                 vc.pickedImageSet = Set(pickedImageAssets)
-//                vc.pickedImages = pickedImageAssets
+                //                vc.pickedImages = pickedImageAssets
                 vc.imageLimit = mediaImages.count
             }
         }
     }
-    
 }
 
+// MARK: - CollectionView Delegate & DataSource
 extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     enum Section: Int {
@@ -564,14 +549,12 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             return cell
             
-            
         case .add:
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: feedMediaAdddCellIdentifier, for: indexPath) as! FeedMediaAddCell
             
             return cell
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -654,7 +637,7 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                             return
                     }
                     
-                
+                    
                     DispatchQueue.main.async {
                         
                         if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
@@ -680,16 +663,11 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                                     delay(0.3) {
                                         strongSelf.present(strongSelf.imagePicker, animated: true, completion: nil)
                                     }
-                    
                                 }
-                
                             })
                             //strongSelf.alertCanNotOpenCamera()
                         }
-                        
                     }
-                    
-                    
                 }),
                 
                 .Option(title: "相册", titleColor: UIColor.cubeTintColor(), action: {
@@ -723,15 +701,13 @@ extension NewFeedViewController: UICollectionViewDelegate, UICollectionViewDataS
                 
                 ])
             
-            
             sheetView.showInView(view: window)
             
-            
         }
-        
     }
 }
 
+// MARK: - TextView Delegate
 extension NewFeedViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -748,6 +724,7 @@ extension NewFeedViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - SCrollView Delegate
 extension NewFeedViewController: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -759,6 +736,7 @@ extension NewFeedViewController: UIScrollViewDelegate {
     }
 }
 
+// MARK: - ImagePicker Delegate
 extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -778,35 +756,16 @@ extension NewFeedViewController: UIImagePickerControllerDelegate, UINavigationCo
                 break
             }
         }
-        
         dismiss(animated: true, completion: nil)
-        
     }
-    
 }
 
+// MARK: - ReturnPickedPhotos Delegate
 extension NewFeedViewController: ReturnPickedPhotosDelegate {
     
     func returnSeletedImages(_ images: [UIImage], imageAssets: [PHAsset]) {
-        
         for image in images {
             mediaImages.append(image)
         }
-        
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

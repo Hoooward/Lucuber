@@ -258,7 +258,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
                 
                 let newFeedsCount = strongSelf.feeds.count
                 
-               
                 let indexPaths = Array(oldFeedsCount..<newFeedsCount).map({ IndexPath(row: $0, section: Section.feed.rawValue) })
                 if !indexPaths.isEmpty {
                     wayToUpdate = .insert(indexPaths)
@@ -267,7 +266,6 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
             
             wayToUpdate.performWithTableView(tableView: strongSelf.tableView)
         })
-        
     }
     
     fileprivate func hideKeyboard() {
@@ -481,7 +479,7 @@ final class SearchFeedsViewController: UIViewController, SearchAction {
     }
 }
 
-
+// MARK: - SearchBar Delegate
 extension SearchFeedsViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {

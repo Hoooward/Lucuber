@@ -133,12 +133,9 @@ class PickPhotosViewController: UICollectionViewController {
                     if let resizeImage = image.resizeTo(targetSize: targetSize, quality: CGInterpolationQuality.medium) {
                         images.append(resizeImage)
                     }
-                    
                 }
             })
-            
         }
-//        delegate?.returnSeletedImages(images, imageAssets: pickedImages)
         
         if let vcStack = navigationController?.viewControllers {
             weak var destVC: NewFeedViewController?
@@ -154,10 +151,10 @@ class PickPhotosViewController: UICollectionViewController {
                 let _ = navigationController?.popToViewController(destVC, animated: true)
             }
         }
-        
     }
 }
 
+// MARK: - CollectionView Delegate & DataScoure
 extension PickPhotosViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -201,7 +198,6 @@ extension PickPhotosViewController {
                     pickedImageSet.insert(imageAsset)
                     pickedImages.append(imageAsset)
                 }
-                
             }
             
             title = "选取图片" + "(" + "\(pickedImageSet.count + imageLimit )" + "/4" + ")"

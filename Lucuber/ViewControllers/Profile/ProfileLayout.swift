@@ -84,7 +84,6 @@ final class ProfileLayout: UICollectionViewFlowLayout {
             } else {
                 rowCollections[centerY] = [attributes]
             }
-            
         }
         
         for (_, rowCollection) in rowCollections {

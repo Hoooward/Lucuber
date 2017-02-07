@@ -31,7 +31,6 @@ final class AlbumListController: UITableViewController {
     
     var assetsCollection: [Album]?
     
-    
     lazy var pickPhotoVC: PickPhotosViewController = {
         let vc = UIStoryboard(name: "NewFeed", bundle: nil).instantiateViewController(withIdentifier: "PickPhotosViewController") as! PickPhotosViewController
         return vc
@@ -61,18 +60,21 @@ final class AlbumListController: UITableViewController {
     
     @objc private func cancel(sender: UIBarButtonItem) {
         
-//        if let vcStack = navigationController?.viewControllers {
-//            var destVC: UIViewController?
-//            for vc in vcStack {
-//                if vc.isKind(of: NewFeedViewController.self) {
-//                    destVC = vc
-//                    break
-//                }
-//            }
-//            if let destVC = destVC {
-//                let _ = navigationController?.popToViewController(destVC, animated: true)
-//            }
-//        }
+        /*
+        if let vcStack = navigationController?.viewControllers {
+            var destVC: UIViewController?
+            for vc in vcStack {
+                if vc.isKind(of: NewFeedViewController.self) {
+                    destVC = vc
+                    break
+                }
+            }
+            if let destVC = destVC {
+                let _ = navigationController?.popToViewController(destVC, animated: true)
+            }
+        }
+         */
+        
         _ = navigationController?.popViewController(animated: true)
     }
     
@@ -136,38 +138,38 @@ final class AlbumListController: UITableViewController {
             result.enumerateObjects({
                 album, index, stop in
                 
-                    guard album.localizedTitle != "最近删除" else {
-                        return
-                    }
+                guard album.localizedTitle != "最近删除" else {
+                    return
+                }
+                
+                let assetResults = PHAsset.fetchAssets(in: album, options: options)
+                
+                var count = 0
+                switch album.assetCollectionType {
                     
-                    let assetResults = PHAsset.fetchAssets(in: album, options: options)
+                case .album:
+                    count = assetResults.count
                     
-                    var count = 0
-                    switch album.assetCollectionType {
-                        
-                    case .album:
-                        count = assetResults.count
-                        
-                    case .smartAlbum:
-                        count = assetResults.count
-                        
-                    case .moment:
-                        count = 0
-                    }
+                case .smartAlbum:
+                    count = assetResults.count
                     
-                    if count > 0 {
+                case .moment:
+                    count = 0
+                }
+                
+                if count > 0 {
+                    
+                    autoreleasepool(invoking: {
                         
-                        autoreleasepool(invoking: {
-                            
-                            let ab = Album()
-                            ab.count = count
-                            ab.results = assetResults
-                            ab.name = album.localizedTitle
-                            ab.startDate = album.startDate
-                            ab.identifier = album.localIdentifier
-                            list.append(ab)
-                            
-                        })
+                        let ab = Album()
+                        ab.count = count
+                        ab.results = assetResults
+                        ab.name = album.localizedTitle
+                        ab.startDate = album.startDate
+                        ab.identifier = album.localIdentifier
+                        list.append(ab)
+                        
+                    })
                 }
             })
         }

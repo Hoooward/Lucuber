@@ -36,13 +36,9 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
     
     public var previewFormulaStyle: PreviewFormulaStyle = .many
-    
-    fileprivate var realm = try! Realm()
-    
     public var uploadMode: UploadFormulaMode = .library
     
-//    fileprivate lazy var headerView: DetailHeaderView = DetailHeaderView()
-    
+    fileprivate var realm = try! Realm()
     
     @IBOutlet weak var headerView: DetailHeaderView!
     fileprivate lazy var commentCellIndexPath: IndexPath = IndexPath(item: 0, section: Section.comment.rawValue)
@@ -144,12 +140,15 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
                     }
                     
                 }
-//                viewController.savedNewFormulaDraft = {
-//                    // 暂时不处理草稿, 直接将取消的 Formula 删除
-//                    try? realm.write {
-//                        strongSelf.formula.cascadeDelete(inRealm: realm)
-//                    }
-//                }
+                
+                /*
+                viewController.savedNewFormulaDraft = {
+                    // 暂时不处理草稿, 直接将取消的 Formula 删除
+                    try? realm.write {
+                        strongSelf.formula.cascadeDelete(inRealm: realm)
+                    }
+                }
+                 */
                 
                 strongSelf.present(navigationVC, animated: true, completion: nil)
                 
@@ -293,32 +292,25 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         case .library:
             return [copyToMy]
         }
-        
     }
     
     // MARK: - Life Cycle
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
     
-
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-//        tableView.tableHeaderView = headerView
+        
         configureHeaderView()
-        
         view.addSubview(customNavigationBar)
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(FormulaDetailViewController.configureHeaderView), name: Config.NotificationName.updateMyFormulas, object: nil)
         
         tableView.register(UINib(nibName: masterCellIdentifier, bundle: nil), forCellReuseIdentifier: masterCellIdentifier)
         tableView.register(UINib(nibName: formulasCellIdentifier,bundle: nil), forCellReuseIdentifier: formulasCellIdentifier)
         tableView.register(UINib(nibName: separatorCellIdentifier,bundle: nil), forCellReuseIdentifier: separatorCellIdentifier)
         tableView.register(UINib(nibName: detailCommentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailCommentCellIdentifier)
         tableView.register(UINib(nibName: detailContentCellIdentifier,bundle: nil), forCellReuseIdentifier: detailContentCellIdentifier)
-        
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.white
@@ -362,7 +354,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
         NotificationCenter.default.removeObserver(self)
     }
     
-    
     // MARK: - Action & Target
     @objc fileprivate func configureHeaderView() {
         
@@ -402,7 +393,6 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
          headerView.frame.size = CGSize(width: UIScreen.main.bounds.width, height: headerView.headerHeight )
     }
     
-    
     func popViewController() {
         _ = navigationController?.popViewController(animated: true)
     }
@@ -414,15 +404,11 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
     }
     
     // MARK: - Segue
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segueIdentifier(for: segue) {
             
-        case .comment: break
-            
         case .edit:
-            
             let editVC = segue.destination as! NewFormulaViewController
             editVC.view.alpha = 1
             editVC.editType = NewFormulaViewController.EditType.editFormula
@@ -430,11 +416,14 @@ class FormulaDetailViewController: UIViewController, SegueHandlerType {
             if let formula = sender as? Formula {
                 editVC.formula = formula
             }
+            
+        case .comment:
+            break
         }
     }
 }
 
-
+// MARK: - TableView Delegatre&DataSource
 extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     enum Section: Int {
@@ -522,7 +511,6 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.dequeueReusableCell(withIdentifier: detailCommentCellIdentifier, for: indexPath)
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -555,9 +543,10 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
                 
                 cell.configCell(with: formula, withRealm: strongSelf.realm)
             }
-        default: break
+            
+        default:
+            break
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -567,8 +556,8 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         switch section {
-        case .master:
             
+        case .master:
             guard let cell = tableView.cellForRow(at: indexPath) as? DetailMasterCell else {
                 return
             }
@@ -576,29 +565,10 @@ extension FormulaDetailViewController: UITableViewDelegate, UITableViewDataSourc
             cell.changeMasterStatus(with: self.formula)
             
         case .comment:
-            
             self.cube_performSegue(with: .comment, sender: formula)
             
-            break
         default:
             return
         }
-        
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
