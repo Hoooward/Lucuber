@@ -1,10 +1,7 @@
-//
 //  Realm.swift
 //  Lucuber
-//
 //  Created by Tychooo on 16/9/20.
 //  Copyright © 2016年 Tychooo. All rights reserved.
-//
 
 import UIKit
 import RealmSwift
@@ -182,9 +179,9 @@ public func deleteByCreatorRContent(with currentUser: RUser, inRealm realm: Real
 }
 
 public func unPushedFormula(with currentUser: RUser, inRealm realm: Realm) -> Results<Formula> {
+    
     let predicate = NSPredicate(format: "creator = %@", currentUser)
     let predicate2 = NSPredicate(format: "isPushed = %@", false as CVarArg)
-//    let predicate3 = NSPredicate(format: "deletedByCreator = %@", false as CVarArg)
     return realm.objects(Formula.self).filter(predicate).filter(predicate2)
 }
 
@@ -202,7 +199,6 @@ public func contentsWith(_ atFormulaObjectID: String, inRealm realm: Realm) -> R
     let predicate = NSPredicate(format: "atFormulaLocalObjectID = %@", atFormulaObjectID)
     return realm.objects(Content.self).filter(predicate)
 }
-
 
 func formulasCountWith(_ uploadMode: UploadFormulaMode, category: Category, inRealm realm: Realm) -> Int {
     return formulasWith(uploadMode, category: category, inRealm: realm).count
@@ -346,6 +342,7 @@ public func blurThumbnailImageOfMessage(_ message: Message) -> UIImage? {
         }
         
     }
+    
     return nil
 }
 
@@ -361,8 +358,8 @@ public func lastValidMessageInRealm(realm: Realm) -> Message? {
     
     return realm.objects(Message.self).filter(predicate).sorted(by: {$0.createdUnixTime > $1
         .createdUnixTime }).first
-
 }
+
 /*
 这个查询方法会引起异常
 public func latestValidMessagesInRealm(_ realm: Realm, withConversationType conversationType: ConversationType) ->
@@ -551,9 +548,9 @@ public func scoreGroupWith(user: RUser?, inRealm realm: Realm) -> Results<ScoreG
             realm.add(newGroup)
         }
     }
+    
     return realm.objects(ScoreGroup.self).filter(predicate).filter(predicate2).sorted(byProperty: "createdUnixTime", ascending: false)
 }
-
 
 public func getOrCreatedMyLastScoreGroup(inRealm realm: Realm) -> ScoreGroup {
     
